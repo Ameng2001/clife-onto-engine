@@ -1,0 +1,21 @@
+clife-onto-engine
+Copyright 2026 Ameng2001
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this project except in compliance with the License.
+You may obtain a copy of the License in the LICENSE file or at
+http://www.apache.org/licenses/LICENSE-2.0
+
+------------------------------------------------------------------------
+Third-party components
+
+This product bundles third-party software under `third-party/`, which is
+licensed separately from the rest of this project. See each subdirectory's
+LICENSE / PROVENANCE for details:
+
+- third-party/okf-visualizer/
+    OKF (Open Knowledge Format) reference visualizer.
+    Copyright Google LLC. Licensed under the Apache License, Version 2.0.
+    Bundled JS libraries (inlined at export time):
+      - cytoscape.js  © The Cytoscape Consortium — MIT License
+      - marked        © Christopher Jeffrey et al. — MIT License
