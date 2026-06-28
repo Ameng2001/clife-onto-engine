@@ -1,0 +1,6 @@
+# clife-onto-engine 运行依赖（成熟开源，pip 安装；vendored 源码另放 third-party/）
+openai>=1.40          # 意图编译器的 OpenAI 兼容客户端（接 Qwen/DashScope 等）
+PyYAML>=6.0           # 映射注册表 / OKF 导出的 YAML
+
+# 可选：真实图后端（用内存后端时不需要）
+nebula3-python>=3.8   # NebulaGraph adapter（deploy/nebula 起本地实例后）

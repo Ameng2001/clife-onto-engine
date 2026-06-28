@@ -1,0 +1,71 @@
+# 本地单实例 NebulaGraph（dev）—— metad + storaged + graphd。
+# 仅供本地开发验证 clife-onto-engine 的 NebulaGraphStore adapter，非生产拓扑。
+#
+# 启动：  docker compose -f deploy/nebula/docker-compose.yml up -d
+# 注册存储节点（首次必做）：见 deploy/nebula/README.md 的 ADD HOSTS 步骤。
+# graphd 暴露在宿主 127.0.0.1:9669。
+services:
+  metad0:
+    image: vesoft/nebula-metad:v3.8.0
+    environment:
+      USER: root
+    command:
+      - --meta_server_addrs=metad0:9559
+      - --local_ip=metad0
+      - --ws_ip=metad0
+      - --port=9559
+      - --data_path=/data/meta
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    volumes:
+      - meta0:/data/meta
+    networks: [nebula-net]
+    restart: on-failure
+    cap_add: [SYS_PTRACE]
+
+  storaged0:
+    image: vesoft/nebula-storaged:v3.8.0
+    environment:
+      USER: root
+    command:
+      - --meta_server_addrs=metad0:9559
+      - --local_ip=storaged0
+      - --ws_ip=storaged0
+      - --port=9779
+      - --data_path=/data/storage
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    depends_on: [metad0]
+    volumes:
+      - storage0:/data/storage
+    networks: [nebula-net]
+    restart: on-failure
+    cap_add: [SYS_PTRACE]
+
+  graphd:
+    image: vesoft/nebula-graphd:v3.8.0
+    environment:
+      USER: root
+    command:
+      - --meta_server_addrs=metad0:9559
+      - --port=9669
+      - --local_ip=graphd
+      - --ws_ip=graphd
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    depends_on: [storaged0]
+    ports:
+      - "127.0.0.1:9669:9669"
+    networks: [nebula-net]
+    restart: on-failure
+    cap_add: [SYS_PTRACE]
+
+networks:
+  nebula-net:
+
+volumes:
+  meta0:
+  storage0:

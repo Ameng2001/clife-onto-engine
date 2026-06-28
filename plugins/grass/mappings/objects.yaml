@@ -1,0 +1,29 @@
+# 草业插件·映射注册表（Plugin SPI 槽位 2）
+# 声明对象/关系→物理落点与物化策略。后端无关；NebulaGraph adapter / Ontop 虚拟读它。
+objects:
+  - object: Site                     # 地块/草场
+    materialization: hybrid          # 主干物化进图 + 明细虚拟兜底
+    physical:
+      store: postgis
+      table: geo_parcel
+      key: parcel_id
+      columns: [area_mu, region, site_type, geom, tenure]
+    multi_source:                    # MDO 多源列向拼合
+      - { store: clickhouse, table: rs_growth, join: parcel_id }   # 遥感长势
+      - { store: clickhouse, table: iot_soil,  join: parcel_id }   # IoT 墒情
+    quality_gate: { completeness_min: 0.95 }
+
+  - object: ForageSample             # 草样（快检批次）
+    materialization: hybrid
+    physical:
+      store: clickhouse
+      table: forage_qc
+      key: batch_id
+      columns: [CP, NDF, ADF, RFV, 水分, 霉菌毒素]
+    quality_gate: { completeness_min: 0.90 }
+
+links:
+  - link: treated_by                 # 退化 → 修复方法
+    materialization: materialized    # 高频多跳推理主干，物化进图
+    from_key: degradation_id
+    to_key: method_id

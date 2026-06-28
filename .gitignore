@@ -1,0 +1,23 @@
+# 本地密钥/配置 —— 绝不入库
+llm.local.json
+*.local.json
+*.local.env
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Nebula 本地数据
+deploy/nebula/data/
+build/
+
+# 不公开：商密客户文档 / 第三方版权材料
+raw-input/
+reference/
+
+# 本地编辑器设置
+.claude/
+.DS_Store

@@ -1,0 +1,19 @@
+# 辣椒插件·映射注册表（Plugin SPI 槽位 2）
+objects:
+  - object: Field                    # 地块
+    materialization: hybrid
+    physical:
+      store: postgis
+      table: chili_field
+      key: field_id
+      columns: [area_mu, region, soil_type]
+    quality_gate: { completeness_min: 0.95 }
+
+  - object: GradeSample              # 分级样品
+    materialization: hybrid
+    physical:
+      store: clickhouse
+      table: chili_grade
+      key: batch_id
+      columns: [length, SHU, defect_rate]
+    quality_gate: { completeness_min: 0.90 }
