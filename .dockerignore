@@ -1,0 +1,21 @@
+# 绝不进镜像：密钥 / 商密 / 第三方版权 / 产物
+llm.local.json
+*.local.json
+*.local.env
+.env
+raw-input/
+reference/
+build/
+
+# 无关
+.git/
+.github/
+**/__pycache__/
+**/*.pyc
+.venv/
+venv/
+deploy/nebula/data/
+tests/
+docs/
+*.md
+third-party/
