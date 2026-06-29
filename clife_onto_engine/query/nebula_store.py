@@ -12,10 +12,13 @@
 from __future__ import annotations
 
 import json
+import re
 import time
 from typing import Iterator, Optional
 
 from . import NeighborHit, StagedLink
+
+_IDENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")  # nGQL 列标识符；非 ASCII 名不落原生列
 
 
 def _lit(s: str) -> str:
@@ -79,31 +82,53 @@ class NebulaGraphStore:
             time.sleep(wait)
         self._exec(f"CREATE SPACE IF NOT EXISTS {ns}(vid_type=FIXED_STRING(128))")
         self._wait_space()
-        # 3. 建 TAG / EDGE
+        # 3. 建 TAG（原生列 + props blob）/ EDGE
+        #    原生列由映射注册表声明（columns），落成真列才能建索引、做 WHERE 谓词下推。
         for (o_ns, name) in self._registry.objects:
             if o_ns == ns:
-                self._exec(f"CREATE TAG IF NOT EXISTS {name}(props string)")
+                cols = self._native_columns(name)
+                col_defs = "".join(f"{c} string, " for c in cols)  # 原生列默认 string
+                self._exec(f"CREATE TAG IF NOT EXISTS {name}({col_defs}props string)")
         for (l_ns, name) in self._registry.links:
             if l_ns == ns:
                 self._exec(f"CREATE EDGE IF NOT EXISTS {name}(props string)")
         time.sleep(wait)
-        # 4. TAG 存在性索引（支撑 LOOKUP 扫描）；轮询到索引可用为止
+        # 4. 索引：存在性索引（LOOKUP 全扫）+ 原生列索引（WHERE 谓词下推走索引）
         tags = [name for (o_ns, name) in self._registry.objects if o_ns == ns]
         for name in tags:
             self._exec(f"CREATE TAG INDEX IF NOT EXISTS i_{name} ON {name}()")
+            cols = self._native_columns(name)
+            if cols:
+                col_idx = ", ".join(f"{c}(64)" for c in cols)
+                self._exec(f"CREATE TAG INDEX IF NOT EXISTS i_{name}_cols ON {name}({col_idx})")
         self._wait_indexes(tags)
         self._use()
+
+    def _native_columns(self, object_type: str) -> list:
+        m = self._registry.mappings.get_object(self.ontology_id, object_type)
+        if not m:
+            return []
+        # 仅 ASCII 标识符落成原生列（可索引、可 WHERE）；非 ASCII 字段留在 props blob。
+        return [c for c in m.primary.columns if _IDENT.match(c)]
 
     def _wait_indexes(self, tags, retries: int = 30, interval: float = 2.0) -> None:
         self._use()
         for tag in tags:
-            for _ in range(retries):
-                res = self._session.execute(f"LOOKUP ON {tag} YIELD id(vertex) AS vid | LIMIT 1")
-                if res.is_succeeded():
-                    break
-                time.sleep(interval)
-            else:
-                raise RuntimeError(f"tag index for {tag} 未就绪（LOOKUP 持续失败）")
+            # 存在性索引（LOOKUP 全扫）
+            self._wait_lookup(f"LOOKUP ON {tag} YIELD id(vertex) AS vid | LIMIT 1", tag, retries, interval)
+            # 原生列索引（WHERE 谓词下推走索引）——就绪后 find_where 才不回退全扫
+            cols = self._native_columns(tag)
+            if cols:
+                probe = (f'LOOKUP ON {tag} WHERE {tag}.{cols[0]} == "__probe__" '
+                         f"YIELD id(vertex) AS vid | LIMIT 1")
+                self._wait_lookup(probe, f"{tag}.{cols[0]}", retries, interval)
+
+    def _wait_lookup(self, stmt: str, what: str, retries: int = 30, interval: float = 2.0) -> None:
+        for _ in range(retries):
+            if self._session.execute(stmt).is_succeeded():
+                return
+            time.sleep(interval)
+        raise RuntimeError(f"index for {what} 未就绪（LOOKUP 持续失败）")
 
     def _wait_space(self, retries: int = 30, interval: float = 2.0) -> None:
         for _ in range(retries):
@@ -146,8 +171,11 @@ class NebulaGraphStore:
 
     def put_object(self, object_type: str, key: str, data: dict) -> None:
         self._use()
+        cols = [c for c in self._native_columns(object_type) if c in data]
         blob = _lit(json.dumps(data, ensure_ascii=False))
-        self._exec(f"INSERT VERTEX {object_type}(props) VALUES {_lit(key)}:({blob})")
+        names = ", ".join(["props"] + cols)
+        vals = ", ".join([blob] + [_lit(str(data[c])) for c in cols])  # 原生列值存为 string
+        self._exec(f"INSERT VERTEX {object_type}({names}) VALUES {_lit(key)}:({vals})")
 
     def put_link(self, link: StagedLink) -> None:
         self._use()
@@ -167,6 +195,33 @@ class NebulaGraphStore:
         self._exec(
             f"DELETE EDGE {link.link_type} {_lit(link.from_key)} -> {_lit(link.to_key)}"
         )
+
+    _SYM = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<="}
+
+    def find_where(self, object_type: str, conditions: list) -> list[dict]:
+        """谓词下推：把能下推的条件（原生列 + 字符串值 + 比较算子）编译进 nGQL WHERE，
+        让 NebulaGraph 走索引在库内过滤；其余条件由调用方（OQL）再校验。下推失败则回退全扫。"""
+        self._use()
+        cols = set(self._native_columns(object_type))
+        pushable = [(f, op, v) for (f, op, v) in conditions
+                    if f in cols and op in self._SYM and isinstance(v, str)]
+        try:
+            if pushable:
+                where = " AND ".join(
+                    f"{object_type}.{f} {self._SYM[op]} {_lit(v)}" for f, op, v in pushable)
+                res = self._exec(
+                    f"LOOKUP ON {object_type} WHERE {where} YIELD properties(vertex).props AS props")
+            else:
+                res = self._exec(
+                    f"LOOKUP ON {object_type} YIELD properties(vertex).props AS props")
+            out = []
+            for i in range(res.row_size()):
+                vw = res.row_values(i)[0]
+                out.append(json.loads(vw.as_string()) if vw.is_string() else {})
+            return out
+        except RuntimeError:
+            # 下推失败（索引未就绪/不支持）→ 回退全扫，OQL 再校验，正确性不受影响
+            return [row for _, row in self.iter_objects(object_type)]
 
     def search_around(self, object_type, key, link_type, *, direction="out") -> list[NeighborHit]:
         self._use()

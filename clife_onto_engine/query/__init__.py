@@ -41,6 +41,23 @@ class NeighborHit:
     edge_props: dict
 
 
+# 结构化条件比较算子（OQL 与各后端共用，避免重复定义）。
+COMPARATORS = {
+    "eq": lambda a, b: a == b,
+    "ne": lambda a, b: a != b,
+    "gt": lambda a, b: a is not None and a > b,
+    "ge": lambda a, b: a is not None and a >= b,
+    "lt": lambda a, b: a is not None and a < b,
+    "le": lambda a, b: a is not None and a <= b,
+    "in": lambda a, b: a in b,
+}
+
+
+def matches(row: dict, conditions) -> bool:
+    """conditions: 可迭代的 (field, op, value)。"""
+    return all(COMPARATORS[op](row.get(f), v) for f, op, v in conditions)
+
+
 # ---- GraphStore SPI ----------------------------------------------------
 @runtime_checkable
 class GraphStore(Protocol):
@@ -53,6 +70,9 @@ class GraphStore(Protocol):
     def put_link(self, link: StagedLink) -> None: ...
     def delete_object(self, object_type: str, key: str) -> None: ...
     def delete_link(self, link: StagedLink) -> None: ...
+    def find_where(self, object_type: str, conditions: list) -> list[dict]:
+        """按结构化条件返回对象（谓词下推点）。后端可在库内过滤；调用方仍会再校验一遍。"""
+        ...
     def search_around(
         self, object_type: str, key: str, link_type: str, *, direction: str = "out"
     ) -> list[NeighborHit]: ...
@@ -91,6 +111,9 @@ class InMemoryGraphStore:
                     and e.from_key == link.from_key and e.to_type == link.to_type
                     and e.to_key == link.to_key)
         ]
+
+    def find_where(self, object_type: str, conditions: list) -> list[dict]:
+        return [row for _, row in self.iter_objects(object_type) if matches(row, conditions)]
 
     def search_around(self, object_type, key, link_type, *, direction="out") -> list[NeighborHit]:
         hits: list[NeighborHit] = []
@@ -132,6 +155,10 @@ class QueryView:
             if isinstance(op, StagedWrite) and op.object_type == object_type:
                 merged[op.key] = dict(op.data)
         return [r for r in merged.values() if predicate(r)]
+
+    def find_where(self, object_type: str, conditions: list) -> list[dict]:
+        # OQL 查询读已提交状态：下推给后端（可走库内索引/WHERE），不叠加写路径 overlay。
+        return self._base.find_where(object_type, conditions)
 
     def search_around(self, object_type, key, link_type, *, direction="out") -> list[NeighborHit]:
         hits = list(self._base.search_around(object_type, key, link_type, direction=direction))

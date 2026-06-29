@@ -16,23 +16,15 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Callable, Optional
 
-from . import QueryView
+from . import COMPARATORS, QueryView, matches
 
 
 class OQLValidationError(Exception):
     """OQL 引用了未声明的对象/关系/算子 —— 即被拒（防注入 + schema 落地）。"""
 
 
-# ---- 算子（比较）------------------------------------------------------
-_OPS: dict[str, Callable[[Any, Any], bool]] = {
-    "eq": lambda a, b: a == b,
-    "ne": lambda a, b: a != b,
-    "gt": lambda a, b: a is not None and a > b,
-    "ge": lambda a, b: a is not None and a >= b,
-    "lt": lambda a, b: a is not None and a < b,
-    "le": lambda a, b: a is not None and a <= b,
-    "in": lambda a, b: a in b,
-}
+# 比较算子与后端共用（query.COMPARATORS），避免重复定义。
+_OPS = COMPARATORS
 _AGG = {"count", "avg", "sum", "min", "max"}
 
 
@@ -115,10 +107,10 @@ def execute(q: OQLQuery, view: QueryView, registry) -> OQLResult:
     pk = registry.objects[(q.namespace, q.start)].primary_key
 
     meter.base += 1
-    frontier = [
-        (q.start, row.get(pk), row)
-        for row in view.find(q.start, _pred(q.where))
-    ]
+    conds = [(c.field, c.op, c.value) for c in q.where]
+    anchor = view.find_where(q.start, conds)               # 谓词下推点：后端可库内过滤
+    anchor = [r for r in anchor if matches(r, conds)]       # 安全再校验：下推可能只覆盖部分谓词
+    frontier = [(q.start, r.get(pk), r) for r in anchor]
 
     for s in q.steps:
         meter.search_around += 1
