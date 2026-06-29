@@ -20,8 +20,19 @@ def build_manifest(registry, ontology_id: str) -> dict:
             ],
             "writes": list(a.writes),
         })
-    objects = sorted(name for (ns, name) in registry.objects if ns == ontology_id)
-    links = sorted(name for (ns, name) in registry.links if ns == ontology_id)
+    objects = []
+    for (ns, name), o in registry.objects.items():
+        if ns != ontology_id:
+            continue
+        fields = [o.primary_key] + [p.name for p in o.properties if p.name != o.primary_key]
+        objects.append({"name": name, "fields": fields})
+    objects.sort(key=lambda x: x["name"])
+    links = []
+    for (ns, name), lk in registry.links.items():
+        if ns != ontology_id:
+            continue
+        links.append({"name": name, "from": lk.from_type, "to": lk.to_type})
+    links.sort(key=lambda x: x["name"])
     return {"ontology_id": ontology_id, "actions": actions, "objects": objects, "links": links}
 
 
@@ -33,6 +44,10 @@ def render_manifest(m: dict) -> str:
         )
         desc = f" —— {a['description']}" if a["description"] else ""
         lines.append(f"  - {a['name']}({ps}){desc}")
-    lines.append("可用对象类型: " + ", ".join(m["objects"]))
-    lines.append("可用关系类型: " + ", ".join(m["links"]))
+    lines.append("可查对象类型及字段(用于 OQL 查询):")
+    for o in m["objects"]:
+        lines.append(f"  - {o['name']}(字段: {', '.join(o['fields'])})")
+    lines.append("可用关系类型(用于多跳 Search Around):")
+    for lk in m["links"]:
+        lines.append(f"  - {lk['name']}: {lk['from']} → {lk['to']}")
     return "\n".join(lines)

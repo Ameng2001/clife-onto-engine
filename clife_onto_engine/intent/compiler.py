@@ -13,21 +13,29 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
+from ..query.oql import Aggregate, Cond, OQLQuery, OQLValidationError, Step, validate as oql_validate
 from ..sdk.errors import ResolutionError
 from .llm import LLMClient
 from .manifest import build_manifest, render_manifest
 
-_SYSTEM = """你是一个本体动作意图编译器。只能从下面这份"能力清单"里选择动作，禁止编造清单外的动作或参数名。
+_SYSTEM = """你是一个本体意图编译器。用户的话要么是"做一件事"(动作)，要么是"查一个东西"(查询)。
+只能用下面"能力清单"里声明的动作/对象/关系/字段，禁止编造清单外的名字。
 只输出一个 JSON 对象，字段：
-  - kind: "action" 或 "clarify"
-  - action: 字符串，kind=action 时所选动作名（必须取自清单）
-  - params: 对象，动作参数，键只用该动作声明的参数名
-  - question: 字符串，kind=clarify 时向用户追问的一句话
-  - confidence: 数字 0~1，对本次理解的置信度
+  - kind: "action"(执行动作) | "query"(查询数据) | "clarify"(信息不足/超范围)
+  - action / params: kind=action 时，所选动作名 + 参数（键只用该动作声明的参数名）
+  - oql: kind=query 时，一个结构化查询对象（见下）
+  - question: kind=clarify 时向用户追问的一句话
+  - confidence: 数字 0~1
+OQL 查询结构(oql)：
+  - start: 锚点对象类型(取自清单)
+  - where: 数组，锚点过滤 [{{"field":字段,"op":"eq|ne|gt|ge|lt|le|in","value":值}}]
+  - steps: 数组，沿关系多跳 [{{"link_type":关系名,"direction":"out|in","where":[同上]}}]
+  - select: 数组，要返回的字段名；或 aggregate: {{"func":"count|avg|sum|min|max","field":字段}}
+  - limit: 整数(可省)
 规则：
-1. 用户意图能明确映射到某动作且必填参数齐全时，kind=action，给出 action 与 params。
-2. 信息不足（缺必填参数或意图不清）时，kind=clarify，给出一句追问 question。
-3. 用户诉求超出清单能力范围时，也用 kind=clarify 说明无法处理。
+1. "出方案/评级/制定/派单"等执行类 → kind=action，给出 action 与 params。
+2. "有哪些/查/列出/统计/多少/哪些适配"等读取类 → kind=query，给出 oql。
+3. 信息不足（缺必填参数或意图不清）或超出清单能力 → kind=clarify。
 不要输出 JSON 以外的任何内容。
 能力清单：
 {manifest}"""
@@ -35,9 +43,10 @@ _SYSTEM = """你是一个本体动作意图编译器。只能从下面这份"能
 
 @dataclass
 class CompiledIntent:
-    kind: str                       # action | clarify | reject
+    kind: str                       # action | query | clarify | reject
     action: Optional[str] = None
     params: dict = field(default_factory=dict)
+    oql: Optional[OQLQuery] = None  # kind=query 时的已校验 OQL
     confidence: float = 0.0
     question: str = ""
     error: str = ""
@@ -46,6 +55,27 @@ class CompiledIntent:
     @property
     def executable(self) -> bool:
         return self.kind == "action"
+
+    @property
+    def is_query(self) -> bool:
+        return self.kind == "query"
+
+
+def _parse_oql(d: dict, namespace: str) -> OQLQuery:
+    def conds(raw):
+        return tuple(Cond(c["field"], c["op"], c["value"]) for c in (raw or []))
+    steps = tuple(
+        Step(s["link_type"], s.get("direction", "out"), conds(s.get("where")))
+        for s in (d.get("steps") or [])
+    )
+    agg = None
+    if d.get("aggregate"):
+        agg = Aggregate(d["aggregate"]["func"], d["aggregate"].get("field"))
+    return OQLQuery(
+        namespace=namespace, start=d["start"], where=conds(d.get("where")),
+        steps=steps, select=tuple(d.get("select") or ()), aggregate=agg,
+        limit=int(d.get("limit", 100)),
+    )
 
 
 class IntentCompiler:
@@ -70,6 +100,14 @@ class IntentCompiler:
         conf = float(raw.get("confidence", 0.0) or 0.0)
         if kind == "clarify":
             return CompiledIntent("clarify", confidence=conf, question=raw.get("question", ""), raw=raw)
+        if kind == "query":
+            # NL→OQL：解析 + schema 校验（防注入、落地）。校验失败即拒。
+            try:
+                q = _parse_oql(raw.get("oql") or {}, ontology_id)
+                oql_validate(q, self.registry)
+            except (KeyError, OQLValidationError) as e:
+                return CompiledIntent("reject", confidence=conf, error=f"非法查询: {e}", raw=raw)
+            return CompiledIntent("query", oql=q, confidence=conf, raw=raw)
         if kind != "action":
             return CompiledIntent("reject", confidence=conf, error=f"非法 kind: {kind}", raw=raw)
 

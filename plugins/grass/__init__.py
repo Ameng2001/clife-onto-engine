@@ -40,11 +40,14 @@ spi.registry.add_object(ObjectType(
 
 # 修复推理主干涉及的对象与关系（供 OQL / Search Around 导航）；
 # Action 写入对象（Project/SeedPack/ForageSample）与参考数据对象（NativeListing）也在此声明，
-# 后端 bootstrap 据此建 TAG。
-for _ot, _pk in (
-    ("Degradation", "deg_id"), ("RestorationMethod", "method_id"), ("SeedPack", "pack_id"),
-    ("Project", "site_id"), ("ForageSample", "batch_id"), ("NativeListing", "species"),
-):
+# 后端 bootstrap 据此建 TAG。查询相关对象声明字段，供意图编译器的能力清单暴露给 LLM。
+spi.registry.add_object(ObjectType(name="Degradation", namespace=ONTOLOGY, primary_key="deg_id",
+    properties=(PropertySpec("level", "string"), PropertySpec("type", "string"))))
+spi.registry.add_object(ObjectType(name="RestorationMethod", namespace=ONTOLOGY, primary_key="method_id",
+    properties=(PropertySpec("name", "string"),)))
+spi.registry.add_object(ObjectType(name="SeedPack", namespace=ONTOLOGY, primary_key="pack_id",
+    properties=(PropertySpec("name", "string"),)))
+for _ot, _pk in (("Project", "site_id"), ("ForageSample", "batch_id"), ("NativeListing", "species")):
     spi.registry.add_object(ObjectType(name=_ot, namespace=ONTOLOGY, primary_key=_pk))
 
 spi.registry.add_link(LinkType("suffers", ONTOLOGY, "Site", "Degradation",
