@@ -1,0 +1,4 @@
+# HTTP 服务依赖（可选）。运行依赖见 requirements.txt。
+-r requirements.txt
+fastapi>=0.110
+uvicorn>=0.29
