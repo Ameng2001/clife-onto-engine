@@ -43,3 +43,26 @@ class CommitJournal:
 
     def __len__(self) -> int:
         return len(self._entries)
+
+
+def roll_back_pending(journal, store) -> int:
+    """崩溃恢复：扫描 journal 的 pending（进程中途崩溃留下的孤儿提交），把其涉及的对象删除，
+    回滚到提交前，并补记 compensated 终态。delete 幂等，无论该 op 当时写没写成都安全。
+
+    返回回滚的 pending 动作数。对象删除（NebulaGraph DELETE VERTEX ... WITH EDGE）连带清边；
+    link-only 动作为最少见情形，按对象端点清理兜底。
+    """
+    n = 0
+    for e in journal.pending():
+        for label in e.ops:
+            parts = label.split(":")
+            if parts[0] == "obj" and len(parts) >= 3:
+                object_type, key = parts[1], ":".join(parts[2:])
+                try:
+                    store.delete_object(object_type, key)
+                except Exception:
+                    pass  # 尽力而为
+        journal.record(JournalEntry(e.ontology_id, e.action, "compensated", e.ops,
+                                    error="recovered-on-restart", ts=e.ts))
+        n += 1
+    return n

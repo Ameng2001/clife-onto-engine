@@ -40,9 +40,11 @@ class ActionEngine:
         journal: Optional[CommitJournal] = None,
     ) -> None:
         self.registry = registry
-        self.store = store or InMemoryStore()
-        self.audit = audit or AuditStore()
-        self.journal = journal or CommitJournal()
+        # 用 is None 判断，不用 `or`：审计/journal 实现了 __len__，空时为"假值"，
+        # `x or Default()` 会把注入的空 store 误判掉换成默认内存版（经典 Python 陷阱）。
+        self.store = store if store is not None else InMemoryStore()
+        self.audit = audit if audit is not None else AuditStore()
+        self.journal = journal if journal is not None else CommitJournal()
 
     # 公开入口 ------------------------------------------------------------
     def execute(
