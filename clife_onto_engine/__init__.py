@@ -10,6 +10,7 @@ from __future__ import annotations
 __version__ = "0.1.0"
 
 from .kernel import ActionEngine, ActionPreview, ActionResult, StructuredRejection, Violation
+from .session import Reply, Session
 
 __all__ = [
     "ActionEngine",
@@ -17,5 +18,7 @@ __all__ = [
     "ActionPreview",
     "StructuredRejection",
     "Violation",
+    "Session",
+    "Reply",
     "__version__",
 ]
