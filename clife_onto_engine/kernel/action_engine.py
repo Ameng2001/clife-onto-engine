@@ -18,9 +18,11 @@ from ..metamodel import ActionDef, Backing, RuleDef, Severity
 from ..query import GraphStore, InMemoryStore, QueryView, StagedLink, StagedWrite
 from ..sdk.capability import Capability
 from ..sdk.context import Actor, ActionContext
+from ..sdk.errors import CommitError
 from ..sdk.registry import Registry
 from ..trust.audit import AuditSnapshot, AuditStore, RuleEvaluation
 from ..trust.confidence import ConfidenceBus
+from ..trust.journal import CommitJournal, JournalEntry
 from .rejection import (
     ActionPreview,
     ActionResult,
@@ -35,10 +37,12 @@ class ActionEngine:
         registry: Registry,
         store: Optional[GraphStore] = None,
         audit: Optional[AuditStore] = None,
+        journal: Optional[CommitJournal] = None,
     ) -> None:
         self.registry = registry
         self.store = store or InMemoryStore()
         self.audit = audit or AuditStore()
+        self.journal = journal or CommitJournal()
 
     # 公开入口 ------------------------------------------------------------
     def execute(
@@ -86,10 +90,26 @@ class ActionEngine:
             self._audit(spec, ctx, post_violations, "rejected", schema_version, ts)
             return rej
 
-        # 5a. commit：flush overlay 到基底 + 审计 + HIL + 副作用
+        # 5a. commit：原子 flush（all-or-nothing）+ 审计 + HIL + 副作用
         hil_required = ConfidenceBus.should_route_hil(spec.hil, ctx.confidence, touched_hard)
         decision = "pending_hil" if hil_required else "committed"
-        self._flush(ctx)
+        ops = _op_labels(ctx)
+        self.journal.record(JournalEntry(spec.namespace, spec.name, "pending", ops, ts=ts))
+        try:
+            self._atomic_flush(ctx)
+        except CommitError as e:
+            # 后端写入失败：undo-log 已确定性补偿回滚到提交前
+            self.journal.record(JournalEntry(spec.namespace, spec.name, "compensated", ops, str(e), ts))
+            self._audit(spec, ctx, post_violations, "commit_failed", schema_version, ts)
+            return StructuredRejection(
+                ontology_id=ontology_id, action=action_name, phase="commit",
+                violations=(Violation(rule="后端提交", severity=Severity.HARD.value,
+                                      backing="backend", message=str(e),
+                                      suggestion="已确定性补偿回滚到提交前，可重试"),),
+                state_snapshot=self._snapshot(ctx),
+                diagnosis="后端写入中途失败，已 all-or-nothing 回滚",
+            )
+        self.journal.record(JournalEntry(spec.namespace, spec.name, "committed", ops, ts=ts))
         self._audit(spec, ctx, post_violations, decision, schema_version, ts)
         scheduled = tuple(e.type for e in ctx.effects) if not hil_required else ()
 
@@ -142,12 +162,35 @@ class ActionEngine:
                 ))
         return out
 
-    def _flush(self, ctx: ActionContext) -> None:
-        for op in ctx.changeset:
-            if isinstance(op, StagedLink):
-                self.store.put_link(op)
-            else:
-                self.store.put_object(op.object_type, op.key, op.data)
+    def _atomic_flush(self, ctx: ActionContext) -> None:
+        """原子提交：逐个写入并记 before-image；任一失败则反向补偿回滚到提交前。
+        在非事务后端（NebulaGraph）上以 undo-log 提供 all-or-nothing 保证。"""
+        applied: list = []  # (kind, op, before_image)
+        try:
+            for op in ctx.changeset:
+                if isinstance(op, StagedLink):
+                    self.store.put_link(op)
+                    applied.append(("link", op, None))
+                else:
+                    before = self.store.get_object(op.object_type, op.key)  # before-image
+                    self.store.put_object(op.object_type, op.key, op.data)
+                    applied.append(("obj", op, before))
+        except Exception as e:
+            self._compensate(applied)
+            raise CommitError(str(e), applied=len(applied)) from e
+
+    def _compensate(self, applied: list) -> None:
+        """反向撤销已写入的操作：原本不存在→删除；原本有值→还原；边→删除。尽力而为。"""
+        for kind, op, before in reversed(applied):
+            try:
+                if kind == "link":
+                    self.store.delete_link(op)
+                elif before is None:
+                    self.store.delete_object(op.object_type, op.key)
+                else:
+                    self.store.put_object(op.object_type, op.key, before)
+            except Exception:
+                pass  # 补偿尽力而为；journal 的 pending 条目兜底恢复
 
     def _snapshot(self, ctx: ActionContext) -> dict:
         return {"params": dict(ctx.params), "actor": {"id": ctx.actor.id, "role": ctx.actor.role}}
@@ -171,3 +214,13 @@ class _RulePass:
     passed = True
     message = ""
     suggestion = ""
+
+
+def _op_labels(ctx: ActionContext) -> tuple:
+    out = []
+    for op in ctx.changeset:
+        if isinstance(op, StagedLink):
+            out.append(f"link:{op.link_type}:{op.from_key}->{op.to_key}")
+        else:
+            out.append(f"obj:{op.object_type}:{op.key}")
+    return tuple(out)

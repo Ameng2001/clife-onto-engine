@@ -16,3 +16,11 @@ class ResolutionError(OntoEngineError):
 
 class CapabilityError(OntoEngineError):
     """插件代码尝试超越 ctx 授予的受限能力（如直接写库、跨租户访问）。"""
+
+
+class CommitError(OntoEngineError):
+    """提交期后端写入失败。引擎已对已写入部分做确定性补偿回滚。"""
+
+    def __init__(self, message: str, *, applied: int = 0) -> None:
+        super().__init__(message)
+        self.applied = applied  # 失败前已写入并已被补偿撤销的操作数

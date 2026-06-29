@@ -157,6 +157,17 @@ class NebulaGraphStore:
             f"VALUES {_lit(link.from_key)}->{_lit(link.to_key)}:({blob})"
         )
 
+    def delete_object(self, object_type: str, key: str) -> None:
+        self._use()
+        # DELETE VERTEX 连带删除其边；补偿场景下用于撤销本次新建的顶点
+        self._exec(f"DELETE VERTEX {_lit(key)} WITH EDGE")
+
+    def delete_link(self, link: StagedLink) -> None:
+        self._use()
+        self._exec(
+            f"DELETE EDGE {link.link_type} {_lit(link.from_key)} -> {_lit(link.to_key)}"
+        )
+
     def search_around(self, object_type, key, link_type, *, direction="out") -> list[NeighborHit]:
         self._use()
         link = self._registry.links[(self.ontology_id, link_type)]

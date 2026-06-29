@@ -51,6 +51,8 @@ class GraphStore(Protocol):
     def iter_objects(self, object_type: str) -> Iterator[tuple[str, dict]]: ...
     def put_object(self, object_type: str, key: str, data: dict) -> None: ...
     def put_link(self, link: StagedLink) -> None: ...
+    def delete_object(self, object_type: str, key: str) -> None: ...
+    def delete_link(self, link: StagedLink) -> None: ...
     def search_around(
         self, object_type: str, key: str, link_type: str, *, direction: str = "out"
     ) -> list[NeighborHit]: ...
@@ -78,6 +80,17 @@ class InMemoryGraphStore:
 
     def put_link(self, link: StagedLink) -> None:
         self._edges.append(link)
+
+    def delete_object(self, object_type: str, key: str) -> None:
+        self._nodes.pop((object_type, key), None)
+
+    def delete_link(self, link: StagedLink) -> None:
+        self._edges = [
+            e for e in self._edges
+            if not (e.link_type == link.link_type and e.from_type == link.from_type
+                    and e.from_key == link.from_key and e.to_type == link.to_type
+                    and e.to_key == link.to_key)
+        ]
 
     def search_around(self, object_type, key, link_type, *, direction="out") -> list[NeighborHit]:
         hits: list[NeighborHit] = []
