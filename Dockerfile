@@ -12,8 +12,9 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# 仅装服务所需（InMemory 后端，不含 nebula3-python）；分层缓存依赖
-RUN pip install --no-cache-dir "fastapi>=0.110" "uvicorn>=0.29" "openai>=1.40" "PyYAML>=6"
+# 服务依赖；nebula3-python 让镜像可选连真 NebulaGraph 后端（ONTO_BACKEND=nebula）
+RUN pip install --no-cache-dir "fastapi>=0.110" "uvicorn>=0.29" "openai>=1.40" "PyYAML>=6" \
+    "nebula3-python>=3.8"
 
 # 源码（不 COPY 根目录，避免把 llm.local.json 等带进镜像；另见 .dockerignore）
 COPY clife_onto_engine ./clife_onto_engine

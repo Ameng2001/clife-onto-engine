@@ -1,0 +1,84 @@
+# 一键编排：NebulaGraph（metad+storaged+graphd）+ 数智本体引擎 HTTP 服务。
+# serve 用 NebulaGraph 后端（ONTO_BACKEND=nebula，连 graphd），启动时自动建库建模 + 写参考数据。
+#
+# 前置：把 LLM 凭据写进 serve.env（已 gitignore）：
+#   DASHSCOPE_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+#   DASHSCOPE_API_KEY=sk-xxx
+#   LLM_MODEL=qwen3.5-plus
+#
+# 启动：  docker compose up -d --build
+# 验证：  curl -s localhost:8080/health
+#        curl -s -XPOST localhost:8080/ask -H 'content-type: application/json' \
+#             -d '{"ontology":"grass","utterance":"巴彦淖尔有哪些地块？"}'
+# 停止：  docker compose down        （加 -v 删 Nebula 数据卷）
+services:
+  metad0:
+    image: vesoft/nebula-metad:v3.8.0
+    environment: { USER: root }
+    command:
+      - --meta_server_addrs=metad0:9559
+      - --local_ip=metad0
+      - --ws_ip=metad0
+      - --port=9559
+      - --data_path=/data/meta
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    volumes: [meta0:/data/meta]
+    networks: [nebula-net]
+    restart: on-failure
+    cap_add: [SYS_PTRACE]
+
+  storaged0:
+    image: vesoft/nebula-storaged:v3.8.0
+    environment: { USER: root }
+    command:
+      - --meta_server_addrs=metad0:9559
+      - --local_ip=storaged0
+      - --ws_ip=storaged0
+      - --port=9779
+      - --data_path=/data/storage
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    depends_on: [metad0]
+    volumes: [storage0:/data/storage]
+    networks: [nebula-net]
+    restart: on-failure
+    cap_add: [SYS_PTRACE]
+
+  graphd:
+    image: vesoft/nebula-graphd:v3.8.0
+    environment: { USER: root }
+    command:
+      - --meta_server_addrs=metad0:9559
+      - --port=9669
+      - --local_ip=graphd
+      - --ws_ip=graphd
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    depends_on: [storaged0]
+    networks: [nebula-net]
+    restart: on-failure
+    cap_add: [SYS_PTRACE]
+
+  serve:
+    build: { context: ., dockerfile: Dockerfile }
+    depends_on: [graphd]
+    env_file: [serve.env]            # LLM 凭据（自备，已 gitignore）
+    environment:
+      ONTO_BACKEND: nebula
+      NEBULA_HOST: graphd
+      NEBULA_PORT: "9669"
+      ONTO_ONTOLOGIES: "grass"       # 单本体首启更快；可改 "grass,chili"
+    ports: ["8080:8000"]              # 宿主 8080（避开常被占用的 8000）
+    networks: [nebula-net]
+    restart: on-failure
+
+networks:
+  nebula-net:
+
+volumes:
+  meta0:
+  storage0:

@@ -29,16 +29,19 @@ class _StubCompiler:
         return CompiledIntent("clarify", question="请补充信息", confidence=0.4)
 
 
-def _seed(store):
-    store.put_object("Site", "parcel_001", {"parcel_id": "parcel_001", "region": "巴彦淖尔", "site_type": "盐碱"})
+def _store():
+    from clife_onto_engine.query import InMemoryStore
     from plugins.grass import seed_reference_data
-    seed_reference_data(store)  # 乡土名录（动作用）
+    s = InMemoryStore()
+    s.put_object("Site", "parcel_001", {"parcel_id": "parcel_001", "region": "巴彦淖尔", "site_type": "盐碱"})
+    seed_reference_data(s)  # 乡土名录（动作用）
+    return s
 
 
 @pytest.fixture
 def client():
     app = create_app(
-        ontologies={"grass": {"seed": _seed, "actor": Actor("u1", "施工方")}},
+        ontologies={"grass": {"store": _store(), "actor": Actor("u1", "施工方")}},
         make_compiler=lambda: _StubCompiler(),
     )
     return TestClient(app)

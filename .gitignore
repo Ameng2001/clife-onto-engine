@@ -21,3 +21,6 @@ reference/
 # 本地编辑器设置
 .claude/
 .DS_Store
+
+# compose LLM 凭据
+serve.env

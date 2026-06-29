@@ -102,7 +102,21 @@ class NebulaGraphStore:
                 col_idx = ", ".join(f"{c}(64)" for c in cols)
                 self._exec(f"CREATE TAG INDEX IF NOT EXISTS i_{name}_cols ON {name}({col_idx})")
         self._wait_indexes(tags)
+        self._wait_writable(tags)   # 冷启动：等 graphd 写 schema 缓存就绪，首次 INSERT 才不报 No schema
         self._use()
+
+    def _wait_writable(self, tags, retries: int = 30, interval: float = 2.0) -> None:
+        """写探针：轮询到每个 tag 真能 INSERT 为止（绕过 DDL→graphd 写缓存传播延迟）。"""
+        self._use()
+        for tag in tags:
+            for _ in range(retries):
+                res = self._session.execute(f'INSERT VERTEX {tag}(props) VALUES "__probe__":("probe")')
+                if res.is_succeeded():
+                    self._session.execute('DELETE VERTEX "__probe__"')
+                    break
+                time.sleep(interval)
+            else:
+                raise RuntimeError(f"tag {tag} 不可写（INSERT 探针持续失败）")
 
     def _native_columns(self, object_type: str) -> list:
         m = self._registry.mappings.get_object(self.ontology_id, object_type)

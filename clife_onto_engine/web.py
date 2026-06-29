@@ -45,7 +45,10 @@ def reply_to_json(r: Reply) -> dict:
 
 
 def create_app(*, ontologies: dict, make_compiler: Callable):
-    """ontologies: {name: {"seed": fn(store), "actor": Actor}}；make_compiler: () -> IntentCompiler。"""
+    """ontologies: {name: {"store": GraphStore, "actor": Actor}}；make_compiler: () -> IntentCompiler。
+
+    store 由调用方建好（InMemory 或 NebulaGraph，已 seed/bootstrap）—— web 层与后端解耦。
+    """
     from fastapi import FastAPI, HTTPException
     from pydantic import BaseModel
 
@@ -55,8 +58,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable):
     # 每本体一份 store + engine（共享审计/journal）；compiler 惰性、跨会话共享。
     backends: dict = {}
     for name, cfg in ontologies.items():
-        store = InMemoryStore()
-        cfg["seed"](store)
+        store = cfg["store"]
         backends[name] = {"store": store, "engine": ActionEngine(spi.registry, store=store),
                           "actor": cfg["actor"]}
     _state: dict = {"compiler": None}

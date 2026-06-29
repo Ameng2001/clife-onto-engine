@@ -19,3 +19,4 @@ tests/
 docs/
 *.md
 third-party/
+serve.env
