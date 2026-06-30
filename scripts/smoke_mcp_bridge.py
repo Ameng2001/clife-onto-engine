@@ -70,10 +70,10 @@ def main() -> int:
     print(f"== 写工具默认 opt-in：{'✓' if ok4 else '✗'} ==")
     fails += not ok4
 
-    # 5) 结构不变量：桥只暴露 query/act，无任何直达 UModel 的写旁路
+    # 5) 结构不变量：桥只暴露受治理读/写工具（query/plan/act），无任何直达 UModel 的写旁路
     br, _ = _bridge()
-    ok5 = set(br.tools()) <= {"query", "act"}
-    print(f"== 无 UModel 写旁路（只 query/act）：{'✓' if ok5 else '✗'} ==")
+    ok5 = set(br.tools()) <= {"query", "plan", "act"}
+    print(f"== 无 UModel 写旁路（只 query/plan/act）：{'✓' if ok5 else '✗'} ==")
     fails += not ok5
 
     if fails:

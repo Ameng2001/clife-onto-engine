@@ -90,17 +90,17 @@ def test_act_opt_in_and_no_write_bypass():
     assert br.act("出一地一方", {})["kind"] == "error"
     assert rec == []
     br2, _ = _bridge(enable_act=True)
-    assert set(br2.tools()) <= {"query", "act"}        # 只受治理工具，无 UModel 写旁路
+    assert set(br2.tools()) <= {"query", "plan", "act"}  # 只受治理读/写工具，无 UModel 写旁路
 
 
 def test_jsonrpc_dispatch_tools_list_respects_opt_in():
     br, _ = _bridge(enable_act=False)
     resp = dispatch(br, {"jsonrpc": "2.0", "id": 1, "method": "tools/list"})
     names = {t["name"] for t in resp["result"]["tools"]}
-    assert names == {"query"}                          # 默认只读
+    assert names == {"query", "plan"}                  # 默认只读（query + plan），无 act
     br2, _ = _bridge(enable_act=True)
     resp2 = dispatch(br2, {"jsonrpc": "2.0", "id": 2, "method": "tools/list"})
-    assert {t["name"] for t in resp2["result"]["tools"]} == {"query", "act"}
+    assert {t["name"] for t in resp2["result"]["tools"]} == {"query", "plan", "act"}
 
 
 def _reltest_bridge():
@@ -138,6 +138,36 @@ def test_committed_relation_exposed_and_reflected():
     # 两端实体也已反映，且 id 一致
     eids = {e["__entity_id__"] for e in rec["entities"]}
     assert rel["__src_entity_id__"] in eids and rel["__dest_entity_id__"] in eids
+
+
+def test_plan_tool_default_on_and_governed():
+    from clife_onto_engine.query import InMemoryStore
+    import plugins.grass as g
+    store = InMemoryStore(); g.seed_reference_data(store)
+    br = GovernedBridge(ontology_id="grass", registry=spi.registry, store=store,
+                        compiler=_NoCompiler(), actor=Actor("u1", "施工方"),
+                        engine=ActionEngine(spi.registry, store=store), enable_act=False)
+    # plan 是读工具，默认开（即便 enable_act=False）；act 不在
+    assert "plan" in br.tools() and "act" not in br.tools()
+    r = br.plan("Site", "parcel_001", "soil_moisture")
+    assert r["ok"] and 'parcel="parcel_001"' in r["plan"]
+
+
+def test_jsonrpc_dispatch_plan_call():
+    from clife_onto_engine.query import InMemoryStore
+    import json
+    import plugins.grass as g
+    store = InMemoryStore(); g.seed_reference_data(store)
+    br = GovernedBridge(ontology_id="grass", registry=spi.registry, store=store,
+                        compiler=_NoCompiler(), actor=Actor("u1", "施工方"),
+                        engine=ActionEngine(spi.registry, store=store), enable_act=False)
+    resp = dispatch(br, {"jsonrpc": "2.0", "id": 9, "method": "tools/list"})
+    assert "plan" in {t["name"] for t in resp["result"]["tools"]}
+    resp2 = dispatch(br, {"jsonrpc": "2.0", "id": 10, "method": "tools/call",
+                          "params": {"name": "plan", "arguments": {
+                              "object_type": "Site", "key": "parcel_001", "series": "soil_moisture"}}})
+    payload = json.loads(resp2["result"]["content"][0]["text"])
+    assert payload["ok"] and 'parcel="parcel_001"' in payload["plan"]
 
 
 def test_jsonrpc_dispatch_act_call_governed():

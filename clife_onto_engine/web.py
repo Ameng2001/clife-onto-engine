@@ -85,6 +85,12 @@ def create_app(*, ontologies: dict, make_compiler: Callable):
         utterance: str
         session_id: str = "default"
 
+    class PlanBody(BaseModel):
+        ontology: str
+        object_type: str
+        key: str
+        series: str
+
     @app.get("/health")
     def health():
         return {"status": "ok", "ontologies": list(backends)}
@@ -110,5 +116,14 @@ def create_app(*, ontologies: dict, make_compiler: Callable):
     @app.post("/ask")
     def ask(body: AskBody):
         return reply_to_json(_session(body.ontology, body.session_id).ask(body.utterance))
+
+    @app.post("/plan")
+    def plan(body: PlanBody):
+        # 遥测查询计划：引擎据对象绑定产计划（PromQL/ES/SQL，id 已代入），不执行。
+        from .query.telemetry import build_plan
+        if body.ontology not in backends:
+            raise HTTPException(status_code=404, detail=f"未知本体: {body.ontology}")
+        return build_plan(spi.registry, backends[body.ontology]["store"],
+                          body.object_type, body.key, body.series, namespace=body.ontology)
 
     return app

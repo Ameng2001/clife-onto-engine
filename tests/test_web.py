@@ -77,3 +77,22 @@ def test_ask_action_commit(client):
 def test_ask_clarify(client):
     r = client.post("/ask", json={"ontology": "grass", "utterance": "随便说说"}).json()
     assert r["kind"] == "clarify" and r["question"]
+
+
+def test_plan_endpoint(client):
+    r = client.post("/plan", json={"ontology": "grass", "object_type": "Site",
+                                   "key": "parcel_001", "series": "soil_moisture"}).json()
+    assert r["ok"] and r["provider"] == "prometheus"
+    assert 'parcel="parcel_001"' in r["plan"] and "$parcel" not in r["plan"]
+
+
+def test_plan_endpoint_structured_error(client):
+    # 不存在的实例 → build_plan 结构化 error 透传
+    r = client.post("/plan", json={"ontology": "grass", "object_type": "Site",
+                                   "key": "nope", "series": "soil_moisture"}).json()
+    assert r["ok"] is False and "不存在" in r["error"]
+
+
+def test_plan_unknown_ontology_404(client):
+    assert client.post("/plan", json={"ontology": "medical", "object_type": "X",
+                                      "key": "y", "series": "z"}).status_code == 404
