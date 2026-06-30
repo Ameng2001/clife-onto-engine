@@ -253,6 +253,13 @@ NL → 能力清单约束下 LLM 选操作填参 → 内核确定性校验（动
 | 6 | Agent 角色定义 | runtime 专家 + 权限矩阵 + HIL 关口（或复用通用 intent/act agent） |
 | 7 | CQ 验收集 | 本体能力验证问题 |
 
+> **插件从哪来——手写 或 FDE pipeline 生成**：上面 7 槽位可以手写（如 `plugins/grass`），
+> 也可以由 **[studio-ontology](https://github.com/Ameng2001/astra-studio-plugins/tree/main/studio-ontology)**
+> 从业务分析编译出来——它把 DDD 领域建模（事件风暴/限界上下文/行为矩阵，或一份**领域 Intake 标准 spec**）
+> 编成五要素 IR，再编译成本插件骨架（declarative 规则全自动，function-backed 规则/Action 回写留 `TODO(FDE)`）。
+> 这是 Palantir 那条 **Foundry 建模 → FDE → Ontology 运行时** 的建模上游；本仓库是运行时端。
+> （studio-ontology 已用真草业材料验证，产物与手写 `plugins/grass` 五要素同构。）
+
 ---
 
 ## 10. 两个示例插件：换行业零改内核
