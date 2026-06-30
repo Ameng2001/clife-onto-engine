@@ -3,6 +3,8 @@
 [![CI](https://github.com/Ameng2001/clife-onto-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/Ameng2001/clife-onto-engine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
+> 🏭 **运行时端**（本仓库）。建模端在 [**astra-studio · studio-ontology**](https://github.com/Ameng2001/astra-studio-plugins/tree/main/studio-ontology)（业务分析 → 五要素本体 → 编译成本仓库的插件）。关系见[分层](#layering)。
+
 > 把"数智本体"做成**与行业无关的基础设施内核**，而不是某一个行业大模型的附属层。
 > 草业、医疗、金融……各行业大模型的本体层，都以**插件 + 租户配置**的形态跑在同一套内核上。
 >
