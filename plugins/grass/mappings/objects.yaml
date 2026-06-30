@@ -27,3 +27,16 @@ links:
     materialization: materialized    # 高频多跳推理主干，物化进图
     from_key: degradation_id
     to_key: method_id
+
+# 遥测绑定（内核能力 telemetry-query-plan）：对象 → 可观测后端，引擎据此产查询计划（不执行）。
+telemetry:
+  - object: Site                     # 地块的墒情/长势时序（IoT/遥感）走 Prometheus
+    provider: prometheus
+    labels: { parcel: parcel_id }    # 占位 $parcel ← 对象字段 parcel_id
+    series:
+      - name: soil_moisture          # 墒情
+        kind: metric
+        template: 'avg(soil_moisture_percent{parcel="$parcel"})'
+      - name: ndvi_30d               # 近30天长势（遥感 NDVI）
+        kind: metric
+        template: 'avg_over_time(ndvi{parcel="$parcel"}[30d])'
