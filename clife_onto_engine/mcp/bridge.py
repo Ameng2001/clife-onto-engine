@@ -104,13 +104,19 @@ class GovernedBridge:
                                compiler=compiler, actor=actor, engine=self.engine,
                                schema_version=self.schema_version)
 
-    # ---- 工具清单（写需 opt-in）----
+    # ---- 工具清单（读默认开；写需 opt-in）----
     def tools(self) -> list[str]:
-        return ["query"] + (["act"] if self.enable_act else [])
+        return ["query", "plan"] + (["act"] if self.enable_act else [])
 
     # ---- 读：受治理（经引擎 OQL，非 UModel SPL 旁路）----
     def query(self, utterance: str) -> dict:
         return reply_to_json(self.session.ask(utterance))
+
+    # ---- 读：遥测查询计划（引擎产计划、不执行）----
+    def plan(self, object_type: str, key: str, series: str) -> dict:
+        from ..query.telemetry import build_plan
+        return build_plan(self.registry, self.store, object_type, key, series,
+                          namespace=self.ontology_id)
 
     # ---- 写：经 Action 引擎，本体兜底；仅 committed 反映 ----
     def act(self, action: str, params: dict, *, actor_role: Optional[str] = None) -> dict:
