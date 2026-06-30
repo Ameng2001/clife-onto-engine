@@ -64,6 +64,27 @@ class Reflector:
         resp = self._post(url, {"entities": entities})
         return {"reflected": len(entities), "response": resp}
 
+    def reflect_relations(self, links: tuple) -> dict:
+        """links: ((link_type, from_type, from_key, to_type, to_key), ...) —— 两端 id 与对象反映同公式。"""
+        relations = []
+        for link_type, from_type, from_key, to_type, to_key in links:
+            relations.append({
+                "__src_domain__": self.ontology,
+                "__src_entity_type__": _um._qualified(self.ontology, from_type),
+                "__src_entity_id__": _um._eid(self.ontology, from_type, from_key),
+                "__dest_domain__": self.ontology,
+                "__dest_entity_type__": _um._qualified(self.ontology, to_type),
+                "__dest_entity_id__": _um._eid(self.ontology, to_type, to_key),
+                "__relation_type__": link_type, "__category__": "entity_link", "__method__": "Update",
+                "__first_observed_time__": _um._OBSERVED_FROM,
+                "__last_observed_time__": _um._OBSERVED_TO,
+            })
+        if not relations:
+            return {"relations_reflected": 0}
+        url = f"{self.base_url}/api/v1/entitystore/{self.ontology}/relations:write"
+        resp = self._post(url, {"relations": relations})
+        return {"relations_reflected": len(relations), "relations_response": resp}
+
 
 class GovernedBridge:
     """受治理工具门面：`query`（读，默认开）+ opt-in `act`（写，经引擎）。"""
@@ -116,11 +137,14 @@ class GovernedBridge:
                     "confidence": res.confidence, "reflected": 0}
 
         out = {"kind": "committed", "written": written,
+               "links_written": [list(l) for l in getattr(res, "links_written", ())],
                "confidence": getattr(res, "confidence", 0.0), "reflected": 0}
-        # 提交后反映（失败不回滚引擎提交）
+        # 提交后反映（失败不回滚引擎提交）：先对象、后关系（关系端点须先存在）
         if self.reflector is not None:
             try:
                 out.update(self.reflector.reflect(self.store, res.written))
+                if getattr(res, "links_written", ()):
+                    out.update(self.reflector.reflect_relations(res.links_written))
             except Exception as e:  # 读层不可用 → 记录，不影响已提交的治理写
                 out["reflect_error"] = f"{type(e).__name__}: {e}"
         return out

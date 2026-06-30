@@ -118,6 +118,8 @@ class ActionEngine:
         return ActionResult(
             ontology_id=ontology_id, action=action_name, decision=decision,
             written=tuple((w.object_type, w.key) for w in ctx.changeset if isinstance(w, StagedWrite)),
+            links_written=tuple((l.link_type, l.from_type, l.from_key, l.to_type, l.to_key)
+                                for l in ctx.changeset if isinstance(l, StagedLink)),
             effects_scheduled=scheduled, confidence=ctx.confidence,
             hil_required=hil_required,
             advisory=tuple(v for v in post_violations if v.severity == Severity.SOFT.value),

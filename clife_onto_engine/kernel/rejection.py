@@ -44,6 +44,8 @@ class ActionResult:
     confidence: float
     hil_required: bool = False
     advisory: tuple[Violation, ...] = ()   # soft 违反（不阻断，但记录）
+    # 已提交关系 (link_type, from_type, from_key, to_type, to_key)——供读层反映；默认空，向后兼容
+    links_written: tuple[tuple[str, str, str, str, str], ...] = ()
 
     @property
     def committed(self) -> bool:

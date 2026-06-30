@@ -10,6 +10,27 @@ from clife_onto_engine.sdk.context import Actor
 
 import plugins.grass  # noqa: F401
 
+from clife_onto_engine.metamodel import LinkType, ObjectType, ParamSpec
+from clife_onto_engine.sdk.errors import RegistrationError
+
+# 测试内最小本体 reltest：一个写关系的 Action，验证关系反映（不碰 grass 插件）。
+_RELNS = "reltest"
+try:
+    spi.registry.add_object(ObjectType(name="A", namespace=_RELNS, primary_key="a_id"))
+    spi.registry.add_object(ObjectType(name="B", namespace=_RELNS, primary_key="b_id"))
+    spi.registry.add_link(LinkType("rel", _RELNS, "A", "B"))
+
+    @spi.action(_RELNS, "link_them", params=(ParamSpec("a", "string"), ParamSpec("b", "string")),
+                writes=("A", "B"))
+    def _link_them(ctx):
+        a, b = ctx.params["a"], ctx.params["b"]
+        ctx.stage_write("A", a, {"a_id": a})
+        ctx.stage_write("B", b, {"b_id": b})
+        ctx.stage_link("rel", "A", a, "B", b)
+        ctx.set_confidence(0.9)
+except RegistrationError:
+    pass  # 已注册（pytest 重复导入兜底）
+
 
 class _NoCompiler:
     pass
@@ -80,6 +101,43 @@ def test_jsonrpc_dispatch_tools_list_respects_opt_in():
     br2, _ = _bridge(enable_act=True)
     resp2 = dispatch(br2, {"jsonrpc": "2.0", "id": 2, "method": "tools/list"})
     assert {t["name"] for t in resp2["result"]["tools"]} == {"query", "act"}
+
+
+def _reltest_bridge():
+    from clife_onto_engine.umodel import _eid
+    store = InMemoryStore()
+    rec = {"entities": [], "relations": []}
+
+    def post(url, payload):
+        if url.endswith("entities:write"):
+            rec["entities"].extend(payload["entities"])
+        elif url.endswith("relations:write"):
+            rec["relations"].extend(payload["relations"])
+        return {"accepted": 1}
+
+    br = GovernedBridge(ontology_id="reltest", registry=spi.registry, store=store,
+                        compiler=_NoCompiler(), actor=Actor("u1", "tester"),
+                        engine=ActionEngine(spi.registry, store=store),
+                        reflector=Reflector("http://r.local", "reltest", post=post),
+                        enable_act=True)
+    return br, rec, _eid
+
+
+def test_committed_relation_exposed_and_reflected():
+    br, rec, _eid = _reltest_bridge()
+    r = br.act("link_them", {"a": "a1", "b": "b1"})
+    assert r["kind"] == "committed"
+    # ActionResult 暴露已提交关系
+    assert ["rel", "A", "a1", "B", "b1"] in r["links_written"]
+    assert r.get("relations_reflected") == 1
+    # 反映的关系两端 id 与对象反映同公式（引用闭合）
+    rel = rec["relations"][0]
+    assert rel["__relation_type__"] == "rel"
+    assert rel["__src_entity_id__"] == _eid("reltest", "A", "a1")
+    assert rel["__dest_entity_id__"] == _eid("reltest", "B", "b1")
+    # 两端实体也已反映，且 id 一致
+    eids = {e["__entity_id__"] for e in rec["entities"]}
+    assert rel["__src_entity_id__"] in eids and rel["__dest_entity_id__"] in eids
 
 
 def test_jsonrpc_dispatch_act_call_governed():
