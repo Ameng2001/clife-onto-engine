@@ -61,10 +61,32 @@ class LinkMapping:
     store: Optional[str] = None
 
 
+@dataclass(frozen=True)
+class SeriesSpec:
+    """一个遥测序列：名称 + 生成器模板（含 $placeholder 占位）。provider 方言由模板作者负责。"""
+    name: str
+    template: str
+    kind: str = "metric"               # metric | log
+
+
+@dataclass(frozen=True)
+class TelemetryBinding:
+    """对象 → 可观测后端的遥测绑定（与 ObjectMapping 同层；引擎只据此产查询计划，不执行）。
+
+    labels: {占位名 -> 对象字段名}，build_plan 把对象实例该字段的值代入模板的 `$占位名`。
+    """
+    object_type: str
+    namespace: str
+    provider: str                      # prometheus | elasticsearch | sql
+    labels: dict                       # placeholder -> object_field
+    series: tuple[SeriesSpec, ...] = ()
+
+
 class MappingRegistry:
     def __init__(self) -> None:
         self.objects: dict[tuple[str, str], ObjectMapping] = {}
         self.links: dict[tuple[str, str], LinkMapping] = {}
+        self.telemetry: dict[tuple[str, str], TelemetryBinding] = {}
 
     def add_object(self, m: ObjectMapping) -> None:
         key = (m.namespace, m.object_type)
@@ -78,11 +100,20 @@ class MappingRegistry:
             raise RegistrationError(f"重复关系映射: {m.namespace}.{m.link_type}")
         self.links[key] = m
 
+    def add_telemetry(self, m: TelemetryBinding) -> None:
+        key = (m.namespace, m.object_type)
+        if key in self.telemetry:
+            raise RegistrationError(f"重复遥测绑定: {m.namespace}.{m.object_type}")
+        self.telemetry[key] = m
+
     def get_object(self, namespace: str, object_type: str) -> Optional[ObjectMapping]:
         return self.objects.get((namespace, object_type))
 
     def get_link(self, namespace: str, link_type: str) -> Optional[LinkMapping]:
         return self.links.get((namespace, link_type))
+
+    def get_telemetry(self, namespace: str, object_type: str) -> Optional[TelemetryBinding]:
+        return self.telemetry.get((namespace, object_type))
 
     # ---- YAML 加载（声明即文档；配置即 PR）----
     def load_yaml(self, namespace: str, path: str | Path) -> None:
@@ -91,6 +122,8 @@ class MappingRegistry:
             self.add_object(_parse_object(namespace, raw))
         for raw in doc.get("links", []):
             self.add_link(_parse_link(namespace, raw))
+        for raw in doc.get("telemetry", []):
+            self.add_telemetry(_parse_telemetry(namespace, raw))
 
 
 def _parse_object(namespace: str, raw: dict) -> ObjectMapping:
@@ -116,4 +149,15 @@ def _parse_link(namespace: str, raw: dict) -> LinkMapping:
         materialization=Materialization(raw.get("materialization", "materialized")),
         from_key=raw["from_key"], to_key=raw["to_key"],
         via_table=raw.get("via_table"), store=raw.get("store"),
+    )
+
+
+def _parse_telemetry(namespace: str, raw: dict) -> TelemetryBinding:
+    series = tuple(
+        SeriesSpec(name=s["name"], template=s["template"], kind=s.get("kind", "metric"))
+        for s in raw.get("series", [])
+    )
+    return TelemetryBinding(
+        object_type=raw["object"], namespace=namespace,
+        provider=raw["provider"], labels=dict(raw.get("labels", {})), series=series,
     )
