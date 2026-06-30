@@ -260,6 +260,24 @@ NL → 能力清单约束下 LLM 选操作填参 → 内核确定性校验（动
 > 这是 Palantir 那条 **Foundry 建模 → FDE → Ontology 运行时** 的建模上游；本仓库是运行时端。
 > （studio-ontology 已用真草业材料验证，产物与手写 `plugins/grass` 五要素同构。）
 
+### 本体是底座，skill/agent 是调用方（分层，不是二选一）
+
+本引擎是**受治理底座**（governed substrate）：它独立可跑，经 `Session.ask` / HTTP `/ask` / MCP 工具直接可调，**不需要对话 skill 才能工作**。面向用户的产品，则在它**之上**包一层**交互层**（对话助手 / 多智能体 / 用 astra-studio 的 studio-planner 产出的 skill·agent / 或纯结构化 UI）——**那层是调用方，本体是被调方**。
+
+```
+   交互层（台面）：对话助手 / Agent / skill·agent / 结构化 UI
+        │  运行时调用（MCP 工具 / Session.ask / HTTP /ask）
+        ▼
+   本体引擎（底座）：受治理的 做(Action: guard→回滚→审计) / 查(OQL)   ← 本仓库
+```
+
+部署形态（按产品定，不是硬分叉）：
+- **受治理助手** = 两层都要，skill 坐在本体上（最常见）；
+- **结构化 UI / 工作流** = 只要本体，表单/流程直接调 Action 端点（无对话 skill）；
+- **纯开放问答 / RAG** = 只要 skill/RAG，无受治理写（不需要本体）。
+
+> 即：本体不"需要" skill 才能运行；但做产品时，**skill/agent 作为调用方坐在本体之上**。本仓库已内置最小交互层（意图编译器 + `Session` + REPL/HTTP），更丰富的交互层由 astra-studio 的 skill 轨产出并调用本引擎。
+
 ---
 
 ## 10. 两个示例插件：换行业零改内核
