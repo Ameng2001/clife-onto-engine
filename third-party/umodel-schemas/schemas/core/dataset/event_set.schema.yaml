@@ -1,0 +1,65 @@
+description: 
+  zh_cn: EventSet 用于定义事件，事件集是具有相同属性的事件的集合。
+  en_us: EventSet is a collection of related events that share certain common attributes or characteristics.
+name: event_set
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - event_set
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          description: 
+            zh_cn: EventSet 的核心配置部分，定义事件数据的结构和处理方式。
+            en_us: The specification section containing EventSet configuration.
+          extends:
+            - telemetry_data:v1
+          properties:
+            entity_fields:
+              description:
+                zh_cn: "实体字段，用于标识实体的 ID、域和类型"
+                en_us: "Entity fields, used to identify the ID, domain and type of entity"
+              type: object
+              properties:
+                entity_id:
+                  description:
+                    zh_cn: "实体 ID 字段"
+                    en_us: "Entity ID field, used to identify the ID of entity"
+                  type: "string"
+                  constraint:
+                    default_value: "__entity_id__"
+                domain:
+                  description:
+                    zh_cn: "实体所属的域字段"
+                    en_us: "Domain field which entity belongs to"
+                  type: "string"
+                  constraint:
+                    default_value: "__domain__"
+                entity_type:
+                  description:
+                    zh_cn: "实体类型字段，用于标识实体的类型"
+                    en_us: "Entity type field, used to identify the type of entity"
+                  type: "string"
+                  constraint:
+                    default_value: "__entity_type__"

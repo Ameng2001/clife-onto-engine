@@ -1,0 +1,109 @@
+description:
+  zh_cn: EntitySourceLink 用于定义 EntitySource 与 EntitySet 之间的关联关系。
+  en_us: EntitySourceLink is used to define the relationship between EntitySource and EntitySet.
+name: entity_source_link
+versions:
+  - name: v1.0.0
+    description:
+      zh_cn: EntitySourceLink 的初始版本，定义 EntitySource 与 EntitySet 之间的关联。
+      en_us: Initial version of EntitySourceLink, defining the association between EntitySource and EntitySet.
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - entity_source_link
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          extends:
+            - link:v1
+          description:
+            zh_cn: EntitySourceLink 的核心配置部分，连接 EntitySource 与 EntitySet。
+            en_us: The specification section containing EntitySourceLink configuration, linking EntitySource and EntitySet.
+          properties:
+            src:
+              description:
+                zh_cn: 源 Set 的标识。值不能为空。
+                en_us: The identifier of the source Set. The value cannot be empty.
+              type: object
+              constraint:
+                required: true
+              properties:
+                domain:
+                  description:
+                    zh_cn: 源 Set 的域。
+                    en_us: The domain of the source Set.
+                  type: string
+                  constraint:
+                    required: true
+                kind:
+                  description:
+                    zh_cn: 源 Set 的类型。值不能为空。
+                    en_us: The type of the source Set. The value cannot be empty.
+                  type: string
+                  constraint:
+                    required: true
+                    enum:
+                      values:
+                        - entity_source
+                name:
+                  description:
+                    zh_cn: 源 Set 的名称。值不能为空。
+                    en_us: The name of the source Set. The value cannot be empty.
+                  type: string
+                  constraint:
+                    required: true
+                    min_len: 1
+                    max_len: 127
+            dest:
+              description:
+                zh_cn: 目标 Set 的标识。值不能为空。
+                en_us: The identifier of the destination Set. The value cannot be empty.
+              type: object
+              constraint:
+                required: true
+              properties:
+                domain:
+                  description:
+                    zh_cn: 目标 Set 的域。
+                    en_us: The domain of the destination Set.
+                  type: string
+                  constraint:
+                    required: true
+                kind:
+                  description:
+                    zh_cn: 目标 Set 的类型。值不能为空。
+                    en_us: The type of the destination Set. The value cannot be empty.
+                  type: string
+                  constraint:
+                    required: true
+                    enum:
+                      values:
+                        - entity_set
+                name:
+                  description:
+                    zh_cn: 目标 Set 的名称。值不能为空。
+                    en_us: The name of the destination Set. The value cannot be empty.
+                  type: string
+                  constraint:
+                    required: true
+                    min_len: 1
+                    max_len: 127

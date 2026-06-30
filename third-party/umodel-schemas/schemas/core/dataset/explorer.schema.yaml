@@ -1,0 +1,58 @@
+description: >
+  en_us: The Explorer module is used to define the explorer.
+  zh_cn: Explorer 模块用于定义 Explorer。
+name: explorer
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - explorer
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          properties:
+            type:
+              type: string
+              description: 
+                zh_cn: Explorer 的类型。
+                en_us: The kind of explorer.
+              constraint:
+                required: true
+            query:
+              type: string
+              description: 
+                zh_cn: Explorer 的默认查询。
+                en_us: The default query of explorer.
+              constraint:
+                required: false
+            config:
+              type: map
+              description: 
+                zh_cn: Explorer 的配置动态。
+                en_us: The config dynamic of explorer.
+              constraint:
+                map:
+                  key:
+                    type: string
+                  value:
+                    type: any

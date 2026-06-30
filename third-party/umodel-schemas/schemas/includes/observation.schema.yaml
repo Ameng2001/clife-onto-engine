@@ -1,0 +1,180 @@
+description: 
+  zh_cn: 观察配置定义，用于定义现象观察和结论判断。
+  en_us: Observation configuration definition for phenomenon observation and conclusion judgment.
+name: observation
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description: 
+            zh_cn: 观察名称，在同一个RunbookSet中必须唯一。
+            en_us: Observation name, must be unique within the same RunbookSet.
+          type: string
+          constraint:
+            required: true
+            pattern: '^[a-zA-Z0-9_][a-zA-Z0-9-_\.]{0,127}$'
+            min_len: 1
+            max_len: 128
+        display_name:
+          description: 
+            zh_cn: 观察显示名称。
+            en_us: Observation display name.
+          type: semantic_string
+          constraint:
+            required: true
+        short_description:
+          description: 
+            zh_cn: 观察简短描述。
+            en_us: Observation short description.
+          type: semantic_string
+          constraint:
+            required: true
+        description:
+          description: 
+            zh_cn: 观察详细描述信息。
+            en_us: Observation detailed description.
+          type: semantic_string
+        phenomenon:
+          description: 
+            zh_cn: 现象定义，描述要观察什么以及如何观察。
+            en_us: Phenomenon definition, describing what to observe and how.
+          type: object
+          constraint:
+            required: true
+          properties:
+            phenomenon_type:
+              description: 
+                zh_cn: 现象类型，如query（查询）、action（动作）、dashboard（大盘）、event（事件）等。
+                en_us: Phenomenon type such as query, action, dashboard, event.
+              type: string
+              constraint:
+                required: true
+            inputs:
+              description: 
+                zh_cn: 现象相关输入配置，用于指引上层如何选择默认的参数进行填入。包括 Dashboard 变量、Query 输入参数等
+                en_us: Phenomenon related input configurations, used to guide the upper layer to select default parameters for filling in. Including Dashboard variables, Query input parameters, etc.
+              type: array
+              constraint:
+                array:
+                  item:
+                    type_ref: parameter_config:v1
+            outputs:
+              description: 
+                zh_cn: 可选，现象相关输出配置，用于指引上层如何解析查询结果。
+                en_us: Optional, phenomenon related output configurations, used to guide the upper layer to parse the query results.
+              type: array
+              constraint:
+                array:
+                  item:
+                    type_ref: parameter_config:v1
+            properties:
+              description: 
+                zh_cn: 现象相关属性配置，根据 type 类型自由扩展。
+                en_us: Phenomenon related properties, freely extensible based on type.
+              type: map
+              constraint:
+                map:
+                  key:
+                    type: string
+                  value:
+                    type: string
+        conclusions:
+          description: 
+            zh_cn: 结论配置列表，根据现象观察结果进行判断。
+            en_us: List of conclusion configurations based on phenomenon observation results.
+          type: array
+          constraint:
+            required: true
+            array:
+              item:
+                type: object
+                properties:
+                  condition_type:
+                    description: 
+                      zh_cn: 结论生效条件类型，根据现象类型，条件执行方式不同。可以是 query/action 执行结果后的 bool 表达式计算，也可以是由 LLM 进行判断的 prompts。
+                      en_us: Condition type for conclusion activation. Can be bool expression calculated after query/action execution, or prompts for LLM to judge.
+                    type: string
+                    constraint:
+                      required: true
+                  condition:
+                    description: 
+                      zh_cn: 结论生效条件，根据现象类型，条件执行方式不同。
+                      en_us: Condition for conclusion activation.
+                    type: string
+                    constraint:
+                      required: true
+                  severity:
+                    description: 
+                      zh_cn: 结论严重程度。
+                      en_us: Conclusion severity level.
+                    type: string
+                    constraint:
+                      required: true
+                      enum:
+                        values:
+                          - info
+                          - warning
+                          - error
+                          - fatal
+                        default_value: warning
+                  display_name:
+                    description: 
+                      zh_cn: 结论显示名称。
+                      en_us: Conclusion display name.
+                    type: semantic_string
+                    constraint:
+                      required: true
+                  short_description:
+                    description: 
+                      zh_cn: 结论简短描述。
+                      en_us: Conclusion short description.
+                    type: semantic_string
+                    constraint:
+                      required: true
+                  description:
+                    description: 
+                      zh_cn: 结论详细描述。
+                      en_us: Conclusion detailed description.
+                    type: semantic_string
+                  group:
+                    description: 
+                      zh_cn: 结论分组。在同一个结论分组下，只返回最高等级的结论。
+                      en_us: Conclusion group. In the same conclusion group, only the highest level of conclusion is returned.
+                    type: string
+                    constraint:
+                      required: true
+                  properties:
+                    description: 
+                      zh_cn: 结论相关属性配置。
+                      en_us: Conclusion related properties.
+                    type: map
+                    constraint:
+                      map:
+                        key:
+                          type: string
+                        value:
+                          type: string
+        properties:
+          description: 
+            zh_cn: 观察属性配置。
+            en_us: Observation property configurations.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string
+        tags:
+          description: 
+            zh_cn: 观察标签。
+            en_us: Observation tags.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string

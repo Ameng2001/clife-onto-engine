@@ -1,0 +1,70 @@
+description: 
+  zh_cn: 外部存储，用于存放自定义存储的详细信息。
+  en_us: External storage, used to store details of custom storage.
+name: external_storage
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - external_storage
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          properties:
+            type:
+              description: 
+                zh_cn: 外部存储的类型。
+                en_us: The type of the external storage.
+              type: string
+              constraint:
+                required: true
+            name:
+              description: 
+                zh_cn: 外部存储的名称。
+                en_us: The name of the external storage.
+              type: string
+              constraint:
+                required: true
+            properties:
+              description: 
+                zh_cn: 外部存储的详细信息，以键值对形式存储。
+                en_us: Details of the external storage, stored as key-value pairs.
+              type: map
+              constraint:
+                map:
+                  key:
+                    type: string
+                  value:
+                    type: string
+            tags:
+              description: 
+                zh_cn: 用于表示该外部存储的标签。
+                en_us: This field is used to represent the tags of the external storage.
+              type: map
+              constraint:
+                map:
+                  key:
+                    type: string
+                  value:
+                    type: string
+

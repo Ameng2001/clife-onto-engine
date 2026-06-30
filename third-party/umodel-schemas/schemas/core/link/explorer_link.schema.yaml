@@ -1,0 +1,62 @@
+description: >
+  zh_cn: Explorer 链接模块用于存储 Dataset 和 Explorer 之间的链接信息。
+  en_us: The Explorer Link module is used to store the link information between dataset and Explorer.
+name: explorer_link
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - explorer_link
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          extends:
+            - link:v1
+          properties:
+            token_mapping:
+              type: map
+              description: 
+                zh_cn: 源 Dataset 和目标 Explorer 之间的字段映射关系。
+                en_us: The mapping relationship between the fields of the source dataset set and the destination explorer
+            token_replace:
+              type: map
+              description: 
+                zh_cn: 源 Dataset 和目标 Explorer 之间的字段替换关系。
+                en_us: The replace relationship between the fields of the source dataset set and the destination explorer
+              constraint:
+                map:
+                  key:
+                    type: string
+                    description: 
+                      zh_cn: 替换 Dashboard 中的字段名称。
+                      en_us: Replace key name in dashboard
+                  value:
+                    type: string
+                    description: 
+                      zh_cn: EntitySet 字段名称。
+                      en_us: Entity set filed name
+            config:
+              type: map
+              description: 
+                zh_cn: Explorer 的配置动态。
+                en_us: The config dynamic of explorer.

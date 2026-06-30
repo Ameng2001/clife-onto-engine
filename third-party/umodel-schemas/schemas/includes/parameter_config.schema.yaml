@@ -1,0 +1,55 @@
+description: 
+  zh_cn: 参数配置定义，用于定义各种配置中的参数结构。
+  en_us: Parameter configuration definition for various configuration parameters.
+name: parameter_config
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description: 
+            zh_cn: 参数名称。
+            en_us: Parameter name.
+          type: string
+          constraint:
+            required: true
+            pattern: '^[a-zA-Z0-9_][a-zA-Z0-9-_\.]{0,63}$'
+            min_len: 1
+            max_len: 63
+        display_name:
+          description: 
+            zh_cn: 参数显示名称。
+            en_us: Parameter display name.
+          type: semantic_string
+        description:
+          description: 
+            zh_cn: 参数描述信息。
+            en_us: Parameter description.
+          type: semantic_string
+        type:
+          description: 
+            zh_cn: 参数类型。
+            en_us: Parameter type.
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - string
+                - integer
+                - float
+                - boolean
+                - json
+        required:
+          description: 
+            zh_cn: 是否为必填参数。
+            en_us: Whether the parameter is required.
+          type: bool
+          constraint:
+            default_value: false
+        default:
+          description: 
+            zh_cn: 参数默认值。
+            en_us: Default value for the parameter.
+          type: string

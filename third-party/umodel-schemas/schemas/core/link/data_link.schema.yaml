@@ -1,0 +1,73 @@
+description: 
+  zh_cn: DataLink 用于定义 EntitySet/Link 和 DataSet 之间的关系，同时也可以描述两个 DataSet 之间的关系。DataLink 必须包含源 DataSet 、目标 DataSet 和链接类型。
+  en_us: DataLink is used to define the relationship between EntitySet/Link and DataSet, and also describe the relationship between two DataSet. DataLink must contain the source DataSet, destination DataSet and link type.
+name: data_link
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - data_link
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          extends:
+            - link:v1
+          constraint:
+            required: true
+          description: 
+            zh_cn: DataLink 的核心配置部分，定义 EntitySet、DataSet 之间的映射和关联规则。
+            en_us: The specification section containing DataLink configuration, which defines the mapping and association rules between EntitySet and DataSet.
+          properties:
+            fields_mapping:
+              type: map
+              description: 
+                zh_cn: 源 DataSet/EntitySet 和目标 DataSet 字段之间的映射关系。
+                en_us: The mapping relationship between the fields of the source DataSet and the destination DataSet.
+              constraint:
+                map:
+                  key:
+                    description: 
+                      zh_cn: 源 DataSet/EntitySet 的字段名称。
+                      en_us: The field name of the source DataSet.
+                    type: string
+                  value:
+                    description: 
+                      zh_cn: 目标 DataSet 的字段名称。
+                      en_us: The field name of the destination DataSet.
+                    type: string
+            data_link_type:
+              description: 
+                zh_cn: DataLink 的类型。值不能为空。值必须是以下之一：produce（产生）、related_to（有关联，即弱连接）。
+                en_us: 'The type of the DataLink. The value cannot be empty. The value must be one of the following: produce, related_to.'
+              type: enum
+              constraint:
+                enum:
+                  values:
+                    - produce
+                    - related_to
+            data_filter:
+              description: 
+                zh_cn: >
+                  关联目标数据的过滤器，即目标 DataSet 中只有部分数据和源数据有关联。例如存在一个通用的MetricSet，包含各种调用类型的指标，而源实体可能是DBClient，则可通过 data_fiter = "type='db'" 过滤出所有 db 类型的指标。注意：data_filter 需要使用query类型的filter语法。此方式过于复杂，不建议使用。
+                en_us: >
+                  The data filter, used to filter data. For example, there is a general MetricSet that contains various types of metrics, and the source entity may be DBClient, then the metrics of all db types can be filtered out through data_fiter = "type='db'".
+                  Note: data_filter needs to use query type filter syntax. This method is too complex and is not recommended.
+              type: string

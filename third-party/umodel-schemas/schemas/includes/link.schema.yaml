@@ -1,0 +1,98 @@
+description: 
+  zh_cn: Link 用于定义两个 Set 之间的关系。是所有 Link 的抽象模块。
+  en_us: >
+      The Link module is used to define the relationship between two entity set, data set, storage set and metric set. The
+      Link module is the abstract module of all link module.
+name: link
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        src:
+          description: 
+            zh_cn: 源 Set 的标识。值不能为空。
+            en_us: The identify of source Set. The value cannot be empty.
+          type: object
+          properties:
+            domain:
+              description: 
+                zh_cn: 源 Set 的域。
+                en_us: >
+                  The domain of the source Set.
+              type: string
+              constraint:
+                #pattern '^[\w\.]*$'
+                required: true
+            kind:
+              description: 
+                zh_cn: 源 Set 的类型。值不能为空。
+                en_us: The type of the source Set. The value cannot be empty.
+              type: string
+              constraint:
+                required: true
+            name:
+              description: 
+                zh_cn: 源 Set 的名称。值不能为空。
+                en_us: The name of the source Set. The value cannot be empty.
+              type: string
+              constraint:
+                required: true
+                min_len: 0
+                max_len: 127
+            filter:
+              description: 
+                zh_cn: 对于源 Set 的过滤器，用于部分 Link 的场景，例如 EntitySet 中只有"region=cn-beijing"的实体存在此关联。该方式已废弃，请使用 filter_by_entity 替代。
+                en_us: The filter of the source Set. It is used for some Link scenarios, such as only entities with "region=cn-beijing" in the EntitySet have this association. This method is deprecated, please use filter_by_entity instead.
+              type: string
+          # constraint:
+          #   advanced:
+          #     check_list:
+          #     - "exist: true"  # TODO 换成通用的数据检查列表，支持引用当前的的字段
+        dest:
+          description: 
+            zh_cn: 目标 Set 的标识。值不能为空。
+            en_us: The identify of the destination Set. The value cannot be empty.
+          type: object
+          properties:
+            domain:
+              description: 
+                zh_cn: 目标 Set 的域。
+                en_us: The domain of the destination Set.
+              type: string
+              constraint:
+                #pattern '^[\w\.]*$'
+                required: true
+            kind:
+              description: 
+                zh_cn: 目标 Set 的类型。值不能为空。
+                en_us: The type of the destination Set. The value cannot be empty.
+              type: string
+              constraint:
+                required: true
+            name:
+              description: 
+                zh_cn: 目标 Set 的名称。值不能为空。
+                en_us: The name of the destination Set. The value cannot be empty.
+              type: string
+              constraint:
+                required: true
+                min_len: 0
+                max_len: 127
+          # constraint:
+          #   advanced:
+          #     check_list:
+          #     - "exist: true"  # TODO 换成通用的数据检查列表，支持引用当前的的字段
+        filter_by_entity:
+          description: 
+            zh_cn: 在部分Entity具备的Link中，用于标识这部分Entity的过滤条件。
+            en_us: In the Link that is only for some entities, used to identify the filtering conditions for these entities.
+          type: string
+        priority:
+          description: 
+            zh_cn: Link 的优先级。值可以为空。默认值为5。
+            en_us: The priority of the Link. The value can be empty. The default value is 5.
+          type: integer
+          constraint:
+            default_value: 5
+          release_stage: experimental

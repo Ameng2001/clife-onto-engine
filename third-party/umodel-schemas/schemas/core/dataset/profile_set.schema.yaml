@@ -1,0 +1,45 @@
+description: 
+  zh_cn: ProfileSet 用于定义 Profile 数据集，Profile 数据集是具有相同属性的 Profile 数据的集合，一般用于描述某类可观测实体的一类 Profile 数据，例如主机的 CPU、内存、磁盘等 Profile 数据。
+  en_us: ProfileSet is used to define Profile data sets. A Profile data set is a collection of Profile data with the same attributes, generally used to describe a class of Profile data for a certain type of observable entity, such as CPU, memory, disk and other Profile data of a host.
+name: profile_set
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - profile_set
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          description: 
+            zh_cn: ProfileSet 的核心配置部分，定义 Profile 数据的数据结构和处理方式。
+            en_us: The specification section containing ProfileSet configuration.
+          extends:
+            - telemetry_data:v1
+          properties:
+            protocol:
+              description: 
+                zh_cn: 使用的 Profile 协议。指定 Profile 数据的格式和标准。
+                en_us: The profiling protocol used. Specifies the format and standard for profiling data.
+              type: string
+              constraint:
+                default_value: "pprof"

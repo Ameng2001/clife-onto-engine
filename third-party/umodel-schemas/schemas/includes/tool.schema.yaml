@@ -1,0 +1,95 @@
+description:
+  zh_cn: 工具定义，用于 Toolkit 内单个可执行操作的配置，对 LLM/Agent 友好。
+  en_us: Tool definition for a single executable operation within a Toolkit, LLM/Agent friendly.
+name: tool
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description:
+            zh_cn: 工具名称，在同一个 Toolkit 内必须唯一。
+            en_us: Tool name, must be unique within the same Toolkit.
+          type: string
+          constraint:
+            required: true
+            pattern: '^[a-zA-Z0-9_][a-zA-Z0-9-_\.]{0,127}$'
+            min_len: 1
+            max_len: 128
+        display_name:
+          description:
+            zh_cn: 工具显示名称。
+            en_us: Tool display name.
+          type: semantic_string
+          constraint:
+            required: true
+        short_description:
+          description:
+            zh_cn: 工具简短描述，LLM 用来决定是否调用此工具的关键信息。
+            en_us: Tool short description, key information for LLM to decide whether to invoke this tool.
+          type: semantic_string
+        description:
+          description:
+            zh_cn: 工具详细描述信息。
+            en_us: Tool detailed description.
+          type: semantic_string
+        input_schema:
+          description:
+            zh_cn: 工具输入参数定义，JSON Schema 风格。
+            en_us: Tool input parameter definition, JSON Schema style.
+          type_ref: tool_parameter_config:v1
+        output_schema:
+          description:
+            zh_cn: 工具输出参数定义，JSON Schema 风格。
+            en_us: Tool output parameter definition, JSON Schema style.
+          type_ref: tool_parameter_config:v1
+        risk_level:
+          description:
+            zh_cn: 操作的风险等级。
+            en_us: Risk level of the operation.
+          type: string
+          constraint:
+            enum:
+              values:
+                - low
+                - medium
+                - high
+                - critical
+            default_value: low
+        idempotent:
+          description:
+            zh_cn: 操作是否幂等/可重入，重复执行结果一致。
+            en_us: Whether the operation is idempotent/reentrant; repeated execution yields the same result.
+          type: bool
+          constraint:
+            default_value: true
+        confirmation_required:
+          description:
+            zh_cn: 是否需要确认才能执行操作。
+            en_us: Whether confirmation is required before executing the tool.
+          type: bool
+          constraint:
+            default_value: false
+        properties:
+          description:
+            zh_cn: 工具级别的额外配置，可覆盖或补充 Toolkit 的 properties。
+            en_us: Tool-level extra configuration, may override or supplement Toolkit properties.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string
+        tags:
+          description:
+            zh_cn: 工具标签。
+            en_us: Tool tags.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string

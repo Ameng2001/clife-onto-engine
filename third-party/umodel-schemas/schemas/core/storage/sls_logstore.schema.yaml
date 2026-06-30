@@ -1,0 +1,91 @@
+description: 
+  zh_cn: SLS LogStore 存储，一般用于存储日志数据。
+  en_us: SLS LogStore storage, usually used to store log data.
+name: sls_logstore
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - sls_logstore
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          properties:
+            region:
+              description: 
+                zh_cn: SLS LogStore 的区域。
+                en_us: The region of the SLS LogStore.
+              type: string
+              constraint:
+                #pattern "^[a-z0-9-]*$"
+                required: true
+            project:
+              description: 
+                zh_cn: SLS LogStore 的项目。
+                en_us: The project of the SLS LogStore.
+              type: string
+              constraint:
+                #pattern '^[\w-]*$'
+                required: true
+            store:
+              description: 
+                zh_cn: SLS LogStore 的名称。
+                en_us: The name of the SLS LogStore.
+              type: string
+              constraint:
+                required: true
+            search_filter:
+              type: string
+              description:
+                zh_cn: 日志库的过滤条件，如果日志库中存储了多种类型的数据，可使用此字段过滤目标数据。
+                en_us: The filter condition of the logstore, if the logstore contains multiple types of data, you can use this field to filter the target data.
+              constraint:
+                default_value: "*"
+            spl_filter:
+              type: string
+              release_stage: experimental
+              description:
+                zh_cn: 日志库的 SPL 过滤条件，相比 search_filter 字段，SPL 过滤条件更加灵活，支持更复杂的过滤条件，但性能相对较差。
+                en_us: The SPL filter condition of the logstore, compared to the search_filter field, SPL filter conditions are more flexible and support more complex filter conditions, but the performance is relatively poor.
+            spl_view:
+              type: string
+              description:
+                zh_cn: 基于 SPL 生成的视图，一般用于动态生成实体列表、连接等场景。注意：此场景每次需要重新生成视图，性能较差。
+                en_us: >
+                  The SPL view of the logstore, usually used to dynamically generate entity lists, connections, etc. Note: This scenario requires re-generating the view each time, and the performance is very poor.
+            spl_notebook:
+              type: string
+              description:
+                zh_cn: 基于 SPL Notebook 计算出的结果，相比 spl_view 字段，相对更加独立，可直接执行且能 Join 多种数据源。注意：此场景每次需要重新计算生成，性能较差。
+                en_us: "The result calculated by the SPL Notebook, compared to the spl_view field, it is relatively independent, can be executed directly and can join multiple data sources. Note: This scenario requires re-calculating and generating each time, and the performance is relatively poor."
+            sql_filter:
+              type: string
+              release_stage: experimental
+              description:
+                zh_cn: 日志库的 SQL 过滤条件，相比 search_filter 字段，SQL 过滤条件更加灵活，支持更复杂的过滤条件，但性能相对较差。
+                en_us: The SQL filter condition of the logstore, compared to the search_filter field, SQL filter conditions are more flexible and support more complex filter conditions, but the performance is relatively poor.
+            sql_view:
+              type: string
+              description:
+                zh_cn: 基于 SQL 生成的视图，一般用于动态生成实体列表、连接等场景。注意：此场景每次需要重新生成视图，性能较差。
+                en_us: 'The SQL view of the logstore, usually used to dynamically generate entity lists, connections, etc. Note: This scenario requires re-generating the view each time, and the performance is very poor.'

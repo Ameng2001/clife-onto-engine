@@ -1,0 +1,15 @@
+{
+  "//": "引擎 MCP server 连接示例。复制为 .mcp.json（或并入 MCP 客户端配置）。详见 docs/04-umodel-interop.md §6。",
+  "mcpServers": {
+    "clife-onto-engine": {
+      "command": "python",
+      "args": ["scripts/serve_mcp.py"],
+      "env": {
+        "ONTO": "grass",
+        "ONTO_ENABLE_ACT": "1",
+        "UMODEL_URL": "http://localhost:8081",
+        "ONTO_ACTOR_ROLE": "施工方"
+      }
+    }
+  }
+}
