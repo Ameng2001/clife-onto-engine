@@ -40,8 +40,25 @@ def _seed_grass() -> InMemoryStore:
     return store
 
 
+def _seed_chili() -> InMemoryStore:
+    """chili 运行时 store —— 验证「换行业零改」延伸到读层。
+
+    chili 插件未声明任何 LinkType（不建模关系），故读层是对象 + 实例可浏览、拓扑为空——
+    这恰是 chili 建模的诚实反映：同一导出器、同一 UModel，只换领域词、零内核/导出器改动。
+    """
+    store = InMemoryStore()
+    plugins.chili.seed_reference_data(store)  # Field/field_001 + 海南适配品种名录
+    # 多对象类实例，让 .entity 跨类型有内容可看（无关系，因 chili 未声明 Link）
+    store.put_object("Field", "field_002", {"field_id": "field_002", "area_mu": 50,
+                                            "region": "云南", "soil_type": "红壤"})
+    store.put_object("PlantingPlan", "plan_field_001",
+                     {"field_id": "field_001", "variety": "朝天椒", "density": 2200})
+    store.put_object("GradeSample", "g_001", {"batch_id": "g_001"})
+    return store
+
+
 def main() -> None:
-    seeds = {"grass": _seed_grass(), "chili": None}
+    seeds = {"grass": _seed_grass(), "chili": _seed_chili()}
     for ns, store in seeds.items():
         out = ROOT / "build" / "umodel" / ns
         pack = export_pack(spi.registry, ns, str(out), store=store, timestamp="2026-06-28")
