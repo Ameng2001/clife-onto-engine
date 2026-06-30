@@ -96,3 +96,11 @@ def test_plan_endpoint_structured_error(client):
 def test_plan_unknown_ontology_404(client):
     assert client.post("/plan", json={"ontology": "medical", "object_type": "X",
                                       "key": "y", "series": "z"}).status_code == 404
+
+
+def test_plan_log_with_params(client):
+    r = client.post("/plan", json={"ontology": "grass", "object_type": "Site",
+                                   "key": "parcel_001", "series": "iot_alerts",
+                                   "params": {"level": "ERROR", "since": "now-1h"}}).json()
+    assert r["ok"] and r["provider"] == "elasticsearch" and r["kind"] == "log"
+    assert '"level":"ERROR"' in r["plan"] and "$" not in r["plan"]

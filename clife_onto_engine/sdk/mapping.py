@@ -63,9 +63,11 @@ class LinkMapping:
 
 @dataclass(frozen=True)
 class SeriesSpec:
-    """一个遥测序列：名称 + 生成器模板（含 $placeholder 占位）。provider 方言由模板作者负责。"""
+    """一个遥测序列：名称 + provider + 生成器模板（含 $placeholder）。provider 在 series 级——
+    同一对象的 metric 可走 prometheus、log 可走 elasticsearch。方言由模板作者负责。"""
     name: str
     template: str
+    provider: str                      # prometheus | elasticsearch | sql
     kind: str = "metric"               # metric | log
 
 
@@ -73,11 +75,11 @@ class SeriesSpec:
 class TelemetryBinding:
     """对象 → 可观测后端的遥测绑定（与 ObjectMapping 同层；引擎只据此产查询计划，不执行）。
 
-    labels: {占位名 -> 对象字段名}，build_plan 把对象实例该字段的值代入模板的 `$占位名`。
+    labels: {占位名 -> 对象字段名}，build_plan 把对象实例该字段的值代入模板的 `$占位名`（跨 series 共享）。
+    每个 series 自带 provider（metric/log 可不同后端）。
     """
     object_type: str
     namespace: str
-    provider: str                      # prometheus | elasticsearch | sql
     labels: dict                       # placeholder -> object_field
     series: tuple[SeriesSpec, ...] = ()
 
@@ -153,11 +155,14 @@ def _parse_link(namespace: str, raw: dict) -> LinkMapping:
 
 
 def _parse_telemetry(namespace: str, raw: dict) -> TelemetryBinding:
+    default_provider = raw.get("provider")   # 绑定级默认 provider（可选），series 可覆盖
     series = tuple(
-        SeriesSpec(name=s["name"], template=s["template"], kind=s.get("kind", "metric"))
+        SeriesSpec(name=s["name"], template=s["template"],
+                   provider=s.get("provider", default_provider),
+                   kind=s.get("kind", "metric"))
         for s in raw.get("series", [])
     )
     return TelemetryBinding(
         object_type=raw["object"], namespace=namespace,
-        provider=raw["provider"], labels=dict(raw.get("labels", {})), series=series,
+        labels=dict(raw.get("labels", {})), series=series,
     )

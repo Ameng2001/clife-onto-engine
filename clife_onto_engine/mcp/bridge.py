@@ -113,10 +113,11 @@ class GovernedBridge:
         return reply_to_json(self.session.ask(utterance))
 
     # ---- 读：遥测查询计划（引擎产计划、不执行）----
-    def plan(self, object_type: str, key: str, series: str) -> dict:
+    def plan(self, object_type: str, key: str, series: str,
+             params: Optional[dict] = None) -> dict:
         from ..query.telemetry import build_plan
         return build_plan(self.registry, self.store, object_type, key, series,
-                          namespace=self.ontology_id)
+                          namespace=self.ontology_id, params=params)
 
     # ---- 写：经 Action 引擎，本体兜底；仅 committed 反映 ----
     def act(self, action: str, params: dict, *, actor_role: Optional[str] = None) -> dict:
