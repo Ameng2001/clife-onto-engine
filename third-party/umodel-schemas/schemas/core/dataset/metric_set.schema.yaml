@@ -1,0 +1,102 @@
+description: 
+  zh_cn: MetricSet 用于定义指标，指标集是具有相同属性的指标的集合，一般用于描述某类可观测实体的一类指标，例如主机的CPU、内存、磁盘等指标。
+  en_us: MetricSet is used to define metrics. A metric set is a collection of metrics with the same attributes, generally used to describe a class of metrics for a certain type of observable entity, such as CPU, memory, disk and other metrics of a host.
+name: metric_set
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - metric_set
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          description: 
+            zh_cn: MetricSet 的核心配置部分，定义监控指标的数据结构和采集规则。
+            en_us: The specification section containing MetricSet configuration.
+          properties:
+            labels:
+              description: 
+                zh_cn: 指标集的标签列表，建议标签通过 dynamic 方式自动生成。注意：此处的标签是 MetricSet 的通用标签，一般建议 MetricSet 只定义通用标签，不在 Metric 下定义额外的标签。
+                en_us: 'The list of labels for the MetricSet. It is recommended to use dynamic to automatically generate labels. Note: The labels here are the general labels of the MetricSet. It is generally recommended that the MetricSet only define general labels, and not define additional labels under the Metric.'
+              type: object
+              properties:
+                keys:
+                  description: 
+                    zh_cn: 标签列表，值格式参考 field 定义。
+                    en_us: The list of labels. The value format is reference to the field definition.
+                  type: array
+                  constraint:
+                    array:
+                      item:
+                        type_ref: "field_spec:v1"
+                dynamic:
+                  description: 
+                    zh_cn: 是否动态生成，一般建议设置为 true。
+                    en_us: Whether the key is dynamic. It is generally recommended to set it to true.
+                  type: boolean
+                  constraint:
+                    default_value: false
+                filter:
+                  description: 
+                    zh_cn: 标签的过滤器，在 dynamic 为 true 时，会根据此过滤器进行过滤。
+                    en_us: The filter of the label. When dynamic is true, it will be filtered according to this filter.
+                  type: string
+            label_keys:
+              description: 
+                zh_cn: 指标集的标签键。当前已废弃，待删除，请使用 labels 字段代替。
+                en_us: The label keys of the MetricSet. It is currently deprecated and will be deleted. Please use the labels field instead.
+              type: array
+              constraint:
+                array:
+                  item:
+                    type_ref: "field_spec:v1"
+                  min_size: 1
+              release_stage: deprecated
+            metrics:
+              description: 
+                zh_cn: 详细的指标列表。
+                en_us: The detailed list of metrics.
+              type: array
+              constraint:
+                array:
+                  item:
+                    type_ref: "metric:v1"
+                  min_size: 1
+            query_type:
+              description: 
+                zh_cn: 指标的查询语法，取值包括：prom、spl、cms 。
+                en_us: The query type of the metric. The value can be prom, spl or cms.
+              type: string
+              constraint:
+                enum:
+                  values:
+                    - prom
+                    - spl
+                    - cms
+            needs_processing:
+              type: boolean
+              description: 
+                zh_cn: 是否需要二次处理，即该 MetricSet 中指标是否需要二次处理才能被使用。例如 Prometheus 中的 counter/summary/histogram 等指标需要二次处理才能被使用。
+                en_us: Whether the MetricSet needs to be processed again. That is, whether the metrics in the MetricSet need to be processed again to be used. For example, the counter/summary/histogram metrics in Prometheus need to be processed again to be used.
+              constraint:
+                default_value: false

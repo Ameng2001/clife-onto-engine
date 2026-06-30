@@ -76,9 +76,32 @@ services:
     networks: [nebula-net]
     restart: on-failure
 
+  # UModel 只读语义层（Web Explorer / SPL / MCP 读）——引擎之上的官方读层（详见 docs/04-umodel-interop.md）。
+  # 它是引擎之外的【第三方服务】，不 vendor 其 Go 源码进本仓库。两步前置：
+  #   1) 一次性从上游构建镜像（深度使用协议下取 alibaba/UnifiedModel）：
+  #        git clone https://github.com/alibaba/UnifiedModel && cd UnifiedModel
+  #        docker build -f deployments/docker/Dockerfile -t umodel-open-source:local .
+  #   2) 导出本体 pack 喂给它（落到 ./build/umodel/grass，已挂载为 /packs/grass）：
+  #        python scripts/export_umodel.py
+  # 装载（容器起来后，一次性 import 导出的 pack 到名为 grass 的 workspace）：
+  #        curl -s -XPOST localhost:8081/api/v1/workspaces -d '{"workspace":"grass"}'
+  #        curl -s -XPOST localhost:8081/api/v1/umodel/grass/import -d '{"path":"/packs/grass/umodel"}'
+  #        curl -s -XPOST localhost:8081/api/v1/entitystore/grass/entities:write -d @build/umodel/grass/sample-data/entities.json
+  # 浏览：宿主 http://localhost:8081 （Explorer / Query / Agent 视图）。引擎不依赖它，可随时 `docker compose stop umodel`。
+  umodel:
+    image: umodel-open-source:local   # 见上：从 alibaba/UnifiedModel 一次性构建
+    command: ["--addr", ":8080", "--data", "/data", "--graphstore", "file.memory"]
+    volumes:
+      - ./build/umodel:/packs:ro      # 导出的 model pack（python scripts/export_umodel.py 产出）
+      - umodel_data:/data             # file.memory 持久化
+    ports: ["8081:8080"]              # 宿主 8081：Explorer / REST / MCP（避开 serve 的 8080）
+    networks: [nebula-net]
+    restart: on-failure
+
 networks:
   nebula-net:
 
 volumes:
   meta0:
   storage0:
+  umodel_data:

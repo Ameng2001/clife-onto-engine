@@ -1,0 +1,61 @@
+description:
+  zh_cn: EntitySource 用于定义特定 Entity 数据的导入任务以及其源数据存储（如 SLS LogStore / MetricStore）。
+  en_us: EntitySource defines the import job for a specific entity and its source storage (e.g. SLS LogStore / MetricStore).
+name: entity_source
+versions:
+  - name: v1.0.0
+    description:
+      zh_cn: EntitySource 的核心配置部分，定义导入任务的调度方式以及源数据存储配置。
+      en_us: The specification section containing EntitySource configuration, including scheduling and source storage.
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - entity_source
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          description:
+            zh_cn: EntitySource 的核心配置部分，定义导入任务的调度方式以及源数据存储。
+            en_us: The specification section containing EntitySource configuration, including scheduling and source storage.
+          properties:
+            constructor:
+              type: map                
+              description:
+                zh_cn: 导入任务的构造/调度配置，支持灵活扩展键值对。
+                en_us: Constructor/scheduling configuration of the import job, supports flexible key-value pairs.
+              constraint:
+                required: true
+                map:
+                  key:
+                    type: string
+                  value:
+                    type: any
+            storages:
+              description:
+                zh_cn: 源数据存储配置列表，每个元素为一个 map，支持灵活扩展字段。
+                en_us: List of source storage configurations, each element is a map supporting flexible fields.
+              type: array
+              constraint:
+                required: true
+                array:
+                  item:
+                    type: map

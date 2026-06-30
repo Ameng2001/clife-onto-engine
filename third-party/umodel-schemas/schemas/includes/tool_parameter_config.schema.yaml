@@ -1,0 +1,29 @@
+description: 
+  zh_cn: 工具参数配置定义，用于定义工具输入输出的参数结构，兼容 JSON Schema 风格。
+  en_us: Tool parameter configuration definition for tool input/output parameter structures, JSON Schema compatible.
+name: tool_parameter_config
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        properties:
+          description: 
+            zh_cn: 参数属性定义，键为参数名称，值为参数定义对象。
+            en_us: Parameter property definitions, key is parameter name, value is parameter definition object.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: any
+        required:
+          description: 
+            zh_cn: 必填参数名称列表。
+            en_us: List of required parameter names.
+          type: array
+          constraint:
+            array:
+              item:
+                type: string

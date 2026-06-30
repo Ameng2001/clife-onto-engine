@@ -1,0 +1,37 @@
+description: 
+  zh_cn: LogSet 用于定义日志，日志集是具有相同属性的日志的集合。
+  en_us: LogSet is a collection of related log entries that share certain common attributes or characteristics.
+name: log_set
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - log_set
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          description: 
+            zh_cn: LogSet 的核心配置部分，定义日志数据的结构和处理方式。
+            en_us: The specification section containing LogSet configuration.
+          extends:
+            - telemetry_data:v1

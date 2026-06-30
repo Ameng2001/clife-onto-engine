@@ -1,0 +1,35 @@
+description: 
+  zh_cn: ValueMapping 用于定义值的映射关系。
+  en_us: The ValueMapping module is used to define the value mapping relationship.
+name: value_mapping
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description: 
+            zh_cn: 在 UModel 系统中的名称。值不能为空。值格式为小写字母数字字符。
+            en_us: >
+              The name of the Element in UModel System. The value cannot be empty.The value format is lowercase alphanumeric characters.
+          type: string
+          constraint:
+            pattern: '^[a-zA-Z][a-zA-Z0-9-_\.]{0,127}$'
+            required: true
+            min_len: 0
+            max_len: 127
+        display_name:
+          description: 
+            zh_cn: 在 UModel 系统中的显示名称。值不能为空。
+            en_us: The display name of the Element in UModel System. The value cannot be empty.
+          type: semantic_string
+        description:
+          description: 
+            zh_cn: 在 UModel 系统中的描述。
+            en_us: The description of the Element in UModel System.
+          type: semantic_string
+        short_description:
+          description: 
+            zh_cn: 在 UModel 系统中的简短描述。
+            en_us: The short description of the Element in UModel System.
+          type: semantic_string

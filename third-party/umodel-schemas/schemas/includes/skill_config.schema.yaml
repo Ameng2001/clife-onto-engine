@@ -1,0 +1,125 @@
+description: 
+  zh_cn: 技能配置定义，遵循 Agent Skills 规范 (https://agentskills.io/specification)，用于配置 AI Agent 可使用的技能。
+  en_us: Skill configuration definition following Agent Skills specification (https://agentskills.io/specification), for configuring skills that AI Agents can use.
+name: skill_config
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description: 
+            zh_cn: 技能名称（唯一标识），仅支持小写字母、数字和连字符，不能以连字符开头或结尾，不能包含连续连字符。
+            en_us: Skill name (unique identifier), only lowercase letters, numbers and hyphens allowed, cannot start or end with hyphen, no consecutive hyphens.
+          type: string
+          constraint:
+            required: true
+            pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+            min_len: 1
+            max_len: 64
+        display_name:
+          description: 
+            zh_cn: 技能显示名称。
+            en_us: Skill display name.
+          type: semantic_string
+          constraint:
+            required: true
+        description:
+          description: 
+            zh_cn: 技能描述，说明技能的功能和使用场景，帮助 Agent 识别何时使用该技能。
+            en_us: Skill description explaining what the skill does and when to use it, helping agents identify relevant tasks.
+          type: semantic_string
+          constraint:
+            required: true
+        license:
+          description: 
+            zh_cn: 技能的许可证信息。
+            en_us: License applied to the skill.
+          type: string
+          constraint:
+            max_len: 256
+        compatibility:
+          description: 
+            zh_cn: 技能的环境兼容性要求，如依赖的系统包、网络访问需求等。
+            en_us: Environment requirements such as required system packages, network access needs, etc.
+          type: string
+          constraint:
+            max_len: 500
+        allowed_tools:
+          description: 
+            zh_cn: 预授权工具列表，空格分隔的工具标识符。
+            en_us: Space-delimited list of pre-approved tools the skill may use.
+          type: string
+          constraint:
+            max_len: 1024
+        metadata:
+          description: 
+            zh_cn: 技能的额外元数据，如作者、版本等。
+            en_us: Additional metadata for the skill, such as author, version, etc.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string
+        tags:
+          description: 
+            zh_cn: 技能标签，用于分类和检索。
+            en_us: Skill tags for categorization and retrieval.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string
+        files:
+          description: 
+            zh_cn: 技能文件列表，包含 SKILL.md 及其他辅助文件（如 scripts/、references/、assets/ 下的文件）。
+            en_us: List of skill files including SKILL.md and other supporting files (such as files under scripts/, references/, assets/).
+          type: array
+          constraint:
+            array:
+              item:
+                type: object
+                properties:
+                  name:
+                    description:
+                      zh_cn: 文件名称，包含相对路径（如 SKILL.md、scripts/extract.py、references/REFERENCE.md）。
+                      en_us: File name including relative path (e.g., SKILL.md, scripts/extract.py, references/REFERENCE.md).
+                    type: string
+                    constraint:
+                      required: true
+                      pattern: '^[a-zA-Z0-9_][a-zA-Z0-9-_\./]*$'
+                      min_len: 1
+                      max_len: 256
+                  content:
+                    description:
+                      zh_cn: 文件内容。
+                      en_us: File content.
+                    type: string
+                    constraint:
+                      required: true
+                      max_len: 131072
+        skill_url:
+          description: 
+            zh_cn: 技能包的外部URL地址（如OSS地址），与files字段二选一。当使用URL时，技能文件从该地址加载。
+            en_us: External URL for skill package (e.g., OSS URL), mutually exclusive with files field. When using URL, skill files are loaded from this address.
+          type: string
+          constraint:
+            max_len: 512
+        priority:
+          description: 
+            zh_cn: 技能优先级，用于排序和选择。值越小优先级越高。
+            en_us: Skill priority for sorting and selection. Lower value means higher priority.
+          type: integer
+          constraint:
+            min_value: 1
+            max_value: 10
+            default_value: 5
+        last_updated:
+          description: 
+            zh_cn: 最后更新时间。
+            en_us: Last update time.
+          type: time

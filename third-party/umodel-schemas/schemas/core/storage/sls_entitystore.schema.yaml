@@ -1,0 +1,57 @@
+description: 
+  zh_cn: SLS EntityStore 存储，一般用于存储可观测实体以及关系数据。
+  en_us: SLS EntityStore storage, usually used to store observable entities and relationship data.
+name: sls_entitystore
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - sls_entitystore
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          properties:
+            region:
+              description: 
+                zh_cn: SLS EntityStore 的区域。
+                en_us: The region of the SLS EntityStore.
+              type: string
+              constraint:
+                #pattern "^[a-z0-9-]*$"
+                required: true
+            project:
+              description: 
+                zh_cn: SLS EntityStore 的项目。
+                en_us: The project of the SLS EntityStore.
+              type: string
+              constraint:
+                #pattern '^[\w-]*$'
+                required: true
+            workspace:
+              description: 
+                zh_cn: SLS EntityStore 的工作空间。
+                en_us: The workspace of the SLS EntityStore.
+              type: string
+              constraint:
+                #pattern '^[\w-]*$'
+                required: true

@@ -1,0 +1,49 @@
+description: 
+  zh_cn: StorageLink 用于定义 EntitySet/DataSet 和 Storage 之间的关系。StorageLink 必须包含源 Set 、目标 Storage。
+  en_us: StorageLink is used to define the relationship between EntitySet/DataSet and Storage. StorageLink must contain the source Set, destination Storage.
+name: storage_link
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - storage_link
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          extends:
+            - link:v1
+          constraint:
+            required: true
+          description:
+            zh_cn: StorageLink 的核心配置部分，定义 EntitySet/DataSet 和 Storage 之间的映射和关联规则。
+            en_us: The specification section containing StorageLink configuration, which defines the mapping and association rules between EntitySet/DataSet and Storage.
+          properties:
+            fields_mapping:
+              type: map
+              description: 
+                zh_cn: 用于定义简单的字段映射关系，例如 DataSet 中 Field 的名称与 Storage 中字段名称的映射关系。
+                en_us: 'Used to define simple field mapping relationships, such as the mapping relationship between the name of Field in DataSet and the name of Field in Storage.'
+              constraint:
+                map:
+                  key:
+                    type: string
+                  value:
+                    type: string

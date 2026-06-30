@@ -1,0 +1,98 @@
+description: 
+  zh_cn: 自动化配置定义，用于配置实体相关的自动化脚本和工作流。
+  en_us: Automation configuration definition for entity-related automation scripts and workflows.
+name: automation_config
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description: 
+            zh_cn: 自动化项名称，在同一个RunbookSet中必须唯一。
+            en_us: Automation item name, must be unique within the same RunbookSet.
+          type: string
+          constraint:
+            required: true
+            pattern: '^[a-zA-Z0-9_][a-zA-Z0-9-_\.]{0,127}$'
+            min_len: 1
+            max_len: 128
+        display_name:
+          description: 
+            zh_cn: 自动化项显示名称。
+            en_us: Automation item display name.
+          type: semantic_string
+          constraint:
+            required: true
+        short_description:
+          description: 
+            zh_cn: 自动化项简短描述。
+            en_us: Automation item short description.
+          type: semantic_string
+          constraint:
+            required: true
+        description:
+          description: 
+            zh_cn: 自动化项详细描述信息。
+            en_us: Automation item detailed description.
+          type: semantic_string
+        automation_type:
+          description: 
+            zh_cn: 自动化类型，如action、script、webhook等。
+            en_us: Automation type such as action, script, webhook.
+          type: string
+          constraint:
+            required: true
+        trigger:
+          description: 
+            zh_cn: 触发条件配置。
+            en_us: Trigger condition configuration.
+          type: object
+          constraint:
+            required: true
+          properties:
+            trigger_type:
+              description: 
+                zh_cn: 触发条件类型，如 scheduled（定期触发）、event（事件触发）、custom（自定义触发）等。
+                en_us: Trigger condition type such as scheduled, event, custom.
+              type: string
+              constraint:
+                required: true
+                enum:
+                  values:
+                    - scheduled
+                    - event
+                    - custom
+            properties:
+              description: 
+                zh_cn: 触发条件相关属性配置，根据type类型自由扩展。
+                en_us: Trigger condition related properties, freely extensible based on type.
+              type: map
+              constraint:
+                map:
+                  key:
+                    type: string
+                  value:
+                    type: string
+        properties:
+          description: 
+            zh_cn: 自动化项属性配置。
+            en_us: Automation item property configuration.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string
+        tags:
+          description: 
+            zh_cn: 自动化项标签。
+            en_us: Automation item tags.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string

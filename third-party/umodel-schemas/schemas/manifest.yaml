@@ -1,0 +1,33 @@
+name: UModel System definition
+description: 
+  The UModel System is a unified model system that provides a unified model for data, entity, storage and metric.
+versions:
+  - schema:
+      version: v0.1.0
+      url: umodel.aliyun.com
+    models:
+      - entity_set:v1.0.0
+      - entity_source:v1.0.0
+      - metric_set:v1.0.0
+      - log_set:v1.0.0
+      - event_set:v1.0.0
+      - trace_set:v1.0.0
+      - profile_set:v1.0.0
+      - runbook_set:v1.0.0
+      - explorer:v1.0.0
+      - sls_logstore:v1.0.0
+      - sls_metricstore:v1.0.0
+      - sls_entitystore:v1.0.0
+      - external_storage:v1.0.0
+      - aliyun_prometheus:v1.0.0
+      - elasticsearch:v1.0.0
+      - prometheus:v1.0.0
+      - victoriametrics:v1.0.0
+      - clickhouse:v1.0.0
+      - mysql:v1.0.0
+      - entity_set_link:v1.0.0
+      - entity_source_link:v1.0.0
+      - data_link:v1.0.0
+      - storage_link:v1.0.0
+      - runbook_link:v1.0.0
+      - explorer_link:v1.0.0

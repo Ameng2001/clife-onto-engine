@@ -1,0 +1,116 @@
+description: 
+  zh_cn: 知识库配置定义，用于配置实体相关的知识文档和最佳实践。
+  en_us: Knowledge base configuration definition for entity-related knowledge documents and best practices.
+name: knowledge_config
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description: 
+            zh_cn: 知识项名称，在同一个RunbookSet中必须唯一。
+            en_us: Knowledge item name, must be unique within the same RunbookSet.
+          type: string
+          constraint:
+            required: true
+            pattern: '^[a-zA-Z0-9_][a-zA-Z0-9-_\.]{0,127}$'
+            min_len: 1
+            max_len: 128
+        display_name:
+          description: 
+            zh_cn: 知识项显示名称。
+            en_us: Knowledge item display name.
+          type: semantic_string
+          constraint:
+            required: true
+        short_description:
+          description: 
+            zh_cn: 知识项简短描述。
+            en_us: Knowledge item short description.
+          type: semantic_string
+          constraint:
+            required: true
+        description:
+          description: 
+            zh_cn: 知识项详细描述信息。
+            en_us: Knowledge item detailed description.
+          type: semantic_string
+        apply_policy:
+          description: 
+            zh_cn: 知识如何应用的配置。
+            en_us: Configuration for how the knowledge is applied.
+          type: object
+          constraint:
+            required: true
+          properties:
+            apply_type:
+              description: 
+                zh_cn: 应用策略，如auto（自动）、manual（手动）、always（总是）、custom（自定义）等。
+                en_us: Apply type such as auto, manual, always, custom.
+              type: enum
+              constraint:
+                required: true
+                enum:
+                  values:
+                    - auto
+                    - manual
+                    - always
+                    - custom
+            properties:
+              description: 
+                zh_cn: 应用相关属性配置，根据 custom 类型自由扩展。
+                en_us: Apply related properties, freely extensible when type is custom.
+              type: map
+              constraint:
+                map:
+                  key:
+                    type: string
+                  value:
+                    type: string
+        content_type:
+          description: 
+            zh_cn: 内容类型，支持markdown、html、url、pdf等。UModel 内置支持的类型为 markdown。
+            en_us: Content type such as markdown, html, url, pdf. UModel built-in supported type is markdown.
+          type: string
+          constraint:
+            required: true
+        content:
+          description: 
+            zh_cn: 知识内容，根据content_type可以是文本内容或URL地址。
+            en_us: Knowledge content, can be text content or URL based on content_type.
+          type: string
+          constraint:
+            max_len: 65536
+        content_url:
+          description: 
+            zh_cn: 知识内容的外部URL地址。
+            en_us: External URL for knowledge content.
+          type: string
+          constraint:
+            max_len: 512
+        priority:
+          description: 
+            zh_cn: 知识项优先级，用于排序显示以及模型推理时选择。
+            en_us: Knowledge item priority for sorting display and model inference selection.
+          type: integer
+          constraint:
+            min_value: 1
+            max_value: 10
+            default_value: 5
+        last_updated:
+          description: 
+            zh_cn: 最后更新时间。
+            en_us: Last update time.
+          type: time
+        tags:
+          description: 
+            zh_cn: 知识项标签。
+            en_us: Knowledge item tags.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string

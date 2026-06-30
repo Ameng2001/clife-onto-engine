@@ -1,0 +1,89 @@
+description: 
+  zh_cn: 可观测数据（遥测数据、TelemetryData）的通用表示，从结构上类似于数据库的表，但针对“观测”特点，附加了时间字段。此外增加了若干字段，用于表示该数据集的特性。
+  en_us: The general representation of observable data, which is similar to the structure of a database table, but with the addition of time fields for the "observation" characteristics. Additionally, several fields are added to represent the characteristics of the data set.
+name: telemetry_data
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        fields:
+          type: array
+          description: 
+            zh_cn: 可观测数据的字段列表。
+            en_us: The fields of the TelemetryData.
+          constraint:
+            array:
+              item:
+                type_ref: "field_spec:v1"
+              min_size: 1
+        time_field:
+          type: string
+          description: 
+            zh_cn: 可观测数据的时间字段。一般要求时间字段为时间戳类型，支持秒、毫秒、微秒、纳秒。
+            en_us: The time field of the TelemetryData. It is generally required to be a timestamp type, supporting seconds, milliseconds, microseconds, and nanoseconds.
+          constraint:
+            required: false
+        display_field:
+          type: string
+          description: 
+            zh_cn: 注意：定位和 `name_fields` 有一定重叠，字段已废弃，请使用 `name_fields` 字段第一个值替代。可观测数据的显示字段。即默认展示的字段。
+            en_us: >
+              Note: This field is deprecated. Please use the `name_fields` field instead.
+              The display field of the TelemetryData. It is the default displayed field.
+          release_stage: experimental
+        name_fields:
+          type: array
+          description: 
+            zh_cn: >
+              可观测数据的显示字段。建议按照显示重要性配置先后顺序，前端、算法等在各类场景会根据特点自由选择，例如极窄/引用场景下只取name_fields的第一个值。
+              例如：服务操作实体，建议取值为 ["operation_name", "service_name"]；
+                   K8s Pod 实体，建议取值为 ["pod_name", "namespace", "cluster"]。
+            en_us: >
+              The name fields of the TelemetryData.
+              It is recommended to configure the display fields in order of importance.
+              Front-end, algorithms, etc. will freely choose according to the characteristics in various scenarios.
+              For example, for service operation entities, it is recommended to take ["operation_name", "service_name"];
+              For K8s Pod entities, it is recommended to take ["pod_name", "namespace", "cluster"].
+          constraint:
+            array:
+              item:
+                type: string
+        hidden_fields:
+          type: array
+          description: 
+            zh_cn: 可观测数据的隐藏字段。即不用作展示的字段。
+            en_us: The hidden fields of the TelemetryData.
+          constraint:
+            array:
+              item:
+                type: string
+        tag_fields:
+          type: array
+          description: 
+            zh_cn: 可观测数据的标签字段。标签字段默认聚合在一起显示和分析。
+            en_us: The tag fields of the TelemetryData. The tag fields are aggregated by default for display and analysis.
+          constraint:
+            array:
+              item:
+                type: string
+        ordered_fields:
+          type: array
+          description: 
+            zh_cn: 可观测数据的排序字段。即当前数据集的排序字段。
+            en_us: The ordered fields of the TelemetryData. It is the ordered field of the current data set.
+          constraint:
+            array:
+              item:
+                type: string
+        default_order:
+          type: enum
+          description: 
+            zh_cn: 可观测数据的默认排序。默认值为 asc。
+            en_us: The default order of the TelemetryData. The default value is asc.
+          constraint:
+            enum:
+              values:
+                - asc
+                - desc
+              default_value: asc

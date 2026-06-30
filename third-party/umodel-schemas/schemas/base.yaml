@@ -1,0 +1,365 @@
+name: schema_metadata_definition
+description:
+  zh_cn: UModel Schema元数据定义规范，用于定义基础语法、数据结构以及所有schema.yaml文件的标准格式。
+  en_us: UModel Schema metadata definition specification, used to define the basic syntax, data structure and standard format of all schema.yaml files.
+schema_spec:
+  type: object
+  description:
+    zh_cn: 每个 schema.yaml 的基础结构，用于描述 schema.yaml 文件的名称、描述和版本信息。
+    en_us: The basic structure of each schema.yaml file, used to describe the name, description and version information of the schema.yaml file.
+  properties:
+    name:
+      description:
+        zh_cn: Schema的名称，必须与manifest文件中定义的模型名称保持一致
+        en_us: The name of the schema, must be consistent with the model name defined in the manifest file
+      type: string
+      constraint:
+        required: true
+        pattern: '^[a-zA-Z][a-zA-Z0-9_]*$'
+        min_len: 1
+        max_len: 128
+    description:
+      description:
+        zh_cn: Schema的描述信息，支持多语言（语义字符串）
+        en_us: Description of the schema, supports multiple languages (semantic string)
+      type: semantic_string
+      constraint:
+        required: true
+    versions:
+      description:
+        zh_cn: Schema支持的版本列表，每个版本包含名称、描述和规格定义
+        en_us: List of supported versions for the schema, each version contains name, description and specification
+      type: array
+      constraint:
+        required: true
+        array:
+          item:
+            type: object
+            properties:
+              name:
+                description:
+                  zh_cn: 版本号，采用语义化版本格式（如v1.0.0）
+                  en_us: Version number, using semantic versioning format (e.g., v1.0.0)
+                type: string
+                constraint:
+                  required: true
+                  pattern: '^v[0-9]+\.[0-9]+\.[0-9]+$'
+              description:
+                description:
+                  zh_cn: 该版本的描述信息，支持多语言
+                  en_us: Description of this version, supports multiple languages
+                type: semantic_string
+              spec:
+                description:
+                  zh_cn: 版本的具体规格定义，包含类型和属性信息
+                  en_us: Specific specification definition of the version, including type and property information
+                type: object
+                constraint:
+                  required: true
+
+metadata_properties:
+  description:
+    zh_cn: 元数据的基础定义语法，作为组成schema.yaml文件的最基础单元。这部分逻辑需要 HardCode 实现在 UModel 系统中。
+    en_us: The basic definition syntax of metadata, as the most basic unit of the schema.yaml file. This part of the logic needs to be HardCode implemented in the UModel system.
+  properties:
+    type:
+      description:
+        zh_cn: 数据类型，通常为object
+        en_us: Data type, usually object
+      type: string
+      constraint:
+        required: true
+        enum: 
+          values:
+            - object
+            - array
+            - string
+            - number
+            - boolean
+    description:
+      description:
+        zh_cn: 数据类型的描述信息，支持多语言
+        en_us: Description of the data type, supports multiple languages
+      type: semantic_string
+    release_stage:
+      description:
+        zh_cn: 元素的发布阶段。默认值为 preview。如果为 experimental，则表示该元素处于实验阶段，尚未正式发布，会存在 Breaking Change。
+        en_us: The release stage of the Element. The default value is preview. If it is experimental, it means that the element is in the experimental stage, not yet officially released, and there will be Breaking Change.
+      type: string
+      constraint:
+        enum:
+          values:
+          - experimental
+          - preview
+          - beta
+          - ga
+          - deprecated
+        default_value: preview
+    properties:
+      description:
+        zh_cn: 对象属性定义，支持嵌套结构
+        en_us: Object property definitions, supports nested structures
+      type: object
+    extends:
+      description:
+        zh_cn: 继承的类型引用列表，用于复用已定义的基础类型。这些类型必须定义在 include 目录下。
+        en_us: List of inherited type references for reusing defined types. These types must be defined in the include directory.
+      type: array
+      constraint:
+        array:
+          item:
+            type: string
+            constraint:
+              pattern: '^[a-zA-Z_][a-zA-Z0-9_]*:v[0-9]+$'
+    constraint:
+      description:
+        zh_cn: 约束条件定义，参考 additional_types 中的 constraint_type 定义。
+        en_us: Constraint definitions, reference the constraint_type definition in additional_types.
+      type: constraint_type  
+
+additional_types:
+  description:
+    zh_cn: 额外定义的类型，用于更方便的定义schema.yaml文件
+    en_us: Additional types, used to define the schema.yaml file more conveniently
+  types:
+  - name: semantic_string
+    description:
+      zh_cn: 支持多语言的语义字符串类型，可以是简单字符串或多语言对象
+      en_us: Semantic string type that supports multiple languages, can be a simple string or multilingual object
+    type: object
+    properties:
+      zh_cn:
+        description:
+          zh_cn: 中文描述
+          en_us: Chinese description
+        type: string
+      en_us:
+        description:
+          zh_cn: 英文描述
+          en_us: English description
+        type: string
+  - name: constraint_type
+    description:
+      zh_cn: 约束条件属性定义
+      en_us: Constraint properties definitions
+    type: object
+    properties:
+      required:
+        description:
+          zh_cn: 是否为必填字段
+          en_us: Whether this field is required
+        type: boolean
+      default_value:
+        description:
+          zh_cn: 默认值，需要和 type 类型匹配。
+          en_us: Default value, needs to match the type.
+        type: any
+      pattern:
+        description:
+          zh_cn: 正则表达式模式
+          en_us: Regular expression pattern
+        type: string
+      min_len:
+        description:
+          zh_cn: 最小长度
+          en_us: Minimum length
+        type: number
+      max_len:
+        description:
+          zh_cn: 最大长度
+          en_us: Maximum length
+        type: number
+      enum:
+        description:
+          zh_cn: 枚举值列表
+          en_us: List of enumerated values
+        type: object
+        properties:
+          values:
+            type: array
+            items:
+              type: string
+          default_value:
+            type: string
+            description:
+              zh_cn: 默认值
+              en_us: Default value
+      array:
+        description:
+          zh_cn: 数组约束定义，内部的 item 可以嵌套定义 metadata_properties，也支持特殊引用规则 "type_ref"。
+          en_us: Array constraint definitions, the item can nest define metadata_properties, and also support special reference rule "type_ref".
+        type: object
+        properties:
+          item:
+            type: object
+          min_size:
+            type: number
+          max_size:
+            type: number
+      map:
+        description:
+          zh_cn: Map约束定义，内部的 key 和 value 可以嵌套定义 metadata_properties，也支持特殊引用规则 "type_ref"。
+          en_us: Map constraint definitions, the key and value can nest define metadata_properties, and also support special reference rule "type_ref".
+        type: object
+      oneOf:
+        description:
+          zh_cn: 多类型约束定义，即该字段可以有多种类型，例如支持 number 和 array[number]。其中每个元素为一个单独的类型定义。
+          en_us: Multiple type constraint definitions, that is, this field can have multiple types, such as supporting number and array[number]. Each element is a separate type definition.
+        type: array
+      advanced:
+        description:
+          zh_cn: |
+            高级约束定义，用于支持更复杂的约束条件，包括逻辑操作和字段引用。
+
+            主要功能：
+            1. 支持逻辑操作符：and, or, not, eq, ne, gt, ge, lt, le, in, nin, exists, regex
+            2. 支持字段路径引用：
+               - "$current" 表示当前字段值
+               - "$current.length" 表示当前字段长度
+               - "$parent.字段名" 表示父级对象的字段
+               - "$root.字段名" 表示根对象的字段
+               - "$sibling.字段名" 表示同级字段
+
+            使用示例：
+            # 简单逻辑约束
+            expression:
+              operator: and
+              conditions:
+                - operator: eq
+                  left: {type: field, value: "$current"}
+                  right: {type: literal, value: "active"}
+                - operator: gt
+                  left: {type: field, value: "$current.length"}
+                  right: {type: literal, value: 3}
+
+            # 字段引用示例
+            expression:
+              operator: eq
+              left: {type: field, value: "$parent.user_type"}
+              right: {type: literal, value: "admin"}
+
+            # 条件必填示例
+            expression:
+              operator: or
+              conditions:
+                - operator: ne
+                  left: {type: field, value: "$parent.user_type"}
+                  right: {type: literal, value: "enterprise"}
+                - operator: exists
+                  left: {type: field, value: "$current"}
+                  
+          en_us: |
+            Advanced constraint definitions, used to support more complex constraint conditions, including logical operations and field references.
+
+            Main features:
+            1. Supports logical operators: and, or, not, eq, ne, gt, ge, lt, le, in, nin, exists, regex
+            2. Supports field path references:
+               - "$current" represents current field value
+               - "$current.length" represents current field length
+               - "$parent.fieldName" represents parent object field
+               - "$root.fieldName" represents root object field
+               - "$sibling.fieldName" represents sibling field
+
+            Usage examples:
+            # Simple logical constraint
+            expression:
+              operator: and
+              conditions:
+                - operator: eq
+                  left: {type: field, value: "$current"}
+                  right: {type: literal, value: "active"}
+                - operator: gt
+                  left: {type: field, value: "$current.length"}
+                  right: {type: literal, value: 3}
+
+            # Field reference example
+            expression:
+              operator: eq
+              left: {type: field, value: "$parent.user_type"}
+              right: {type: literal, value: "admin"}
+
+            # Conditional required example
+            expression:
+              operator: or
+              conditions:
+                - operator: ne
+                  left: {type: field, value: "$parent.user_type"}
+                  right: {type: literal, value: "enterprise"}
+                - operator: exists
+                  left: {type: field, value: "$current"}
+                  
+        type: object
+        properties:
+          expression:
+            description:
+              zh_cn: 约束表达式，支持逻辑操作符和字段引用
+              en_us: Constraint expression, supports logical operators and field references
+            type: object
+            properties:
+              operator:
+                description:
+                  zh_cn: 逻辑操作符
+                  en_us: Logical operator
+                type: string
+                constraint:
+                  enum:
+                    values:
+                      - and
+                      - or
+                      - not
+                      - eq # 等于
+                      - ne # 不等于
+                      - gt # 大于
+                      - ge # 大于等于
+                      - lt # 小于
+                      - le # 小于等于
+                      - in # 包含于
+                      - nin # 不包含于
+                      - exists # 存在
+                      - regex # 正则匹配
+              conditions:
+                description:
+                  zh_cn: 条件列表，支持嵌套逻辑表达式
+                  en_us: List of conditions, supports nested logical expressions
+                type: array
+                constraint:
+                  array:
+                    item:
+                      type: object
+                      # 支持递归嵌套表达式或条件检查
+              left:
+                description:
+                  zh_cn: 左操作数，可以是字段引用或字面值
+                  en_us: Left operand, can be field reference or literal value
+                type: object
+                properties:
+                  type:
+                    type: string
+                    constraint:
+                      enum:
+                        values:
+                          - literal # 字面值
+                          - field # 字段引用
+                  value:
+                    description:
+                      zh_cn: 具体值或字段路径
+                      en_us: Specific value or field path
+                    type: string
+              right:
+                description:
+                  zh_cn: 右操作数，可以是字段引用或字面值
+                  en_us: Right operand, can be field reference or literal value
+                type: object
+                properties:
+                  type:
+                    type: string
+                    constraint:
+                      enum:
+                        values:
+                          - literal # 字面值
+                          - field # 字段引用
+                  value:
+                    description:
+                      zh_cn: 具体值或字段路径
+                      en_us: Specific value or field path
+                    type: string

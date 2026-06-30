@@ -1,0 +1,103 @@
+description: 
+  zh_cn: 操作能力配置定义，用于配置实体相关的可执行操作。
+  en_us: Action configuration definition for entity-related executable operations.
+name: action_config
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description: 
+            zh_cn: 操作名称，在同一个RunbookSet中必须唯一。
+            en_us: Action name, must be unique within the same RunbookSet.
+          type: string
+          constraint:
+            required: true
+            pattern: '^[a-zA-Z0-9_][a-zA-Z0-9-_\.]{0,127}$'
+            min_len: 1
+            max_len: 128
+        display_name:
+          description: 
+            zh_cn: 操作显示名称。
+            en_us: Action display name.
+          type: semantic_string
+          constraint:
+            required: true
+        short_description:
+          description: 
+            zh_cn: 操作简短描述。
+            en_us: Action short description.
+          type: semantic_string
+        description:
+          description: 
+            zh_cn: 操作详细描述信息。
+            en_us: Action detailed description.
+          type: semantic_string
+        action_type:
+          description: 
+            zh_cn: 操作类型，例如pop_api、mcp、api_call、script、webhook等。
+            en_us: Action type such as pop_api, mcp, api_call, script, webhook.
+          type: string
+          constraint:
+            required: true
+        inputs:
+          description: 
+            zh_cn: 操作参数配置列表。
+            en_us: List of action parameter configurations.
+          type: array
+          constraint:
+            array:
+              item:
+                type_ref: parameter_config:v1
+        outputs:
+          description: 
+            zh_cn: 操作输出配置列表。
+            en_us: List of action output configurations.
+          type: array
+          constraint:
+            array:
+              item:
+                type_ref: parameter_config:v1
+        confirmation_required:
+          description: 
+            zh_cn: 是否需要确认才能执行操作。
+            en_us: Whether confirmation is required before executing the action.
+          type: bool
+          constraint:
+            default_value: false
+        risk_level:
+          description: 
+            zh_cn: 操作的风险等级。
+            en_us: Risk level of the operation.
+          type: string
+          constraint:
+            enum:
+              values:
+                - low
+                - medium
+                - high
+                - critical
+            default_value: low
+        properties:
+          description: 
+            zh_cn: 详细配置信息，用于配置不同类型操作的详细信息
+            en_us: Detailed configuration information, used to configure detailed information for different types of operations.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string
+        tags:
+          description: 
+            zh_cn: 操作标签。
+            en_us: Action tags.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string

@@ -1,0 +1,97 @@
+description: 
+  zh_cn: RunbookSet 用于定义实体、数据的操作手册集合，包含分析工具、操作指南和最佳实践。
+  en_us: RunbookSet is used to define a collection of operational runbooks for entities and data, including analysis tools, operation guides and best practices.
+name: runbook_set
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      release_stage: experimental
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - runbook_set
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          description: 
+            zh_cn: RunbookSet 的核心配置部分，定义各类操作手册。
+            en_us: The specification section containing RunbookSet configuration.
+          properties:
+            observations:
+              type: array
+              description:
+                zh_cn: 观察配置列表
+                en_us: List of observation configurations
+              constraint:
+                array:
+                  item:
+                    type_ref: observation:v1
+              release_stage: experimental
+            actions:
+              type: array
+              description:
+                zh_cn: 操作能力配置列表
+                en_us: List of action configurations
+              constraint:
+                array:
+                  item:
+                    type_ref: action_config:v1
+              release_stage: deprecated
+            toolkits:
+              type: array
+              description:
+                zh_cn: 工具箱配置列表，每个工具箱包含共享配置和一组工具
+                en_us: List of toolkit configurations, each toolkit contains shared config and a set of tools
+              constraint:
+                array:
+                  item:
+                    type_ref: toolkit:v1
+              release_stage: experimental
+            knowledge:
+              type: array
+              description:
+                zh_cn: 知识库配置列表
+                en_us: List of knowledge base configurations
+              constraint:
+                array:
+                  item:
+                    type_ref: knowledge_config:v1
+              release_stage: deprecated
+            automations:
+              type: array
+              description:
+                zh_cn: 自动化配置列表
+                en_us: List of automation configurations
+              constraint:
+                array:
+                  item:
+                    type_ref: automation_config:v1
+              release_stage: experimental
+            skills:
+              type: array
+              description:
+                zh_cn: 技能配置列表，遵循 Agent Skills 规范
+                en_us: List of skill configurations following Agent Skills specification
+              constraint:
+                array:
+                  item:
+                    type_ref: skill_config:v1
+              release_stage: experimental

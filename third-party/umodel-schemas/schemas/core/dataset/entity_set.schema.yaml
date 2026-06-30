@@ -1,0 +1,85 @@
+name: entity_set
+description:
+  zh_cn: EntitySet 用于定义实体，实体集是具有相同属性的实体的集合，类似于数据库中的表、编程中的类概念。在建模场景中，可根据需要定义关心的实体，例如IT可观测场景中，需要定义主机、容器、进程、应用、Code Repo、运维人员等。
+  en_us: EntitySet is used to define the entity, which is a collection of entities that share the same properties. In the modeling scenario, entities can be defined according to needs, such as in the IT observable scenario, it is necessary to define entities such as hosts, containers, processes, applications, Code Repo, and operation and maintenance personnel.
+versions:
+  - name: v1.0.0
+    description:
+      zh_cn: EntitySet 的核心配置部分，定义实体数据的结构和生命周期管理规则。
+      en_us: The specification section containing EntitySet configuration.
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - entity_set
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          extends:
+            - telemetry_data:v1
+          constraint:
+            required: true
+          description: 
+            zh_cn: EntitySet 的核心配置部分，定义实体数据的结构和生命周期管理规则。
+            en_us: The specification section containing EntitySet configuration.
+          properties:
+            first_observed_time_field:
+              description: 
+                zh_cn: Entity 的首次被观测时间所在字段。参考：https://alidocs.dingtalk.com/i/nodes/XPwkYGxZV347LdvpHaABmZXgJAgozOKL
+                en_us: 'The field containing the first observed time of the Entity. See: https://alidocs.dingtalk.com/i/nodes/XPwkYGxZV347LdvpHaABmZXgJAgozOKL'
+              type: string
+            last_observed_time_field:
+              description: 
+                zh_cn: Entity 最近被观测时间所在字段。参考：https://alidocs.dingtalk.com/i/nodes/XPwkYGxZV347LdvpHaABmZXgJAgozOKL
+                en_us: 'The field containing the last observed time of the Entity. See: https://alidocs.dingtalk.com/i/nodes/XPwkYGxZV347LdvpHaABmZXgJAgozOKL'
+              type: string
+            primary_key_fields:
+              description: 
+                zh_cn: Entity 的主键字段。值格式为唯一标识实体的字段名称列表。
+                en_us: The primary key fields of the Entity. The value format is a list of field names that uniquely identify an entity.
+              type: array
+              constraint:
+                array:
+                  item:
+                    type: string
+            id_generator:
+              description: 
+                zh_cn: >
+                 Entity 的 ID 生成器。表示该 EntitySet 的ID如何通过PrimaryKeyFields 生成。该字段类型为 string，需要符合 SPL 的表达式语法，执行返回为 string。如果为空，则使用默认的生成方式： lower(to_hex(md5(cast(join(primaryKeys, '#$#') as varbinary)))) ，即将 PrimaryKeyFields 拼接成字符串，然后进行 MD5 计算，再转换为小写字符串。
+                en_us: >
+                The ID generator of the Entity. The ID generator is used to generate the ID of the EntitySet based on the PrimaryKeyFields. The type of the field is string, and it needs to conform to the expression syntax of SPL, and the execution returns a string. If it is empty, the default generation method is used: lower(to_hex(md5(cast(join(primaryKeys, '#$#') as varbinary)))), which is to join the PrimaryKeyFields into a string, then perform MD5 calculation, and then convert it to a lowercase string.
+              type: string
+              constraint:
+                required: false
+            keep_alive_seconds:
+              description: 
+                zh_cn: 保持活跃的持续时间，在最后观测时间加上保活秒数后，Entity 将被视为消失。默认为3600秒（1小时）。参考：https://alidocs.dingtalk.com/i/nodes/XPwkYGxZV347LdvpHaABmZXgJAgozOKL
+                en_us: >
+                  The duration to keep active is, after the last observed time plus the keep-alive seconds, the Entity 
+                  will be considered as disappeared. Default is 3600 seconds (1 hour). See: https://alidocs.dingtalk.com/i/nodes/XPwkYGxZV347LdvpHaABmZXgJAgozOKL
+              type: number
+              constraint:
+                default_value: 3600
+            dynamic:
+              description: 
+                zh_cn: 是否为动态生成，默认为false。为true时表示该实体为动态实体，会绑定 Storage，每次实体的内容由Storage 处获取，而非存储在 EntityStore 中。
+                en_us: Whether the Entity is dynamically generated, default is false. If true, the Entity is a dynamic entity, which will be bound to a Storage, and the content of the Entity will be obtained from the Storage, rather than being stored in the EntityStore.
+              type: bool
+              constraint:
+                default_value: false

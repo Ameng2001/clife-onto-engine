@@ -1,0 +1,176 @@
+description: 
+  zh_cn: EntitySetLink 用于定义两个 EntitySet 之间的关系。EntitySetLink 必须包含源 EntitySet 、目标 EntitySet 和链接类型。
+  en_us: EntitySetLink is used to define the relationship between two EntitySet. EntitySetLink must contain the source EntitySet, destination EntitySet and link type.
+name: entity_set_link
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - entity_set_link
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          extends:
+            - link:v1
+          description: 
+            zh_cn: EntitySetLink 的核心配置部分，定义 EntitySet 之间的映射和关联规则。
+            en_us: The specification section containing EntitySetLink configuration, which defines the mapping and association rules between EntitySet.
+          properties:
+            fields_mapping:
+              description: 
+                zh_cn: EntitySetLink 的目标 EntitySet 字段映射。
+                en_us: The destination EntitySet fields mapping of the EntitySetLink.
+              type: map
+              constraint:
+                map:
+                  key:
+                    description: 
+                      zh_cn: 源 EntitySet 的字段名称。
+                      en_us: The field name of the source EntitySet.
+                    type: string
+                  value:
+                    description: 
+                      zh_cn: 目标 EntitySet 的字段名称。
+                      en_us: The field name of the destination EntitySet.
+                    type: string
+            constructor:
+              type: object
+              description: 
+                zh_cn: EntitySetLink 的自动化生成配置。若配置了此字段，则后台会自动创建并维护任务，自动生成 EntitySetLink。
+                en_us: The constructor configuration for EntitySetLink. If this field is configured, the background will automatically create and maintain tasks to automatically generate EntitySetLink.
+              # properties:
+              #   schedule:
+              #     type: object
+              #     description: 
+              #       zh_cn: 任务调度配置
+              #       en_us: Task scheduling configuration
+              #     properties:
+              #       cronExpression:
+              #         type: string
+              #         description: 
+              #           zh_cn: cron 表达式
+              #           en_us: cron expression
+              #       delay:
+              #         type: integer
+              #         description: 
+              #           zh_cn: 定时类任务延迟执行（单位是秒：s）
+              #           en_us: 'Scheduled tasks delayed execution (unit is seconds: s)'
+              #       interval:
+              #         type: string
+              #         description: 
+              #           zh_cn: 固定间隔
+              #           en_us: Task interval time
+              #       runImmediately:
+              #         type: boolean
+              #         description: 
+              #           zh_cn: 定时任务是否立即执行
+              #           en_us: Whether the scheduled task should be executed immediately.
+              #       timeZone:
+              #         type: string
+              #         description: 
+              #           zh_cn: Cron 表达式所在时区
+              #           en_us: Time zone of the Cron expression
+              #       type:
+              #         type: string
+              #         description: 
+              #           zh_cn: 任务类型
+              #           en_us: schedule type
+              #   script:
+              #     type: string
+              #     description: 
+              #       zh_cn:  任务执行命令
+              #       en_us: 'Task execution command.'
+              #   fromTimeExpr:
+              #     type: string
+              #     description: 
+              #       zh_cn: 时间窗口起始时间表达式
+              #       en_us: Time window start expression.
+              #   toTimeExpr:
+              #     type: string
+              #     description: 
+              #       zh_cn: 时间窗口结束时间表达式
+              #       en_us: Time window end expression.
+            entity_link_type:
+              description: 
+                zh_cn: >
+                  EntityLinkSet 的链接类型。值不能为空。建议的取值有：
+                  - calls (调用)
+                  - runs (运行)
+                  - instance_of (实例)
+                  - parent_of (父级)
+                  - contains (包含)
+                  - balances (平衡)
+                  - can_access (可访问)
+                  - clustered_by (集群化)
+                  - manages (管理)
+                  - monitors (监控)
+                  - sends_to (发送到)
+                  - affects (影响)
+                  - related_to (关联到)
+                  - same_as (相同)
+                  - propagates_to (传播到)
+                  - indirectly_sends_to (间接发送到)
+                  - groups (分组)
+                  - consists_of (组成)
+                  - serves (服务)
+                  - hosted_by (托管于)
+                  - use (使用)
+                  - exec (执行)
+                  - access (访问)
+                  - login (登录)
+                en_us: >
+                  The type of the EntityLinkSet. The value cannot be empty. The recommended values are:
+                  - calls
+                  - runs
+                  - instance_of
+                  - parent_of
+                  - contains
+                  - balances
+                  - can_access
+                  - clustered_by
+                  - manages
+                  - monitors
+                  - sends_to
+                  - affects
+                  - related_to
+                  - same_as
+                  - propagates_to
+                  - indirectly_sends_to
+                  - groups
+                  - consists_of
+                  - serves
+                  - hosted_by
+                  - use
+                  - exec
+                  - access
+                  - login
+              type: string
+              constraint:
+                required: true
+            dynamic:
+              description: 
+                zh_cn: 是否为动态生成，默认为false。为true时表示该 EntitySetLink 为动态 Link，会绑定 Storage，每次 Link 的内容由Storage 处获取，而非存储在 EntityStore 中。
+                en_us: Whether the EntitySetLink is dynamically generated, default is false. If true, the EntitySetLink is a dynamic Link, which will be bound to a Storage, and the content of the Link will be obtained from the Storage, rather than being stored in the EntityStore.
+              type: bool
+              constraint:
+                default_value: false

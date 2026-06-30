@@ -1,0 +1,23 @@
+name: schema
+description: 
+  zh_cn: 用于定义 Schema 的版本信息。
+  en_us: The Schema module is used to define the version information of the Schema.
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        url:
+          description: 
+            zh_cn: Schema 的 URL。Core 部分都为 "umodel.aliyun.com"
+            en_us: The url of the schema. The Core part is "umodel.aliyun.com"
+          type: string
+          constraint:
+            required: true
+        version:
+          description: 
+            zh_cn: Schema 的版本。命名格式为 "v1.2.3"。
+            en_us: The version of the schema. The format is "v1.2.3".
+          type: string
+          constraint:
+            required: true

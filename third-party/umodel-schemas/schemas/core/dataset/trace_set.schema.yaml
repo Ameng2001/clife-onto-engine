@@ -1,0 +1,79 @@
+description: 
+  zh_cn: TraceSet 是具有某些共同属性或特征的相关追踪记录的集合。TraceSet 必须包含以下字段：trace_id_field、span_id_field、parent_span_id_field 和 protocol（默认值为opentelemetry）。
+  en_us: >
+    TraceSet is a collection of related trace records that share certain common attributes or characteristics. Each TraceSet must include the following fields: trace_id_field, span_id_field, parent_span_id_field, and protocol (with a default value of opentelemetry).
+name: trace_set
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - trace_set
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          description: 
+            zh_cn: TraceSet 的核心配置部分，定义追踪数据的结构和处理方式。
+            en_us: The specification section containing TraceSet configuration.
+          extends:
+            - telemetry_data:v1
+          properties:
+            attribute_fields:
+              description: 
+                zh_cn: TraceSet 的属性列表，值格式为定义追踪属性的字段规格列表。当前未使用。
+                en_us: The attributes of the TraceSet. The value format is a list of field specifications that define the trace attributes. It is currently not used.
+              type: array
+              constraint:
+                array:
+                  item:
+                    type_ref: "field_spec:v1"
+                  min_size: 1
+            trace_id_field:
+              description: 
+                zh_cn: TraceSet 的 trace_id 字段名称。
+                en_us: The field name of trace_id of the TraceSet.
+              type: string
+              constraint:
+                required: true
+                default_value: "traceId"
+            span_id_field:
+              description: 
+                zh_cn: TraceSet 的 span_id 字段名称。
+                en_us: The field name of span_id of the TraceSet.
+              type: string
+              constraint:
+                required: true
+                default_value: "spanId"
+            parent_span_id_field:
+              description: 
+                zh_cn: TraceSet 的 parent_span_id 字段名称。
+                en_us: The field name of parent_span_id of the TraceSet.
+              type: string
+              constraint:
+                default_value: "parentSpanId"
+            protocol:
+              description: 
+                zh_cn: 使用的追踪协议。指定追踪数据的格式和标准。
+                en_us: The tracing protocol used. Specifies the format and standard for trace data.
+              type: string
+              constraint:
+                default_value: "opentelemetry"

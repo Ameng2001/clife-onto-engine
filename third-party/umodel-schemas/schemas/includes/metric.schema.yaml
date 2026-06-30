@@ -1,0 +1,347 @@
+description: 
+  zh_cn: Metric 用于定义指标信息。
+  en_us: The Metric module is used to define the metric information.
+name: metric
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description: 
+            zh_cn: 指标的名称。值不能为空。
+            en_us: The name of the Metric. The value cannot be empty.
+          type: string
+          constraint:
+            required: true
+            min_len: 1
+            max_len: 127
+        display_name:
+          description: 
+            zh_cn: 指标的显示名称。
+            en_us: The display name of the Metric. The value cannot be empty.
+          type: semantic_string
+        description:
+          description: 
+            zh_cn: 指标的描述。值格式为语义字符串。
+            en_us: The description of the Metric.
+          type: semantic_string
+        short_description:
+          description: 
+            zh_cn: 指标的简短描述。值格式为语义字符串。
+            en_us: The short description of the Metric.
+          type: semantic_string
+        launch_stage:
+          description: 
+            zh_cn: 元素的发布阶段。默认值为 preview。
+            en_us: The launch stage of the Element. The default value is preview.
+          type: string
+          constraint:
+            enum:
+              values:
+              - preview
+              - beta
+              - ga
+              - deprecated
+            default_value: "preview"
+        unit:
+          description: 
+            zh_cn: > 
+              指标的单位，值格式为字符串。
+              注意：单位仅用于展示，不会进行格式转换，例如 ms 不会自动根据大小转换为 s。
+              最佳实践：首先配置 data_format ，在大部分可观测场景下，data_format 即可满足需求，unit 填写为空即可。
+                      若不满足需求，一般建议 data_format 配置通用的 KMB， 并配置 unit 为特定类型。比如温度，可以配置 data_format 为 KMB， 并配置 unit 为 °C。
+            en_us: >
+              The unit of the Metric. The value format is a string.
+              Note: The unit is only used for display and will not be converted, such as ms will not be automatically converted to s.
+              Best practice: First configure data_format, in most observable scenarios, data_format can meet the needs, and unit can be filled in as empty.
+              If it does not meet the needs, it is generally recommended to configure data_format to a common KMB, and configure unit to a specific type. For example, for temperature, you can configure data_format to KMB and configure unit to °C.
+          type: string
+        data_format:
+          description: 
+            zh_cn: >
+              指标的格式化方式，值格式为字符串。支持的格式化选项：
+              
+              数值格式化：
+              - KMB: 千、百万、十亿格式化，样例：K,Mil,Bil
+              - milli: 处理为毫秒格式，样例：1,000,000
+              
+              存储格式化：
+              - byte: 处理为字节格式，样例：B/KB/MB
+              - bit: 处理为位格式，样例：b/Kb/Mb
+              
+              速率格式化：
+              - byte_ies_sec: 每秒字节（byte per second）格式化，样例：B/s/KB/s/MB/s
+              - bit_ies_sec: 每秒位（bit per second）格式化，样例：bps/Kbps/Mbps
+              - iops: 输入输出操作每秒格式化，样例：io/s
+              - reqps: 请求每秒格式化，样例：req/s
+              
+              百分比格式化：
+              - percent: 百分比格式化，取值为1-100，样例：10%
+              - percent_decimal: 百分比格式化，取值为0-1，样例：10%
+              
+              时间格式化：
+              - localtime: 将时间戳转换为本地时间格式
+              - localtimems: 毫秒时间转换为本地时间格式
+              - localtimeus: 微秒时间转换为本地时间格式
+              - localtimens: 纳秒时间转换为本地时间格式
+              - UTC±n: 将时间戳转换为特定时区的时间
+              
+              持续时间（Duration）格式化：
+              - dtdhms: 持续时间格式化为天、小时、分、秒，样例：d hh:mm:ss
+              - dthms: 持续时间格式化为小时、分、秒，样例：hh:mm:ss
+              - d: 按天格式化时间
+              - h: 按小时格式化时间
+              - m: 按分钟格式化时间
+              - s: 按秒格式化时间
+              - ms: 按毫秒格式化时间
+              - us: 按微秒格式化时间
+              - ns: 按纳秒格式化时间
+            en_us: >
+              The formatting method for metrics, value format is string. Supported formatting options:
+              
+              Numeric formatting:
+              - KMB: Thousands, millions, billions formatting, example: K,Mil,Bil
+              - milli: Process as millisecond format, example: 1,000,000
+              
+              Storage formatting:
+              - byte: Process as byte format, example: B/KB/MB
+              - bit: Process as bit format, example: b/Kb/Mb
+              
+              Rate formatting:
+              - byte_ies_sec: Bytes per second formatting, example: B/s/KB/s/MB/s
+              - bit_ies_sec: Bits per second formatting, example: bps/Kbps/Mbps
+              - iops: Input/output operations per second formatting, example: io/s
+              - reqps: Requests per second formatting, example: req/s
+              
+              Percentage formatting:
+              - percent: Percentage formatting, value range is 1-100, example: 10%
+              - percent_decimal: Percentage formatting, value range is 0-1, example: 10%
+              
+              Time formatting:
+              - localtime: Convert timestamp to local time format
+              - localtimems: Convert millisecond time to local time format
+              - localtimeus: Convert microsecond time to local time format
+              - localtimens: Convert nanosecond time to local time format
+              - UTC±n: Convert timestamp to specific timezone time
+              
+              Duration formatting:
+              - dtdhms: Format duration as days, hours, minutes, seconds, example: d hh:mm:ss
+              - dthms: Format duration as hours, minutes, seconds, example: hh:mm:ss
+              - d: Format time by days
+              - h: Format time by hours
+              - m: Format time by minutes
+              - s: Format time by seconds
+              - ms: Format time by milliseconds
+              - us: Format time by microseconds
+              - ns: Format time by nanoseconds
+          type: string
+          constraint:
+            enum:
+              values:
+                - KMB
+                - milli
+                - byte
+                - bit
+                - byte_ies_sec
+                - bit_ies_sec
+                - iops
+                - reqps
+                - percent
+                - percent_decimal
+                - localtime
+                - localtimems
+                - localtimeus
+                - localtimens
+                - UTC-11
+                - UTC-10
+                - UTC-9
+                - UTC-8
+                - UTC-7
+                - UTC-6
+                - UTC-5
+                - UTC-4
+                - UTC-3
+                - UTC-2
+                - UTC-1
+                - UTC+0
+                - UTC+1
+                - UTC+2
+                - UTC+3
+                - UTC+4
+                - UTC+5
+                - UTC+6
+                - UTC+7
+                - UTC+8
+                - UTC+9
+                - UTC+10
+                - UTC+11
+                - UTC+12
+                - dtdhms
+                - dthms
+                - d
+                - h
+                - m
+                - s
+                - ms
+                - us
+                - ns
+            default_value: KMB
+        max_value:
+          description: 
+            zh_cn: 字段的最大值。值可以为空。仅适用于整数和浮点类型。
+            en_us: The maximum value of the field. The value can be empty. Only valid for integer and float types.
+          type: number
+        min_value:
+          description: 
+            zh_cn: 字段的最小值。值可以为空。仅适用于整数和浮点类型。
+            en_us: The minimum value of the field. The value can be empty. Only valid for integer and float types.
+          type: number
+        default_value:
+          description: 
+            zh_cn: 字段的默认值。值可以为空。
+            en_us: The default value of the field. The value can be empty.
+          type: any
+        icon:
+          description: 
+            zh_cn: 用于表示该指标的图标。
+            en_us: This field is used to represent the icon of the Metric.
+          type: string
+          release_stage: experimental
+          constraint:
+            #pattern "^http(s)?://.*$"
+        labels:
+          description: 
+            zh_cn: 用于表示该指标自身额外的标签。即在 MetricSet 的标签基础上，该指标还具有的额外标签。
+            en_us: This field is used to represent the labels of the Metric. It is the additional labels of the Metric on top of the labels in the MetricSet.
+          type: array
+          constraint:
+            array:
+              item:
+                type_ref: "field_spec:v1"
+        golden_metric:
+          type: boolean
+          constraint:
+            default_value: false
+          description: 
+            zh_cn: 是否为黄金指标。
+            en_us: Whether the metric is a golden metric.
+        generator:
+          type: string
+          description: 
+            zh_cn: >
+              指标的生成方式，如果是 PromMode，该字段为 PromQL语句，能够执行并得到一个可直接使用的 Measure 类型指标。
+              例如：rate(request_count{}[1m])，在一些场景下结合 aggregator 字段，能够计算出聚合维度的指标，例如 sum(rate(request_count{}[1m])) by (label1, label2)
+              如果是 SQL/SPLMode，该字段为 SQL/SPL语句的计算方式，能够组合并最终生成执行的语句。例如：count(1)，最终生成的SQL为 select label1, label2, count(1) as request_count from (${StorageQuery}) group by label1, label2
+            en_us: >
+              This field represents the generator of the Metric. If the mode is PromMode, this field is a PromQL statement that can be executed to get a Measure type metric directly. For example: rate(request_count{}[1m]). If the mode is SQL/SPLMode, this field is the calculation method of the SQL/SPL statement, which can be combined and finally generate the execution statement. For example: count(1), the final generated SQL is select label1, label2, count(1) as request_count from (${StorageQuery}) group by label1, label2
+        aggregator:
+          type: string
+          description: 
+            zh_cn: >
+              指标的聚合方式。如果指标本身是聚合的，且聚合方式在多种维度组合下均一致，则不需要配置次字段，其他情况需要配置。一些示例场景如下：
+              1. Prometheus指标和Metric从时间线维度相同
+                1.1 rate(cpu_usage_seconds_total{}[1m]) 即可计算出单机指标，cpu_usage_seconds_total 代表主机级别的统计值，这时需要配置 Aggregator 为 avg
+                1.2 avg(rate(cpu_core_usage_seconds_total{}[1m]))， cpu_core_usage_seconds_total 代表主机上每个CPU的统计值，主机指标本身需要聚合计算，则不需要配置 Aggregator
+              2. 基础云监控场景全是聚合指标，一定需要配置
+              3. 基于日志聚合的指标，一般不需要配置
+            en_us: >
+              The aggregation method of the metric. If the metric is already aggregated, and the aggregation method is consistent in multiple dimension combinations, this field does not need to be configured, otherwise it needs to be configured. Some examples of scenarios that need to be configured are as follows:
+              1. Prometheus metrics and Metric have the same time line dimension
+                1.1 rate(cpu_usage_seconds_total{}[1m]) can calculate the single machine metric, cpu_usage_seconds_total represents the statistical value of the host level, then Aggregator needs to be configured as avg
+                1.2 avg(rate(cpu_core_usage_seconds_total{}[1m])), cpu_core_usage_seconds_total represents the statistical value of each CPU on the host, the host metric itself needs to be aggregated, then Aggregator does not need to be configured
+              2. All metrics in the cloud monitor scenario are aggregated metrics, so this field must be configured
+              3. Based on log aggregation metrics, it is generally not required to configure
+        interval_us:
+          description: 
+            zh_cn: >
+              指标的间隔，值格式为整数或整数数组，单位为微秒。
+              - 当为单个整数时：表示固定的采集间隔
+              - 当为整数数组时：表示多个采集间隔，用于支持不同精度的数据采集
+            en_us: >
+              The interval of the metric, value format is integer or array of integers, in microseconds.
+              - When single integer: represents a fixed collection interval
+              - When array of integers: represents multiple collection intervals for supporting different precision data collection
+          constraint:
+            oneOf:
+              - type: integer
+                description:
+                  zh_cn: 单个采集间隔，单位为微秒
+                  en_us: Single collection interval in microseconds
+              - type: array
+                description:
+                  zh_cn: 多个采集间隔的数组，单位为微秒
+                  en_us: Array of collection intervals in microseconds
+                constraint:
+                  array:
+                    item:
+                      type: integer
+                    min_size: 1
+        type:
+          type: string
+          description: 
+            zh_cn: 指标的类型。对于无需二次处理的指标，该字段应固定为 gauge。
+            en_us: This field indicates the metric type. For metrics that do not need to be processed again, this field should be fixed to gauge.
+          constraint:
+              default_value: gauge
+        query_mode:
+          type: string
+          constraint:
+            enum:
+              values:
+                - range
+                - instant
+                - both
+              default_value: instant
+          description: 
+            zh_cn: 指标期望的查询模式。值必须是以下之一：range, instant, both。
+            en_us: >
+              This metric query mode. The value must be one of the following: range, instant, both.
+          release_stage: experimental
+        display_type:
+          type: string
+          description: 
+            zh_cn: 指标的显示类型。当前未使用。
+            en_us: This metric display type.
+          release_stage: experimental
+        statistics:
+          type: array
+          description: 
+            zh_cn: 生成该指标时的统计方式，即该指标有多种生成方式。当前仅在基础云监控场景下使用。
+            en_us: The statistics method when generating this metric, that is, the metric has multiple generation methods. It is currently only used in the cloud monitor service scenario.
+          constraint:
+            array:
+              item:
+                type: string
+        tags:
+          description: 
+            zh_cn: 用于表示该指标的标签。
+            en_us: This field is used to represent the tags of the Metric.
+          type: map
+          constraint:
+            map:
+              min_size: 1
+              key:
+                type: string
+                constraint:
+                  #pattern '^\W*$'
+              value:
+                type: string
+        properties:
+          description: 
+            zh_cn: 用于表示该指标的附加属性。
+            en_us: This field is used to represent the additional properties of the Metric.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+                constraint:
+                  #pattern '^\W*$'
+              value:
+                type: string
+        default_fill_policy:
+          type: string
+          description: 
+            zh_cn: 指标的默认填充策略。 值可以是 null, 0, last, next。
+            en_us: The default fill policy of the Metric. The value can be null, 0, last, next.

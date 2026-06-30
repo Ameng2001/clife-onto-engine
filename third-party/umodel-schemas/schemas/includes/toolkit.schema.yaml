@@ -1,0 +1,86 @@
+description:
+  zh_cn: 工具箱定义，承载一组工具的共享连接/执行配置，等价于 MCP Server。
+  en_us: Toolkit definition, carries shared connection/execution config for a set of tools, equivalent to MCP Server.
+name: toolkit
+versions:
+  - name: v1
+    spec:
+      type: object
+      properties:
+        name:
+          description:
+            zh_cn: 工具箱名称，在同一个 RunbookSet 内必须唯一。
+            en_us: Toolkit name, must be unique within the same RunbookSet.
+          type: string
+          constraint:
+            required: true
+            pattern: '^[a-zA-Z0-9_][a-zA-Z0-9-_\.]{0,127}$'
+            min_len: 1
+            max_len: 128
+        display_name:
+          description:
+            zh_cn: 工具箱显示名称。
+            en_us: Toolkit display name.
+          type: semantic_string
+          constraint:
+            required: true
+        short_description:
+          description:
+            zh_cn: 工具箱简短描述。
+            en_us: Toolkit short description.
+          type: semantic_string
+        description:
+          description:
+            zh_cn: 工具箱详细描述信息。
+            en_us: Toolkit detailed description.
+          type: semantic_string
+        toolkit_type:
+          description:
+            zh_cn: 工具箱类型，如 mcp、pop_api、api_call、script、webhook 等。
+            en_us: Toolkit type such as mcp, pop_api, api_call, script, webhook.
+          type: string
+          constraint:
+            required: true
+        configs:
+          description:
+            zh_cn: 运行时配置，如连接信息、认证、超时等，Toolkit 内所有 Tool 继承使用。
+            en_us: Runtime configuration such as connection, auth, timeout; inherited by all tools in this toolkit.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: any
+        properties:
+          description:
+            zh_cn: 扩展元数据，描述性属性，自由扩展的 k-v。
+            en_us: Extended metadata, descriptive properties, free-form key-value.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string
+        tags:
+          description:
+            zh_cn: 共享标签。
+            en_us: Shared tags.
+          type: map
+          constraint:
+            map:
+              key:
+                type: string
+              value:
+                type: string
+        tools:
+          description:
+            zh_cn: 工具列表。
+            en_us: List of tools.
+          type: array
+          constraint:
+            required: true
+            array:
+              item:
+                type_ref: tool:v1

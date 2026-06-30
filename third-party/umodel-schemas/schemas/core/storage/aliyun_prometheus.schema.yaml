@@ -1,0 +1,62 @@
+description: 
+  zh_cn: 阿里云 Prometheus 实例的定义，用于描述阿里云 Prometheus 实例的配置和连接信息。
+  en_us: The aliyun_prometheus is used to define the aliyun prometheus instance.
+name: aliyun_prometheus
+versions:
+  - name: v1.0.0
+    spec:
+      type: object
+      properties:
+        kind:
+          type: string
+          constraint:
+            required: true
+            enum:
+              values:
+                - aliyun_prometheus
+        schema:
+          type: object
+          extends:
+            - schema:v1
+          constraint:
+            required: true
+        metadata:
+          type: object
+          extends:
+            - metadata:v1
+          constraint:
+            required: true
+        spec:
+          type: object
+          constraint:
+            required: true
+          description: 
+            zh_cn: 阿里云 Prometheus 的核心配置部分，定义监控实例的连接和采集参数。
+            en_us: The specification section containing Aliyun Prometheus configuration.
+          properties:
+            region:
+              description: 
+                zh_cn: 阿里云 Prometheus 实例所属区域。
+                en_us: The region of the Aliyun Prometheus instance.
+              type: string
+              constraint:
+                #pattern "^[a-z0-9-]*$"
+                required: true
+            instance_id:
+              description: 
+                zh_cn: 阿里云 Prometheus 的实例ID。
+                en_us: The instance ID of Aliyun Prometheus.
+              type: string
+              constraint:
+                #pattern '^[\w-]*$'
+                required: true
+            sls_project:
+              description: 
+                zh_cn: 阿里云 Prometheus 数据存储所在的 SLS 项目名称。
+                en_us: The SLS project name where the Aliyun Prometheus data is stored.
+              type: string
+            sls_metricstore:
+              description: 
+                zh_cn: 阿里云 Prometheus 数据存储所在的 SLS 时序库名称。
+                en_us: The SLS metricstore name where the Aliyun Prometheus data is stored.
+              type: string
