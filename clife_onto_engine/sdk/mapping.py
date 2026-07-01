@@ -72,6 +72,22 @@ class SeriesSpec:
 
 
 @dataclass(frozen=True)
+class KnowledgeItem:
+    """附着到业务对象的一条知识（读侧，供 Agent 推理；与强制 Rule / 派生 Function 并存）。
+
+    kind 标准化（吸收 UModel 模板化）：
+      template（分析模板）· diagnostic（诊断经验/规则）· playbook（处置手册/runbook）· reference（领域参考/名录）。
+    知识挂在对象类型上、和对象一次取到（吸收 Palantir 统一图）。行业无关：内核只持有结构，内容由插件填。
+    """
+    name: str
+    object_type: str
+    namespace: str
+    kind: str                          # template | diagnostic | playbook | reference
+    content: str
+    refs: tuple[str, ...] = ()         # 出处/引用（标准/案例/文档）
+
+
+@dataclass(frozen=True)
 class TelemetryBinding:
     """对象 → 可观测后端的遥测绑定（与 ObjectMapping 同层；引擎只据此产查询计划，不执行）。
 
@@ -89,6 +105,8 @@ class MappingRegistry:
         self.objects: dict[tuple[str, str], ObjectMapping] = {}
         self.links: dict[tuple[str, str], LinkMapping] = {}
         self.telemetry: dict[tuple[str, str], TelemetryBinding] = {}
+        # 对象 → 附着知识项列表（读侧参考/诊断知识；Palantir 式挂对象、UModel 式标准化类型）
+        self.knowledge: dict[tuple[str, str], tuple] = {}
 
     def add_object(self, m: ObjectMapping) -> None:
         key = (m.namespace, m.object_type)
@@ -117,6 +135,13 @@ class MappingRegistry:
     def get_telemetry(self, namespace: str, object_type: str) -> Optional[TelemetryBinding]:
         return self.telemetry.get((namespace, object_type))
 
+    def add_knowledge(self, item: KnowledgeItem) -> None:
+        key = (item.namespace, item.object_type)
+        self.knowledge[key] = self.knowledge.get(key, ()) + (item,)
+
+    def get_knowledge(self, namespace: str, object_type: str) -> tuple:
+        return self.knowledge.get((namespace, object_type), ())
+
     # ---- YAML 加载（声明即文档；配置即 PR）----
     def load_yaml(self, namespace: str, path: str | Path) -> None:
         doc = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
@@ -126,6 +151,9 @@ class MappingRegistry:
             self.add_link(_parse_link(namespace, raw))
         for raw in doc.get("telemetry", []):
             self.add_telemetry(_parse_telemetry(namespace, raw))
+        for raw in doc.get("knowledge", []):
+            for item in _parse_knowledge(namespace, raw):
+                self.add_knowledge(item)
 
 
 def _parse_object(namespace: str, raw: dict) -> ObjectMapping:
@@ -152,6 +180,17 @@ def _parse_link(namespace: str, raw: dict) -> LinkMapping:
         from_key=raw["from_key"], to_key=raw["to_key"],
         via_table=raw.get("via_table"), store=raw.get("store"),
     )
+
+
+def _parse_knowledge(namespace: str, raw: dict) -> list:
+    """一个对象的 knowledge 段 → 若干 KnowledgeItem。"""
+    ot = raw["object"]
+    return [
+        KnowledgeItem(name=i["name"], object_type=ot, namespace=namespace,
+                      kind=i.get("kind", "reference"), content=i["content"],
+                      refs=tuple(i.get("refs", [])))
+        for i in raw.get("items", [])
+    ]
 
 
 def _parse_telemetry(namespace: str, raw: dict) -> TelemetryBinding:
