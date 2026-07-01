@@ -18,12 +18,13 @@ from ..sdk.errors import ResolutionError
 from .llm import LLMClient
 from .manifest import build_manifest, render_manifest
 
-_SYSTEM = """你是一个本体意图编译器。用户的话要么是"做一件事"(动作)，要么是"查一个东西"(查询)。
+_SYSTEM = """你是一个本体意图编译器。用户的话可能是"做一件事"(动作)、"查一个东西"(查询)、"求个判断/建议"(咨询)或信息不足(澄清)。
 只能用下面"能力清单"里声明的动作/对象/关系/字段，禁止编造清单外的名字。
 只输出一个 JSON 对象，字段：
-  - kind: "action"(执行动作) | "query"(查询数据) | "clarify"(信息不足/超范围)
+  - kind: "action"(执行动作) | "query"(查询数据) | "advise"(领域建议/判断) | "clarify"(信息不足/超范围)
   - action / params: kind=action 时，所选动作名 + 参数（键只用该动作声明的参数名）
   - oql: kind=query 时，一个结构化查询对象（见下）
+  - answer: kind=advise 时，一段基于"相关记忆/上下文"里知识的领域建议（只读，不改任何状态；不要编造知识里没有的事实）
   - question: kind=clarify 时向用户追问的一句话
   - confidence: 数字 0~1
 OQL 查询结构(oql)：
@@ -35,7 +36,8 @@ OQL 查询结构(oql)：
 规则：
 1. "出方案/评级/制定/派单"等执行类 → kind=action，给出 action 与 params。
 2. "有哪些/查/列出/统计/多少/哪些适配"等读取类 → kind=query，给出 oql。
-3. 信息不足（缺必填参数或意图不清）或超出清单能力 → kind=clarify。
+3. "该怎么做/先做什么/…行不行/为什么/是否合适"等**判断或求建议**类 → kind=advise，answer 基于"相关记忆/上下文"的知识给领域建议（只读、不写库、不越权；用户若要真执行，仍须发起对应动作）。
+4. 信息不足（缺必填参数或意图不清）或超出清单能力 → kind=clarify。
 不要输出 JSON 以外的任何内容。
 能力清单：
 {manifest}"""
@@ -43,12 +45,13 @@ OQL 查询结构(oql)：
 
 @dataclass
 class CompiledIntent:
-    kind: str                       # action | query | clarify | reject
+    kind: str                       # action | query | advise | clarify | reject
     action: Optional[str] = None
     params: dict = field(default_factory=dict)
     oql: Optional[OQLQuery] = None  # kind=query 时的已校验 OQL
     confidence: float = 0.0
     question: str = ""
+    answer: str = ""                # kind=advise 时的只读领域建议
     error: str = ""
     raw: dict = field(default_factory=dict)
 
@@ -100,6 +103,9 @@ class IntentCompiler:
         conf = float(raw.get("confidence", 0.0) or 0.0)
         if kind == "clarify":
             return CompiledIntent("clarify", confidence=conf, question=raw.get("question", ""), raw=raw)
+        if kind == "advise":
+            # 咨询：只读领域建议（基于知识）。不进 Action 引擎、不写库。
+            return CompiledIntent("advise", confidence=conf, answer=raw.get("answer", ""), raw=raw)
         if kind == "query":
             # NL→OQL：解析 + schema 校验（防注入、落地）。校验失败即拒。
             try:
