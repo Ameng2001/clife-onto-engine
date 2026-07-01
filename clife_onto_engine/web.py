@@ -41,6 +41,8 @@ def reply_to_json(r: Reply) -> dict:
         out["violations"] = [
             {"rule": v.rule, "message": v.message, "suggestion": v.suggestion} for v in r.violations
         ]
+    elif r.kind == "telemetry":
+        out["plan"] = r.plan               # {provider, kind, plan, resolved_labels, cost}
     elif r.kind == "advise":
         out["answer"] = r.answer
     elif r.kind == "clarify":
