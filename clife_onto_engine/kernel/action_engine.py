@@ -38,6 +38,7 @@ class ActionEngine:
         store: Optional[GraphStore] = None,
         audit: Optional[AuditStore] = None,
         journal: Optional[CommitJournal] = None,
+        authz=None,
     ) -> None:
         self.registry = registry
         # 用 is None 判断，不用 `or`：审计/journal 实现了 __len__，空时为"假值"，
@@ -45,6 +46,15 @@ class ActionEngine:
         self.store = store if store is not None else InMemoryStore()
         self.audit = audit if audit is not None else AuditStore()
         self.journal = journal if journal is not None else CommitJournal()
+        self.authz = authz  # None → 授权门不启用（向后兼容）；注入 AuthzPolicy 则前置强制
+
+    def _authz_violation(self, ontology_id: str, action_name: str, actor: Actor):
+        """授权门：无权则返回一条 hard Violation，否则 None。"""
+        if self.authz is None or self.authz.allows(ontology_id, action_name, actor.role):
+            return None
+        return Violation(rule="authz", severity=Severity.HARD.value, backing="declarative",
+                         message=f"角色 {actor.role} 无权执行 {action_name}",
+                         suggestion="需由授权策略授予该动作")
 
     # 公开入口 ------------------------------------------------------------
     def execute(
@@ -59,6 +69,16 @@ class ActionEngine:
     ):
         spec = self.registry.get_action(ontology_id, action_name)
         ctx, cap, overlay = self._new_ctx(spec, params, actor)
+
+        # 0. 授权门：guard 之前先判"谁能做"，无权即在任何执行/暂存前拒绝并审计
+        authz_v = self._authz_violation(ontology_id, action_name, actor)
+        if authz_v is not None:
+            self._audit(spec, ctx, (authz_v,), "unauthorized", schema_version, ts)
+            return StructuredRejection(
+                ontology_id=ontology_id, action=action_name, phase="authz",
+                violations=(authz_v,), state_snapshot=self._snapshot(ctx),
+                diagnosis="调用者角色无权执行该动作",
+            )
 
         # 1. guard（declarative，写入前）
         guard_violations = self._eval_rules(spec.guards, cap, ontology_id)
@@ -131,6 +151,12 @@ class ActionEngine:
         if not spec.validate_supported:
             raise ValueError(f"Action {ontology_id}.{action_name} 不支持 validate 预演")
         ctx, cap, overlay = self._new_ctx(spec, params, actor)
+        # 授权门也在预演里生效（dry-run/replay/CQ 若注入 authz 则一致）
+        authz_v = self._authz_violation(ontology_id, action_name, actor)
+        if authz_v is not None:
+            return ActionPreview(ontology_id=ontology_id, action=action_name,
+                                 would_commit=False, staged=(), violations=(authz_v,),
+                                 confidence=ctx.confidence)
         violations = list(self._eval_rules(spec.guards, cap, ontology_id))
         if spec.impl is not None:
             spec.impl(cap)
