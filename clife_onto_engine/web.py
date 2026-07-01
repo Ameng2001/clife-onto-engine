@@ -33,6 +33,10 @@ def reply_to_json(r: Reply) -> dict:
             }
     elif r.kind == "committed":
         out["written"] = [list(w) for w in r.written]
+    elif r.kind == "pending_hil":
+        out["written"] = [list(w) for w in r.written]   # 数据已暂存
+        out["reviewer"] = r.reviewer                     # 待此角色复核；副作用挂起
+        out["pending_review"] = True
     elif r.kind == "rejected":
         out["violations"] = [
             {"rule": v.rule, "message": v.message, "suggestion": v.suggestion} for v in r.violations

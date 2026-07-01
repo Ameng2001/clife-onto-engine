@@ -5,8 +5,8 @@
   · 真 Qwen（有 llm.local.json）：口语过真 LLM，逐条报「LLM 编对没、结果对不对」→ 意图编译跨面准确率。
 
 覆盖：grass + chili 两插件的 4 个动作各（提交+拒绝）、多种读（简单/多跳/聚合）、advise、clarify。
-（说明：遥测 plan / Explorer 是独立端点，由各自测试覆盖，不在口语回路语料内；HIL 待审当前不在
-ask 回路单独 surface，见 docs——故本语料聚焦意图→执行的读写面。）
+（说明：遥测 plan / Explorer 是独立端点，由各自测试覆盖，不在口语回路语料内；HIL 待审已在
+ask 回路 surface 为 pending_hil（见 tests/test_hil_surface.py）——本语料聚焦意图→执行的读写面。）
 """
 from __future__ import annotations
 
