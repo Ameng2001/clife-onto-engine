@@ -52,6 +52,13 @@ def test_health_and_ontologies(client):
     assert "grass" in client.get("/ontologies").json()["ontologies"]
 
 
+def test_root_landing_and_favicon(client):
+    r = client.get("/")
+    assert r.status_code == 200 and "数智本体引擎" in r.text
+    assert "/docs" in r.text and "/explorer/grass" in r.text   # 端点索引 + 本体直达
+    assert client.get("/favicon.ico").status_code == 204        # 消 404 噪声（公开，不需认证）
+
+
 def test_manifest(client):
     m = client.get("/manifest/grass").json()
     assert m["ontology_id"] == "grass"
