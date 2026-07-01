@@ -14,6 +14,8 @@
 
 ## 自有语义 OS 全景（对标 Palantir 本体语义 OS）
 
+![架构总览](docs/assets/architecture-overview.png)
+
 语义面**全自有**：读、写、展示都在引擎内，不依赖外部脊椎。
 
 | 能力 | 是什么 | 落点 |

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 880" font-family="PingFang SC, Hiragino Sans GB, Hiragino Kaku Gothic ProN, Microsoft YaHei, sans-serif">
+<defs>
+<marker id="ab" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#2563eb"/></marker>
+<marker id="ar" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#dc2626"/></marker>
+<marker id="ag" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#94a3b8"/></marker>
+<marker id="am" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#d97706"/></marker>
+<filter id="sh" x="-4%" y="-4%" width="108%" height="112%"><feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+</defs>
+<rect width="1240" height="880" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#0f172a">clife-onto-engine · 自有本体语义 OS（运行时端）</text>
+<text x="40" y="70" font-size="13" fill="#64748b">读 · 写 · 展示 · Agent 面 全在引擎内自有；上游建模端编译插件，侧边生态互操作（均可关/另仓）</text>
+<rect x="40" y="90" width="860" height="86" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="56" y="112" font-size="14" font-weight="700" fill="#1e3a8a" text-anchor="start">交互层 · Agent 面</text>
+<text x="884" y="112" font-size="12" font-weight="600" fill="#3b82f6" text-anchor="end">agent 可达</text>
+<rect x="56" y="122" width="266" height="44" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="70" y="142" font-size="13" font-weight="600" fill="#0f172a" text-anchor="start">MCP 桥</text>
+<text x="70" y="159" font-size="10.5" font-weight="400" fill="#64748b" text-anchor="start">query·plan 读默认开 / act 写 opt-in</text>
+<rect x="338" y="122" width="266" height="44" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="352" y="142" font-size="13" font-weight="600" fill="#0f172a" text-anchor="start">HTTP</text>
+<text x="352" y="159" font-size="10.5" font-weight="400" fill="#64748b" text-anchor="start">/ask · /plan · /explorer</text>
+<rect x="620" y="122" width="264" height="44" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="634" y="142" font-size="13" font-weight="600" fill="#0f172a" text-anchor="start">CLI REPL</text>
+<text x="634" y="159" font-size="10.5" font-weight="400" fill="#64748b" text-anchor="start">一句口语：做/查/澄清</text>
+<rect x="40" y="196" width="860" height="214" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="56" y="220" font-size="15" font-weight="700" fill="#0f172a" text-anchor="start">自有语义面</text>
+<text x="180" y="220" font-size="12" font-weight="600" fill="#059669" text-anchor="start">· 全自有（不外包语义核心）</text>
+<rect x="56" y="236" width="200" height="158" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.2" filter="url(#sh)"/>
+<text x="70" y="262" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">语义读 · OQL</text>
+<text x="70" y="284" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">JSON-AST 查对象图</text>
+<text x="70" y="300" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">关系 / 派生量</text>
+<text x="70" y="316" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">防注入 · 编译 nGQL</text>
+<text x="70" y="382" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">query/oql.py</text>
+<rect x="268" y="236" width="200" height="158" rx="10" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1.2" filter="url(#sh)"/>
+<text x="282" y="262" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">遥测读 · query-plan</text>
+<text x="282" y="284" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">对象绑定可观测后端</text>
+<text x="282" y="300" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">生成 PromQL/ES DSL</text>
+<text x="282" y="316" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">id 代入·防注入·多方言</text>
+<text x="282" y="332" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">只产计划不当 TSDB</text>
+<text x="282" y="382" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">query/telemetry.py</text>
+<rect x="480" y="236" width="200" height="158" rx="10" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.2" filter="url(#sh)"/>
+<text x="494" y="262" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">治理写 · Action 引擎</text>
+<text x="494" y="284" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">guard → 写后规则</text>
+<text x="494" y="300" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">→ 确定性回滚</text>
+<text x="494" y="316" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">→ 审计快照 · HIL</text>
+<text x="494" y="382" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">kernel/action_engine.py</text>
+<rect x="692" y="236" width="200" height="158" rx="10" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.2" filter="url(#sh)"/>
+<text x="706" y="262" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">信任基础设施</text>
+<text x="706" y="284" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">审计快照（存快照）</text>
+<text x="706" y="300" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">置信度总线 → HIL</text>
+<text x="706" y="316" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">（贯穿读写）</text>
+<text x="706" y="382" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">trust/</text>
+<rect x="40" y="430" width="860" height="64" rx="12" fill="#cffafe" stroke="#67e8f9" stroke-width="1.2"/>
+<text x="56" y="457" font-size="14" font-weight="700" fill="#0e7490" text-anchor="start">自有展示 · 对象图 Explorer</text>
+<text x="56" y="478" font-size="11" font-weight="400" fill="#155e75" text-anchor="start">离线单文件 + 活端点 /explorer · 点对象看结构 + 遥测序列 + 就地取计划（语义读与遥测读在 UI 合体）</text>
+<text x="884" y="457" font-size="11" font-weight="600" fill="#0891b2" text-anchor="end">explorer.py</text>
+<rect x="40" y="514" width="860" height="60" rx="12" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="56" y="539" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">GraphStore SPI</text>
+<text x="56" y="559" font-size="11" font-weight="400" fill="#475569" text-anchor="start">NebulaGraph（一 ontology 一 space · 多租户硬隔离） / InMemory 后端 · overlay 写即可见</text>
+<rect x="40" y="594" width="860" height="66" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="56" y="618" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">元模型五要素</text>
+<text x="190" y="618" font-size="12" font-weight="400" fill="#475569" text-anchor="start">Object · Link · Function · Rule · Action</text>
+<text x="56" y="642" font-size="11" font-weight="400" fill="#475569" text-anchor="start">Plugin SPI：grass 草业 / chili 辣椒（换行业零改内核）  +  Tenant 租户配置</text>
+<rect x="920" y="196" width="280" height="196" rx="12" fill="#f9fafb" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="920" y="196" width="280" height="196" rx="12" fill="none" stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="6,4"/>
+<text x="936" y="218" font-size="13.5" font-weight="700" fill="#475569" text-anchor="start">生态互操作</text>
+<text x="1186" y="218" font-size="11" font-weight="600" fill="#94a3b8" text-anchor="end">可关</text>
+<text x="936" y="238" font-size="10.5" font-weight="400" fill="#64748b" text-anchor="start">导出 / import-export，非脊椎</text>
+<rect x="936" y="248" width="248" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="948" y="267" font-size="11.5" font-weight="600" fill="#334155" text-anchor="start">OKF 知识包</text>
+<text x="948" y="284" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">规则出处·版本 · 离线知识图谱</text>
+<rect x="936" y="302" width="248" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="948" y="321" font-size="11.5" font-weight="600" fill="#334155" text-anchor="start">外部 pack + 写桥</text>
+<text x="948" y="338" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">对象图导出 · act 反映已提交</text>
+<text x="936" y="372" font-size="10" font-weight="400" fill="#94a3b8" text-anchor="start">读/写/展示均已自有</text>
+<rect x="920" y="430" width="280" height="230" rx="12" fill="#fffbeb" stroke="#fde68a" stroke-width="1.2"/>
+<rect x="920" y="430" width="280" height="230" rx="12" fill="none" stroke="#f59e0b" stroke-width="1.3" stroke-dasharray="6,4"/>
+<text x="936" y="452" font-size="13.5" font-weight="700" fill="#92400e" text-anchor="start">建模端 · astra-studio</text>
+<text x="1186" y="452" font-size="10.5" font-weight="600" fill="#b45309" text-anchor="end">上游·另仓</text>
+<text x="936" y="470" font-size="10" font-weight="400" fill="#a16207" text-anchor="start">studio-ontology（FDE 建模上游）</text>
+<rect x="936" y="478" width="248" height="44" rx="8" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+<text x="948" y="497" font-size="11.3" font-weight="700" fill="#78350f" text-anchor="start">① 业务分析（DDD）</text>
+<text x="948" y="513" font-size="9.7" font-weight="400" fill="#92400e" text-anchor="start">事件风暴·限界上下文·行为矩阵 / Intake spec</text>
+<line x1="1060" y1="522" x2="1060" y2="530" stroke="#d97706" stroke-width="1.4" marker-end="url(#am)"/>
+<rect x="936" y="532" width="248" height="30" rx="8" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+<text x="948" y="551" font-size="11.3" font-weight="700" fill="#78350f" text-anchor="start">② 五要素 IR</text>
+<text x="948" y="567" font-size="9.7" font-weight="400" fill="#92400e" text-anchor="start">Object·Link·Function·Rule·Action</text>
+<line x1="1060" y1="562" x2="1060" y2="570" stroke="#d97706" stroke-width="1.4" marker-end="url(#am)"/>
+<rect x="936" y="572" width="248" height="44" rx="8" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+<text x="948" y="591" font-size="11.3" font-weight="700" fill="#78350f" text-anchor="start">③ 编译插件骨架</text>
+<text x="948" y="607" font-size="9.7" font-weight="400" fill="#92400e" text-anchor="start">declarative 规则自动 · function/Action 留 TODO(FDE)</text>
+<text x="936" y="636" font-size="9.7" font-weight="400" fill="#a16207" text-anchor="start">产物与手写 plugins/grass 五要素同构</text>
+<line x1="470" y1="176" x2="470" y2="194" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<line x1="470" y1="410" x2="470" y2="428" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<line x1="470" y1="494" x2="470" y2="512" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<path d="M580,394 L580,500 L740,500 L740,512" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="528" y="503" width="150" height="16" fill="#ffffff" opacity="0.95"/>
+<text x="534" y="515" font-size="10" font-weight="600" fill="#dc2626" text-anchor="start">guard→回滚→审计</text>
+<line x1="920" y1="621" x2="900" y2="621" stroke="#d97706" stroke-width="1.7" stroke-dasharray="6,4" marker-end="url(#am)"/>
+<text x="898" y="586" font-size="10" font-weight="600" fill="#b45309" text-anchor="end">编译插件 ▸</text>
+<line x1="900" y1="290" x2="920" y2="290" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
+<line x1="920" y1="320" x2="900" y2="320" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
+<text x="898" y="281" font-size="10" font-weight="600" fill="#64748b" text-anchor="end">导出 ▸</text>
+<text x="898" y="333" font-size="10" font-weight="600" fill="#64748b" text-anchor="end">◂ 反映</text>
+<rect x="40" y="690" width="860" height="42" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.2"/>
+<line x1="56" y1="711" x2="92" y2="711" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<text x="100" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">调用 / 读</text>
+<line x1="200" y1="711" x2="236" y2="711" stroke="#dc2626" stroke-width="2" marker-end="url(#ar)"/>
+<text x="244" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">治理写（本体兜底）</text>
+<line x1="400" y1="711" x2="436" y2="711" stroke="#d97706" stroke-width="1.7" stroke-dasharray="6,4" marker-end="url(#am)"/>
+<text x="444" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">建模端编译插件（上游）</text>
+<line x1="640" y1="711" x2="676" y2="711" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
+<text x="684" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">互操作 / 支撑（可关）</text>
+<text x="40" y="752" font-size="12" font-weight="600" fill="#0f172a" text-anchor="start">确定性边界置于模型之外：合法但违规的动作在写后规则校验阶段被确定性回滚并留审计。</text>
+</svg>
