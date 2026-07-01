@@ -45,7 +45,7 @@ def reply_to_json(r: Reply) -> dict:
 
 
 def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = "",
-               tenant_policy=None):
+               tenant_policy=None, identity_resolver=None):
     """ontologies: {name: {"store": GraphStore, "actor": Actor}}；make_compiler: () -> IntentCompiler。
 
     store 由调用方建好（InMemory 或 NebulaGraph，已 seed/bootstrap）—— web 层与后端解耦。
@@ -53,7 +53,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
     tenant_policy: TenantAccessPolicy（可选）—— 设了则各本体端点强制"租户→本体"边界（跨租户 403）；
                    None 时不启用（向后兼容）。
     """
-    from fastapi import FastAPI, HTTPException
+    from fastapi import FastAPI, Header, HTTPException
     from fastapi.responses import HTMLResponse
     from pydantic import BaseModel
 
@@ -80,14 +80,25 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
             raise HTTPException(status_code=403,
                                 detail=f"租户 '{tenant}' 无权访问本体 '{ont}'")
 
-    def _session(ont: str, sid: str) -> Session:
+    def _resolve(x_api_key: str, claimed_tenant: str):
+        """认证优先：设了 identity_resolver 则凭据必须解析出 Principal（否则 401），
+        用 Principal.tenant/actor；未设则用声明 tenant + 后端默认 actor（向后兼容）。"""
+        if identity_resolver is not None:
+            p = identity_resolver.resolve(x_api_key or "")
+            if p is None:
+                raise HTTPException(status_code=401, detail="凭据无效或缺失")
+            return p.tenant, p.actor
+        return claimed_tenant, None
+
+    def _session(ont: str, sid: str, actor=None) -> Session:
         if ont not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {ont}")
-        key = (ont, sid)
-        if key not in sessions:  # 每 (本体,会话) 独立记忆，共享本体 store/engine
-            b = backends[ont]
+        b = backends[ont]
+        act = actor if actor is not None else b["actor"]
+        key = (ont, sid, act.id)              # 认证身份不同 → 独立会话记忆
+        if key not in sessions:  # 每 (本体,会话,身份) 独立记忆，共享本体 store/engine
             sessions[key] = Session(ontology_id=ont, registry=spi.registry, store=b["store"],
-                                    compiler=_compiler(), actor=b["actor"], session_id=sid,
+                                    compiler=_compiler(), actor=act, session_id=sid,
                                     engine=b["engine"], schema_version=f"{ont}@0.1.0")
         return sessions[key]
 
@@ -114,15 +125,17 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
         return {"ontologies": list(backends)}
 
     @app.get("/manifest/{ontology}")
-    def manifest(ontology: str, tenant: str = ""):
-        _check_tenant(ontology, tenant)
+    def manifest(ontology: str, tenant: str = "", x_api_key: str = Header(default="")):
+        eff_tenant, _ = _resolve(x_api_key, tenant)
+        _check_tenant(ontology, eff_tenant)
         if ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {ontology}")
         return build_manifest(spi.registry, ontology)
 
     @app.get("/audit/{ontology}")
-    def audit(ontology: str, limit: int = 10, tenant: str = ""):
-        _check_tenant(ontology, tenant)
+    def audit(ontology: str, limit: int = 10, tenant: str = "", x_api_key: str = Header(default="")):
+        eff_tenant, _ = _resolve(x_api_key, tenant)
+        _check_tenant(ontology, eff_tenant)
         if ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {ontology}")
         snaps = backends[ontology]["engine"].audit.query(ontology)[-limit:]
@@ -130,25 +143,28 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
                            "confidence": s.confidence, "evidence": list(s.evidence)} for s in snaps]}
 
     @app.post("/ask")
-    def ask(body: AskBody):
-        _check_tenant(body.ontology, body.tenant)
-        return reply_to_json(_session(body.ontology, body.session_id).ask(body.utterance))
+    def ask(body: AskBody, x_api_key: str = Header(default="")):
+        eff_tenant, actor = _resolve(x_api_key, body.tenant)
+        _check_tenant(body.ontology, eff_tenant)
+        return reply_to_json(_session(body.ontology, body.session_id, actor).ask(body.utterance))
 
     @app.get("/explorer/{ontology}", response_class=HTMLResponse)
-    def explorer(ontology: str, tenant: str = ""):
+    def explorer(ontology: str, tenant: str = "", x_api_key: str = Header(default="")):
         # 自有对象图 Explorer：从活 store 现场渲染，浏览实时治理状态（不需 UModel）。
         from .explorer import render
-        _check_tenant(ontology, tenant)
+        eff_tenant, _ = _resolve(x_api_key, tenant)
+        _check_tenant(ontology, eff_tenant)
         if ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {ontology}")
         return render(spi.registry, backends[ontology]["store"], ontology,
                      cytoscape_js=explorer_js)
 
     @app.post("/plan")
-    def plan(body: PlanBody):
+    def plan(body: PlanBody, x_api_key: str = Header(default="")):
         # 遥测查询计划：引擎据对象绑定产计划（PromQL/ES/SQL，id 已代入），不执行。
         from .query.telemetry import build_plan
-        _check_tenant(body.ontology, body.tenant)
+        eff_tenant, _ = _resolve(x_api_key, body.tenant)
+        _check_tenant(body.ontology, eff_tenant)
         if body.ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {body.ontology}")
         return build_plan(spi.registry, backends[body.ontology]["store"],
