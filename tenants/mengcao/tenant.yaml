@@ -1,0 +1,21 @@
+# 租户清单：蒙草（问草，tenant-zero）· 本体 grass
+# 生产落地不改插件代码——在此声明数据源，入库时按本体 schema 校验（clife_onto_engine.tenant.load_tenant）。
+#
+# data/*.csv 为**样例数据（SAMPLE）**：形如真实业务导出，供脚手架端到端可跑通。
+# 接真业务时：把 data/*.csv 换成真实导出（同表头即可），或把 file 指向真实 DB 导出的文件。
+tenant: mengcao
+ontology: grass
+
+sources:
+  - object: Site                       # 地块/草场（主键 parcel_id；必填 area_mu/region）
+    file: data/sites.csv
+    format: csv
+
+  - object: NativeListing              # 乡土草种名录（按盟市；主键用 region::species 组合）
+    file: data/native_listings.csv
+    format: csv
+    key: "{region}::{species}"
+
+  - object: ForageSample               # 草样快检批次（主键 batch_id）
+    file: data/forage_samples.csv
+    format: csv
