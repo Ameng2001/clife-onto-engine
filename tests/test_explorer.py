@@ -45,3 +45,18 @@ def test_edges_reference_closed_within_ontology():
 def test_props_embedded_for_inspection():
     h = render(spi.registry, _store(), "grass")
     assert "巴彦淖尔" in h                              # Site 属性随节点内嵌，供点选检视
+
+
+def test_node_carries_telemetry_series():
+    h = render(spi.registry, _store(), "grass", cytoscape_js="/*x*/")
+    # Site 绑定了遥测 → 节点数据含序列名/provider/kind，检视可列出、metric 可取计划
+    assert '"telemetry"' in h and "soil_moisture" in h and "iot_alerts" in h
+    assert "取计划" in h and 'var ONTO = "grass"' in h and "fetch('/plan'" in h
+
+
+def test_no_binding_object_has_empty_telemetry():
+    # NativeListing 无遥测绑定 → 其节点 telemetry 为空（不影响渲染）
+    h = render(spi.registry, _store(), "grass")
+    assert "NativeListing:" in h                        # 有该类型实例节点
+    b = spi.registry.mappings.get_telemetry("grass", "NativeListing")
+    assert b is None                                   # 确无绑定（render 附空列表）

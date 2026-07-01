@@ -37,6 +37,15 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
     types = [name for (ns, name) in registry.objects if ns == ontology_id]
     type_set = set(types)
 
+    # 遥测联动：每对象类型的遥测序列元数据（name/provider/kind），点节点可看/取计划。
+    telemetry_by_type: dict[str, list] = {}
+    for name in types:
+        binding = registry.mappings.get_telemetry(ontology_id, name)
+        if binding:
+            telemetry_by_type[name] = [
+                {"name": s.name, "provider": s.provider, "kind": s.kind} for s in binding.series
+            ]
+
     elements: list[dict] = []
     counts: dict[str, int] = {}
     for name in types:
@@ -45,7 +54,8 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
             counts[name] = counts.get(name, 0) + 1
             elements.append({"data": {
                 "id": f"{name}:{key}", "label": _node_label(obj, key, row),
-                "otype": name, "props": row,
+                "otype": name, "key": str(key), "props": row,
+                "telemetry": telemetry_by_type.get(name, []),
             }})
     n_edges = 0
     for e in getattr(store, "_edges", []):
@@ -72,6 +82,7 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
     js_tag = f"<script>{cytoscape_js}</script>" if cytoscape_js else \
         '<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.28.1/dist/cytoscape.min.js"></script>'
     data_json = json.dumps(elements, ensure_ascii=False)
+    onto_json = json.dumps(ontology_id)
 
     return f"""<!doctype html><html lang="zh"><head><meta charset="utf-8">
 <title>{ttl}</title>{js_tag}
@@ -85,6 +96,9 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
  #insp{{margin-top:14px;border-top:1px solid #e2e8f0;padding-top:10px}}
  table{{border-collapse:collapse;width:100%}} td{{border-bottom:1px solid #f1f5f9;padding:3px 4px;vertical-align:top}}
  td.k{{color:#64748b;white-space:nowrap;padding-right:8px}} .hint{{color:#94a3b8}}
+ .tsec{{margin-top:10px;font-weight:600;color:#0f172a}}
+ .pbtn{{font:11px/1.4 inherit;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:5px;padding:1px 6px;cursor:pointer}}
+ pre{{white-space:pre-wrap;word-break:break-all;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;font-size:11px}}
 </style></head><body>
 <div id="cy"></div>
 <div id="side">
@@ -106,12 +120,37 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
    layout: {{name:'cose', animate:false}}
  }});
  {node_styles}
- function esc(s){{return String(s).replace(/[&<>]/g,function(c){{return {{'&':'&amp;','<':'&lt;','>':'&gt;'}}[c]}})}}
+ var ONTO = {onto_json};
+ function esc(s){{return String(s).replace(/[&<>"]/g,function(c){{return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}}[c]}})}}
+ function telemetryHtml(d){{
+   var t = d.telemetry||[]; if(!t.length) return '';
+   var rows = t.map(function(s){{
+     var tag = esc(s.provider)+' · '+esc(s.kind);
+     var btn = s.kind==='metric'
+       ? '<button class="pbtn" data-ot="'+esc(d.otype)+'" data-key="'+esc(d.key)+'" data-series="'+esc(s.name)+'">取计划</button>'
+       : '<span class="hint">需 params</span>';
+     return '<tr><td class="k">'+esc(s.name)+'</td><td>'+tag+' '+btn+'</td></tr>';
+   }}).join('');
+   return '<div class="tsec">遥测序列</div><table>'+rows+'</table><div id="planout"></div>';
+ }}
+ function fetchPlan(ot,key,series){{
+   var out=document.getElementById('planout'); out.innerHTML='<span class="hint">取计划中…</span>';
+   fetch('/plan',{{method:'POST',headers:{{'content-type':'application/json'}},
+     body:JSON.stringify({{ontology:ONTO,object_type:ot,key:key,series:series}})}})
+   .then(function(r){{return r.json()}})
+   .then(function(j){{ out.innerHTML = j.ok
+     ? '<div class="tsec">计划（'+esc(j.provider)+'）</div><pre>'+esc(j.plan)+'</pre>'
+     : '<span class="hint">'+esc(j.error||'失败')+'</span>'; }})
+   .catch(function(){{ out.innerHTML='<span class="hint">需活服务（/explorer）才能取计划</span>'; }});
+ }}
  cy.on('tap','node',function(evt){{
    var d = evt.target.data(); var p = d.props||{{}};
    var rows = Object.keys(p).map(function(k){{return '<tr><td class="k">'+esc(k)+'</td><td>'+esc(p[k])+'</td></tr>'}}).join('');
    document.getElementById('insp').innerHTML =
      '<div style="font-weight:600;margin-bottom:6px">'+esc(d.otype)+' · '+esc(d.label)+'</div>'+
-     '<table>'+(rows||'<tr><td class="hint">（无属性）</td></tr>')+'</table>';
+     '<table>'+(rows||'<tr><td class="hint">（无属性）</td></tr>')+'</table>'+ telemetryHtml(d);
+   Array.prototype.forEach.call(document.querySelectorAll('.pbtn'),function(b){{
+     b.onclick=function(){{fetchPlan(b.getAttribute('data-ot'),b.getAttribute('data-key'),b.getAttribute('data-series'))}};
+   }});
  }});
 </script></body></html>"""

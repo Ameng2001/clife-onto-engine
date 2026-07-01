@@ -116,4 +116,5 @@ def test_explorer_endpoint():
     r = c.get("/explorer/grass")
     assert r.status_code == 200 and "text/html" in r.headers["content-type"]
     assert "Site:parcel_001" in r.text and "/*CY*/" in r.text  # 活对象图 + 注入 JS 内联
+    assert "soil_moisture" in r.text and "取计划" in r.text     # 遥测联动（点对象取计划）
     assert c.get("/explorer/medical").status_code == 404
