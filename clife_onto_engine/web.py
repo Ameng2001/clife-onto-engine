@@ -126,6 +126,36 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
         params: dict = {}
         tenant: str = ""
 
+    @app.get("/", response_class=HTMLResponse)
+    def index():
+        # 落地页：端点索引 + 各本体直达（浏览器打开根地址不再一脸 404）。
+        onts = "".join(
+            f'<li><code>{n}</code> — '
+            f'<a href="/explorer/{n}">Explorer</a> · '
+            f'<a href="/manifest/{n}">manifest</a> · '
+            f'<a href="/audit/{n}">audit</a></li>'
+            for n in backends
+        ) or "<li>（未装配本体）</li>"
+        example_ont = next(iter(backends), "<ontology>")
+        return (
+            "<!doctype html><meta charset=utf-8><title>clife-onto-engine</title>"
+            "<style>body{font:15px/1.7 system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 16px;color:#222}"
+            "code{background:#f4f4f5;padding:1px 6px;border-radius:4px}a{color:#2563eb}h1{font-size:20px}</style>"
+            "<h1>数智本体引擎 · HTTP API</h1>"
+            "<p>一句口语 <code>POST /ask</code> →（做 / 查 / 遥测 / 咨询 / 澄清），本体兜底。</p>"
+            "<p>接口文档：<a href='/docs'>/docs</a>（Swagger，可交互试）· "
+            "<a href='/health'>/health</a> · <a href='/ontologies'>/ontologies</a></p>"
+            f"<h2>本体</h2><ul>{onts}</ul>"
+            "<h2>问一句</h2><pre>curl -X POST /ask -H 'X-Api-Key: &lt;key&gt;' \\\n"
+            "  -H 'Content-Type: application/json' \\\n"
+            f"  -d '{{\"ontology\":\"{example_ont}\",\"utterance\":\"&lt;一句口语&gt;\"}}'</pre>"
+        )
+
+    @app.get("/favicon.ico")
+    def favicon():
+        from fastapi.responses import Response
+        return Response(status_code=204)   # 消掉浏览器 favicon 404 噪声
+
     @app.get("/health")
     def health():
         return {"status": "ok", "ontologies": list(backends)}
