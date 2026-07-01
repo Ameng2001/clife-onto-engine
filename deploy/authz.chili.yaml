@@ -1,0 +1,7 @@
+# chili 本体授权门（A 弧）。
+default_allow: false
+grants:
+  - action: 制定种植方案
+    roles: [种植户, 农技员]
+  - action: 辣椒分级
+    roles: [种植户, 质检员]

@@ -1,0 +1,9 @@
+# api_key → Principal（认证，A 弧）。真部署换 JWT/OIDC（实现同 IdentityResolver 协议）。
+# 请求带 X-Api-Key：无效→401；用**认证出的身份**（非客户声明）驱动租户边界 + 授权门 + 动作角色。
+# 注意：此为**示例密钥**，勿用于生产；生产密钥走密钥管理、不入库。
+keys:
+  - { api_key: mc-builder-001, tenant: mengcao,  actor_id: u_builder, role: 施工方 }
+  - { api_key: mc-regulator-1, tenant: mengcao,  actor_id: u_reg,     role: 监管 }
+  - { api_key: mc-guest-0001,  tenant: mengcao,  actor_id: u_guest,   role: 游客 }
+  - { api_key: chili-grower-1, tenant: chili_co, actor_id: u_grower,  role: 种植户 }
+  - { api_key: platform-ops-1, tenant: platform, actor_id: u_ops,    role: 监管 }
