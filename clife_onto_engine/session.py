@@ -31,8 +31,9 @@ class Reply:
     # action
     written: tuple = ()
     violations: tuple = ()
-    # clarify / error
+    # clarify / error / advise
     question: str = ""
+    answer: str = ""                # kind=advise：知识接地的只读建议
     error: str = ""
 
     def summary(self) -> str:
@@ -43,6 +44,8 @@ class Reply:
         if self.kind == "rejected":
             return f"[被拒] 违反 {[v.rule for v in self.violations]}：" + \
                    "；".join(f"{v.message}" for v in self.violations)
+        if self.kind == "advise":
+            return f"[建议] {self.answer}"
         if self.kind == "clarify":
             return f"[澄清] {self.question}"
         return f"[错误] {self.error}"
@@ -93,7 +96,12 @@ class Session:
                 return Reply("committed", ci.confidence, written=getattr(res, "written", ()))
             return Reply("rejected", ci.confidence, violations=tuple(getattr(res, "violations", ())))
 
-        # 3c. 澄清 / 错误
+        # 3c. 咨询：知识接地的只读建议（不进 Action 引擎、不写库、不越权）
+        if ci.kind == "advise":
+            self._remember(Layer.CONTEXT, f"建议：{ci.answer}", tags=("advise",), source="advise")
+            return Reply("advise", ci.confidence, answer=ci.answer)
+
+        # 3d. 澄清 / 错误
         if ci.kind == "clarify":
             return Reply("clarify", ci.confidence, question=ci.question)
         return Reply("error", ci.confidence, error=ci.error)
