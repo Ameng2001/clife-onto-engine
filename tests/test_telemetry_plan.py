@@ -16,8 +16,42 @@ def _store():
 
 def test_binding_loaded():
     b = spi.registry.mappings.get_telemetry("grass", "Site")
-    assert b is not None and b.provider == "prometheus"
-    assert {s.name for s in b.series} >= {"soil_moisture", "ndvi_30d"}
+    assert b is not None
+    assert {s.name for s in b.series} >= {"soil_moisture", "ndvi_30d", "iot_alerts"}
+    # provider 在 series 级：metric→prometheus、log→elasticsearch
+    by = {s.name: s for s in b.series}
+    assert by["soil_moisture"].provider == "prometheus"
+    assert by["iot_alerts"].provider == "elasticsearch" and by["iot_alerts"].kind == "log"
+
+
+def test_es_log_plan_with_runtime_params():
+    r = build_plan(spi.registry, _store(), "Site", "parcel_001", "iot_alerts",
+                   namespace="grass", params={"level": "ERROR", "since": "now-1h"})
+    assert r["ok"] and r["provider"] == "elasticsearch" and r["kind"] == "log"
+    assert '"parcel":"parcel_001"' in r["plan"]       # 对象 label 代入
+    assert '"level":"ERROR"' in r["plan"]             # 运行时 param 代入
+    assert '"gte":"now-1h"' in r["plan"] and "$" not in r["plan"]
+    assert r["resolved_params"] == {"level": "ERROR", "since": "now-1h"}
+
+
+def test_same_build_plan_multi_provider():
+    s = _store()
+    m = build_plan(spi.registry, s, "Site", "parcel_001", "soil_moisture", namespace="grass")
+    l = build_plan(spi.registry, s, "Site", "parcel_001", "iot_alerts",
+                   namespace="grass", params={"level": "WARN", "since": "now-1d"})
+    assert m["provider"] == "prometheus" and l["provider"] == "elasticsearch"  # 同一 build_plan，两方言
+
+
+def test_unresolved_placeholder_rejected():
+    # 不传 params → $level/$since 无从解析 → 结构化拒绝
+    r = build_plan(spi.registry, _store(), "Site", "parcel_001", "iot_alerts", namespace="grass")
+    assert not r["ok"] and "未解析占位" in r["error"]
+
+
+def test_runtime_param_injection_blocked():
+    r = build_plan(spi.registry, _store(), "Site", "parcel_001", "iot_alerts",
+                   namespace="grass", params={"level": '"} or 1', "since": "now-1h"})
+    assert not r["ok"] and "防注入" in r["error"]
 
 
 def test_plan_substitutes_instance_id():

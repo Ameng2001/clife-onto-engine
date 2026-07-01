@@ -20,10 +20,13 @@ def _err(msg: str) -> dict:
 
 
 def build_plan(registry, store, object_type: str, key: str, series_name: str,
-               *, namespace: str) -> dict:
+               *, namespace: str, params: dict | None = None) -> dict:
     """生成可执行查询计划（不执行）。
 
-    成功 → {ok, provider, plan, resolved_labels, cost}；失败 → {ok: False, error}。
+    占位两段解析：对象 label（从实例代入）先，模板剩余 `$占位` 由运行时 `params` 解析
+    （典型用于 log 的 level/时间窗）。两者同白名单防注入；仍有未解析占位即拒。
+
+    成功 → {ok, provider, kind, plan, resolved_labels, resolved_params, cost}；失败 → {ok: False, error}。
     """
     binding = registry.mappings.get_telemetry(namespace, object_type)
     if binding is None:
@@ -38,6 +41,7 @@ def build_plan(registry, store, object_type: str, key: str, series_name: str,
 
     resolved: dict[str, str] = {}
     plan = series.template
+    # 第一段：对象 label（治理数据）从实例代入
     for placeholder, field in binding.labels.items():
         if field not in row or row[field] is None:
             return _err(f"实例缺 label 字段 '{field}'（占位 ${placeholder}）")
@@ -47,6 +51,18 @@ def build_plan(registry, store, object_type: str, key: str, series_name: str,
         resolved[placeholder] = val
         plan = plan.replace(f"${placeholder}", val)
 
-    return {"ok": True, "provider": binding.provider, "kind": series.kind,
-            "plan": plan, "resolved_labels": resolved,
+    # 第二段：模板剩余 $占位 由运行时 params 解析（log 过滤等）
+    params = params or {}
+    resolved_params: dict[str, str] = {}
+    for placeholder in sorted(set(re.findall(r"\$(\w+)", plan))):
+        if placeholder not in params:
+            return _err(f"未解析占位 '${placeholder}'（既非对象 label 又未在 params 给出）")
+        val = str(params[placeholder])
+        if not _SAFE_LABEL.match(val):
+            return _err(f"params 值含非法字符，拒绝代入（防注入）: {placeholder}={val!r}")
+        resolved_params[placeholder] = val
+        plan = plan.replace(f"${placeholder}", val)
+
+    return {"ok": True, "provider": series.provider, "kind": series.kind,
+            "plan": plan, "resolved_labels": resolved, "resolved_params": resolved_params,
             "cost": {"telemetry-plan": 1}}

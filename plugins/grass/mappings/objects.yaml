@@ -30,13 +30,17 @@ links:
 
 # 遥测绑定（内核能力 telemetry-query-plan）：对象 → 可观测后端，引擎据此产查询计划（不执行）。
 telemetry:
-  - object: Site                     # 地块的墒情/长势时序（IoT/遥感）走 Prometheus
-    provider: prometheus
-    labels: { parcel: parcel_id }    # 占位 $parcel ← 对象字段 parcel_id
+  - object: Site                     # 同一对象：metric 走 Prometheus、log 走 Elasticsearch（provider 在 series 级）
+    provider: prometheus             # 绑定级默认 provider；log series 覆盖为 elasticsearch
+    labels: { parcel: parcel_id }    # 占位 $parcel ← 对象字段 parcel_id（跨 series 共享）
     series:
-      - name: soil_moisture          # 墒情
+      - name: soil_moisture          # 墒情（metric/PromQL）
         kind: metric
         template: 'avg(soil_moisture_percent{parcel="$parcel"})'
       - name: ndvi_30d               # 近30天长势（遥感 NDVI）
         kind: metric
         template: 'avg_over_time(ndvi{parcel="$parcel"}[30d])'
+      - name: iot_alerts             # 地块 IoT 告警日志（log/Elasticsearch DSL）
+        kind: log                    # 运行时过滤：$level / $since 由调用方传 params
+        provider: elasticsearch
+        template: '{"query":{"bool":{"filter":[{"term":{"parcel":"$parcel"}},{"term":{"level":"$level"}},{"range":{"ts":{"gte":"$since"}}}]}}}'

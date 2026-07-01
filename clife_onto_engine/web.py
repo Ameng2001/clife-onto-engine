@@ -90,6 +90,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable):
         object_type: str
         key: str
         series: str
+        params: dict = {}
 
     @app.get("/health")
     def health():
@@ -124,6 +125,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable):
         if body.ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {body.ontology}")
         return build_plan(spi.registry, backends[body.ontology]["store"],
-                          body.object_type, body.key, body.series, namespace=body.ontology)
+                          body.object_type, body.key, body.series,
+                          namespace=body.ontology, params=body.params)
 
     return app

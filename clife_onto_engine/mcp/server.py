@@ -27,11 +27,12 @@ _TOOL_SCHEMAS = {
     "plan": {
         "name": "plan",
         "description": "遥测查询计划：据对象实例 + 声明绑定，生成可执行计划（PromQL/ES/SQL，id 已代入）。"
-                       "引擎只产计划、不执行；调用方拿计划自行打后端。",
+                       "log 等可经 params 传运行时过滤（level/时间窗）。引擎只产计划、不执行；调用方拿计划自行打后端。",
         "inputSchema": {"type": "object", "required": ["object_type", "key", "series"],
                         "properties": {"object_type": {"type": "string"},
                                        "key": {"type": "string"},
-                                       "series": {"type": "string"}}},
+                                       "series": {"type": "string"},
+                                       "params": {"type": "object"}}},
     },
     "act": {
         "name": "act",
@@ -53,7 +54,8 @@ def _tool_call(bridge: GovernedBridge, name: str, args: dict) -> dict:
     if name == "query":
         result = bridge.query(args["utterance"])
     elif name == "plan":
-        result = bridge.plan(args["object_type"], args["key"], args["series"])
+        result = bridge.plan(args["object_type"], args["key"], args["series"],
+                             params=args.get("params"))
     elif name == "act":
         result = bridge.act(args["action"], args.get("params", {}),
                             actor_role=args.get("actor_role"))

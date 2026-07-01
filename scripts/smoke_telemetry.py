@@ -49,6 +49,21 @@ def main() -> int:
     print(f"== 注入式 label 被拦：{'✓' if ok4 else '✗ ' + str(r4)} ==")
     fails += not ok4
 
+    # 5) log/ES 方言 + 运行时过滤参数（同一 build_plan，不同后端）
+    r5 = build_plan(spi.registry, store, "Site", "parcel_001", "iot_alerts",
+                    namespace="grass", params={"level": "ERROR", "since": "now-1h"})
+    ok5 = (r5.get("ok") and r5["provider"] == "elasticsearch" and r5["kind"] == "log"
+           and '"parcel":"parcel_001"' in r5["plan"] and '"level":"ERROR"' in r5["plan"]
+           and "$" not in r5["plan"])
+    print(f"== log/ES + 运行时参数：{'✓ ' + r5.get('plan','')[:60] + '…' if ok5 else '✗ ' + str(r5)} ==")
+    fails += not ok5
+
+    # 6) 未传 params → 未解析占位结构化拒绝
+    r6 = build_plan(spi.registry, store, "Site", "parcel_001", "iot_alerts", namespace="grass")
+    ok6 = (not r6.get("ok")) and "未解析占位" in r6.get("error", "")
+    print(f"== 未解析占位被拒：{'✓' if ok6 else '✗ ' + str(r6)} ==")
+    fails += not ok6
+
     if fails:
         print(f"\n✗ 遥测 query-plan smoke 失败（{fails}）"); return 1
     print("\n✓ 遥测 query-plan smoke 全通过：引擎只产计划（PromQL）、id 代入、防注入、不触网")
