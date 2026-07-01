@@ -77,10 +77,30 @@
 | 写 | 辣椒分级（提交 / 残次拦截） | ✓ / ✓ |
 | 咨询 | advise · 澄清 clarify | ✓ / ✓ |
 
-**尤其硬的两点**：
-- **结构化抽参**：LLM 把"CP18 NDF40 ADF30 RFV150 霉菌毒素0.01"正确抽成 `measurements={CP:18,…}`、把"length14 SHU5000 defect_rate0.03"抽成 chili 检测值——**跨 4 个不同动作、2 个行业都抽对**。
+**真 Qwen 实际编成内容**（`python scripts/e2e_corpus.py`，live 默认展示「LLM 编成」——即它对每句口语真实抽的参数/编的 OQL）：
+
+| 口语 | LLM 实际编成 |
+|---|---|
+| 巴彦淖尔有哪些地块？ | OQL `start=Site where=[(region,eq,巴彦淖尔)]` |
+| parcel_001 能用哪些修复方法？ | OQL `start=Site where=[(parcel_id,eq,parcel_001)] steps=['suffers','treated_by']`（**两跳**：Site→退化→修复方法） |
+| 巴彦淖尔有多少个地块？ | OQL `start=Site where=[(region,eq,巴彦淖尔)] agg=count`（聚合） |
+| 给 parcel_001 出一地一方，用碱茅，预算300 | 动作 `出一地一方` `{site_id:parcel_001, species:[碱茅], budget:300}` → committed |
+| 给 parcel_001 出方案，用紫花苜蓿，预算300 | 动作 `出一地一方` `{…species:[紫花苜蓿]…}` → rejected·乡土合规 |
+| 给草样 batch_A 快检评级，CP18 NDF40 ADF30 RFV150 霉菌毒素0.01 | 动作 `快检评级` `{batch_id:batch_A, measurements:{CP:18,NDF:40,ADF:30,RFV:150,霉菌毒素:0.01}}` → committed |
+| …霉菌毒素0.2 | 动作 `快检评级` `{…霉菌毒素:0.2}` → rejected·霉变拦截 |
+| parcel_001 重度盐碱地接下来先做什么？ | advise：*"根据退化分级处置手册，重度盐碱地不可直接植被恢复。接下来应先进行工程或化学改良以脱盐，待土壤条件改善后，再实施喷播乡土草种，并进行后期封育管理。"* |
+| 帮我出个方案 | clarify：*"请提供需要修复的地块编号(site_id)、计划使用的草种列表(species)以及预算金额(budget)。"* |
+| 海南有哪些地块？（chili） | OQL `start=Field where=[(region,eq,海南)]` |
+| 给 field_001 制定种植方案，朝天椒，密度2200，预算500 | 动作 `制定种植方案` `{field_id:field_001, variety:朝天椒, density:2200, budget:500}` → committed |
+| …用紫天椒… | 动作 `制定种植方案` `{…variety:紫天椒…}` → rejected·品种适配 |
+| 给批次 g_A 辣椒分级，length14 SHU5000 defect_rate0.03 | 动作 `辣椒分级` `{batch_id:g_A, measurements:{length:14,SHU:5000,defect_rate:0.03}}` → committed |
+| …defect_rate0.5 | 动作 `辣椒分级` `{…defect_rate:0.5}` → rejected·残次拦截 |
+
+**尤其硬的三点**（有上表实据）：
+- **结构化抽参**：LLM 把"CP18 NDF40 ADF30 RFV150 霉菌毒素0.01"精确抽成 `measurements={CP:18,NDF:40,ADF:30,RFV:150,霉菌毒素:0.01}`、把 chili 的"length14 SHU5000 defect_rate0.03"抽成对应键值——**跨 4 个不同动作、2 个行业全对**。
+- **多跳/聚合编对**：多跳编成 `steps=['suffers','treated_by']`（真 LLM 走了**完整两跳**到修复方法，比参照桩的一跳还准）；"有多少个"编成 `agg=count`。
 - **治理全兜住**：4 个拒绝场景命中 4 条不同规则（乡土合规/霉变拦截/品种适配/残次拦截），真 LLM 提议、本体全部确定性拦下。
-- **换行业零改**：同一引擎、同一真 LLM，grass 与 chili 的读写都对——「换行业零改内核」在真 Qwen 端到端也成立。
+- **换行业零改**：同一引擎、同一真 LLM，grass 与 chili 读写都对——「换行业零改内核」在真 Qwen 端到端也成立。
 
 **边界诚实**：14 条是**精心设计的清晰口语**，14/14 是**该语料上**的 100%，非对抗性/口语噪声下的鲁棒性（那是下一程）。桩模式同款语料锁进 CI（`tests/test_e2e_corpus.py`）。
 
