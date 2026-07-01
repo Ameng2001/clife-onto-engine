@@ -51,7 +51,8 @@ class Reply:
 class Session:
     def __init__(self, *, ontology_id: str, registry, store, compiler: IntentCompiler,
                  actor: Actor, memory: Optional[MemoryStore] = None, session_id: str = "s1",
-                 engine: Optional[ActionEngine] = None, schema_version: str = "") -> None:
+                 engine: Optional[ActionEngine] = None, schema_version: str = "",
+                 load_knowledge: bool = False) -> None:
         self.ontology_id = ontology_id
         self.registry = registry
         self.store = store
@@ -62,6 +63,10 @@ class Session:
         self.engine = engine if engine is not None else ActionEngine(registry, store=store)
         self.schema_version = schema_version
         self._n = 0
+        # 附着知识喂进 BACKGROUND 层：ask 装配时按相关性注入 LLM，供领域知识推理（默认关，向后兼容）。
+        if load_knowledge:
+            from .knowledge import load_into_memory
+            load_into_memory(registry, self.memory, ontology_id, session_id)
 
     def ask(self, utterance: str, *, ts: Optional[str] = None) -> Reply:
         # 1. 记忆接地：装配本会话 CONTEXT/CRITICAL 喂给编译器
