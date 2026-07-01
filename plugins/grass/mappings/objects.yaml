@@ -44,3 +44,27 @@ telemetry:
         kind: log                    # 运行时过滤：$level / $since 由调用方传 params
         provider: elasticsearch
         template: '{"query":{"bool":{"filter":[{"term":{"parcel":"$parcel"}},{"term":{"level":"$level"}},{"range":{"ts":{"gte":"$since"}}}]}}}'
+
+# 附着知识（读侧参考/诊断，供 Agent 推理；与强制 Rule / 派生 Function 并存）。
+# 挂在业务对象上、和对象一次取到（Palantir 式）；kind 标准化（UModel 式模板化）。
+knowledge:
+  - object: Degradation            # 退化：诊断经验 + 处置手册
+    items:
+      - name: 盐碱化常见成因
+        kind: diagnostic
+        content: 盐碱化多因灌溉排水不畅致盐分表聚；重度需先改良再植被恢复。
+        refs: [DB15/T 草原生态修复技术规程]
+      - name: 退化分级处置手册
+        kind: playbook
+        content: 轻度补播即可；中重度先工程/化学改良、再喷播乡土草种、后期封育。
+  - object: Site                    # 地块：分析模板
+    items:
+      - name: 地块修复评估模板
+        kind: template
+        content: 评估维度=土壤盐分/墒情/坡度/水源；据此选修复方法与乡土草种组合。
+  - object: RestorationMethod       # 修复方法：领域参考
+    items:
+      - name: 方法适用性参考
+        kind: reference
+        content: 喷播适坡面/大面积；补播适轻度退化；两者均需配乡土草种名录。
+        refs: [GB/T 37067 退化草地修复技术规范]

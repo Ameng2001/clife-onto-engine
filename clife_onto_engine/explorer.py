@@ -39,11 +39,18 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
 
     # 遥测联动：每对象类型的遥测序列元数据（name/provider/kind），点节点可看/取计划。
     telemetry_by_type: dict[str, list] = {}
+    knowledge_by_type: dict[str, list] = {}
     for name in types:
         binding = registry.mappings.get_telemetry(ontology_id, name)
         if binding:
             telemetry_by_type[name] = [
                 {"name": s.name, "provider": s.provider, "kind": s.kind} for s in binding.series
+            ]
+        # 附着知识（读侧参考/诊断）：和对象一次呈现（Palantir 式统一视图）
+        ks = registry.mappings.get_knowledge(ontology_id, name)
+        if ks:
+            knowledge_by_type[name] = [
+                {"name": k.name, "kind": k.kind, "content": k.content} for k in ks
             ]
 
     elements: list[dict] = []
@@ -56,6 +63,7 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
                 "id": f"{name}:{key}", "label": _node_label(obj, key, row),
                 "otype": name, "key": str(key), "props": row,
                 "telemetry": telemetry_by_type.get(name, []),
+                "knowledge": knowledge_by_type.get(name, []),
             }})
     n_edges = 0
     for e in getattr(store, "_edges", []):
@@ -133,6 +141,14 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
    }}).join('');
    return '<div class="tsec">遥测序列</div><table>'+rows+'</table><div id="planout"></div>';
  }}
+ function knowledgeHtml(d){{
+   var ks = d.knowledge||[]; if(!ks.length) return '';
+   var rows = ks.map(function(k){{
+     return '<tr><td class="k">'+esc(k.kind)+'</td><td><b>'+esc(k.name)+'</b><br>'
+            +'<span class="hint">'+esc(k.content)+'</span></td></tr>';
+   }}).join('');
+   return '<div class="tsec">附着知识</div><table>'+rows+'</table>';
+ }}
  function fetchPlan(ot,key,series){{
    var out=document.getElementById('planout'); out.innerHTML='<span class="hint">取计划中…</span>';
    fetch('/plan',{{method:'POST',headers:{{'content-type':'application/json'}},
@@ -148,7 +164,7 @@ def render(registry, store, ontology_id: str, *, cytoscape_js: str = "", title: 
    var rows = Object.keys(p).map(function(k){{return '<tr><td class="k">'+esc(k)+'</td><td>'+esc(p[k])+'</td></tr>'}}).join('');
    document.getElementById('insp').innerHTML =
      '<div style="font-weight:600;margin-bottom:6px">'+esc(d.otype)+' · '+esc(d.label)+'</div>'+
-     '<table>'+(rows||'<tr><td class="hint">（无属性）</td></tr>')+'</table>'+ telemetryHtml(d);
+     '<table>'+(rows||'<tr><td class="hint">（无属性）</td></tr>')+'</table>'+ knowledgeHtml(d) + telemetryHtml(d);
    Array.prototype.forEach.call(document.querySelectorAll('.pbtn'),function(b){{
      b.onclick=function(){{fetchPlan(b.getAttribute('data-ot'),b.getAttribute('data-key'),b.getAttribute('data-series'))}};
    }});
