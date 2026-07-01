@@ -53,7 +53,7 @@ def reply_to_json(r: Reply) -> dict:
 
 
 def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = "",
-               tenant_policy=None, identity_resolver=None, authz=None):
+               tenant_policy=None, identity_resolver=None, authz=None, viz_html: dict = None):
     """ontologies: {name: {"store": GraphStore, "actor": Actor}}；make_compiler: () -> IntentCompiler。
 
     store 由调用方建好（InMemory 或 NebulaGraph，已 seed/bootstrap）—— web 层与后端解耦。
@@ -70,6 +70,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
     app = FastAPI(title="clife-onto-engine",
                   description="数智本体引擎 HTTP API —— 一句口语：做/查/澄清，本体兜底。")
 
+    viz_html = viz_html or {}   # {ontology: 自包含 OKF 知识图谱 HTML}（调用方注入；空则无 /viz）
     # 每本体一份 store + engine（共享审计/journal）；compiler 惰性、跨会话共享。
     backends: dict = {}
     for name, cfg in ontologies.items():
@@ -129,9 +130,15 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
     @app.get("/", response_class=HTMLResponse)
     def index():
         # 落地页：端点索引 + 各本体卡片（Explorer 对象图作醒目主入口）。viz 独立整页，首页只导航。
+        def _viz_btn(n):
+            if n not in viz_html:
+                return ""
+            return (f'<a class="viz okf" href="/viz/{n}">📖 OKF 知识图谱 viz'
+                    f'<span>规则·知识·出处（治理读层）</span></a>')
         cards = "".join(
             f'<div class="card"><div class="ns"><code>{n}</code></div>'
-            f'<a class="viz" href="/explorer/{n}">🕸 打开对象图 Explorer<span>实时治理状态·可视化浏览</span></a>'
+            f'<a class="viz" href="/explorer/{n}">🕸 对象图 Explorer<span>实时对象实例·治理状态</span></a>'
+            f'{_viz_btn(n)}'
             f'<div class="sub"><a href="/manifest/{n}">能力清单 manifest</a> · '
             f'<a href="/audit/{n}">审计 audit</a></div></div>'
             for n in backends
@@ -148,6 +155,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
             ".ns{font-size:15px;margin-bottom:10px}"
             ".viz{display:block;background:#2563eb;color:#fff;border-radius:8px;padding:12px 14px;font-weight:600}"
             ".viz:hover{background:#1d4ed8;text-decoration:none}"
+            ".viz+.viz{margin-top:8px}.viz.okf{background:#059669}.viz.okf:hover{background:#047857}"
             ".viz span{display:block;font-weight:400;font-size:12px;opacity:.85;margin-top:2px}"
             ".sub{margin-top:10px;font-size:13px;color:#666}"
             "pre{background:#f4f4f5;border-radius:8px;padding:12px;overflow:auto}"
@@ -166,6 +174,15 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
     def favicon():
         from fastapi.responses import Response
         return Response(status_code=204)   # 消掉浏览器 favicon 404 噪声
+
+    @app.get("/viz/{ontology}", response_class=HTMLResponse)
+    def viz(ontology: str):
+        # OKF 知识图谱可视化（规则/知识/出处治理读层，与活对象图 Explorer 互补）。
+        # 调用方注入的自包含 HTML（build/okf/<ont>/viz.html）；未注入则 404 提示生成。
+        if ontology not in viz_html:
+            raise HTTPException(status_code=404,
+                                detail=f"本体 '{ontology}' 无 OKF viz —— 先跑 scripts/export_okf.py 生成")
+        return viz_html[ontology]
 
     @app.get("/health")
     def health():

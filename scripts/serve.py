@@ -135,9 +135,18 @@ def build() -> "object":
 
     cyto = ROOT / "third-party" / "okf-visualizer" / "reference_agent" / "viewer" / "static" / "vendor" / "cytoscape.min.js"
     explorer_js = cyto.read_text(encoding="utf-8") if cyto.exists() else ""
+    # OKF 知识图谱 viz（build/okf/<ont>/viz.html，自包含）：存在即上架 /viz/<ont>
+    viz_html: dict = {}
+    for n in names:
+        vp = ROOT / "build" / "okf" / n / "viz.html"
+        if vp.exists():
+            viz_html[n] = vp.read_text(encoding="utf-8")
+            print(f"[{n}] OKF viz 上架 /viz/{n}")
+        else:
+            print(f"[{n}] 无 OKF viz（跑 python scripts/export_okf.py 生成 build/okf/{n}/viz.html）")
     return create_app(ontologies=ontologies, make_compiler=make_compiler, explorer_js=explorer_js,
                       authz=_build_authz(names), tenant_policy=_build_tenant_policy(),
-                      identity_resolver=_build_identity())
+                      identity_resolver=_build_identity(), viz_html=viz_html)
 
 
 app = build()
