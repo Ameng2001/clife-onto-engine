@@ -18,7 +18,7 @@ from ..metamodel import ActionDef, Backing, RuleDef, Severity
 from ..query import GraphStore, InMemoryStore, QueryView, StagedLink, StagedWrite
 from ..sdk.capability import Capability
 from ..sdk.context import Actor, ActionContext
-from ..sdk.errors import CommitError
+from ..sdk.errors import CapabilityError, CommitError
 from ..sdk.registry import Registry
 from ..trust.audit import AuditSnapshot, AuditStore, RuleEvaluation
 from ..trust.confidence import ConfidenceBus
@@ -55,6 +55,13 @@ class ActionEngine:
         return Violation(rule="authz", severity=Severity.HARD.value, backing="declarative",
                          message=f"角色 {actor.role} 无权执行 {action_name}",
                          suggestion="需由授权策略授予该动作")
+
+    @staticmethod
+    def _capability_violation(msg: str):
+        """能力越界（沙箱拦截）→ 一条 hard Violation，供审计与结构化拒绝。"""
+        return Violation(rule="capability", severity=Severity.HARD.value, backing="declarative",
+                         message=f"能力越界：{msg}",
+                         suggestion="handler 只能操作 Action 声明过的能力（对象/关系/写）")
 
     # 公开入口 ------------------------------------------------------------
     def execute(
@@ -93,8 +100,20 @@ class ActionEngine:
             return rej
 
         # 3. 内存变更：handler 经 Capability 暂存写入 overlay（live index，写即可见）
+        #    handler 越界（stage 未声明类型/跨租户/内核直达）→ 沙箱抛 CapabilityError：
+        #    确定性回滚 + 安全审计留痕（谁试图越界）+ 结构化拒绝，而非崩溃。
         if spec.impl is not None:
-            spec.impl(cap)
+            try:
+                spec.impl(cap)
+            except CapabilityError as e:
+                overlay.clear()  # 回滚，无残留
+                cv = self._capability_violation(str(e))
+                self._audit(spec, ctx, (cv,), "capability_violation", schema_version, ts)
+                return StructuredRejection(
+                    ontology_id=ontology_id, action=action_name, phase="capability",
+                    violations=(cv,), state_snapshot=self._snapshot(ctx),
+                    diagnosis="Action handler 试图越界，已被 Capability 沙箱拦截并审计",
+                )
 
         # 4. 写后规则校验：收集全部，不短路
         post_violations = self._eval_rules(spec.post_rules, cap, ontology_id)
@@ -159,7 +178,14 @@ class ActionEngine:
                                  confidence=ctx.confidence)
         violations = list(self._eval_rules(spec.guards, cap, ontology_id))
         if spec.impl is not None:
-            spec.impl(cap)
+            try:
+                spec.impl(cap)
+            except CapabilityError as e:
+                overlay.clear()
+                return ActionPreview(ontology_id=ontology_id, action=action_name,
+                                     would_commit=False, staged=(),
+                                     violations=(self._capability_violation(str(e)),),
+                                     confidence=ctx.confidence)
         violations += self._eval_rules(spec.post_rules, cap, ontology_id)
         staged = tuple((w.object_type, w.key) for w in ctx.changeset if isinstance(w, StagedWrite))  # 先快照
         overlay.clear()  # 预演无副作用
