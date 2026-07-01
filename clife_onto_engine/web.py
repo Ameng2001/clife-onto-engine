@@ -44,12 +44,14 @@ def reply_to_json(r: Reply) -> dict:
     return out
 
 
-def create_app(*, ontologies: dict, make_compiler: Callable):
+def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = ""):
     """ontologies: {name: {"store": GraphStore, "actor": Actor}}；make_compiler: () -> IntentCompiler。
 
     store 由调用方建好（InMemory 或 NebulaGraph，已 seed/bootstrap）—— web 层与后端解耦。
+    explorer_js: vendored cytoscape JS（调用方注入）→ /explorer 内联即离线；空则 Explorer 走 CDN。
     """
     from fastapi import FastAPI, HTTPException
+    from fastapi.responses import HTMLResponse
     from pydantic import BaseModel
 
     app = FastAPI(title="clife-onto-engine",
@@ -117,6 +119,15 @@ def create_app(*, ontologies: dict, make_compiler: Callable):
     @app.post("/ask")
     def ask(body: AskBody):
         return reply_to_json(_session(body.ontology, body.session_id).ask(body.utterance))
+
+    @app.get("/explorer/{ontology}", response_class=HTMLResponse)
+    def explorer(ontology: str):
+        # 自有对象图 Explorer：从活 store 现场渲染，浏览实时治理状态（不需 UModel）。
+        from .explorer import render
+        if ontology not in backends:
+            raise HTTPException(status_code=404, detail=f"未知本体: {ontology}")
+        return render(spi.registry, backends[ontology]["store"], ontology,
+                     cytoscape_js=explorer_js)
 
     @app.post("/plan")
     def plan(body: PlanBody):
