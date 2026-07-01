@@ -123,6 +123,38 @@ class ScriptedCompiler:
                                 CompiledIntent("clarify", confidence=0.3, question="未识别"))
 
 
+class _SpyCompiler:
+    """录下内层编译器对每句口语实际产出的 CompiledIntent（看真 LLM 抽了什么/编了什么）。"""
+    def __init__(self, inner):
+        self.inner = inner
+        self.last: dict = {}
+
+    def compile(self, ontology_id, utterance, *, memory_text="", actor_role=None):
+        ci = self.inner.compile(ontology_id, utterance,
+                                memory_text=memory_text, actor_role=actor_role)
+        self.last[utterance] = ci
+        return ci
+
+
+def _intent_detail(ci) -> str:
+    """把 LLM 编译结果打成一行可读（重点是它实际抽的参数/编的 OQL）。"""
+    if ci is None:
+        return "（未捕获）"
+    if ci.kind == "action":
+        return f"动作={ci.action} 参数={ci.params}"
+    if ci.kind == "query" and ci.oql is not None:
+        q = ci.oql
+        where = [(c.field, c.op, c.value) for c in q.where]
+        steps = [s.link_type for s in q.steps]
+        agg = f"{q.aggregate.func}" if q.aggregate else None
+        return f"OQL start={q.start} where={where} steps={steps} agg={agg}"
+    if ci.kind == "advise":
+        return f"建议={ci.answer}"
+    if ci.kind == "clarify":
+        return f"追问={ci.question}"
+    return f"{ci.kind} {ci.error}"
+
+
 def _seed(ontology):
     s = InMemoryStore()
     (plugins.grass if ontology == "grass" else plugins.chili).seed_reference_data(s)
@@ -143,8 +175,9 @@ def make_compiler(force_stub, scenarios):
     return ScriptedCompiler(scenarios), False
 
 
-def run(scenarios, *, force_stub=False):
+def run(scenarios, *, force_stub=False, verbose=False):
     compiler, live = make_compiler(force_stub, scenarios)
+    spy = _SpyCompiler(compiler)
     # 每 (本体, 角色) 一个会话（角色权限不同）
     sessions: dict = {}
     passed = failed = 0
@@ -153,7 +186,7 @@ def run(scenarios, *, force_stub=False):
         key = (sc.ontology, sc.actor_role)
         if key not in sessions:
             sessions[key] = Session(ontology_id=sc.ontology, registry=spi.registry,
-                                    store=_seed(sc.ontology), compiler=compiler,
+                                    store=_seed(sc.ontology), compiler=spy,
                                     actor=Actor("u", sc.actor_role), session_id=f"{key}",
                                     schema_version=f"{sc.ontology}@0.1.0", load_knowledge=True)
         r = sessions[key].ask(sc.utterance)
@@ -168,6 +201,9 @@ def run(scenarios, *, force_stub=False):
         elif r.kind == "committed":
             detail += f"·{list(r.written)}"
         print(f"  {mark} [{sc.face}] {sc.name} · 期望 {sc.expect_kind} · 实得 {detail}")
+        if verbose or live:  # 展示 LLM 实际编译内容（真 Qwen 下即真实回答）
+            print(f"       口语「{sc.utterance}」")
+            print(f"       LLM 编成：{_intent_detail(spy.last.get(sc.utterance))}")
     print(f"\n== 覆盖矩阵：{passed}/{passed+failed} 通过 · 按面 "
           + " · ".join(f"{f} {v[0]}/{v[1]}" for f, v in by_face.items()) + " ==")
     return passed, failed
@@ -175,7 +211,8 @@ def run(scenarios, *, force_stub=False):
 
 def main() -> int:
     force_stub = "--stub" in sys.argv
-    passed, failed = run(SCENARIOS, force_stub=force_stub)
+    verbose = "--verbose" in sys.argv
+    passed, failed = run(SCENARIOS, force_stub=force_stub, verbose=verbose)
     if failed and (force_stub or isinstance(make_compiler(True, SCENARIOS)[0], ScriptedCompiler)):
         return 1  # 桩下必须全过
     return 0
