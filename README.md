@@ -12,6 +12,23 @@
 
 ---
 
+## 自有语义 OS 全景（对标 Palantir 本体语义 OS）
+
+语义面**全自有**：读、写、展示都在引擎内，不依赖外部脊椎。
+
+| 能力 | 是什么 | 落点 |
+|---|---|---|
+| **语义读** | OQL 查受治理对象图/关系/派生量（JSON-AST、防注入、编译 nGQL） | `query/oql.py` |
+| **遥测读** | 对象绑定可观测后端，生成可执行查询计划（PromQL/ES DSL，id 已代入、防注入）；引擎只产计划不当 TSDB；provider 无关（metric+log 双方言证明） | `query/telemetry.py` · `sdk/mapping.py` |
+| **治理写** | Action 引擎：guard→写后规则→**确定性回滚**→审计快照；HIL；置信度 | `kernel/action_engine.py` |
+| **自有展示** | 运行时对象图 Explorer（离线单文件 + 活端点），**点对象看结构 + 遥测序列 + 就地取计划**——两块读在 UI 合体 | `explorer.py` |
+| **Agent 面** | MCP 桥（`query`/`plan` 读默认开、`act` 写 opt-in）+ HTTP（`/ask` `/plan` `/explorer`） | `mcp/` · `web.py` |
+
+> **UModel 定位**：互操作 / import-export（导出器 + 治理写桥仍是互通通道），**不是**读/展示的脊椎。
+> 详见 [`docs/04-umodel-interop.md`](docs/04-umodel-interop.md)（含内化路线 §9）。5 个自有能力活规范在 `openspec/specs/`。
+
+---
+
 ## 目录
 
 - [1. 它解决什么问题](#1-它解决什么问题)
