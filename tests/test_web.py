@@ -150,3 +150,43 @@ def client_noop():
     app = create_app(ontologies={"grass": {"store": _store(), "actor": Actor("u1", "施工方")}},
                      make_compiler=lambda: _StubCompiler())
     return TestClient(app)
+
+
+def _app_with_identity():
+    from clife_onto_engine.web import create_app
+    from clife_onto_engine.identity import StaticIdentityResolver
+    from clife_onto_engine.authz import TenantAccessPolicy
+    resolver = (StaticIdentityResolver()
+                .add("k-A-worker", "A", "u1", "施工方")
+                .add("k-B", "B", "u2", "施工方"))
+    tenant_policy = TenantAccessPolicy(default_allow=False).grant("A", "grass")
+    return create_app(
+        ontologies={"grass": {"store": _store(), "actor": Actor("u0", "施工方")}},
+        make_compiler=lambda: _StubCompiler(),
+        tenant_policy=tenant_policy, identity_resolver=resolver)
+
+
+def test_missing_or_bad_credential_401():
+    c = TestClient(_app_with_identity())
+    assert c.post("/ask", json={"ontology": "grass", "utterance": "巴彦淖尔有哪些地块？"}).status_code == 401
+    assert c.post("/ask", json={"ontology": "grass", "utterance": "x"},
+                  headers={"X-Api-Key": "nope"}).status_code == 401
+    assert c.get("/manifest/grass").status_code == 401
+
+
+def test_authenticated_tenant_drives_boundary():
+    c = TestClient(_app_with_identity())
+    # A 认证 → grass 放行
+    assert c.post("/ask", json={"ontology": "grass", "utterance": "巴彦淖尔有哪些地块？"},
+                  headers={"X-Api-Key": "k-A-worker"}).status_code == 200
+    # B 认证 → grass 未授权 → 403（用认证 tenant，非声明）
+    assert c.post("/ask", json={"ontology": "grass", "utterance": "x", "tenant": "A"},
+                  headers={"X-Api-Key": "k-B"}).status_code == 403
+
+
+def test_authenticated_actor_drives_action():
+    # 认证角色=施工方 → /ask 触发动作可 commit（StubCompiler "出"→动作）
+    c = TestClient(_app_with_identity())
+    r = c.post("/ask", json={"ontology": "grass", "utterance": "出方案"},
+               headers={"X-Api-Key": "k-A-worker"}).json()
+    assert r["kind"] == "committed"
