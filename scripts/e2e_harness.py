@@ -122,6 +122,8 @@ def main() -> int:
         elif r.kind == "rejected":
             for v in r.violations:
                 print(f"    → [本体兜底·拒绝] 违反「{v.rule}」：{v.message} · 建议：{v.suggestion}")
+        elif r.kind == "advise":
+            print(f"    → [建议] {r.answer}")
         elif r.kind == "clarify":
             print(f"    → [澄清] {r.question}")
         else:

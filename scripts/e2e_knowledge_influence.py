@@ -55,6 +55,8 @@ def _reply_brief(r) -> str:
         return f"[已执行] {list(r.written)}"
     if r.kind == "rejected":
         return f"[拒绝] {[v.rule for v in r.violations]}"
+    if r.kind == "advise":
+        return f"[建议] {r.answer}"
     if r.kind == "clarify":
         return f"[澄清] {r.question}"
     return f"[错误] {r.error}"
@@ -86,8 +88,8 @@ def main() -> int:
         print(f"\n口语：{u}")
         print(f"  [无知识] 喂 LLM 含知识={kn_in_off} → {_reply_brief(r_off)}")
         print(f"  [有知识] 喂 LLM 含知识={kn_in_on} → {_reply_brief(r_on)}")
-        differ = (r_off.kind, getattr(r_off, 'action', None), r_off.question) != \
-                 (r_on.kind, getattr(r_on, 'action', None), r_on.question)
+        differ = (r_off.kind, getattr(r_off, 'action', None), r_off.question, r_off.answer) != \
+                 (r_on.kind, getattr(r_on, 'action', None), r_on.question, r_on.answer)
         print(f"  行为差异：{'有（知识改变了 LLM）' if differ else '无（桩下正常；真 Qwen 下若也无，说明该场景知识没起作用）'}")
 
     # CI/桩可断言的：知识确实到了「有知识」那次的 LLM 手上，「无知识」那次没有（管道通）
