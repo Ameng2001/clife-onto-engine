@@ -22,12 +22,14 @@ from .sdk.context import Actor
 
 @dataclass
 class Reply:
-    kind: str                       # query | committed | pending_hil | rejected | clarify | advise | error
+    kind: str                       # query | telemetry | committed | pending_hil | rejected | clarify | advise | error
     confidence: float = 0.0
     # query
     rows: Optional[list] = None
     cost: Optional[dict] = None
     oql: object = None
+    # telemetry
+    plan: Optional[dict] = None     # kind=telemetry：可执行查询计划（provider/kind/plan，不执行）
     # action
     written: tuple = ()
     violations: tuple = ()
@@ -47,6 +49,9 @@ class Reply:
         if self.kind == "rejected":
             return f"[被拒] 违反 {[v.rule for v in self.violations]}：" + \
                    "；".join(f"{v.message}" for v in self.violations)
+        if self.kind == "telemetry":
+            p = self.plan or {}
+            return f"[遥测计划] {p.get('provider')}/{p.get('kind')}：{p.get('plan')}"
         if self.kind == "advise":
             return f"[建议] {self.answer}"
         if self.kind == "clarify":
@@ -88,6 +93,17 @@ class Session:
             r = oql_execute(ci.oql, QueryView(self.store, []), self.registry)
             self._remember(Layer.CONTEXT, f"查询返回 {len(r.rows)} 行", tags=("result",), source="action_result")
             return Reply("query", ci.confidence, rows=r.rows, cost=r.cost, oql=ci.oql)
+
+        # 3a'. 看遥测：据对象绑定产查询计划（PromQL/ES/SQL，id 已代入），不执行、只读
+        if ci.is_telemetry:
+            from .query.telemetry import build_plan
+            plan = build_plan(self.registry, self.store, ci.tele_object, ci.tele_key,
+                              ci.tele_series, namespace=self.ontology_id, params=ci.tele_params)
+            self._remember(Layer.CONTEXT, f"遥测计划 {ci.tele_object}.{ci.tele_series} ok={plan.get('ok')}",
+                           tags=("result",), source="telemetry")
+            if plan.get("ok"):
+                return Reply("telemetry", ci.confidence, plan=plan)
+            return Reply("error", ci.confidence, error=plan.get("error", "遥测计划失败"))
 
         # 3b. 做：走 Action 引擎（guard/写后规则/回滚/审计）
         if ci.executable:

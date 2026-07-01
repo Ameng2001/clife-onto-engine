@@ -4,9 +4,9 @@
   · 桩模式（默认无 LLM / --stub）：ScriptedCompiler 返回 stub_intent → 断言每条 kind+结果（进 CI）。
   · 真 Qwen（有 llm.local.json）：口语过真 LLM，逐条报「LLM 编对没、结果对不对」→ 意图编译跨面准确率。
 
-覆盖：grass + chili 两插件的 4 个动作各（提交+拒绝）、多种读（简单/多跳/聚合）、advise、clarify。
-（说明：遥测 plan / Explorer 是独立端点，由各自测试覆盖，不在口语回路语料内；HIL 待审已在
-ask 回路 surface 为 pending_hil（见 tests/test_hil_surface.py）——本语料聚焦意图→执行的读写面。）
+覆盖：grass + chili 两插件的 4 个动作各（提交+拒绝）、多种读（简单/多跳/聚合）、遥测、advise、clarify。
+（说明：遥测已可经口语触达（telemetry kind → build_plan，见 tests/test_telemetry_intent.py）；Explorer
+是独立端点单测；HIL 待审已在 ask 回路 surface 为 pending_hil（tests/test_hil_surface.py）。）
 """
 from __future__ import annotations
 
@@ -71,6 +71,11 @@ SCENARIOS = [
     Scenario("统计地块·聚合", "grass", "施工方", "巴彦淖尔有多少个地块？",
              _q("grass", "Site", (Cond("region", "eq", "巴彦淖尔"),), aggregate=Aggregate("count")),
              "query", lambda r: bool(r.rows), "读"),
+    # ---- grass 遥测（口语看指标）----
+    Scenario("看墒情·遥测", "grass", "施工方", "parcel_001 墒情怎么样？",
+             CompiledIntent("telemetry", confidence=0.9, tele_object="Site",
+                            tele_key="parcel_001", tele_series="soil_moisture"),
+             "telemetry", lambda r: bool(r.plan), "遥测"),
     # ---- grass 写：出一地一方 ----
     Scenario("出一地一方·提交", "grass", "施工方", "给 parcel_001 出一地一方，用碱茅，预算300",
              _a("出一地一方", site_id="parcel_001", species=["碱茅"], budget=300),
@@ -148,6 +153,8 @@ def _intent_detail(ci) -> str:
         steps = [s.link_type for s in q.steps]
         agg = f"{q.aggregate.func}" if q.aggregate else None
         return f"OQL start={q.start} where={where} steps={steps} agg={agg}"
+    if ci.kind == "telemetry":
+        return f"遥测 对象={ci.tele_object} key={ci.tele_key} 序列={ci.tele_series} 参数={ci.tele_params}"
     if ci.kind == "advise":
         return f"建议={ci.answer}"
     if ci.kind == "clarify":

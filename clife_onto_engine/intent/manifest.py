@@ -33,7 +33,15 @@ def build_manifest(registry, ontology_id: str) -> dict:
             continue
         links.append({"name": name, "from": lk.from_type, "to": lk.to_type})
     links.sort(key=lambda x: x["name"])
-    return {"ontology_id": ontology_id, "actions": actions, "objects": objects, "links": links}
+    telemetry = []
+    for (ns, ot), b in registry.mappings.telemetry.items():
+        if ns != ontology_id:
+            continue
+        telemetry.append({"object": ot,
+                          "series": [{"name": s.name, "kind": s.kind} for s in b.series]})
+    telemetry.sort(key=lambda x: x["object"])
+    return {"ontology_id": ontology_id, "actions": actions, "objects": objects,
+            "links": links, "telemetry": telemetry}
 
 
 def render_manifest(m: dict) -> str:
@@ -50,4 +58,9 @@ def render_manifest(m: dict) -> str:
     lines.append("可用关系类型(用于多跳 Search Around):")
     for lk in m["links"]:
         lines.append(f"  - {lk['name']}: {lk['from']} → {lk['to']}")
+    if m.get("telemetry"):
+        lines.append("可观测遥测(用于'看某对象实例的指标/日志'):")
+        for t in m["telemetry"]:
+            series = ", ".join(f"{s['name']}({s['kind']})" for s in t["series"])
+            lines.append(f"  - {t['object']}: {series}")
     return "\n".join(lines)
