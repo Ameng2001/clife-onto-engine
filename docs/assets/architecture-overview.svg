@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 880" font-family="PingFang SC, Hiragino Sans GB, Hiragino Kaku Gothic ProN, Microsoft YaHei, sans-serif">
+<defs>
+<marker id="ab" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#2563eb"/></marker>
+<marker id="ar" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#dc2626"/></marker>
+<marker id="ag" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#94a3b8"/></marker>
+<filter id="sh" x="-4%" y="-4%" width="108%" height="112%"><feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+</defs>
+<rect width="1240" height="880" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#0f172a">clife-onto-engine · 自有本体语义 OS</text>
+<text x="40" y="70" font-size="13" fill="#64748b">对标 Palantir 本体语义 OS —— 读 · 写 · 展示 · Agent 面 全自有；UModel 退为纯互操作</text>
+<rect x="40" y="90" width="860" height="86" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="56" y="112" font-size="14" font-weight="700" fill="#1e3a8a" text-anchor="start">交互层 · Agent 面</text>
+<text x="884" y="112" font-size="12" font-weight="600" fill="#3b82f6" text-anchor="end">agent 可达</text>
+<rect x="56" y="122" width="266" height="44" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="70" y="142" font-size="13" font-weight="600" fill="#0f172a" text-anchor="start">MCP 桥</text>
+<text x="70" y="159" font-size="10.5" font-weight="400" fill="#64748b" text-anchor="start">query·plan 读默认开 / act 写 opt-in</text>
+<rect x="338" y="122" width="266" height="44" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="352" y="142" font-size="13" font-weight="600" fill="#0f172a" text-anchor="start">HTTP</text>
+<text x="352" y="159" font-size="10.5" font-weight="400" fill="#64748b" text-anchor="start">/ask · /plan · /explorer</text>
+<rect x="620" y="122" width="264" height="44" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="634" y="142" font-size="13" font-weight="600" fill="#0f172a" text-anchor="start">CLI REPL</text>
+<text x="634" y="159" font-size="10.5" font-weight="400" fill="#64748b" text-anchor="start">一句口语：做/查/澄清</text>
+<rect x="40" y="196" width="860" height="214" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="56" y="220" font-size="15" font-weight="700" fill="#0f172a" text-anchor="start">自有语义面</text>
+<text x="180" y="220" font-size="12" font-weight="600" fill="#059669" text-anchor="start">· 全自有（不外包语义核心）</text>
+<rect x="56" y="236" width="200" height="158" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.2" filter="url(#sh)"/>
+<text x="70" y="262" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">语义读 · OQL</text>
+<text x="70" y="284" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">JSON-AST 查对象图</text>
+<text x="70" y="300" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">关系 / 派生量</text>
+<text x="70" y="316" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">防注入 · 编译 nGQL</text>
+<text x="70" y="382" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">query/oql.py</text>
+<rect x="268" y="236" width="200" height="158" rx="10" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1.2" filter="url(#sh)"/>
+<text x="282" y="262" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">遥测读 · query-plan</text>
+<text x="282" y="284" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">对象绑定可观测后端</text>
+<text x="282" y="300" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">生成 PromQL/ES DSL</text>
+<text x="282" y="316" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">id 代入·防注入·多方言</text>
+<text x="282" y="332" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">只产计划不当 TSDB</text>
+<text x="282" y="382" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">query/telemetry.py</text>
+<rect x="480" y="236" width="200" height="158" rx="10" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.2" filter="url(#sh)"/>
+<text x="494" y="262" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">治理写 · Action 引擎</text>
+<text x="494" y="284" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">guard → 写后规则</text>
+<text x="494" y="300" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">→ 确定性回滚</text>
+<text x="494" y="316" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">→ 审计快照 · HIL</text>
+<text x="494" y="382" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">kernel/action_engine.py</text>
+<rect x="692" y="236" width="200" height="158" rx="10" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.2" filter="url(#sh)"/>
+<text x="706" y="262" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">信任基础设施</text>
+<text x="706" y="284" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">审计快照（存快照）</text>
+<text x="706" y="300" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">置信度总线 → HIL</text>
+<text x="706" y="316" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">（贯穿读写）</text>
+<text x="706" y="382" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">trust/</text>
+<rect x="40" y="430" width="860" height="64" rx="12" fill="#cffafe" stroke="#67e8f9" stroke-width="1.2"/>
+<text x="56" y="457" font-size="14" font-weight="700" fill="#0e7490" text-anchor="start">自有展示 · 对象图 Explorer</text>
+<text x="56" y="478" font-size="11" font-weight="400" fill="#155e75" text-anchor="start">离线单文件 + 活端点 /explorer · 点对象看结构 + 遥测序列 + 就地取计划（语义读与遥测读在 UI 合体）</text>
+<text x="884" y="457" font-size="11" font-weight="600" fill="#0891b2" text-anchor="end">explorer.py</text>
+<rect x="40" y="514" width="860" height="60" rx="12" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="56" y="539" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">GraphStore SPI</text>
+<text x="56" y="559" font-size="11" font-weight="400" fill="#475569" text-anchor="start">NebulaGraph（一 ontology 一 space · 多租户硬隔离） / InMemory 后端 · overlay 写即可见</text>
+<rect x="40" y="594" width="860" height="66" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="56" y="618" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">元模型五要素</text>
+<text x="190" y="618" font-size="12" font-weight="400" fill="#475569" text-anchor="start">Object · Link · Function · Rule · Action</text>
+<text x="56" y="642" font-size="11" font-weight="400" fill="#475569" text-anchor="start">Plugin SPI：grass 草业 / chili 辣椒（换行业零改内核）  +  Tenant 租户配置</text>
+<rect x="920" y="196" width="280" height="214" rx="12" fill="#f9fafb" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="920" y="196" width="280" height="214" rx="12" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="6,4"/>
+<text x="936" y="220" font-size="14" font-weight="700" fill="#475569" text-anchor="start">UModel</text>
+<text x="1186" y="220" font-size="11" font-weight="600" fill="#94a3b8" text-anchor="end">互操作·可关</text>
+<text x="936" y="242" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">import-export，非脊椎</text>
+<rect x="936" y="256" width="248" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="948" y="276" font-size="12" font-weight="600" fill="#334155" text-anchor="start">导出器</text>
+<text x="948" y="294" font-size="10.3" font-weight="400" fill="#64748b" text-anchor="start">五要素 → UModel pack</text>
+<rect x="936" y="318" width="248" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="948" y="338" font-size="12" font-weight="600" fill="#334155" text-anchor="start">治理写桥</text>
+<text x="948" y="356" font-size="10.3" font-weight="400" fill="#64748b" text-anchor="start">act 反映已提交状态</text>
+<text x="936" y="392" font-size="10.3" font-weight="400" fill="#94a3b8" text-anchor="start">Explorer/SPL/遥测均已自有</text>
+<line x1="470" y1="176" x2="470" y2="194" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<line x1="470" y1="410" x2="470" y2="428" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<line x1="470" y1="494" x2="470" y2="512" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<path d="M580,394 L580,500 L740,500 L740,512" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="528" y="503" width="150" height="16" fill="#ffffff" opacity="0.95"/>
+<text x="534" y="515" font-size="10" font-weight="600" fill="#dc2626" text-anchor="start">guard→回滚→审计</text>
+<line x1="470" y1="594" x2="470" y2="576" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#ag)"/>
+<line x1="900" y1="300" x2="920" y2="300" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
+<line x1="920" y1="330" x2="900" y2="330" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
+
+
+<rect x="40" y="690" width="860" height="42" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.2"/>
+<line x1="56" y1="711" x2="92" y2="711" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<text x="100" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">调用 / 读</text>
+<line x1="210" y1="711" x2="246" y2="711" stroke="#dc2626" stroke-width="2" marker-end="url(#ar)"/>
+<text x="254" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">治理写（本体兜底·确定性回滚）</text>
+<line x1="510" y1="711" x2="546" y2="711" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
+<text x="554" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">互操作 / 支撑（可关）</text>
+<text x="40" y="752" font-size="12" font-weight="600" fill="#0f172a" text-anchor="start">LLM 提议 · 本体兜底：合法但违规的动作照样确定性回滚 —— 防线在模型之外。</text>
+<text x="920" y="752" font-size="12" font-weight="700" fill="#059669" text-anchor="start">OAG，不是 RAG</text>
+<text x="898" y="291" font-size="10" font-weight="600" fill="#64748b" text-anchor="end">导出 ▸</text>
+<text x="898" y="343" font-size="10" font-weight="600" fill="#64748b" text-anchor="end">◂ 反映</text>
+</svg>
