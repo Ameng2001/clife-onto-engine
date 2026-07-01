@@ -43,3 +43,35 @@ class AuthzPolicy:
         for raw in doc.get("grants", []):
             self.grant(ontology_id, raw["action"], *raw.get("roles", []))
         return self
+
+
+class TenantAccessPolicy:
+    """租户 → 可访问本体集合。服务边界据此拦跨租户/跨本体请求（入口 403，不进引擎）。
+
+    与 Capability 内作用域互补：Capability 管"本 ontology 内只能碰已声明的对象"，
+    本策略管"哪个租户能碰哪个 ontology"——边界 + 内隔离双层。默认 default_allow=False。
+    """
+
+    def __init__(self, *, default_allow: bool = False) -> None:
+        self._rules: dict[str, frozenset] = {}
+        self.default_allow = default_allow
+
+    def grant(self, tenant_id: str, *ontologies: str) -> "TenantAccessPolicy":
+        self._rules[tenant_id] = self._rules.get(tenant_id, frozenset()) | frozenset(ontologies)
+        return self
+
+    def allows(self, tenant_id: str, ontology_id: str) -> bool:
+        if tenant_id in self._rules:
+            return ontology_id in self._rules[tenant_id]
+        return self.default_allow
+
+    def allowed_ontologies(self, tenant_id: str) -> frozenset:
+        return self._rules.get(tenant_id, frozenset())
+
+    def load_yaml(self, path: str | Path) -> "TenantAccessPolicy":
+        doc = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
+        if "default_allow" in doc:
+            self.default_allow = bool(doc["default_allow"])
+        for raw in doc.get("tenants", []):
+            self.grant(raw["tenant"], *raw.get("ontologies", []))
+        return self

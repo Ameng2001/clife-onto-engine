@@ -44,11 +44,14 @@ def reply_to_json(r: Reply) -> dict:
     return out
 
 
-def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = ""):
+def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = "",
+               tenant_policy=None):
     """ontologies: {name: {"store": GraphStore, "actor": Actor}}；make_compiler: () -> IntentCompiler。
 
     store 由调用方建好（InMemory 或 NebulaGraph，已 seed/bootstrap）—— web 层与后端解耦。
     explorer_js: vendored cytoscape JS（调用方注入）→ /explorer 内联即离线；空则 Explorer 走 CDN。
+    tenant_policy: TenantAccessPolicy（可选）—— 设了则各本体端点强制"租户→本体"边界（跨租户 403）；
+                   None 时不启用（向后兼容）。
     """
     from fastapi import FastAPI, HTTPException
     from fastapi.responses import HTMLResponse
@@ -71,6 +74,12 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
             _state["compiler"] = make_compiler()
         return _state["compiler"]
 
+    def _check_tenant(ont: str, tenant: str = "") -> None:
+        # 服务边界：设了 tenant_policy 就强制"租户→本体"访问（跨租户/跨本体 403，不进引擎）。
+        if tenant_policy is not None and not tenant_policy.allows(tenant, ont):
+            raise HTTPException(status_code=403,
+                                detail=f"租户 '{tenant}' 无权访问本体 '{ont}'")
+
     def _session(ont: str, sid: str) -> Session:
         if ont not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {ont}")
@@ -86,6 +95,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
         ontology: str
         utterance: str
         session_id: str = "default"
+        tenant: str = ""              # 多租户边界（设了 tenant_policy 时校验）
 
     class PlanBody(BaseModel):
         ontology: str
@@ -93,6 +103,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
         key: str
         series: str
         params: dict = {}
+        tenant: str = ""
 
     @app.get("/health")
     def health():
@@ -103,13 +114,15 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
         return {"ontologies": list(backends)}
 
     @app.get("/manifest/{ontology}")
-    def manifest(ontology: str):
+    def manifest(ontology: str, tenant: str = ""):
+        _check_tenant(ontology, tenant)
         if ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {ontology}")
         return build_manifest(spi.registry, ontology)
 
     @app.get("/audit/{ontology}")
-    def audit(ontology: str, limit: int = 10):
+    def audit(ontology: str, limit: int = 10, tenant: str = ""):
+        _check_tenant(ontology, tenant)
         if ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {ontology}")
         snaps = backends[ontology]["engine"].audit.query(ontology)[-limit:]
@@ -118,12 +131,14 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
 
     @app.post("/ask")
     def ask(body: AskBody):
+        _check_tenant(body.ontology, body.tenant)
         return reply_to_json(_session(body.ontology, body.session_id).ask(body.utterance))
 
     @app.get("/explorer/{ontology}", response_class=HTMLResponse)
-    def explorer(ontology: str):
+    def explorer(ontology: str, tenant: str = ""):
         # 自有对象图 Explorer：从活 store 现场渲染，浏览实时治理状态（不需 UModel）。
         from .explorer import render
+        _check_tenant(ontology, tenant)
         if ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {ontology}")
         return render(spi.registry, backends[ontology]["store"], ontology,
@@ -133,6 +148,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
     def plan(body: PlanBody):
         # 遥测查询计划：引擎据对象绑定产计划（PromQL/ES/SQL，id 已代入），不执行。
         from .query.telemetry import build_plan
+        _check_tenant(body.ontology, body.tenant)
         if body.ontology not in backends:
             raise HTTPException(status_code=404, detail=f"未知本体: {body.ontology}")
         return build_plan(spi.registry, backends[body.ontology]["store"],

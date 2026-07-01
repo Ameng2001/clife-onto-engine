@@ -118,3 +118,35 @@ def test_explorer_endpoint():
     assert "Site:parcel_001" in r.text and "/*CY*/" in r.text  # 活对象图 + 注入 JS 内联
     assert "soil_moisture" in r.text and "取计划" in r.text     # 遥测联动（点对象取计划）
     assert c.get("/explorer/medical").status_code == 404
+
+
+def test_tenant_boundary_enforced():
+    from clife_onto_engine.web import create_app
+    from clife_onto_engine.authz import TenantAccessPolicy
+    policy = TenantAccessPolicy(default_allow=False).grant("A", "grass")
+    app = create_app(
+        ontologies={"grass": {"store": _store(), "actor": Actor("u1", "施工方")}},
+        make_compiler=lambda: _StubCompiler(), tenant_policy=policy)
+    c = TestClient(app)
+    # 授权租户放行
+    assert c.post("/ask", json={"ontology": "grass", "utterance": "巴彦淖尔有哪些地块？",
+                                "tenant": "A"}).status_code == 200
+    # 未授权租户 403（跨租户，入口拒）
+    assert c.post("/ask", json={"ontology": "grass", "utterance": "x", "tenant": "B"}).status_code == 403
+    # GET 端点走 tenant 查询参数
+    assert c.get("/manifest/grass?tenant=A").status_code == 200
+    assert c.get("/manifest/grass?tenant=B").status_code == 403
+    assert c.get("/explorer/grass?tenant=B").status_code == 403
+
+
+def test_no_tenant_policy_backward_compatible():
+    # 无 tenant_policy：不校验租户（既有行为）
+    r = client_noop().post("/ask", json={"ontology": "grass", "utterance": "巴彦淖尔有哪些地块？"})
+    assert r.status_code == 200
+
+
+def client_noop():
+    from clife_onto_engine.web import create_app
+    app = create_app(ontologies={"grass": {"store": _store(), "actor": Actor("u1", "施工方")}},
+                     make_compiler=lambda: _StubCompiler())
+    return TestClient(app)
