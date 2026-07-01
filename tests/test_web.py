@@ -56,8 +56,21 @@ def test_root_landing_and_favicon(client):
     r = client.get("/")
     assert r.status_code == 200 and "数智本体引擎" in r.text
     assert "/docs" in r.text and "/explorer/grass" in r.text   # 端点索引 + 本体直达
-    assert "打开对象图" in r.text                               # Explorer 作醒目主入口（卡片）
+    assert "对象图 Explorer" in r.text                          # Explorer 作醒目主入口（卡片）
     assert client.get("/favicon.ico").status_code == 204        # 消 404 噪声（公开，不需认证）
+
+
+def test_okf_viz_route_and_card():
+    app = create_app(
+        ontologies={"grass": {"store": _store(), "actor": Actor("u1", "施工方")}},
+        make_compiler=lambda: _StubCompiler(),
+        viz_html={"grass": "<html><body>OKF-VIZ-PAYLOAD</body></html>"})
+    c = TestClient(app)
+    # 注入的本体：落地页有 OKF viz 卡片按钮 + /viz 路由吐自包含 HTML
+    assert "/viz/grass" in c.get("/").text and "OKF 知识图谱" in c.get("/").text
+    assert "OKF-VIZ-PAYLOAD" in c.get("/viz/grass").text
+    # 未注入的本体：404 提示生成
+    assert c.get("/viz/chili").status_code == 404
 
 
 def test_manifest(client):
