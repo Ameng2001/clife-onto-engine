@@ -18,9 +18,9 @@ def test_mengcao_sample_loads_by_schema():
     rep = load_tenant(MENGCAO, spi.registry, store)
     assert rep.total_rejected == 0
     by = {o.object_type: o for o in rep.objects}
-    assert by["Site"].loaded == 4
-    assert by["NativeListing"].loaded == 4
-    assert by["ForageSample"].loaded == 3
+    assert by["Site"].loaded == 16
+    assert by["NativeListing"].loaded == 9
+    assert by["ForageSample"].loaded == 8
     # 组合主键模板生效：region::species 键可取到
     assert store.get_object("NativeListing", "巴彦淖尔::碱茅") is not None
     # 数字类型强制：area_mu 落成 number 而非字符串

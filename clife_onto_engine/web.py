@@ -47,13 +47,15 @@ def reply_to_json(r: Reply) -> dict:
 
 
 def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = "",
-               tenant_policy=None, identity_resolver=None):
+               tenant_policy=None, identity_resolver=None, authz=None):
     """ontologies: {name: {"store": GraphStore, "actor": Actor}}；make_compiler: () -> IntentCompiler。
 
     store 由调用方建好（InMemory 或 NebulaGraph，已 seed/bootstrap）—— web 层与后端解耦。
     explorer_js: vendored cytoscape JS（调用方注入）→ /explorer 内联即离线；空则 Explorer 走 CDN。
     tenant_policy: TenantAccessPolicy（可选）—— 设了则各本体端点强制"租户→本体"边界（跨租户 403）；
                    None 时不启用（向后兼容）。
+    authz: AuthzPolicy（可选）—— 设了则各本体 ActionEngine 前置授权门（角色无权→ phase=authz 拒 + 审计）；
+           None 时不启用（向后兼容）。
     """
     from fastapi import FastAPI, Header, HTTPException
     from fastapi.responses import HTMLResponse
@@ -66,7 +68,7 @@ def create_app(*, ontologies: dict, make_compiler: Callable, explorer_js: str = 
     backends: dict = {}
     for name, cfg in ontologies.items():
         store = cfg["store"]
-        backends[name] = {"store": store, "engine": ActionEngine(spi.registry, store=store),
+        backends[name] = {"store": store, "engine": ActionEngine(spi.registry, store=store, authz=authz),
                           "actor": cfg["actor"]}
     _state: dict = {"compiler": None}
     sessions: dict = {}

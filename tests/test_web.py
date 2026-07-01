@@ -190,3 +190,29 @@ def test_authenticated_actor_drives_action():
     r = c.post("/ask", json={"ontology": "grass", "utterance": "出方案"},
                headers={"X-Api-Key": "k-A-worker"}).json()
     assert r["kind"] == "committed"
+
+
+def _app_with_authz():
+    """authz 授权门经 create_app 注入 engine：出一地一方 仅授予施工方。"""
+    from clife_onto_engine.authz import AuthzPolicy
+    from clife_onto_engine.identity import StaticIdentityResolver
+    resolver = (StaticIdentityResolver()
+                .add("k-worker", "A", "u1", "施工方")
+                .add("k-guest", "A", "u9", "游客"))
+    authz = AuthzPolicy(default_allow=False).grant("grass", "出一地一方", "施工方")
+    return create_app(
+        ontologies={"grass": {"store": _store(), "actor": Actor("u0", "施工方")}},
+        make_compiler=lambda: _StubCompiler(), identity_resolver=resolver, authz=authz)
+
+
+def test_authz_gate_wired_through_create_app():
+    c = TestClient(_app_with_authz())
+    # 施工方（授权）→ 动作提交
+    ok = c.post("/ask", json={"ontology": "grass", "utterance": "出方案"},
+                headers={"X-Api-Key": "k-worker"}).json()
+    assert ok["kind"] == "committed"
+    # 游客（未授权该动作）→ phase=authz 拒（授权门经 create_app 接进 engine）
+    no = c.post("/ask", json={"ontology": "grass", "utterance": "出方案"},
+                headers={"X-Api-Key": "k-guest"}).json()
+    assert no["kind"] == "rejected"
+    assert any(v["rule"] == "authz" for v in no["violations"])

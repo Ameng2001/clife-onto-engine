@@ -1,0 +1,9 @@
+# 租户 → 可访问本体（服务边界，A 弧）。跨租户/跨本体请求入口即 403（不进引擎）。
+default_allow: false
+tenants:
+  - tenant: mengcao          # 蒙草（问草）：只能访问 grass
+    ontologies: [grass]
+  - tenant: chili_co         # 辣椒示例租户：只能访问 chili
+    ontologies: [chili]
+  - tenant: platform         # 平台运营：跨本体可见（内部）
+    ontologies: [grass, chili]

@@ -1,0 +1,8 @@
+# grass 本体授权门（A 弧）：动作 → 允许角色。前置于 guard/执行；无权→ phase=authz 拒 + 审计 unauthorized。
+# 与插件业务 guard 分离：插件声明"需要什么角色"，租户在此配"谁被授予"。
+default_allow: false          # 未声明的动作默认拒（收紧；放开改 true）
+grants:
+  - action: 出一地一方
+    roles: [施工方, 监管]      # 出方案：施工方执行、监管可代
+  - action: 快检评级
+    roles: [施工方, 牧民, 监管] # 快检：一线角色都可录
