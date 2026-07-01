@@ -22,7 +22,7 @@ from .sdk.context import Actor
 
 @dataclass
 class Reply:
-    kind: str                       # query | committed | rejected | clarify | error
+    kind: str                       # query | committed | pending_hil | rejected | clarify | advise | error
     confidence: float = 0.0
     # query
     rows: Optional[list] = None
@@ -31,6 +31,7 @@ class Reply:
     # action
     written: tuple = ()
     violations: tuple = ()
+    reviewer: str = ""              # kind=pending_hil：待复核角色（数据已暂存，副作用挂起）
     # clarify / error / advise
     question: str = ""
     answer: str = ""                # kind=advise：知识接地的只读建议
@@ -41,6 +42,8 @@ class Reply:
             return f"[查询] {len(self.rows or [])} 行 · 成本{self.cost} · {self.rows}"
         if self.kind == "committed":
             return f"[已执行] 写入 {list(self.written)}"
+        if self.kind == "pending_hil":
+            return f"[待复核] 数据已暂存 {list(self.written)}，副作用挂起，待「{self.reviewer}」复核"
         if self.kind == "rejected":
             return f"[被拒] 违反 {[v.rule for v in self.violations]}：" + \
                    "；".join(f"{v.message}" for v in self.violations)
@@ -90,9 +93,14 @@ class Session:
         if ci.executable:
             res = self.engine.execute(self.ontology_id, ci.action, ci.params, self.actor,
                                       schema_version=self.schema_version, ts=ts)
-            self._remember(Layer.CONTEXT, f"动作 {ci.action} committed={res.committed}",
+            decision = getattr(res, "decision", "committed" if res.committed else "rejected")
+            self._remember(Layer.CONTEXT, f"动作 {ci.action} decision={decision}",
                            tags=("result",), source="action_result")
             if res.committed:
+                # 待人工复核（HIL）：数据已暂存，但副作用挂起、需复核——如实 surface，不冒充已执行
+                if getattr(res, "hil_required", False):
+                    return Reply("pending_hil", ci.confidence, written=getattr(res, "written", ()),
+                                 reviewer=getattr(res, "reviewer", ""))
                 return Reply("committed", ci.confidence, written=getattr(res, "written", ()))
             return Reply("rejected", ci.confidence, violations=tuple(getattr(res, "violations", ())))
 

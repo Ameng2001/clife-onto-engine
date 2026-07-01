@@ -161,6 +161,7 @@ class ActionEngine:
                                 for l in ctx.changeset if isinstance(l, StagedLink)),
             effects_scheduled=scheduled, confidence=ctx.confidence,
             hil_required=hil_required,
+            reviewer=(spec.hil.reviewer_role if hil_required and spec.hil is not None else ""),
             advisory=tuple(v for v in post_violations if v.severity == Severity.SOFT.value),
         )
 
