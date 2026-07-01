@@ -61,7 +61,10 @@ def build() -> "object":
     def make_compiler():
         client = OpenAICompatibleClient(config_path=str(ROOT / "llm.local.json"))
         return IntentCompiler(client, spi.registry)
-    return create_app(ontologies=ontologies, make_compiler=make_compiler)
+    # vendored cytoscape 注入 → /explorer 离线自包含（自有对象图浏览）
+    cyto = ROOT / "third-party" / "okf-visualizer" / "reference_agent" / "viewer" / "static" / "vendor" / "cytoscape.min.js"
+    explorer_js = cyto.read_text(encoding="utf-8") if cyto.exists() else ""
+    return create_app(ontologies=ontologies, make_compiler=make_compiler, explorer_js=explorer_js)
 
 
 app = build()

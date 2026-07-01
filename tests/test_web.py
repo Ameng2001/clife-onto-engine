@@ -104,3 +104,16 @@ def test_plan_log_with_params(client):
                                    "params": {"level": "ERROR", "since": "now-1h"}}).json()
     assert r["ok"] and r["provider"] == "elasticsearch" and r["kind"] == "log"
     assert '"level":"ERROR"' in r["plan"] and "$" not in r["plan"]
+
+
+def test_explorer_endpoint():
+    from clife_onto_engine.web import create_app
+    app = create_app(
+        ontologies={"grass": {"store": _store(), "actor": Actor("u1", "施工方")}},
+        make_compiler=lambda: _StubCompiler(), explorer_js="/*CY*/1;",
+    )
+    c = TestClient(app)
+    r = c.get("/explorer/grass")
+    assert r.status_code == 200 and "text/html" in r.headers["content-type"]
+    assert "Site:parcel_001" in r.text and "/*CY*/" in r.text  # 活对象图 + 注入 JS 内联
+    assert c.get("/explorer/medical").status_code == 404
