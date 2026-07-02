@@ -44,6 +44,10 @@ telemetry:
         kind: log                    # 运行时过滤：$level / $since 由调用方传 params
         provider: elasticsearch
         template: '{"query":{"bool":{"filter":[{"term":{"parcel":"$parcel"}},{"term":{"level":"$level"}},{"range":{"ts":{"gte":"$since"}}}]}}}'
+      - name: soil_moisture_db       # 墒情（数仓/DuckDB，SQL provider）：真后端出值、零服务器
+        kind: metric
+        provider: sql
+        template: "SELECT avg(moisture) FROM iot_soil WHERE parcel = '$parcel'"
 
 # 附着知识（读侧参考/诊断，供 Agent 推理；与强制 Rule / 派生 Function 并存）。
 # 挂在业务对象上、和对象一次取到（Palantir 式）；kind 标准化（UModel 式模板化）。
