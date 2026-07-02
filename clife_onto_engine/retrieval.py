@@ -64,3 +64,68 @@ class InMemoryRetriever:
                 hits.append(DocHit(c, float(score)))
         hits.sort(key=lambda h: (-h.score, h.chunk.doc_id))
         return hits[:k]
+
+
+# ---- 嵌入函数（可插拔）：离线确定性默认 + 真模型 opt-in --------------------
+def hashing_embed(texts, dim: int = 64) -> list:
+    """离线确定性嵌入：字符 bigram 经 md5 特征哈希入固定维、L2 归一。
+
+    无模型、无网络、跨进程确定（不用 salted 的内置 hash）——让向量检索**管道**可 CI 测。
+    诚实边界：它≈词法，**不解决同义词**（霉变/霉菌）；真语义需换真嵌入模型（下）。
+    真模型 opt-in：传 `embed=` 一个 `(list[str])->list[list[float]]`，如 BGE-M3 / DashScope
+    text-embedding（复用 openai 兼容客户端）。协议一致，检索器无感。
+    """
+    import hashlib
+    import math
+
+    out = []
+    for t in texts:
+        vec = [0.0] * dim
+        for bg in _bigrams(t):
+            h = int.from_bytes(hashlib.md5(bg.encode("utf-8")).digest()[:4], "big")
+            vec[h % dim] += 1.0
+        norm = math.sqrt(sum(x * x for x in vec)) or 1.0
+        out.append([x / norm for x in vec])
+    return out
+
+
+class MilvusVectorRetriever:
+    """Milvus 向量检索（方案 §5.9 指定库）。同 KnowledgeRetriever 协议——Session 换检索器无感。
+
+    嵌入式 **Milvus Lite**（uri=本地 .db 文件，进程内、无服务器、可 CI）与真 **Milvus 服务器**
+    （uri=http://host:19530）**同一份代码**，只换 uri。向量入库、COSINE 检索、带出处返回。
+    嵌入用可插拔 `embed`（默认 hashing_embed 离线；真部署换真模型）。
+    """
+
+    def __init__(self, chunks, *, embed=hashing_embed, dim: int = 64,
+                 uri: str = "./milvus_kb.db", collection: str = "kb", client=None) -> None:
+        from pymilvus import MilvusClient  # 延迟导入：未装 pymilvus 不影响引擎其它部分
+
+        self._embed = embed
+        self._dim = dim
+        self._collection = collection
+        self._client = client or MilvusClient(uri)
+        if self._client.has_collection(collection):
+            self._client.drop_collection(collection)          # 幂等重建（检索器绑定固定语料）
+        self._client.create_collection(collection, dimension=dim, metric_type="COSINE", auto_id=False)
+        chunks = list(chunks)
+        if chunks:
+            vecs = embed([c.text + " " + " ".join(c.refs) for c in chunks], dim) \
+                if embed is hashing_embed else embed([c.text + " " + " ".join(c.refs) for c in chunks])
+            rows = [{"id": i, "vector": v, "doc_id": c.doc_id, "text": c.text,
+                     "source": c.source, "refs": "|".join(c.refs)}
+                    for i, (c, v) in enumerate(zip(chunks, vecs))]
+            self._client.insert(collection, rows)
+
+    def retrieve(self, query: str, k: int = 3) -> list:
+        if not (query and query.strip()):
+            return []
+        qv = self._embed([query], self._dim)[0] if self._embed is hashing_embed else self._embed([query])[0]
+        res = self._client.search(self._collection, data=[qv], limit=k,
+                                  output_fields=["doc_id", "text", "source", "refs"])
+        hits = []
+        for h in (res[0] if res else []):
+            e = h["entity"]
+            refs = tuple(r for r in (e.get("refs") or "").split("|") if r)
+            hits.append(DocHit(DocChunk(e["doc_id"], e["text"], e["source"], refs), float(h["distance"])))
+        return hits
