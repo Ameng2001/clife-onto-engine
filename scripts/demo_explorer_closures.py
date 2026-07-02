@@ -73,6 +73,9 @@ def main() -> None:
          {"site_id": "parcel_hil", "species": ["碱茅"],
           "composition": [{"species": "碱茅", "ratio": 100, "seeding_rate": 2.0}],
           "budget": 300, "_confidence": 0.5}, "施工方")
+    # E 草碳·碳汇核算 → 提交（写 CarbonReport + sequesters→Methodology，演示第三条闭环）
+    _run(engine, "E 草碳·碳汇核算(合规)", "出碳汇核算报告",
+         {"cp_id": "cp_001", "method_no": "CCER-GRASS-01"}, "碳汇开发")
 
     # ---- 过程可溯：审计血统 ----
     print("\n== 过程可溯·审计血统（每步决策 + 规则评估 + 证据）==")

@@ -20,6 +20,14 @@ sources:
     file: data/grass_species.csv
     format: csv
 
+  - object: Methodology                # 碳汇方法学（主键 method_no）：供「方法学年限合规」
+    file: data/methodologies.csv
+    format: csv
+
+  - object: CarbonParcel               # 碳汇地块（主键 cp_id）：供草碳·碳汇核算闭环
+    file: data/carbon_parcels.csv
+    format: csv
+
   - object: ForageSample               # 草样快检批次（主键 batch_id）
     file: data/forage_samples.csv
     format: csv

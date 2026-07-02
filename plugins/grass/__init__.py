@@ -245,11 +245,23 @@ def seed_reference_data(store: InMemoryStore) -> None:
     store.put_link(StagedLink(link_type="measured_by", from_type="QualityIndex", from_key="qi_batch_demo",
                               to_type="Standard", to_key="NY/T 1574", props={"方法": "RFV分级"}))
 
+    # 碳汇参考数据：方法学 + 3 类地块（合规 / 年限不足 / 权属争议），供草碳闭环 CQ。
+    store.put_object("Methodology", "CCER-GRASS-01",
+                     {"method_no": "CCER-GRASS-01", "name": "CCER 草原碳汇", "min_years": 20})
+    for _cp, _area, _yr, _ten in (("cp_001", 1000, 25, "清晰"),
+                                  ("cp_young", 500, 10, "清晰"),
+                                  ("cp_disputed", 800, 25, "争议")):
+        store.put_object("CarbonParcel", _cp, {"cp_id": _cp, "area_mu": _area, "years": _yr,
+                                               "tenure": _ten, "annual_seq_per_mu": 0.3})
+
 
 # 第二个 Action 闭环：草易·快检评级。import 即完成 SPI 注册。
 from . import forage  # noqa: E402,F401
 
-# Phase 1：6 大子图 schema 层贯通（育种/碳汇/监测等对象与关系；schema-only）。
+# 第三个 Action 闭环：草碳·碳汇核算（子图5 落地）。import 即完成 SPI 注册。
+from . import carbon  # noqa: E402,F401
+
+# Phase 1：其余子图 schema 层贯通（育种/监测等对象与关系；schema-only）。
 from . import subgraphs  # noqa: E402,F401
 
 # 槽位 2：加载对象/关系物理映射（声明式 YAML）。
