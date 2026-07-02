@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import math
 
+import pytest
+
 from clife_onto_engine.intent.compiler import CompiledIntent
 from clife_onto_engine.query import InMemoryStore
 from clife_onto_engine.retrieval import DocChunk, InMemoryRetriever, hashing_embed
@@ -63,6 +65,14 @@ def test_hashing_embed_deterministic_and_normalized():
     assert len(a[0]) == 64
     assert abs(math.sqrt(sum(x * x for x in a[0])) - 1.0) < 1e-6   # L2 归一
     assert all(x == 0.0 for x in hashing_embed([""], 64)[0])       # 空文本 → 零向量
+
+
+def test_dashscope_embedder_requires_credentials(monkeypatch, tmp_path):
+    from clife_onto_engine.retrieval import DashScopeEmbedder
+    monkeypatch.delenv("DASHSCOPE_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    with pytest.raises(RuntimeError):                      # 无凭据 → 明确报错（不静默）
+        DashScopeEmbedder(config_path=str(tmp_path / "nope.json"))
 
 
 def test_session_advise_without_retriever_still_works():

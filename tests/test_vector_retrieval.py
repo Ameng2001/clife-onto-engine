@@ -40,6 +40,15 @@ def test_k_limit_and_empty_query(tmp_path):
     assert r.retrieve("   ", k=3) == []
 
 
+def test_accepts_custom_real_shaped_embedder(tmp_path):
+    # 真嵌入器形态 (list[str])->list[list[float]]（非 hashing_embed 对象）→ 走真嵌入分支
+    from clife_onto_engine.retrieval import hashing_embed
+    custom = lambda texts: hashing_embed(texts, 32)        # noqa: E731
+    r = MilvusVectorRetriever(CHUNKS, embed=custom, dim=32, uri=str(tmp_path / "kb.db"))
+    hits = r.retrieve("苜蓿 RFV 分级", k=2)
+    assert hits and all(h.chunk.source for h in hits)
+
+
 def test_same_protocol_swaps_into_session(tmp_path):
     r = _retriever(tmp_path)
 

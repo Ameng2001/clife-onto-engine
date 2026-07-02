@@ -89,6 +89,44 @@ def hashing_embed(texts, dim: int = 64) -> list:
     return out
 
 
+class DashScopeEmbedder:
+    """真嵌入模型（DashScope text-embedding，OpenAI 兼容端点）——让向量检索有真语义。
+
+    是 `embed` 的一个 opt-in 真实现：`(list[str]) -> list[list[float]]`。复用 llm 的配置
+    （env DASHSCOPE_*/OPENAI_* 或 llm.local.json）。真语义 → 同义词可召回（霉变↔霉菌），
+    这是离线 hashing_embed（≈词法）给不了的。需 API key + 网络，故不进 CI（同 real-Qwen）。
+
+      e = DashScopeEmbedder(dimensions=1024)
+      r = MilvusVectorRetriever(CHUNKS, embed=e, dim=e.dim)   # dim 与嵌入维一致
+    """
+
+    def __init__(self, *, model: str = "text-embedding-v3", dimensions: int = 1024,
+                 config_path: str = "llm.local.json", base_url=None, api_key=None,
+                 batch_size: int = 10) -> None:
+        from .intent.llm import _load_config  # 复用 env/本地文件配置加载
+
+        cfg = _load_config(config_path)
+        self.model = model
+        self.dim = dimensions
+        self._batch = batch_size
+        base = base_url or cfg["base_url"] or "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        key = api_key or cfg["api_key"]
+        if not key:
+            raise RuntimeError("嵌入需 api_key（env DASHSCOPE_API_KEY/OPENAI_API_KEY 或 llm.local.json）")
+        from openai import OpenAI
+        self._client = OpenAI(base_url=base, api_key=key)
+
+    def __call__(self, texts) -> list:
+        out: list = []
+        for i in range(0, len(texts), self._batch):          # 分批：嵌入端点有单次条数上限
+            kwargs = {"model": self.model, "input": list(texts[i:i + self._batch])}
+            if self.dim:
+                kwargs["dimensions"] = self.dim
+            resp = self._client.embeddings.create(**kwargs)
+            out.extend(d.embedding for d in resp.data)
+        return out
+
+
 class MilvusVectorRetriever:
     """Milvus 向量检索（方案 §5.9 指定库）。同 KnowledgeRetriever 协议——Session 换检索器无感。
 
