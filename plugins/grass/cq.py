@@ -68,6 +68,11 @@ CQ_SUITE = (
              {"batch_id": "b2",
               "measurements": {"CP": 20, "NDF": 40, "ADF": 30, "RFV": 140, "霉菌毒素": 0.2}},
              actor_role="养殖户", expect="reject", expect_rule="霉变拦截"),
+    # LLM 鲁棒：安全字段抽成英文键（mycotoxin）也须归一后被拦——真 Qwen record-replay 抓到过绕过
+    ActionCQ("英文键霉变也被拦", ONTOLOGY, "快检评级",
+             {"batch_id": "b5",
+              "measurements": {"CP": 20, "NDF": 40, "ADF": 30, "RFV": 140, "mycotoxin": 0.2}},
+             actor_role="养殖户", expect="reject", expect_rule="霉变拦截"),
     # guard：缺检测项应被「检测项完整」拦（缺 CP）
     ActionCQ("缺检测项被拦", ONTOLOGY, "快检评级",
              {"batch_id": "b3",

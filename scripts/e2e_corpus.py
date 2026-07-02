@@ -182,8 +182,11 @@ def make_compiler(force_stub, scenarios):
     return ScriptedCompiler(scenarios), False
 
 
-def run(scenarios, *, force_stub=False, verbose=False):
-    compiler, live = make_compiler(force_stub, scenarios)
+def run(scenarios, *, force_stub=False, verbose=False, compiler=None):
+    if compiler is not None:              # 注入编译器（如 replay 回放），跳过 make_compiler
+        live = False
+    else:
+        compiler, live = make_compiler(force_stub, scenarios)
     spy = _SpyCompiler(compiler)
     # 每 (本体, 角色) 一个会话（角色权限不同）
     sessions: dict = {}
