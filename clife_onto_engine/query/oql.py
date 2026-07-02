@@ -13,6 +13,7 @@
 """
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
@@ -210,39 +211,93 @@ def _aggregate(frontier, agg: Aggregate):
     return {agg.func: None}  # 不可达（validate 已挡）
 
 
-# ---- 编译为 nGQL（薄翻译；adapter 执行）------------------------------
-def to_ngql(q: OQLQuery, mappings=None) -> str:
-    """把同一个 OQL 编译成 NebulaGraph nGQL 示意，证明 OQL 后端无关。
-    具体 YIELD 字段与 VID 取值由 NebulaGraphStore 配合映射注册表填充。"""
-    validate_skipped = q  # 调用方应已 validate
-    parts = [f"LOOKUP ON {q.start} WHERE {_ngql_where(q.start, q.where)} YIELD id(vertex) AS vid"]
-    for s in q.steps:
+# ---- 编译为 nGQL（真翻译；adapter 执行）------------------------------
+def to_ngql(q: OQLQuery, registry=None) -> str:
+    """把 OQL 编译成**可执行 nGQL**，复用 nebula_store 已验证的 LOOKUP/GO/YIELD/字面量形态。
+
+    下推边界（其余由 execute() 的 SPI 路径兜底，正确性不受影响）：
+      · WHERE 仅当整表达式引用字段都是原生列（或 registry 未知）才下推，否则全 LOOKUP、
+        引擎再过滤；主键字段 → id(vertex)；布尔组 (AND/OR) 加括号保序；in → IN [..]。
+      · 多跳 GO 产出遍历（同 search_around）；每跳节点 props 由 adapter 逐跳 FETCH，
+        故 steps 的 where 与最终投影不在此单条语句下推。
+      · ORDER BY 仅原生列且无多跳；聚合仅 count → YIELD COUNT(*)；否则 LIMIT。
+
+    结构由离线测试断言；**执行等价性由 opt-in scripts/nebula_to_ngql.py 在真集群对齐
+    execute()（proven SPI 路径）交叉验证**。registry 省略则 best-effort 全下推（供无映射测试）。
+    """
+    native = _native_cols(registry, q.namespace, q.start)
+    m = registry.mappings.get_object(q.namespace, q.start) if registry is not None else None
+    pk = m.primary.key if m else None
+
+    # WHERE 仅当整表达式引用字段都是原生列（或 registry 未知）才下推；否则全扫、引擎再过滤。
+    where_fields = set().union(set(), *(_fields_of(n) for n in q.where))
+    can_push = (native is None) or (where_fields <= (native | ({pk} if pk else set())))
+    if q.where and can_push:
+        clause = " AND ".join(_ngql_node(q.start, n, pk) for n in q.where)
+        anchor = (f"LOOKUP ON {q.start} WHERE {clause} "
+                  f"YIELD id(vertex) AS vid, properties(vertex).props AS props")
+    else:
+        anchor = f"LOOKUP ON {q.start} YIELD id(vertex) AS vid, properties(vertex).props AS props"
+
+    parts = [anchor]
+    for s in q.steps:                       # 多跳遍历（同 search_around）；每跳节点 props 由 adapter FETCH
         rev = " REVERSELY" if s.direction == "in" else ""
         parts.append(f"GO FROM $-.vid OVER {s.link_type}{rev} YIELD dst(edge) AS vid")
+
     tail = ""
-    if q.order_by and not q.aggregate:
+    if (q.order_by and not q.aggregate and not q.steps
+            and (native is None or all(s.field in native for s in q.order_by))):
         keys = ", ".join(f"$-.{s.field} {'DESC' if s.desc else 'ASC'}" for s in q.order_by)
         tail += f" | ORDER BY {keys}"
-    tail += f" | LIMIT {q.limit}" if not q.aggregate else ""
+    if q.aggregate and q.aggregate.func == "count":
+        tail += " | YIELD COUNT(*) AS count"
+    elif not q.aggregate:
+        tail += f" | LIMIT {q.limit}"
     return " | ".join(parts) + tail
 
 
-_SYM = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<=",
-        "in": "IN"}
+_SYM = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<="}
+_IDENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")  # 原生列标识符（与 nebula_store 一致）
 
 
-def _ngql_where(tag: str, nodes) -> str:
-    if not nodes:
-        return "true"
-    return " AND ".join(_ngql_node(tag, n) for n in nodes)
+def _lit(v) -> str:
+    """nGQL 字面量：字符串双引号+转义（同 nebula_store._lit）；bool→true/false；数值裸值。"""
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if isinstance(v, str):
+        return '"' + v.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    return str(v)
 
 
-def _ngql_node(tag: str, node) -> str:
-    """把过滤节点（Cond/And/Or）渲染为 nGQL 布尔表达式（组加括号）。"""
+def _native_cols(registry, namespace: str, object_type: str):
+    """对象落原生列的字段集；registry=None → None（未知，best-effort 全下推）。"""
+    if registry is None:
+        return None
+    m = registry.mappings.get_object(namespace, object_type)
+    if not m:
+        return set()
+    return {c for c in m.primary.columns if _IDENT.match(c)}
+
+
+def _fields_of(node) -> set:
     if isinstance(node, Cond):
-        return f"{tag}.{node.field} {_SYM.get(node.op, '==')} {node.value!r}"
+        return {node.field}
     if isinstance(node, Or):
-        return "(" + " OR ".join(_ngql_node(tag, x) for x in node.any_of) + ")"
+        return set().union(set(), *(_fields_of(x) for x in node.any_of))
     if isinstance(node, And):
-        return "(" + " AND ".join(_ngql_node(tag, x) for x in node.all_of) + ")"
+        return set().union(set(), *(_fields_of(x) for x in node.all_of))
+    return set()
+
+
+def _ngql_node(tag: str, node, pk=None) -> str:
+    """渲染过滤节点为 nGQL（组加括号；主键→id(vertex)；in→IN [..]；字面量走 _lit）。"""
+    if isinstance(node, Cond):
+        lhs = "id(vertex)" if (pk and node.field == pk) else f"{tag}.{node.field}"
+        if node.op == "in":
+            return f"{lhs} IN [" + ", ".join(_lit(v) for v in (node.value or [])) + "]"
+        return f"{lhs} {_SYM.get(node.op, '==')} {_lit(node.value)}"
+    if isinstance(node, Or):
+        return "(" + " OR ".join(_ngql_node(tag, x, pk) for x in node.any_of) + ")"
+    if isinstance(node, And):
+        return "(" + " AND ".join(_ngql_node(tag, x, pk) for x in node.all_of) + ")"
     return "true"

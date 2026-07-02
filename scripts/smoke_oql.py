@@ -77,7 +77,7 @@ def main() -> None:
         print(f"  ✓ 拦截: {e}")
 
     print("== 同一 OQL 编译为 nGQL（NebulaGraph adapter 执行）==")
-    print(f"  {to_ngql(q2)}")
+    print(f"  {to_ngql(q2, spi.registry)}")
 
 
 if __name__ == "__main__":
