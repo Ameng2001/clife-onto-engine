@@ -29,7 +29,8 @@ class Reply:
     cost: Optional[dict] = None
     oql: object = None
     # telemetry
-    plan: Optional[dict] = None     # kind=telemetry：可执行查询计划（provider/kind/plan，不执行）
+    plan: Optional[dict] = None     # kind=telemetry：可执行查询计划（provider/kind/plan）
+    value: object = None            # kind=telemetry：接执行器时的实测值/序列（离线默认或真后端）
     # action
     written: tuple = ()
     violations: tuple = ()
@@ -52,6 +53,8 @@ class Reply:
                    "；".join(f"{v.message}" for v in self.violations)
         if self.kind == "telemetry":
             p = self.plan or {}
+            if self.value is not None:
+                return f"[遥测] {p.get('series')}={self.value}（{p.get('provider')}/{p.get('kind')}）"
             return f"[遥测计划] {p.get('provider')}/{p.get('kind')}：{p.get('plan')}"
         if self.kind == "advise":
             src = f"（出处：{list(self.sources)}）" if self.sources else ""
@@ -65,7 +68,8 @@ class Session:
     def __init__(self, *, ontology_id: str, registry, store, compiler: IntentCompiler,
                  actor: Actor, memory: Optional[MemoryStore] = None, session_id: str = "s1",
                  engine: Optional[ActionEngine] = None, schema_version: str = "",
-                 load_knowledge: bool = False, retriever: Optional[object] = None) -> None:
+                 load_knowledge: bool = False, retriever: Optional[object] = None,
+                 telemetry_executor: Optional[object] = None) -> None:
         self.ontology_id = ontology_id
         self.registry = registry
         self.store = store
@@ -73,6 +77,8 @@ class Session:
         self.actor = actor
         # RAG · advise 通道（可选）：对非结构化全文的只读检索器；仅补上下文，绝不驱动写入。
         self.retriever = retriever
+        # 遥测执行器（可选）：接则"看指标"回路出实测值，不接则仅返回查询计划（向后兼容）。
+        self.telemetry_executor = telemetry_executor
         self.memory = memory if memory is not None else MemoryStore()
         self.session_id = session_id
         self.engine = engine if engine is not None else ActionEngine(registry, store=store)
@@ -113,9 +119,15 @@ class Session:
                               ci.tele_series, namespace=self.ontology_id, params=ci.tele_params)
             self._remember(Layer.CONTEXT, f"遥测计划 {ci.tele_object}.{ci.tele_series} ok={plan.get('ok')}",
                            tags=("result",), source="telemetry")
-            if plan.get("ok"):
-                return Reply("telemetry", ci.confidence, plan=plan)
-            return Reply("error", ci.confidence, error=plan.get("error", "遥测计划失败"))
+            if not plan.get("ok"):
+                return Reply("error", ci.confidence, error=plan.get("error", "遥测计划失败"))
+            # 接了执行器 → 出实测值/序列（回路闭合）；否则仅返回计划（向后兼容）。
+            if self.telemetry_executor is not None:
+                res = self.telemetry_executor.execute(plan)
+                if res.get("ok"):
+                    return Reply("telemetry", ci.confidence, plan=plan,
+                                 value=res.get("value", res.get("points")))
+            return Reply("telemetry", ci.confidence, plan=plan)
 
         # 3b. 做：走 Action 引擎（guard/写后规则/回滚/审计）
         if ci.executable:

@@ -64,5 +64,46 @@ def build_plan(registry, store, object_type: str, key: str, series_name: str,
         plan = plan.replace(f"${placeholder}", val)
 
     return {"ok": True, "provider": series.provider, "kind": series.kind,
-            "plan": plan, "resolved_labels": resolved, "resolved_params": resolved_params,
+            "plan": plan, "object": object_type, "key": key, "series": series_name,
+            "resolved_labels": resolved, "resolved_params": resolved_params,
             "cost": {"telemetry-plan": 1}}
+
+
+# ---- 执行器（可选）：完成"看指标"回路 —— 引擎产计划，执行器出值 --------------
+# 与 build_plan 分层：引擎只产计划（不连后端）；执行器是调用方侧组件。
+# 离线默认 InMemoryTelemetryExecutor 读 seeded 值/序列、不解析 PromQL，脱网可跑、可 CI 测；
+# 真部署换成打 Prometheus/ES/SQL 的适配器（同协议、同 plan 契约）。行业无关。
+from typing import Protocol  # noqa: E402
+
+
+class TelemetryExecutor(Protocol):
+    """执行遥测计划、返回值/序列。接收 build_plan 的 plan dict。"""
+    def execute(self, plan: dict) -> dict: ...
+
+
+class InMemoryTelemetryExecutor:
+    """离线确定性执行器：按 (object_type, series, key) 查 seeded 值/序列。
+
+    不解析 plan 里的 PromQL/ES 串——那是真后端的活；离线默认据对象定位直接取 seeded 数据，
+    让 `ask("这块地墒情多少")` 端到端出值。metric→标量 value；log→points 列表。
+    """
+
+    def __init__(self, data: dict | None = None) -> None:
+        self._data = dict(data or {})  # {(object_type, series_name, key): 标量 | 列表}
+
+    def put(self, object_type: str, series_name: str, key: str, value) -> None:
+        self._data[(object_type, series_name, key)] = value
+
+    def execute(self, plan: dict) -> dict:
+        if not plan.get("ok"):
+            return plan
+        k = (plan.get("object"), plan.get("series"), plan.get("key"))
+        if k not in self._data:
+            return _err(f"离线遥测无数据: {k}")
+        val = self._data[k]
+        out = {"ok": True, "provider": plan["provider"], "kind": plan["kind"], "plan": plan["plan"]}
+        if plan["kind"] == "log":
+            out["points"] = list(val)
+        else:
+            out["value"] = val
+        return out

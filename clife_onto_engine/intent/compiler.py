@@ -13,7 +13,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from ..query.oql import Aggregate, Cond, OQLQuery, OQLValidationError, Step, validate as oql_validate
+from ..query.oql import (
+    Aggregate, And, Cond, OQLQuery, OQLValidationError, Or, Sort, Step,
+    validate as oql_validate,
+)
 from ..sdk.errors import ResolutionError
 from .llm import LLMClient
 from .manifest import build_manifest, render_manifest
@@ -30,9 +33,12 @@ _SYSTEM = """你是一个本体意图编译器。用户的话可能是"做一件
   - confidence: 数字 0~1
 OQL 查询结构(oql)：
   - start: 锚点对象类型(取自清单)
-  - where: 数组，锚点过滤 [{{"field":字段,"op":"eq|ne|gt|ge|lt|le|in","value":值}}]
+  - where: 数组，锚点过滤，各元素 AND；元素可为 {{"field":字段,"op":"eq|ne|gt|ge|lt|le|in","value":值}}
+    或布尔组 {{"or":[元素...]}} / {{"and":[元素...]}}（可嵌套）。例：type=盐碱 且 (区=A 或 区=B) →
+    [{{"field":"site_type","op":"eq","value":"盐碱"}},{{"or":[{{"field":"region","op":"eq","value":"A"}},{{"field":"region","op":"eq","value":"B"}}]}}]
   - steps: 数组，沿关系多跳 [{{"link_type":关系名,"direction":"out|in","where":[同上]}}]
   - select: 数组，要返回的字段名；或 aggregate: {{"func":"count|avg|sum|min|max","field":字段}}
+  - order_by: 数组(可省)，结果排序 [{{"field":字段,"desc":true|false}}]（多键按序，desc 省略为升序）
   - limit: 整数(可省)
 规则：
 1. "出方案/评级/制定/派单"等执行类 → kind=action，给出 action 与 params。
@@ -75,20 +81,33 @@ class CompiledIntent:
         return self.kind == "telemetry"
 
 
+def _parse_node(n: dict):
+    """解析一个过滤节点：{or:[...]} / {and:[...]} / {field,op,value}（可递归）。"""
+    if "or" in n:
+        return Or(tuple(_parse_node(x) for x in n["or"]))
+    if "and" in n:
+        return And(tuple(_parse_node(x) for x in n["and"]))
+    return Cond(n["field"], n["op"], n["value"])
+
+
 def _parse_oql(d: dict, namespace: str) -> OQLQuery:
-    def conds(raw):
-        return tuple(Cond(c["field"], c["op"], c["value"]) for c in (raw or []))
+    def filters(raw):
+        return tuple(_parse_node(x) for x in (raw or []))
     steps = tuple(
-        Step(s["link_type"], s.get("direction", "out"), conds(s.get("where")))
+        Step(s["link_type"], s.get("direction", "out"), filters(s.get("where")))
         for s in (d.get("steps") or [])
     )
     agg = None
     if d.get("aggregate"):
         agg = Aggregate(d["aggregate"]["func"], d["aggregate"].get("field"))
+    order_by = tuple(
+        Sort(o["field"], bool(o.get("desc")) or str(o.get("dir", "")).lower() == "desc")
+        for o in (d.get("order_by") or [])
+    )
     return OQLQuery(
-        namespace=namespace, start=d["start"], where=conds(d.get("where")),
+        namespace=namespace, start=d["start"], where=filters(d.get("where")),
         steps=steps, select=tuple(d.get("select") or ()), aggregate=agg,
-        limit=int(d.get("limit", 100)),
+        order_by=order_by, limit=int(d.get("limit", 100)),
     )
 
 
