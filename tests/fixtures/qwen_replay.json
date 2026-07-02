@@ -1,0 +1,211 @@
+{
+  "parcel_001 墒情怎么样？": {
+    "confidence": 0.98,
+    "kind": "telemetry",
+    "telemetry": {
+      "key": "parcel_001",
+      "object": "Site",
+      "params": {},
+      "series": "soil_moisture"
+    }
+  },
+  "parcel_001 能用哪些修复方法？": {
+    "confidence": 0.95,
+    "kind": "query",
+    "oql": {
+      "select": [
+        "method_id",
+        "name"
+      ],
+      "start": "Site",
+      "steps": [
+        {
+          "direction": "out",
+          "link_type": "suffers",
+          "where": []
+        },
+        {
+          "direction": "out",
+          "link_type": "treated_by",
+          "where": []
+        }
+      ],
+      "where": [
+        {
+          "field": "parcel_id",
+          "op": "eq",
+          "value": "parcel_001"
+        }
+      ]
+    }
+  },
+  "parcel_001 重度盐碱地接下来先做什么？": {
+    "answer": "根据退化分级处置手册，重度盐碱地不可直接植被恢复。接下来应先进行工程或化学改良（如排水洗盐、施用改良剂），待土壤盐分降低至适宜范围后，再实施喷播乡土草种及后期封育。",
+    "confidence": 0.95,
+    "kind": "advise"
+  },
+  "巴彦淖尔有哪些地块？": {
+    "confidence": 0.95,
+    "kind": "query",
+    "oql": {
+      "select": [
+        "parcel_id",
+        "area_mu",
+        "site_type"
+      ],
+      "start": "Site",
+      "where": [
+        {
+          "field": "region",
+          "op": "eq",
+          "value": "巴彦淖尔"
+        }
+      ]
+    }
+  },
+  "巴彦淖尔有多少个地块？": {
+    "confidence": 0.98,
+    "kind": "query",
+    "oql": {
+      "aggregate": {
+        "field": "parcel_id",
+        "func": "count"
+      },
+      "select": [],
+      "start": "Site",
+      "where": [
+        {
+          "field": "region",
+          "op": "eq",
+          "value": "巴彦淖尔"
+        }
+      ]
+    }
+  },
+  "帮我出个方案": {
+    "confidence": 0.95,
+    "kind": "clarify",
+    "question": "请提供需要修复的地块 ID（site_id）以及计划使用的草种列表（species），以便为您生成方案。"
+  },
+  "海南有哪些地块？": {
+    "confidence": 0.98,
+    "kind": "query",
+    "oql": {
+      "select": [
+        "field_id",
+        "area_mu",
+        "soil_type"
+      ],
+      "start": "Field",
+      "where": [
+        {
+          "field": "region",
+          "op": "eq",
+          "value": "海南"
+        }
+      ]
+    }
+  },
+  "给 field_001 制定方案，用紫天椒，密度2200，预算500": {
+    "action": "制定种植方案",
+    "confidence": 1.0,
+    "kind": "action",
+    "params": {
+      "budget": 500,
+      "density": 2200,
+      "field_id": "field_001",
+      "variety": "紫天椒"
+    }
+  },
+  "给 field_001 制定种植方案，朝天椒，密度2200，预算500": {
+    "action": "制定种植方案",
+    "confidence": 1.0,
+    "kind": "action",
+    "params": {
+      "budget": 500,
+      "density": 2200,
+      "field_id": "field_001",
+      "variety": "朝天椒"
+    }
+  },
+  "给 parcel_001 出一地一方，用碱茅，预算300": {
+    "action": "出一地一方",
+    "confidence": 0.95,
+    "kind": "action",
+    "params": {
+      "budget": 300,
+      "site_id": "parcel_001",
+      "species": [
+        "碱茅"
+      ]
+    }
+  },
+  "给 parcel_001 出方案，用紫花苜蓿，预算300": {
+    "action": "出一地一方",
+    "confidence": 0.95,
+    "kind": "action",
+    "params": {
+      "budget": 300,
+      "site_id": "parcel_001",
+      "species": [
+        "紫花苜蓿"
+      ]
+    }
+  },
+  "给批次 g_A 辣椒分级，length14 SHU5000 defect_rate0.03": {
+    "action": "辣椒分级",
+    "confidence": 1.0,
+    "kind": "action",
+    "params": {
+      "batch_id": "g_A",
+      "measurements": {
+        "SHU": 5000,
+        "defect_rate": 0.03,
+        "length": 14
+      }
+    }
+  },
+  "给批次 g_B 辣椒分级，length10 SHU5000 defect_rate0.5": {
+    "action": "辣椒分级",
+    "confidence": 1.0,
+    "kind": "action",
+    "params": {
+      "batch_id": "g_B",
+      "measurements": {
+        "SHU": 5000,
+        "defect_rate": 0.5,
+        "length": 10
+      }
+    }
+  },
+  "给草样 batch_A 快检评级，CP18 NDF40 ADF30 RFV150 霉菌毒素0.01": {
+    "action": "快检评级",
+    "confidence": 1.0,
+    "kind": "action",
+    "params": {
+      "batch_id": "batch_A",
+      "measurements": {
+        "ADF": 30,
+        "CP": 18,
+        "NDF": 40,
+        "RFV": 150,
+        "mycotoxin": 0.01
+      }
+    }
+  },
+  "给草样 batch_B 快检评级，CP18 NDF40 ADF30 RFV150 霉菌毒素0.2": {
+    "action": "快检评级",
+    "confidence": 1.0,
+    "kind": "action",
+    "params": {
+      "batch_id": "batch_B",
+      "measurements": {
+        "ADF": 30,
+        "CP": 18,
+        "NDF": 40,
+        "RFV": 150,
+        "mycotoxin": 0.2
+      }
+    }
+  }
+}

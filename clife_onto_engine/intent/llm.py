@@ -33,6 +33,28 @@ def _load_config(config_path: Optional[str]) -> dict:
     }
 
 
+class ReplayLLMClient:
+    """回放录制的 LLM 原始输出（record-replay / VCR 式）——确定性、无网络。
+
+    把真 Qwen 的编译行为**固化为 CI 回归**：`scripts/record_qwen.py` 用真 Qwen 录一次
+    每句口语的原始 JSON 到 fixture；CI 用本客户端按口语键重放同一 JSON，编译器逐字跑
+    真实解析/校验逻辑。按**口语**键（从 user 的「用户说：」后提取），对 manifest 变化鲁棒。
+    """
+
+    def __init__(self, recordings: dict) -> None:
+        self._rec = dict(recordings)      # {utterance: 原始 JSON dict}
+
+    @staticmethod
+    def utterance_of(user: str) -> str:
+        return user.split("用户说：")[-1].strip()
+
+    def complete_json(self, system: str, user: str) -> dict:
+        utt = self.utterance_of(user)
+        if utt not in self._rec:
+            raise KeyError(f"无录制: {utt!r}（先跑 scripts/record_qwen.py 录制真 Qwen 输出）")
+        return self._rec[utt]
+
+
 class OpenAICompatibleClient:
     """适配任何 OpenAI 兼容端点（含阿里 DashScope/Qwen）。"""
 
