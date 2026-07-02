@@ -5,3 +5,4 @@ PyYAML>=6.0           # 映射注册表 / OKF 导出的 YAML
 # 可选：真实后端（用内存/离线默认时不需要）
 nebula3-python>=3.8   # NebulaGraph adapter（deploy/nebula 起本地实例后）
 duckdb>=1.0           # 遥测 DuckDB 执行器（嵌入式、无服务器；离线默认时不需要）
+pymilvus[milvus_lite]>=2.4,<2.5  # RAG 真向量检索（Milvus Lite 嵌入式 或 真 Milvus 服务器）

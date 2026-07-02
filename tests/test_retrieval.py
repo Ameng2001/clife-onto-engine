@@ -1,9 +1,11 @@
 """RAG · advise 通道：离线检索确定性 + Session advise 接地与出处流转。"""
 from __future__ import annotations
 
+import math
+
 from clife_onto_engine.intent.compiler import CompiledIntent
 from clife_onto_engine.query import InMemoryStore
-from clife_onto_engine.retrieval import DocChunk, InMemoryRetriever
+from clife_onto_engine.retrieval import DocChunk, InMemoryRetriever, hashing_embed
 from clife_onto_engine.session import Session
 from clife_onto_engine.sdk import spi
 from clife_onto_engine.sdk.context import Actor
@@ -53,6 +55,14 @@ def test_session_advise_injects_retrieval_and_surfaces_sources():
     # 出处流转到 Reply（来源可查），且去重保序
     assert reply.sources and len(set(reply.sources)) == len(reply.sources)
     assert any("GB/T 37067" in s or "case_盐碱_001" in s for s in reply.sources)
+
+
+def test_hashing_embed_deterministic_and_normalized():
+    a = hashing_embed(["盐碱地乡土草种修复"], 64)
+    assert a == hashing_embed(["盐碱地乡土草种修复"], 64)     # 跨调用确定（非 salted hash）
+    assert len(a[0]) == 64
+    assert abs(math.sqrt(sum(x * x for x in a[0])) - 1.0) < 1e-6   # L2 归一
+    assert all(x == 0.0 for x in hashing_embed([""], 64)[0])       # 空文本 → 零向量
 
 
 def test_session_advise_without_retriever_still_works():
