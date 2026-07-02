@@ -37,6 +37,7 @@ class Reply:
     # clarify / error / advise
     question: str = ""
     answer: str = ""                # kind=advise：知识接地的只读建议
+    sources: tuple = ()             # kind=advise：RAG 检索到的出处（来源可查；只读、不驱动写入）
     error: str = ""
 
     def summary(self) -> str:
@@ -53,7 +54,8 @@ class Reply:
             p = self.plan or {}
             return f"[遥测计划] {p.get('provider')}/{p.get('kind')}：{p.get('plan')}"
         if self.kind == "advise":
-            return f"[建议] {self.answer}"
+            src = f"（出处：{list(self.sources)}）" if self.sources else ""
+            return f"[建议] {self.answer}{src}"
         if self.kind == "clarify":
             return f"[澄清] {self.question}"
         return f"[错误] {self.error}"
@@ -63,12 +65,14 @@ class Session:
     def __init__(self, *, ontology_id: str, registry, store, compiler: IntentCompiler,
                  actor: Actor, memory: Optional[MemoryStore] = None, session_id: str = "s1",
                  engine: Optional[ActionEngine] = None, schema_version: str = "",
-                 load_knowledge: bool = False) -> None:
+                 load_knowledge: bool = False, retriever: Optional[object] = None) -> None:
         self.ontology_id = ontology_id
         self.registry = registry
         self.store = store
         self.compiler = compiler
         self.actor = actor
+        # RAG · advise 通道（可选）：对非结构化全文的只读检索器；仅补上下文，绝不驱动写入。
+        self.retriever = retriever
         self.memory = memory if memory is not None else MemoryStore()
         self.session_id = session_id
         self.engine = engine if engine is not None else ActionEngine(registry, store=store)
@@ -84,9 +88,17 @@ class Session:
         mem = assemble(self.memory, self.ontology_id, self.session_id, self._keywords(utterance))
         self._remember(Layer.CONTEXT, f"用户问：{utterance}", tags=("utterance",), source="user")
 
+        # 1b. RAG 接地（可选）：检索非结构化全文，带出处注入上下文，供 advise 开放问答接地。
+        #     只补上下文、不改路由；写入路径（action）不受影响——防幻觉仍在执行层（OAG）。
+        docs = self.retriever.retrieve(utterance, k=3) if self.retriever else []
+        context = mem.text
+        if docs:
+            passages = "\n".join(f"- {h.chunk.text}（出处：{h.chunk.source}）" for h in docs)
+            context = (context + "\n" if context else "") + f"检索资料（只读参考，回答须注明出处）：\n{passages}"
+
         # 2. 意图编译（路由 做/查/澄清）
         ci = self.compiler.compile(self.ontology_id, utterance,
-                                   memory_text=mem.text, actor_role=self.actor.role)
+                                   memory_text=context, actor_role=self.actor.role)
 
         # 3a. 查：执行 OQL
         if ci.is_query:
@@ -123,7 +135,8 @@ class Session:
         # 3c. 咨询：知识接地的只读建议（不进 Action 引擎、不写库、不越权）
         if ci.kind == "advise":
             self._remember(Layer.CONTEXT, f"建议：{ci.answer}", tags=("advise",), source="advise")
-            return Reply("advise", ci.confidence, answer=ci.answer)
+            sources = tuple(dict.fromkeys(h.chunk.source for h in docs))  # 去重、保序：来源可查
+            return Reply("advise", ci.confidence, answer=ci.answer, sources=sources)
 
         # 3d. 澄清 / 错误
         if ci.kind == "clarify":

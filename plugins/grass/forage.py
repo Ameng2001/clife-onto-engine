@@ -9,17 +9,51 @@
 """
 from __future__ import annotations
 
-from clife_onto_engine.sdk import Backing, HilPolicy, ParamSpec, RuleResult, Severity, spi
+from clife_onto_engine.sdk import (
+    Backing,
+    HilPolicy,
+    LinkType,
+    ObjectType,
+    ParamSpec,
+    PropertySpec,
+    RuleResult,
+    Severity,
+    spi,
+)
 
 from . import ONTOLOGY
 
-MOLD_LIMIT = 0.05            # 霉菌毒素阈值（demo 值）
-REQUIRED = {"CP", "NDF", "ADF", "RFV"}
+MOLD_LIMIT = 0.05            # TODO(FDE/专家): demo 值，待换 GB 13078 饲料卫生标准真实限量
+REQUIRED = {"CP", "NDF", "ADF", "RFV"}   # 依 NY/T 1574 苜蓿干草分级的必备指标
+STD_RFV = "NY/T 1574"       # 苜蓿干草质量分级标准（RFV 分级依据）
+
+# ---- 槽位 1：品质对象层（对齐方案 §5.4 #13/#18、§5.5 #18/#19）------------
+# QualityIndex 把 measurements dict 结构化为对象；measured_by 挂到 Standard，
+# 使"评级结论有依据、可回查"——落实信任体系"来源可查/结果可验"。
+spi.registry.add_object(ObjectType(
+    name="QualityIndex", namespace=ONTOLOGY, primary_key="qi_id",
+    properties=(
+        PropertySpec("batch_id", "string", required=True),
+        PropertySpec("RFV", "number"),
+        PropertySpec("grade", "string"),
+    ),
+))
+spi.registry.add_object(ObjectType(
+    name="Standard", namespace=ONTOLOGY, primary_key="std_id",
+    properties=(
+        PropertySpec("name", "string"),
+        PropertySpec("version", "string"),
+    ),
+))
+spi.registry.add_link(LinkType("has_quality", ONTOLOGY, "ForageSample", "QualityIndex"))
+spi.registry.add_link(LinkType("measured_by", ONTOLOGY, "QualityIndex", "Standard"))
 
 
 # ---- 槽位 3：派生量 Function（只读，算 RFV 等级）------------------------
 @spi.function(ONTOLOGY, "RFV分级", reads=("ForageSample",))
 def rfv_grade(ctx) -> str:
+    # 分级断点来源：美国牧草协会 AFGC RFV 分级 / NY/T 1574（特级≥151…等外<87）。
+    # TODO(FDE/专家): 断点值待按采用标准最终核准。
     sample = ctx.get("ForageSample", ctx.params["batch_id"]) or {}
     rfv = sample.get("RFV", 0)
     if rfv >= 151:
@@ -34,7 +68,9 @@ def rfv_grade(ctx) -> str:
 
 
 # ---- 槽位 3：guard（declarative，检测项齐全 + 角色）---------------------
-@spi.rule(ONTOLOGY, "检测项完整", backing=Backing.DECLARATIVE, severity=Severity.HARD)
+@spi.rule(ONTOLOGY, "检测项完整", backing=Backing.DECLARATIVE, severity=Severity.HARD,
+          source="苜蓿干草分级必备检测指标（CP/NDF/ADF/RFV）",
+          citations=("NY/T 1574 苜蓿干草质量分级",))
 def measurements_complete(ctx) -> RuleResult:
     m = ctx.params.get("measurements", {})
     missing = REQUIRED - set(m)
@@ -54,6 +90,8 @@ def grading_role(ctx) -> RuleResult:
 @spi.rule(
     ONTOLOGY, "霉变拦截", backing=Backing.FUNCTION, severity=Severity.HARD,
     message_template="霉菌毒素超标，禁止评级定价",
+    source="饲草霉菌毒素卫生限量（超标不得进入交易）",
+    citations=("GB 13078 饲料卫生标准", "NY/T 1574 苜蓿干草卫生要求"),
 )
 def mold_block(ctx) -> RuleResult:
     sample = ctx.get("ForageSample", ctx.params["batch_id"]) or {}
@@ -76,7 +114,7 @@ def mold_block(ctx) -> RuleResult:
     ),
     guards=("检测项完整", "验质角色权限"),
     post_rules=("霉变拦截",),
-    writes=("ForageSample",),
+    writes=("ForageSample", "QualityIndex"),
     validate_supported=True,
     hil=HilPolicy(
         reviewer_role="品质定级定价员",
@@ -94,6 +132,12 @@ def quick_test_grading(ctx) -> None:
     ctx.stage_write("ForageSample", batch, {
         **m, "batch_id": batch, "grade": grade, "trace_code": f"TR-{batch}",
     })
+    # 结构化品质对象 + 挂依据标准（QualityIndex →measured_by→ Standard）：来源可查、结果可验
+    qi_key = f"qi_{batch}"
+    ctx.stage_write("QualityIndex", qi_key, {"qi_id": qi_key, "batch_id": batch,
+                                             "RFV": m.get("RFV"), "grade": grade})
+    ctx.stage_link("has_quality", "ForageSample", batch, "QualityIndex", qi_key, 等级=grade)
+    ctx.stage_link("measured_by", "QualityIndex", qi_key, "Standard", STD_RFV, 方法="RFV分级")
     ctx.emit_effect("credential", on="committed", template="溯源凭证", batch_id=batch)
     ctx.set_confidence(m.get("_confidence", 0.88))
     ctx.add_evidence(standard="NY/T 1574 苜蓿干草质量分级")

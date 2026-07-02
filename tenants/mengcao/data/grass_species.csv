@@ -1,0 +1,8 @@
+species,seeding_rate_min,seeding_rate_max,native,adapts_to
+碱茅,1.0,2.5,true,盐碱;沙地
+星星草,0.8,2.0,true,盐碱
+披碱草,1.5,3.0,true,沙地;草原
+冰草,1.0,2.2,true,沙地;草原
+羊草,1.2,2.8,true,草原;盐碱
+克氏针茅,0.8,1.8,true,草原
+糙隐子草,0.6,1.5,true,沙地;草原

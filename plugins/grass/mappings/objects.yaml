@@ -68,3 +68,34 @@ knowledge:
         kind: reference
         content: 喷播适坡面/大面积；补播适轻度退化；两者均需配乡土草种名录。
         refs: [GB/T 37067 退化草地修复技术规范]
+  # ---- P1：活跃闭环对象附着知识（草修·出一地一方 / 草易·快检评级）----
+  - object: GrassSpecies            # 草种：选种要点
+    items:
+      - name: 乡土草种选种要点
+        kind: reference
+        content: 选种先立地适配、再乡土合规、后定配比；碱茅/星星草耐盐碱宜盐渍化立地，披碱草宜沙地/草原不耐盐碱。
+        refs: [GB/T 37067 退化草地修复技术规范]
+  - object: SeedPack                # 种子包：混播组合设计经验
+    items:
+      - name: 混播组合设计手册
+        kind: playbook
+        content: 灌草组合+丸粒化+微生物菌剂；混播比例合计=100%，各草种播量取品种区间；盐碱地以碱茅为主、星星草为辅。
+        refs: [DB15/T 草原生态修复技术规程]
+  - object: QualityIndex            # 品质指标：判读诊断
+    items:
+      - name: CP/NDF/ADF/RFV 判读
+        kind: diagnostic
+        content: RFV 综合评估干草相对饲用价值，CP 高、NDF/ADF 低者优，RFV≥151 为特级；霉菌毒素超标一票否决、不得进入交易。
+        refs: [NY/T 1574 苜蓿干草质量分级]
+  - object: Standard                # 标准：分级条款摘要
+    items:
+      - name: NY/T 1574 分级条款摘要
+        kind: reference
+        content: 苜蓿干草按 RFV 分特级/一级/二级/三级/等外，配套水分与卫生（霉菌毒素）限量要求。
+        refs: [NY/T 1574 苜蓿干草质量分级]
+  - object: ForageSample            # 草样：快检取样规范
+    items:
+      - name: 快检取样与近红外规范
+        kind: template
+        content: 取样需代表性；近红外快检须绑定标准曲线版本；必带 CP/NDF/ADF/RFV；疑霉变样单独隔离、不混检。
+        refs: [NY/T 1574 苜蓿干草质量分级]

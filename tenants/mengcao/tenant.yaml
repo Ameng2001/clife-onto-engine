@@ -16,6 +16,10 @@ sources:
     format: csv
     key: "{region}::{species}"
 
+  - object: GrassSpecies               # 草种播量区间（主键 species）：供「混播配比合规」校验播量
+    file: data/grass_species.csv
+    format: csv
+
   - object: ForageSample               # 草样快检批次（主键 batch_id）
     file: data/forage_samples.csv
     format: csv
