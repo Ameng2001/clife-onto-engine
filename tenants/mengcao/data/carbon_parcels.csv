@@ -1,0 +1,4 @@
+cp_id,area_mu,years,tenure,annual_seq_per_mu
+cp_001,1000,25,清晰,0.3
+cp_young,500,10,清晰,0.3
+cp_disputed,800,25,争议,0.3

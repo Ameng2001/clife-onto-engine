@@ -62,10 +62,7 @@ _link("crossed_to", "Germplasm", "Germplasm", _H)   # #5（杂交亲本）
 _link("derived_from", "Variety", "Germplasm")       # #4
 _link("certified_by", "Variety", "Standard")        # #23（品种审定）
 
-# ── 子图 5 · 碳汇-生态价值（碳汇地块/方法学 + 关系）──────────────────────────
-_obj("CarbonParcel", "cp_id", (_P("area_mu", "number"), _P("years", "number")))  # §5.4 #16
-_obj("Methodology", "method_no", (_P("name", "string"), _P("min_years", "number")))  # #17
-_link("sequesters", "CarbonParcel", "Methodology")  # §5.5 #22（依方法学核算）
+# ── 子图 5 · 碳汇-生态价值 —— 已升级为**活闭环**，对象/关系/规则/Action 见 carbon.py ──
 
 # ── 子图 6 · 草原监测-灾害（观测/灾害/鼠虫害 + 关系）─────────────────────────
 _obj("MonitorObs", "obs_key", (_P("coverage", "number"), _P("biomass", "number")))  # §4.8 监测观测

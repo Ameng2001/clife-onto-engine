@@ -83,4 +83,22 @@ CQ_SUITE = (
              {"batch_id": "b4",
               "measurements": {"CP": 20, "NDF": 40, "ADF": 30, "RFV": 140, "霉菌毒素": 0.0}},
              actor_role="游客", expect="reject", expect_rule="验质角色权限"),
+
+    # ---- 闭环 C · 草碳·碳汇核算（子图5：方法学年限/权属合规）------------------
+    # 合规地块（年限≥方法学最低 ∧ 权属清晰）应出报告
+    ActionCQ("合规地块出碳汇报告", ONTOLOGY, "出碳汇核算报告",
+             {"cp_id": "cp_001", "method_no": "CCER-GRASS-01"},
+             actor_role="碳汇开发", expect="commit"),
+    # 本体兜底：年限不足方法学最低要求应被「方法学年限合规」拦
+    ActionCQ("年限不足被拦", ONTOLOGY, "出碳汇核算报告",
+             {"cp_id": "cp_young", "method_no": "CCER-GRASS-01"},
+             actor_role="碳汇开发", expect="reject", expect_rule="方法学年限合规"),
+    # 本体兜底：权属争议应被「权属清晰」拦
+    ActionCQ("权属不清被拦", ONTOLOGY, "出碳汇核算报告",
+             {"cp_id": "cp_disputed", "method_no": "CCER-GRASS-01"},
+             actor_role="碳汇开发", expect="reject", expect_rule="权属清晰"),
+    # guard：越权角色应被「碳汇角色权限」拦
+    ActionCQ("越权角色碳汇被拦", ONTOLOGY, "出碳汇核算报告",
+             {"cp_id": "cp_001", "method_no": "CCER-GRASS-01"},
+             actor_role="游客", expect="reject", expect_rule="碳汇角色权限"),
 )
