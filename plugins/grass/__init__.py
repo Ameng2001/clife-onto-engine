@@ -53,8 +53,10 @@ spi.registry.add_object(ObjectType(name="GrassSpecies", namespace=ONTOLOGY, prim
         PropertySpec("seeding_rate_min", "number", unit="kg/亩"),
         PropertySpec("seeding_rate_max", "number", unit="kg/亩"),
         PropertySpec("native", "bool"),
-        PropertySpec("adapts_to", "list"),   # 适配的立地类型（§5.5 #1）：立地适配校验数据源
     )))
+# 立地适配改**真边形态**：GrassSpecies →adapts_to→ SiteType（§5.5 #1）。
+# 边可经 tenant 关系源 ingest（load_tenant 的 links:），立地适配规则走 search_around 遍历。
+spi.registry.add_link(LinkType("adapts_to", ONTOLOGY, "GrassSpecies", "SiteType"))
 for _ot, _pk in (("Project", "site_id"), ("ForageSample", "batch_id"), ("NativeListing", "species")):
     spi.registry.add_object(ObjectType(name=_ot, namespace=ONTOLOGY, primary_key=_pk))
 
@@ -149,7 +151,8 @@ def site_type_adaptation(ctx) -> RuleResult:
     """每草种须适配地块立地类型（如盐碱地只用耐盐碱草种）。
 
     与「乡土合规」是两道独立闸：草种可能是本盟市乡土、却不适配这块地的立地。
-    仅当带结构化 composition 且草种/地块有 adapts_to/site_type 数据时校验。
+    走 GrassSpecies →adapts_to→ SiteType **真边**（Search Around）；边可由 tenant 关系源 ingest。
+    仅当带结构化 composition 且草种有 adapts_to 边、地块有 site_type 时校验。
     """
     sp = ctx.get("SeedPack", f"sp_{ctx.params['site_id']}") or {}
     comp = sp.get("composition")
@@ -160,8 +163,10 @@ def site_type_adaptation(ctx) -> RuleResult:
         return RuleResult.ok()             # 立地未知 → 不在此拦
     bad = []
     for c in comp:
-        adapts = (ctx.get("GrassSpecies", c["species"]) or {}).get("adapts_to") or []
-        if adapts and st not in adapts:    # 有适配数据且不含本立地 → 判不适配
+        # 沿 adapts_to 边取该草种适配的立地类型集合
+        adapts = {h.node_key for h in
+                  ctx.search_around("GrassSpecies", c["species"], "adapts_to", direction="out")}
+        if adapts and st not in adapts:    # 有适配边且不含本立地 → 判不适配
             bad.append(c["species"])
     if bad:
         return RuleResult.fail(f"草种 {bad} 不适配立地「{st}」",
@@ -226,13 +231,18 @@ def seed_reference_data(store: InMemoryStore) -> None:
     })
     for sp in ("碱茅", "星星草", "披碱草"):
         store.put_object("NativeListing", f"巴彦淖尔::{sp}", {"region": "巴彦淖尔", "species": sp})
-    # GrassSpecies 播量区间 + 立地适配（demo 值）：供「混播配比合规」「立地适配」校验。
+    # 立地类型对象 + GrassSpecies 播量区间 + adapts_to 真边（demo 值）。
     # 披碱草：巴彦淖尔乡土、但只适配沙地/草原（不耐盐碱）→ 演示乡土 ≠ 立地适配。
-    for _sp, _lo, _hi, _ad in (("碱茅", 1.0, 2.5, ["盐碱", "沙地"]),
-                               ("星星草", 0.8, 2.0, ["盐碱"]),
-                               ("披碱草", 1.5, 3.0, ["沙地", "草原"])):
+    for _st in ("盐碱", "沙地", "草原", "矿山", "边坡"):
+        store.put_object("SiteType", _st, {"name": _st})
+    for _sp, _lo, _hi, _ad in (("碱茅", 1.0, 2.5, ("盐碱", "沙地")),
+                               ("星星草", 0.8, 2.0, ("盐碱",)),
+                               ("披碱草", 1.5, 3.0, ("沙地", "草原"))):
         store.put_object("GrassSpecies", _sp, {"species": _sp, "seeding_rate_min": _lo,
-                                               "seeding_rate_max": _hi, "native": True, "adapts_to": _ad})
+                                               "seeding_rate_max": _hi, "native": True})
+        for _t in _ad:
+            store.put_link(StagedLink(link_type="adapts_to", from_type="GrassSpecies", from_key=_sp,
+                                      to_type="SiteType", to_key=_t, props={}))
 
     # 品质子图参考数据：标准 + 一条已评级样本，供"评级挂到依据标准"多跳查询验收。
     store.put_object("Standard", "NY/T 1574",

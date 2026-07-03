@@ -20,6 +20,10 @@ sources:
     file: data/grass_species.csv
     format: csv
 
+  - object: SiteType                   # 立地类型（主键 name）：adapts_to 边的目标端
+    file: data/site_types.csv
+    format: csv
+
   - object: Methodology                # 碳汇方法学（主键 method_no）：供「方法学年限合规」
     file: data/methodologies.csv
     format: csv
@@ -39,3 +43,11 @@ sources:
   - object: ForageSample               # 草样快检批次（主键 batch_id）
     file: data/forage_samples.csv
     format: csv
+
+# 关系源（边 ingest）：from/to 列 = 端点主键，其余列 → 边属性。from_type/to_type 由 registry 取。
+links:
+  - link: adapts_to                    # 草种→立地 适配边：供「立地适配」规则 Search Around 遍历
+    file: data/adapts_to.csv
+    format: csv
+    from: species                      # → GrassSpecies 主键
+    to: site_type                      # → SiteType 主键
