@@ -592,7 +592,7 @@ python scripts/nebula_pushdown.py            # OQL 谓词下推：region 落原�
 - [ ] 数值/非 ASCII 列的下推（当前原生列为 ASCII string；数值比较与中文字段名走引擎再校验）+ search_around 步谓词下推
 - [ ] 真 Prometheus/ES 遥测执行器（当前 InMemory/DuckDB；真观测后端走同协议 opt-in）
 - [ ] NebulaGraph 生产适配千万级压测 + 三范式训练集导出器（对接数据集验收）
-- [ ] plugin.yaml manifest + 每插件记忆词典/agent 角色（SPI 槽位 5/6 声明式化）
+- [x] **plugin.yaml 清单 + 槽位 5/6 声明式化**：`spi.load_manifest(plugin.yaml)` 一处声明可选 schema(1)/mappings(2) + **术语表(5)**（规范用词+别名，喂进意图编译器让 LLM 用规范键——从源头治「mycotoxin 绕过中文键」类漂移）+ **复核角色(6)**（HIL who-reviews-what，此前只在各 Action 的 HilPolicy）；`plugins/grass/plugin.yaml` 落地。至此 7 槽位除 3/4(handler 逻辑本就是代码) 全可声明式
 - [ ] 进程/WASM 强隔离（面向不可信第三方插件）+ 记忆压缩用真 tokenizer
 
 ---

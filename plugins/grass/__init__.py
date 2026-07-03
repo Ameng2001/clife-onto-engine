@@ -292,3 +292,5 @@ from . import subgraphs  # noqa: E402,F401
 
 # 槽位 2：加载对象/关系物理映射（声明式 YAML）。
 spi.load_mappings(ONTOLOGY, _Path(__file__).parent / "mappings" / "objects.yaml")
+# 插件清单（声明式槽位 5 术语表 / 6 复核角色）。
+spi.load_manifest(_Path(__file__).parent / "plugin.yaml")
