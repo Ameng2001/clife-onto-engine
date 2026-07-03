@@ -22,7 +22,14 @@ DEFAULT_BUDGET = {
 
 
 def estimate_tokens(text: str) -> int:
-    return len(text)
+    """token 估算（零依赖启发式）：CJK 表意字 ~1 token/字，其余 ~4 char/token（向上取整）。
+
+    比"每字符 1 token"更准——英文不再被高估（"hello world"≈3 而非 11），记忆预算装配
+    不再过度丢弃英文项。真 tokenizer（tiktoken 等）可经 `assemble(token_fn=...)` 注入替换。
+    """
+    cjk = sum(1 for c in text if "一" <= c <= "鿿")
+    other = len(text) - cjk
+    return cjk + (other + 3) // 4
 
 
 def relevance(item: MemoryItem, keywords: set[str]) -> float:
@@ -58,8 +65,10 @@ def assemble(
     *,
     budget: dict | None = None,
     only_layers: set[Layer] | None = None,
+    token_fn=None,
 ) -> AssembledContext:
     budget = dict(budget or DEFAULT_BUDGET)
+    tok = token_fn or estimate_tokens        # 默认零依赖启发式；真 tokenizer 可注入替换
     chosen: list[MemoryItem] = []
     report: dict = {}
 
@@ -72,7 +81,7 @@ def assemble(
         if layer == Layer.CRITICAL:
             # 全量注入、永不过滤、永不丢（即便超预算也保）
             picked = sorted(items, key=lambda it: it.seq)
-            used = sum(estimate_tokens(it.text()) for it in picked)
+            used = sum(tok(it.text()) for it in picked)
             chosen.extend(picked)
             report[layer] = LayerReport(cap, used, len(picked), 0)
             continue
@@ -86,7 +95,7 @@ def assemble(
 
         used, included, dropped = 0, 0, 0
         for it in ranked:
-            t = estimate_tokens(it.text())
+            t = tok(it.text())
             if used + t <= cap:
                 chosen.append(it)
                 used += t
@@ -97,5 +106,5 @@ def assemble(
 
     chosen.sort(key=lambda it: (it.layer != Layer.CRITICAL, it.seq))  # CRITICAL 置顶
     text = "\n".join(f"[{it.layer.value}] {it.text()}" for it in chosen)
-    total = sum(estimate_tokens(it.text()) for it in chosen)
+    total = sum(tok(it.text()) for it in chosen)
     return AssembledContext(items=chosen, text=text, report=report, total_tokens=total)
