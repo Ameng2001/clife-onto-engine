@@ -79,6 +79,9 @@ def main() -> None:
     # F 草育·杂交推荐 → 提交（写 CrossPlan + crossed_to，演示第四条闭环·标记效应预测增益）
     _run(engine, "F 草育·杂交推荐(合规)", "出杂交组合推荐",
          {"base_id": "G1", "candidate_id": "G2", "target_trait": "耐旱"}, "育种")
+    # G 草机·作业参数 → 提交（写 WorkOrder + operated_by，凑齐五智能体第五条闭环）
+    _run(engine, "G 草机·作业参数(合规)", "出作业参数",
+         {"equipment_id": "E1", "operation": "播种", "params": {"播深": 4, "行距": 20}}, "机手")
 
     # ---- 过程可溯：审计血统 ----
     print("\n== 过程可溯·审计血统（每步决策 + 规则评估 + 证据）==")

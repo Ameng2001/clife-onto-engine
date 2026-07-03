@@ -32,6 +32,10 @@ sources:
     file: data/germplasm.jsonl
     format: jsonl
 
+  - object: Equipment                  # 装备能力域（嵌套 → JSONL）：供草机·作业参数闭环
+    file: data/equipment.jsonl
+    format: jsonl
+
   - object: ForageSample               # 草样快检批次（主键 batch_id）
     file: data/forage_samples.csv
     format: csv

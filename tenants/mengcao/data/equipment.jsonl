@@ -1,0 +1,2 @@
+{"equipment_id": "E1", "name": "精量播种机", "operations": ["播种", "补播"], "params_envelope": {"播深": [2, 6], "行距": [15, 30]}}
+{"equipment_id": "E2", "name": "无人机飞防机", "operations": ["飞防"], "params_envelope": {"亩用量": [0.5, 3.0]}}
