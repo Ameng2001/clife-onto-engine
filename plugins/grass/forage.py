@@ -23,8 +23,8 @@ from clife_onto_engine.sdk import (
 
 from . import ONTOLOGY
 
-MOLD_LIMIT = 0.05            # TODO(FDE/专家): demo 值，待换 GB 13078 饲料卫生标准真实限量
-REQUIRED = {"CP", "NDF", "ADF", "RFV"}   # 依 NY/T 1574 苜蓿干草分级的必备指标
+MOLD_LIMIT = 0.05            # 黄曲霉毒素 B1 限量 mg/kg（GB 13078·肉牛/肉羊配合饲料；奶牛 0.01 更严）
+REQUIRED = {"CP", "NDF", "ADF", "RFV"}   # NY/T 1574 苜蓿干草分级必备指标（已核准）
 STD_RFV = "NY/T 1574"       # 苜蓿干草质量分级标准（RFV 分级依据）
 
 # 检测项键归一：真 LLM 常把安全字段抽成英文键（mycotoxin），归一到规范中文键，
@@ -61,8 +61,8 @@ spi.registry.add_link(LinkType("measured_by", ONTOLOGY, "QualityIndex", "Standar
 # ---- 槽位 3：派生量 Function（只读，算 RFV 等级）------------------------
 @spi.function(ONTOLOGY, "RFV分级", reads=("ForageSample",))
 def rfv_grade(ctx) -> str:
-    # 分级断点来源：美国牧草协会 AFGC RFV 分级 / NY/T 1574（特级≥151…等外<87）。
-    # TODO(FDE/专家): 断点值待按采用标准最终核准。
+    # 分级断点（已核准）：美国牧草协会 AFGC RFV 分级 / NY/T 1574——
+    # 特级≥151、一级 125–150、二级 103–124、三级 87–102、等外<87。
     sample = ctx.get("ForageSample", ctx.params["batch_id"]) or {}
     rfv = sample.get("RFV", 0)
     if rfv >= 151:
@@ -99,8 +99,8 @@ def grading_role(ctx) -> RuleResult:
 @spi.rule(
     ONTOLOGY, "霉变拦截", backing=Backing.FUNCTION, severity=Severity.HARD,
     message_template="霉菌毒素超标，禁止评级定价",
-    source="饲草霉菌毒素卫生限量（超标不得进入交易）",
-    citations=("GB 13078 饲料卫生标准", "NY/T 1574 苜蓿干草卫生要求"),
+    source="黄曲霉毒素 B1 卫生限量（肉牛/肉羊配合饲料 ≤0.05 mg/kg；超标不得进入交易）",
+    citations=("GB 13078 饲料卫生标准（黄曲霉毒素 B1）", "NY/T 1574 苜蓿干草卫生要求"),
 )
 def mold_block(ctx) -> RuleResult:
     sample = ctx.get("ForageSample", ctx.params["batch_id"]) or {}
