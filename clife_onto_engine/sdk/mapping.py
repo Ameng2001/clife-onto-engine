@@ -100,6 +100,25 @@ class TelemetryBinding:
     series: tuple[SeriesSpec, ...] = ()
 
 
+@dataclass(frozen=True)
+class AnalyticalMetric:
+    """语义指标（数仓/分析读 · Profile B）：声明式 度量 + 维度 + 过滤 + 来源表 → 编译数仓 SQL。
+
+    与 Profile A（观测遥测·单对象序列）分工：分析读（监管趋势/行情/时序聚合）走**虚拟**——
+    引擎编译查询计划、递数仓执行；与 gate 写入的**物化**派生量（Function 读图）分流（doc 07 §2.2）。
+    维度/度量/来源来自声明（受信），过滤 `$占位` 值由 params 代入并**白名单防注入**。
+    """
+    name: str
+    namespace: str
+    source: str                        # 数仓来源表
+    agg: str                           # avg | sum | min | max | count
+    metric_field: str = ""             # 度量字段（count 可空）
+    dimensions: tuple = ()             # GROUP BY 维度
+    filters: dict = field(default_factory=dict)   # {列: 值 | $占位}
+    provider: str = "sql"
+    grain: str = ""                    # 时间粒度（文档性）
+
+
 class MappingRegistry:
     def __init__(self) -> None:
         self.objects: dict[tuple[str, str], ObjectMapping] = {}
@@ -107,6 +126,7 @@ class MappingRegistry:
         self.telemetry: dict[tuple[str, str], TelemetryBinding] = {}
         # 对象 → 附着知识项列表（读侧参考/诊断知识；Palantir 式挂对象、UModel 式标准化类型）
         self.knowledge: dict[tuple[str, str], tuple] = {}
+        self.analytics: dict[tuple[str, str], AnalyticalMetric] = {}  # 语义指标（Profile B）
 
     def add_object(self, m: ObjectMapping) -> None:
         key = (m.namespace, m.object_type)
@@ -142,6 +162,15 @@ class MappingRegistry:
     def get_knowledge(self, namespace: str, object_type: str) -> tuple:
         return self.knowledge.get((namespace, object_type), ())
 
+    def add_analytics(self, m: AnalyticalMetric) -> None:
+        key = (m.namespace, m.name)
+        if key in self.analytics:
+            raise RegistrationError(f"重复语义指标: {m.namespace}.{m.name}")
+        self.analytics[key] = m
+
+    def get_analytics(self, namespace: str, name: str) -> Optional[AnalyticalMetric]:
+        return self.analytics.get((namespace, name))
+
     # ---- YAML 加载（声明即文档；配置即 PR）----
     def load_yaml(self, namespace: str, path: str | Path) -> None:
         doc = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
@@ -154,6 +183,8 @@ class MappingRegistry:
         for raw in doc.get("knowledge", []):
             for item in _parse_knowledge(namespace, raw):
                 self.add_knowledge(item)
+        for raw in doc.get("analytics", []):
+            self.add_analytics(_parse_analytics(namespace, raw))
 
 
 def _parse_object(namespace: str, raw: dict) -> ObjectMapping:
@@ -191,6 +222,17 @@ def _parse_knowledge(namespace: str, raw: dict) -> list:
                       refs=tuple(i.get("refs", [])))
         for i in raw.get("items", [])
     ]
+
+
+def _parse_analytics(namespace: str, raw: dict) -> AnalyticalMetric:
+    m = raw["measure"]
+    return AnalyticalMetric(
+        name=raw["name"], namespace=namespace, source=raw["from"],
+        agg=m["agg"], metric_field=m.get("field", ""),
+        dimensions=tuple(raw.get("dimensions", [])),
+        filters=dict(raw.get("filters", {})),
+        provider=raw.get("provider", "sql"), grain=raw.get("grain", ""),
+    )
 
 
 def _parse_telemetry(namespace: str, raw: dict) -> TelemetryBinding:

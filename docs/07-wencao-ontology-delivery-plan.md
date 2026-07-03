@@ -165,7 +165,7 @@ FDE 原则：不 boil the ocean。不铺全量 25 实体，从两条能产生真
 | 项 | 阶段 | 说明 |
 |---|---|---|
 | 知识检索 RAG（Milvus/pgvector）服务 advise | P1 | 仅开放问答，不驱动写入 |
-| 遥测读 Profile B（数仓方言 + 语义指标 binding + 物化/虚拟分流） | P1.5 | 用例牵引 |
+| ~~遥测读 Profile B（数仓方言 + 语义指标 binding + 物化/虚拟分流）~~ ✅ 已交付 | P1.5 | `AnalyticalMetric`+`build_analytical_plan`→DuckDB 维度化聚合；分析读虚拟递数仓、gate 派生量物化分流 |
 | NebulaGraph 生产适配 + 千万级压测 | P1 起压测 / P2 交付 | 唯一红灯，提前插桩 |
 | real-Qwen / real-Nebula 进 CI | P1 | 从手工抽检转回归 |
 | OQL 补 OR/排序、`to_ngql` 落地 | P1–2 | 按查询复杂度 |

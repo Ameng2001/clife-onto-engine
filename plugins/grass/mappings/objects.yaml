@@ -49,6 +49,20 @@ telemetry:
         provider: sql
         template: "SELECT avg(moisture) FROM iot_soil WHERE parcel = '$parcel'"
 
+# 语义指标（数仓/分析读 · Profile B）：声明 度量+维度+过滤+来源表 → 编译数仓 SQL（虚拟递数仓）。
+# 与观测遥测(Profile A·单对象序列)分工；与 gate 写入的物化派生量(Function 读图)分流（doc 07 §2.2）。
+analytics:
+  - name: 退化趋势                 # 监管：某盟市近年盖度趋势（维度化聚合）
+    from: rs_monitor              # 遥感监测数仓表（盖度时序）
+    measure: {agg: avg, field: coverage}
+    dimensions: [year]
+    filters: {region: $region}    # $region 由 params 代入、白名单防注入
+    grain: year
+  - name: 区域地块数               # 监管：某盟市地块计数
+    from: geo_parcel
+    measure: {agg: count}
+    filters: {region: $region}
+
 # 附着知识（读侧参考/诊断，供 Agent 推理；与强制 Rule / 派生 Function 并存）。
 # 挂在业务对象上、和对象一次取到（Palantir 式）；kind 标准化（UModel 式模板化）。
 knowledge:
