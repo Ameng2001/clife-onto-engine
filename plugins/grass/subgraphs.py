@@ -33,7 +33,7 @@ _obj("SiteType", "name", (_P("features", "string"),))                         # 
 _obj("Region", "region_code", (_P("climate", "string"), _P("sow_window", "string")))  # #25
 _obj("Trait", "name", (_P("unit", "string"),))                                # #4（育种共用）
 _obj("Weather", "obs_id", (_P("rainfall", "number"), _P("temp", "number")))    # #20
-_link("adapts_to", "GrassSpecies", "SiteType")   # 导航/未来边数据；运行时「立地适配」暂读 GrassSpecies.adapts_to 属性
+# adapts_to（GrassSpecies→SiteType）已升级为**活边**，由 __init__.py 声明、立地适配规则遍历。
 _link("has_trait", "GrassSpecies", "Trait")
 _link("suitable_for", "GrassSpecies", "Region")
 _link("constrained_by", "RestorationMethod", "Weather", _H)   # 施工窗口（§5.5 #27）

@@ -2,7 +2,7 @@
 import pathlib
 
 from clife_onto_engine.cq import run_cq_suite
-from clife_onto_engine.query import InMemoryStore
+from clife_onto_engine.query import InMemoryStore, QueryView
 from clife_onto_engine.sdk import spi
 from clife_onto_engine.tenant import load_tenant
 
@@ -11,6 +11,21 @@ from plugins.grass.cq import CQ_SUITE
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MENGCAO = ROOT / "tenants" / "mengcao" / "tenant.yaml"
+
+
+def test_link_source_ingest_loads_edges_and_traversable():
+    """关系源 ingest：adapts_to 边入库、报告可审、可 Search Around 遍历（还债：tenant 支持边）。"""
+    store = InMemoryStore()
+    rep = load_tenant(MENGCAO, spi.registry, store)
+    assert rep.total_links_loaded == 12
+    adapts = next(l for l in rep.links if l.link_type == "adapts_to")
+    assert adapts.loaded == 12 and not adapts.rejected
+    # 边可遍历：碱茅 →adapts_to→ 盐碱（tenant ingest 的边，非属性）
+    hits = QueryView(store, []).search_around("GrassSpecies", "碱茅", "adapts_to", direction="out")
+    assert "盐碱" in {h.node_key for h in hits}
+    # 披碱草不适配盐碱（保「乡土≠立地适配」语义）
+    ph = QueryView(store, []).search_around("GrassSpecies", "披碱草", "adapts_to", direction="out")
+    assert "盐碱" not in {h.node_key for h in ph}
 
 
 def test_mengcao_sample_loads_by_schema():

@@ -22,6 +22,8 @@ from typing import Optional
 
 import yaml
 
+from ..query import StagedLink
+
 
 @dataclass
 class ObjectIngest:
@@ -32,10 +34,18 @@ class ObjectIngest:
 
 
 @dataclass
+class LinkIngest:
+    link_type: str
+    loaded: int = 0
+    rejected: list = field(default_factory=list)   # [(row_no, reason)]
+
+
+@dataclass
 class IngestReport:
     tenant: str
     ontology: str
     objects: list = field(default_factory=list)     # [ObjectIngest]
+    links: list = field(default_factory=list)       # [LinkIngest]
 
     @property
     def total_loaded(self) -> int:
@@ -43,14 +53,23 @@ class IngestReport:
 
     @property
     def total_rejected(self) -> int:
-        return sum(len(o.rejected) for o in self.objects)
+        return sum(len(o.rejected) for o in self.objects) + sum(len(l.rejected) for l in self.links)
+
+    @property
+    def total_links_loaded(self) -> int:
+        return sum(l.loaded for l in self.links)
 
     def summary(self) -> str:
-        head = f"租户 {self.tenant} · 本体 {self.ontology} · 载入 {self.total_loaded} · 拒绝 {self.total_rejected}"
+        head = (f"租户 {self.tenant} · 本体 {self.ontology} · 载入 {self.total_loaded} 对象"
+                f"{f' + {self.total_links_loaded} 关系' if self.links else ''} · 拒绝 {self.total_rejected}")
         lines = [head]
         for o in self.objects:
             lines.append(f"  {o.object_type}: 载入 {o.loaded} · 拒绝 {len(o.rejected)} · 完备度 {o.completeness}")
             for row_no, reason in o.rejected:
+                lines.append(f"      ✗ 第{row_no}行：{reason}")
+        for lk in self.links:
+            lines.append(f"  →{lk.link_type}: 载入 {lk.loaded} · 拒绝 {len(lk.rejected)}")
+            for row_no, reason in lk.rejected:
                 lines.append(f"      ✗ 第{row_no}行：{reason}")
         return "\n".join(lines)
 
@@ -149,4 +168,27 @@ def load_tenant(manifest_path, registry, store, *, base_dir=None) -> IngestRepor
             oi.loaded += 1
         oi.completeness = round(sum(ratios) / len(ratios), 3) if ratios else 1.0
         report.objects.append(oi)
+
+    # 关系源（边 ingest）：{link, file, format, from, to}；from/to 列 = 端点主键，其余列 → 边属性。
+    # from_type/to_type 从 registry 的 LinkType 取（声明式，行内不重复）。脏行留痕不静默丢。
+    for lsrc in manifest.get("links", []):
+        lt_name = lsrc["link"]
+        li = LinkIngest(link_type=lt_name)
+        lt = registry.links.get((ontology, lt_name))
+        if lt is None:
+            li.rejected.append((0, f"本体 {ontology} 未声明关系 {lt_name}"))
+            report.links.append(li)
+            continue
+        from_col, to_col = lsrc.get("from", "from_key"), lsrc.get("to", "to_key")
+        for i, row in enumerate(_read_rows(base / lsrc["file"], lsrc.get("format", "csv")), 1):
+            fk, tk = row.get(from_col), row.get(to_col)
+            if fk in (None, "") or tk in (None, ""):
+                li.rejected.append((i, f"缺端点主键（{from_col}/{to_col}）"))
+                continue
+            props = {k: v for k, v in row.items() if k not in (from_col, to_col)}
+            store.put_link(StagedLink(link_type=lt_name, from_type=lt.from_type,
+                                      from_key=str(fk).strip(), to_type=lt.to_type,
+                                      to_key=str(tk).strip(), props=props))
+            li.loaded += 1
+        report.links.append(li)
     return report
