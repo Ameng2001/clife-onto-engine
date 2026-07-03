@@ -36,6 +36,8 @@ class Registry:
     rules: dict[tuple[str, str], RuleDef] = field(default_factory=dict)
     actions: dict[tuple[str, str], ActionDef] = field(default_factory=dict)
     mappings: MappingRegistry = field(default_factory=MappingRegistry)  # 槽位 2
+    glossary: dict = field(default_factory=dict)   # 槽位 5：(ns,term)→{aliases,definition} 术语/别名
+    agents: dict = field(default_factory=dict)     # 槽位 6：(ns,role)→{reviews,description} 复核角色
 
     # ---- 声明式注册（schema 元数据，槽位 1）----
     def add_object(self, obj: ObjectType) -> None:
@@ -117,6 +119,36 @@ class SPI:
                 cardinality=lk.get("cardinality", "N:N"), edge_semantics=sem))
             n_link += 1
         return n_obj, n_link
+
+    def load_manifest(self, plugin_yaml_path) -> dict:
+        """插件清单（plugin.yaml）：一处声明可选 schema(1)/mappings(2) + 术语表(5) + 复核角色(6)。
+
+        schema/mappings 为**可选**（可继续用 Python 声明，清单只补槽位 5/6）。
+        glossary: [{term, aliases?, definition?}]（槽位5：规范用词+别名，喂给意图编译器让 LLM 用规范键）
+        agents:   [{role, reviews?, description?}]（槽位6：HIL 复核角色 + 职责，声明式化）
+        返回加载统计 dict。
+        """
+        import pathlib
+
+        import yaml as _yaml
+
+        path = pathlib.Path(plugin_yaml_path)
+        doc = _yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        ns = doc["ontology"]
+        stats = {"ontology": ns, "objects": 0, "links": 0, "glossary": 0, "agents": 0}
+        if doc.get("schema"):
+            stats["objects"], stats["links"] = self.load_schema(ns, path.parent / doc["schema"])
+        if doc.get("mappings"):
+            self.load_mappings(ns, path.parent / doc["mappings"])
+        for g in doc.get("glossary", []) or []:
+            self.registry.glossary[(ns, g["term"])] = {
+                "aliases": list(g.get("aliases", [])), "definition": g.get("definition", "")}
+            stats["glossary"] += 1
+        for a in doc.get("agents", []) or []:
+            self.registry.agents[(ns, a["role"])] = {
+                "reviews": list(a.get("reviews", [])), "description": a.get("description", "")}
+            stats["agents"] += 1
+        return stats
 
     # 槽位 3：只读派生量
     def function(self, ontology_id: str, name: str, *, reads: tuple[str, ...] = ()):

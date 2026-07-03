@@ -1,0 +1,39 @@
+# 草业插件清单（plugin.yaml）—— 声明式接入的元数据 + 槽位 5（术语表）/ 6（复核角色）。
+# schema(槽位1)/mappings(槽位2)/function·rule·action(槽位3/4)/CQ(槽位7) 仍用 Python 声明（本清单不重复）；
+# 此处补齐声明式的槽位 5/6。加载：spi.load_manifest(此文件)。
+plugin: grass
+ontology: grass
+version: 0.1.0
+
+# 槽位 5 · 术语表：规范用词 + 别名。喂给意图编译器，让 LLM **用规范键**（从源头减少
+# 键名漂移，如把安全字段抽成英文 mycotoxin 绕过中文键规则——曾被 real-Qwen 回放抓到）。
+glossary:
+  - term: 霉菌毒素
+    aliases: [mycotoxin, aflatoxin, 黄曲霉毒素, mold_toxin]
+    definition: 饲草黄曲霉毒素 B1（GB 13078；超标一票否决、不得进入交易）
+  - term: RFV
+    definition: 相对饲用价值（苜蓿干草分级指标，NY/T 1574）
+  - term: CP
+    definition: 粗蛋白
+  - term: NDF
+    definition: 中性洗涤纤维
+  - term: ADF
+    definition: 酸性洗涤纤维
+
+# 槽位 6 · 复核角色（HIL）：谁复核哪个动作 —— 声明式化（此前只在各 Action 的 HilPolicy 里）。
+agents:
+  - role: 乡土草种合规官
+    reviews: [出一地一方]
+    description: 复核修复方案的乡土合规/配比/立地适配
+  - role: 品质定级定价员
+    reviews: [快检评级]
+    description: 复核快检评级与定价
+  - role: 碳汇核证员
+    reviews: [出碳汇核算报告]
+    description: 复核碳汇方法学年限/权属与固碳核算
+  - role: 育种专家
+    reviews: [出杂交组合推荐]
+    description: 复核杂交组合与预测增益
+  - role: 作业调度员
+    reviews: [出作业参数]
+    description: 复核装备作业参数与工单派发

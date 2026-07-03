@@ -40,12 +40,26 @@ def build_manifest(registry, ontology_id: str) -> dict:
         telemetry.append({"object": ot,
                           "series": [{"name": s.name, "kind": s.kind} for s in b.series]})
     telemetry.sort(key=lambda x: x["object"])
+    glossary = []
+    for (ns, term), g in getattr(registry, "glossary", {}).items():
+        if ns != ontology_id:
+            continue
+        glossary.append({"term": term, "aliases": g.get("aliases", []),
+                         "definition": g.get("definition", "")})
+    glossary.sort(key=lambda x: x["term"])
     return {"ontology_id": ontology_id, "actions": actions, "objects": objects,
-            "links": links, "telemetry": telemetry}
+            "links": links, "telemetry": telemetry, "glossary": glossary}
 
 
 def render_manifest(m: dict) -> str:
-    lines = [f"本体: {m['ontology_id']}", "可用动作(Action):"]
+    lines = [f"本体: {m['ontology_id']}"]
+    if m.get("glossary"):   # 槽位5 术语表：让 LLM 用**规范用词**作字段/键名（别名仅供理解）
+        lines.append("术语表(抽参/键名请用规范用词，别名仅供理解):")
+        for g in m["glossary"]:
+            al = f"（别名: {', '.join(g['aliases'])}）" if g["aliases"] else ""
+            de = f" = {g['definition']}" if g["definition"] else ""
+            lines.append(f"  - {g['term']}{al}{de}")
+    lines.append("可用动作(Action):")
     for a in m["actions"]:
         ps = ", ".join(
             f"{p['name']}:{p['type']}{'(必填)' if p['required'] else ''}" for p in a["params"]
