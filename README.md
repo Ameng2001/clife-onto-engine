@@ -20,11 +20,12 @@
 
 | 能力 | 是什么 | 落点 |
 |---|---|---|
-| **语义读** | OQL 查受治理对象图/关系/派生量（JSON-AST、防注入、编译 nGQL） | `query/oql.py` |
-| **遥测读** | 对象绑定可观测后端，生成可执行查询计划（PromQL/ES DSL，id 已代入、防注入）；引擎只产计划不当 TSDB；provider 无关（metric+log 双方言证明） | `query/telemetry.py` · `sdk/mapping.py` |
+| **语义读** | OQL 查受治理对象图/关系/派生量（JSON-AST、防注入、OR/嵌套布尔/排序、编译**可执行 nGQL**） | `query/oql.py` |
+| **遥测读** | 对象绑定可观测后端，产可执行查询计划（PromQL/ES/SQL，id 已代入、防注入）+ **执行器出值**（离线默认 / **DuckDB** 嵌入式真 SQL；provider 无关） | `query/telemetry.py` · `query/duckdb_telemetry.py` |
+| **知识检索** | RAG·advise 只读取证：`KnowledgeRetriever` 协议 + 离线词法默认 + **Milvus 向量库**（Lite/服务器）+ **DashScope 真嵌入**；带出处、不驱动写入 | `retrieval.py` |
 | **治理写** | Action 引擎：guard→写后规则→**确定性回滚**→审计快照；HIL；置信度 | `kernel/action_engine.py` |
-| **自有展示** | 运行时对象图 Explorer（离线单文件 + 活端点），**点对象看结构 + 遥测序列 + 就地取计划**——两块读在 UI 合体 | `explorer.py` |
-| **Agent 面** | MCP 桥（`query`/`plan` 读默认开、`act` 写 opt-in）+ HTTP（`/ask` `/plan` `/explorer`） | `mcp/` · `web.py` |
+| **自有展示** | 运行时对象图 Explorer（离线单文件 + 活端点），**点对象看结构 + 遥测序列 + 就地取计划**——多块读在 UI 合体 | `explorer.py` |
+| **Agent 面** | MCP 桥（`query`/`plan` 读默认开、`act` 写 opt-in）+ HTTP（`/ask` `/plan` `/explorer`）+ **real-Qwen 回放回归** | `mcp/` · `web.py` · `intent/llm.py` |
 
 > **UModel 定位**：互操作 / import-export（导出器 + 治理写桥仍是互通通道），**不是**读/展示的脊椎。
 > 详见 [`docs/04-umodel-interop.md`](docs/04-umodel-interop.md)（含内化路线 §9）。5 个自有能力活规范在 `openspec/specs/`。
@@ -308,15 +309,19 @@ NL → 能力清单约束下 LLM 选操作填参 → 内核确定性校验（动
 
 ## 10. 两个示例插件：换行业零改内核
 
-| | `plugins/grass`（问草·草业） | `plugins/chili`（辣椒） |
-|---|---|---|
-| Action 1 | 出一地一方（生态修复出方案） | 制定种植方案 |
-| Action 2 | 快检评级（饲草品质） | 辣椒分级 |
-| function-backed 规则 | 乡土合规 | 品种适配 |
-| 派生量 Function | RFV分级 | 等级计算 |
-| 阈值拦截 | 霉变拦截 | 残次拦截 |
+`plugins/grass`（问草·草业，tenant-zero）落地**五智能体全部 5 条业务闭环**，`plugins/chili`（辣椒）证明换行业零改内核、双本体共存：
 
-两个插件用**完全相同**的内核机制，在**同一个 registry** 中按 namespace 隔离共存（双本体联邦最小形态）。导出的两张知识图谱并排看，是**同构的 OAG 骨架**（对象↔规则↔动作），只换了领域词——这就是"换行业零改内核"的可视化证据。
+| 智能体 | grass 闭环（Action） | 治理闸（规则/guard） |
+|---|---|---|
+| 草修 | 出一地一方（生态修复出方案） | 乡土合规 · 混播配比 · 播量 · 立地适配（真边 Search Around） |
+| 草易 | 快检评级（饲草品质定级） | 检测项完整 · 黄曲霉毒素拦截 · 键归一 · 角色 |
+| 草碳 | 出碳汇核算报告 | 方法学年限合规 · 权属清晰 · 角色 |
+| 草育 | 出杂交组合推荐 | 亲本合规 · 目标性状可预测 · 角色 |
+| 草机 | 出作业参数 | 设备支持作业 · 参数在能力域内 · 角色 |
+
+> `chili`：制定种植方案 / 辣椒分级 + 品种适配 / 残次拦截——2 闭环，与 grass **同套内核机制**、同一 registry 按 namespace 隔离共存。
+
+五闭环共 **25 条 CQ**，在 seed 与**真实 tenant 数据**（`tenants/mengcao`，含对象源 csv/jsonl + 关系源 adapts_to）两路一致；`scripts/demo_explorer_closures.py` 把 5 闭环 × 7 类裁决（committed/rejected/pending_hil）跑成一张**过程可溯**对象图。两插件导出的知识图谱并排看是**同构的 OAG 骨架**（对象↔规则↔动作），只换领域词——"换行业零改内核"的可视化证据。
 
 ---
 
@@ -575,12 +580,20 @@ python scripts/nebula_pushdown.py            # OQL 谓词下推：region 落原�
 - [x] **部署 runbook（生产化服务·A 弧收口）**：`serve.py` env 驱动装配——`ONTO_TENANTS` 走声明式租户数据接入（按 schema 校验落库，替代 demo seed）、`ONTO_AUTHZ/TENANT_POLICY/IDENTITY` 把**认证→租户边界→授权门**四层接进 HTTP（`create_app` 补 `authz` 参数，授权门经此进各本体 engine）；`deploy/` 样例配置（authz/租户/身份/.env）+ `docs/06-deployment.md` 从零到「真实用户能打一次」（启动/冒烟 401·200·403·authz 拒/延迟成本）；`scripts/bench.py` 实测引擎管道延迟 **p50~0.13ms·p95~0.25ms**（亚毫秒，端到端由 LLM 主导）；四层访问控制 TestClient 端到端实测
 - [x] **HIL 待复核在 ask 回路 surface**：修回路语义洞——低置信高风险动作（`confidence < HilPolicy 阈值`）此前被 `Session.ask` 当 `committed` 返回（`ActionResult.committed` 恒 True 掩盖了 `pending_hil`），现如实返回**独立回复 `pending_hil`**：数据已原子暂存、但**副作用挂起**（不派工单）、带**待复核角色**（`reviewer`）；`web.py` 序列化 `pending_review=true`。数据落库与副作用调度分离，高风险动作不冒充已执行
 - [x] **遥测经口语触达（意图编译器第五类 telemetry）**：口语「parcel_001 墒情/长势/告警怎么样」→ 编译器认 `kind=telemetry`（object/key/series），`Session.ask` 据对象绑定产**查询计划**（PromQL/ES/SQL，实例 id 已代入）**不执行**、只读返回；序列须在声明的遥测绑定内（**防注入**，清单外序列/对象拒、缺 key 澄清）；manifest 暴露"可观测遥测"供 LLM 选。此前遥测只能经 `/plan` 端点直达，现纳入统一 `ask` 回路（做/查/**遥测**/咨询/澄清五路由）
-- [ ] 数值/非 ASCII 列的下推（当前原生列为 ASCII string；数值比较与中文字段名走引擎再校验）
-- [ ] search_around 步谓词下推（当前下推锚点谓词；多跳步过滤仍在引擎侧）
-- [ ] 意图编译器接 OQL "查"路径（当前 "做" 路径已通）+ 记忆压缩用真 tokenizer
-- [ ] 记忆/审计持久层（当前内存，落地换持久后端同接口）
-- [ ] 进程/WASM 强隔离（面向不可信第三方插件）
-- [ ] YAML Schema 加载器（当前 Python 声明，YAML 是同构落点）
+- [x] **问草（草业）tenant-zero·五智能体业务闭环全落地**：草修·出一地一方（乡土/混播配比/播量/立地适配）、草易·快检评级（检测项/黄曲霉毒素/键归一）、草碳·碳汇核算（方法学年限/权属）、草育·杂交推荐（亲本合规/目标性状可预测）、草机·作业参数（设备支持/参数能力域）——**5 条异构 Action 闭环同套内核零改动**，25 条 CQ 在 seed 与**真实 tenant 数据**两路一致；6 大子图 schema 层贯通（26+ 对象/24+ 关系，端点自洽）
+- [x] **OQL 表达力补全 + to_ngql 真翻译**：`where` 支持 `Or`/`And` 嵌套布尔组（顶层仍 AND、向后兼容）+ `order_by` 多键排序（None 排后）；`to_ngql` 从"示意"升级为**可执行 nGQL**（复用 nebula_store 已验证的 LOOKUP/GO/YIELD/字面量形态，原生列门控下推、主键→id(vertex)、布尔括号、count/limit），执行等价性由 opt-in `scripts/nebula_to_ngql.py` 在真集群对齐 `execute()` 交叉验证
+- [x] **遥测读执行回路（协议 + 离线默认 + 真后端 opt-in）**：`TelemetryExecutor` 协议 + 离线 `InMemoryTelemetryExecutor`（读 seeded 序列，CI 可测）+ **`DuckDBTelemetryExecutor`**（真跑已代入 SQL、嵌入式零服务器）——`ask("墒情多少")` 从"只产计划"到**真出值**；防注入仍在 build_plan（label 白名单）
+- [x] **RAG·advise 真向量检索（方案 §5.9 指定 Milvus）**：`KnowledgeRetriever` 协议 + 离线 `InMemoryRetriever`（词法）+ **`MilvusVectorRetriever`**（Milvus Lite 嵌入式/真服务器同码，COSINE）+ **`DashScopeEmbedder`**（真语义嵌入，同义词可召回：「发霉」命中「霉变/霉菌毒素」条款）；只服务 advise、带出处、**不驱动写入**（OAG 主机制不变）
+- [x] **real-Qwen 进 CI 回归（record-replay）+ 抓修安全漏洞**：`ReplayLLMClient` 按口语键回放录制的真 Qwen 原始 JSON，编译器逐字跑真实解析/校验，无 key/网络固化为 CI 门。**回放当场抓到 stub 测永远抓不到的漏洞**：真 Qwen 把安全字段抽成英文键 `mycotoxin` → 霉变样绕过中文键规则落库 → 修以检测项**键归一**、锁进 CQ + 回放双保险
+- [x] **tenant 关系源 ingest（还债）**：`tenant.yaml` 加 `links:` 段（边源），`from`/`to` 列=端点主键、其余列→边属性，`LinkIngest` 可审报告；`adapts_to` 从属性 workaround **迁回真边**（GrassSpecies→SiteType，立地适配规则走 Search Around），tenant 边 ingest 后 CQ 两路一致（「载入 N 对象 + M 关系」）
+- [x] **知识挂载四通道 + 专家轮公开标准项固化**：规则 source/citations 全覆盖、活跃对象附着知识、动作 evidence 血统、RAG 检索；RFV 断点(AFGC/NY/T 1574)、检测项(NY/T 1574)、黄曲霉毒素 B1(GB 13078) 按公开标准核准、去 `TODO(FDE/专家)`；蒙草专有值（播量/名录）留问卷 `docs/10`
+
+- [x] **YAML Schema 加载器**：`spi.load_schema(ontology, yaml)` 从 YAML 声明式加载对象/关系 schema（Python `add_object`/`add_link` 的**同构落点**，可混用/互斥，重复声明由 `_guard_dup` 拦）——schema 与 tenant 数据均可脱离代码声明；YAML 声明的 schema 可直接跑 OQL
+- [ ] 数值/非 ASCII 列的下推（当前原生列为 ASCII string；数值比较与中文字段名走引擎再校验）+ search_around 步谓词下推
+- [ ] 真 Prometheus/ES 遥测执行器（当前 InMemory/DuckDB；真观测后端走同协议 opt-in）
+- [ ] NebulaGraph 生产适配千万级压测 + 三范式训练集导出器（对接数据集验收）
+- [ ] plugin.yaml manifest + 每插件记忆词典/agent 角色（SPI 槽位 5/6 声明式化）
+- [ ] 进程/WASM 强隔离（面向不可信第三方插件）+ 记忆压缩用真 tokenizer
 
 ---
 

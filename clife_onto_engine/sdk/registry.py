@@ -14,11 +14,13 @@ from typing import Callable, Optional
 from ..metamodel import (
     ActionDef,
     Backing,
+    EdgeSemantics,
     Evaluation,
     FunctionDef,
     HilPolicy,
     ObjectType,
     LinkType,
+    PropertySpec,
     RuleDef,
     Severity,
 )
@@ -82,6 +84,39 @@ class SPI:
     def load_mappings(self, ontology_id: str, yaml_path) -> None:
         """槽位 2：从 YAML 加载对象/关系的物理映射。"""
         self.registry.mappings.load_yaml(ontology_id, yaml_path)
+
+    def load_schema(self, ontology_id: str, yaml_path) -> tuple:
+        """槽位 1（声明式）：从 YAML 加载对象/关系 **schema**（Python `add_object`/`add_link` 的同构落点）。
+
+        objects: [{name, primary_key, properties:[{name,type,unit?,required?,classification?}],
+                   states?, initial_state?, source_required?}]
+        links:   [{name, from, to, cardinality?, edge_semantics?(root_cause|hypothesis|derivation)}]
+        与 Python 声明混用/互斥皆可；重复声明由 registry 的 `_guard_dup` 拦。返回 (对象数, 关系数)。
+        """
+        import pathlib
+
+        import yaml as _yaml
+
+        doc = _yaml.safe_load(pathlib.Path(yaml_path).read_text(encoding="utf-8")) or {}
+        n_obj = n_link = 0
+        for o in doc.get("objects", []) or []:
+            props = tuple(PropertySpec(
+                name=p["name"], type=p["type"], unit=p.get("unit"),
+                required=bool(p.get("required", False)), classification=p.get("classification"),
+            ) for p in (o.get("properties") or []))
+            self.registry.add_object(ObjectType(
+                name=o["name"], namespace=ontology_id, primary_key=o["primary_key"],
+                properties=props, states=tuple(o.get("states") or ()),
+                initial_state=o.get("initial_state"),
+                source_required=bool(o.get("source_required", True))))
+            n_obj += 1
+        for lk in doc.get("links", []) or []:
+            sem = EdgeSemantics(lk["edge_semantics"]) if lk.get("edge_semantics") else EdgeSemantics.DERIVATION
+            self.registry.add_link(LinkType(
+                name=lk["name"], namespace=ontology_id, from_type=lk["from"], to_type=lk["to"],
+                cardinality=lk.get("cardinality", "N:N"), edge_semantics=sem))
+            n_link += 1
+        return n_obj, n_link
 
     # 槽位 3：只读派生量
     def function(self, ontology_id: str, name: str, *, reads: tuple[str, ...] = ()):
