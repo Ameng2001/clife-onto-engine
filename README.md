@@ -21,7 +21,7 @@
 | 能力 | 是什么 | 落点 |
 |---|---|---|
 | **语义读** | OQL 查受治理对象图/关系/派生量（JSON-AST、防注入、OR/嵌套布尔/排序、编译**可执行 nGQL**） | `query/oql.py` |
-| **遥测读** | 对象绑定可观测后端，产可执行查询计划（PromQL/ES/SQL，id 已代入、防注入）+ **执行器出值**（离线默认 / **DuckDB** 嵌入式真 SQL；provider 无关） | `query/telemetry.py` · `query/duckdb_telemetry.py` |
+| **遥测读** | 对象绑定外部读，产可执行查询计划 + 执行器出值。**Profile A·观测**（PromQL/ES 单序列）· **Profile B·分析/数仓**（语义指标：度量/维度/过滤→SQL，DuckDB 维度化聚合）；id 已代入、防注入、provider 无关 | `query/telemetry.py` · `query/duckdb_telemetry.py` |
 | **知识检索** | RAG·advise 只读取证：`KnowledgeRetriever` 协议 + 离线词法默认 + **Milvus 向量库**（Lite/服务器）+ **DashScope 真嵌入**；带出处、不驱动写入 | `retrieval.py` |
 | **治理写** | Action 引擎：guard→写后规则→**确定性回滚**→审计快照；HIL；置信度 | `kernel/action_engine.py` |
 | **自有展示** | 运行时对象图 Explorer（离线单文件 + 活端点），**点对象看结构 + 遥测序列 + 就地取计划**——多块读在 UI 合体 | `explorer.py` |
@@ -583,6 +583,7 @@ python scripts/nebula_pushdown.py            # OQL 谓词下推：region 落原�
 - [x] **问草（草业）tenant-zero·五智能体业务闭环全落地**：草修·出一地一方（乡土/混播配比/播量/立地适配）、草易·快检评级（检测项/黄曲霉毒素/键归一）、草碳·碳汇核算（方法学年限/权属）、草育·杂交推荐（亲本合规/目标性状可预测）、草机·作业参数（设备支持/参数能力域）——**5 条异构 Action 闭环同套内核零改动**，25 条 CQ 在 seed 与**真实 tenant 数据**两路一致；6 大子图 schema 层贯通（26+ 对象/24+ 关系，端点自洽）
 - [x] **OQL 表达力补全 + to_ngql 真翻译**：`where` 支持 `Or`/`And` 嵌套布尔组（顶层仍 AND、向后兼容）+ `order_by` 多键排序（None 排后）；`to_ngql` 从"示意"升级为**可执行 nGQL**（复用 nebula_store 已验证的 LOOKUP/GO/YIELD/字面量形态，原生列门控下推、主键→id(vertex)、布尔括号、count/limit），执行等价性由 opt-in `scripts/nebula_to_ngql.py` 在真集群对齐 `execute()` 交叉验证
 - [x] **遥测读执行回路（协议 + 离线默认 + 真后端 opt-in）**：`TelemetryExecutor` 协议 + 离线 `InMemoryTelemetryExecutor`（读 seeded 序列，CI 可测）+ **`DuckDBTelemetryExecutor`**（真跑已代入 SQL、嵌入式零服务器）——`ask("墒情多少")` 从"只产计划"到**真出值**；防注入仍在 build_plan（label 白名单）
+- [x] **遥测读 Profile B（数仓/分析读，doc 07 §2.2）**：把遥测从"监控域单序列"泛化出**语义指标**（`AnalyticalMetric`：度量 agg/field + 维度 dimensions + 过滤 filters + 来源表）→ `build_analytical_plan` 编译成**数仓 SQL**（维度化聚合，`$占位`白名单防注入）→ DuckDB 出维度化结果（如"某盟市近年盖度趋势"）；与 Profile A(观测·单序列)分工，**分析读走虚拟递数仓**、与 gate 写入的物化派生量(Function 读图)分流
 - [x] **RAG·advise 真向量检索（方案 §5.9 指定 Milvus）**：`KnowledgeRetriever` 协议 + 离线 `InMemoryRetriever`（词法）+ **`MilvusVectorRetriever`**（Milvus Lite 嵌入式/真服务器同码，COSINE）+ **`DashScopeEmbedder`**（真语义嵌入，同义词可召回：「发霉」命中「霉变/霉菌毒素」条款）；只服务 advise、带出处、**不驱动写入**（OAG 主机制不变）
 - [x] **real-Qwen 进 CI 回归（record-replay）+ 抓修安全漏洞**：`ReplayLLMClient` 按口语键回放录制的真 Qwen 原始 JSON，编译器逐字跑真实解析/校验，无 key/网络固化为 CI 门。**回放当场抓到 stub 测永远抓不到的漏洞**：真 Qwen 把安全字段抽成英文键 `mycotoxin` → 霉变样绕过中文键规则落库 → 修以检测项**键归一**、锁进 CQ + 回放双保险
 - [x] **tenant 关系源 ingest（还债）**：`tenant.yaml` 加 `links:` 段（边源），`from`/`to` 列=端点主键、其余列→边属性，`LinkIngest` 可审报告；`adapts_to` 从属性 workaround **迁回真边**（GrassSpecies→SiteType，立地适配规则走 Search Around），tenant 边 ingest 后 CQ 两路一致（「载入 N 对象 + M 关系」）

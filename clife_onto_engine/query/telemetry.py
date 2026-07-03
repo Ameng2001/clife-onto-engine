@@ -13,10 +13,57 @@ import re
 
 # label 值白名单：字母数字 + 常见安全符（-_.:/ 空格中文）；元字符（{}"'`\等）一律拒，防注入。
 _SAFE_LABEL = re.compile(r"^[\w\-.:/ 一-鿿]+$")
+# 标识符白名单（表/列/维度名）：ASCII/中文标识符，防手误注入（来自声明的绑定，受信但仍校验）。
+_SAFE_IDENT = re.compile(r"^[A-Za-z_一-鿿][\w一-鿿]*$")
+_ANALYTIC_AGG = {"avg", "sum", "min", "max", "count"}
 
 
 def _err(msg: str) -> dict:
     return {"ok": False, "error": msg}
+
+
+def build_analytical_plan(registry, namespace: str, metric_name: str,
+                          *, params: dict | None = None) -> dict:
+    """语义指标（Profile B）→ 数仓 SQL 查询计划（不执行；DuckDB/ClickHouse 等执行器跑）。
+
+    度量/维度/来源来自声明（受信，仍走标识符白名单）；过滤 `$占位` 值由 params 代入并
+    走 label 白名单**防注入**。成功 → {ok, provider, kind:'analytical', plan, dimensions, ...}。
+    与 build_plan（Profile A·单序列）分工：本函数产**维度化聚合**查询（分析读·虚拟递数仓）。
+    """
+    m = registry.mappings.get_analytics(namespace, metric_name)
+    if m is None:
+        return _err(f"未声明语义指标: {namespace}.{metric_name}")
+    if m.agg not in _ANALYTIC_AGG:
+        return _err(f"未支持聚合: {m.agg}")
+    idents = [m.source] + ([m.metric_field] if m.metric_field else []) + list(m.dimensions) + list(m.filters)
+    for ident in idents:
+        if not _SAFE_IDENT.match(ident):
+            return _err(f"非法标识符（防注入）: {ident!r}")
+    measure = "count(*)" if m.agg == "count" else f"{m.agg}({m.metric_field})"
+    alias = m.metric_field or "count"
+    dims = ", ".join(m.dimensions)
+    select = (dims + ", " if dims else "") + f"{measure} AS {alias}"
+
+    params = params or {}
+    where, resolved = [], {}
+    for col, val in m.filters.items():
+        v = val
+        if isinstance(val, str) and val.startswith("$"):
+            ph = val[1:]
+            if ph not in params:
+                return _err(f"未解析过滤占位 '${ph}'（未在 params 给出）")
+            v = params[ph]
+        if not _SAFE_LABEL.match(str(v)):
+            return _err(f"过滤值含非法字符，拒绝代入（防注入）: {col}={v!r}")
+        where.append(f"{col} = '{v}'")
+        resolved[col] = str(v)
+    clause = (" WHERE " + " AND ".join(where)) if where else ""
+    group = (" GROUP BY " + dims) if dims else ""
+    order = (" ORDER BY " + dims) if dims else ""
+    plan = f"SELECT {select} FROM {m.source}{clause}{group}{order}"
+    return {"ok": True, "provider": m.provider, "kind": "analytical", "plan": plan,
+            "metric": metric_name, "dimensions": list(m.dimensions),
+            "resolved_filters": resolved, "cost": {"analytical-plan": 1}}
 
 
 def build_plan(registry, store, object_type: str, key: str, series_name: str,
