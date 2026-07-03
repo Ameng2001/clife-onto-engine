@@ -254,6 +254,11 @@ def seed_reference_data(store: InMemoryStore) -> None:
         store.put_object("CarbonParcel", _cp, {"cp_id": _cp, "area_mu": _area, "years": _yr,
                                                "tenure": _ten, "annual_seq_per_mu": 0.3})
 
+    # 育种参考数据：种质 + trait_markers（{性状:效应}），供草育·杂交推荐闭环 CQ。
+    for _g, _tm in (("G1", {"耐旱": 0.5}), ("G2", {"耐旱": 0.6, "产量": 0.4}), ("G3", {"产量": 0.3})):
+        store.put_object("Germplasm", _g, {"germplasm_id": _g, "species": "苜蓿",
+                                           "germination": 90, "trait_markers": _tm})
+
 
 # 第二个 Action 闭环：草易·快检评级。import 即完成 SPI 注册。
 from . import forage  # noqa: E402,F401
@@ -261,7 +266,10 @@ from . import forage  # noqa: E402,F401
 # 第三个 Action 闭环：草碳·碳汇核算（子图5 落地）。import 即完成 SPI 注册。
 from . import carbon  # noqa: E402,F401
 
-# Phase 1：其余子图 schema 层贯通（育种/监测等对象与关系；schema-only）。
+# 第四个 Action 闭环：草育·杂交组合推荐（子图4 落地）。import 即完成 SPI 注册。
+from . import breeding  # noqa: E402,F401
+
+# Phase 1：其余子图 schema 层贯通（品种/基因标记/监测等对象与关系；schema-only）。
 from . import subgraphs  # noqa: E402,F401
 
 # 槽位 2：加载对象/关系物理映射（声明式 YAML）。
