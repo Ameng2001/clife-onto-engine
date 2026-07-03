@@ -19,7 +19,7 @@ def _seeded():
 
 def test_suite_passes_current_version():
     rep = run_cq_suite(CQ_SUITE, spi.registry, store=_seeded())
-    assert rep.ok and rep.passed == rep.total == 21
+    assert rep.ok and rep.passed == rep.total == 25
 
 
 def test_regression_caught_when_rule_removed():
@@ -54,4 +54,4 @@ def test_query_cq_min_rows():
 
 def test_report_counts_and_summary():
     rep = run_cq_suite(CQ_SUITE, spi.registry, store=_seeded())
-    assert rep.total == 21 and "21/21 通过" in rep.summary
+    assert rep.total == 25 and "25/25 通过" in rep.summary

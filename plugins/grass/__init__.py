@@ -259,6 +259,11 @@ def seed_reference_data(store: InMemoryStore) -> None:
         store.put_object("Germplasm", _g, {"germplasm_id": _g, "species": "苜蓿",
                                            "germination": 90, "trait_markers": _tm})
 
+    # 装备参考数据：设备能力域（{参数:[下限,上限]}），供草机·作业参数闭环 CQ。
+    store.put_object("Equipment", "E1", {"equipment_id": "E1", "name": "精量播种机",
+                                         "operations": ["播种", "补播"],
+                                         "params_envelope": {"播深": [2, 6], "行距": [15, 30]}})
+
 
 # 第二个 Action 闭环：草易·快检评级。import 即完成 SPI 注册。
 from . import forage  # noqa: E402,F401
@@ -268,6 +273,9 @@ from . import carbon  # noqa: E402,F401
 
 # 第四个 Action 闭环：草育·杂交组合推荐（子图4 落地）。import 即完成 SPI 注册。
 from . import breeding  # noqa: E402,F401
+
+# 第五个 Action 闭环：草机·作业参数推荐（智能装备）。import 即完成 SPI 注册。
+from . import machinery  # noqa: E402,F401
 
 # Phase 1：其余子图 schema 层贯通（品种/基因标记/监测等对象与关系；schema-only）。
 from . import subgraphs  # noqa: E402,F401

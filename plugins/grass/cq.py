@@ -119,4 +119,22 @@ CQ_SUITE = (
     ActionCQ("越权角色育种被拦", ONTOLOGY, "出杂交组合推荐",
              {"base_id": "G1", "candidate_id": "G2", "target_trait": "耐旱"},
              actor_role="游客", expect="reject", expect_rule="育种角色权限"),
+
+    # ---- 闭环 E · 草机·作业参数推荐（装备：作业支持 + 参数能力域）------------
+    # 设备支持该作业 ∧ 参数在能力域内 → 出作业工单
+    ActionCQ("合规作业出工单", ONTOLOGY, "出作业参数",
+             {"equipment_id": "E1", "operation": "播种", "params": {"播深": 4, "行距": 20}},
+             actor_role="机手", expect="commit"),
+    # 本体兜底：参数超能力域应被「参数在能力域内」拦（播深 10 > 6）
+    ActionCQ("参数越域被拦", ONTOLOGY, "出作业参数",
+             {"equipment_id": "E1", "operation": "播种", "params": {"播深": 10}},
+             actor_role="机手", expect="reject", expect_rule="参数在能力域内"),
+    # 本体兜底：设备不支持的作业应被「设备支持作业」拦（播种机不能飞防）
+    ActionCQ("设备不支持作业被拦", ONTOLOGY, "出作业参数",
+             {"equipment_id": "E1", "operation": "飞防", "params": {}},
+             actor_role="机手", expect="reject", expect_rule="设备支持作业"),
+    # guard：越权角色应被「作业角色权限」拦
+    ActionCQ("越权角色作业被拦", ONTOLOGY, "出作业参数",
+             {"equipment_id": "E1", "operation": "播种", "params": {"播深": 4}},
+             actor_role="游客", expect="reject", expect_rule="作业角色权限"),
 )
