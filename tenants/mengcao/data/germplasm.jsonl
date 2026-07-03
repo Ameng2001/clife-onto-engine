@@ -1,0 +1,3 @@
+{"germplasm_id": "G1", "species": "苜蓿", "germination": 90, "trait_markers": {"耐旱": 0.5}}
+{"germplasm_id": "G2", "species": "苜蓿", "germination": 92, "trait_markers": {"耐旱": 0.6, "产量": 0.4}}
+{"germplasm_id": "G3", "species": "苜蓿", "germination": 88, "trait_markers": {"产量": 0.3}}

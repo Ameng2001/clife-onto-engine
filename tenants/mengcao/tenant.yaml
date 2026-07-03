@@ -28,6 +28,10 @@ sources:
     file: data/carbon_parcels.csv
     format: csv
 
+  - object: Germplasm                  # 种质 + trait_markers（嵌套 → JSONL）：供草育·杂交推荐闭环
+    file: data/germplasm.jsonl
+    format: jsonl
+
   - object: ForageSample               # 草样快检批次（主键 batch_id）
     file: data/forage_samples.csv
     format: csv

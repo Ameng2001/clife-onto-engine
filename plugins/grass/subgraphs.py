@@ -52,13 +52,12 @@ _obj("Ration", "ration_id", (_P("cost", "number"),))                          # 
 _link("feeds", "Forage", "Livestock")     # §5.5 #20
 _link("has_ration", "Livestock", "Ration")  # #21
 
-# ── 子图 4 · 育种（种质/品种/基因标记 + 关系）────────────────────────────────
-_obj("Germplasm", "germplasm_id", (_P("species", "string"), _P("germination", "number")))  # §5.4 #3
-_obj("Variety", "variety_id", (_P("name", "string"), _P("cert_no", "string")))  # #2
+# ── 子图 4 · 育种 —— Germplasm/crossed_to 已升级为**活闭环**（见 breeding.py）；
+#             此处保留 Variety/GeneMarker 与导航关系（marks/carries_marker 供 Explorer/未来）。
+_obj("Variety", "variety_id", (_P("name", "string"), _P("cert_no", "string")))  # §5.4 #2
 _obj("GeneMarker", "marker_id", (_P("effect", "number"),))                     # #5
-_link("carries_marker", "Germplasm", "GeneMarker")  # §5.5 #7
+_link("carries_marker", "Germplasm", "GeneMarker")  # §5.5 #7（from_type Germplasm 由 breeding 声明）
 _link("marks", "GeneMarker", "Trait")               # #6（GWAS）
-_link("crossed_to", "Germplasm", "Germplasm", _H)   # #5（杂交亲本）
 _link("derived_from", "Variety", "Germplasm")       # #4
 _link("certified_by", "Variety", "Standard")        # #23（品种审定）
 

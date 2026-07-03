@@ -76,6 +76,9 @@ def main() -> None:
     # E 草碳·碳汇核算 → 提交（写 CarbonReport + sequesters→Methodology，演示第三条闭环）
     _run(engine, "E 草碳·碳汇核算(合规)", "出碳汇核算报告",
          {"cp_id": "cp_001", "method_no": "CCER-GRASS-01"}, "碳汇开发")
+    # F 草育·杂交推荐 → 提交（写 CrossPlan + crossed_to，演示第四条闭环·标记效应预测增益）
+    _run(engine, "F 草育·杂交推荐(合规)", "出杂交组合推荐",
+         {"base_id": "G1", "candidate_id": "G2", "target_trait": "耐旱"}, "育种")
 
     # ---- 过程可溯：审计血统 ----
     print("\n== 过程可溯·审计血统（每步决策 + 规则评估 + 证据）==")

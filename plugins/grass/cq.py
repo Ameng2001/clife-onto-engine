@@ -101,4 +101,22 @@ CQ_SUITE = (
     ActionCQ("越权角色碳汇被拦", ONTOLOGY, "出碳汇核算报告",
              {"cp_id": "cp_001", "method_no": "CCER-GRASS-01"},
              actor_role="游客", expect="reject", expect_rule="碳汇角色权限"),
+
+    # ---- 闭环 D · 草育·杂交组合推荐（子图4：亲本合规 + 目标性状有标记基础）------
+    # 候选亲本携带目标性状标记（G2 有 耐旱:0.6）→ 出推荐
+    ActionCQ("合规杂交出推荐", ONTOLOGY, "出杂交组合推荐",
+             {"base_id": "G1", "candidate_id": "G2", "target_trait": "耐旱"},
+             actor_role="育种", expect="commit"),
+    # 本体兜底：候选亲本无目标性状标记（G3 无 耐旱）→ 被「目标性状可预测」拦
+    ActionCQ("无标记基础被拦", ONTOLOGY, "出杂交组合推荐",
+             {"base_id": "G1", "candidate_id": "G3", "target_trait": "耐旱"},
+             actor_role="育种", expect="reject", expect_rule="目标性状可预测"),
+    # 本体兜底：亲本相同 → 被「亲本合规」拦
+    ActionCQ("亲本相同被拦", ONTOLOGY, "出杂交组合推荐",
+             {"base_id": "G1", "candidate_id": "G1", "target_trait": "耐旱"},
+             actor_role="育种", expect="reject", expect_rule="亲本合规"),
+    # guard：越权角色应被「育种角色权限」拦
+    ActionCQ("越权角色育种被拦", ONTOLOGY, "出杂交组合推荐",
+             {"base_id": "G1", "candidate_id": "G2", "target_trait": "耐旱"},
+             actor_role="游客", expect="reject", expect_rule="育种角色权限"),
 )
