@@ -590,12 +590,13 @@ python scripts/nebula_pushdown.py            # OQL 谓词下推：region 落原�
 - [x] **知识挂载四通道 + 专家轮公开标准项固化**：规则 source/citations 全覆盖、活跃对象附着知识、动作 evidence 血统、RAG 检索；RFV 断点(AFGC/NY/T 1574)、检测项(NY/T 1574)、黄曲霉毒素 B1(GB 13078) 按公开标准核准、去 `TODO(FDE/专家)`；蒙草专有值（播量/名录）留问卷 `docs/10`
 
 - [x] **YAML Schema 加载器**：`spi.load_schema(ontology, yaml)` 从 YAML 声明式加载对象/关系 schema（Python `add_object`/`add_link` 的**同构落点**，可混用/互斥，重复声明由 `_guard_dup` 拦）——schema 与 tenant 数据均可脱离代码声明；YAML 声明的 schema 可直接跑 OQL
-- [ ] 数值/非 ASCII 列的下推（当前原生列为 ASCII string；数值比较与中文字段名走引擎再校验）+ search_around 步谓词下推
-- [ ] 真 Prometheus/ES 遥测执行器（当前 InMemory/DuckDB；真观测后端走同协议 opt-in）
+- [ ] Nebula 侧下推增强（数值/非 ASCII 列需**原生列类型化**、search_around 步谓词下推）——**需真集群验证**（引擎侧 to_ngql 已产数值/布尔字面量；`nebula_store.find_where` 现仅下推 ASCII string 列，因原生列存为 string，扩展需 TAG 类型化）
+- [ ] 真 Prometheus/ES 遥测执行器（当前 InMemory/DuckDB；真观测后端走同协议 opt-in，**需服务**）
 - [x] **三范式训练集导出器（对接 2026.12 数据集验收）**：`training_export.py` 把本体导成本体大模型训练数据——**静态结构层**(对象/关系 Schema)、**路径模板层**(沿关系链枚举多跳推理路径模板、防环限深)、**现象级实例层**(从审计快照派生"输入→规则评估→裁决→证据"裁决轨迹)；`scripts/export_training.py` 跑五闭环生成轨迹→三 JSONL。与 OKF(读/文档层)互补
-- [ ] NebulaGraph 生产适配千万级压测
+- [ ] NebulaGraph 生产适配千万级压测（**需真集群**）
 - [x] **plugin.yaml 清单 + 槽位 5/6 声明式化**：`spi.load_manifest(plugin.yaml)` 一处声明可选 schema(1)/mappings(2) + **术语表(5)**（规范用词+别名，喂进意图编译器让 LLM 用规范键——从源头治「mycotoxin 绕过中文键」类漂移）+ **复核角色(6)**（HIL who-reviews-what，此前只在各 Action 的 HilPolicy）；`plugins/grass/plugin.yaml` 落地。至此 7 槽位除 3/4(handler 逻辑本就是代码) 全可声明式
-- [ ] 进程/WASM 强隔离（面向不可信第三方插件）+ 记忆压缩用真 tokenizer
+- [x] **记忆 token 估算 CJK-aware + 可注入真 tokenizer**：`estimate_tokens` 从"每字符 1 token"改为零依赖启发式（CJK ~1/字、其余 ~4char/token——英文不再高估、记忆预算不过度丢弃英文项）；`assemble(token_fn=…)` 可注入真 tokenizer（tiktoken 等），默认可测、真实 opt-in
+- [ ] 进程/WASM 强隔离（面向不可信第三方插件，**非小项**）
 
 ---
 
