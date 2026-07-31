@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>动手环节设计 · 目标反推（先定产出，再对齐工具与课件）</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">动手环节设计 · 目标反推（先定产出，再对齐工具与课件）</h1>
+</header>
+<h1 id="动手环节设计-目标反推先定产出再对齐工具与课件">动手环节设计 · 目标反推（先定产出，再对齐工具与课件）</h1>
+<blockquote>
+<p>⚠️ <strong>本文件是 v0.2 时期的设计推导记录</strong>（“先定交付物、再倒推需要哪些步骤”），<strong>不是现行授课口径</strong>。 内部仍按 <strong>T1–T8</strong> 编号——<strong>刻意保留</strong>：改成 L 编号会篡改历史，让人误以为当时就是按八课设计的。查阅时按 <code>00_课程总纲.md</code> 第九节的对照表换算。 它记录的是<strong>决策过程</strong>（为什么 T2 没有交付物却不可省、为什么 v1 的 D2 被拆开），改课时值得先读一遍再动结构。</p>
+</blockquote>
+<blockquote>
+<p>方法：不按“每讲配一个动手”，而是从<strong>工作坊最终交付物</strong>倒推——先定“每组结课要交什么”，再看<strong>哪个工具产出它</strong>、<strong>哪一讲供给做它所需的知识</strong>。</p>
+<p><strong>版本说明</strong> - v1（2026-07-26）：结论是 <strong>7 个动手环节 D1–D7 + 认领 + 路演</strong>，动手挂在讲 4/6/7/8/10 上，其余五讲作研讨。 - <strong>v2（2026-07-27）· 现行</strong>：改按<strong>双轨重构</strong>——执行主干换成 <strong>T1–T8 八步工具实操</strong>，旧 10 讲整体降为<strong>知识注入</strong>。 <strong>变化的本质</strong>：v1 是“在十讲里挑出哪几讲能产出交付物”，v2 是“<strong>按工具链排主干，让十讲去供给它</strong>”。倒推方法没变，被倒推的对象从“讲”变成了“工具步骤”。</p>
+</blockquote>
+<hr />
+<h2 id="一工作坊目标-最终交付物">一、工作坊目标 → 最终交付物</h2>
+<p><strong>目标</strong>：每组把<strong>本组命题</strong>走完一遍 FDE 交付流程，结课交出一份「<strong>迷你 FDE 交付包</strong>」。</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>交付物</th>
+<th>FDE 阶段</th>
+<th><strong>由哪一步产出</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>一句话项目定义 + <strong>交付模式判定</strong></td>
+<td>立项</td>
+<td><strong>T1</strong></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>事件集 → 画像 → 旅程 → <strong>10 热点分层</strong></td>
+<td>S1 认知萃取</td>
+<td><strong>T3</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>限界上下文域图</strong></td>
+<td>S3 域切分</td>
+<td><strong>T4</strong></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>一个核心域的<strong>五要素本体草案</strong></td>
+<td>S4 本体建模</td>
+<td><strong>T5</strong></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>商业模式画布</strong> + 交叉补贴/三级火箭 + 财务语言</td>
+<td>商业设计</td>
+<td><strong>T6</strong></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>交付 SOP 七阶段</strong>（含各阶段收口标准）</td>
+<td>SOP</td>
+<td>讲 6 教 → <strong>T5 成文</strong></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>HIL 设点表</strong>（5–8 闸：判据/谁按/按错代价）</td>
+<td>S4 设闸</td>
+<td><strong>T5</strong></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><strong>citations 取证清单</strong>（挂国标 + 查不到留占位）</td>
+<td>S5 合规</td>
+<td><strong>T5</strong></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><strong>一节方案稿 + 一张配图占位</strong></td>
+<td>S6 交付物</td>
+<td><strong>T6</strong></td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><strong>团队编成 + 90 天启动计划</strong></td>
+<td>落地</td>
+<td><strong>T8</strong></td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><strong>产品 demo 原型</strong>（可点开外壳，<strong>诚实标 Mock</strong>）</td>
+<td>产品化（延伸）</td>
+<td><strong>T7</strong></td>
+</tr>
+<tr class="even">
+<td><strong>12</strong></td>
+<td><strong>可发版插件 v0.1（加分项）</strong></td>
+<td>能力沉淀</td>
+<td><strong>T8</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>⚠️ 诚实边界（务必守）</strong>：各组做的 demo <strong>只是“交互原型/外壳”</strong>，路演时<strong>必须说清“这是交互外壳、不是模型跑通”</strong>。 真实案例成熟度参照：<strong>草业项目</strong> 11 页 demo、AI 是 Mock 关键词路由、<strong>数据全仿真</strong>；<strong>教育督导项目</strong> 47 页 demo、AI 是 Mock 但<strong>数据是 79 园真实 CSV</strong>；<strong>辣椒无 demo</strong>（<code>demo-app/</code> 仅 .gitkeep）。 同样一句“这是 Mock”，含金量差一档——T7 手册第五节有三档自评表。</p>
+</blockquote>
+<hr />
+<h2 id="二反推结果八步各产出什么">二、反推结果：八步各产出什么</h2>
+<blockquote>
+<p>判据没变：<strong>一个步骤存在，当且仅当它产出交付包里的某几件，或它是后续步骤的必要前置。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>步</th>
+<th>产出（进交付包）</th>
+<th>覆盖</th>
+<th>时间盒</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L3 信息采集</strong></td>
+<td>一句话定义 + 交付模式判定 + <code>domain-intake</code> 契约</td>
+<td>①</td>
+<td>90′</td>
+</tr>
+<tr class="even">
+<td><strong>L2 项目与工具</strong></td>
+<td>—（<strong>必要前置</strong>：可用工具链 + <code>studio/</code> 工作区）</td>
+<td>—</td>
+<td>60′</td>
+</tr>
+<tr class="odd">
+<td><strong>L4 上半场 · 认知萃取</strong></td>
+<td>画像 ≥3 / 旅程 ≥2 / 流程 ≥2 / 热点分层</td>
+<td>②</td>
+<td>120′</td>
+</tr>
+<tr class="even">
+<td><strong>L4 下半场 · 领域建模</strong></td>
+<td>限界上下文域图 + <code>skill-map</code>（喂 L8）</td>
+<td>③</td>
+<td>120′</td>
+</tr>
+<tr class="odd">
+<td><strong>L5 上半场 · 本体建模</strong></td>
+<td>五要素本体草案（七段 IR + 编译骨架 + 收尾 6 项清单）</td>
+<td>④</td>
+<td>90′</td>
+</tr>
+<tr class="even">
+<td><strong>L5 下半场 · 设闸与治理</strong></td>
+<td>HIL 设点表 + 取证清单 + SOP 成文</td>
+<td>⑥⑦⑧</td>
+<td>90′</td>
+</tr>
+<tr class="odd">
+<td><strong>L6 文档工程</strong></td>
+<td>写作专家 + 商业模式与财务语言 + 一节方案稿 + 配图占位</td>
+<td>⑤⑨</td>
+<td>150′</td>
+</tr>
+<tr class="even">
+<td><strong>L7 原型开发</strong></td>
+<td>3–6 屏可点开原型 + <strong>Mock 清单</strong></td>
+<td>⑪</td>
+<td>120′</td>
+</tr>
+<tr class="odd">
+<td><strong>L8 能力沉淀</strong></td>
+<td>团队编成草案；可发版插件（加分）</td>
+<td>⑩a⑫</td>
+<td>150′</td>
+</tr>
+<tr class="even">
+<td><strong>L8 结课路演</strong></td>
+<td>90 天启动计划 + 拼合 11 件、20′ 答辩（含 demo 演示 + 诚实说明）</td>
+<td>⑩b + 全</td>
+<td>120′ + 每组 20′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>= 8 个步骤，交付包 11 件全部有归属、不重不漏，另加 1 件加分项。</strong></p>
+<p><strong>与 v1 的两处实质差异</strong>： 1. <strong>T2 没有交付物但不可省</strong> —— v1 的判据“不产交付物就不设动手”会把它筛掉，但<strong>它是所有后续步骤的前置</strong>。判据因此补了半句“或它是后续步骤的必要前置”。 2. <strong>v1 的 D2 被拆开了</strong> —— 原本“结构与本体”合在一个环节（域图 + 本体草案），现在分给 T4（域图）与 T5（本体）：<strong>用的是两个不同的工具，中间还隔着一个分叉点</strong>（见下）。</p>
+<hr />
+<h2 id="三-t4-之后是分叉不是流水线">三、⭐ T4 之后是分叉，不是流水线</h2>
+<pre><code>T2 → T1 → T3 → T4 ─┬─ T5 本体+设闸    （要&quot;可执行的规则与闸&quot;）
+                    ├─ T6 文书          （要&quot;可评审的文档&quot;）
+                    ├─ T7 原型          （要&quot;看得见的应用形态&quot;）
+                    └─ T8 插件沉淀      （要&quot;下个项目能复用的能力&quot;）</code></pre>
+<p><strong>它们并行、不互为前置。</strong></p>
+<p><strong>活证据</strong>：<strong>学前教育项目</strong>项目<strong>没做本体建模、没有 persona/journey</strong>，照样交出 653KB 可研 + 完整送审报价包 + 单一来源论证。</p>
+<blockquote>
+<p>所以排课顺序 T5→T6→T7→T8 是<strong>教学顺序</strong>（由难到易、由内到外），不是依赖顺序。 真实项目按<strong>交付模式</strong>决定先走哪条：模式二 To-G 大盘 → T6 优先；模式一 SaaS → T5+T7 优先。</p>
+</blockquote>
+<hr />
+<h2 id="四对齐知识注入哪一讲供给哪一步">四、对齐知识注入：哪一讲供给哪一步</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>步</th>
+<th>主供知识（沉浸）</th>
+<th>案例启发标尺</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T2</td>
+<td><strong>讲5</strong>（平台=方法论固化物，压缩 20′）</td>
+<td>fund-review：某工业城市项目反向沉淀出插件</td>
+</tr>
+<tr class="even">
+<td>T1</td>
+<td><strong>讲1 交付断层 + 讲2 认知杠杆</strong></td>
+<td>HR项目（模板A）/ 辣椒·草业项目（模板B）；<strong>B-11 主场</strong></td>
+</tr>
+<tr class="odd">
+<td>T3</td>
+<td><strong>讲4 栈①</strong>（Persona/旅程/机会矩阵）</td>
+<td><strong>教育督导项目</strong>（persona/journey/process 三件唯一齐全）</td>
+</tr>
+<tr class="even">
+<td>T4</td>
+<td><strong>讲4 栈②</strong>（DDD）</td>
+<td>康养项目 7 域 / <strong>HR项目 9 插件切分</strong></td>
+</tr>
+<tr class="odd">
+<td>T5</td>
+<td><strong>讲4 栈③（OAG）+ 讲6（SOP+HIL，180′ 重心）</strong></td>
+<td>康养项目 26 HIL / grass 完整插件 / chili 反面（links=0）</td>
+</tr>
+<tr class="even">
+<td>T6</td>
+<td><strong>讲4 栈⑥⑦</strong>（交付物工程 / 合规治理）</td>
+<td><strong>肖作仕</strong>写作专家 / 学前教育项目 653KB 可研 / HR项目 招投标全套</td>
+</tr>
+<tr class="odd">
+<td>T7</td>
+<td><strong>讲7 残余 + 讲9 诚实边界</strong></td>
+<td>教育督导项目（数据真）vs 草业项目（全仿真）<strong>可信度对照组</strong></td>
+</tr>
+<tr class="even">
+<td>T8</td>
+<td><strong>讲5 回收（三层固化）+ 讲8 团队编成</strong></td>
+<td>fund-review → 插件；L1/L2/L3 能力锚</td>
+</tr>
+<tr class="odd">
+<td>路演</td>
+<td><strong>讲3 OPC 边界 + 讲10 C-Life 落地</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>旧 10 讲的去向</strong>：讲 1/2 → T1；讲 3 → 路演前收口；讲 4 四分册 → 拆入 T3/T4/T5/T6；讲 5 → T2 开场 + T8 回收；<strong>讲 6 → T5（保留 180′ 核心地位）</strong>；<strong>讲 7 → 被 T1–T8 全面吃掉，降级为一页「工具全景导览」</strong>；讲 8 → T8；讲 9 → T7；讲 10 → 路演。</p>
+<hr />
+<h2 id="五v2-已执行的改动2026-07-27">五、v2 已执行的改动（2026-07-27）</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+新增 <code>工具实操/T1–T8_*.md</code> 八份实操手册 + <code>工具实操/_素材/</code> 三份一手调研件</li>
+<li><input type="checkbox" disabled="" checked="" />
+<code>00_八课总纲.md</code>（三方映射表 + 5 天排期 + 冒烟测试结果）</li>
+<li><input type="checkbox" disabled="" checked="" />
+本文件改按 T1–T8</li>
+<li><input type="checkbox" disabled="" checked="" />
+<code>_贯穿沙盘_分组命题.md</code> 命题贯穿地图改按 T 步；评审卡加“⑧ 工具链走通（加分项）”</li>
+<li><input type="checkbox" disabled="" checked="" />
+案例矩阵 5 处更正 + 2 个新案例；全课“13 页”→“11 页”</li>
+<li><input type="checkbox" disabled="" checked="" />
+收编反例 <strong>B-11</strong>（模板复用的数字迁移污染）</li>
+<li><input type="checkbox" disabled="" checked="" />
+<code>00_授课流程手册.md</code> 总流程表改按 T1–T8</li>
+<li><input type="checkbox" disabled="" checked="" />
+<code>讲义/07</code> 降级为「工具全景导览」</li>
+<li><input type="checkbox" disabled="" checked="" />
+<code>slides/index.html</code> 增加 T 轨入口</li>
+</ul>
+<blockquote>
+<p><strong>本文件自身也是一次 B-11 的正面示范</strong>：v1 的倒推方法被完整复用到 v2，<strong>但结论重算了一遍</strong>——复用方法可以，复用结论不行。</p>
+</blockquote>
+</body>
+</html>

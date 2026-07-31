@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="corporate-clean"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 第4讲 · 知识栈（分册）</title>
+<link rel="stylesheet" href="../assets/fonts.css"><link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css"></head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .metric{font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent-2)}
+  .metric-sm{font-size:38px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:14px;color:var(--text-2);margin-top:9px;line-height:1.4}
+  .quote-big{font-family:var(--font-serif);font-size:36px;line-height:1.4;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .rtable{width:100%;border-collapse:collapse;font-size:13.5px}
+  .rtable th,.rtable td{border:1px solid var(--border);padding:7px 9px;text-align:left;vertical-align:top}
+  .rtable th{background:var(--surface-2);color:var(--text-1);font-weight:700}
+  .rtable .k{color:var(--accent-2);font-weight:700;white-space:nowrap}
+  .code{font-family:var(--font-mono,monospace);font-size:13px;line-height:1.5;background:var(--surface-2);border:1px solid var(--border);border-left:4px solid var(--accent-2);border-radius:6px;padding:12px 14px;color:var(--text-1);white-space:pre;overflow-x:auto}
+  .code .c{color:var(--text-3)}
+  .code .kw{color:var(--accent-2);font-weight:700}
+  .code .s{color:var(--good)}
+  .src{font-size:12px;color:var(--text-3);letter-spacing:.03em}
+  .chip{display:inline-block;background:var(--surface-2);border:1px solid var(--border);border-radius:5px;padding:4px 9px;font-size:13px;font-weight:600;margin:3px}
+  .chip-acc{background:var(--accent);color:#fff;border:none}
+  .bridge{border-left:4px solid var(--accent-2);background:var(--surface-2)}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+  .tag5{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--accent-2);border:1px solid var(--accent-2);border-radius:4px;padding:2px 8px;margin-right:8px}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="eyebrow" data-anim="fade-down">FDE 课程 · 第 4 讲 · 分册 2 / 4 · 本体 OAG 详解</div>
+    <h1 class="title" data-anim="fade-up">本体建模 OAG<br>知识工程师的方法论</h1>
+    <div class="divider-accent mb-m"></div>
+    <p class="quote-big" data-anim="fade-up">给智能体用的本体<br>≠ 给人看的 ER 图。</p>
+    <div class="row mt-l" data-anim="fade-up">
+      <span class="pill pill-accent">C-Life 自有方法论 · clife-onto-engine（数智本体基础设施）</span>
+      <span class="pill">对标 Palantir 本体语义 OS · 康养项目已编译 3835 行实证</span>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="21"></span></div>
+    <div class="notes"><p>进本体册。这是第四讲最硬核的一册，也是 C-Life 真正的护城河——别的栈我们借业界经典，本体这栈我们有自己成体系的方法论，叫 clife-onto-engine，数智本体基础设施，是我们自己一行行写出来、CI 强制、跨行业复用的东西。先把一句话钉在墙上：给智能体用的本体，不等于给人看的 ER 图。ER 图描述数据长什么样，本体要让机器能推理、能执行、能追溯、能改世界。这一册的主线是我们自己的方法论，Palantir 只作对标坐标——OAG 这个概念确实是 Palantir AIP 提出的，但我们做的是这套语义 OS 的自有实现。实证是康养项目真正编译出来的三千八百三十五行本体插件，我拿 D1 这个域把五要素一个个拆给你看。</p></div>
+  </section>
+
+  <!-- 2 命题 -->
+  <section class="slide" data-title="命题 · 为什么本体是差异化">
+    <div class="kicker">本册命题</div>
+    <h2 class="title">这是这门课的差异化</h2>
+    <div class="grid g2 mt-s">
+      <div class="card badcard"><h4>给人看的 ER 图</h4><p class="dim">画"是什么、有什么、跟谁连"。人读懂了，去写代码。<strong>本体本身不会做任何事。</strong></p></div>
+      <div class="card goodcard"><h4>给智能体用的本体</h4><p class="dim">语义（是什么）+ <strong>动能（能改什么、回写哪）</strong>绑在一起。<strong>LLM 只在本体约束的合规候选集内生成，越权即 reject。</strong></p></div>
+    </div>
+    <div class="card bridge mt-m" data-anim="fade-up"><p>传统信息化：人建 ER 图 → 人写业务逻辑 → 系统被动存数据。<strong>AI-Native：本体既描述世界、又约束智能体怎么改世界</strong>——这就是"防幻觉靠本体约束求解"的物理基础，也是 <strong>C-Life 自有内核 clife-onto-engine</strong> 存在的理由。</p></div>
+    <div class="deck-footer"><span class="ftag">本体是差异化</span><span class="slide-number" data-current="2" data-total="21"></span></div>
+    <div class="notes"><p>为什么本体是这门课的差异化，这页说透。传统的 ER 图是给人看的：它画清楚是什么、有什么、跟谁连，人读懂了去写代码，ER 图本身不会做任何事。我们要的本体是给智能体用的：它把语义和动能绑在一起，语义是"是什么"，动能是"能改什么、回写到哪"。关键差别在这——大模型只能在本体约束出来的合规候选集里生成，越权就直接 reject。这就是我们反复说的"防幻觉靠本体约束求解"的物理基础。传统信息化是人建图、人写逻辑、系统被动存数据；AI-Native 是本体既描述世界又约束智能体怎么改世界。你要建的是后者。</p></div>
+  </section>
+
+  <!-- 3 Palantir 方法论 1 -->
+  <section class="slide" data-title="Palantir 方法论 · 运营层/数字孪生">
+    <div class="kicker">对标坐标 · Palantir Foundry Ontology</div>
+    <h2 class="title">Ontology = 组织的运营层 / 数字孪生</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <p class="lede">先立一个<strong>对标坐标</strong>：OAG 概念由 <strong>Palantir AIP</strong> 提出——它不是唯一权威，是我们自有实现的参照系。</p>
+        <div class="card card-soft"><p>据官方文档，Ontology 是架在<strong>已接入的数据与模型之上</strong>、连接到现实世界实体的一层，是组织的<strong>"运营层 / 数字孪生（digital twin）"</strong>——不是又一个数据库 schema。</p></div>
+      </div>
+      <div class="card card-accent center">
+        <div><p class="metric-label" style="margin:0 0 8px">让本体</p>
+        <div class="metric-sm">能改世界</div>
+        <p class="metric-label">不只是"描述世界"。C-Life 做的是这套语义 OS 的<strong>自有实现</strong>——语义面全自有、不依赖外部脊椎。</p></div>
+      </div>
+    </div>
+    <p class="src mt-m">［来源：Palantir 官方文档 · palantir.com/docs/foundry/ontology；对标坐标，非唯一权威］</p>
+    <div class="deck-footer"><span class="ftag">Palantir · 运营层</span><span class="slide-number" data-current="3" data-total="21"></span></div>
+    <div class="notes"><p>我们的五要素 OAG 不是我凭空造的，它的思想源头是 Palantir Foundry 的 Ontology 方法论。这也是为什么第九讲讲 Palantir FDE 时你会看到，他们交付的核心就是帮客户建一个 Ontology。据 Palantir 官方文档，Ontology 是架在已经接入的数据和模型之上、连接到现实世界实体的一层，他们叫它组织的运营层，或者数字孪生。注意这个定位——它不是又一个数据库 schema，不是给 IT 用的表结构，它是业务运营本身的镜像。最关键的一句：它要让本体能改世界，不只是描述世界。这个"能改世界"就是下一页要讲的动能层。来源我标在下面，是官方文档。</p></div>
+  </section>
+
+  <!-- 4 Palantir 方法论 2 -->
+  <section class="slide" data-title="Palantir · 语义层 + 动能层">
+    <div class="kicker">对标坐标 · 两类元素</div>
+    <h2 class="title">语义层 + 动能层 · 绑在同一个本体里</h2>
+    <div class="grid g2 mt-s">
+      <div class="card card-outline"><h4 style="color:var(--accent-2)">语义层 · Semantic（是什么）</h4>
+        <p class="dim"><strong>Object types（对象）</strong>——是什么<br><strong>Properties（属性）</strong>——有什么<br><strong>Link types（关系）</strong>——跟谁连</p>
+        <p class="metric-label">描述"是什么、有什么、跟谁连"。</p></div>
+      <div class="card card-accent"><h4>动能层 · Kinetic（能改什么）</h4>
+        <p class="dim"><strong>Action types（动作）</strong>——被捕获为新数据<br><strong>Functions（函数）</strong>——可重算的派生<br><strong>Writeback（写回）</strong>——回写业务系统 SoR</p>
+        <p class="metric-label">让本体"能改世界"。</p></div>
+    </div>
+    <div class="card bridge mt-m" data-anim="fade-up"><p><strong>一句话：</strong>Palantir 把"语义（是什么）"和"动能（能改什么、回写哪）"绑在<strong>同一个本体</strong>里——这正是"给智能体用的本体"区别于"给人看的 ER 图"的根本。<strong>下面开始讲 C-Life 把这套语义 OS 做成的自有内核。</strong></p></div>
+    <div class="deck-footer"><span class="ftag">语义 + 动能</span><span class="slide-number" data-current="4" data-total="21"></span></div>
+    <div class="notes"><p>Palantir 的 Ontology 由两类元素构成，你把它记成两层。上面是语义层，Semantic，回答"是什么"：Object types 对象是什么、Properties 属性有什么、Link types 关系跟谁连。这一层其实 ER 图也有。真正拉开差距的是下面这层——动能层，Kinetic，回答"能改什么"：Action types 动作，用户或智能体的操作被捕获成新数据；Functions 函数，可以重算的派生计算；还有 writeback 写回，把动作的结果回写到业务系统、他们叫 system of record。一句话记住：Palantir 把语义和动能绑在同一个本体里，这就是给智能体用的本体和给人看的 ER 图的根本区别。ER 图只有上半层，本体两层都有。</p></div>
+  </section>
+
+  <!-- 5 五要素对照表 -->
+  <section class="slide" data-title="OAG 五要素 ← Palantir 对照">
+    <div class="kicker">OAG 五要素 ← Palantir 对照</div>
+    <h2 class="title">五要素 + HIL 人工闸</h2>
+    <table class="rtable mt-s">
+      <thead><tr><th>OAG 要素</th><th>← Palantir 对应</th><th>层</th><th>职责一句话</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Object 对象</td><td>Object types</td><td>语义</td><td>是什么、有什么属性、什么状态机</td></tr>
+        <tr><td class="k">Link 关系</td><td>Link types</td><td>语义</td><td>跟谁连、边是什么语义</td></tr>
+        <tr><td class="k">Function 函数</td><td>Functions</td><td>动能</td><td>只读派生、可重算、无副作用</td></tr>
+        <tr><td class="k">Action 动作</td><td>Action types + writeback</td><td>动能</td><td>对外副作用、写回本域 / 发布他域</td></tr>
+        <tr><td class="k">Rule 规则</td><td>动作校验 / 动态安全逻辑</td><td>动能</td><td>不变式、硬闸、挂国标 citations</td></tr>
+        <tr style="background:var(--surface-2)"><td class="k">+ HIL 人工闸</td><td>（我们显式抽出）</td><td>治理</td><td>审批类动作挂人工复核，防橡皮图章</td></tr>
+      </tbody>
+    </table>
+    <p class="dim mt-s">前五个一一对应 Palantir；<strong>HIL 是我们显式抽出来的第六项</strong>——把"人在关键动作上必须签字"做成一等公民。</p>
+    <div class="deck-footer"><span class="ftag">五要素对照</span><span class="slide-number" data-current="5" data-total="21"></span></div>
+    <div class="notes"><p>把 Palantir 的概念对到我们的 OAG 五要素，就是这张表。Object 对象对 Object types，Link 关系对 Link types，这俩是语义层；Function 函数对 Functions，是只读派生、可重算、没有副作用；Action 动作对 Action types 加 writeback，是对外有副作用的、要写回本域或者发布到他域；Rule 规则对 Palantir 的动作校验和动态安全逻辑，是不变式和硬闸，还要挂国标 citations。前五个是一一对应的。第六项 HIL 人工闸是我们自己显式抽出来的——Palantir 里它散在 Action 的审批逻辑里，我们把它拎出来做成一等公民，意思是"人在关键动作上必须签字"这件事，不能藏在代码深处，要显式声明。后面每个要素我都给你看 D1 域里真实的代码。</p></div>
+  </section>
+
+  <!-- 6 C-Life 核心命题 -->
+  <section class="slide" data-title="C-Life 方法论 · 核心命题">
+    <div class="kicker">C-Life 自有方法论 · clife-onto-engine</div>
+    <h2 class="title">大模型负责理解，本体负责确立边界与错误拦截</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <div class="card card-soft"><p>LLM 是<strong>概率机器</strong>，给不了确定性。当 Agent 不只"回答问题"、而要"执行操作"（出方案 / 评级 / 签发凭证 / 派工单）时，必须有一层<strong>确定性边界在模型之外把关</strong>。</p></div>
+        <div class="card bridge"><p><span class="mono">clife-onto-engine</span> 就是这层边界的工程实现——一个坐在<strong>写路径</strong>上的运行时内核。</p></div>
+      </div>
+      <div class="card card-accent"><h4>坐在写路径上的运行时内核</h4>
+        <div class="chain" style="flex-direction:column;align-items:flex-start;gap:6px;margin-top:8px">
+          <span class="step">① 前置校验</span>
+          <span class="step">② 内存变更</span>
+          <span class="step">③ 全局规则校验</span>
+          <span class="step">④ 提交 / 确定性回滚</span>
+          <span class="step">⑤ 决策血统</span>
+        </div>
+        <p class="metric-label">对每次业务动作跑完这五步，才允许改世界。</p>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life 核心命题</span><span class="slide-number" data-current="6" data-total="21"></span></div>
+    <div class="notes"><p>从这一页开始，讲我们自己的方法论。记住这一句核心命题：大模型负责理解，本体负责确立边界与错误拦截。为什么需要它？因为 LLM 是概率机器，它给不了确定性。你让 Agent 只回答问题，错了顶多答案不准；可你一旦让它执行操作——出照护方案、给老人评级、签发凭证、派工单——错一次就是真实世界的状态被改错。所以必须有一层确定性的边界，站在模型之外把关。clife-onto-engine 就是这层边界的工程实现，它是一个坐在写路径上的运行时内核。看右边这五步：任何一次业务动作，都要走前置校验、内存变更、全局规则校验、提交或者确定性回滚、最后留决策血统。跑完这五步才允许改世界。这不是教科书概念，是我们一行行写出来、CI 强制的东西。</p></div>
+  </section>
+
+  <!-- 7 OAG ≠ RAG -->
+  <section class="slide" data-title="OAG ≠ RAG">
+    <div class="kicker">方法论内核一 · OAG（行动增强）≠ RAG（检索增强）</div>
+    <h2 class="title">防幻觉在执行层，不在检索层</h2>
+    <table class="rtable mt-s">
+      <thead><tr><th>维度</th><th>RAG</th><th class="k">OAG（行动增强）</th></tr></thead>
+      <tbody>
+        <tr><td>增强的对象</td><td>生成内容的依据</td><td class="k">行动的能力与边界</td></tr>
+        <tr><td>LLM 输出</td><td>自然语言答案</td><td class="k">结构化操作调用</td></tr>
+        <tr><td>对世界的影响</td><td>只读</td><td class="k">写操作（受规则约束）</td></tr>
+        <tr><td>出错后果</td><td>答案不准</td><td class="k">状态被错误改变</td></tr>
+        <tr><td>追溯性</td><td>难还原依据</td><td class="k">完整决策血统</td></tr>
+      </tbody>
+    </table>
+    <div class="grid g2 mt-s">
+      <div class="card card-soft"><p><strong>GraphRAG / 知识图谱增强检索仍属"读"</strong>——帮模型理解关系，但不提供受治理的写回路径，<strong>挡不住"写错"</strong>。</p></div>
+      <div class="card bridge"><p><strong>防幻觉发生在执行层</strong>（LLM 提议、引擎回滚），不在检索层。<strong>概率推理在"选择层"，确定性约束在"执行层"。</strong></p></div>
+    </div>
+    <p class="src mt-s">⚠️ 给客户讲草业项目时曾用"Graph-RAG 约束求解防幻觉"话术贴近认知，但那把 OAG 的功劳记到了 RAG 头上——<strong>对内必须讲准</strong>（见 <span class="mono">docs/02-oag-positioning.md</span> 纠偏卡）。</p>
+    <div class="deck-footer"><span class="ftag">OAG ≠ RAG</span><span class="slide-number" data-current="7" data-total="21"></span></div>
+    <div class="notes"><p>这一页最重要，你务必分清 OAG 和 RAG。本体语义层的本质是 OAG，行动增强，Ontology-Augmented Generation，它增强的不是"生成内容的依据"，而是"行动的能力与边界"。看这张对照表，一行行读：RAG 增强的是依据，OAG 增强的是行动边界；RAG 的输出是自然语言答案，OAG 的输出是结构化的操作调用；RAG 只读，OAG 是受规则约束的写；RAG 错了答案不准，OAG 错了世界状态被改错；RAG 难还原依据，OAG 有完整决策血统。这里最容易被搞混的一句——GraphRAG、知识图谱增强检索，它仍然属于"读"，它帮模型理解关系，但它不给你受治理的写回路径，挡不住"写错"。所以记死这句：防幻觉发生在执行层，是 LLM 提议加引擎回滚，不在检索层。概率推理在选择层，确定性约束在执行层。还有个诚实提醒：我们给客户讲草业项目时曾经用过"Graph-RAG 约束求解防幻觉"这个话术，那是为了贴近客户认知，但它把 OAG 的功劳记到 RAG 头上了，对内我们必须讲准，纠偏卡在 docs 零二那份里。</p></div>
+  </section>
+
+  <!-- 8 五条设计红线 -->
+  <section class="slide" data-title="五条设计红线">
+    <div class="kicker">方法论内核三 · 五条设计红线</div>
+    <h2 class="title">clife-onto-engine 的五条不可越</h2>
+    <div class="grid g2 mt-s" data-anim="stagger-list">
+      <div class="card"><h4>① 行业概念不进内核</h4><p class="dim">内核源码禁止出现任何行业词（草 / 碳汇 / 辣椒 / 康养…），CI <span class="mono">check_kernel_purity</span> 强制。判缝准则："换成医疗大模型这段还成立吗？"</p></div>
+      <div class="card"><h4>② enforced kernel，非 advisory schema</h4><p class="dim">Rule 是"<strong>违反就拦截 + 回滚</strong>"，不是"希望遵守"。本体不是建议书，是强制内核。</p></div>
+      <div class="card"><h4>③ 受治理的写</h4><p class="dim">所有业务动作经 Action 引擎 <span class="mono">guard→变更→写后校验→提交/回滚→审计</span>，<strong>无旁路</strong>。</p></div>
+      <div class="card"><h4>④ 开源优先、薄适配</h4><p class="dim">自研只做"接缝"——五要素契约、SPI、Action 流水线；不重造轮子。</p></div>
+      <div class="card card-accent" style="grid-column:1/-1"><h4>⑤ 多租户硬隔离</h4><p class="dim">一个 <span class="mono">ontology_id</span> ↔ 一个图库 space + 租户作用域。租户之间物理隔离，不串门。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">五条设计红线</span><span class="slide-number" data-current="8" data-total="21"></span></div>
+    <div class="notes"><p>我们这套内核有五条设计红线，越一条整个方法论就散了。第一条，行业概念不进内核——内核源码里禁止出现任何行业词，草、碳汇、辣椒、康养一个都不许有，我们用 CI 的 check_kernel_purity 强制卡。判缝的准则很简单：这段代码换成医疗大模型还成立吗？成立就进内核，不成立就得放插件。第二条，本体是 enforced kernel，不是 advisory schema——规则是"违反就拦截加回滚"，不是"希望你遵守"，它是强制内核不是建议书。第三条，受治理的写，所有业务动作必须走 Action 引擎那条 guard、变更、写后校验、提交或回滚、审计的流水线，没有旁路，谁都不能绕过去偷偷写。第四条，开源优先薄适配，我们自研只做接缝——五要素契约、SPI、Action 流水线，别的能用开源就用开源。第五条，多租户硬隔离，一个 ontology_id 对一个图库 space 加租户作用域，租户之间物理隔离不串门。</p></div>
+  </section>
+
+  <!-- 9 三层架构 -->
+  <section class="slide" data-title="三层架构 Kernel/Plugin/Tenant">
+    <div class="kicker">方法论内核四 · 三层架构（机制 / 策略 / 实例）</div>
+    <h2 class="title">Kernel / Plugin / Tenant · 三层分离</h2>
+    <table class="rtable mt-s">
+      <thead><tr><th>层</th><th>归属</th><th>含行业词</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Kernel 内核<br>（机制）</td><td>clife · 一次投入跨行业复用</td><td><strong>否（CI 强制）</strong></td><td>元模型、Action 内核、规则引擎、回滚、审计、置信度、意图编译</td></tr>
+        <tr><td class="k">Plugin 行业插件<br>（策略）</td><td>clife + 行业专家 · 每行业一份</td><td>是（隔离在插件内）</td><td>五要素 Schema、映射、规则函数、Action handler、Agent、CQ</td></tr>
+        <tr><td class="k">Tenant 租户配置<br>（实例）</td><td>客户 · 每客户一份</td><td>是（实例数据）</td><td>私有物理映射、实例数据接入、密级与授权</td></tr>
+      </tbody>
+    </table>
+    <div class="card bridge mt-s"><p>内核与插件<strong>只通过 <span class="mono">clife_onto_engine/sdk/</span>（Plugin SPI）通信</strong>——目录边界即红线。这就是<strong>第 5 讲 ontology plugin 体系的内部骨架</strong>；也印证"本体即基础设施"：<strong>内核只懂本体怎么运转、不懂任何行业</strong>，草业项目（草业）只是它的 <strong>tenant-zero</strong>，医疗 / 金融照样跑同一内核。</p></div>
+    <div class="deck-footer"><span class="ftag">三层架构</span><span class="slide-number" data-current="9" data-total="21"></span></div>
+    <div class="notes"><p>五条红线怎么落地？靠三层架构，机制、策略、实例三层分离。第一层 Kernel 内核，是机制层，归 clife，一次投入跨行业复用，绝不含行业词、CI 强制，里面装的是元模型、Action 内核、规则引擎、回滚、审计、置信度、意图编译这些通用机制。第二层 Plugin 行业插件，是策略层，clife 加行业专家一起做，每个行业一份，行业词隔离在这一层，装的是五要素 Schema、映射、规则函数、Action handler、Agent、CQ。第三层 Tenant 租户配置，是实例层，客户自己的，每个客户一份，装私有物理映射、实例数据接入、密级授权。三层之间最关键的一条纪律：内核和插件只通过 clife_onto_engine 的 sdk 目录，也就是 Plugin SPI 通信，目录边界就是红线。这就是第五讲讲两套 plugin 体系时那个 ontology plugin 体系的内部骨架，也印证一句话——本体即基础设施：内核只懂本体怎么运转、不懂任何行业，草业项目只是它的 tenant-zero，第零号租户，换医疗换金融照样跑同一个内核。</p></div>
+  </section>
+
+  <!-- 10 元模型五要素 = 唯一契约 + 写路径 -->
+  <section class="slide" data-title="元模型五要素 = 唯一契约 + 写路径">
+    <div class="kicker">方法论内核五 · 元模型五要素 = 内核 ↔ 插件唯一契约</div>
+    <h2 class="title">五要素契约 · 受治理的写路径</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <div class="card card-soft"><p>内核只理解五种元类型，任何行业概念都是插件用它们声明的实例：</p>
+          <p class="dim" style="margin-top:6px"><strong>Object</strong> 业务实体（独立生命周期）· <strong>Link</strong> 有向关系（带边语义）· <strong>Function</strong> 只读派生量（无副作用）· <strong>Rule</strong> 全局不变式（违反则回滚）· <strong>Action</strong> 受审计业务动作（有前置 / 有副作用 / 需留痕）。</p></div>
+        <div class="card bridge"><p><span class="mono">ctx</span> 是<strong>受限 Capability，不是裸 context</strong>——插件拿到的是被内核授权限制过的能力句柄。</p></div>
+      </div>
+      <div class="card card-accent"><h4>Action 写路径（这栈的灵魂）</h4>
+        <div class="chain" style="flex-direction:column;align-items:flex-start;gap:6px;margin-top:8px">
+          <span class="step">guard（前置 declarative）</span>
+          <span class="step">stage_write（内存变更）</span>
+          <span class="step">post_rules（写后强制，违反即回滚）</span>
+          <span class="step">提交 / 确定性回滚</span>
+          <span class="step">审计快照 + set_confidence + add_evidence</span>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">五要素契约 · 写路径</span><span class="slide-number" data-current="10" data-total="21"></span></div>
+    <div class="notes"><p>三层架构里内核和插件的唯一契约，就是元模型五要素。内核只理解五种元类型，任何行业概念——健康洞察、碳汇、辣椒品种——都是插件用这五种去声明的实例。五种一句话定义：Object 是业务实体、有独立生命周期；Link 是有向关系、带边语义；Function 是只读派生量、无副作用；Rule 是全局不变式、违反则回滚；Action 是受审计的业务动作、有前置、有副作用、必须留痕。这栈的灵魂是 Action 的写路径，看右边这条链：先 guard，前置的声明式校验；再 stage_write，先在内存里变更、还没落库；然后 post_rules，写后强制校验，一旦违反立刻回滚；接着提交或者确定性回滚；最后留审计快照、set_confidence 记置信度、add_evidence 挂证据。还有一个细节很重要——插件 handler 里那个 ctx，它是受限的 Capability，不是裸 context，插件拿到的是被内核授权限制过的能力句柄，你只能做内核允许你做的事。这套写路径就是"Agent 以为自己成功了、引擎最后一刻回滚"那篇讲的核心。</p></div>
+  </section>
+
+  <!-- 11 本体建模 SOP -->
+  <section class="slide" data-title="本体建模 SOP · 先把建模做对">
+    <div class="kicker">方法论内核六 · 本体建模 SOP（reference/methodology 03）</div>
+    <h2 class="title">起点不是"有哪些数据"，是"现在做法哪出了问题"</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card badcard"><h4>① 信息没法汇聚</h4><p class="dim">散在多系统，Agent 拿到不同时间点的拼凑结果。</p></div>
+      <div class="card badcard"><h4>② 规则无法被执行</h4><p class="dim">Agent 走后端接口<strong>绕过前端校验</strong>——规则没失效，只是从没在这条路径上被执行过。</p></div>
+      <div class="card badcard"><h4>③ 决策无法还原</h4><p class="dim">日志记的是接口调用，看不出"为什么代采购经理下了这笔 28 万的单"。</p></div>
+    </div>
+    <div class="grid g2 mt-m">
+      <div class="card card-soft"><h4>先建模、再看数据（顺序不能反）</h4><p class="dim">先看数据会被现有系统结构带偏，建出"系统长什么样"而非"业务是什么样"。基于<strong>业务语义</strong>推五要素，不是系统字段。</p></div>
+      <div class="card card-accent"><h4>四阶段有先后、不并行</h4><p class="dim">① 调研建模（<strong>业务专家必在场</strong>，产出文档/原型<strong>非代码</strong>）→ ② 数据盘点治理 → ③ 引擎搭建（<strong>这阶段才写代码</strong>）→ ④ 场景验证（<strong>Demo 价值在暴露边界，不是证明对</strong>）</p></div>
+    </div>
+    <p class="dim mt-s">三问验收：信息汇聚了没？规则真在执行没（<strong>警惕误拦截 &gt; 漏拦截</strong>——持续误拦截会逼业务绕过本体）？决策能当天说清没？<strong>金句：本体建模是把业务知识变成可执行定义，不是软件开发本身。</strong></p>
+    <div class="deck-footer"><span class="ftag">建模 SOP · 先把建模做对</span><span class="slide-number" data-current="11" data-total="21"></span></div>
+    <div class="notes"><p>光有五要素概念还不够，我们方法论文集里最实操的一篇是建模 SOP，先把本体建模做对。第一个反直觉的点：起点不是"我们有哪些数据"，是"现在的做法在哪出了问题"。三类问题反复出现——信息没法汇聚，散在多系统、Agent 拿到的是不同时间点拼凑的结果；规则无法被执行，注意这个特别隐蔽，Agent 走后端接口把前端校验绕过去了，规则没失效、只是从没在这条路径上被执行过；决策无法还原，日志只记接口调用，你看不出为什么系统代采购经理下了这笔二十八万的单。先界定问题、划 MVP 边界。第二个反直觉的点：先建模、再看数据，顺序绝不能反，先看数据你会被现有系统结构带偏，建出来是"系统长什么样"不是"业务是什么样"，而且要基于业务语义推五要素、不是照抄系统字段。第三，四个阶段有先后不并行：调研建模、业务专家必须在场、这阶段产出的是文档和原型不是代码；然后数据盘点治理；再引擎搭建、到这一步才开始写代码；最后场景验证，记住 Demo 的价值在暴露边界、不是证明它对。三问验收：信息汇聚了没、规则真在执行没、决策能不能当天说清。这里有条硬经验——警惕误拦截大于漏拦截，持续误拦截会逼业务绕过本体，整套约束就失效了。金句记住：本体建模是把业务知识变成可执行定义，不是软件开发本身。</p></div>
+  </section>
+
+  <!-- 12 方法论文集 + 会建模的人被放大 -->
+  <section class="slide" data-title="方法论文集 + 会建模的人被放大">
+    <div class="kicker">方法论文集 · reference/methodology 36 篇阅读地图</div>
+    <h2 class="title">会建模的人不会被替代，而是被放大</h2>
+    <div class="grid g2 mt-s">
+      <div class="card card-soft"><h4>36 篇阅读地图（重点篇）</h4><p class="dim"><span class="mono">01</span> 缺的不是数据是本体 · <span class="mono">02</span> 决策系统内核 · <span class="mono">03</span> 建模 SOP · <span class="mono">06</span> AI 时代的 FDE · <span class="mono">07</span> OAG≠RAG · <span class="mono">09</span> Agent 以为成功了引擎最后回滚 · <span class="mono">10</span> 可追溯 · <span class="mono">17</span> OS 内核 · <span class="mono">28</span> Software 3.0 文件系统</p></div>
+      <div class="stack">
+        <div class="card bridge"><p class="quote-big" style="font-size:22px;max-width:none">"AI 能把想清楚的事快速变成代码，<strong>不能代替想清楚这件事本身</strong>。"</p></div>
+        <div class="card bridge"><p class="quote-big" style="font-size:22px;max-width:none">"平台越来越便宜，本体模型越来越值钱；<strong>会建模型的人不会被替代，而是被放大</strong>。"</p></div>
+      </div>
+    </div>
+    <div class="grid g2 mt-m">
+      <div class="card card-accent"><h4>新型 FDE = 建模 + 判断力 + AI 执行力</h4><p class="dim">从第一性原理建领域模型 + 判断力 + AI 执行力。"本体不是 Palantir 的专利，是一种工程方法论。"</p></div>
+      <div class="card"><h4>战场边界</h4><p class="dim">探索 / 验证 / 新项目落地 <strong>✅ 不可替代</strong>；规模化 / 组织推动瓶颈在人 <strong>❌（= 第 3 讲 C7）</strong>。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">方法论文集 · 会建模被放大</span><span class="slide-number" data-current="12" data-total="21"></span></div>
+    <div class="notes"><p>我们这套方法论不是零散的经验，是一整个文集，reference 下 methodology 目录三十六篇。给你一张阅读地图，挑重点篇：零一讲缺的不是数据是本体，零二讲决策系统内核，零三就是刚才那篇建模 SOP，零六是 AI 时代的 FDE，零七讲 OAG 不等于 RAG，零九讲 Agent 以为自己成功了引擎最后一刻回滚，一零讲可追溯，一七讲 OS 内核，二八讲 Software 3.0 文件系统。零六那篇有两句金句我直接引给你，值得抄下来。第一句：AI 能把想清楚的事快速变成代码，但不能代替想清楚这件事本身。第二句更关键：平台越来越便宜，本体模型越来越值钱；会建模型的人不会被替代，而是被放大。所以新型 FDE 的能力公式是——从第一性原理建领域模型，加判断力，加 AI 执行力；本体不是 Palantir 的专利，是一种工程方法论。战场边界也和这门课一致：探索、验证、新项目落地不可替代，但规模化和组织推动，瓶颈在人，就是第三讲讲的 C7。</p></div>
+  </section>
+
+  <!-- 13 一域一插件 四文件 -->
+  <section class="slide" data-title="一域一插件 · 四文件">
+    <div class="kicker">落到康养项目真实插件 · 工程结构</div>
+    <h2 class="title">一域一插件 · 四个文件 · 7/7 编译通过</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <div class="card"><span class="chip chip-acc">__init__.py</span><p class="dim" style="margin-top:6px">五要素的<strong>可运行声明</strong>——红线：<strong>只 import <span class="mono">clife_onto_engine.sdk</span></strong>。</p></div>
+        <div class="card"><span class="chip">mappings/objects.yaml</span><p class="dim" style="margin-top:6px">对象到数据源的映射。</p></div>
+      </div>
+      <div class="stack">
+        <div class="card"><span class="chip">cq/golden.yaml</span><p class="dim" style="margin-top:6px">行为黄金问题 CQ——验收本体<strong>拦得住 / 放得过</strong>。</p></div>
+        <div class="card"><span class="chip">plugin.yaml</span><p class="dim" style="margin-top:6px">插件元数据。</p></div>
+      </div>
+    </div>
+    <table class="rtable mt-m">
+      <thead><tr><th>7 域合计</th><th>Object</th><th>Link</th><th>Function</th><th>Rule</th><th>Action</th><th>HIL</th><th>规模</th></tr></thead>
+      <tbody><tr><td class="k">clife-onto-engine</td><td>76</td><td>75</td><td>38</td><td>47</td><td>54</td><td>26</td><td>3835 行 Python + 21 YAML · <strong>7/7 py_compile ✓</strong></td></tr></tbody>
+    </table>
+    <div class="deck-footer"><span class="ftag">四文件 · 7/7 编译</span><span class="slide-number" data-current="13" data-total="21"></span></div>
+    <div class="notes"><p>光讲概念还是悬空，看康养项目真正编译出来的插件。工程结构很干净：一个域编译成一个插件骨架，每个插件四个文件。第一个 init 点 py，是五要素的可运行声明，这里有条红线——它只能 import clife_onto_engine 点 sdk，不许引别的，为的是保证本体声明是纯的、可移植的。第二个 objects 点 yaml，对象到数据源的映射。第三个 golden 点 yaml，行为黄金问题 CQ，用来验收本体到底拦不拦得住、放不放得过。第四个 plugin 点 yaml 是元数据。七个域加起来：对象七十六、关系七十五、函数三十八、规则四十七、动作五十四、HIL 二十六，一共三千八百三十五行 Python 加二十一个 YAML，七个域全部 py_compile 通过。记住这个"可运行"，是这门课的硬标准。</p></div>
+  </section>
+
+  <!-- 7 Object -->
+  <section class="slide" data-title="① Object → ObjectType">
+    <div class="kicker">五要素逐个详解 · D1 kangyang-agent-core（10对象/13关系/5函数/6规则/6动作/2HIL）</div>
+    <h2 class="title"><span class="tag5">① Object</span>→ <span class="mono">ObjectType</span></h2>
+    <div class="grid g2 mt-s">
+      <div class="code"><span class="kw">HealthInsight</span> = ObjectType(
+  primary_key=<span class="s">"insight_id"</span>,
+  properties=[
+    PropertySpec(<span class="s">"severity"</span>, <span class="kw">int</span>,
+                 required=<span class="kw">True</span>),
+    PropertySpec(<span class="s">"detail"</span>, <span class="kw">str</span>,
+        classification=<span class="s">"confidential"</span>),
+  ],
+  states=(<span class="s">"new"</span>,<span class="s">"triaged"</span>,
+          <span class="s">"addressed"</span>,<span class="s">"closed"</span>),
+)
+<span class="c"># 跨域共享根：只引用，不重复声明</span>
+Elder = ref(Elder)</div>
+      <div class="stack">
+        <div class="card card-soft"><p><strong>primary_key</strong> 主键、<strong>PropertySpec</strong> 每属性一条（类型 / 是否必填 / 密级 <span class="mono">classification</span> / 单位）、<strong>states</strong> 状态机。</p></div>
+        <div class="card bridge"><p>跨域共享根 <strong>Elder 一律 <span class="mono">ref(Elder)</span> 引用</strong>，不在本域重复声明全属性——这就是 Palantir "对象只有一个真相源"的纪律。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">① Object</span><span class="slide-number" data-current="14" data-total="21"></span></div>
+    <div class="notes"><p>五要素逐个拆，就拿 D1 这个域，康养 agent 核心，它有十个对象、十三个关系、五个函数、六个规则、六个动作、两个 HIL。先看 Object 对象，它落成 SDK 里的 ObjectType。看这段真实代码，健康洞察 HealthInsight：primary_key 声明主键；properties 里每个属性一条 PropertySpec，带类型、是否必填、密级——比如 detail 标了 classification 等于 confidential，机密；还有单位。再看 states，这是状态机，new、triaged、addressed、closed，洞察从新建到分诊到处理到关闭。最关键一行在最下面：Elder 这个跨域共享根，一律用 ref 引用，绝不在本域把它的属性重新声明一遍。这就是 Palantir 说的"对象只有一个真相源"的纪律，也接上一册栈二讲的 Elder 单一写入点。</p></div>
+  </section>
+
+  <!-- 8 Link -->
+  <section class="slide" data-title="② Link → LinkType">
+    <div class="kicker">五要素逐个详解 · D1</div>
+    <h2 class="title"><span class="tag5">② Link</span>→ <span class="mono">LinkType</span></h2>
+    <div class="grid g2 mt-s">
+      <div class="code"><span class="kw">root_caused_by</span> = LinkType(
+  source=<span class="s">"HealthInsight"</span>,
+  target=<span class="s">"RootCause"</span>,
+  cardinality=<span class="s">"1:N"</span>,
+  edge_semantics=(<span class="s">"root_cause"</span>,
+     <span class="s">"hypothesis"</span>, <span class="s">"derivation"</span>),
+)
+<span class="c"># 飞轮再入：指向待续假设</span>
+<span class="kw">loops_back</span> = LinkType(...,
+  edge_semantics=(<span class="s">"hypothesis"</span>,))</div>
+      <div class="stack">
+        <div class="card card-soft"><p><strong>root_caused_by</strong>（洞察 → 根因，<strong>1:N</strong>）带 <strong>edge_semantics</strong> 语义化的边（root_cause / hypothesis / derivation）——<strong>不是一根裸箭头</strong>。</p></div>
+        <div class="card bridge"><p>飞轮再入用 <strong>loops_back</strong>（<span class="mono">hypothesis</span>，指向待续假设）——闭环不是断头路，是回到"待验证"重新入链。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">② Link</span><span class="slide-number" data-current="15" data-total="21"></span></div>
+    <div class="notes"><p>第二个要素，Link 关系，落成 LinkType。看这条 root_caused_by，从健康洞察指向根因，基数是一对多，一个洞察可能有多个根因。重点看 edge_semantics 这个参数——它给边标了语义：这条边到底是 root_cause 确证的根因，还是 hypothesis 待验证的假设，还是 derivation 推导出来的。这就是本体的边和 ER 图的边最大的不同：ER 图是一根裸箭头，只说"连了"，本体的边带语义，说清"以什么身份连"。下面还有一条 loops_back，飞轮再入，它的语义是 hypothesis，指向一个待续的假设。为什么重要？因为康养这套是要形成飞轮的，闭环不能是断头路，处理完一个洞察要能回到"待验证"重新入链，这条自指的边就是飞轮在本体里的样子。</p></div>
+  </section>
+
+  <!-- 9 Function -->
+  <section class="slide" data-title="③ Function → FunctionDef">
+    <div class="kicker">五要素逐个详解 · D1</div>
+    <h2 class="title"><span class="tag5">③ Function</span>→ <span class="mono">FunctionDef</span></h2>
+    <div class="grid g2 mt-s">
+      <div class="code"><span class="kw">plan_confidence</span> = FunctionDef(
+  returns=<span class="kw">float</span>,
+  reads=[<span class="s">"CarePlan"</span>,<span class="s">"HealthInsight"</span>],
+  side_effects=<span class="kw">None</span>,  <span class="c"># 只读</span>
+)
+<span class="kw">red_flag_count</span> = FunctionDef(returns=<span class="kw">int</span>, ...)
+<span class="kw">opportunity_estimate</span> = FunctionDef(...)
+<span class="c"># 可重算；采纳才转 Action</span></div>
+      <div class="stack">
+        <div class="card card-soft"><p><strong>只读派生</strong>、无副作用的计算：<strong>plan_confidence</strong>（方案置信度）、<strong>red_flag_count</strong>（红旗计数）、<strong>opportunity_estimate</strong>（机会估值）。</p></div>
+        <div class="card bridge"><p>Function 只算不改——<strong>可重算</strong>；结果被<strong>采纳</strong>后，才由 Action 落成对世界的真实改动。算与改分离。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">③ Function</span><span class="slide-number" data-current="16" data-total="21"></span></div>
+    <div class="notes"><p>第三个要素，Function 函数，落成 FunctionDef。它的定位就一句话：只读派生，无副作用的计算。看这几个真实的函数——plan_confidence 算方案置信度，red_flag_count 数红旗、就是危险信号有几个，opportunity_estimate 估增收机会。它们都只读，reads 声明它读哪些对象，side_effects 是 None，不改任何东西。这里有个特别重要的设计原则：算和改要分离。Function 只负责算，可以反复重算，算出来的置信度、红旗数只是候选建议；只有当这个建议被采纳了，才由下一个要素 Action 去落成对世界的真实改动。为什么要分离？因为算是安全的、可回溯的，改是危险的、要留痕要设闸的。把它俩混在一起，就没法管控智能体到底改了什么。</p></div>
+  </section>
+
+  <!-- 10 Rule -->
+  <section class="slide" data-title="④ Rule → @spi.rule">
+    <div class="kicker">五要素逐个详解 · D1</div>
+    <h2 class="title"><span class="tag5">④ Rule</span>→ <span class="mono">@spi.rule</span> · 两类背书</h2>
+    <div class="grid g2 mt-s">
+      <div class="card card-outline"><h4 style="color:var(--accent-2)">Backing.DECLARATIVE · 自动放行</h4><p class="dim">从 check 全自动、<span class="mono">source="通用"</span>、治理审计直接放行：<strong>方案须可解释 · HIL 必留痕 · 链路顺序不可逆</strong>。</p></div>
+      <div class="card card-accent"><h4>Backing.FUNCTION · 硬规则</h4><p class="dim">需查图谱/跨对象：<strong>置信度闸·防橡皮图章 · 药食/DIP 冲突拦截</strong>。</p></div>
+    </div>
+    <div class="code mt-s"><span class="kw">@spi.rule</span>(backing=Backing.FUNCTION,
+  severity=Severity.HARD,
+  source=<span class="s">"DIP 技术规范(医保办发〔2020〕50号)"</span>,
+  citations=[<span class="s">"某地级市 DIP 控费实施细则[本地待补文号]"</span>])
+<span class="kw">def</span> confidence_gate(insight, plan): ...  <span class="c"># 防橡皮图章</span></div>
+    <p class="dim mt-s">每条带 <strong>severity / source / citations</strong>——挂得上的挂国标，<strong>挂不上留占位不编造</strong>（栈⑦合规在本体层的落点）。</p>
+    <div class="deck-footer"><span class="ftag">④ Rule</span><span class="slide-number" data-current="17" data-total="21"></span></div>
+    <div class="notes"><p>第四个要素，Rule 规则，用 @spi.rule 装饰器声明，它分两类背书你要分得清。第一类 DECLARATIVE 声明式，规则体能从 check 全自动推出来，source 标"通用"，治理审计直接放行——比如"方案必须可解释""HIL 必须留痕""链路顺序不可逆"，这些是普适约束。第二类 FUNCTION，需要查图谱、跨对象判断的硬规则——比如置信度闸，专门防橡皮图章，防止智能体拿个低置信度的方案就往下走；还有药食同源和 DIP 医保的冲突拦截。看这段代码，每条规则都带 severity 硬约束、带 source、带 citations 挂国标——这条挂了 DIP 技术规范医保办发五十号。挂得上的挂国标，挂不上就留占位不编造，比如本地文号还没拿到就写"本地待补文号"。这就是栈七合规在本体层的落点。</p></div>
+  </section>
+
+  <!-- 11 Action -->
+  <section class="slide" data-title="⑤ Action → @spi.action">
+    <div class="kicker">五要素逐个详解 · D1</div>
+    <h2 class="title"><span class="tag5">⑤ Action</span>→ <span class="mono">@spi.action</span> · 写回 + 边界 + HIL 闸</h2>
+    <div class="grid g2 mt-s">
+      <div class="code"><span class="kw">@spi.action</span>(
+  writes=[<span class="s">"CarePlan"</span>],       <span class="c"># 本域对象</span>
+  guards=[<span class="s">"confidence_gate"</span>], <span class="c"># 引本域规则</span>
+  hil=HilPolicy(
+    reviewer_role=<span class="s">"站长"</span>),  <span class="c"># 站长 HIL 增收闸</span>
+)
+<span class="kw">def</span> adopt_plan(plan):
+  <span class="c"># 跨域一律注释：发布到 D2/D3/D4</span>
+  <span class="c"># 不越界 stage_write 他域</span>
+  ...</div>
+      <div class="stack">
+        <div class="card card-soft"><p>对外副作用：<strong>writes</strong> 本域对象、<strong>guards</strong> 引本域规则。跨域<strong>一律注释"发布"、不越界 <span class="mono">stage_write</span> 他域</strong>（Palantir 写回 + 边界）。</p></div>
+        <div class="card bridge"><p>审批类动作挂 <strong>hil=HilPolicy(reviewer_role="站长")</strong>——这就是<strong>站长 HIL 增收闸</strong>在代码里的样子。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">⑤ Action</span><span class="slide-number" data-current="18" data-total="21"></span></div>
+    <div class="notes"><p>第五个要素，Action 动作，用 @spi.action 声明，它是唯一对外有副作用、能改世界的要素，所以管得最严。看这段：writes 声明它写哪个本域对象，这里写 CarePlan 照护方案；guards 声明它受哪些本域规则把守，这里挂了刚才那个 confidence_gate 置信度闸。三条纪律你必须记住。第一，写只能写本域对象。第二，跨域一律注释成"发布到 D2、D3、D4"，绝不越界直接 stage_write 别人的域——这就是 Palantir 的写回加边界。第三，审批类动作挂 HIL，你看 hil 等于 HilPolicy，reviewer_role 是站长，这一行就是我们讲的站长 HIL 增收闸在代码里的真实样子，意思是这个采纳方案的动作，必须站长签字才生效。这个 HIL 设点的四判据，第六讲 C3 会深讲，这里你先记住它是 Action 的一个显式参数。</p></div>
+  </section>
+
+  <!-- 12 骨架 + 显式挂账 -->
+  <section class="slide" data-title="骨架 + 显式挂账">
+    <div class="kicker">工程纪律 · 可运行 &gt; 完美</div>
+    <h2 class="title">骨架 + 显式挂账 · 121 处 NotImplementedError</h2>
+    <div class="grid g4 mt-s" data-anim="stagger-list">
+      <div class="card center"><div><div class="metric-sm">121</div><div class="metric-label">raise NotImplementedError 挂账</div></div></div>
+      <div class="card center"><div><div class="metric-sm">29</div><div class="metric-label">function 规则体</div></div></div>
+      <div class="card center"><div><div class="metric-sm">54</div><div class="metric-label">Action 回写</div></div></div>
+      <div class="card center"><div><div class="metric-sm">38</div><div class="metric-label">Function 派生</div></div></div>
+    </div>
+    <div class="grid g2 mt-m">
+      <div class="card goodcard"><h4>先编译通过，再填规则体</h4><p class="dim">规则体 / handler / 派生留 <span class="mono">raise NotImplementedError("…待实现")</span>，全域 121 处 + 7 seed，交现场 FDE 在引擎仓库内填。<strong>可运行 &gt; 完美。</strong></p></div>
+      <div class="card bridge"><h4>不确定就显式落 docstring 挂账</h4><p class="dim">如"SDK 是否导出 <span class="mono">Evaluation</span>"——<strong>不靠"应该支持吧"</strong>，显式挂账。接第 5 讲 <strong>B-9</strong>（SDK 能力想当然）。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">显式挂账 · 121 处</span><span class="slide-number" data-current="19" data-total="21"></span></div>
+    <div class="notes"><p>这页讲工程纪律，很重要。康养项目这三千八百多行本体不是一次写完整的，它是骨架加显式挂账。什么意思？规则体、Action 的回写 handler、Function 的派生函数，很多地方先留一句 raise NotImplementedError 待实现，全七个域一共一百二十一处，加七个 seed，这些交给现场 FDE 在引擎仓库里去填。为什么这么做？核心一句话：可运行大于完美。先让七个域全部编译通过，骨架立住，再回头一处一处填规则体，而不是憋着一次写完美结果一个都跑不起来。还有一条更硬的纪律：不确定的东西要显式挂账，不能靠"应该支持吧"。比如你不确定 SDK 到底导没导出 Evaluation 这个类，就在 docstring 里显式写下来挂账，而不是想当然地用。这个坑第五讲 B-9 会专讲，就是 SDK 能力想当然。</p></div>
+  </section>
+
+  <!-- 13 草业项目印证 -->
+  <section class="slide" data-title="草业项目印证">
+    <div class="kicker">跨案例印证 · 草业项目 OAG 订正稿</div>
+    <h2 class="title">防幻觉靠本体约束求解</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <div class="card card-soft"><p>草业项目把这套讲得更透：<strong>防幻觉靠本体约束求解 · LLM 只在合规候选集内生成 · 越权即 reject + HIL 兜底</strong>。</p></div>
+        <div class="card bridge"><p>正是 Palantir 动能层"<strong>动作校验 / 动态安全</strong>"在大模型时代的用法——本体不是背景知识库，是<strong>运行时的约束求解器</strong>。</p></div>
+      </div>
+      <div class="card badcard center">
+        <div><p class="metric-label" style="margin:0 0 8px">⚠️ 成熟度不拉平</p>
+        <div class="metric-sm">两个量级</div>
+        <p class="metric-label"><strong>草业项目</strong>=方案 + 设计稿，本体<strong>未编译</strong>；<strong>康养项目</strong>=<strong>已编译 3835 行</strong>。别把方案稿说成交付物。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">草业项目印证 · 成熟度不拉平</span><span class="slide-number" data-current="20" data-total="21"></span></div>
+    <div class="notes"><p>再拿一个跨案例来印证这套方法论——草业项目，某草业集团那个农业口的项目。草业项目的 OAG 订正稿把这套讲得更透，原话是：防幻觉靠本体约束求解，LLM 只在合规的候选集里生成，一旦越权就直接 reject，再加 HIL 兜底。你听这个逻辑，正是 Palantir 动能层那个"动作校验、动态安全"在大模型时代的用法。它说的是一件深刻的事：本体不是一个背景知识库、不是拿来检索的资料，它是运行时的一个约束求解器，实时地约束智能体每一步能不能做。但是我必须把成熟度讲清楚，绝不拉平：草业项目是方案加设计稿，本体还没编译；康养项目是已经编译通过的三千八百三十五行。这是两个量级、两个成熟度。你对外讲的时候，方案稿就说方案稿，别把它说成已交付的本体，这也是这门课反复强调的诚实边界。</p></div>
+  </section>
+
+  <!-- 14 收口 + 自评 -->
+  <section class="slide" data-title="收口 · 接第9讲 + 自评判据">
+    <div class="kicker">本册收口 · 承接与自评</div>
+    <h2 class="title">本体栈直接接第 9 讲 Palantir FDE</h2>
+    <div class="grid g2 mt-s">
+      <div class="card card-accent"><h4>→ 第 9 讲</h4><p class="dim">Palantir 的 FDE 交付核心就是帮客户建 Ontology——<strong>而我们把这套语义 OS 做成了自有内核 clife-onto-engine</strong>。本体栈是那一讲的地基。</p></div>
+      <div class="card"><h4>读什么 / 仿什么</h4><p class="dim">首选读<strong>我们自己的方法论</strong>：<span class="mono">clife-onto-engine</span> README + <span class="mono">docs/01-metamodel-and-plugin-spi.md</span> / <span class="mono">02-oag-positioning.md</span> + <span class="mono">reference/methodology/</span> 三十余篇；再读 Palantir 官方文档建对标坐标；对着康养项目某域逐要素仿写。</p></div>
+    </div>
+    <div class="card goodcard mt-m"><h4>自评到能交付（硬判据）</h4>
+      <div class="row mt-s">
+        <span class="chip">① 能讲清 <strong>OAG≠RAG</strong>（防幻觉在执行层不在检索层）</span>
+        <span class="chip">② 一个域五要素写全并<strong>编译通过</strong></span>
+        <span class="chip">③ 任一 Action 判：改哪个对象 / 走 guard·post_rule 哪道 / 是否回滚 / 是否设 HilPolicy 闸</span>
+        <span class="chip">④ 一条规则分清 <strong>DECLARATIVE / FUNCTION</strong></span>
+        <span class="chip">⑤ 说清 Kernel/Plugin/Tenant 里"行业词为什么不能进内核"</span>
+      </div>
+    </div>
+    <p class="tc mt-m" style="font-size:20px;font-weight:700;color:var(--accent)">本体是 C-Life 真正的护城河：别的栈借业界经典，本体这栈我们有自己成体系的方法论。</p>
+    <div class="deck-footer"><span class="ftag">→ 第 9 讲 · 本册收口</span><span class="slide-number" data-current="21" data-total="21"></span></div>
+    <div class="notes"><p>本体册收口。这一栈的去向很明确——直接接第九讲，讲别人家怎么落地 FDE。Palantir 的 FDE 交付核心就是帮客户建一个 Ontology，而我们把这套语义 OS 做成了自己的内核 clife-onto-engine。所以你今天学的本体，就是第九讲的地基。怎么自学？首选读我们自己的方法论——clife-onto-engine 的 README，讲本体即基础设施、OAG、五条红线、三层架构、元模型五要素；再读 docs 零一元模型和 Plugin SPI、docs 零二 OAG vs RAG 纠偏卡；还有 methodology 那三十多篇，尤其是先把本体建模做对、AI 时代的 FDE、OAG 与 RAG 的分界、Agent 以为成功了引擎最后一刻回滚这几篇；然后再读 Palantir 官方文档建对标坐标，最后对着康养项目某个域逐要素仿写。自评硬判据我念一遍：能讲清 OAG 不等于 RAG、防幻觉在执行层不在检索层；一个域五要素写全并编译通过；任一 Action 能判改哪个对象、走 guard 还是 post_rule、是否回滚、是否设 HilPolicy 闸；一条规则分清 DECLARATIVE 还是 FUNCTION；还能说清三层架构里行业词为什么不能进内核。最后记住这句——本体是 C-Life 真正的护城河：别的栈我们借业界经典，本体这栈我们有自己成体系的方法论。下一册讲后面几栈，商业、财评、交付物、合规。</p></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body></html>

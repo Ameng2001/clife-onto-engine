@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第6讲 FDE 交付怎么做——康养项目全流程复盘</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:56px 84px}
+  .big-num{font-family:var(--font-display);font-weight:800;line-height:1;color:var(--accent-2);letter-spacing:-.03em}
+  .stat-grid{display:grid;gap:16px}
+  .stat .n{font-size:40px;font-weight:800;color:var(--accent-2);line-height:1}
+  .stat .l{font-size:13px;color:var(--text-2);margin-top:6px}
+  .quote-hard{font-family:var(--font-serif);font-size:32px;line-height:1.35;font-weight:600;color:var(--accent);
+    border-left:5px solid var(--accent-2);padding:6px 0 6px 26px;margin:0}
+  .badcase{border-top:3px solid var(--bad)}
+  .badcase .tag{display:inline-block;font-weight:700;color:var(--bad);font-size:13px;letter-spacing:.08em}
+  .lbl{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+  table.t{border-collapse:collapse;width:100%;font-size:14px}
+  table.t th,table.t td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.t th{background:var(--surface-2);font-weight:600;color:var(--accent)}
+  .chip{display:inline-block;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:600;
+    background:color-mix(in srgb,var(--accent-2) 12%,transparent);color:var(--accent-2);margin:2px}
+  .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:14px}
+  .flow .step{background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:6px 11px;font-weight:600}
+  .flow .arr{color:var(--text-3);font-weight:700}
+  h2.title{font-size:42px}
+  .lede{font-size:19px}
+  .crit{display:flex;gap:10px;align-items:flex-start;margin-top:8px}
+  .crit .idx{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--accent-2);color:#fff;
+    font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="kicker">C-Life FDE 课程 · 第 6 讲 · 全课程重心</div>
+    <h1 class="title">FDE 交付怎么做<br>康养项目全流程复盘</h1>
+    <p class="lede">FDE 交付不是"手艺好"，是"有 SOP + 会设闸"——<b style="color:var(--accent)">SOP 保证你能重复，HIL 保证你不出事。</b></p>
+    <div class="row mt-l" style="gap:14px">
+      <span class="pill pill-accent">能力靶：C3 风险设闸 · C6 交付物工程</span>
+      <span class="pill">实践蓝本：康养行业大模型平台</span>
+    </div>
+    <div class="notes">前五讲讲了 FDE 是什么、为什么组织需要、边界在哪、要什么知识栈、为什么离不开平台，都是认识论。从这一讲开始是方法论——你回去要怎么干。这是全课程最长的一讲，别的讲的两倍，因为要交给你两样能带走的东西：一张七阶段交付 SOP，套任何 To-G/To-B 项目都能用；一套 HIL 设点原则，让你知道在哪必须叫人、谁按、按错了赔什么。我先把最难听的话放开头，省得你以为我在夸 AI：你们大多数人现在能把康养项目那条链跑完，但跑不出第二遍，因为你靠的是当时的手感，不是流程。手感不能交接，流程能。这一讲就是把手感拆成流程。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="1" data-total="24"></span></div>
+  </section>
+
+  <!-- 2 命题 / 难听话 -->
+  <section class="slide" data-title="本讲命题">
+    <div class="lbl mb-m">本讲命题</div>
+    <p class="quote-hard">你能跑完康养项目那条链，<br>但你跑不出第二遍。</p>
+    <div class="card badcase mt-l" style="border-top-color:var(--accent-2)">
+      <div class="lbl" style="color:var(--accent-2)">难听话 · 整讲都在拆它</div>
+      <p style="font-size:24px;font-weight:700;color:var(--accent);margin:8px 0 0">"你靠的是当时的手感，不是流程。手感不能交接，也不能背锅。"</p>
+    </div>
+    <p class="lede mt-l">真正值钱的不是"你会干"，是<b>"你知道在哪必须停下来叫人"</b>，以及<b>"你敢在查不到的地方留个空、而不是编一个"</b>。前者让你跑得快，后者让你活得久。</p>
+    <div class="notes">这一页是题眼。多数人栽，不栽在不会干，栽在该叫人的时候逞能、该说不知道的时候硬编。你现在能把康养项目这条链跑完，靠的是手感——但手感有两个致命缺陷：不能交接，你请假这活儿就停了；不能背锅，出事了你说不清当时为什么这么判。这一讲要干的事，就是把手感拆成两样可交接的东西：一张 SOP，让别人照着也能跑；一套 HIL 设点原则，让每一次自动决策都能追溯到谁在什么置信度下拍的板。听完你要从"跑通过一次康养项目"，变成"能跑第二遍、第三遍、别的项目也能跑"的人。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="2" data-total="24"></span></div>
+  </section>
+
+  <!-- 3 管线全景图 -->
+  <section class="slide" data-title="康养项目建模管线全景">
+    <h2 class="title">先把整条链摊在桌上</h2>
+    <div class="center" style="flex:1;flex-direction:column">
+      <img src="../../figures/fig-6-1-康养项目管线.png" alt="图6-1 康养项目建模管线全景" style="max-width:100%;max-height:56vh">
+      <p class="dim2 mt-s" style="font-size:14px"><b>图 6-1</b> · 十道工序：事件风暴 → 事件簇 → 角色画像 → 用户旅程 → 业务流程 → 热点分层 → 7 域限界上下文 → 五要素 OAG → citations 治理 → 可研生成。<b>102 业务事件进去，一份 100+ 页可研出来</b>。</p>
+    </div>
+    <div class="notes">我先把整条链摊在桌上。康养项目这条链，一百零二个业务事件进去，一份一百多页可研出来，中间十道工序。传统模式这十道工序分给五个岗位——产品经理、架构师、行业顾问、方案经理、美工——康养项目是一个 FDE 带智能体编队一条跑通。但注意，我不是要你崇拜一个人干了五个人的活，我要你看清楚每一道工序 FDE 到底做了什么判断，因为那些判断是模型替不了、也是你回去要练的东西。模型能把每道工序做快，但判断这道工序做完没有、做对没有，是你的活。这张图是本讲的地图，后面每讲一个阶段就点亮一格。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="3" data-total="24"></span></div>
+  </section>
+
+  <!-- 4 逐阶段 ①-⑤ -->
+  <section class="slide" data-title="逐阶段复盘 上">
+    <h2 class="title">逐阶段复盘（上）：每格里那句"FDE 判断"</h2>
+    <table class="t mt-m">
+      <tr><th>#</th><th>阶段</th><th>产出</th><th>FDE 在这步的判断（模型替不了）</th></tr>
+      <tr><td>①</td><td><b>事件风暴</b></td><td><b>102</b> 业务事件（58→39→64→102）</td><td>哪些是真业务、哪些是想当然；增补到 102 是"够了"还是"漏了主线"</td></tr>
+      <tr><td>②</td><td><b>事件簇</b></td><td><b>16</b> 事件簇 · ⭐E59 站长 HIL 增收</td><td>哪个簇是营收命门——E59 被拎出来当核心，是<b>判断</b>不是计算</td></tr>
+      <tr><td>③</td><td><b>角色画像</b></td><td><b>7</b> Persona · <b>368</b> 份问卷校准</td><td>画像是拍脑袋还是有数据背书——368 份问卷把"我觉得"钉成"数据显示"</td></tr>
+      <tr><td>④</td><td><b>用户旅程</b></td><td><b>7</b> 旅程 → 聚 C1–C11 能力簇</td><td>旅程服务谁——长者旅程砍掉"夜间急救"改营收复购飞轮（B-7）</td></tr>
+      <tr><td>⑤</td><td><b>业务流程</b></td><td><b>5</b> 流程 · 决策点=skill 边界</td><td>决策点在哪切——切错了域就划错</td></tr>
+    </table>
+    <p class="lede mt-m" style="color:var(--accent)"><b>聚类模型能做，但"E59 是营收命门"这个判断是人做的。</b></p>
+    <div class="notes">按这张表逐格讲。事件风暴：六角色并行头脑风暴、合并去重、对照增补，三轮从五十八扩到一百零二。这里的判断是哪些事件是真业务、哪些是想当然，容易踩的坑是求全癖，把能想到的都写上，事件表膨胀但没锚业务优先级。事件簇：按五端聚类成十六簇，E59 站长 HIL 审核 AI 方案转订单被识别为主动增收核心——聚类模型能做，但哪个簇是营收命门是人判的，坑是平均用力把十六簇当同权重。画像：三百六十八份问卷把画像从我觉得钉成数据显示，居家七成六碾压机构、熟人获客七成七。旅程：长者旅程初版做夜间急救太重，FDE 砍掉改营收飞轮，这就是 B-7 的坑。流程：五条跨角色流程，每个决策点就是未来的 skill 边界。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="4" data-total="24"></span></div>
+  </section>
+
+  <!-- 5 逐阶段 ⑥-⑩ -->
+  <section class="slide" data-title="逐阶段复盘 下">
+    <h2 class="title">逐阶段复盘（下）：从热点到可研</h2>
+    <table class="t mt-m">
+      <tr><th>#</th><th>阶段</th><th>产出</th><th>FDE 在这步的判断（模型替不了）</th></tr>
+      <tr><td>⑥</td><td><b>热点分层</b></td><td><b>10</b> 热点 P1–P5（HS-1 站长增收为首）</td><td>先建什么——P1–P5 是投资优先级，是<b>商业判断</b>不是技术判断</td></tr>
+      <tr><td>⑦</td><td><b>7 域限界上下文</b></td><td><b>7</b> 域 D1–D7 · 承重主脊 5 条</td><td>域怎么切、谁 canonical——Elder 根定 D4 单写入，<b>宪法级</b>判断</td></tr>
+      <tr><td>⑧</td><td><b>五要素 OAG</b></td><td>Object <b>76</b>/Link <b>75</b>/Func <b>38</b>/Rule <b>47</b>/Action <b>54</b>/HIL <b>26</b></td><td>哪个 Action 要设闸——26 个 HIL 一个个点上去（第四章主讲）</td></tr>
+      <tr><td>⑨</td><td><b>citations 治理</b></td><td><b>18</b> 挂已核国标 · <b>11</b> 保留占位不编造</td><td>这个文号能不能核实——查不到就留占位，不编（反例 B-10）</td></tr>
+      <tr><td>⑩</td><td><b>可研生成</b></td><td><b>11</b> 章 / ~<b>11 万</b>字 / <b>26</b> 图 + 2 附录 docx</td><td>口径怎么统一——靠 BRIEF 单点锚定，不靠 35 个作者自觉</td></tr>
+    </table>
+    <p class="lede mt-m" style="color:var(--accent)"><b>7 域 3835 行骨架 + 21 YAML · 7/7 py_compile ✓ · 结构 7/7 零悬空引用。</b></p>
+    <div class="notes">接着讲后五格。热点分层：综合排名出十个热点、P1 到 P5 分层，站长 HIL 增收为首、结算中台第二——先建什么是商业判断不是技术判断，坑是按好实现排而不是按 business value 排。七域限界上下文：聚域、画边界、定承重关系，Elder 共享根定在 D4 单写入、结算真相源定在 D2，这是架构宪法级判断。五要素 OAG：每域编译成 clife-onto-engine 五要素插件，七十六对象、七十五链接、五十四 Action、二十六个 HIL，三千八百三十五行骨架七比七编译通过。citations 治理：十八处挂已核国标、十一处坚决保留占位不编造转取证清单。可研生成：三十五节并行写作、装配、质检，出十一章十一万字。收口一句话：模型帮你把每一格做快了，但每一格里那句 FDE 判断，没有一个是模型替你做的。你的核心资产不是会调工具，是会在每一格做那个判断。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="5" data-total="24"></span></div>
+  </section>
+
+  <!-- 6 十阶段→七阶段 -->
+  <section class="slide" data-title="十阶段抽象为七阶段">
+    <h2 class="title">从"康养项目十阶段"抽象到"通用七阶段"</h2>
+    <p class="lede">十格是<b>实例</b>，七阶段是<b>模板</b>。你回去做的不是康养项目，是别的项目——<b style="color:var(--accent)">记模板，别记实例。</b></p>
+    <table class="t mt-m">
+      <tr><th>康养项目阶段</th><th>通用阶段</th><th>这一段在干什么</th></tr>
+      <tr><td>①②③</td><td><b>S1 认知萃取</b></td><td>事件风暴 + 画像（102 事件 / 7 画像 / 368 问卷）</td></tr>
+      <tr><td>④⑤⑥</td><td><b>S2 结构收敛</b></td><td>旅程 + 流程 + 热点分层</td></tr>
+      <tr><td>⑦</td><td><b>S3 域切分</b></td><td>限界上下文（7 域 D1–D7）</td></tr>
+      <tr><td>⑧</td><td><b>S4 本体建模 + 设闸</b></td><td>五要素 + HIL（76/75/38/47/54 + HIL 26）</td></tr>
+      <tr><td>⑨</td><td><b>S5 合规治理</b></td><td>citations + 取证清单（18 挂 / 11 占位）</td></tr>
+      <tr><td>⑩</td><td><b>S6 交付物工程</b></td><td>锚定口径 + 并行写作 + 装配质检</td></tr>
+      <tr><td>贯穿全程</td><td><b>S7 HIL 运行与留痕</b></td><td>不是一个阶段，是<b>横切纪律</b></td></tr>
+    </table>
+    <div class="notes">上面十格是康养项目具体长什么样，但你回去做的不是康养项目，是别的项目。所以我把这十格抽象成不依赖康养项目、套任何 To-G/To-B 项目都能用的七阶段。映射关系很简单：前三格认知萃取合成 S1，旅程流程热点合成 S2 结构收敛，域切分是 S3，五要素加设闸是 S4，合规治理 S5，交付物工程 S6。最关键的是 S7，HIL 运行与留痕不是一个阶段，是贯穿全程的横切纪律。十格是实例，七阶段是模板。记模板别记实例——因为实例只对康养项目有用，模板对你下一个项目才有用。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="6" data-total="24"></span></div>
+  </section>
+
+  <!-- 7 SOP 泳道图 -->
+  <section class="slide" data-title="七阶段泳道图">
+    <h2 class="title">FDE 交付 SOP：七阶段泳道</h2>
+    <div class="center" style="flex:1;flex-direction:column">
+      <img src="../../figures/fig-6-3-交付SOP.png" alt="图6-3 FDE 交付 SOP 七阶段泳道" style="max-width:100%;max-height:56vh">
+      <p class="dim2 mt-s" style="font-size:14px"><b>图 6-3</b> · 七道泳道 S1–S7，每道标【输入 → FDE 动作 → 智能体动作 → 产出 → HIL 闸】。S7 画成横贯所有泳道的底轨；每两道之间一道"收口闸"——<b>这一阶段没收口，不许进下一阶段。</b></p>
+    </div>
+    <div class="notes">这是七阶段泳道图。横向七道泳道 S1 到 S7，每道标出五件事：输入、FDE 动作、智能体动作、产出、HIL 闸。注意两个设计。第一，S7 HIL 运行与留痕画成横贯所有泳道的底轨，强调它不是一个阶段，是贯穿全程的纪律。第二，每两道泳道之间画一道收口闸，标明这一阶段没收口不许进下一阶段。这张图是你回去做项目的作战地图。下面我给你七张 checklist，逐条打勾，打不了勾的就是这个项目还没准备好进下一阶段。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="7" data-total="24"></span></div>
+  </section>
+
+  <!-- 8 checklist S1-S3 -->
+  <section class="slide" data-title="七阶段checklist 上">
+    <h2 class="title">七阶段 checklist（上）· 收口标准才是灵魂</h2>
+    <div class="grid g3 mt-s">
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">S1 认知萃取</div>
+        <p style="font-size:14px;margin:8px 0 0">☐ ≥3 角色并行事件风暴<br>☐ 两轮以上合并去重增补<br>☐ 画像有一手数据校准<br>☐ 已识别营收命门事件（E59）</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--warn)"><b>⚠ 收口：事件集可归域</b></p></div>
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">S2 结构收敛</div>
+        <p style="font-size:14px;margin:8px 0 0">☐ 旅程服务优先级非求全（B-7）<br>☐ 决策点标记为 skill 边界<br>☐ 热点按 business value 分层</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--warn)"><b>⚠ 收口：P1–P5 优先级表且客户认可</b></p></div>
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">S3 域切分</div>
+        <p style="font-size:14px;margin:8px 0 0">☐ 每域职责 1–2 句说清<br>☐ 共享根指定唯一 canonical 域<br>☐ 有单点真相源域（D2）<br>☐ 跨域只 ref/发布无越域直写（B-8）</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--warn)"><b>⚠ 收口：承重图零悬空（A 结构 7/7）</b></p></div>
+    </div>
+    <p class="lede mt-m" style="color:var(--accent)"><b>SOP 的价值不在"告诉你做什么"，在"告诉你什么时候还没做完"。</b></p>
+    <div class="notes">下面每个阶段一张 checklist，这不是给你看的，是给你用的——你回去起一个新项目就照这七张单子逐条打勾，打不了勾的就是这个项目还没准备好进下一阶段。S1 认知萃取，最关键那条收口标准：事件集可归域——每个事件都能预判归到哪个域，否则回炉。S2 结构收敛，收口标准是有一份 P1 到 P5 优先级表且客户认可这个次序。S3 域切分，收口标准是承重关系图零悬空引用，康养项目做到了 A 结构七比七。每张单子最后那行加粗的收口标准才是灵魂——SOP 的价值不在告诉你做什么，在告诉你什么时候还没做完。康养项目能一个人跑通，不是那个人聪明，是每一阶段都有明确的收口标准，跑到哪一步还差什么是可视的，不是靠感觉的。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="8" data-total="24"></span></div>
+  </section>
+
+  <!-- 9 checklist S4-S7 -->
+  <section class="slide" data-title="七阶段checklist 下">
+    <h2 class="title">七阶段 checklist（下）</h2>
+    <div class="grid g2 mt-s">
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">S4 本体建模 + 设闸</div>
+        <p style="font-size:14px;margin:8px 0 0">☐ 五要素齐全（O/L/F/R/A）<br>☐ 每个 Action 过一遍 HIL 四判据<br>☐ 高杠杆 Action 设闸并指定"谁按"（26 处）<br>☐ 结构 py_compile 通过（7/7）</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--warn)"><b>⚠ 收口：HIL 设点表成型，每闸有判据 + 责任人</b></p></div>
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">S5 合规治理</div>
+        <p style="font-size:14px;margin:8px 0 0">☐ 每条硬规则挂 source/citations（0 空 source）<br>☐ 文号核到官方现行版（B-6）<br>☐ 查不到留占位不编造，转取证清单（B-10）</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--warn)"><b>⚠ 收口：一份可交现场的"待补取证清单"（11 处）</b></p></div>
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">S6 交付物工程</div>
+        <p style="font-size:14px;margin:8px 0 0">☐ 单一锚定口径文件 BRIEF<br>☐ 并行写作只引用不重算关键数字（B-5）<br>☐ 编号权归装配非写作（B-2）<br>☐ 图目/摘要有收口回改防漂移（B-1）</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--warn)"><b>⚠ 收口：装配后零口径冲突、零断链、零计数漂移</b></p></div>
+      <div class="card card-accent"><div class="lbl" style="color:#fff">S7 HIL 运行与留痕（横切）</div>
+        <p style="font-size:14px;margin:8px 0 0;color:#fff">☐ 每闸"AI 研判 + 人拍板 + 写后留痕"三段齐全<br>☐ 置信度闸阈值明确（哪怕占位 0.75）<br>☐ 责任落到具体岗位（站长/民政经办）非"系统"</p>
+        <p style="font-size:13px;margin:8px 0 0;color:#fff"><b>⚠ 收口：任何自动决策能追溯"谁在什么置信度下拍的板"</b></p></div>
+    </div>
+    <div class="notes">接着讲后四张单子。S4 本体建模加设闸，收口标准是 HIL 设点表成型，每个闸有判据依据加责任人——这一步每个 Action 都要过一遍 HIL 四判据，康养项目二十六处闸就是这么点出来的。S5 合规治理，收口标准是一份可交现场的待补取证清单，康养项目十一处逐项列谁去取。S6 交付物工程，收口标准是装配后质检零口径冲突、零断链、零计数漂移，这里埋着 B-1 B-2 B-5 四个坑。S7 是横切纪律，收口标准最硬：任何一次自动决策都能追溯到谁在什么置信度下拍的板。这就是第五讲那句话——平台是方法论的固化物，SOP 是方法论的可视化。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="9" data-total="24"></span></div>
+  </section>
+
+  <!-- 10 HIL 章定调 -->
+  <section class="slide" data-title="HIL设点原则定调">
+    <div class="lbl mb-m">认知输入 3 · 本讲灵魂</div>
+    <h2 class="title">HIL 设点原则：怎么让活别把你干进去</h2>
+    <p class="quote-hard" style="margin-top:22px">FDE 交付的专业性，一半在"把结构建出来"，<br>另一半在"知道自己在哪必须叫人"。</p>
+    <div class="grid g2 mt-l">
+      <div class="card card-soft"><div class="lbl">建结构建错了</div><p style="font-size:20px;margin:6px 0 0"><b>返工</b> · 赔时间</p></div>
+      <div class="card badcase"><div class="lbl" style="color:var(--bad)">该叫人没叫人</div><p style="font-size:20px;margin:6px 0 0"><b>出事</b> · 赔钱、赔合规、赔客户关系——<b style="color:var(--bad)">有些不可逆</b></p></div>
+    </div>
+    <div class="notes">这一章是全课程的命门。前面讲的都是怎么把活干出来，这一章讲怎么让活别把你干进去。一句话：FDE 交付的专业性，一半在把结构建出来，另一半在知道自己在哪必须叫人。建结构建错了返工，返工赔时间，还能补救；该叫人没叫人出事，出事赔的是钱、是合规、是客户关系——有些是不可逆的。数据发出去了收不回来，补贴发错了追缴是政治事件。所以这一章我讲得慢、讲得重，你要把这套设点原则刻进肌肉记忆里。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="10" data-total="24"></span></div>
+  </section>
+
+  <!-- 11 HIL 之前：闸分两层 -->
+  <section class="slide" data-title="闸分两层 · 自动闸">
+    <div class="lbl mb-m">认知输入 3 · 4.0 方法论根据（reference/methodology 05/09/23）</div>
+    <h2 class="title">设 HIL 之前：闸分两层，HIL 只是第二层</h2>
+    <p class="quote-hard" style="margin-top:18px">软约束不是工程约束——<br>会被遗忘 · 会被稀释 · 会被绕过（prompt injection）。</p>
+    <div class="grid g2 mt-l">
+      <div class="stack">
+        <div class="lbl">三层强度对比</div>
+        <table class="t mt-s">
+          <thead><tr><th>层次</th><th>机制</th><th>强度 / 可绕过</th></tr></thead>
+          <tbody>
+            <tr><td>提示词层</td><td>靠 LLM 自觉</td><td>最弱 · 注入即破</td></tr>
+            <tr><td>API 网关层</td><td>校验参数格式</td><td>中 · 参数可伪造</td></tr>
+            <tr><td style="color:var(--accent-2);font-weight:700">本体层</td><td>校验业务状态 + 全局不变式</td><td style="color:var(--accent-2);font-weight:700">最强 · 引擎强制无旁路</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="stack">
+        <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">第一层 = 自动闸（引擎确定性回滚）</div><p style="font-size:15px;margin:8px 0 0">本体层 Rule "违反即拦截 + 回滚"：内存变更 → 全局规则命中 → <b>回滚，记录从未被写</b>。</p></div>
+        <div class="card card-soft"><div class="lbl">结构化拒绝三件套</div><p style="font-size:15px;margin:8px 0 0"><span class="chip">triggered_rule</span><span class="chip">current_state</span><span class="chip">suggestion</span></p></div>
+        <div class="flow mt-s"><span class="step">发现</span><span class="arr">→</span><span class="step">调用</span><span class="arr">→</span><span class="step">被拒</span><span class="arr">→</span><span class="step">调整</span><span class="arr">→</span><span class="step">重试</span></div>
+      </div>
+    </div>
+    <p class="lede mt-m" style="font-weight:700;color:var(--accent)">能固化成硬规则的，就交给自动闸，别浪费人力。</p>
+    <div class="notes">设 HIL 之前，先搞清一件最容易被讲漏的事——闸有两层，HIL 只是第二层。我们自己的方法论文集把这件事讲透了，我搬三条硬结论。第一条，软约束不是工程约束。你在提示词里写"发起采购前必须检查认证有效期"，这是软约束，有三个结构性缺陷：会被遗忘，多轮对话后早期指令权重下降；会被稀释，上下文塞满约束被挤出；会被绕过，提示词注入让模型忘掉约束。看这张三层强度表：提示词层靠 LLM 自觉，最弱，注入即破；API 网关层校验参数格式，中等，参数可伪造；只有本体层校验业务状态加全局不变式，最强，引擎强制、没有旁路。第二条，第一层是自动闸，引擎确定性回滚，机器把关。本体层的 Rule 是违反就拦截加回滚：内存里先变更，全局规则一命中，就回滚、记录从未被写。Agent 收到的不是 500 错误，是结构化拒绝三件套——triggered_rule 告诉它为什么不行，current_state 给它当时世界快照，suggestion 告诉它可以怎么调。于是 Agent 据 suggestion 改选重试，这就是 OAG 闭环：发现、调用、被拒、调整、重试，全程在约束内没绕过。记住这句：能固化成硬规则的就交给自动闸，别浪费人力去人肉点确认。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="11" data-total="24"></span></div>
+  </section>
+
+  <!-- 12 第二层才是 HIL + 留痕 -->
+  <section class="slide" data-title="第二层 HIL + 审计快照">
+    <div class="lbl mb-m">认知输入 3 · 4.0 方法论根据（reference/methodology 05/09/10/23）</div>
+    <h2 class="title">第二层才是 HIL；留痕 = 决策快照，不是日志</h2>
+    <div class="grid g2 mt-m">
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">第二层 = 人工闸 HIL · 两种情形上人</div>
+        <p style="font-size:15px;margin:8px 0 0"><b>① 机器判不了的价值判断</b>——涉钱 / 涉合规 / 跨组织的拍板。</p>
+        <p style="font-size:15px;margin:8px 0 0"><b>② 机器没把握</b>——AI 断言是概率的（<span class="chip">balance_sufficient = (False, 0.78)</span>）；置信度太低必须触发人工复核。</p>
+        <p style="font-size:15px;margin:10px 0 0">→ 这就是康养项目<b>站长置信度闸 0.75</b> 的方法论根据（置信度总线）：不是拍脑袋阈值，是"低置信必须转人"的工程共识。</p>
+      </div>
+      <div class="card card-soft"><div class="lbl">HIL 留痕 = 审计快照（不是日志）</div>
+        <p style="font-size:15px;margin:8px 0 0">"记录上下文，不只记录结果。"康养项目 <span class="chip">HILReview</span> 强制留：</p>
+        <p style="font-size:15px;margin:6px 0 0"><span class="chip">signer_id</span><span class="chip">reviewed_at</span><span class="chip">decision</span><span class="chip">edits_before_after</span></p>
+        <p style="font-size:15px;margin:10px 0 0">为答那个问题：<b>三个月后合规问"AI 当时凭什么能下单"，你能不能当天答上来。</b></p>
+      </div>
+    </div>
+    <p class="quote-hard mt-l">你能把多大的权力交给一个系统，取决于设计时边界定义在哪里，<br>以及越界时——是被它自己拦下，还是被现实拦下。</p>
+    <p class="lede mt-s">自动闸 + HIL = <b>被它自己拦下</b>；两样都没设 = 等着<b style="color:var(--bad)">被现实拦下</b>（赔钱、赔合规、赔客户关系）。</p>
+    <div class="notes">第三条，第二层才是人工闸 HIL，人拍板。什么时候上 HIL？两种情形。一是机器判不了的价值判断，涉钱、涉合规、跨组织的拍板，这类事没有对错公式，必须人来担。二是机器没把握，AI 原生系统里每个断言都是概率的，比如余额是否充足这个判断带着置信度 0.78，当置信度太低、接近随机时，基于它的决策就不该当最终结论，必须触发人工复核。这就是康养项目站长置信度闸 0.75 的方法论根据——那个 0.75 不是拍脑袋定的阈值，是"低置信必须转人"的工程共识，我们叫它置信度总线。第四条也很关键：HIL 按完要留痕，但留的不是操作日志，是决策快照——记录上下文，不只记录结果。康养项目的 HILReview 强制留四样：签字人、复核时间、决定、以及改动前后对比。为什么这么严？为了回答那个迟早会来的问题：三个月后合规团队问你"AI 当时凭什么觉得能下单"，你能不能当天答上来。最后板书这句金句：你能把多大的权力交给一个系统，取决于设计时边界定义在哪里，以及越界时是被它自己拦下、还是被现实拦下。自动闸加 HIL，就是被它自己拦下；两样都不设，就是等着被现实拦下，那时赔的是钱、是合规、是客户关系。下面讲的四判据，就是帮你决定这道闸该自动、还是该上人。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="12" data-total="24"></span></div>
+  </section>
+
+  <!-- 13 HIL 决策树图 -->
+  <section class="slide" data-title="HIL决策树">
+    <h2 class="title">HIL 闸门设点决策树：四判据 + 一兜底</h2>
+    <div class="center" style="flex:1;flex-direction:column">
+      <img src="../../figures/fig-6-2-HIL决策树.png" alt="图6-2 HIL 闸门设点决策树" style="max-width:100%;max-height:52vh">
+      <p class="dim2 mt-s" style="font-size:14px"><b>图 6-2</b> · Action 依次过四菱形——不可逆？涉钱？涉合规？跨组织？<b>命中任一即设闸</b>；四个都不中，再过第五道"置信度兜底闸"（低于阈值同样落人工）。全不中且高置信才允许全自动。末端两条实例：E59（涉钱+跨组织→站长 HIL）、补贴发布（涉合规+涉钱→民政 DP-H）。</p>
+    </div>
+    <div class="notes">这是 HIL 闸门设点决策树。一个 Action 从顶端进入，依次过四个判断菱形——不可逆、涉钱、涉合规、跨组织——命中任一，就落到必须设 HIL 闸。四个都不命中的，再过第五道置信度兜底闸，模型置信度低于阈值同样落人工。只有全不命中且高置信度，才允许全自动。为什么是满足任一即插人，不是满足多数？因为这四条每一条单独成立就够伤。涉钱一条就够了——一笔错误增收决策，客户的钱亏了，赖不到模型头上，赖到你头上。所以是任一、是或、不是与。宁可多设几道闸拖慢一点，不可漏一道闸出一次事。决策树末端标了两条康养项目实例路径：E59 涉钱加跨组织走站长 HIL，补贴发布涉合规加涉钱走民政 DP-H。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="13" data-total="24"></span></div>
+  </section>
+
+  <!-- 12 五判据页 -->
+  <section class="slide" data-title="HIL五判据">
+    <h2 class="title">HIL 设点五判据 · 满足任一即插人</h2>
+    <table class="t mt-s">
+      <tr><th>判据</th><th>一句话测试</th><th>康养项目实例</th></tr>
+      <tr><td><b>① 不可逆</b></td><td>"撤销这个动作，代价大到不可接受吗？"</td><td>急救四级联动升级（D4）、监管数据对外发布（D6）</td></tr>
+      <tr><td><b>② 涉钱</b></td><td>"这一步之后有钱动了吗？"</td><td>增收订单生成（E59）、DIP 结算入账（D2）、补贴拨付（D6）</td></tr>
+      <tr><td><b>③ 涉合规</b></td><td>"监管来查，这一步要留痕解释吗？"</td><td>数据授权/最小必要（D6）、DIP 控费入账前阻断（D2）</td></tr>
+      <tr><td><b>④ 跨组织</b></td><td>"做错了，是别人替我承担后果吗？"</td><td>AI 方案转订单卖给会员、补贴发布跨到政府监管</td></tr>
+      <tr><td style="background:color-mix(in srgb,var(--accent-2) 10%,transparent)"><b>⑤ 置信度兜底</b></td><td>"前四条都不中，但模型有多确定？"</td><td>D1 置信度闸 <span class="mono">hard·function·pre</span> · 阈值 <b>0.75</b>（占位）· 刻意设 pre 前置拦</td></tr>
+    </table>
+    <p class="lede mt-m" style="color:var(--accent)"><b>前四条看"动作性质"；第五条看"模型有多确定"——防高频低置信决策悄悄溜过去的最后一道网。</b></p>
+    <div class="notes">把五判据一条条讲透。第一，不可逆：撤销这个动作代价大到不可接受吗？急救四级联动升级，误升级漏升级都不可逆。第二，涉钱：这一步之后有钱动了吗？增收订单、DIP 结算、补贴拨付都算。第三，涉合规：监管来查这一步要留痕解释吗？数据授权最小必要、控费入账前阻断。第四，跨组织：做错了是别人替我承担后果吗？AI 方案卖给会员、补贴发布跨到政府。前四条是看动作性质，第五条不一样，是看模型有多确定——即便一个动作四条都不命中，只要模型置信度低于阈值，同样落人工。康养项目把这条固化为 D1 的置信度闸，硬闸、function 级、pre 前置，阈值占位零点七五，刻意设成 pre 是在动作发生前拦，不是发生后补。这条是防高频低置信决策悄悄溜过去的最后一道网。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="14" data-total="24"></span></div>
+  </section>
+
+  <!-- 13 26个HIL实证 -->
+  <section class="slide" data-title="26个HIL实证">
+    <h2 class="title">用 <span class="big-num" style="font-size:44px">26</span> 个 HIL 点做实证：风险在哪，闸就在哪</h2>
+    <table class="t mt-s">
+      <tr><th>域</th><th>HIL</th><th>为什么这么多/这么少</th></tr>
+      <tr><td>D1 kangyang-agent-core</td><td><b>2</b></td><td>站长 HIL（增收，涉钱+跨组织）+ 健管师复核；增收链路是营收命门</td></tr>
+      <tr><td>D2 policy-settlement-hub</td><td><b>0*</b></td><td><b>注意星号</b>——结算域 0 显式 HIL，但有 4 处"经办拍板"注释；合规拦截<b>前置到规则层</b>（DIP 双拦截、反重复）</td></tr>
+      <tr><td>D3 member-revenue-flywheel</td><td><b>1</b></td><td>营收飞轮，涉钱但多为可逆营销动作，只在关键转化点设 1 闸</td></tr>
+      <tr><td>D4 home-care-health</td><td><b>6</b></td><td>含急救四级联动指挥（<b>不可逆！</b>），监测/派单/评估多处涉人身安全</td></tr>
+      <tr><td>D5 institution-ops</td><td><b>5</b></td><td>机构运营，入住/退费/医嘱涉钱涉合规涉人身</td></tr>
+      <tr><td>D6 civil-affairs-govern</td><td><b style="color:var(--accent-2)">8</b></td><td><b>最多</b>——DP-H 闸（涉合规+涉钱+跨组织三条全中）、补贴事前拦截、数据授权</td></tr>
+      <tr><td>D7 kangyang-llm-kb</td><td><b>4</b></td><td>知识库版本发布被全域引用，发错版本影响全局</td></tr>
+    </table>
+    <p class="lede mt-s" style="color:var(--accent)"><b>D2 那个星号最该学：能用确定性规则挡住的就别靠人肉点确认——人肉点确认点多了，就变成橡皮图章。</b></p>
+    <div class="notes">二十六个 HIL 点的分布，就是四判据的实证。分布不是均匀的——风险在哪，闸就在哪。D6 民政有八个不是因为它复杂，是因为它每个动作都涉合规涉钱跨组织。但这张表最该学的是 D2 那个星号。D2 是结算域，涉钱最狠，但它显式 HIL 是零。新手会觉得矛盾——涉钱怎么不设闸？因为 FDE 做了个更高级的判断：把合规拦截前置到规则层，DIP 双拦截、反重复引擎，比事后拉个人来点确认更可靠。人工闸是最后手段，不是唯一手段。能用确定性规则挡住的就别靠人肉点确认，人肉点确认点多了就变成橡皮图章。这就引出下面最要命的东西——两大闸门和按错的代价。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="15" data-total="24"></span></div>
+  </section>
+
+  <!-- 14 两大闸门按错代价 -->
+  <section class="slide" data-title="两大闸门按错代价">
+    <h2 class="title">两大闸门 · 按错的代价（本章高潮）</h2>
+    <div class="grid g2 mt-s">
+      <div class="card" style="border-top:3px solid var(--accent-2)">
+        <div class="lbl" style="color:var(--accent-2)">闸门① 站长 HIL · 增收闸 · 置信度闸 0.75 防橡皮图章</div>
+        <p style="font-size:14px;margin:8px 0 0"><b>判据命中</b>：涉钱（生成订单）+ 跨组织（卖给会员）+ 置信度兜底。</p>
+        <p style="font-size:14px;margin:8px 0 0;color:var(--bad)"><b>⚠ 按错场景 A</b>：阈值调成 0 或站长养成"一律点同意"——闸门在，等于没有。AI 给低置信的不合适高价套包，站长机械点过卖出去。<b>钱是长者的、口碑是客户的、责任是 C-Life 的</b>；熟人获客 77.59%，卖错一单毁整个片区信任飞轮。</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--accent)"><b>原则：闸门的价值不在"有没有"，在"会不会真拦"。阈值是活的，谁调阈值谁负责。</b></p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--bad)">
+        <div class="lbl" style="color:var(--bad)">闸门② 民政 DP-H · 监管发布闸</div>
+        <p style="font-size:14px;margin:8px 0 0"><b>判据命中</b>：涉合规 + 涉钱（补贴）+ 跨组织（政府对社会发布），<b>三条全中</b>，全项目命中最密。</p>
+        <p style="font-size:14px;margin:8px 0 0;color:var(--bad)"><b>⚠ 按错场景 B</b>：DP-H 失守，AI 把未核验的床位一张图、或补贴资格认定直接对外发布——<b>违反个保法最小必要、错发漏发补贴（涉公帑）、政府信用受损</b>。不可逆：数据发出去收不回，补贴发错追缴是政治事件。</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--accent)"><b>原则：跨组织 + 涉合规的动作，人工闸是法律义务不是可选项。谁发布谁签字，签字的人为真实性背书。</b></p>
+      </div>
+    </div>
+    <p class="lede mt-m" style="color:var(--accent)"><b>设闸就问五个问题：不可逆吗？涉钱吗？涉合规吗？跨组织吗？模型够确定吗？中一条，插人。</b></p>
+    <div class="notes">两个闸门，本章高潮。闸门一站长 HIL 增收闸。机制是六智能体链路，洞察根因需求方案 HIL 执行评估回流，AI 生成增收方案后必须站长在审核台点确认才能转订单。判据命中涉钱加跨组织加置信度兜底。为什么设置信度闸？不是走个形式让站长点同意，建模时把它设成硬闸 function pre，目的就是防橡皮图章——AI 高置信的方案快速过、低置信的强制站长细看。按错场景 A：如果把阈值调成零或站长养成一律点同意的习惯，闸门在等于没有，AI 给一个对长者不合适的高价套包卖出去，钱是长者的、口碑是客户的、责任是 C-Life 的；微康养做熟人生意，熟人获客七成七，卖错一单毁的是整个片区的信任飞轮。闸门二民政 DP-H 监管发布闸，涉合规涉钱跨组织三条全中。按错场景 B：DP-H 失守，把未核验的数据直接对外发布，违反个保法最小必要、错发漏发补贴、政府信用受损，而且不可逆。两句话记住：站长闸防钱按错，置信度闸就是防橡皮图章的；民政闸防合规越界，跨组织发布是法律义务谁签字谁背书。你回去设闸就问五个问题，中一条插人，别嫌麻烦，嫌麻烦的代价你赔不起。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="16" data-total="24"></span></div>
+  </section>
+
+  <!-- 15 SOP 跨交付模式通用（插页A） -->
+  <section class="slide" data-title="SOP 跨交付模式通用">
+    <div class="lbl mb-s">认知输入 5 · 把 SOP 从康养项目里拎出来</div>
+    <h2 class="title">同一套 SOP，四个项目停在不同阶段</h2>
+    <p class="lede">七阶段 <b>跨交付模式通用</b>——不管模式一 Token-SaaS 还是模式二大平台，阶段一样，变的是内容和轻重。<b style="color:var(--accent)">SOP 可以在任意阶段停：你随时知道自己在第几阶段、手里该拿出什么。</b></p>
+    <table class="t mt-s">
+      <tr><th>项目</th><th>模式</th><th>停靠阶段</th><th>交付物 = 这阶段就该交的</th></tr>
+      <tr><td><b>辣椒大模型</b></td><td>模式二</td><td>S3–S4 纸面 🟡</td><td>1500 行建设方案 + 三层本体设计；plugins/demo 还空着——不是没做完，是这阶段就交这个</td></tr>
+      <tr><td><b>草业大模型</b>（某草业集团）</td><td>模式二</td><td>方案 + Mock demo 🟡</td><td>11 页可点 demo，<b style="color:var(--bad)">AI 是 Mock 关键词路由、非真模型</b></td></tr>
+      <tr><td><b>教育督导项目</b></td><td>模式一 SaaS</td><td>建模 + 方案 🟢</td><td>和康养项目一字不改的管线：33 事件 → 3 画像 → 2 插件 13 skill</td></tr>
+      <tr><td><b>康养项目</b></td><td>模式二</td><td>编译交付 🟢</td><td>7 域 3835 行骨架 + 11 万字可研（全链跑通）</td></tr>
+    </table>
+    <p class="lede mt-m" style="color:var(--accent)"><b>同一套管线跨模式、跨行业不变：变的只是领域知识——医保 DIP 换成 6×23×59×约 150 条评估细则。</b></p>
+    <div class="notes">最后把这套 SOP 从康养项目里拎出来问一句：它只在康养、只在大平台模式成立吗？不是。七阶段跨交付模式通用，不管你做模式一的 Token-SaaS 还是模式二的大平台，阶段一样，变的是内容和轻重。给你们看四个对照。第一，SOP 可以在任意阶段停。辣椒大模型现在到 S3 到 S4 纸面，出了 1500 行建设方案、画了三层本体，但没编译落地，plugins 和 demo 还空着，交付物就是这份方案——这不是没做完，是这个阶段就该交这个。第二，同一套管线跨模式跨行业不变。教育督导项目是模式一的 SaaS 应用，但用的是和康养项目一字不改的建模管线，33 事件、三层画像、2 插件 13 skill，方法没变，变的只是领域知识：医保 DIP 换成 6 乘 23 乘 59 乘约 150 条评估细则。SOP 的价值就是你随时知道自己在第几阶段、手里该拿出什么。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="17" data-total="24"></span></div>
+  </section>
+
+  <!-- 16 HIL 命门随模式迁移（插页B） -->
+  <section class="slide" data-title="HIL 命门随模式迁移">
+    <div class="lbl mb-s">认知输入 5 · 承前 HIL 章</div>
+    <h2 class="title">HIL 命门随交付模式迁移，四判据不变</h2>
+    <div class="grid g3 mt-s">
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">模式二 · 康养项目</div>
+        <p style="font-size:14px;margin:8px 0 0"><b>增收闸</b>（涉钱）+ <b>民政 DP-H 发布闸</b>（涉合规 + 不可逆）。有营收盘，命门在钱和发布。</p></div>
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">模式一 · 教育督导项目</div>
+        <p style="font-size:14px;margin:8px 0 0">无增收盘，命门是<b>应用内三闸</b>：区局 OKR 审核 / 园长材料复核 / 警告下强制提交——全涉合规、不可逆，一个增收闸都没有。</p></div>
+      <div class="card card-soft"><div class="lbl" style="color:var(--accent-2)">农业 · 草业项目 / 辣椒</div>
+        <p style="font-size:14px;margin:8px 0 0">命门又迁到<b>碳汇 / 溯源凭证发布闸</b>。凭证一发即对外背书。</p></div>
+    </div>
+    <p class="lede mt-m" style="color:var(--accent)"><b>闸门位置从"增收"挪到"应用内质检"再挪到"凭证发布"——位置迁移，判据永远那四条：不可逆 / 涉钱 / 涉合规 / 跨组织。</b></p>
+    <div class="card badcase mt-m">
+      <span class="tag">双诚实点 · 别把话说满</span>
+      <p style="font-size:14px;margin:8px 0 0">① <b>该区园所数源里有三个——99 所 / 124 园 / 79 样本，口径没核实，不替它选一个</b>（B-5 活体）。② <b>草业项目那个能点开的 11 页 demo，AI 是 Mock 关键词路由、不是真模型</b>——演示必须说"这是交互外壳、不是模型跑通"。辣椒/草业项目效益数字都是方案目标值、非实测。</p>
+    </div>
+    <div class="notes">接着看第三点，HIL 命门随交付模式迁移，但四条判据不变。模式二的康养项目，命门是站长增收闸涉钱、加民政 DP-H 发布闸涉合规加不可逆。模式一的教育督导项目没有增收盘，命门是三处应用内裁定闸：区局 OKR 审核、园长材料复核、警告下强制提交，全涉合规、不可逆，一个增收闸都没有。农业口的草业项目辣椒，命门又迁到碳汇溯源凭证发布闸。看到没，闸门位置从增收挪到应用内质检再挪到凭证发布，但判据永远是那四条。顺便两个真坑都是诚实课：一，该区园所数源里有三个，99 所、124 园、79 样本，我不替它选一个，因为口径没核实，这是 B-5 活体；二，草业项目那个能点开的 11 页 demo，AI 是 Mock 的关键词路由不是真模型，演示时我一定说这是交互外壳不是模型跑通，把 demo 吹成产品就是骗客户。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="18" data-total="24"></span></div>
+  </section>
+
+  <!-- 17 锚定口径机制 -->
+  <section class="slide" data-title="锚定口径机制">
+    <div class="lbl mb-s">认知输入 4 · 元层面</div>
+    <h2 class="title">锚定口径：多智能体一致性靠单点文件，不靠自觉</h2>
+    <p class="lede">可研 11 章 11 万字 35 个分节，拆给多个子智能体<b>并行写</b>。并行写作最大的风险是<b style="color:var(--bad)">口径漂移</b>（张三用 60+、李四用 65+，装配打架＝B-5）。康养项目靠一份 <span class="mono">_WRITING_BRIEF.md</span> 防住：</p>
+    <div class="grid g3 mt-s">
+      <div class="card card-soft"><div class="lbl">① 术语统一表</div><p style="font-size:14px;margin:6px 0 0">"数智本体"不许写成"知识本体"，锁死写法</p></div>
+      <div class="card card-soft"><div class="lbl">② 核心数据表（唯一真相源）</div><p style="font-size:14px;margin:6px 0 0">76/75/38/47/54、1.36 亿、IRR 15.2%，<b>一律引用不重算</b></p></div>
+      <div class="card card-soft"><div class="lbl">③ 锚定事实 + 协作纪律</div><p style="font-size:14px;margin:6px 0 0">改一处全篇自动跟，<b>作者只写自己那节、只引不算、编号权归装配</b></p></div>
+    </div>
+    <div class="card mt-m" style="border-left:4px solid var(--accent-2)">
+      <p style="font-size:20px;font-weight:700;color:var(--accent);margin:0">最元的一句话——你们现在读的这门课，就是这么造的。</p>
+      <p style="font-size:15px;margin:8px 0 0">这份讲义和另外九讲，拆给多个写作子智能体并行写，共用一份 <span class="mono">tutorial/FDE课程/_WRITING_BRIEF.md</span>，结构和康养项目那份一模一样。<b>教材的生产方式，就是教材的内容。这不是巧合，是刻意示范。</b></p>
+    </div>
+    <div class="notes">最后讲一个你们现在正泡在里面的东西。S6 那张单子第一条：是否有单一锚定口径文件？康养项目可研十一章十一万字三十五个分节，是拆给多个子智能体并行写的。并行写作最大的风险是口径漂移——张三写老龄化率用六十加口径、李四用六十五加口径，装配起来数字打架，这就是反例 B-5。康养项目怎么防的？一份 WRITING_BRIEF。它做三件事：术语统一表，数智本体不许写成知识本体锁死写法；核心数据表是唯一真相源，那些数字所有分节一律引用不重算；锚定事实加协作纪律，改一处全篇自动跟，作者只写自己那节、只引不算、编号权归装配。关键机制：口径不靠三十五个作者自觉对齐，靠一份单点文件强制对齐。现在最元的一句话——你们现在读的这门课就是这么造的。你手上这份讲义和另外九讲，是拆给多个写作子智能体并行写的，共用一份 WRITING_BRIEF，结构和康养项目那份一模一样。这门课本身就是一次 FDE 交付，用的就是这一讲教你的 SOP。教材的生产方式就是教材的内容，这不是巧合，是刻意示范。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="19" data-total="24"></span></div>
+  </section>
+
+  <!-- 16 反例 B-1 / B-2 -->
+  <section class="slide" data-title="反例 B-1 B-2">
+    <div class="lbl mb-s">反例主场（一次给你四个）· 交付物工程高发区</div>
+    <div class="grid g2 mt-s">
+      <div class="card badcase">
+        <span class="tag">反例 B-1 · 图目计数漂移</span>
+        <p style="font-size:14px;margin:8px 0 0"><b>怎么发生</b>：<span class="mono">_FIG_SPECS.md</span> 标题写"22 张图"，表体实列 <b>26 行</b>。后期追加 5-3/5-4/A-1，<b>头部计数没人回去改</b>。</p>
+        <p style="font-size:14px;margin:6px 0 0"><b>怎么发现</b>：质检核对"标题说 22、表里数出 26"，对不上。</p>
+        <p style="font-size:14px;margin:6px 0 0;color:var(--accent)"><b>根因</b>：摘要与明细必须单一真相源；并行/追加式产出必须有显式"收口回改"动作。漂移不是谁粗心，是<b>没有一步流程负责追加后回改头部</b>。</p>
+      </div>
+      <div class="card badcase">
+        <span class="tag">反例 B-2 · 章节编号冲突</span>
+        <p style="font-size:14px;margin:8px 0 0"><b>怎么发生</b>：35 分节<b>并行</b>写作，各节自行起编号，装配期<b>编号重复/跳号</b>。</p>
+        <p style="font-size:14px;margin:6px 0 0"><b>怎么发现</b>：装配合并时编号撞车。</p>
+        <p style="font-size:14px;margin:6px 0 0;color:var(--accent)"><b>根因</b>：<b>编号权归装配阶段，不归写作阶段。</b>写作只管写内容，编号装配时统一分配——并行的东西，全局唯一性只能在收拢点解决，不能指望各分支自己协调。</p>
+      </div>
+    </div>
+    <p class="lede mt-m" style="color:var(--accent)"><b>每个反例讲三件事：怎么发生的、怎么被发现的、根因是什么原则。B-1/B-2 对应 S6 收口标准。</b></p>
+    <div class="notes">别的讲一讲一个反例，这一讲是反例主场，一次给你四个。因为交付物工程和合规治理是出错高发区，这四个坑我们全踩过。每个反例讲三件事：怎么发生的、怎么被发现的、根因是什么原则。B-1 图目计数漂移，FIG_SPECS 标题写二十二张图但表体实际列了二十六行，后期补的图追加到表尾，头部那个计数没人回去改，质检时对不上。根因是摘要与明细必须单一真相源，并行追加式产出必须有一个显式的收口回改动作——漂移不是因为谁粗心，是没有一步流程负责在追加后回改头部计数。B-2 章节编号冲突，三十五个分节并行写作各自起编号，装配期编号重复跳号。根因是编号权归装配阶段不归写作阶段，并行的东西全局唯一性只能在收拢点解决，不能指望各分支自己协调。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="20" data-total="24"></span></div>
+  </section>
+
+  <!-- 17 反例 B-5 / B-10 压轴 -->
+  <section class="slide" data-title="反例 B-5 B-10">
+    <div class="grid g2 mt-s">
+      <div class="card badcase">
+        <span class="tag">反例 B-5 · 数据张冠李戴（老龄化率）</span>
+        <p style="font-size:14px;margin:8px 0 0"><b>怎么发生</b>：七普老龄化率跨节引用错配，<b>60+ 与 65+ 口径混用</b>，同一指标两个节写两个数。</p>
+        <p style="font-size:14px;margin:6px 0 0"><b>根因</b>：关键数字必须锚在 BRIEF 单点，分节一律引用不重算。这正是锚定口径机制的<b>反面</b>——BRIEF 核心数据表存在的全部意义就是防 B-5。</p>
+        <p style="font-size:13px;margin:6px 0 0;color:var(--text-3)">（第 4 讲从"数据核验"讲、本讲从"并行口径收口"讲，同坑两视角）</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent-2)">
+        <span class="tag" style="color:var(--accent-2)">反例 B-10 · 11 处文号坚决不编造（议段压轴）</span>
+        <p style="font-size:14px;margin:8px 0 0"><b>诱惑</b>：编一个"看起来对"的文号，合规件就完整了，交付显得漂亮。</p>
+        <p style="font-size:14px;margin:6px 0 0"><b>FDE 怎么做</b>：11 处坚决保留 <span class="mono">[本地待补文号]</span> 占位不编造，每处锚上位国标（DIP 细则锚 医保办发〔2020〕50号），转成逐项取件清单，标"该找谁、取哪份"。判为非 BLOCKER 不阻断交付。</p>
+      </div>
+    </div>
+    <div class="card mt-m" style="border-top:3px solid var(--accent-2)">
+      <p class="quote-hard" style="font-size:30px;border:none;padding:0">"错文号比空缺比更有害。"</p>
+      <p style="font-size:15px;margin:8px 0 0">全课程价值观支点，出现三次是<b>复调</b>（第 3、6、9 讲）。空缺是诚实的，能被补上；错误文号是有毒的，以"看起来完整"骗过审核，迎检时爆炸。留占位 + 锚上位国标 + 转取证清单 = 把"不知道"变成"<b>专业的不知道</b>"。</p>
+    </div>
+    <div class="notes">B-5 数据张冠李戴，县区七普老龄化率在跨节引用中错配，六十加口径和六十五加口径混用，同一个指标两个节写出两个数。根因是关键数字必须锚在 BRIEF 单点，分节作者一律引用不重算——这正是第十五页讲的锚定口径机制的反面，BRIEF 核心数据表存在的全部意义就是防 B-5。这个反例第四讲也讲，从数据核验角度，本讲从并行写作的口径收口角度，同一坑两个视角。压轴是 B-10，十一处地方文号坚决不编造。citations 治理时，七处本地文号加四处企业内部 SOP 编号公开渠道查不到，诱惑是编一个看起来对的文号让合规件完整、交付漂亮。但 FDE 十一处坚决保留待补文号占位不编造，每处锚定上位国标，转成一份向某市医保局民政局政数局逐项取件的清单，判为非 BLOCKER 不阻断交付。根因原话直引：错文号比空缺更有害。这是全课程的价值观支点，出现三次不是重复是复调。空缺是诚实的能被补上，错误的文号是有毒的，它以看起来完整的样子骗过审核，在迎检时爆炸。留占位加锚上位国标加转取证清单，这套动作就是把不知道变成专业的不知道。FDE 的专业性，一半体现在敢说我不知道。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="21" data-total="24"></span></div>
+  </section>
+
+  <!-- 18 演练导入 -->
+  <section class="slide" data-title="现场演练导入">
+    <div class="lbl mb-s">现场演练 · 72′</div>
+    <h2 class="title">轮到你：产出两样能带走的资产</h2>
+    <div class="grid g2 mt-m">
+      <div class="card card-accent"><div class="big-num" style="font-size:36px">①</div><h4 class="mt-s">你一个项目的交付 SOP</h4><p class="dim" style="font-size:15px;color:#fff">套今天七阶段，每阶段填你项目的具体内容 + <b>收口标准</b>。</p></div>
+      <div class="card card-accent"><div class="big-num" style="font-size:36px">②</div><h4 class="mt-s">一张 HIL 设点表</h4><p class="dim" style="font-size:15px;color:#fff">列所有需插人的决策点，每个标：<b>命中哪条判据、谁按、按错代价</b>。</p></div>
+    </div>
+    <div class="card card-soft mt-l"><p style="font-size:17px;margin:0">别贪多。SOP 每阶段两三句，HIL 表能列 <b>5–8 个真闸</b>就是合格线。我评的不是你写得多，是你有没有在<b style="color:var(--accent)">"该设闸的地方设了闸、说清了按错的代价"</b>。</p></div>
+    <p class="dim2 mt-m" style="font-size:14px">详细材料、模板、评分卡见 <span class="mono">工作坊/06_FDE交付怎么做_康养项目全流程复盘_workshop.md</span></p>
+    <div class="notes">讲完了，现在轮到你。接下来七十二分钟，你要产出两样东西，就是你今天能带走的资产。第一，你自己一个项目的交付 SOP，套今天这七阶段，每阶段填你项目的具体内容加收口标准。第二，一张 HIL 设点表，把你项目里所有需要插人的决策点列出来，每个标命中哪条判据、谁按、按错的代价是什么。别贪多，SOP 七阶段每阶段两三句，HIL 表能列出五到八个真闸就是合格线。我评的不是你写得多，是你有没有在该设闸的地方设了闸、说清了按错的代价。具体材料、模板、评分卡在工作坊文件里，翻开开始。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="22" data-total="24"></span></div>
+  </section>
+
+  <!-- 19 研讨 -->
+  <section class="slide" data-title="复盘研讨">
+    <h2 class="title">复盘研讨</h2>
+    <div class="stack mt-m">
+      <div class="card"><span class="chip">题 1 · 设闸判断</span> 你的 HIL 表里有没有"四判据都不太命中、但你还是设了闸"的点？为什么？一个都没有，是不是把<b>置信度兜底闸</b>忘了？</div>
+      <div class="card"><span class="chip">题 2 · 橡皮图章</span> 假设某个闸责任人每次都点"同意"，这闸还有用吗？怎么从机制上防它退化成橡皮图章？（指向<b>置信度闸/抽检/留痕追责</b>）</div>
+      <div class="card"><span class="chip">题 3 · 诚实边界</span> 你项目里有"查不到、核不实"的文号/数据吗？编一个让交付完整，还是留占位转取证清单？你会怎么跟客户解释这个空缺？（回收 B-10）</div>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>收口：FDE 交付不是手艺好，是有 SOP + 会设闸。SOP 保证你能重复，HIL 保证你不出事。</b></p>
+    <div class="notes">三个研讨题。第一题设闸判断，好的 FDE 会为高频低置信动作设兜底闸，这是四判据之外最容易漏的一类，康养项目的零点七五置信闸就是干这个的。第二题橡皮图章，闸门的价值不在有没有，在会不会真拦，答案指向置信度闸、抽检、留痕追责，康养项目站长闸设硬闸 pre 加零点七五阈值就是防退化的技术保险。第三题诚实边界，回收 B-10，错文号比空缺更有害，能对客户坦然说这处我留了占位、给你一份取件清单的 FDE，比交一份看起来完整的假件的 FDE 专业得多。收口回到本讲命题：FDE 交付不是手艺好，是有 SOP 加会设闸，SOP 保证你能重复，HIL 保证你不出事。今天你带走这两样，就不再是跑通过一次康养项目，而是能跑第二遍、第三遍、别的项目也能跑的人。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="23" data-total="24"></span></div>
+  </section>
+
+  <!-- 20 收口+钩子 -->
+  <section class="slide" data-title="收口与钩子">
+    <div class="lbl mb-m">讲师收口 · 本讲难听话</div>
+    <p class="quote-hard">多数人栽，不栽在不会干，<br>栽在该叫人的时候逞能、该说不知道的时候硬编。</p>
+    <table class="t mt-l">
+      <tr><th>方向</th><th>关联</th></tr>
+      <tr><td>← 第 4 讲</td><td>B-5 数据张冠李戴：第 4 讲讲"数据核验"、本讲讲"并行口径收口"，同坑两视角</td></tr>
+      <tr><td>← 第 5 讲</td><td>S3/S4 的"零悬空、不越域"直接用平台校验能力；B-8 越域写入第 5 讲主讲</td></tr>
+      <tr><td>→ 第 7 讲</td><td>本讲讲"SOP 是什么"，第 7 讲讲"各插件怎么咬合把 SOP 跑起来"；B-3/B-4 是 S6 交付物工程的下游延续</td></tr>
+      <tr><td>→ 第 8 讲</td><td>HIL 设点是 C3；"敢留占位、敢叫人"是 C7 价值判断的现场表现</td></tr>
+      <tr><td>→ 第 9 讲</td><td>B-10 第三次出现，对标 Palantir"现场取证文化"——同一诚实原则的外部印证</td></tr>
+    </table>
+    <div class="notes">收口。本讲难听话：多数人栽，不栽在不会干，栽在该叫人的时候逞能、该说不知道的时候硬编。真正值钱的不是你会干，是你知道在哪必须停下来叫人，以及你敢在查不到的地方留个空、而不是编一个。前者让你跑得快，后者让你活得久。往前接第四讲第五讲，往后埋第七八九讲的钩子。重点记两条：第七讲讲各插件怎么咬合把 SOP 跑起来，B-3 B-4 是本讲 S6 交付物工程的下游延续，两讲合起来覆盖 docs 层装配到导出的全交接口；第九讲 B-10 第三次出现，对标 Palantir 的现场取证文化，是同一诚实原则的外部印证。今天你带走了 SOP 和 HIL 设点这两样，你就从一个能跑一次的人，变成一个能交接、能背锅、能跑第二遍的人。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="24" data-total="24"></span></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

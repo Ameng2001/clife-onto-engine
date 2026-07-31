@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
+  <defs>
+    <marker id="ar-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+    <marker id="ar-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker>
+    <marker id="ar-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker>
+    <marker id="ar-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9333ea"/></marker>
+    <marker id="ar-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+  </defs>
+  <style>text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}</style>
+  <rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+  <rect x="130" y="28" width="280" height="50" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="270" y="58" font-size="15" fill="#111827" text-anchor="middle" font-weight="bold">一个待执行的 Action / 决策</text>
+  <rect x="640" y="120" width="290" height="455" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.6"/>
+  <text x="785" y="150" font-size="16" fill="#dc2626" text-anchor="middle" font-weight="bold">命中任一 → 设 HIL 闸</text>
+  <text x="785" y="185" font-size="14" fill="#111827" text-anchor="middle" font-weight="normal">人拍板 + 留痕</text>
+  <path d="M785,200 L785,235" fill="none" stroke="#dc2626" stroke-width="1.4"/>
+  <rect x="660" y="250" width="250" height="70" rx="8" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+  <text x="785" y="278" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">站长 HIL</text>
+  <text x="785" y="302" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">增收·置信度闸</text>
+  <rect x="660" y="335" width="250" height="70" rx="8" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+  <text x="785" y="363" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">民政 DP-H</text>
+  <text x="785" y="387" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">监管发布闸</text>
+  <text x="785" y="445" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">两大闸门实例</text>
+  <text x="785" y="470" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal">均需人拍板并留存轨迹</text>
+  <polygon points="270,90 388,130 270,170 152,130" fill="#fff7ed" stroke="#fdba74" stroke-width="1.2"/>
+  <text x="270" y="135" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">① 不可逆？</text>
+  <path d="M388,130 L640,130" fill="none" stroke="#dc2626" stroke-width="1.6" marker-end="url(#ar-g)"/>
+  <rect x="430.28" y="108.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="438" y="122.2" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="normal">是</text>
+  <polygon points="270,182 388,222 270,262 152,222" fill="#fff7ed" stroke="#fdba74" stroke-width="1.2"/>
+  <text x="270" y="227" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">② 涉钱？</text>
+  <path d="M388,222 L640,222" fill="none" stroke="#dc2626" stroke-width="1.6" marker-end="url(#ar-g)"/>
+  <rect x="430.28" y="200.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="438" y="214.2" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="normal">是</text>
+  <polygon points="270,274 388,314 270,354 152,314" fill="#fff7ed" stroke="#fdba74" stroke-width="1.2"/>
+  <text x="270" y="319" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">③ 涉合规？</text>
+  <path d="M388,314 L640,314" fill="none" stroke="#dc2626" stroke-width="1.6" marker-end="url(#ar-g)"/>
+  <rect x="430.28" y="292.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="438" y="306.2" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="normal">是</text>
+  <polygon points="270,366 388,406 270,446 152,406" fill="#fff7ed" stroke="#fdba74" stroke-width="1.2"/>
+  <text x="270" y="411" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">④ 跨组织？</text>
+  <path d="M388,406 L640,406" fill="none" stroke="#dc2626" stroke-width="1.6" marker-end="url(#ar-g)"/>
+  <rect x="430.28" y="384.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="438" y="398.2" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="normal">是</text>
+  <polygon points="270,458 388,498 270,538 152,498" fill="#fff7ed" stroke="#fdba74" stroke-width="1.2"/>
+  <text x="270" y="503" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">⑤ 置信度&lt;0.75？</text>
+  <path d="M388,498 L640,498" fill="none" stroke="#dc2626" stroke-width="1.6" marker-end="url(#ar-g)"/>
+  <rect x="430.28" y="476.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="438" y="490.2" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="normal">是</text>
+  <path d="M270,78 L270,100" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <path d="M270,170 L270,182" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <rect x="262.28" y="170.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="270" y="184.2" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="normal">否</text>
+  <path d="M270,262 L270,274" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <rect x="262.28" y="262.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="270" y="276.2" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="normal">否</text>
+  <path d="M270,354 L270,366" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <rect x="262.28" y="354.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="270" y="368.2" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="normal">否</text>
+  <path d="M270,446 L270,458" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <rect x="262.28" y="446.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="270" y="460.2" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="normal">否</text>
+  <path d="M270,538 L270,568" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <rect x="262.28" y="547.4" width="15.44" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="270" y="561.2" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="normal">否</text>
+  <rect x="130" y="568" width="280" height="60" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.6"/>
+  <text x="270" y="605" font-size="15" fill="#166534" text-anchor="middle" font-weight="bold">全否 → 可自动执行</text>
+  <rect x="440" y="610" width="480" height="90" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="460" y="635" font-size="13" fill="#6b7280" text-anchor="start" font-weight="bold">图例</text>
+  <rect x="460" y="650" width="22" height="16" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+  <text x="492" y="663" font-size="13" fill="#111827" text-anchor="start" font-weight="normal">红 = 插人（HIL 闸）</text>
+  <rect x="680" y="650" width="22" height="16" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+  <text x="712" y="663" font-size="13" fill="#111827" text-anchor="start" font-weight="normal">绿 = 自动执行</text>
+</svg>

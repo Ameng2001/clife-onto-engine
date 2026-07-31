@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C-Life FDE 实战工作坊 · 导航</title>
+<style>
+  :root{
+    --bg:#f7f9fb; --card:#ffffff; --line:#e2e8f0; --line2:#cbd5e1;
+    --ink:#0f172a; --dim:#475569; --dim2:#94a3b8;
+    --blue:#2563eb; --blue-bg:#eff6ff; --teal:#0d9488; --teal-bg:#f0fdfa;
+    --amber:#b45309; --amber-bg:#fffbeb; --purple:#7c3aed; --purple-bg:#faf5ff;
+    --rose:#be123c; --rose-bg:#fff1f2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Helvetica Neue',Helvetica,Arial,'PingFang SC','Microsoft YaHei',sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:48px 24px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:24px;margin-bottom:8px}
+  .eyebrow{font-size:13px;letter-spacing:.14em;color:var(--dim2);text-transform:uppercase}
+  h1{font-size:40px;font-weight:800;letter-spacing:-.02em;margin:8px 0 10px}
+  h1 span{color:var(--blue)}
+  .lede{font-size:17px;color:var(--dim);max-width:820px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .pill{font-size:12.5px;padding:5px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line2);color:var(--dim)}
+  .pill.b{background:var(--blue-bg);border-color:#bfdbfe;color:var(--blue)}
+  .pill.r{background:var(--rose-bg);border-color:#fecdd3;color:var(--rose)}
+
+  h2{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);
+    margin:44px 0 16px;font-weight:700;border-bottom:1px solid var(--line);padding-bottom:8px}
+
+  .note{background:var(--amber-bg);border:1px solid #fde68a;border-radius:12px;padding:14px 18px;
+    font-size:14px;color:#78350f;margin-bottom:18px;line-height:1.75}
+  .note b{color:#7c2d12}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .lec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+    transition:.15s;position:relative;overflow:hidden}
+  .lec:hover{border-color:var(--line2);box-shadow:0 6px 20px rgba(15,23,42,.06)}
+  .lec.core{border-color:#fca5a5;background:linear-gradient(180deg,#fff 0%,#fff8f8 100%)}
+  .lec .num{position:absolute;top:14px;right:16px;font-size:34px;font-weight:800;color:#eef2f7;line-height:1}
+  .lec.core .num{color:#fee2e2}
+  .lec h3{font-size:18px;font-weight:750;margin:0 0 4px;padding-right:48px;letter-spacing:-.01em}
+  .lec .sub{font-size:12.5px;color:var(--dim2);margin-bottom:10px}
+  .lec .prop{font-size:13.5px;color:var(--dim);margin-bottom:12px;min-height:40px}
+  .lec .out{font-size:12.5px;color:var(--teal);background:var(--teal-bg);border:1px solid #99f6e4;
+    border-radius:8px;padding:6px 10px;margin-bottom:12px}
+  .lec .links{display:flex;gap:8px;flex-wrap:wrap}
+  .lec a{font-size:13px;text-decoration:none;padding:7px 13px;border-radius:8px;font-weight:600;
+    transition:.12s;border:1px solid transparent;white-space:nowrap}
+  .a-deck{background:var(--blue);color:#fff}
+  .a-deck:hover{background:#1d4ed8}
+  .a-doc{background:#fff;color:var(--ink);border-color:var(--line2)!important}
+  .a-doc:hover{border-color:var(--blue)!important;color:var(--blue)}
+
+  .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .qcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;
+    text-decoration:none;color:inherit;transition:.15s;display:block}
+  .qcard:hover{border-color:var(--blue);box-shadow:0 4px 14px rgba(37,99,235,.08);transform:translateY(-2px)}
+  .qcard .t{font-weight:700;font-size:14.5px;margin-bottom:3px}
+  .qcard .d{font-size:12.5px;color:var(--dim2);line-height:1.5}
+
+  kbd{font-family:ui-monospace,Menlo,monospace;background:#1e293b;color:#e2e8f0;
+    border-radius:5px;padding:1px 7px;font-size:12px;font-weight:600}
+  .tip{font-size:13.5px;color:var(--dim);background:var(--card);border:1px dashed var(--line2);
+    border-radius:12px;padding:14px 18px;margin-top:16px;line-height:1.8}
+
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--dim2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  @media(max-width:860px){.grid,.quick{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">C-Life 内训 · v0.3 八课制</div>
+  <h1>FDE <span>实战工作坊</span></h1>
+  <p class="lede">先给地图，再上路。第一课把「FDE 是什么」讲透，后面每课一个工作环节、一次实操。
+    一条命题贯穿 <b>L2–L8</b>（L1 纯讲解不产交付物），结课交出「迷你 FDE 交付包」<b>11 件</b>。</p>
+  <div class="meta">
+    <span class="pill b">8 课 · 约 21.5 小时 + 路演</span>
+    <span class="pill">集训 5 天 / 压缩 3 天 / 分散 8 周</span>
+    <span class="pill r">L5 是全课重心，压缩档绝不砍</span>
+    <span class="pill" style="background:#faf5ff;border-color:#ddd6fe;color:#7c3aed">+ 专题课 S1–S3 · 本体论 / 引擎 / 建模端</span>
+  </div>
+</header>
+
+<h2>每课两件产物</h2>
+<div class="note">
+  <b>课件</b>（蓝色按钮）= 讲师投屏用。<b>口播稿、时间盒、卡点提示、"要砍先砍哪里"全在演讲者备注里</b>——
+  按 <kbd>S</kbd> 开演讲者窗口（当前页 + 下一页 + 备注 + 计时），<kbd>N</kbd> 拉备注抽屉，
+  <kbd>O</kbd> 总览，<kbd>← →</kbd> 翻页。<b>投屏侧看不到备注。</b><br>
+  <b>学员手册</b>（白色按钮）= 打印成册发给学员。<b>学员视角、含参考答案，可脱离课堂自学。</b>
+</div>
+
+<div class="grid">
+
+  <div class="lec">
+    <div class="num">01</div>
+    <h3>FDE：是什么 · 为什么 · 怎么工作</h3>
+    <div class="sub">纯讲解 · 180′ · 唯一一堂没有实操的课</div>
+    <div class="prop">交付断层 → 一人公司边界 → 认知杠杆 → 别人怎么做（<b>三档来源纪律</b>）→ 能力模型 → <b>SOP 七阶段总览</b>。</div>
+    <div class="out">硬指标：能复述 SOP 七阶段，并说出每阶段对应后面第几课</div>
+    <div class="links">
+      <a class="a-deck" href="./L1_FDE总论.html">课件 27 屏</a>
+      <a class="a-doc" href="../课程/L1_FDE总论.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec">
+    <div class="num">02</div>
+    <h3>项目与工具</h3>
+    <div class="sub">讲 + 练 · 120′ · ⚠️ 本课必然卡人</div>
+    <div class="prop">五个真实命题认领 → 后面六课怎么走 → 九插件全景（产物即接口 · <b>OAG ≠ RAG</b> · 三层固化）→ 装环境。</div>
+    <div class="out">产出：一句话项目定义 + 可用的 studio/ 工作区</div>
+    <div class="links">
+      <a class="a-deck" href="./L2_项目与工具.html">课件 16 屏</a>
+      <a class="a-doc" href="../课程/L2_项目与工具.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec">
+    <div class="num">03</div>
+    <h3>如何正确采集信息</h3>
+    <div class="sub">讲 + 练 · 120′ · SOP【立项】</div>
+    <div class="prop">唯一一个错了<b>无法在下游补救</b>的环节。信息衰减链 · 全/准两标准 · 工具箱 · 两类模板 · <b>反例 B-11 主场</b> · 提示词工程。</div>
+    <div class="out">产出：① 项目定义 + 交付模式判定 + 三层齐全的 _INPUT.md</div>
+    <div class="links">
+      <a class="a-deck" href="./L3_采集信息.html">课件 18 屏</a>
+      <a class="a-doc" href="../课程/L3_如何正确采集信息.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec">
+    <div class="num">04</div>
+    <h3>认知萃取 + 领域建模</h3>
+    <div class="sub">讲 + 练 · 240′（上下半场）· SOP【S1 / S2 / S3】</div>
+    <div class="prop">上半场学<b>零件</b>（insight 六件套 · <b>画像的真假之分</b>），下半场学<b>装配线</b>（DDD 三判据 · 五步流水线 · traits）。</div>
+    <div class="out">产出：② 画像≥3 旅程≥2 流程≥2 热点　③ 域图 + skill-map</div>
+    <div class="links">
+      <a class="a-deck" href="./L4_萃取与建模.html">课件 22 屏</a>
+      <a class="a-doc" href="../课程/L4_认知萃取与领域建模.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec core">
+    <div class="num">05</div>
+    <h3>本体建模 + 设闸 &nbsp;<span style="font-size:12.5px;color:#be123c;font-weight:700">⭐ 全课重心</span></h3>
+    <div class="sub">讲 + 练 · 180′（上下半场）· SOP【S4 + S5】</div>
+    <div class="prop">唯一一堂产出「<b>机器会强制执行的东西</b>」的课。规则三问 · 七段 IR · <b>★两道闸</b> · HIL 四判据 + 兜底闸 · validate 四段 · <b>smoke_cq 现场演示</b>。</div>
+    <div class="out">产出：④ 五要素本体　⑥ SOP　⑦ HIL 设点表　⑧ 取证清单</div>
+    <div class="links">
+      <a class="a-deck" href="./L5_本体与设闸.html">课件 26 屏</a>
+      <a class="a-doc" href="../课程/L5_本体建模与设闸.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec">
+    <div class="num">06</div>
+    <h3>文档工程</h3>
+    <div class="sub">讲 + 练 · 150′ · SOP【S5 + S6】</div>
+    <div class="prop">让 10 个作者写出来像一个人写的。栈④商业与财务（<b>财务语言随交付模式变</b>）· 栈⑥交付物 · 栈⑦合规 · 写作专家 · 装配期收口。</div>
+    <div class="out">产出：⑤ 商业模式 + 财务语言　⑨ 方案稿 + 配图占位</div>
+    <div class="links">
+      <a class="a-deck" href="./L6_文档工程.html">课件 18 屏</a>
+      <a class="a-doc" href="../课程/L6_文档工程.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec">
+    <div class="num">07</div>
+    <h3>原型开发</h3>
+    <div class="sub">讲 + 练 · 120′ · ⚠️ 唯一一条"一票警示"红线</div>
+    <div class="prop">让方案<b>看得见</b>，同时守住 demo 的诚实边界。三步流水线 · .pen 是明文 JSON（实测澄清）· <b>demo 可信度三档自评</b>。</div>
+    <div class="out">产出：⑪ 3–6 屏原型 + 诚实说明 + Mock 清单</div>
+    <div class="links">
+      <a class="a-deck" href="./L7_原型开发.html">课件 12 屏</a>
+      <a class="a-doc" href="../课程/L7_原型开发.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec">
+    <div class="num">08</div>
+    <h3>总结与能力沉淀</h3>
+    <div class="sub">讲 + 路演 · 180′ + 每组 20′</div>
+    <div class="prop">前七课收<b>手艺</b>，这一课收「<b>能不能把手艺交给你</b>」。固化三问 · 校验器 · OPC 边界回收 · 90 天计划 · <b>三条一票警示</b> · 定级。</div>
+    <div class="out">产出：⑩ 团队编成 + 90 天计划　⑫ 插件（加分）· 结课定级</div>
+    <div class="links">
+      <a class="a-deck" href="./L8_能力沉淀.html">课件 16 屏</a>
+      <a class="a-doc" href="../课程/L8_总结与能力沉淀.html">学员手册</a>
+    </div>
+  </div>
+
+</div>
+
+<h2>专题课 S1–S3（一条线，可独立开设，不占八课课时）</h2>
+<div class="grid">
+
+  <div class="lec" style="border-color:#c4b5fd;background:linear-gradient(180deg,#fff 0%,#fbfaff 100%)">
+    <div class="num" style="color:#ede9fe">S1</div>
+    <h3>本体论：从数据到世界模型 &nbsp;<span style="font-size:12.5px;color:#7c3aed;font-weight:700">第五课的方法论前置</span></h3>
+    <div class="sub">纯讲解 · 180′ · <b>完全基于《工程师的本体论》方法论文集</b>（45 篇 + 番外）</div>
+    <div class="prop">露华浓 ERP 的 7000 万美元 → <b>字典 vs 物理引擎</b> → 四层架构 → 五要素 → <b>OAG ≠ RAG 与三层能力</b> → Software 3.0 的文件系统 → <b>Harness 管循环，本体管世界</b> → 建模 SOP → AI FDE 为什么能 work。</div>
+    <div class="out">硬指标：说得出幻觉的真正成因 · GraphRAG 属于哪一边 · Harness 与本体的边界</div>
+    <div class="links">
+      <a class="a-deck" href="./S1_本体论.html" style="background:#7c3aed">课件 26 屏</a>
+      <a class="a-doc" href="../课程/S1_本体论.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec" style="border-color:#c4b5fd;background:linear-gradient(180deg,#fff 0%,#fbfaff 100%)">
+    <div class="num" style="color:#ede9fe">S2</div>
+    <h3>本体引擎的工程实现 &nbsp;<span style="font-size:12.5px;color:#7c3aed;font-weight:700">内核怎么造</span></h3>
+    <div class="sub">讲解 + <b>当场读码</b> · 180′ · <b>教材 = clife-onto-engine 源码 + 内核"宪法"</b></div>
+    <div class="prop">三层切分与<b>判缝准则</b>（"换成医疗大模型还成立吗"）→ 五要素的工程契约 → <b>Action 六步生命周期 + 三条内核铁律</b>（写后判 · 判全部 · 拒绝是数据）→ 双写路径 → <b>SPI 七槽位</b>（含第五课实测：只覆盖五格）→ 审计快照与置信度总线 → <b>两个 CI 门禁</b>。</div>
+    <div class="out">硬指标：说得出为什么规则在写入"之后"执行 · 两个门禁脚本的执法方向 · 用判缝准则当场判一段代码放哪层</div>
+    <div class="links">
+      <a class="a-deck" href="./S2_本体引擎.html" style="background:#7c3aed">课件 17 屏</a>
+      <a class="a-doc" href="../课程/S2_本体引擎的工程实现.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec" style="border-color:#c4b5fd;background:linear-gradient(180deg,#fff 0%,#fbfaff 100%)">
+    <div class="num" style="color:#ede9fe">S3</div>
+    <h3>建模端如何支撑引擎 · studio-ontology &nbsp;<span style="font-size:12.5px;color:#7c3aed;font-weight:700">交棒第五课</span></h3>
+    <div class="sub">讲解 + <b>管线走查</b> · 180′ · <b>教材 = 我们自己的 FDE 工具箱</b>（astra-studio-plugins/studio-ontology）</div>
+    <div class="prop"><b>全课 = 架构图右下角那个橙色框。</b>两仓一条流水线 → <b>为什么不直接手写插件</b>（业务专家看不懂 Python，所以要有 IR）→ <b>DDD ↔ 五要素翻译表</b> → IR 七段（<b>§4 Rules ★FDE 核心</b>）→ 编译产物与四类 <span class="mono">NotImplementedError</span> → <b>四命令里唯一那个强制停点 ⏸</b> → <b>诚实边界：设计上的克制 ≠ 能力上的边界</b> → <b>IR 七段只覆盖 SPI 五格</b>（结构性缺口，不是待补功能）→ <b>验收标准：与手写 plugins/grass 五要素同构</b> → ⚠️ 两仓红线。</div>
+    <div class="out">硬指标：区分<b>设计上的克制</b>与<b>能力上的边界</b> · 说得出七段 IR 覆盖七槽位中的哪五格、为什么那两个 ❌ 是结构性缺口 · 说得出建模端的验收标准</div>
+    <div class="links">
+      <a class="a-deck" href="./S3_建模端与引擎.html" style="background:#7c3aed">课件 15 屏</a>
+      <a class="a-doc" href="../课程/S3_建模端如何支撑引擎.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec" style="border-style:dashed;background:transparent;box-shadow:none">
+    <h3 style="color:var(--dim2)">这三门课和第五课的关系</h3>
+    <div class="sub">建议顺序：<b>S1 → S2 → S3 → L5</b></div>
+    <div class="prop" style="font-size:13px">
+      <b>S1</b> 本体<b>是什么</b>、为什么必须有（方法论文集，不含任何实现细节）→ <b>判断力</b><br>
+      <b>S2</b> 引擎<b>怎么造</b>（clife-onto-engine 源码）→ <b>运行时端的骨架</b><br>
+      <b>S3</b> <b>怎么给它编译应用</b>（我们自己的建模端 studio-ontology）→ <b>那把工具，以及它的边界</b><br>
+      <b>L5</b> <b>亲手用那把工具，产出一个能在那套引擎上跑起来的插件</b><br><br>
+      <b>S2 讲运行时端，S3 讲建模端，第五课把两端接起来。</b><br>
+      <b>只上一门的话，上 S1——工具会换，那套判断不会。</b>
+    </div>
+  </div>
+
+</div>
+
+<h2>备课与命题</h2>
+<div class="quick">
+  <a class="qcard" href="../00_八课总纲.html"><div class="t">📘 八课总纲</div><div class="d">结构定义：八课各讲什么、四段结构、排期。<b>备课先读这份</b></div></a>
+  <a class="qcard" href="../00_授课流程手册.html"><div class="t">🕐 授课流程手册</div><div class="d">D1–D5 逐时段：讲师做什么 / 学员做什么 / 卡点</div></a>
+  <a class="qcard" href="../工作坊/_贯穿沙盘_分组命题.html"><div class="t">🎯 贯穿沙盘 · 分组命题</div><div class="d">5 个真实命题 + 八课贯穿地图 + <b>八维评审卡（唯一真相源）</b></div></a>
+  <a class="qcard" href="../案例矩阵_跨项目对照.html"><div class="t">📊 案例矩阵</div><div class="d">六案例成熟度分级。<b>引用案例前必查</b></div></a>
+</div>
+
+<h2>口径与方法</h2>
+<div class="quick">
+  <a class="qcard" href="../_WRITING_BRIEF.html"><div class="t">🔒 口径总纲 BRIEF</div><div class="d">术语 / 数字 / 案例成熟度 / 商业口径 / 反例分配。<b>改任何内容前必读</b></div></a>
+  <a class="qcard" href="../00_课程总纲.html"><div class="t">📐 课程总纲</div><div class="d">元定义：为什么办 / 能力模型 C1–C7 / 反例库 B-1~B-11 / 考核</div></a>
+  <a class="qcard" href="../FDE交付SOP速查卡.html"><div class="t">⚡ SOP 速查卡</div><div class="d">一页纸，现场可打印</div></a>
+  <a class="qcard" href="../_工作坊授课规范.html"><div class="t">🎓 授课规范</div><div class="d">授课形式的单点定义</div></a>
+</div>
+
+<h2>历史资产（不上课，改课时可查）</h2>
+<div class="quick">
+  <a class="qcard" href="../工具实操/T5a_本体建模.html"><div class="t">📚 v0.2 十册底稿</div><div class="d">八课的素材来源（T1–T9）。<b>工具操作细节比八课手册更全</b></div></a>
+  <a class="qcard" href="../讲义/_legacy/06_FDE交付怎么做_康养项目全流程复盘.html"><div class="t">📜 v0.1 十讲原件</div><div class="d">最早的十讲讲义。⚠️ 商业口径是 2026-07-20 之前的旧版</div></a>
+  <a class="qcard" href="./_legacy/06_FDE交付怎么做_康养项目全流程复盘.html"><div class="t">🗂 旧 14 份课件</div><div class="d">按十讲切分的课件，已被 8 份新课件取代</div></a>
+  <a class="qcard" href="../_质检报告_v2.html"><div class="t">🔍 质检报告</div><div class="d">v0.1 时期的质检留痕</div></a>
+</div>
+
+<div class="tip">
+  <b>讲师快速上手</b>：打开本课课件 → 按 <kbd>S</kbd> 弹出演讲者窗口（投屏拖到外接屏，演讲者窗口留在本机）→
+  备注里有<b>时间盒、开场话术、要砍先砍哪里、必须现场做的演示动作</b>。<br>
+  <b>印发学员手册</b>：打开学员手册 → 浏览器打印为 PDF。手册内已插分页符，每课末尾附一页纸速查。
+</div>
+
+<footer>
+  <span>C-Life FDE 实战工作坊 · v0.3 八课制 · 2026-07-31</span>
+  <span>实践蓝本：康养行业大模型及微康养生态运营平台</span>
+</footer>
+
+</div>
+</body>
+</html>

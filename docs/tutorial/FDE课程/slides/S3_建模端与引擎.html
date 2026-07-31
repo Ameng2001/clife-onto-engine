@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 专题课 S3 · 建模端如何支撑引擎</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:44px 66px}
+  .mt-l{margin-top:17px}.mt-m{margin-top:11px}
+  .lede{font-size:17px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:5px;font-size:15px}
+  .card p,.card-accent p,.card-outline p{font-size:14px;line-height:1.52}
+  h2.title{font-size:35px;line-height:1.14}
+  .quote-big{font-family:var(--font-serif);font-size:25px;line-height:1.34;font-weight:600;color:var(--accent);max-width:30ch}
+  .huge{font-family:var(--font-serif);font-size:31px;line-height:1.24;font-weight:700;color:var(--accent)}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:14px}
+  table.t th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:5px 9px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:5px 9px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  table.t tr.gap td{background:#fff5f5}
+  table.t tr.ok td{background:#f2fbf5}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:12.8px;line-height:1.52;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:11px 15px;overflow:auto;color:var(--text-1)}
+  .src{font-size:12px;color:var(--text-3);font-style:italic}
+  .fig{max-width:100%;max-height:548px;width:auto;height:auto;border:1px solid var(--border);border-radius:10px;background:#fff;display:block;margin:6px auto 0}
+  .stepline{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-size:14.5px;font-weight:700}
+  .stepline .s{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:6px 10px}
+  .stepline .a{color:var(--accent-2)}
+  .blk{border-radius:9px;padding:9px 13px;margin-bottom:6px;font-size:14.5px;border:1px solid var(--border);background:var(--surface-2)}
+  .blk .t{font-weight:700;font-size:15.5px;color:var(--text-1)}
+  .blk .p{font-size:13.5px;color:var(--text-2);margin-top:2px}
+  .blk.model{background:#fff8ec;border-color:#f0d9a8}
+  .blk.model .t{color:#b8791a}
+  .slide.tight .card,.slide.tight .card-accent{padding-top:8px;padding-bottom:8px}
+  .slide.tight table.t td{padding-top:3.6px;padding-bottom:3.6px}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 专题课 S3 · 180′ · 讲解 + 管线走查</div>
+  <h1 class="title" data-anim="fade-up">建模端如何支撑引擎<br>studio-ontology</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">S2 讲了那个 OS。<br><b>今天讲：怎么给它编译应用。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">= 架构图右下角那个橙色框</span>
+    <span class="pill">两仓，一条流水线</span>
+    <span class="pill">⭐ 交棒第五课</span>
+  </div>
+  <p class="src mt-m">一档来源：<span class="mono">github.com/Ameng2001/astra-studio-plugins</span> → <span class="mono">studio-ontology/</span>（我们自己的 FDE 工具箱）· 配套 clife-onto-engine</p>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="15"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 180′】</b> 开场 + 全景 20′ ｜ 为什么要有建模端 15′ ｜ ①业务分析 + DDD 翻译表 30′ ｜ ②IR 七段 25′ ｜ ③编译产物 20′ ｜ <b>四命令与强制停点 15′</b> ｜ <b>诚实边界 15′</b> ｜ <b>七段→七槽位的缺口 15′</b> ｜ 验收同构 + 两仓红线 15′ ｜ 行业参照 10′ ｜ 交棒 + 自查 10′</p>
+    <p><b>⭐【开场第一句，把位置钉死】</b>"打开 S2 那张架构图，<b>看右下角那个橙色框——写着『建模端 · astra-studio · 上游 · 另仓』。今天这一整门课，就讲那一个框。</b>"</p>
+    <p><b>⭐【第二句，把关系说清】</b>"<b>S2 是运行时端，今天是建模端。两个仓库，一条流水线。</b>建模端产出的东西，落进运行时端的 <span class="mono">plugins/&lt;ontology_id&gt;/</span>，<b>然后在那个 OS 上跑起来。</b>"</p>
+    <p><b>⚠️【这门课不是工具使用手册】</b>四个命令怎么敲，第五课会带着做。<b>今天要讲的是：为什么需要这样一个东西、它的边界在哪、它交出来的东西凭什么算合格。</b>"</p>
+    <p><b>【两个仓库都是我们自己的，别讲成外部工具】</b><span class="mono">studio-ontology</span> 在 astra-studio-plugins 仓，<span class="mono">clife-onto-engine</span> 是运行时仓——<b>都是自家的。</b></p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="本课讲图上哪一块">
+  <div class="kicker">定位 · 回到 S2 那张架构图</div>
+  <h2 class="title">今天只讲右下角那个橙色框</h2>
+  <img class="fig" src="../figures/fig-S2-引擎全景.svg" alt="clife-onto-engine 架构全景（本课讲右下角建模端）">
+  <div class="deck-footer"><span class="ftag">定位</span><span class="slide-number" data-current="2" data-total="15"></span></div>
+  <div class="notes"><p><b>【投出来，指右下角】</b>"S2 我们从最底下往上爬完了整个运行时端。<b>唯一没展开的就是右下角这个橙色框，它标着『上游 · 另仓』。</b>"</p>
+  <p><b>【念一遍框里的三行，这就是今天的目录】</b><br>
+  ① <b>业务分析（DDD）</b>：事件风暴 · 限界上下文 · 行为矩阵 / Intake spec<br>
+  ② <b>五要素 IR</b>：Object · Link · Function · Rule · Action<br>
+  ③ <b>编译插件骨架</b>：declarative 规则自动 · function / Action 留 <span class="mono">TODO(FDE)</span><br>
+  下面还有一行小字：<b>「产物与手写 plugins/grass 五要素同构」——那是它的验收标准，第 12 页讲。</b></p>
+  <p><b>【注意那条橙色虚线箭头】</b>它从建模端指向<b>最底下的「元模型五要素」</b>，标着<b>「编译插件」</b>。<b>建模端的产物，落点就是运行时端的插件层。</b></p>
+  <p><b>【三门课的链条，再说一遍】</b>"S1 本体是 LLM OS 的文件系统 → <b>S2 这就是那个 OS</b> → <b>S3 怎么给它编译应用</b> → <b>L5 你亲手编译一个。</b>"</p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="两仓一条流水线">
+  <div class="kicker">全景 · 两个仓库，一条流水线</div>
+  <h2 class="title">建模端 → 运行时端</h2>
+  <pre class="code mt-s">astra-studio（建模工作室）                      clife-onto-engine（OAG 运行时内核）
+  studio-planner ──┐                              ┌── <b>plugins/&lt;ontology_id&gt;/</b>  ← 编译产物落点
+  domain-intake  ──┤→ <b>studio-ontology</b> ─编译─▶─┤   五要素 Object/Link/Function/Rule/Action
+                   │  （IR → 插件 → 校验）           └── Session.ask / HTTP API / Docker</pre>
+  <p class="lede mt-m" data-anim="fade-up">它自己在 README 里把定位写得很清楚：</p>
+  <p class="quote-big mt-s" data-anim="fade-up">astra-studio 是建模工作室，<br>clife-onto-engine 是运行时内核，<br><b>studio-ontology 是夹在中间的 FDE 工作台。</b></p>
+  <table class="t mt-m">
+    <tr><th></th><th>建模端 studio-ontology</th><th>运行时端 clife-onto-engine</th></tr>
+    <tr><td><b>干什么</b></td><td>把<b>业务分析</b>编译成<b>五要素插件</b></td><td>把插件<b>跑起来</b>并<b>强制执行</b>它</td></tr>
+    <tr><td><b>产物</b></td><td>IR + 插件骨架 + 校验报告</td><td>受治理的读写、审计、回滚</td></tr>
+    <tr><td><b>谁用</b></td><td><b>FDE + 领域专家</b></td><td>Agent / 业务系统 / 客户</td></tr>
+    <tr><td><b>S2 / S3</b></td><td><b>今天</b></td><td>S2</td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">全景</span><span class="slide-number" data-current="3" data-total="15"></span></div>
+  <div class="notes"><p><b>【两个入口先点一下，第 5 页展开】</b>建模端有两个入口：<b>A. studio-planner 产物</b>（已跑过事件风暴/领域建模的）· <b>B. 领域 Intake 标准 spec</b>（没跑过 planner，FDE 直接访谈或交业务方填）。</p>
+  <p><b>⭐【这门课的价值主张，说出口】</b>"S2 告诉你那个引擎有多严格——<b>写后判、收集全部违反、审计快照、CI 门禁。</b>严格是好事，<b>但严格的东西通常也难填。</b>今天这门课回答的是：<b>那么严格的一个东西，怎么才能在几天之内为一个新行业填出来。</b>"</p>
+  <p><b>【别把它讲成"自动建模工具"】</b>下一页就要打掉这个印象。</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="为什么要有建模端">
+  <div class="kicker">动机 · 不做会怎样</div>
+  <h2 class="title">为什么不直接手写插件？</h2>
+  <p class="lede mt-s" data-anim="fade-up">运行时端的 <span class="mono">plugins/grass/</span> 就是手写的。<b>手写行不行？行。那为什么还要一个建模端？</b></p>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card badcard"><h4>① 手写的前提是"你已经知道要写什么"</h4><p>而 FDE 面对新行业时，<b>最贵的工作恰恰发生在写代码之前</b>——把业务专家脑子里的东西挖出来、变成精确定义。<br><b>手写插件解决不了这一段。</b></p></div>
+    <div class="card badcard"><h4>② 业务专家看不懂 Python</h4><p>五要素最终要由<b>领域专家签字</b>（否则规则没有出处）。<br>你不能把 <span class="mono">@spi.rule</span> 装饰器拿给他审。<b>中间必须有一层他看得懂的东西——那就是 IR。</b></p></div>
+    <div class="card badcard"><h4>③ 手写没有一致性保证</h4><p>第二个行业、第三个行业，<b>结构会漂</b>。<br>而 S2 讲过：内核靠 SPI 契约吃饭，<b>插件结构不一致，"换行业零改内核"就是空话。</b></p></div>
+  </div>
+  <p class="huge mt-l" data-anim="fade-up">建模端解决的不是"写得快"，<br>是<b>"业务专家能参与"</b>和<b>"结构不漂"</b>。</p>
+  <div class="deck-footer"><span class="ftag">动机</span><span class="slide-number" data-current="4" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐【第②条是最重要的，展开讲】</b>"S2 讲 Rule 的时候说过——<b>规则要有 source，没有出处的规则不是规则，是某个人的意见。</b>那么谁来提供出处？<b>领域专家。</b>可是领域专家看不懂 Python。<b>所以必须有一份他能读、能改、能签字的中间物——这就是 IR 存在的全部理由。</b>"</p>
+  <p><b>【第③条接 S2 的 SPI】</b>"S2 那句『换行业零改内核』的前提是<b>插件长得都一样</b>。手写三个行业，三个人写，<b>结构一定会漂。</b>"</p>
+  <p><b>⚠️【别说成"提效工具"】</b>"如果你在客户面前把它讲成'我们有个工具能自动生成代码'，<b>客户会问『那准确率多少』，然后你就完了。</b>正确的讲法是：<b>它让业务专家能直接参与本体建模，并保证不同行业的产出结构一致。</b>"</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="① 业务分析 · 两个入口">
+  <div class="kicker">管线 ① · 业务分析（DDD）</div>
+  <h2 class="title">两个入口，二选一</h2>
+  <div class="blk model"><span class="t">① 业务分析（DDD）</span><span class="p">事件风暴 · 限界上下文 · 行为矩阵 / Intake spec</span></div>
+  <table class="t mt-m">
+    <tr><th>入口</th><th>适用</th><th>来源</th></tr>
+    <tr><td><b>A. studio-planner 产物</b></td><td>已跑过事件风暴 / 领域建模</td><td>behavior-matrix · domain-canvas · process-flow · event-storm</td></tr>
+    <tr><td><b>B. 领域 Intake 标准 spec</b></td><td><b>没跑过 planner</b>——FDE 直接访谈，或交业务方填</td><td><span class="mono">templates/domain-intake.md.tmpl</span></td></tr>
+  </table>
+  <div class="card card-accent mt-m"><h4>Intake spec = 给业务方 / 领域专家 / 规则工程师的<b>标准输入契约</b></h4>
+    <p><b>12 段</b>（业务概述 · 角色 · 对象 · 关系 · 动作 · 指标 · <b>规则</b> · 决策点 · 数据源 · 能力问题 · 治理），<br>
+    <b>每段标注谁来填、编译成哪个本体要素</b>，带示例 + 完成度自检。<b>填完即可喂给 ontology-map。</b></p></div>
+  <p class="lede mt-m" data-anim="fade-up"><b>填好的样例就在仓库里</b>：<span class="mono">examples/domain-intake-chili.md</span>——一份填满的辣椒 intake，
+  对照运行时端的 <span class="mono">plugins/chili</span>。<b>同一份模板、换个领域、填出来结构一致。</b></p>
+  <div class="deck-footer"><span class="ftag">管线 ①</span><span class="slide-number" data-current="5" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐【入口 B 才是 FDE 的主战场】</b>"入口 A 是理想情况——客户已经做过事件风暴。<b>现实是十次有八次没做过。所以入口 B（Intake spec）是你真正会用的那个。</b>"</p>
+  <p><b>⭐【"每段标注谁来填"这一条极其重要】</b>"这不是一份问卷，是一份<b>责任分配表</b>。§7 规则段标的是<b>领域专家 + 规则工程师</b>——<b>不是 FDE 自己填。</b>你自己填的规则没有出处，第五课的 checkout 会把它挑出来。"</p>
+  <p><b>⚠️【一处文档落差，实测记录】</b>README 说 intake 是 <b>11 段</b>，<b>模板实际是 §0–§11 共 12 段</b>（README 没数 §0）。<b>按 12 段。</b>这是第五课实测出来的，<b>又一处"文档说 A、代码是 B"。</b></p>
+  <p><b>【接第三、四课】</b>"这份 Intake 的 §1–§9 怎么填？<b>那正是第三课『采集信息』和第四课『认知萃取』的产出。</b>这门课到这里和主干课接上了。"</p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="⭐ DDD ↔ 五要素翻译表">
+  <div class="kicker">管线 ① 续 · ⭐ 这个工具最聪明的地方</div>
+  <h2 class="title">它不发明新语言，它做翻译</h2>
+  <table class="t mt-s">
+    <tr><th>DDD / 事件风暴（业务团队已产出）</th><th>本体五要素（运行时端）</th></tr>
+    <tr><td>聚合 / 实体</td><td><b>Object</b></td></tr>
+    <tr><td>聚合间关系 / 上下文集成</td><td><b>Link</b>（带 root_cause / hypothesis / derivation <b>边语义</b>）</td></tr>
+    <tr><td>命令 / 领域事件</td><td><b>Action</b>（受治理的写，带 guard / post-rule / <b>HIL</b>）</td></tr>
+    <tr><td>读模型 / KPI</td><td><b>Function</b>（只读派生量）</td></tr>
+    <tr><td>不变式 / 策略 Policy</td><td><b>Rule</b>（写后强制，<b>带 source / citations</b>）</td></tr>
+    <tr><td>限界上下文</td><td><b>namespace / ontology_id</b></td></tr>
+  </table>
+  <p class="huge mt-l" data-anim="fade-up">你在客户那儿做的事件风暴，<br>不是白做的中间品，<br><b>是编译器的输入。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">⭐ 注意第 5 行：<b>Rule 带 source / citations</b>——<b>规则要有出处。</b><br>
+  <b>没有出处的规则，不是规则，是某个人的意见。</b>（第四课认知萃取会反复讲这一条。）</p>
+  <div class="deck-footer"><span class="ftag">⭐ 翻译表</span><span class="slide-number" data-current="6" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐【这一页是本课的第一个高光，讲慢】</b>"很多建模工具的做法是<b>发明一套自己的建模语言</b>，然后要求所有人来学。<b>这个工具没有。它站在业务团队已经会的 DDD 上，做一层翻译。</b>"</p>
+  <p><b>【对 FDE 的实际意义】</b>"这意味着你在客户现场做的事件风暴、画的限界上下文，<b>不是为了写文档，是为了喂给编译器。</b>——<b>你的每一小时都落到了产物上。</b>"</p>
+  <p><b>【Link 那行的边语义是难点，点一下】</b><span class="mono">root_cause / hypothesis / derivation</span>——<b>它决定多跳推理停在哪</b>。第五课会细讲，<b>今天知道"边是有语义的、不只是一根线"就够了。</b></p>
+  <p><b>【Action 带 HIL 也先埋着】</b>HIL 是第五课下半场的主场。</p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="② 五要素 IR 七段">
+  <div class="kicker">管线 ② · 五要素 IR</div>
+  <h2 class="title">IR：业务专家能读，编译器能吃</h2>
+  <div class="blk model"><span class="t">② 五要素 IR</span><span class="p">Object · Link · Function · Rule · Action　<span class="mono">studio/changes/{id}/ontology-map.md</span></span></div>
+  <table class="t mt-m">
+    <tr><th>IR 段</th><th>编译去向</th></tr>
+    <tr><td><b>§0 Header</b>　Namespace &amp; Source</td><td>ontology_id / namespace</td></tr>
+    <tr><td><b>§1 Objects</b></td><td><span class="mono">spi.registry.add_object(ObjectType(...))</span></td></tr>
+    <tr><td><b>§2 Links</b></td><td><span class="mono">spi.registry.add_link(LinkType(...))</span></td></tr>
+    <tr><td><b>§3 Functions</b></td><td><span class="mono">@spi.function</span>（骨架 + TODO）</td></tr>
+    <tr><td><b>§4 Rules　★ FDE 核心</b></td><td><span class="mono">@spi.rule</span>——<b>declarative 全自动</b> / function 骨架</td></tr>
+    <tr><td><b>§5 Actions</b></td><td><span class="mono">@spi.action</span>（骨架）</td></tr>
+    <tr><td><b>§6 Mapping Hints</b></td><td><span class="mono">mappings/objects.yaml</span></td></tr>
+    <tr><td><b>§7 CQ</b>　能力验证问题</td><td><span class="mono">cq/golden.yaml</span></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>IR 是一份 Markdown</b>——所以<b>业务专家能读、能当场改、能签字</b>；<br>同时它结构严格到<b>编译器能逐行翻译</b>。<b>这两件事同时成立，是 IR 的全部设计目标。</b></p>
+  <div class="deck-footer"><span class="ftag">管线 ②</span><span class="slide-number" data-current="7" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐【§4 标着 ★FDE 核心，规范里原文就这么写的】</b>"为什么规则段是核心？<b>因为对象和关系业务方大多说得清，规则说不清——『大家都知道但没人写下来』的东西全在这一段。</b>第五课的『规则三问』就是为这一段准备的。"</p>
+  <p><b>【规则三问预告一下，第五课细讲】</b>① <b>违反了要不要拦住并回滚</b>（severity: hard/soft）② <b>只看入参能判，还是要去查别的数据</b>（backing: declarative/function）③ <b>依据是哪条标准/方法学/谁的经验</b>（source）。</p>
+  <p><b>⭐【"declarative 全自动"这五个字要点出来】</b>"注意 §4 那行——<b>declarative 规则是唯一被全自动写完函数体的</b>。所以规则三问的第二问<b>答对了，机器就能替你写完</b>。这是整条管线上自动化程度最高的一格。"</p>
+  <p><b>⚠️【又一处文档落差】</b>规范标题写的是「<b>五段式</b>中间表示」，<b>正文实际是 0 号 Header + 七段</b>。<b>按七段。</b></p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="③ 编译产物">
+  <div class="kicker">管线 ③ · 编译插件骨架</div>
+  <h2 class="title">机器给你到哪一步</h2>
+  <div class="blk model"><span class="t">③ 编译插件骨架</span><span class="p"><b>declarative 规则自动</b>　·　<b>function / Action 留 TODO(FDE)</b></span></div>
+  <table class="t mt-m">
+    <tr><th>产出 4 个文件</th><th>内容</th></tr>
+    <tr><td><span class="mono">{target_dir}/__init__.py</span></td><td>ONTOLOGY 常量 + Object/Link 注册 + Function/Rule/Action handler + seed 桩</td></tr>
+    <tr><td><span class="mono">mappings/objects.yaml</span></td><td>← IR §6，对象 → 物理表 / 列 / 物化策略</td></tr>
+    <tr><td><span class="mono">cq/golden.yaml</span></td><td>← IR §7</td></tr>
+    <tr><td><span class="mono">plugin.yaml</span></td><td>清单</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>四类 <span class="mono">NotImplementedError</span> 的来源</b>——它们不是 bug，是<b>界线</b>：</p>
+  <table class="t mt-s">
+    <tr><th>触发条件</th><th>生成物</th></tr>
+    <tr class="ok"><td><b>declarative 规则</b></td><td><b style="color:var(--good)">✅ 函数体全自动写完，不 raise</b></td></tr>
+    <tr class="gap"><td><b>function-backed 规则</b></td><td>装饰器 + docstring + <span class="mono">TODO(FDE)</span> + 可用方法提示 + <b>raise</b></td></tr>
+    <tr class="gap"><td><b>每一个 Action handler</b></td><td>stage_write 骨架注释 + set_confidence + <b>raise</b></td></tr>
+    <tr class="gap"><td><b>Function 口径不明</b></td><td><span class="mono">TODO(FDE)</span>：实现派生量计算（只读，无副作用）+ <b>raise</b></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">机器负责把结构立起来，<br><b>人负责把判断填进去。</b></p>
+  <div class="deck-footer"><span class="ftag">管线 ③</span><span class="slide-number" data-current="8" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐【这一页要立住一个态度，第五课会反复用】</b>"康养项目那个项目留了 <b>121 处 NotImplementedError</b>。<b>这不是没做完，是明确划出了『机器到此为止、人从这里接手』的界线。</b>"</p>
+  <p><b>⭐⭐【一句必须说出口的话】</b>"<b>一个不敢留 NotImplementedError 的 FDE，会让模型把它猜的业务规则写成看起来能跑的代码——那才是灾难。</b>"</p>
+  <p><b>【绿色那一行是好消息，别只讲坏消息】</b>"declarative 规则是<b>唯一被全自动写完函数体的</b>——这不是小事。真实项目里 declarative 规则往往占一半以上，<b>这一半是白捡的。</b>"</p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="⭐ 四命令与强制停点">
+  <div class="kicker">管线全貌 · ⭐ 四个命令只有一个有停点</div>
+  <h2 class="title">那个 ⏸ 是整条管线的设计核心</h2>
+  <pre class="code mt-s">业务分析 → ontology-map（IR 七段）→ <b>⏸ 你审 IR</b> → ontology-compile（插件骨架）
+        → FDE 收尾（填函数体 / 回写 / 参考数据）→ ontology-validate（结构 / 治理 / CQ）</pre>
+  <table class="t mt-m">
+    <tr><th>命令</th><th>干什么</th><th>强制人审</th></tr>
+    <tr><td><span class="mono">/studio-ontology:map {id}</span></td><td>业务分析 → 七段 IR</td><td>无</td></tr>
+    <tr><td><span class="mono">/studio-ontology:compile {id}</span></td><td>IR → 插件骨架</td><td>无（已存在不覆盖，只告警）</td></tr>
+    <tr><td><span class="mono">/studio-ontology:validate {id}</span></td><td>四段校验</td><td>无（只诊断）</td></tr>
+    <tr><td><b><span class="mono">/studio-ontology:model {id}</span></b></td><td><b>map → ⏸ 你审 IR → compile</b></td><td><b style="color:var(--accent)">★ 唯一有</b></td></tr>
+  </table>
+  <div class="card card-accent mt-m"><h4>⏸ 停下来的时候，审四项</h4>
+    <p><b>① 对象边界</b>（是不是真的独立实体）　<b>② edge_semantics</b>（多跳推理停在哪）<br>
+    <b>③ 规则的 severity · backing · 出处</b>　<b>④ Action 的 writes · HIL</b><br>
+    <span class="dim">IR 是 Markdown，<b>你可以直接改文件再继续。</b></span></p></div>
+  <p class="lede mt-m" data-anim="fade-up">⭐ <b>另一处"权限即职责"的设计</b>：<span class="mono">ontology-validate</span> <b>没有 Write 权限</b>——
+  <b>它物理上不可能改你的插件，只能告诉你哪里不合格。</b></p>
+  <div class="deck-footer"><span class="ftag">⭐ 停点</span><span class="slide-number" data-current="9" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐【那个 ⏸ 是本课第二个高光】</b>"很多人会问：既然 LLM 能生成 IR，为什么还要人审一遍？<b>因为本体是治理的锚点——一个没有人签字的治理基准，不是治理基准。</b>"</p>
+  <p><b>⭐【这不是一句口号，是流水线上一个绕不过去的停点】</b>"<b>它被做成了工程约束，不是文档里的一句『建议人工复核』。</b>——这和 S2 讲的『安全的默认值比安全的文档有用一百倍』是同一个思路。"</p>
+  <p><b>【校验器无权改代码，这个设计要夸一句】</b>"<b>纪律靠机制不靠自觉</b>的又一个干净例子。校验器如果能改代码，早晚有人会让它'顺手修一下'——<b>那时候它就不是校验器了。</b>"</p>
+  <p><b>【课堂纪律，转告第五课】</b>"用 <span class="mono">model</span>，不要分开跑 map 和 compile——<b>那个停点是第五课最重要的教学时刻。</b>"</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="⭐ 诚实边界">
+  <div class="kicker">⭐ 本课最该带走的一条职业习惯</div>
+  <h2 class="title">README 里有一节，标题就叫「诚实边界」</h2>
+  <div class="card card-accent mt-s"><p>编译只保证<b>结构对、五要素齐、可 import</b>。<br>
+  <b>function-backed 规则函数体、Action 回写逻辑、参考数据</b>是 FDE 的手艺活，生成骨架 + <span class="mono">TODO(FDE)</span>，
+  由人在 clife-onto-engine 仓库内手填——<b>这正是 FDE 不可替代之处，不假装全自动。</b></p></div>
+  <p class="lede mt-m" data-anim="fade-up"><span class="mono">TODO(FDE)</span> 这个做法值得单独说：它把"<b>这里需要人</b>"从一句原则，
+  变成了<b>代码里一个可以被 grep 出来的标记</b>。<br>
+  → <b>又是 S2 第 14 页那条方法论</b>：重要但会被慢慢磨掉的东西，<b>要想办法让它能被机器检查。</b></p>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card goodcard"><h4>设计上的克制</h4><p>核心语义决策<b>留给人签字</b>——<b>这是主动选择，值得讲。</b></p></div>
+    <div class="card badcard"><h4>能力上的边界</h4><p>function 体、Action 回写<b>现在确实生成不了</b>——<b>这是做不到，不是不想做。</b></p></div>
+  </div>
+  <p class="huge mt-m" data-anim="fade-up">两件事在产品声明里写成了一句话，<br><b>在客户面前要分开讲。</b></p>
+  <div class="deck-footer"><span class="ftag">⭐ 诚实边界</span><span class="slide-number" data-current="10" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐⭐【这一页是本课道德重量最大的一页，讲慢】</b></p>
+  <p><b>【必须说出口的一段】</b>"说『我们刻意把核心语义决策留给人』——<b>没错，这是真的，而且值得讲。</b><br>但如果客户追问『那你们能不能生成 function 规则体』，<b>答『目前生成不了』，别答『我们认为不该生成』。</b><br><b>把做不到包装成克制，是这一行最容易犯、也最伤信任的错。</b>"</p>
+  <p><b>【客户问"你们是不是用 AI 自动建模"的标准答案】</b>"<b>AI 出初稿，业务专家签字。我们不接受一个没有人负责的本体。</b>"——<b>这句话既诚实，又恰恰是我们比『全自动』竞品更值得信任的地方。在这个赛道，承认边界是竞争优势，不是弱点。</b></p>
+  <p><b>【自查会考这一条】</b></p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="⭐ 七段 IR → 七槽位">
+  <div class="kicker">⭐ 缺口 · 回答 S2 那张实测表的"为什么"</div>
+  <h2 class="title">七段 IR，覆盖七槽位中的<b>五格</b></h2>
+  <table class="t mt-s">
+    <tr><th>IR 段</th><th>落进 SPI 槽位</th><th>自动化程度</th></tr>
+    <tr><td>§1 Objects · §2 Links</td><td><b>① Schema 包</b></td><td><b style="color:var(--good)">✅ 全自动</b></td></tr>
+    <tr><td>§6 Mapping Hints</td><td><b>② 映射注册表</b></td><td><b style="color:var(--good)">✅ 全自动</b></td></tr>
+    <tr><td>§3 Functions · §4 Rules</td><td><b>③ Function / Rule</b></td><td><b style="color:var(--warn)">⚠️ 只出骨架</b>（declarative 除外）</td></tr>
+    <tr><td>§5 Actions</td><td><b>④ Action handlers</b></td><td><b style="color:var(--warn)">⚠️ 只出骨架</b></td></tr>
+    <tr><td>§7 CQ</td><td><b>⑦ CQ 验收集</b></td><td><b style="color:var(--warn)">⚠️ 格式与引擎不匹配</b></td></tr>
+    <tr class="gap"><td><b>—— 没有对应的 IR 段 ——</b></td><td><b>⑤ 记忆词典 / 术语表</b></td><td><b style="color:var(--bad)">❌ 完全不生成</b></td></tr>
+    <tr class="gap"><td><b>—— 没有对应的 IR 段 ——</b></td><td><b>⑥ Agent 角色 + HIL 声明</b></td><td><b style="color:var(--bad)">❌ 完全不生成</b></td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">不是编译器没实现，<br><b>是 IR 里压根没有这两段。</b></p>
+  <table class="t mt-m">
+    <tr><th>如果是</th><th>该怎么答客户</th></tr>
+    <tr><td>编译器没实现</td><td>"这是个待补的功能"　<span class="dim">← 那是<b>欠债</b></span></td></tr>
+    <tr><td><b>IR 里没有这一段</b></td><td><b>"这两块目前是人工产出的，不在自动化管线里"</b>　<span class="dim">← 那是<b>设计边界</b>，是坦荡</span></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">⭐ 缺口</span><span class="slide-number" data-current="11" data-total="15"></span></div>
+  <div class="notes"><p><b>【接 S2】</b>"S2 第 6 页给了<b>现象</b>——七槽位只覆盖五格。<b>这一页给结构性原因。</b>"</p>
+  <p><b>⭐【那个区分决定你怎么答客户，必须讲透】</b>"<b>说错了，一个变成欠债，一个是坦荡。</b>客户听到'待补的功能'会记在风险清单上；听到'不在自动化管线里、是人工产出'——<b>那是一个清晰的交付边界。</b>"</p>
+  <p><b>【这句话学员应该能原样说给客户听】</b>"<b>七段 IR 覆盖了七槽位中的五格</b>"——<b>诚实、精确、可交付。</b></p>
+  <p><b>【⑦ CQ 那行的细节，第五课会踩到】</b>编译产 <span class="mono">cq/golden.yaml</span>，但<b>引擎只认 cq.py 的 CQ_SUITE</b>，全仓没有代码读那个 YAML。<b>第五课收尾 6 项里就有这一项。</b></p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="⭐ 验收标准 · 五要素同构">
+  <div class="kicker">⭐ 验收 · 图上那行小字</div>
+  <h2 class="title">产物与手写 <span class="mono">plugins/grass</span> 五要素同构</h2>
+  <p class="lede mt-s" data-anim="fade-up">架构图右下角那个框，最后一行小字就是这句。<b>它是建模端的验收标准。</b></p>
+  <p class="quote-big mt-m" data-anim="fade-up">编出来的东西，<br><b>要和人手写的长得一样。</b></p>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>为什么这条标准立得住</h4>
+      <p><span class="mono">plugins/grass</span> 是<b>手写的、跑通的、被真 Qwen 打过的</b>（S2 第 15 页那六步就是它）。<br>
+      <b>拿一个已经被证明能跑的东西当靶子，比任何"生成质量评分"都硬。</b></p></div>
+    <div class="card card-accent"><h4>它验的到底是什么</h4>
+      <p>不是"代码写得好不好"，是<b>结构齐不齐、契约对不对</b>——<br>
+      <b>五要素都在吗？注册方式一致吗？能被内核 import 吗？</b><br>
+      <span class="dim">这正是 S2 说的：内核靠 SPI 契约吃饭。</span></p></div>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up"><b>已经跑通的实证</b>：本插件已用<b>真草业材料</b>跑通，产物与 clife-onto-engine 手写的 <span class="mono">plugins/grass</span> <b>五要素同构</b>。</p>
+  <p class="lede mt-m" data-anim="fade-up">⭐ <b>对 FDE 的用处</b>：第五课你编完插件卡住的时候，<b>不要猜——去对照 <span class="mono">plugins/grass</span>。</b><br>
+  <b>它是这条管线上唯一的标准答案。</b></p>
+  <div class="deck-footer"><span class="ftag">⭐ 验收</span><span class="slide-number" data-current="12" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐【"拿已经跑通的东西当靶子"这个思路值得学员带走】</b>"验收一个生成器最难的地方是<b>定义什么叫好</b>。这里的做法很聪明：<b>不定义『好』，定义『和那个已经被证明能跑的东西一样』。</b>"</p>
+  <p><b>【第五课的实操建议，说出口】</b>"你们第五课编完插件，一定会卡。<b>卡住的时候第一反应不该是问我，是打开 plugins/grass 对照。</b>"</p>
+  <p><b>【顺带回收 S2 的实证】</b>"grass 不是随便挑的样板——<b>S2 第 15 页真 Qwen 那六步跑的就是它。</b>那六步里的『碱茅是巴彦淖尔乡土、不是锡林郭勒乡土』，就是 grass 插件里的规则在起作用。"</p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide tight" data-title="两仓红线">
+  <div class="kicker">⚠️ 交付纪律 · 最容易犯的一个错</div>
+  <h2 class="title">产物落到哪里，是有红线的</h2>
+  <pre class="code mt-s">建模仓（astra-studio 工作区）             运行时仓（clife-onto-engine）
+studio/changes/{id}/ontology-map.md  →  <b>plugins/{ontology_id}/</b>  ← 本体定义/规则/动作（<b>行业级，租户无关</b>）
+                                        <b>tenants/{tenant}/</b>       ← 该租户的<b>实例与参考数据</b></pre>
+  <table class="t mt-m">
+    <tr><th>规矩</th><th>为什么</th></tr>
+    <tr><td><b>是 <span class="mono">plugins/{ontology_id}/</span>，不是 <span class="mono">plugins/{tenant}/</span></b></td><td>grass 与 chili <b>在同一进程同一 registry 里按 namespace 共存</b></td></tr>
+    <tr><td><b>名录数据、实例数据属于 <span class="mono">tenants/</span></b></td><td>它们是<b>租户层</b>的东西，不是行业层</td></tr>
+    <tr><td><b>IR 文件不在运行时仓</b></td><td>跨仓复制过去</td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">你把名录数据写进 <span class="mono">plugins/</span>，<br><b>违反的不是习惯，是红线。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">这就是 <b>S2 讲的三层切分 Kernel / Plugin / <b>Tenant</b> 在目录上的物理体现</b>——<br>
+  <b>判缝准则的第三档（"具体数字 → 租户"）在这里变成了两个不同的文件夹。</b></p>
+  <div class="deck-footer"><span class="ftag">⚠️ 红线</span><span class="slide-number" data-current="13" data-total="15"></span></div>
+  <div class="notes"><p><b>⚠️【这是第五课最高频的一个错，S3 先打预防针】</b>"你编完插件，手里有一堆名录数据（哪些草种是乡土的、阈值是多少）。<b>最自然的动作是把它们塞进插件里——错。那是租户数据。</b>"</p>
+  <p><b>【回扣 S2 的判缝准则】</b>"S2 说『换成医疗大模型还成立吗』分内核和插件，<b>还有第三档：具体数字归租户。今天你看到那第三档在磁盘上长什么样了——它是另一个文件夹。</b>"</p>
+  <p><b>【为什么是 ontology_id 不是 tenant】</b>"因为 <b>grass 和 chili 是跑在同一个进程、同一个 registry 里的</b>，靠 namespace 分开。<b>插件是按行业组织的，不是按客户组织的。</b>"</p></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-title="行业参照">
+  <div class="kicker">参照 · ⚠️ 二档来源，一节带过</div>
+  <h2 class="title">别人也在做同一件事</h2>
+  <p class="lede mt-s" data-anim="fade-up">据<b>中国信通院 / CCSA TC601 数标委</b>对 Palantir 2026 AIPCon 的公开分析（<b>二手来源，非官方文档</b>）：</p>
+  <table class="t mt-m">
+    <tr><th>他们的观察</th><th>我们这边的对应</th></tr>
+    <tr><td>传统本体建模：<b>6–12 个月</b>周期、<b>8–15 人</b>专职团队、<b>无法跨板块复用</b></td><td>这三个数字是<b>行业公开的成本基线</b>——客户觉得"不就是画个数据模型吗"的时候拿出来</td></tr>
+    <tr><td>把建模从<b>定制项目</b>变成<b>标准化工程能力</b></td><td><b>正是 studio-ontology 在做的事</b>（第 4 页三条动机）</td></tr>
+    <tr><td><b>LLM 是「建模加速器」而非「建模替代者」</b>，核心语义决策<b>人工最终审核</b></td><td><b>我们把它做成了流水线上一个绕不过去的 ⏸</b>（第 9 页）+ 代码里的 <span class="mono">TODO(FDE)</span></td></tr>
+  </table>
+  <div class="card badcard mt-m"><h4>⚠️ 引用纪律，两条</h4>
+    <p>① 讲产品名称与功能细节时说<b>「据信通院的公开分析」</b>，<b>不要说「Palantir 官方称」</b>——我们没核对过官方文档。<br>
+    ② <b>这些数字不是我方业绩</b>，不得用来论证我们的报价。</p></div>
+  <p class="quote-big mt-m" data-anim="fade-up">同一条工程判断，<br><b>在两个产品里各自长了出来。</b></p>
+  <div class="deck-footer"><span class="ftag">参照 · 二档</span><span class="slide-number" data-current="14" data-total="15"></span></div>
+  <div class="notes"><p><b>【这一节只给 10 分钟，别喧宾夺主】</b>"这门课讲的是我们自己的东西。<b>这一页只是告诉你：这条路不是我们一家在走，而且走在前面的那家，划的线和我们一样。</b>"</p>
+  <p><b>⭐【第三行是这一页存在的全部理由】</b>"『LLM 是建模加速器不是替代者』——<b>一个市值千亿的产品把它写成产品原则，我们把它做成了流水线上的一个停点。同一条判断，两个产品各自长了出来。这比我们自己说自己对有力得多。</b>"</p>
+  <p><b>⚠️【来源纪律必须念，这是课程的元示范】</b>"这门课教你区分一手/二手/传闻，<b>那就不能在自己的教材上放松。这一页是二档来源，我标出来了。</b>"</p>
+  <p><b>【想深入的学员，指路手册附录】</b>手册附录保留了那份分析里的<b>五阶段交付方法论、Bootcamp、FDE 三栖与飞轮</b>——<b>那些对做交付有参考价值，但不是这门课的主线。</b></p></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-title="交棒第五课">
+  <div class="kicker">收口 · ⭐⭐ 专题课的终点</div>
+  <h2 class="title">链条闭合</h2>
+  <pre class="code mt-s"><b>S1</b>  本体是什么、为什么必须有                    ← 判断力
+<b>S2</b>  这就是那个 OS（clife-onto-engine 全图）      ← 运行时端
+<b>S3</b>  怎么给它编译应用（studio-ontology）          ← 建模端
+──────────────────────────────────────────────────────────
+<b>L5</b>  <b>你亲手编译一个，让它在那个 OS 上真的跑起来</b></pre>
+  <div class="card card-accent mt-m"><h4>第五课要你做的事</h4>
+    <p>用 <span class="mono">/studio-ontology:model</span> 跑通 <b>map → ⏸ 审 IR → compile</b>，<br>
+    亲手填掉机器帮不了的 <b>6 项收尾</b>，<br>
+    <b>① 落位 <span class="mono">plugins/{ontology_id}/</span> → ② 补齐 → ③ <span class="mono">smoke_cq</span> 绿 → ④ <span class="mono">/viz/{你的 id}</span></b></p></div>
+  <p class="huge mt-m" data-anim="fade-up">你交的不是模型文档，<br><b>是一个能跑的插件。</b></p>
+  <table class="t mt-m">
+    <tr><th>客户问</th><th>你答</th></tr>
+    <tr><td>「你们是不是用 AI 自动建模」</td><td><b>AI 出初稿，业务专家签字。我们不接受一个没有人负责的本体。</b></td></tr>
+    <tr><td>「能不能自动生成规则实现代码」</td><td><b>declarative 能全自动；function-backed 只出骨架——这是能力边界，目前生成不了。</b></td></tr>
+    <tr><td>「记忆词典和 Agent 角色为什么要人做」</td><td><b>IR 里没有这两段，它们不在自动化管线里——是设计边界，不是待补功能。</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">交棒 L5 · ⭐⭐</span><span class="slide-number" data-current="15" data-total="15"></span></div>
+  <div class="notes"><p><b>⭐⭐【三门专题课到这里全部收进一个动作】</b>"S1 给你判断力，S2 给你那个 OS 的全图，S3 给你编译它的工具。<b>第五课，你把这三样合起来，交一个能跑的东西出来。</b>"</p>
+  <p><b>【必须说出口的一句】</b>"这个工作坊里，<b>唯一一个『交付物是系统不是报告』真正兑现的地方，就是第五课。</b>"</p>
+  <p><b>【那三条答问要让学员练一遍】</b>点人回答，<b>尤其第二、三条——它们考的是"能不能诚实地讲"，这是本课独有的东西。</b></p>
+  <p><b>【第五课开场会回到这一页】</b>"今天听懂了，第五课就不是学一个工具的用法，<b>是把三门课的东西落成一个东西。</b>"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

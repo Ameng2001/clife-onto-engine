@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
+  <style>text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}</style>
+  <rect x="0" y="0" width="960" height="720" fill="#ffffff"/>
+  <text x="480" y="52" font-size="24" font-weight="700" fill="#111827" text-anchor="middle">一人公司的能力边界(OPC)</text>
+  <text x="480" y="80" font-size="13" fill="#6b7280" text-anchor="middle">智能体加速认知与产出,人扛责任与判断</text>
+  <line x1="480" y1="100" x2="480" y2="690" stroke="#9ca3af" stroke-width="2" stroke-dasharray="7 5"/>
+  <rect x="50" y="112" width="380" height="46" rx="8" fill="#dcfce7" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="240" y="141" font-size="17" font-weight="700" fill="#166534" text-anchor="middle">智能体可替 / 加速</text>
+  <rect x="50" y="178" width="380" height="70" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="240" y="208" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">认知萃取加速</text>
+  <text x="240" y="230" font-size="12" fill="#16a34a" text-anchor="middle">事件风暴/域模型自动萃取</text>
+  <rect x="50" y="266" width="380" height="70" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="240" y="296" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">建模骨架生成</text>
+  <text x="240" y="318" font-size="12" fill="#16a34a" text-anchor="middle">OAG 五要素批量生成</text>
+  <rect x="50" y="354" width="380" height="70" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="240" y="384" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">并行写作</text>
+  <text x="240" y="406" font-size="12" fill="#16a34a" text-anchor="middle">多章节同时成稿</text>
+  <rect x="50" y="442" width="380" height="70" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="240" y="472" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">格式装配导出</text>
+  <text x="240" y="494" font-size="12" fill="#16a34a" text-anchor="middle">一键 assemble → DOCX/PDF</text>
+  <rect x="530" y="112" width="380" height="46" rx="8" fill="#fed7aa" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="720" y="141" font-size="17" font-weight="700" fill="#9a3412" text-anchor="middle">必须人扛(C7 四项)</text>
+  <rect x="530" y="178" width="380" height="70" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="720" y="208" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">客户关系</text>
+  <text x="720" y="230" font-size="12" fill="#c2410c" text-anchor="middle">梅州实例:11 处地方文号得人去取</text>
+  <rect x="530" y="266" width="380" height="70" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="720" y="296" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">责任承担</text>
+  <text x="720" y="318" font-size="12" fill="#c2410c" text-anchor="middle">梅州实例:签字担责,智能体不背锅</text>
+  <rect x="530" y="354" width="380" height="70" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="720" y="384" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">价值判断</text>
+  <text x="720" y="406" font-size="12" fill="#c2410c" text-anchor="middle">梅州实例:1.36 亿口径取舍靠人拍板</text>
+  <rect x="530" y="442" width="380" height="70" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="720" y="472" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">政治敏感度</text>
+  <text x="720" y="494" font-size="12" fill="#c2410c" text-anchor="middle">梅州实例:去合资/政务表述得人把关</text>
+</svg>

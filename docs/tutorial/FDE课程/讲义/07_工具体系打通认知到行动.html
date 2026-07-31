@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 7 讲 · 工具体系：打通认知到行动（**已降级为一页导览**）</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第 7 讲 · 工具体系：打通认知到行动（**已降级为一页导览**）</h1>
+</header>
+<h1 id="第-7-讲-工具体系打通认知到行动已降级为一页导览">第 7 讲 · 工具体系：打通认知到行动（<strong>已降级为一页导览</strong>）</h1>
+<blockquote>
+<p><strong>⚠️ 2026-07-27 八课重排后本讲的定位变了。</strong> 原 120′ 讲义（238 行）的内容<strong>已被八课手册全面覆盖并大幅超出</strong>——原讲义讲的是“工具体系长什么样”，八课手册直接教“每条命令怎么敲、产物落在哪、验收看什么、哪里会翻车”。 <strong>本文件现在只承担一件事：在 <code>课程/L2_项目与工具.md</code> 的「③ 介绍工具」段花 10 分钟，给学员一张工具全景图。</strong> 原稿完整保留在 <code>讲义/_legacy/07_工具体系打通认知到行动_v1.md</code>（备查，不再上课用）。</p>
+</blockquote>
+<hr />
+<h2 id="一10-分钟导览这套工具到底是什么">一、10 分钟导览：这套工具到底是什么</h2>
+<p><strong>一句话</strong>：Astra Studio 是<strong>把 FDE 方法论固化下来的一套插件</strong>，九个插件各管一段，产物首尾相接。</p>
+<pre><code>studio-core      工作区管理（init / status / promote / create-expert）      ← L2 / L8
+studio-insight   业务分析六件套（画像/旅程/流程/画布/行为矩阵/机会）        ← L4 上半场
+studio-planner   规划流水线（事件风暴→域模型→技能设计→骨架→填充）          ← L4 下半场 / L8
+studio-ontology  本体编译（五要素 IR → 可运行插件）                        ← L5
+studio-docs      文档交付（蓝图/写作专家/并行写作/装配/导出）               ← L6
+studio-platform  平台文档套件（脑图/技术设计/项目计划/迎检话术）             ← L6
+studio-design    设计转代码（截图→.pen→openspec→React）                    ← L7
+studio-quality   插件校验 + MCP 接线                                       ← L8
+fund-review      政府采购报价优化 + 财评预审（垂直插件）                     ← L8 选修</code></pre>
+<p><strong>四条依赖</strong>：<code>planner → core + insight</code>；<code>docs / platform / ontology → core</code>；<code>insight / quality / design</code> 零依赖。</p>
+<hr />
+<h2 id="二两个必须先建立的认知">二、两个必须先建立的认知</h2>
+<h3 id="产物即接口层间契约比工具本身更重要">① 产物即接口：层间契约比工具本身更重要</h3>
+<p>工具之间<strong>不靠内存传参，靠文件</strong>。<code>studio/changes/{domain}/</code> 下的每个文件都是上一步的输出、下一步的输入。</p>
+<p>这带来三个直接后果（L4 下半场 展开）：<strong>随时可中断 · 每步可单独跑 · 可以人工改产物再继续</strong>。</p>
+<blockquote>
+<p><strong>占位符即契约</strong>：你在文档里写了要引用的文件，它就必须存在。 这条纪律在 L8 有物理落点——<code>/studio-quality:validate</code> 会把“引用了不存在的 <code>scripts/xxx.py</code>”直接判 <strong>failed</strong>。</p>
+</blockquote>
+<h3 id="认知到行动-oag不是-rag">② 认知到行动 = OAG，不是 RAG</h3>
+<blockquote>
+<p><strong>OAG ≠ RAG</strong>：RAG 是“检索得准一点”，OAG 是“<strong>越权的结果根本生成不出来</strong>”。 防幻觉在<strong>执行层</strong>（本体约束求解），不在检索层。<strong>LLM proposes, ontology enforces.</strong></p>
+</blockquote>
+<p>L5 会讲透这一层，并给出物理机制：guards / post_rules / HilPolicy 三道关。</p>
+<hr />
+<h2 id="三原讲义的两个反例已搬家">三、原讲义的两个反例已搬家</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>反例</th>
+<th>原主场</th>
+<th><strong>新主场</strong></th>
+<th>落点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>B-3 图片路径断裂</strong></td>
+<td>讲 7</td>
+<td><strong>L8</strong></td>
+<td><code>validate</code> 的检查项：“正文引用的 <code>scripts/xxx.py</code>、<code>references/xxx.md</code> 必须真实存在”，不存在直接 <strong>failed</strong>。同一条纪律，从“导出丢图”升级成“校验器当场拦你”</td>
+</tr>
+<tr class="even">
+<td><strong>B-4 Word 主题色覆盖</strong></td>
+<td>讲 7</td>
+<td><strong>L6</strong></td>
+<td>导出翻车点一节：<strong>交付物格式与内容是两条独立质检线，都得 FDE 自己走一遍</strong>。配套实证：草业项目那份调研 docx <code>python-docx</code> 解析报错、改用 pandoc 才转出来</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>两个反例的<strong>共同点没变</strong>：<strong>内容层没错，是交付物的“格式/呈现”这条独立质检线出的事。</strong></p>
+</blockquote>
+<hr />
+<h2 id="四导览之后去哪">四、导览之后去哪</h2>
+<table>
+<thead>
+<tr class="header">
+<th>想学什么</th>
+<th>看哪份手册</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>怎么把工具装上</td>
+<td><code>工具实操/T2_环境准备.md</code></td>
+</tr>
+<tr class="even">
+<td>怎么把项目描述清楚给智能体</td>
+<td><code>工具实操/T1_信息获取.md</code></td>
+</tr>
+<tr class="odd">
+<td>六件套怎么跑、专家怎么选</td>
+<td><code>工具实操/T3_认知萃取.md</code></td>
+</tr>
+<tr class="even">
+<td>事件风暴到域切分</td>
+<td><code>工具实操/T4_领域建模.md</code></td>
+</tr>
+<tr class="odd">
+<td>五要素本体 + <strong>两道闸</strong></td>
+<td><code>工具实操/T5a_本体建模.md</code> + <code>T5b_设闸与治理.md</code></td>
+</tr>
+<tr class="even">
+<td>写作专家 + 并行写作 + 招投标蓝图</td>
+<td><code>工具实操/T6_文档工程.md</code></td>
+</tr>
+<tr class="odd">
+<td>截图到代码 + <strong>demo 可信度分级</strong></td>
+<td><code>工具实操/T7_界面原型.md</code></td>
+</tr>
+<tr class="even">
+<td>做插件 + 校验器 + 发版</td>
+<td><code>工具实操/T8_技能插件开发.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>全景与映射关系见 <code>../_legacy/00_工具实操总纲_T1-T8.md</code>。</p>
+</body>
+</html>

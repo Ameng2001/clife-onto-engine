@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第3讲 FDE 是企业级 OPC（一人公司）</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .metric{font-size:60px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent-2)}
+  .metric-sm{font-size:40px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:15px;color:var(--text-2);margin-top:10px;line-height:1.4}
+  .bignum{font-size:104px;font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--accent-2)}
+  .chain{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-weight:700;font-size:22px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:38px;line-height:1.4;font-weight:600;color:var(--accent);max-width:24ch}
+  .num-strip{display:flex;gap:40px;flex-wrap:wrap}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="eyebrow" data-anim="fade-down">FDE 课程 · 第 3 讲</div>
+    <h1 class="title" data-anim="fade-up">FDE 是企业级 OPC<br>一人打通，边界在哪</h1>
+    <div class="divider-accent mb-m"></div>
+    <p class="quote-big" data-anim="fade-up">一人公司能成立，<br>但一人公司有边界。</p>
+    <div class="row mt-l" data-anim="fade-up">
+      <span class="pill pill-accent">本讲在能力模型：C7 人的部分（客户关系 / 责任承担 / 价值判断 / 政治敏感度）· 回收 C1–C6</span>
+      <span class="pill">实践蓝本 · 康养行业大模型平台</span>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="12"></span></div>
+    <div class="notes"><p>先把命题钉住：FDE 在交付形态上是一家一人公司，OPC，一个人打通产品、架构、方案全链条。但请注意后半句，一人公司有清晰的边界，边界之内可以靠智能体把人放大，边界之外必须人亲自扛。这一讲不鼓吹一人万能，只画那条线。它是能力模型 C7 的主场，同时回收 C1 到 C6，因为 C1 到 C6 正是可以交给智能体加速的那一侧。今天不花时间证明一人公司成立，那是第 2 讲的活，今天花全部时间讲它的边界在哪。请学员揣着一个问题：我手上的项目，哪些环节是我可以放心交给智能体的，哪些是无论如何必须我自己扛的。</p></div>
+  </section>
+
+  <!-- 2 议程 -->
+  <section class="slide" data-title="本讲议程">
+    <div class="kicker">AGENDA</div>
+    <h2 class="title">本讲议程 · 4 : 4 : 2 · 90′</h2>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card card-accent"><h4>认知输入 · 36′</h4><p class="dim">OPC 是什么 → 可替侧三类 → 必须人扛侧 C7 四项（最重）→ 三铁证复盘 → 边界的动态性</p></div>
+      <div class="card card-accent"><h4>现场演练 · 36′</h4><p class="dim">把本人在做的项目逐个环节拍到线的两侧，并为每条写清"它为什么在这一侧"。</p></div>
+      <div class="card card-accent"><h4>复盘研讨 · 18′</h4><p class="dim">3 研讨题 + 收口 + 难听话：一人公司的成熟度，不看干了多少，看多准确知道哪些不能一个人干。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="2" data-total="12"></span></div>
+    <div class="notes"><p>时间是 4:4:2，落到分钟。认知输入 36 分钟，五个要点页，节奏是 3.1 五分钟、3.2 八分钟、3.3 十二分钟这页最重、3.4 八分钟、3.5 三分钟。演练 36 分钟，你不是抄我的三条边界，是把你自己项目的每个环节拍到线两侧去。复盘 18 分钟三个研讨题加收口。跟学员讲清楚：今天讲得少练得多，因为边界这东西你不亲手把自己的项目拍一遍，永远觉得是我在讲康养项目的故事。</p></div>
+  </section>
+
+  <!-- 3 要点3.1 OPC是可核验交付形态 -->
+  <section class="slide" data-title="要点1 · 一人公司是可核验的交付形态">
+    <div class="kicker">认知输入 · 要点 1</div>
+    <h2 class="title">"一人公司"不是口号，是一种交付形态</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <p class="lede">OPC 是个<strong>结构描述</strong>：一个人对一个交付负全责——对内自己排产、自己质检，对外一个人就是产品经理 / 架构师 / 行业顾问 / 方案经理。</p>
+        <div class="card card-soft"><p>我们说 <strong>OPC</strong>，不说"超级个体"也不说"全能工程师"。那两个词把重点放在"这个人多牛"；OPC 的重点是<strong>这个交付单元的边界在哪、谁负责</strong>。</p></div>
+      </div>
+      <div class="card card-outline center">
+        <div>
+          <p class="metric-label" style="margin:0 0 10px">康养项目这条链，一家一人公司跑出来</p>
+          <div class="chain" style="justify-content:center">
+            <span class="step">102 事件</span><span class="arrow">→</span>
+            <span class="step">7 域</span><span class="arrow">→</span>
+            <span class="step">3835 行骨架</span><span class="arrow">→</span>
+            <span class="step">11 万字可研</span>
+          </div>
+          <p class="metric-label">1 名 FDE + 智能体编队 · 传统为 5+ 工种 / 数周</p>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">OPC 交付形态</span><span class="slide-number" data-current="3" data-total="12"></span></div>
+    <div class="notes"><p>我们说 FDE 是一家一人公司，不是给你打鸡血。OPC 在这里是个结构描述：一个人对一个交付负全责，对内自己排产自己质检，对外一个人就是产品经理、架构师、行业顾问、方案经理。请注意术语，我们说 OPC，不说超级个体也不说全能工程师，因为那两个词把重点放在这个人多牛，而 OPC 的重点是这个交付单元的边界在哪、谁负责。康养项目这条链子就是一家一人公司跑出来的：一个人主持事件风暴出 102 个事件，一个人做 DDD 切出 7 个域，一个人带智能体写 3835 行骨架，一个人锚定口径拉起 35 节并行写作装出 11 万字可研。传统上这是 5 个工种、数周的活。一人公司成立，康养项目已经证明了。今天不证明它成立，今天讲它的边界。</p></div>
+  </section>
+
+  <!-- 4 要点3.2 可替侧 -->
+  <section class="slide" data-title="要点2 · 可替侧：智能体放大了什么">
+    <div class="kicker">认知输入 · 要点 2</div>
+    <h2 class="title">可替侧：模型替你做完，不替你做主</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card"><h4>① 认知萃取加速</h4><p class="dim">判断在你脑子里；落成结构化文本、补齐要素、交叉对齐，模型快十倍。102 事件→16 簇→7 画像 / 7 旅程 / 5 流程。</p></div>
+      <div class="card"><h4>② 建模骨架生成</h4><p class="dim">7 域 OAG 五要素靠管线生成，人只在关键判断点介入。3835 行 Python + 21 YAML，7/7 py_compile ✓。</p></div>
+      <div class="card"><h4>③ 并行写作</h4><p class="dim">1 份 <span class="mono">_WRITING_BRIEF.md</span> 锚口径 → 35 节并行 → 11 万字。把"写"这件体力活并行化。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:24px;font-weight:700;color:var(--accent)">共同点：标准清晰 · 可回退 · 不涉对外承诺</p>
+    <p class="dim tc">记住这三个共同点——下一页的"必须人扛侧"，恰好三条全反过来。</p>
+    <div class="deck-footer"><span class="ftag">可替侧</span><span class="slide-number" data-current="4" data-total="12"></span></div>
+    <div class="notes"><p>先说好消息：一人公司之所以能成立，是因为有三类活可以交给智能体大幅加速。记住是加速不是替代判断，模型替你做完，不替你做主。第一，认知萃取的加速，事件风暴、画像、旅程，判断在你脑子里，但落成结构化文本、补齐要素、交叉对齐，智能体比你快十倍。第二，建模骨架的生成，7 个域的本体五要素真要一个字一个字敲，一个人敲不完，管线把骨架生成出来，3835 行 7 比 7 编译通过。第三，并行写作，11 万字可研一个人顺序写要写到天荒地老，锚定一份 BRIEF，拉起 35 节并行装配质检。这三类活的共同点是：判断标准清晰、错了可回退、不牵扯对外承诺。记住这个共同点，因为下一页三条全反过来。</p></div>
+  </section>
+
+  <!-- 5 要点3.3 必须人扛侧 C7 -->
+  <section class="slide" data-title="要点3 · 必须人扛侧 C7 四项（最重）">
+    <div class="kicker">认知输入 · 要点 3 · 本讲最重</div>
+    <h2 class="title">必须人扛侧 = C7 四项，智能体<strong>结构上</strong>接不了</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card badcard"><h4>客户关系 + 政治敏感度</h4><p class="dim">11 处地方文号，公开渠道<strong>查不到也不能编</strong>。智能体没身份、没关系、进不了机关的门——人拿清单去要。</p></div>
+      <div class="card badcard"><h4>价值判断</h4><p class="dim">站长 HIL 的 <strong>0.75 置信度阈值</strong>，不是算出来的，是权衡拍的——权衡打扰频率、错误增收代价、被信任速度。</p></div>
+      <div class="card badcard"><h4>责任承担</h4><p class="dim">脱敏纪律 / 对外一律"赋能优化"不写"替代"。<strong>署名的是人</strong>，责任不可外包给不承担后果的东西。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:24px;font-weight:700;color:var(--accent)">智能体：无身份 · 无立场 · 不担责</p>
+    <p class="dim tc">课程主张 4：<strong>C1–C6 可训练，C7 只能筛选。</strong>前六维招人能教会，C7 只能招时筛掉不合格的。</p>
+    <div class="deck-footer"><span class="ftag">C7 四项 · 人扛侧</span><span class="slide-number" data-current="5" data-total="12"></span></div>
+    <div class="notes"><p>现在讲这门课真正想让你记住的东西。一人公司的边界不是哪些活多哪些活少，而是 C7 这四项：客户关系、责任承担、价值判断、政治敏感度。这四项智能体接不了，不是现在接不好以后会好，是结构上接不了。三个康养项目铁证。第一，11 处地方文号，本地 DIP 细则、助餐补贴办法、企业 SOP 编号，公开渠道查不到，智能体只有两个选择，编一个像模像样的假文号这是灾难，或者留空。我们留空，转成取件清单让人去机关要。这一步得认识那个人、进得了那个门，是客户关系和政治敏感度。第二，站长 HIL 的 0.75 阈值，定 0.7 还是 0.8 差一点就是橡皮图章和闸门形同虚设的区别，没有模型能替你定，它是权衡拍的。第三，脱敏红线，对外写赋能优化不写替代，在 To-G 场景替代是政治事故，守红线的是人因为承担后果的是人。智能体没有身份、没有立场、不承担后果。</p></div>
+  </section>
+
+  <!-- 6 配图 fig-3-1 -->
+  <section class="slide" data-title="图3-1 一人公司能力边界">
+    <div class="kicker">图 3-1</div>
+    <h3>一人公司能力边界：可替 / 必须人扛</h3>
+    <div class="center" data-anim="fade-up"><img src="../figures/fig-3-1-OPC边界.png" alt="一人公司能力边界：可替侧与必须人扛侧" style="max-width:100%;max-height:60vh"></div>
+    <p class="dim tc mt-s">左半区可替侧（认知萃取加速 / 建模骨架生成 / 并行写作，挂康养项目量化证据）；右半区必须人扛侧 C7 四项，各挂一个铁证（11 处文号 / 0.75 阈值 / 脱敏红线）。<strong>图的重点是中缝那条线，不是两侧的多少。</strong></p>
+    <div class="deck-footer"><span class="ftag">OPC 边界</span><span class="slide-number" data-current="6" data-total="12"></span></div>
+    <div class="notes"><p>看这张图。左半区是可替侧，认知萃取加速、建模骨架生成、并行写作，每一块都挂着康养项目的量化证据，102 事件、3835 行、35 节并行。右半区是必须人扛侧的 C7 四项，客户关系和政治敏感度挂 11 处文号，价值判断挂 0.75 阈值，责任承担挂脱敏红线。中缝那条线就是一人公司的边界。请记住，这张图的重点不是左边多还是右边多，是中间那条线本身。边界之内你用智能体把自己放大成五个人，边界之外你就是一个人，而且必须是你。</p></div>
+  </section>
+
+  <!-- 7 数字页 三铁证 -->
+  <section class="slide" data-title="康养项目证据 · 三个板上钉钉的铁证">
+    <div class="kicker">康养项目证据 · 边界的三个落点</div>
+    <h2 class="title">三个铁证：外包不出去的三件事</h2>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card center badcard"><div><div class="metric">11</div><div class="metric-label">处地方文号占位<br>7 本地文号 + 4 企业 SOP · 一个都没编</div></div></div>
+      <div class="card center badcard"><div><div class="metric">0.75</div><div class="metric-label">站长 HIL 置信度阈值<br>占位待定 · 人拍不是算</div></div></div>
+      <div class="card center badcard"><div><div class="metric">26</div><div class="metric-label">个 HIL 人在环闸门<br>+ 脱敏红线一人必须守</div></div></div>
+    </div>
+    <div class="row mt-l center" data-anim="fade-up">
+      <div class="card card-accent center" style="flex:1"><div><div class="metric-sm">18</div><div class="metric-label">处已核验国标作占位处上位锚</div></div></div>
+      <div class="card card-accent center" style="flex:1"><div><div class="metric-sm">0</div><div class="metric-label">处编造文号</div></div></div>
+    </div>
+    <p class="dim tc mt-s">原话：<strong>"错文号比空缺更有害。"</strong></p>
+    <div class="deck-footer"><span class="ftag">三铁证</span><span class="slide-number" data-current="7" data-total="12"></span></div>
+    <div class="notes"><p>把三个铁证的数量摆出来。11 处地方文号，7 处本地文号加 4 处企业 SOP 编号，我们一个都没编，全部保留占位。0.75 是站长增收闸的置信度阈值，占位待定，等人去拍。26 个 HIL 人在环闸门加一整套脱敏红线，都是人必须守的。同时我们给每个占位处锚了一个已核验的上位国标，18 处，比如 DIP 技术规范医保办发 50 号，让占位不是凭空留白。编造文号 0 处。记住这句原话，错文号比空缺更有害。一份挂着假文号的可研交到医保局，比一份坦白写此处待补的可研杀伤力大得多。</p></div>
+  </section>
+
+  <!-- 8 要点3.4 边界判据三问 -->
+  <section class="slide" data-title="要点4 · 边界判据：三问">
+    <div class="kicker">认知输入 · 要点 4</div>
+    <h2 class="title">边界会动，但有一个判据比记清单更管用</h2>
+    <p class="lede">文号将来能爬到、阈值将来能自调、红线将来能进 prompt——移动的是<strong>可替侧的宽度</strong>，不是<strong>必须人扛侧的存在</strong>。</p>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card card-accent center"><div><div class="metric-sm">① 身份</div><div class="metric-label">需要一个身份才能做吗？<br>→ 客户关系 / 政治敏感度</div></div></div>
+      <div class="card card-accent center"><div><div class="metric-sm">② 立场</div><div class="metric-label">需要一个立场才能拍吗？<br>→ 价值判断</div></div></div>
+      <div class="card card-accent center"><div><div class="metric-sm">③ 签字</div><div class="metric-label">做错了谁签字？<br>→ 责任承担</div></div></div>
+    </div>
+    <p class="tc mt-l" style="font-size:22px;font-weight:700;color:var(--accent)">只要有一个答案指向"人"，这活就在必须人扛侧。</p>
+    <div class="deck-footer"><span class="ftag">三问判据</span><span class="slide-number" data-current="8" data-total="12"></span></div>
+    <div class="notes"><p>有人会说：文号将来能爬到、阈值将来能自动调、红线将来能写进 system prompt，是不是边界会移动？会移动，但移动的是可替侧的宽度，不是必须人扛侧的存在。我给你一个判据，帮你判断任何一条活到底在哪一侧。问三个问题：这活需要一个身份才能做吗？需要一个立场才能拍吗？做错了谁签字？只要有一个答案指向人，这活就在必须人扛侧。11 处文号需要能进机关门的身份，哪怕将来开放接口，去要接口权限本身还是关系活。0.75 阈值需要愿意为速度担多大错的立场，模型给分布人给态度。脱敏红线做错了 FDE 签字担责。反过来 102 事件整理、7 域骨架、35 节并行，三问全是否，稳稳在可替侧。这就是那条线的判据，比记清单更管用。</p></div>
+  </section>
+
+  <!-- 9 反例 B-10 -->
+  <section class="slide" data-title="反例 B-10 · 假文号最危险">
+    <div class="row"><span class="pill" style="background:var(--bad);color:#fff;border:none">反例 B-10</span><h3 style="margin:0">11 处地方文号 · 恰因编得太像才最危险</h3></div>
+    <div class="grid g2 mt-m">
+      <div class="stack">
+        <div class="card badcard"><h4>诱惑与陷阱</h4><p class="dim">编译期动过"让智能体把 11 处文号一起补上"的念头——它能生成格式完全正确、编号规则完全合理的假文号，肉眼几乎分辨不出。</p></div>
+        <div class="card"><h4>为什么最危险</h4><p class="dim"><strong>恰恰因为它编得太像。</strong>一份挂假文号的可研交到医保局，比坦白写"此处待补"的可研，杀伤力大得多。</p></div>
+      </div>
+      <div class="stack">
+        <div class="card goodcard"><h4>处置</h4><p class="dim">11 处全部保留占位，每处锚一个已核验上位国标（如 DIP 技术规范 医保办发〔2020〕50 号），再转成向医保局 / 民政局 / 政数局逐项取件的清单。</p></div>
+        <div class="card card-soft"><p><strong>主张 3：FDE 专业性一半体现在敢说不知道。</strong>B-10 在第 3 / 6 / 9 讲三次复调——本讲划 OPC 边界，第 6 讲讲 HIL 处置，第 9 讲对标 Palantir 取证文化。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">反例 B-10</span><span class="slide-number" data-current="9" data-total="12"></span></div>
+    <div class="notes"><p>康养项目编译期我们不是没动过让智能体把 11 处地方文号也一起补上的念头。它能生成格式完全正确、编号规则完全合理的假文号，肉眼几乎分辨不出。恰恰因为它编得太像才最危险。一份挂着假文号的可研交到医保局，比一份坦白写此处待补的可研，杀伤力大得多。所以我们把这 11 处全部保留占位，每处锚定一个已核验的上位国标，比如 DIP 技术规范医保办发 50 号，再转成向某市医保局、民政局、政数局逐项取件的清单。这就是主张 3，FDE 专业性一半体现在敢说不知道，在一人公司边界上的具体形态。注意这和第 6、9 讲是同一个失误点的三次复调，本讲讲它划定 OPC 边界，第 6 讲讲它的 HIL 处置流程，第 9 讲讲它对标 Palantir 的现场取证文化。</p></div>
+  </section>
+
+  <!-- 10 Exercise 预告 -->
+  <section class="slide" data-title="Exercise 预告">
+    <div class="kicker">现场演练 · 36′</div>
+    <h2 class="title">画你自己项目的"边界图"</h2>
+    <p class="lede">不抄我这三条，把你手上正在做的项目<strong>逐个环节拍到线的两侧去</strong>，并为每一条写清"它为什么在这一侧"。</p>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card center"><div><div class="metric-sm">身份？</div><div class="metric-label">需要一个身份才能做吗</div></div></div>
+      <div class="card center"><div><div class="metric-sm">立场？</div><div class="metric-label">需要一个立场才能拍吗</div></div></div>
+      <div class="card center"><div><div class="metric-sm">签字？</div><div class="metric-label">做错了谁签字</div></div></div>
+    </div>
+    <p class="dim mt-l">写不出理由的，说明你还没想清楚这条边界——那正是你今天要收获的东西。</p>
+    <div class="deck-footer"><span class="ftag">Exercise</span><span class="slide-number" data-current="10" data-total="12"></span></div>
+    <div class="notes"><p>讲了三个我们项目里的边界例子，现在轮到你的项目。打开工作坊，你要做的不是抄我这三条，而是把你手上正在做的那个项目，逐个环节拍到线的两侧去，并且为每一条写清楚它为什么在这一侧，用刚才那三问：需要身份吗？需要立场吗？错了谁签字？写不出理由的，说明你还没想清楚这条边界，那正是你今天要收获的东西。36 分钟，去工作坊。研讨最容易犯的错误不是划错侧，是把偷懒当边界，把你懒得让智能体做的活误判成人扛侧，把藏着身份或签字问题的活误标成可替。</p></div>
+  </section>
+
+  <!-- 11 难听话 -->
+  <section class="slide" data-title="本讲难听话">
+    <div class="kicker">本讲难听话</div>
+    <div class="center" style="flex:1">
+      <p class="quote-big" data-anim="fade-up" style="max-width:30ch">你以为"一个人干完"是本事——真正的本事是<span class="gradient-text">在该叫人的地方叫人。</span><br><br>康养项目那 11 处文号，我们一个都没编；你要是遇到查不到的文号会顺手编一个，你不是一人公司，你是一个人的事故现场。</p>
+    </div>
+    <div class="deck-footer"><span class="ftag">难听话 · 内部专业培训</span><span class="slide-number" data-current="11" data-total="12"></span></div>
+    <div class="notes"><p>这页是难听话，读的时候慢一点重一点。你以为一个人干完是本事，真正的本事是在该叫人的地方叫人。康养项目那 11 处文号，我们一个都没编。你要是遇到查不到的文号会顺手编一个，你不是一人公司，你是一个人的事故现场。停顿两秒，让这句话砸下去，再进收口。一个只会往前冲、不知道边界的 FDE，比一个慢一点但知道边界的 FDE 危险得多，因为前者会在 11 处文号那里编一个出来，会在 0.75 那里随手填个数，会把替代写进 To-G 方案。</p></div>
+  </section>
+
+  <!-- 12 收口/钩子 -->
+  <section class="slide" data-title="收口与钩子">
+    <div class="kicker">收口 · 与其他讲的钩子</div>
+    <h2 class="title">C7 补不了；下一讲讲"能补的那一半"</h2>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card card-accent"><h4>← 第 2 讲</h4><p class="dim">用人力对比证明"一人公司能成立"（5+ 人 / 数周 vs 1 FDE）；本讲证明"一人公司有边界"，两讲合起来才完整。</p></div>
+      <div class="card card-accent"><h4>→ 第 4 讲</h4><p class="dim">C7 补不了；第 4 讲讲 C1/C2/C4/C5/C6 对应的七角色方法论（七栈）——<strong>能补的那一半</strong>。带着"我 C7 哪项弱"的问题去听。</p></div>
+      <div class="card card-accent"><h4>→ 第 6 讲</h4><p class="dim">0.75 阈值、26 个 HIL 点展开为 HIL 设点四条硬判据（不可逆 / 涉钱 / 涉合规 / 跨组织 / 高置信度不足）。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:22px;font-weight:700;color:var(--accent)">验收标准：交付质量不低于康养项目基线，且<strong>知道自己在哪里必须叫人</strong>。</p>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="12" data-total="12"></span></div>
+    <div class="notes"><p>收口。一人公司不是让你逞能，是让你清楚地知道自己什么时候必须叫人。这门课的验收标准原话就是：交付质量不低于康养项目基线，且知道自己在哪里必须叫人。今天不发你能当一人公司的证书，今天让你带走一张你自己项目的边界图。一人公司的成熟度，不看你一个人干了多少活，看你多准确地知道哪些活不能一个人干。第 2 讲证明一人公司能成立，本讲证明它有边界，两讲合起来才完整。下一讲讲知识栈，但知识栈再厚也补不了 C7，C7 是筛选出来的不是学出来的。带着我 C7 哪项最弱这个问题去听第 4 讲。</p></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

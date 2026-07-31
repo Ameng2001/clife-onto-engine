@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>《C-Life FDE 实战工作坊》 授课流程手册单轨  5 天</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">《C-Life FDE 实战工作坊》 授课流程手册单轨 5 天</h1>
+</header>
+<h1 id="c-life-fde-实战工作坊-授课流程手册单轨-5-天">《C-Life FDE 实战工作坊》· 授课流程手册（单轨 · 5 天）</h1>
+<blockquote>
+<p><strong>拿着这一份，就能从第一分钟讲到结课。</strong> 每个时段写明：讲师做什么 / 学员做什么 / 产出什么 / 会卡在哪。 本文件是<strong>时间轴</strong>；每节课的内容在对应册（<code>工具实操/T*.md</code>）；口径查 <code>_WRITING_BRIEF.md</code>；案例查 <code>案例矩阵_跨项目对照.md</code>。 <strong>单轨结构</strong>：九步十册，一册 = 一次课。旧十讲的知识与讲师口播稿已并入各册，<strong>上课不需要另开文件</strong>。 形态参照团队既有《行业数据模型探索工作坊》（STPB 四阶九步）的敏捷引导式，放大到完整能力体系尺度。</p>
+</blockquote>
+<hr />
+<h2 id="三句话说清这个工作坊">〇、三句话说清这个工作坊</h2>
+<ol type="1">
+<li><strong>不是十节课，是一个项目。</strong> 4–5 个小组各领一个真实命题，五天里把它按 FDE 流程真跑一遍，结课交出一份<strong>迷你 FDE 交付包（11 件）</strong>。</li>
+<li><strong>每一册 = 一次课 = 三拍</strong>：知识（讲什么）→ 案例（看什么）→ 实操（各组在本组命题上真跑，<strong>产物落盘</strong>）。</li>
+<li><strong>验收不看“讲得好不好”</strong>，看学员能不能独立走完认知侧全链条，<strong>并且知道自己在哪里必须叫人</strong>。</li>
+</ol>
+<hr />
+<h2 id="一开课前">一、开课前</h2>
+<h3 id="t-7-天-定人定题">T-7 天 · 定人定题</h3>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+确认学员名单，<strong>4–5 组、每组 4–6 人</strong></li>
+<li><input type="checkbox" disabled="" />
+从 <code>工作坊/_贯穿沙盘_分组命题.md</code> 选 4–5 个命题：微康养(A) / 园本知识库(B) / 美业工作台(C) / 标准化种植(D) / 督导应用(E)</li>
+<li><input type="checkbox" disabled="" />
+<strong>命题必须跨两种交付模式</strong>（模式一 SaaS：B/C/E；模式二 平台：A/D）——逼各组用对财务语言，这是 T6 的关键对照</li>
+<li><input type="checkbox" disabled="" />
+给学员发《开课前须知》：自带笔记本、装好 Claude Code、留出管理员权限</li>
+</ul>
+<h3 id="t-1-天-环境冒烟测试讲师必做别在教室里第一次执行">T-1 天 · 环境冒烟测试（讲师必做，别在教室里第一次执行）</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin marketplace add github:VanLengs/astra-studio-plugins</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin marketplace update astra-studio     <span class="co"># ★ 不做这步装不到 studio-ontology</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 装 8 个 studio-* → 重启 Claude Code → 确认 /studio-ontology:map 可见</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install pandoc <span class="kw">&amp;&amp;</span> <span class="ex">pandoc</span> <span class="at">--version</span>           <span class="co"># T6 硬依赖</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+三项冒烟：<strong>studio-ontology 能装上</strong> / <strong>pandoc 能导出 docx</strong> / <strong><code>.pen</code> 能打开</strong></li>
+<li><input type="checkbox" disabled="" />
+准备<strong>备用网络</strong>（教室 Wi-Fi 装插件常挂）</li>
+<li><input type="checkbox" disabled="" />
+打印 <code>FDE交付SOP速查卡.md</code>，人手一张</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>这一步本身就是 T2 的教学内容</strong>：FDE 上客户现场前先跑冒烟测试。<strong>你自己没跑过，第一天就会翻车。</strong></p>
+</blockquote>
+<h3 id="开课当天早上-材料就位">开课当天早上 · 材料就位</h3>
+<table>
+<thead>
+<tr class="header">
+<th>材料</th>
+<th>放哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>十册手册 + 13 个课件</td>
+<td>讲师机：<code>工具实操/</code> 与 <code>slides/</code>（课件按册调用，见各册「讲师包」）</td>
+</tr>
+<tr class="even">
+<td>命题卡（每组一张）</td>
+<td>打印自 <code>工作坊/_贯穿沙盘_分组命题.md</code> 第四节</td>
+</tr>
+<tr class="odd">
+<td>SOP 速查卡</td>
+<td>打印，人手一张</td>
+</tr>
+<tr class="even">
+<td>贯穿工作簿</td>
+<td>每组一个共享文档 / 白板</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="二d1-起步先把话问清楚">二、D1 · 起步：先把话问清楚</h2>
+<blockquote>
+<p><strong>今天的目标</strong>：<strong>先把话问清楚，再把工具装上</strong>。每组把命题说成智能体能接住的输入。 <strong>顺序是刻意的</strong>：信息获取排在装工具之前——<strong>因为它是唯一一个错了无法在下游补救的环节</strong>。 <strong>今天不碰建模。</strong> 学员会急着想画图，压住。</p>
+</blockquote>
+<h3 id="开场与分组60">09:00–10:00 · 开场与分组（60′）</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>时刻</th>
+<th>段</th>
+<th>讲师做什么</th>
+<th>学员做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>09:00</td>
+<td>定调 15′</td>
+<td>讲<strong>康养项目事实</strong>：完整交付链条由 1 名 FDE + 智能体编队完成，传统需 5+ 人数周。<strong>这不是侥幸，是方法</strong>——但方法在一个人脑子里，不在组织里，这门课就是要把它变成组织能力</td>
+<td>听</td>
+</tr>
+<tr class="even">
+<td>09:15</td>
+<td>立规矩 15′</td>
+<td>宣读<strong>五条纪律</strong>（启发-执行 / 时间盒 / 终止铃 / 停车场 / checkout）+ <strong>三条宣言</strong>（完成大于完美 · 团队大于个人 · 共识大于对错）</td>
+<td>齐读宣言</td>
+</tr>
+<tr class="odd">
+<td>09:30</td>
+<td>认领命题 20′</td>
+<td>发命题卡，讲清“一认到底、不换”；说明命题<strong>刻意分布在两种交付模式</strong></td>
+<td>各组认领 + 写下<strong>一句话项目定义</strong>，钉进工作簿首页</td>
+</tr>
+<tr class="even">
+<td>09:50</td>
+<td>交付包预告 10′</td>
+<td>亮出<strong>结课要交的 11 件</strong>，说明每件在哪一册产出</td>
+<td>记进工作簿</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🧭 元规矩（今天立，管五天）</strong> &gt; <strong>查不到的文号 / 数据一律留占位、不编造</strong>；方案级数字标“非实测”；Mock demo 不当产品。 &gt; <strong>这是结课路演的一票警示</strong> —— 现在就说清楚，别等最后一天才让人知道。</p>
+<h3 id="t1-信息获取100">10:00–11:40 · T1 信息获取（100′）</h3>
+<blockquote>
+<p><strong>⭐ 为什么第一课是它，不是装工具</strong>：这是<strong>唯一一个错了之后无法在下游补救</strong>的环节。环境装错了重装就行；域切错了 T4 能返工；本体建歪了 T5 能改——<strong>但信息在源头丢了、歪了，后面每一步都在错误的地基上精雕细琢</strong>。 上午纯业务思考，<strong>下午再装工具</strong>——别让安装问题打断学员的思路。</p>
+</blockquote>
+<p>📘 <code>工具实操/T1_信息获取.md</code> ｜ 🖥 课件 01（16 屏：交付断层 + 信息获取工具箱）+ <strong>01b 提示词工程（5 屏）</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>知识 15′</td>
+<td><strong>交付断层</strong>（客户要结果、组织给工序）——<strong>认知杠杆已移到 T3 实操后讲</strong>。口播稿在册内 §十三</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>工具箱 15′</td>
+<td><strong>全 / 准</strong>两个标准 + 电梯演讲 + 5W2H + 利益相关者（<strong>含“谁反对”</strong>）+ 原话留存</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>两类模板 20′</td>
+<td><strong>A 平台立项型 vs B 大模型能力型</strong> 的选用判据；点破<strong>只写 B 不写 A 是最常见的错</strong></td>
+<td>判本组该用哪类</td>
+<td>模板选型</td>
+</tr>
+<tr class="even">
+<td><strong>提示词工程 20′</strong></td>
+<td>🖥 <strong>切到 01b</strong>：给模型吃的输入 ≠ 给人看的文档；六条规范；<strong>输入包三层</strong>（事实/口径/任务）</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>实操 A 8′</td>
+<td>巡场（穿插在工具箱之后）</td>
+<td>电梯演讲四句 + 5W2H 缺口清单，<strong>当场说给邻组听</strong></td>
+<td>四句 + 缺口清单</td>
+</tr>
+<tr class="even">
+<td>实操 B 7′</td>
+<td>巡场（模板之后）</td>
+<td>填模板骨架到<strong>能判交付模式</strong>为止</td>
+<td><strong>① 项目定义 + 交付模式判定</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>实操 C 10′</strong></td>
+<td>巡场（提示词工程之后）</td>
+<td>⭐<strong>改写成 <code>_INPUT.md</code> 输入包</strong>（事实/口径/任务三层）</td>
+<td><strong>输入包</strong>（T3 起直接用）</td>
+</tr>
+<tr class="even">
+<td>checkout 10′</td>
+<td><strong>十项对照</strong>（含输入包三层、口径层有主、任务层有禁令）</td>
+<td>互评</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 今天最该讲透的一句</strong>：模板 B 的「细化真实提问」——<strong>每类用户 ≥10 条用户原话级提问</strong>。它就是后面 CQ 能力问题的雏形（康养项目 48 条行为 CQ 就是这么来的）。<strong>凑不满 10 条 = 对这类用户还不了解，回去再问。</strong></p>
+<p><strong>⚠️ B-11 主场</strong>：辣椒和草业项目的调研件是同一模板换领域填的，<strong>连数字都被带了过去</strong>。<strong>复用模板可以，复用数字不行。</strong></p>
+<h3 id="t2-环境准备60">11:40–12:40 · T2 环境准备（60′）</h3>
+<p>📘 <code>工具实操/T2_环境准备.md</code> ｜ 🖥 课件 05（平台=固化物）+ 07（工具导览，只用前几屏）</p>
+<table>
+<thead>
+<tr class="header">
+<th>时刻</th>
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>11:30</td>
+<td>开场 5′</td>
+<td>扭预期：<strong>你装的不是工具，是别人走通的方法论</strong></td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>11:35</td>
+<td>前置检查 5′</td>
+<td>带查 claude / git / python3 / brew</td>
+<td>自查，缺的当场补</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>11:40</td>
+<td>安装 15′</td>
+<td>照敲命令；<strong>末尾统一重启一次</strong></td>
+<td>跟敲</td>
+<td>8 个插件</td>
+</tr>
+<tr class="even">
+<td>11:55</td>
+<td>知识 20′</td>
+<td><strong>三层固化</strong>：工具层省时间 / 结构层定形状 / <strong>纪律层防事故</strong> + fund-review 活证据</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>12:15</td>
+<td>init + checkout 10′</td>
+<td>带跑 <code>/studio-core:init</code>，五项对照</td>
+<td>跑</td>
+<td><code>studio/</code> 工作区</td>
+</tr>
+<tr class="even">
+<td>12:25</td>
+<td>机动 5′</td>
+<td>捞卡住的人</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 本段必然卡人</strong>（网络 / 权限 / Node 版本）。<strong>别让全班等</strong>——装好的先帮同组补 T1 的「全/准」自检表，你单独捞人。 <strong>⚠️ 最真实的翻车点</strong>：装完当前会话<strong>看不到新 skill</strong>，学员会以为装失败而反复重装。<strong>统一重启，再逐个确认命令可见。</strong></p>
+<h3 id="各组消化自主讲师巡场">13:30–17:00 · 各组消化（自主，讲师巡场）</h3>
+<ul>
+<li>各组补完项目描述（A 六段 / B 五段齐全）<strong>与 <code>_INPUT.md</code> 输入包</strong></li>
+<li><strong>讲师逐组过一遍</strong>，重点看：价值段有没有量化、商业模式说不说得清</li>
+<li>说不清“谁在什么时候因为什么做了什么动作”的组，<strong>今天必须问清楚</strong>——明天要拿它做事件风暴</li>
+<li><strong>⭐ 逐组检查输入包的②口径层</strong>：数字有没有来源、有没有成熟度标签。<strong>这一层缺了，明天 T3 跑出来的画像会很空洞，而学员会以为是工具不行。</strong></li>
+</ul>
+<hr />
+<h2 id="三d2-认知与结构">三、D2 · 认知与结构</h2>
+<blockquote>
+<p><strong>今天的目标</strong>：从“项目描述”到“域图 + skill-map”。 <strong>今天最关键的一次纠偏在 T4 开头</strong>：什么是业务事件。<strong>写错了后面全歪。</strong></p>
+</blockquote>
+<h3 id="t3-认知萃取135">09:00–11:15 · T3 认知萃取（135′）</h3>
+<p>📘 <code>工具实操/T3_认知萃取.md</code> ｜ 🖥 课件 04a（栈①那几屏）+ <strong>02（认知杠杆，实操之后讲）</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场 5′</td>
+<td>讲清 <strong>T3 与 T4 的关系</strong>：学“零件” vs 学“装配线”，否则明天必困惑</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>知识 30′</td>
+<td>栈① 产品设计：Persona / 旅程 / 机会矩阵</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>启发 10′</td>
+<td>打开<strong>教育督导项目</strong>三件套——<strong>三个画像是一条责任链上的三环</strong>，旅程因此首尾相接</td>
+<td>看</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>实操 55′</td>
+<td>巡场</td>
+<td>persona ×3 / journey ×2 / process ×2 / opportunity</td>
+<td><strong>② 事件集→画像→旅程→热点</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>认知杠杆 15′</strong></td>
+<td>⭐<strong>实操之后立刻讲</strong>：学员刚在 55′ 里产出了传统要几天的东西，<strong>这时候讲杠杆他有实感</strong></td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>checkout 20′</td>
+<td>八项对照，重点查“画像切法”与“数据诚实”</td>
+<td>互评</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 讲透</strong>：画像按<strong>行为</strong>切，不按人口属性切。康养项目基线是“熟人获客接受度 77.59%”，不是“60 岁以上老人”。 <strong>⚠️ B-5 活体</strong>：该区园所数三个源不一致（99/124/79）——<strong>三个数都标“待核实”，不替它选一个</strong>。学员最爱“挑一个看起来靠谱的”，<strong>那就是编造的开始</strong>。</p>
+<h3 id="t4-领域建模120">11:00–12:00 + 13:30–14:30 · T4 领域建模（120′）</h3>
+<p>📘 <code>工具实操/T4_领域建模.md</code> ｜ 🖥 课件 04a（栈②那几屏）</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场 5′</td>
+<td><strong><code>plan</code> 不是编排引擎</strong>，是串行提示词；衔接靠文件 → 可中断 / 可单步 / 可人工改产物再继续</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>知识 30′</td>
+<td>栈② DDD：限界上下文三判据</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>启发 10′</td>
+<td>康养项目 7 域 + <strong>HR项目 9 插件切分</strong>（每个插件都能在项目描述里找到出处）</td>
+<td>看</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>实操 70′</td>
+<td><strong>务必让各组选 ⚡快速模式</strong>；事件写法当场逐条纠偏</td>
+<td>event-storm → domain-model → skill-design</td>
+<td><strong>③ 域图 + skill-map</strong></td>
+</tr>
+<tr class="odd">
+<td>分叉说明 + checkout 20′</td>
+<td>讲 <strong>T5 之后是分叉不是流水线</strong></td>
+<td>互评</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 今天最关键的纠偏</strong>（第一轮就做透）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>❌ 不是事件（是功能）</th>
+<th>✅ 是事件（过去式既成事实）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>提供订单查询功能</td>
+<td><strong>订单已提交</strong></td>
+</tr>
+<tr class="even">
+<td>支持材料上传</td>
+<td><strong>材料已上传</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>判据：能加“已”字、且<strong>已经发生、不可撤销</strong>。逐条问“这个能加’已’吗”——<strong>纠偏五分钟，省后面两小时。</strong></p>
+</blockquote>
+<p><strong>⚠️ 时间盒杀手</strong>：精细模式下一次 <code>plan</code> 有 20+ 个确认点。<strong>两处开场都选快速模式，压到 6–8 次。</strong> <strong>⚠️ 跑到 <code>skill-map</code> 就停</strong>，别一路跑到 spec-generate——那是 T8 的内容，而且没做本体就建骨架，顺序乱了。</p>
+<h3 id="各组补齐自主">14:30–17:00 · 各组补齐（自主）</h3>
+<p><strong>讲师逐组问一句</strong>：你的每个插件，能在 D1 写的项目描述里找到出处吗？<strong>找不到的，多半是你自己想出来的。</strong></p>
+<hr />
+<h2 id="四d3-本体与设闸全课重心">四、D3 · 本体与设闸（全课重心）</h2>
+<blockquote>
+<p><strong>今天是分水岭</strong>。前两天教“想清楚”，今天教<strong>“让机器替你守纪律”</strong>——这是 FDE 与“会用工具的人”的分界线。 <strong>T5a 与 T5b 绝不拆开跨天。</strong></p>
+</blockquote>
+<h3 id="t5a-本体建模90">09:00–10:30 · T5a 本体建模（90′）</h3>
+<p>📘 <code>工具实操/T5a_本体建模.md</code> ｜ 🖥 课件 04b（栈③ OAG，四分册里最厚的一本）</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场 15′</td>
+<td><strong>第一句话就说：这不是编译器</strong>——是 LLM-as-compiler 的 prompt+spec，产出是骨架，<strong>内容 finishing 全靠人工</strong></td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>知识 25′</td>
+<td>栈③ OAG：<strong>OAG ≠ RAG</strong>，防幻觉在执行层不在检索层</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>IR 讲解 20′</td>
+<td>七段 IR + <strong>规则三问</strong>（拦不拦 / 只看入参还是要查 / 依据是哪条）</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>实操 45′</td>
+<td>巡场</td>
+<td>补 intake → <code>/studio-ontology:model</code> → 审 IR → 编译</td>
+<td><strong>④ 五要素本体草案</strong></td>
+</tr>
+<tr class="odd">
+<td>收尾清单 10′</td>
+<td><strong>FDE 收尾 6 项</strong>（机器帮不了的部分）</td>
+<td>记</td>
+<td>收尾清单</td>
+</tr>
+<tr class="even">
+<td>checkout 20′</td>
+<td>六项对照</td>
+<td>互评</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 讲透</strong>：康养项目留了 <strong>121 处 <code>NotImplementedError</code></strong>——这不是没做完，是<strong>明确划出“机器到此为止、人从这里接手”的界线</strong>。 <strong>⚠️ 反面教具</strong>：<code>chili</code> 本体是 5 对象 / <strong>0 关系</strong>。只建对象不建关系，本体退化成数据字典。<strong>和 grass（3 条 Link）并排看，一眼明白五要素为什么缺一不可。</strong></p>
+<h3 id="t5b-设闸与治理90">10:30–12:00 · T5b 设闸与治理（90′）</h3>
+<p>📘 <code>工具实操/T5b_设闸与治理.md</code> ｜ 🖥 课件 06（63KB，全课最大一本）</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>知识 40′</td>
+<td>SOP 七阶段 + HIL 四判据 + 闸分两层。<strong>18 段口播稿在册内 §九，可照读</strong></td>
+<td>听</td>
+<td><strong>⑥ SOP 七阶段</strong></td>
+</tr>
+<tr class="even">
+<td>★两道闸 20′</td>
+<td><strong>本册命门</strong></td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>演示 15′</td>
+<td>跑 <code>python scripts/smoke_cq.py</code>——<strong>删掉一条规则，验收门当场抓住</strong></td>
+<td>看</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>实操 30′</td>
+<td>巡场</td>
+<td>逐个 Action 判四判据、填 hil 列、核 source</td>
+<td><strong>⑦ HIL 设点表 ⑧ 取证清单</strong></td>
+</tr>
+<tr class="odd">
+<td>checkout 20′</td>
+<td>七项对照</td>
+<td>互评</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐⭐ 全课最容易混、也最值钱的一节：两道闸</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>写入闸</th>
+<th>副作用闸（HIL）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>谁触发</td>
+<td>hard 级 post_write 规则被违反</td>
+<td><code>HilPolicy.predicate</code> 返回 true</td>
+</tr>
+<tr class="even">
+<td>效果</td>
+<td><strong>确定性回滚，数据不落地</strong></td>
+<td><strong>数据照常写入</strong>，但工单/凭证<strong>不派发</strong>，等人审</td>
+</tr>
+<tr class="odd">
+<td>拦的是</td>
+<td><strong>写错了</strong></td>
+<td><strong>这事该不该真的发出去</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 三个陷阱</strong>：① 只写 <code>reviewer_role</code> 不写 predicate = <strong>等于没设闸</strong>（默认恒 False）② 置信度要靠 <code>_confidence</code> 注入，编译只给硬编码 0.8 ③ <code>severity_touched==hard</code> 基本不会触发（hard 命中时已回滚返回）</p>
+<p><strong>⭐ 难听话</strong>：<strong>闸设多了等于没设。</strong> 康养项目 26 个 HIL 点里，D2 结算域<strong>一个都没有</strong>——因为它的规则能固化。<strong>人工闸太多会退化成橡皮图章。</strong></p>
+<h3 id="各组补齐-讲师逐组过闸">13:30–17:00 · 各组补齐 + 讲师逐组过闸</h3>
+<ul>
+<li>各组补完 HIL 设点表（5–8 闸）与取证清单</li>
+<li><strong>讲师逐组问三句</strong>：这个闸命中哪条判据？谁按？按错的代价是什么？</li>
+<li><strong>答不上来的闸，当场删掉或改</strong></li>
+</ul>
+<hr />
+<h2 id="五d4-交付物与原型">五、D4 · 交付物与原型</h2>
+<blockquote>
+<p><strong>今天的目标</strong>：把前三天的结构变成<strong>客户能看的东西</strong>——一份文书 + 一个能点开的原型。</p>
+</blockquote>
+<h3 id="t6-文档工程150">09:00–11:30 · T6 文档工程（150′）</h3>
+<p>📘 <code>工具实操/T6_文档工程.md</code> ｜ 🖥 课件 04c（栈④⑤）+ 04d（栈⑥⑦）</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场 10′</td>
+<td><strong>难点不在“写”，在“不打架”</strong>：术语一致、数字同源、编号不撞、图文不断链</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>知识 30′</td>
+<td>栈④ 商业模式与财务语言 + 栈⑥⑦ 交付物工程与合规治理</td>
+<td>听</td>
+<td><strong>⑤ 商业模式 + 财务语言</strong></td>
+</tr>
+<tr class="odd">
+<td>肖作仕 20′</td>
+<td>写作专家四维 + <strong>量化启发式表</strong>（四字短语密度 高≥5…）</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>实操 60′</td>
+<td>巡场</td>
+<td>造写作专家 → 选蓝图 → plan（<strong>停在确认点细看 Gap</strong>）→ 写 1–2 章 → assemble</td>
+<td><strong>⑨ 一节方案稿 + 配图占位</strong></td>
+</tr>
+<tr class="odd">
+<td>checkout 30′</td>
+<td>八项对照</td>
+<td>互评</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 讲透</strong>：<strong>编号权归装配期</strong>，不归写作阶段——这正是反例 B-2 固化成的机制。康养项目 35 节并行写作出过编号重复，现在 <code>assemble-document</code> 统一重排。 <strong>⭐ 财务语言随交付模式变</strong>：模式二讲 IRR / 回本，模式一讲 MRR / LTV:CAC / NRR。<strong>答反了露怯。</strong> <strong>⚠️ plan 的 Gap 清单要认真看</strong>——标 ❌Manual 的章节就是你缺数据的地方，<strong>列进取证清单，别指望写作时圆过去</strong>。</p>
+<h3 id="t7-界面原型120">13:30–15:30 · T7 界面原型（120′）</h3>
+<p>📘 <code>工具实操/T7_界面原型.md</code> ｜ 🖥 课件 09（外部对标与诚实边界）</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场 5′</td>
+<td><strong>立一票警示的规矩</strong>：demo 跑通的是 UI，不是模型</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>流水线 20′</td>
+<td>截图 → .pen → openspec → 代码</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><strong>可信度分级 20′</strong></td>
+<td><strong>当场打开两个 demo 的 <code>lib/data.ts</code> 给学员看</strong></td>
+<td>看</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>实操 50′</td>
+<td>巡场</td>
+<td>三步跑通 + <strong>grep 所有 TODO 写成 Mock 清单</strong></td>
+<td><strong>⑪ demo 原型 + Mock 清单</strong></td>
+</tr>
+<tr class="odd">
+<td>诚实边界 + checkout 25′</td>
+<td>讲 9 的三档来源纪律</td>
+<td>互评</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐⭐ 今天最该做的一个动作</strong>：把教育督导项目和草业项目的 <code>lib/data.ts</code> 并排打开——</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>教育督导项目</th>
+<th>草业项目</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AI</td>
+<td>Mock</td>
+<td>Mock</td>
+</tr>
+<tr class="even">
+<td><strong>数据</strong></td>
+<td><strong><code>fs.readFileSync</code> 读 79 园真实 CSV</strong></td>
+<td><strong>写死数组</strong></td>
+</tr>
+<tr class="odd">
+<td>分级</td>
+<td>壳假 · <strong>数据真</strong></td>
+<td>壳假 · 数据也假</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>代码摆在那里，比讲十遍诚实边界都管用。</strong> 学员必须能说出自己的 demo 在哪一档。</p>
+</blockquote>
+<h3 id="各组补齐自主-1">15:30–17:00 · 各组补齐（自主）</h3>
+<hr />
+<h2 id="六d5-沉淀与结课">六、D5 · 沉淀与结课</h2>
+<blockquote>
+<p><strong>今天的目标</strong>：把方法变成下一个项目的起点，然后交卷。</p>
+</blockquote>
+<h3 id="t8-技能插件开发150">09:00–11:30 · T8 技能插件开发（150′）</h3>
+<p>📘 <code>工具实操/T8_技能插件开发.md</code> ｜ 🖥 课件 05（三层固化回放 1–2 屏）+ 08（团队编成）</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场 5′</td>
+<td><strong>前七步做的是这一个项目，T8 做的是下一个项目</strong></td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>四步链路 20′</td>
+<td>spec-generate → build-skills → validate → promote；traits 在这里兑现</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><strong>校验器 20′</strong></td>
+<td><strong>逐项过一遍检查清单</strong>——这张清单就是“什么叫做完了”的操作定义</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>实操 60′</td>
+<td>巡场</td>
+<td>四步跑通，<strong>故意制造一次 failed 再修好</strong></td>
+<td>⑫ 可发版插件（加分）</td>
+</tr>
+<tr class="odd">
+<td>知识回收 25′</td>
+<td><strong>三层固化回收</strong> + 团队编成 + L1/L2/L3 能力锚</td>
+<td>听</td>
+<td><strong>⑩a 团队编成</strong></td>
+</tr>
+<tr class="even">
+<td>checkout 20′</td>
+<td>八项对照</td>
+<td>互评</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 强烈建议的一个动作</strong>：让学员把某个 SKILL.md 引用的 <code>scripts/foo.py</code> 删掉，跑 validate 看它报 failed，再修好。 &gt; <strong>学员亲眼看到校验器抓住自己，比听十遍“纪律靠机制”都管用。</strong></p>
+<p><strong>⭐ promote 的“不做清单”比“做”更值得讲</strong>：不自动 commit——因为<strong>“我认可这个版本”这句话必须由人说出口</strong>。</p>
+<h3 id="t9-结课知识90">11:30–12:00 + 13:30–14:30 · T9 结课知识（90′）</h3>
+<p>📘 <code>工具实操/T9_结课路演.md</code> ｜ 🖥 课件 03（OPC 边界）+ 10（C-Life 落地）</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>讲师</th>
+<th>学员</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OPC 边界 30′</td>
+<td><strong>C1–C6 可训练，C7 只能筛选</strong>；哪些必须人扛</td>
+<td>听</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>C-Life 落地 60′</td>
+<td>选人 → 训练 → 平台 → 试点 → 度量 → 规模化</td>
+<td>写</td>
+<td><strong>⑩b 90 天启动计划</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="拼交付包30">14:30–15:00 · 拼交付包（30′）</h3>
+<p>各组把 11 件拼成一份，检查口径是否一致。<strong>这一步本身就是 T6 教的“装配期收口”。</strong></p>
+<h3 id="路演每组-20">15:00–16:40 · 路演（每组 20′）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>时长</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2′</td>
+<td>① 项目定义 + 交付模式判定</td>
+</tr>
+<tr class="even">
+<td>4′</td>
+<td>② 认知 → ③ 结构 → ④ 本体</td>
+</tr>
+<tr class="odd">
+<td>3′</td>
+<td>⑤ 商业模式 + 财务语言</td>
+</tr>
+<tr class="even">
+<td>3′</td>
+<td>⑥ SOP + ⑦ HIL 设点 + ⑧ 取证清单</td>
+</tr>
+<tr class="odd">
+<td>4′</td>
+<td>⑨ 方案稿 + <strong>⑪ demo 演示（先说 Mock，再演）</strong></td>
+</tr>
+<tr class="even">
+<td>2′</td>
+<td>⑩ 团队编成 + 90 天计划</td>
+</tr>
+<tr class="odd">
+<td>1′</td>
+<td>⑫ 加分：可发版插件</td>
+</tr>
+<tr class="even">
+<td>1′</td>
+<td>提问</td>
+</tr>
+</tbody>
+</table>
+<p><strong>评审</strong>：八维评审卡（<code>工作坊/_贯穿沙盘_分组命题.md</code> 第五节）互评 + 讲师评。</p>
+<h3 id="定级与结课50">16:40–17:30 · 定级与结课（50′）</h3>
+<p><strong>⭐ 三条一票警示</strong>（命中任一，路演不通过）： 1. <strong>编造查不到的文号</strong>（B-10） 2. <strong>把别处模板的数字当自己的</strong>（B-11） 3. <strong>把方案目标值 / Mock demo 说成已实现</strong>——包括说不出自己的 demo 在哪一档</p>
+<blockquote>
+<p><strong>三条其实是同一条</strong>：<strong>空缺可以补，编造无法挽回。</strong></p>
+</blockquote>
+<p><strong>结课不发合格证，发能力等级 + 差距清单</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>级</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L1 见习</strong></td>
+<td>能在 FDE 指导下承接单一环节</td>
+</tr>
+<tr class="even">
+<td><strong>L2 胜任</strong></td>
+<td>能独立完成认知侧全链条，交付物需一次复核</td>
+</tr>
+<tr class="odd">
+<td><strong>L3 主理</strong></td>
+<td>能主持项目、设 HIL 闸、<strong>对客户承诺负责</strong>，并能带 L1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>难听话（结课必须说）</strong>：<strong>多数人第一次会停在 L1，这是正常的，装作 L2 才是危险的。</strong></p>
+</blockquote>
+<hr />
+<h2 id="七应急预案">七、应急预案</h2>
+<h3 id="时间不够砍什么">时间不够，砍什么</h3>
+<table>
+<thead>
+<tr class="header">
+<th>优先砍</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T7 界面原型</td>
+<td>原型可课后做</td>
+</tr>
+<tr class="even">
+<td>T8 技能插件（降为演示）</td>
+<td>沉淀可延后</td>
+</tr>
+<tr class="odd">
+<td>T6 的“写 2 章”降为“写 1 章”</td>
+<td>但 <strong>plan 的 Gap 清单必须留</strong>，那才是教学点</td>
+</tr>
+<tr class="even">
+<td><strong>绝不砍 T5a + T5b</strong></td>
+<td><strong>唯一产出“机器会强制执行的东西”的一步</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>压缩档（3 天）</strong>：D1（T2+T1+T3）/ D2（T4+T5a+T5b）/ D3（T6 或 T7 择一 + T9 路演）。 <strong>分散档（9 周）</strong>：每周一册 + 各组线上推进，配合在手真实项目——<strong>T5b / T6 / T8 的产出需要真实项目承载，这一档最理想</strong>。</p>
+<h3 id="学员卡住">学员卡住</h3>
+<table>
+<thead>
+<tr class="header">
+<th>症状</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>装不上插件</td>
+<td>别让全班等；装好的先读 T1 模板，你单独捞</td>
+</tr>
+<tr class="even">
+<td>看不到新 skill</td>
+<td><strong>重启 Claude Code</strong>——不是装失败，别重装</td>
+</tr>
+<tr class="odd">
+<td>事件写成功能清单</td>
+<td>逐条问“这个能加’已’吗”</td>
+</tr>
+<tr class="even">
+<td>命题太大跑不动</td>
+<td>当场收窄到单一切口（县域 / 单场景）</td>
+</tr>
+<tr class="odd">
+<td>工具停下来问问题</td>
+<td>告诉学员：<strong>它在等你做判断，这些判断恰恰不能外包</strong></td>
+</tr>
+<tr class="even">
+<td>画像做成人口统计</td>
+<td>打回，要行为 + 证据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="环境炸了">环境炸了</h3>
+<ul>
+<li>studio-ontology 装不上 → 先跑 <code>marketplace update</code></li>
+<li>pandoc 缺失 → T6 的导出段跳过，只讲 plan / assemble</li>
+<li>网络挂了 → 改讲师机投屏演示，各组先在纸上做判断</li>
+</ul>
+<hr />
+<h2 id="八贯穿五天的三条纪律">八、贯穿五天的三条纪律</h2>
+<ol type="1">
+<li><strong>每一步都必须真跑工具，产物落盘。</strong> 不许“听懂了就跳过”——<strong>产物没落盘就是没做</strong>。</li>
+<li><strong>案例只做标尺、不做模板。</strong> “康养项目做对了长这样，但你的城市/切口/规模不同，<strong>照结构做、别抄数字</strong>”——这正是 B-11。</li>
+<li><strong>查不到的一律留占位。</strong> 从第一天立规矩，到最后一天做一票警示的检验。</li>
+</ol>
+<hr />
+<h2 id="九资产索引">九、资产索引</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>资产</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>本文件</strong></td>
+<td><strong>授课流程（时间轴）—— 拿着它上课</strong></td>
+</tr>
+<tr class="even">
+<td><strong><code>工具实操/T1–T9_*.md</code>（十册）</strong></td>
+<td>⭐ 每节课的全部内容：知识 · 案例 · 实操 · checkout · <strong>讲师包（口播稿 + 时间盒 + 课件指引）</strong></td>
+</tr>
+<tr class="odd">
+<td><code>slides/*.html</code>（13 个课件）</td>
+<td>按册调用，各册「讲师包」写明用哪几个</td>
+</tr>
+<tr class="even">
+<td><code>00_工具实操总纲_T1-T8.md</code></td>
+<td>总纲/索引：九步十册总表 + 旧十讲去向 + 冒烟测试结果</td>
+</tr>
+<tr class="odd">
+<td><code>_WRITING_BRIEF.md</code></td>
+<td><strong>口径唯一真相源</strong>（术语 / 核心数据 / 商业口径 / 禁用词）</td>
+</tr>
+<tr class="even">
+<td><code>案例矩阵_跨项目对照.md</code></td>
+<td>六案例 + 交付模式 + <strong>成熟度分层</strong></td>
+</tr>
+<tr class="odd">
+<td><code>工作坊/_贯穿沙盘_分组命题.md</code></td>
+<td>5 个命题库 + <strong>八维路演评审卡</strong></td>
+</tr>
+<tr class="even">
+<td><code>FDE交付SOP速查卡.md</code></td>
+<td>现场随身速查，人手一张</td>
+</tr>
+<tr class="odd">
+<td><code>00_课程总纲.md</code></td>
+<td>能力模型 C1–C7 · 考核 · <strong>反例库 B-1~B-11</strong>（备课查，非上课用）</td>
+</tr>
+<tr class="even">
+<td><code>_工作坊授课规范.md</code></td>
+<td>敏捷引导式授课形式规范</td>
+</tr>
+<tr class="odd">
+<td><code>讲义/_legacy/</code> · <code>工作坊/NN</code></td>
+<td>旧十讲讲义与旧环节脚本（<strong>已并入十册，归档备查</strong>）</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

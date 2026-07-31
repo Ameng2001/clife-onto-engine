@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 第四课 · 认知萃取 + 领域建模</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:56px 80px}
+  .mt-l{margin-top:22px}
+  .mt-m{margin-top:14px}
+  .lede{font-size:19px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:6px}
+  .card p,.card-accent p,.card-outline p{font-size:15px;line-height:1.55}
+  h2.title{font-size:42px;line-height:1.15}
+  .metric-sm{font-size:36px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .chain{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:700;font-size:18px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:7px 12px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:31px;line-height:1.38;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+  .warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:15px}
+  table.t th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:6px 10px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:6.5px 10px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:14px;line-height:1.6;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:14px 18px;overflow:auto;color:var(--text-1)}
+  .half{display:inline-block;background:var(--accent);color:#fff;border-radius:4px;padding:2px 10px;font-size:13px;font-weight:700;letter-spacing:.06em}
+  .slide.tight .card,.slide.tight .card-accent,.slide.tight .card-outline{padding-top:7px;padding-bottom:7px}
+  .slide.tight table.t td{padding-top:3.2px;padding-bottom:3.2px}
+  .slide.tight pre.code{padding-top:8px;padding-bottom:8px}
+  .slide.tight .mt-l{margin-top:12px}.slide.tight .mt-m{margin-top:8px}
+</style>
+<div class="deck">
+
+<!-- 1 封面 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 第四课 · 240′ · SOP【S1 认知萃取 / S2 结构收敛 / S3 域切分】</div>
+  <h1 class="title" data-anim="fade-up">认知萃取 + 领域建模</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">上半场学<b>零件</b>，<br>下半场学<b>装配线</b>。</p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">上：画像≥3 旅程≥2 流程≥2 热点</span>
+    <span class="pill pill-accent">下：domain-map + skill-map</span>
+  </div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="22"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 · 上半场 120′】</b> 一览+关系 5′ ｜ 栈① 产品设计 30′ ｜ 六件套讲解 15′ ｜ 沉浸教育督导项目 15′ ｜ <b>实操 70′</b> ｜ 认知杠杆回收 10′ ｜ checkout 20′　<b>（逐段相加超时，见下）</b></p>
+    <p><b>【时间盒 · 下半场 120′】</b> 栈② DDD 30′ ｜ plan 不是编排引擎 10′ ｜ 五步+traits 15′ ｜ 沉浸 10′ ｜ <b>实操 70′</b> ｜ 分叉预告 5′ ｜ checkout 20′</p>
+    <p><b>⚠️【已知超时，必须现场取舍】</b> 两半场逐段实计约 <b>280′</b>，总纲额度 240′。<b>这个差是 v0.2 两本旧册各自就带着的，不是本次合并算出来的。</b> 压缩优先级：①砍栈①的"业界经典"段（学员手册里有）②砍六个产物的逐个展示（手册里有样子）③<b>绝不砍实操，绝不砍画像真假之分</b>。</p>
+    <p><b>【开场先在 SOP 图上指位置】</b>"我们现在一次进三格：S1 认知萃取、S2 结构收敛、S3 域切分。这是全课唯一一次一堂课跨三个阶段。"</p>
+    <p><b>【必须先讲清的一件事】</b> 上下半场会碰同一批产物，<b>但不重复</b>。下半场的流水线内部会调用上半场那三个工具——<b>上半场先手动跑一遍，是为了让学员知道流水线里到底发生了什么</b>，否则跑完他们只会说"它自己生成了一堆文件"。</p>
+  </div>
+</section>
+
+<!-- 2 上下半场关系 -->
+<section class="slide" data-title="上下半场关系">
+  <div class="kicker">本课路线</div>
+  <h2 class="title">零件，与装配线</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%"></th><th style="width:42%"><span class="half">上半场</span> 认知萃取 120′</th><th><span class="half">下半场</span> 领域建模 120′</th></tr>
+    <tr><td><b>怎么跑</b></td><td><b>手动单跑</b> 6 个 insight 工具</td><td><span class="mono">/studio-planner:plan</span> 一条命令串 5 步</td></tr>
+    <tr><td><b>目的</b></td><td><b>看清每个产物长什么样、为什么这么长</b></td><td>体会<b>流水线</b>：事件风暴自动调用画像/旅程/流程</td></tr>
+    <tr><td><b>学什么</b></td><td>学<b>零件</b></td><td>学<b>装配线</b></td></tr>
+    <tr><td><b>产出</b></td><td>② 画像≥3 · 旅程≥2 · 流程≥2 · 热点分层</td><td>③ <span class="mono">domain-map.md</span> + <span class="mono">skill-map.md</span></td></tr>
+    <tr><td><b>能力位</b></td><td><b>C1 认知萃取</b></td><td><b>C2 结构建模</b>（上半）</td></tr>
+  </table>
+  <p class="lede mt-l" data-anim="fade-up">不会重复，<b>但确实会碰同一批产物</b>——先讲明白，否则到下半场必困惑。</p>
+  <div class="deck-footer"><span class="ftag">零件 vs 装配线</span><span class="slide-number" data-current="2" data-total="22"></span></div>
+  <div class="notes"><p>这 5 分钟不能省。<b>每一届都有学员在下半场举手问"这个刚才不是跑过了吗"</b>。现在说清楚，后面省十分钟。</p></div>
+</section>
+
+<!-- 3 栈① 核心命题 -->
+<section class="slide" data-title="栈① 核心命题">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈① 产品设计 1/4</div>
+  <h2 class="title">产品设计不是"画原型"</h2>
+  <p class="quote-big mt-s" data-anim="fade-up">一条把"客户想要点什么"<br><b>逼成可归域结构</b>的方法论管线。</p>
+  <div class="chain mt-l" data-anim="fade-up" style="font-size:22px">
+    <span class="step">事件</span><span class="arrow">→</span><span class="step">画像</span><span class="arrow">→</span>
+    <span class="step">旅程</span><span class="arrow">→</span><span class="step">机会矩阵</span>
+    <span class="arrow">⇢</span><span class="step" style="background:var(--grad-soft);border-color:var(--accent)">限界上下文</span>
+  </div>
+  <div class="card mt-l" data-anim="fade-up">
+    <h4>【这个角色原本是谁】产品经理 / 产品设计师</h4>
+    <p class="dim">负责把模糊的客户意图变成"要做什么"。传统模式里他一个人占着这个位置，<b>交接给架构师时信息就衰减一次</b>。<br>
+    <b>FDE 把这套方法论装进自己脑子</b>，从事件一路跑到机会矩阵，<b>中间不换人</b>。</p>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>画像 → 旅程 → 机会矩阵有先后</b>：画像不真，旅程就是编的；旅程不暴露痛点，机会矩阵就没有原料。<b>这条顺序不能倒。</b></p>
+  <div class="deck-footer"><span class="ftag">栈①</span><span class="slide-number" data-current="3" data-total="22"></span></div>
+  <div class="notes"><p><b>【每一栈开场都用"这个角色原本是谁"起手】</b>这是七角色知识栈的统一讲法——先告诉学员这一栈原本属于哪个岗位、传统模式在哪里断，再说 FDE 怎么把它接过来。</p>
+  <p><b>【业界经典可以砍】</b>《设计冲刺》《产品思维 30 讲》《场景化产品设计》——超时就跳过，学员手册里列全了。<b>但"场景七要素就是第五课五要素的前身"这一句要留</b>，它是跨课的钉子。</p></div>
+</section>
+
+<!-- 4 画像真假 -->
+<section class="slide" data-title="画像的真假之分">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈① 2/4 · <b>上半场唯一的核心教学点</b></div>
+  <h2 class="title">画像的真假之分</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card badcard"><h4>❌ 假画像 = 人口统计</h4><p class="dim" style="font-size:18px">"60 岁以上、退休、有慢病"<br><br><b>从常识就能编</b></p></div>
+    <div class="card goodcard"><h4>✅ 真画像 = 行为倾向 + 证据</h4><p class="dim" style="font-size:16px">"熟人获客接受度 <b>77.59%</b>"<br>"智能监护接受但要简单式 <b>84.48%</b>"<br><br><b>必须去问</b></p></div>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up">康养项目那 7 个画像背后是 <b>368 份问卷校准</b>，<b>每条特征都能指回一份数据来源</b>。</p>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <h4>判据</h4>
+    <p class="dim">两个画像如果<b>目标、痛点、使用频率没有显著差异，就不该拆成两个</b>。<br>
+    建议 <b>2–3 个起步</b>，超过 4 个说明<b>你的范围划大了</b>。</p>
+  </div>
+  <div class="deck-footer"><span class="ftag">画像真假</span><span class="slide-number" data-current="4" data-total="22"></span></div>
+  <div class="notes"><p><b>【这一页绝不能砍，绝不能赶】</b>整个上半场如果只能留一页，留这一页。</p>
+  <p>"假画像的特征是<b>你坐在办公室里就能写出来</b>。真画像的特征是<b>你不去问就编不出来</b>。77.59% 这个数你编不出来——你要么有 368 份问卷，要么没有。"</p>
+  <p><b>【实操巡场的第一抓手】</b>学员十有八九会跑出按年龄/职业切的画像。<b>当场退回重跑</b>，不要等到 checkout。</p></div>
+</section>
+
+<!-- 5 旅程 + 热点 -->
+<section class="slide" data-title="旅程选题与热点分层">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈① 3/4</div>
+  <h2 class="title">另外两件要讲透的事</h2>
+  <div class="card mt-s" data-anim="fade-up">
+    <h4>② 旅程要选"最暴露痛点"的场景，不是最典型的场景</h4>
+    <p class="dim"><b>典型场景大家都顺，看不出机会在哪。</b></p>
+  </div>
+  <div class="card mt-m" data-anim="fade-up">
+    <h4>③ 热点分层是给决策者看的，不是给自己看的</h4>
+    <p class="dim">打分的意义不在分数本身，在<b>逼你说清"凭什么这个先做"</b>。<br>
+    工具<b>明确允许你以业务理由否决它的排序</b>——<b>这正是 C7「价值判断」不可外包的具体落点</b>：模型能算 Impact×Feasibility，但"这个季度必须先啃硬骨头给客户看到东西"这种判断，<b>只能人做</b>。</p>
+  </div>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <h4>⚠️ 一处方法论与工具的差异，要当场说明</h4>
+    <p class="dim">机会矩阵方法论上是<b>三因子</b>（影响 × 可行性 × <b>频率</b>），但工具<b>只算两轴</b>：<span class="mono">Score = Impact × Feasibility</span>，<b>频率不进公式</b>。<br>
+    <b>不是工具做错了</b>——频率信息在旅程里（"每天都遇到" vs "一年一次"），<b>工具把它留给你做最后判断</b>。<br>
+    <b>别让学员对着两个数字发懵，也别自己动手改工具算法。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">旅程 · 热点</span><span class="slide-number" data-current="5" data-total="22"></span></div>
+  <div class="notes"><p><b>【③ 是 C7 在本课的唯一落点，要点破】</b>"第一课讲 C7 只能筛不能训，学员当时觉得很抽象。<b>现在给你们看它长什么样</b>：工具算出 OP-3 排第一，你说'不行，这个季度必须先做 OP-7，因为客户领导换届前要看到东西'——<b>这句话模型永远说不出来</b>。"</p></div>
+</section>
+
+<!-- 6 六件套结构 -->
+<section class="slide" data-title="六件套与专家发现">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 工具 4/4</div>
+  <h2 class="title">六个工具，同一个内部结构</h2>
+  <pre class="code mt-s" data-anim="fade-up">① 专家发现（五步）→ ② 主体分析 → ③ 专家评审（派子代理评审草稿）
+  → ④ 向你提 3–4 个问题 → ⑤ <b>这时才落盘</b></pre>
+  <p class="lede mt-s" data-anim="fade-up"><b>先评审、再问你、最后才写文件。</b> 你看到"它在反复确认"<b>不是卡住了，是设计如此</b>。</p>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <h4>⚠️ 翻车点 · 同名专家静默覆盖</h4>
+    <p class="dim">专家发现第 3 步写着 <b>"skip any already loaded from project"</b>——你在 <span class="mono">studio/agents/</span> 放了个自己写的 <span class="mono">product-manager.md</span>，<b>内置那份根本不会被加载</b>。<br>
+    <b>产出的画像会走味，而且没有任何报错。</b><br>
+    <b>处置</b>：跑之前先 <span class="mono">ls studio/agents/</span>。要定制用 <span class="mono">/studio-core:create-expert customize</span>，<b>别手搓同名文件</b>。</p>
+  </div>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <p class="dim">⚠️ 插件文档里有处写 <span class="mono">/studio-insight:create-expert</span>——<b>这个命令不存在</b>，正确的是 <span class="mono">/studio-core:create-expert</span>。<b>下半场事件风暴文档里同样有两处这么写。同一个错，两个地方，见到就改口。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">六件套</span><span class="slide-number" data-current="6" data-total="22"></span></div>
+  <div class="notes"><p><b>【六个产物长什么样这一段可以砍】</b>学员手册里逐个写了结构。这里只讲"同构五段"和"静默覆盖"两件事。</p>
+  <p><b>【顺带一个"平台=固化物"的活证据】</b>"内置 11 个专家里有<b>老年营养</b>和<b>老年康复运动</b>——<b>正是康养项目沉淀下来的</b>。上一个项目的领域知识，变成了下一个项目开箱可用的评审视角。这就是第二课那句话在专家层的样子。"</p></div>
+</section>
+
+<!-- 7 沉浸 教育督导项目 -->
+<section class="slide" data-title="沉浸 · 教育督导项目三件套">
+  <div class="kicker"><span class="half">上半场</span> ③ 沉浸</div>
+  <h2 class="title">教育督导项目：三件唯一齐全的</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:14%">类型</th><th style="width:40%">文件</th><th>看点</th></tr>
+    <tr><td><b>画像</b></td><td>p1 李科长（区教育局）/ p2 张园长 / p3 王老师</td><td><b>三层视角</b>：监管者 / 管理者 / 执行者。同一件事在三个人眼里完全不同</td></tr>
+    <tr><td><b>旅程</b></td><td>j1 从差距到 OKR / j2 从任务到班级 / j3 上传到质检</td><td><b>三条旅程首尾相接</b>：李科长的产出是张园长的输入，张园长的产出是王老师的输入</td></tr>
+    <tr><td><b>流程</b></td><td>pf1 / pf2 / pf3</td><td>与旅程一一对应，把"人的体验"翻译成"系统的流程"</td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">三个画像不是并列的三类用户，<br><b>是一条责任链上的三环。</b></p>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <h4>⚠️ 同时带一个 B-5 活体：园所数源内不一致</h4>
+    <p class="dim">事件风暴写 <b>99 所</b>、热点评估写 <b>124 园</b>、数据样本是 <b>79 园</b>。<br>
+    <b>正确处置是三个数都标"待区教育局核实"，不替它选一个。</b><br>
+    学员最爱的动作是"挑一个看起来最靠谱的写上去"——<b>那就是编造的开始。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">教育督导项目</span><span class="slide-number" data-current="7" data-total="22"></span></div>
+  <div class="notes"><p><b>【当场点开三件套目录】</b><span class="mono">Plugins/kindergarten-bench-plugins/studio/changes/saihan-preschool/</span>。让他们看真文件。</p>
+  <p><b>【给学员的问题，一定要问】</b>"你的命题里，那几个角色是<b>并列</b>的，还是有<b>责任传递关系</b>的？<b>如果是链，就按链来做旅程。</b>"——这个问题会直接改变他们实操的做法。</p>
+  <p><b>【成熟度必须标】</b>教育督导项目已完成建模+方案+47 页 demo，<b>AI 是 Mock 但数据是 79 园真实 CSV</b>；<b>本体未编译</b>。别说成"已交付"。</p>
+  <p><b>【反面对照 · 学前教育项目，一句话带过】</b>"它交出了 653KB 可研，<b>但没有画像、没有旅程</b>。说明什么？<b>可研写得出来，不等于认知萃取做过了。</b> 跳过认知萃取也能交付，但交付的是'我们理解的业务'，不是'客户实际在做的业务'。<b>正因为它没有画像旅程，它不能拿来教认知萃取。</b>"</p></div>
+</section>
+
+<!-- 8 上半场实操 -->
+<section class="slide" data-title="上半场实操">
+  <div class="kicker"><span class="half">上半场</span> ④ 实操 · 70′</div>
+  <h2 class="title">六件套跑一遍</h2>
+  <div class="card card-accent mt-s" data-anim="fade-up">
+    <h4>🔔 先做一件事：把第三课的 <span class="mono">_INPUT.md</span> 喂进去</h4>
+    <p class="dim">六件套的第一个输入，<b>就是第三课产出的输入包</b>——不是现场再口述一遍命题。<br>
+    ⭐ <b>这是对第三课的一次真实验收</b>：画像空洞、术语漂移 → <b>回去看输入包的 ② 口径层缺了什么，别怪工具。</b></p>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:8%">序</th><th style="width:28%">命令</th><th style="width:12%">时长</th><th>输出</th></tr>
+    <tr><td>1</td><td><span class="mono">persona-insight</span></td><td>20′</td><td>≥3 张画像卡 + README 索引</td></tr>
+    <tr><td>2</td><td><span class="mono">journey-map</span> ×2</td><td>20′</td><td>2 条旅程（选<b>最能暴露痛点</b>的场景）</td></tr>
+    <tr><td>3</td><td><span class="mono">process-flow</span> ×2</td><td>15′</td><td>2 个流程（含决策点表）</td></tr>
+    <tr><td>4</td><td><span class="mono">opportunity-brief</span></td><td>15′</td><td>热点排名（<b>可当场推翻评分</b>）</td></tr>
+  </table>
+  <p class="dim mt-m" data-anim="fade-up"><span class="mono">domain-canvas</span> 与 <span class="mono">behavior-matrix</span> <b>本步不强制跑</b>——下半场流水线完整模式会带出来。时间充裕的组可以跑后者，<b>提前感受第五课五要素的雏形</b>。</p>
+  <div class="deck-footer"><span class="ftag">实操</span><span class="slide-number" data-current="8" data-total="22"></span></div>
+  <div class="notes"><p><b>【巡场三个抓手】</b>①<b>画像按人口属性切的组——当场退回重跑</b>；②旅程选了"最典型"而非"最暴露痛点"场景的组；③没跑 <span class="mono">/studio-core:init</span> 就开跑、产物撒在当前目录的组。</p>
+  <p><b>【推翻评分要留痕】</b>允许推翻，<b>但必须写下业务理由</b>。checkout 会查这一条。</p></div>
+</section>
+
+<!-- 9 认知杠杆回收 -->
+<section class="slide" data-title="认知杠杆回收">
+  <div class="kicker"><span class="half">上半场</span> ⭐ 实操之后立刻回收 · 10′</div>
+  <h2 class="title">你刚才体验到的，就是认知杠杆</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:22%">你刚才 55′ 产出</th><th style="width:30%">传统模式要多久</th><th>谁做的</th></tr>
+    <tr><td>3 画像</td><td>产品经理访谈 + 整理：<b>2–3 天</b></td><td rowspan="3" style="vertical-align:middle"><b>合计约一周</b><br>还不含来回确认</td></tr>
+    <tr><td>2 旅程 + 2 流程</td><td>建模：<b>再 2 天</b></td></tr>
+    <tr><td>1 份热点排名</td><td>排序：<b>1 天</b></td></tr>
+  </table>
+  <div class="chain mt-l" data-anim="fade-up" style="font-size:20px">
+    <span class="step">产出</span><span class="arrow">=</span>
+    <span class="step" style="background:var(--grad-soft);border-color:var(--accent)">结构化能力</span><span class="arrow">×</span>
+    <span class="step">平台固化</span><span class="arrow">×</span><span class="step">模型算力</span>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up">模型算力是<b>买来的</b>；平台固化是<b>六件套给的</b>；<br>
+  但<b>画像该按行为切还是按年龄切、这条旅程选哪个场景、热点排序该不该推翻</b>——<b>没有一件是模型替你做的。</b></p>
+  <p class="quote-big mt-m" data-anim="fade-up">杠杆不是"AI 帮我干活"，<br><b>是"我的判断被放大了 N 倍"。</b></p>
+  <div class="deck-footer"><span class="ftag">杠杆回收</span><span class="slide-number" data-current="9" data-total="22"></span></div>
+  <div class="notes"><p><b>【这 10 分钟的时机是关键：必须紧接实操之后】</b>学员刚做完，手上有热的产物，此时讲杠杆才有实感。<b>第一课讲公式是抽象的，这里才是钉进去的时刻。</b></p>
+  <p><b>【三步走，让他们自己报数】</b>①"刚才 55 分钟你们组产出了几张画像、几条旅程？"让每组报。②"这些东西传统模式下谁来做、要多久？"③再指回公式。<b>让他们自己算出那个倍数，比你说出来有效十倍。</b></p>
+  <p><b>⚠️【别讲成 AI 宣传】</b>讲完学员该有的感受<b>不是"AI 真厉害"</b>，而是<b>"原来我刚才做的那几个判断这么值钱"</b>。如果讲成前者，这一节就白讲了。</p>
+  <p><b>【接一句到第三课】</b>"判断错了，放大的就是错的——<b>这也是为什么昨天要花一整课把信息问准。</b>"</p></div>
+</section>
+
+<!-- 10 上半场 checkout -->
+<section class="slide" data-title="上半场 checkout">
+  <div class="kicker"><span class="half">上半场</span> checkout · 20′</div>
+  <h2 class="title">八项对照</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%">维度</th><th style="width:42%">达标</th><th>警示</th></tr>
+    <tr><td>画像切法</td><td>按<b>行为倾向</b>切，目标/痛点/频率有显著差异</td><td>按年龄、职业等人口属性切 → <b>一票警示</b></td></tr>
+    <tr><td>画像数量</td><td>2–4 个，多出来的说得清"为什么必须单独建"</td><td>≥5 个且说不清差异（范围划大了）</td></tr>
+    <tr><td>旅程选题</td><td>选<b>最暴露痛点</b>的场景，且与第三课收入线对得上</td><td>选了最典型/最戏剧的场景（<b>B-7</b>）</td></tr>
+    <tr><td>旅程完整性</td><td>4–7 阶段，情绪曲线有起伏，痛点有 Severity 分级</td><td>全程平顺无痛点（说明没问到真实的）</td></tr>
+    <tr><td>流程</td><td>决策点表填满（含 True/False path）</td><td>只有主干、没有分支</td></tr>
+    <tr><td>热点</td><td>有排名 + 理由，<b>敢推翻工具评分并说明业务理由</b></td><td>全盘接受工具打分</td></tr>
+    <tr><td>数据诚实</td><td>源材料矛盾处标"待核实"，不替客户选一个</td><td>挑一个"看起来靠谱的"写死 → <b>一票警示（B-5）</b></td></tr>
+    <tr><td>专家</td><td>知道本次加载了哪几个专家</td><td>不知道 <span class="mono">studio/agents/</span> 里有什么</td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">上半场 checkout</span><span class="slide-number" data-current="10" data-total="22"></span></div>
+  <div class="notes"><p><b>【组间互评】</b>交换画像卡，只看两项：<b>切法</b>和<b>数据诚实</b>。其余可放松。</p></div>
+</section>
+
+<!-- 11 下半场开场 -->
+<section class="slide" data-title="下半场 · 核心命题">
+  <div class="kicker"><span class="half">下半场</span> ① 目的 + ② 启发 · 栈② DDD 1/3</div>
+  <h2 class="title">限界上下文的边界怎么划</h2>
+  <p class="quote-big mt-s" data-anim="fade-up">不是按功能划的，<br><b>是按"谁对这件事负责"划的。</b></p>
+  <div class="card mt-l" data-anim="fade-up">
+    <h4>【这个角色原本是谁】领域架构师</h4>
+    <p class="dim">负责把大系统切成边界清晰、各自内聚的域。传统模式里，他拿到产品经理递过来的需求，切完再递给知识工程师。<br>
+    <b>FDE 是同一个人从事件切到域，中间不换脑子</b>——这就是为什么上半场的产物在这里可以直接复用，不必重跑。</p>
+  </div>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <h4>前置：切域之前，先把"事件"写对</h4>
+    <p class="dim"><b>限界上下文是按"谁推进了这个既成事实"聚出来的。</b><br>
+    你写成功能清单，聚出来的就只能是"查询模块""管理模块"——<b>那是系统的形状，不是业务的形状</b>。<br>
+    <b>事件写歪，域必然切歪，而且到第五课才会疼。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">栈② DDD</span><span class="slide-number" data-current="11" data-total="22"></span></div>
+  <div class="notes"><p>下半场开场同样用"这个角色原本是谁"起手，保持七栈讲法一致。</p>
+  <p><b>【"中间不换脑子"这句要说】</b>它解释了为什么上半场的产物能直接用——不是工具设计得好，是<b>因为做这件事的是同一个人</b>。</p></div>
+</section>
+
+<!-- 12 DDD 三件核心 -->
+<section class="slide" data-title="DDD 三件核心">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · 栈② DDD 2/3</div>
+  <h2 class="title">三件核心，都有康养项目的物理落点</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:22%">概念</th><th style="width:38%">一句话</th><th>康养项目的物理落点</th></tr>
+    <tr><td><b>统一语言</b><br><span class="dim">Ubiquitous Language</span></td><td>业务方和工程师用同一套词，且这套词<b>直接出现在代码里</b></td><td>共享根 <span class="mono">Elder</span> <b>单一写入点</b>——同一个"老人"只有一个真相源</td></tr>
+    <tr><td><b>限界上下文</b><br><span class="dim">Bounded Context</span></td><td>一个词在一个边界内只有一个含义；<b>出了边界就是另一个概念</b></td><td>102 事件 / 16 簇切成 <b>7 域 D1–D7</b></td></tr>
+    <tr><td><b>上下文映射</b><br><span class="dim">含防腐层 ACL</span></td><td>两个域之间是"引用"还是"发布"，<b>必须说得出来</b></td><td>两处防腐层 <b>D6↔D5</b>、<b>D4↔D5</b>；跨域一律 <b>ref / 发布，不越界写入</b></td></tr>
+  </table>
+  <h3 class="mt-m" data-anim="fade-up">三个判据（对着你的域图问）</h3>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>① 同一个词<br>两处含义不同</h4><p class="dim">"老人"在 D4 是<b>被照护对象</b>，在 D3 是<b>消费者</b>。<br>同一个人，两套属性两套规则 → <b>两个域</b></p></div>
+    <div class="card"><h4>② 状态机不共享</h4><p class="dim">一个对象的生命周期在两处被<b>不同的人</b>推进 → <b>它其实是两个对象</b></p></div>
+    <div class="card"><h4>③ 能独立发布</h4><p class="dim">D6 有 8 个 HIL 闸、对监管负责。和 D3 捆一起，<b>一次发布要同时说服民政局和市场部</b></p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">DDD 三件</span><span class="slide-number" data-current="12" data-total="22"></span></div>
+  <div class="notes"><p><b>【判据 ① 用康养项目的"老人"讲，最直观】</b>"同一个老太太，在居家照护域里她是被照护对象，有失能等级、有护理计划；在会员飞轮域里她是消费者，有消费记录、有复购率。<b>两套属性、两套规则——所以是两个域。</b>"</p>
+  <p><b>【经典书可以砍】</b>Evans 蓝皮书 / Vernon 红皮书——<b>但要留那句"别通读，只啃限界上下文和上下文映射两章"</b>。学员最需要的是这个筛选建议。</p></div>
+</section>
+
+<!-- 13 B-8 B-9 -->
+<section class="slide tight" data-title="B-8 与 B-9">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · 栈② DDD 3/3 · <b>两个反例主场</b></div>
+  <h2 class="title">越域写入，与想当然</h2>
+  <div class="card badcard mt-s" data-anim="fade-up">
+    <h4>⚠️ B-8 · 越域写入冲动</h4>
+    <p class="dim">康养项目编译期<b>多次想让 Action 直接写他域的对象</b>——因为"就改一个字段，绕一圈太麻烦"。<br>
+    <b>原则</b>：跨域一律走 ref / 发布，不越界直写。<b>两个域之间只能是"引用"或"发布"，没有第三种。</b></p>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">结构纪律靠校验器，<b>不靠自觉</b>。<br>你在赶工期的凌晨三点是不会守纪律的，<br><b>但校验器会。</b></p>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <h4>⚠️ B-9 · SDK 能力想当然</h4>
+    <p class="dim">编译期不确定某两个符号是否导出，<b>7 个域统一留了 docstring 挂账</b>，没有靠"应该支持吧"往前推。<br>
+    <b>这个判断在第五课被验证是对的</b>：编译规则的固定头部<b>确实漏了一个 import</b>，照着生成会报错。<b>当初挂账的人是对的。</b><br>
+    <b>原则</b>：不确定就显式挂账，别赌。</p>
+  </div>
+  <div class="deck-footer"><span class="ftag">B-8 / B-9</span><span class="slide-number" data-current="13" data-total="22"></span></div>
+  <div class="notes"><p><b>【B-8 那句"凌晨三点"要说】</b>它把"为什么需要校验器"讲成了人性问题而不是技术问题。<b>学员会记住。</b></p>
+  <p><b>【B-9 的价值在于"后来被验证"】</b>这不是一个失败案例，是一个<b>克制住了的诱惑</b>。"当初有人想直接写'应该支持吧'往下推，我们没有，我们留了 docstring 挂账。<b>第五课你们会看到，那个符号确实没导出——挂账的人是对的。</b>"</p></div>
+</section>
+
+<!-- 14 plan 不是编排引擎 -->
+<section class="slide" data-title="plan 不是编排引擎">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · 工具 1/3</div>
+  <h2 class="title">先纠正一个误解</h2>
+  <p class="quote-big mt-s" data-anim="fade-up"><span class="mono" style="font-family:inherit">/studio-planner:plan</span> <b>不是编排引擎。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">它本身<b>只是一段串行提示词</b>——按顺序点名 5 个工具，并写明"每步之后暂停、把结果交给用户确认"。<br>
+  <b>真正的衔接靠"文件 + status.json"，不靠内存传参。</b></p>
+  <div class="grid g3 mt-l" data-anim="stagger-list">
+    <div class="card goodcard"><h4>① 随时可中断</h4><p class="dim">下次接着跑——<b>状态都在磁盘上</b></p></div>
+    <div class="card goodcard"><h4>② 每步能单独跑</h4><p class="dim">只要前一步的文件在</p></div>
+    <div class="card goodcard"><h4>③ 可人工改产物再继续</h4><p class="dim"><span class="mono">domain-map.md</span> 你改完，<b>下一步读的就是你改过的版本</b></p></div>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">管线是给你用的，<b>不是替你做主的。</b></p>
+  <div class="deck-footer"><span class="ftag">plan</span><span class="slide-number" data-current="14" data-total="22"></span></div>
+  <div class="notes"><p><b>【这一页是 FDE 与"点按钮等结果"的分野，必讲】</b>第二课讲过"产物即接口"，这里是它的具体兑现。第三条最重要——<b>可以人工改产物再继续</b>。这意味着<b>模型提议，你拍板，然后接着跑</b>。</p></div>
+</section>
+
+<!-- 15 五步流水线 -->
+<section class="slide" data-title="五步流水线">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · 工具 2/3</div>
+  <h2 class="title">五步：读什么、写什么、停几次</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:18%">步</th><th style="width:24%">读（前置）</th><th style="width:34%">写（交棒物）</th><th>确认点</th></tr>
+    <tr><td><b>event-storm</b></td><td><span class="mono">studio/</span>、<span class="mono">agents/*.md</span></td><td><span class="mono">event-storm.md</span>、<span class="mono">changelog.md</span>、<span class="mono">status.json</span>、personas/ journeys/ processes/</td><td><b>≈8</b> 精细<br><b>3</b> 快速</td></tr>
+    <tr><td><b>domain-model</b></td><td><span class="mono">event-storm.md</span><br><b>缺失即拦截</b></td><td><span class="mono">domain-map.md</span>；为候选插件建 status.json + 空脚手架</td><td>2–5</td></tr>
+    <tr><td><b>skill-design</b></td><td>status.json；父域 domain-map</td><td><span class="mono">skill-map.md</span>；skills 全填 <span class="mono">draft</span></td><td><b>2</b></td></tr>
+    <tr><td><b>spec-generate</b></td><td><span class="mono">skill-map.md</span>（必需）</td><td>brief、plugin.json.draft、骨架；phase <span class="mono">planning→building</span></td><td><b>0 纯自动</b></td></tr>
+    <tr><td><b>build-skills</b></td><td>phase <b>必须 == building</b></td><td>就地填充 <span class="mono">skills/*/SKILL.md</span></td><td>1</td></tr>
+  </table>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <h4>⏱️ 时间盒的头号杀手：确认点</h4>
+    <p class="dim">精细模式跑完一次完整 plan，<b>用户停顿点 ≈20+ 次</b>。<b>课堂必须用快速模式，能压到 6–8 次。</b><br>
+    <b>教练口径</b>："选快速模式<b>不是偷懒</b>——被跳过的三个分析，你在上半场已经手动跑过了。这里跳过是<b>避免重复</b>，不是省略步骤。"</p>
+  </div>
+  <div class="deck-footer"><span class="ftag">五步</span><span class="slide-number" data-current="15" data-total="22"></span></div>
+  <div class="notes"><p><b>【单步续跑口令写在手册里，这里口头提一句】</b>"卡在哪一步就从哪接。<b>这五个是 skill 触发，没有对应的命令文件</b>——你们环境里 <span class="mono">/</span> 补全不出来是正常的，改用自然语言 <span class="mono">use skill: xxx</span> 同样生效。"<b>不说这句，会有一半人以为装错了。</b></p>
+  <p><b>【phase 状态机顺带提一个坑】</b><span class="mono">config.yaml</span> 的 lifecycle 里列了 <span class="mono">testing</span> 一档，<b>但全链路没有任何工具会写入它</b>——validate 直接从 building 跳到 approved。<b>别等一个永远不会出现的状态。</b></p></div>
+</section>
+
+<!-- 16 traits -->
+<section class="slide" data-title="traits 分叉开关">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · 工具 3/3</div>
+  <h2 class="title">traits：整条流水线的分叉开关</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:20%">trait</th><th style="width:28%">含义</th><th>下游影响（第八课会生成什么）</th></tr>
+    <tr><td><span class="mono">stateful</span></td><td>有持久运行时状态</td><td>额外生成 <span class="mono">init-workspace</span> skill + 两个 runtime 模板</td></tr>
+    <tr><td><span class="mono">hil-gated</span></td><td>有人工审批闸</td><td>给相关 skill 插入 <span class="mono">## Approval Gate</span> 段（✅确认 / ✏️修改 / ❌拒绝）</td></tr>
+    <tr><td><span class="mono">kb-dependent</span></td><td>依赖知识库</td><td>影响 skill 的数据依赖设计</td></tr>
+    <tr><td><span class="mono">multi-pipeline</span></td><td>有多条编排流水线</td><td>每条流水线一个 <span class="mono">commands/{pipeline}.md</span></td></tr>
+    <tr><td><span class="mono">expert-scoped</span></td><td>需要领域专家 agent</td><td>生成 <span class="mono">agents/</span> 目录</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">它在 <span class="mono">skill-design</span> 被确认，<b>到第八课 spec-generate 才兑现成不同的骨架</b>。<br><b>现在选错，第八课生成的东西就不对。</b></p>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <p class="dim">⚠️ 特别注意 <span class="mono">hil-gated</span>：<b>它和第五课本体层的 HIL 是两回事</b>——一个是 <b>skill 层的审批段</b>，一个是 <b>Action 层的策略</b>。<b>第五课会讲清楚。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">traits</span><span class="slide-number" data-current="16" data-total="22"></span></div>
+  <div class="notes"><p><b>【Step 1.5 是下半场的核心确认点】</b>"五个 traits <b>逐个判过，不要直接回车接受默认</b>。这五个开关决定第八课生成什么骨架——<b>现在按错，第八课全部返工。</b>"</p>
+  <p><b>【hil-gated 的歧义要提前拆】</b>不提前说，第五课讲 HilPolicy 时学员会以为是同一个东西，然后在两个地方重复设闸。</p></div>
+</section>
+
+<!-- 17 沉浸 7域 + 9插件 -->
+<section class="slide" data-title="沉浸 · 康养项目 7域与某工业城市 9插件">
+  <div class="kicker"><span class="half">下半场</span> ③ 沉浸</div>
+  <h2 class="title">量级标尺，与最佳教具</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>康养项目 · 7 域</h4><p class="dim" style="font-size:14px">
+      D1 康养智能体中枢 <b>Core</b> · 2 HIL<br>
+      D2 政策结算枢纽 Core-Support · 0*<br>
+      D3 会员营收飞轮 Core/Add-on · 1<br>
+      D4 居家健康照护 <b>Core</b> · 6<br>
+      D5 机构运营 Add-on · 5<br>
+      D6 民政治理 <b>Core(G)</b> · <b>8（DP-H 闸）</b><br>
+      D7 康养大模型知识库 <b>Generic-Support</b> · 4<br><br>
+      <b>看点：7 个域里只有 4 个是 Core。不是所有域都值得当核心来建。</b></p></div>
+    <div class="card card-accent"><h4>⭐ HR项目 · 9 插件（本半场最佳教具）</h4><p class="dim" style="font-size:14px">
+      <span class="mono">linxi-core · policy-parser · data-harvester · talent-matcher · training-recommender · employment-monitor · major-advisor · outreach-optimizer · insight-report</span><br><br>
+      <b>为什么最好：切分逻辑一眼能看懂，而且与第三课的项目描述一一对得上</b><br>
+      "替代访企拓岗" → <span class="mono">outreach-optimizer</span><br>
+      "指导专业开设规划" → <span class="mono">major-advisor</span><br>
+      "整合公开市场招聘数据" → <span class="mono">data-harvester</span></p></div>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">把你的 skill-map 和第三课的项目描述并排放——<br><b>每个插件都能在描述里找到出处吗？</b></p>
+  <div class="deck-footer"><span class="ftag">沉浸</span><span class="slide-number" data-current="17" data-total="22"></span></div>
+  <div class="notes"><p><b>【右边那个问题是本半场的验收动作】</b>"<b>找不到出处的插件，多半是你自己想出来的，不是客户要的。</b>" checkout 会查这一条。</p>
+  <p><b>【左边的看点别漏】</b>"7 个域里只有 4 个是 Core，D7 明确定位 Generic-Support。<b>不是所有域都值得当核心来建</b>——这一条直接连到下面 domain-map 里的 <span class="mono">Generic Capabilities</span> 那一段。"</p></div>
+</section>
+
+<!-- 18 实操 事件判据 -->
+<section class="slide" data-title="实操 · 什么是业务事件">
+  <div class="kicker"><span class="half">下半场</span> ④ 实操 阶段一 · 25′ · <b>最关键的一次纠偏</b></div>
+  <h2 class="title">🔔 什么是"业务事件"</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:46%">❌ 这不是事件（这是功能）</th><th>✅ 这才是事件（过去式的既成事实）</th></tr>
+    <tr><td>提供订单查询功能</td><td><b>订单已提交</b></td></tr>
+    <tr><td>支持材料上传</td><td><b>材料已上传</b></td></tr>
+    <tr><td>实现质检模块</td><td><b>质检已通过</b> / <b>质检已驳回</b></td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">判据：能不能加"已"字、<br>并且它<b>已经发生过、不可撤销</b>？</p>
+  <pre class="code mt-m" data-anim="fade-up">/studio-planner:event-storm &lt;domain-slug&gt;    <b># lowercase、kebab-case、2–3 个词</b></pre>
+  <p class="dim mt-s" data-anim="fade-up">⚠️ <b>修订是就地覆盖的，<span class="mono">git diff</span> 就是你的修订历史</b>——所以 <span class="mono">studio/</span> <b>必须 git-tracked</b>。第二课 init 那句 "Consider running git init first" <b>不是走过场</b>。</p>
+  <div class="deck-footer"><span class="ftag">事件判据</span><span class="slide-number" data-current="18" data-total="22"></span></div>
+  <div class="notes"><p><b>【这是整个下半场最关键的一次纠偏，绝不能砍】</b>"学员一上来<b>必写功能清单</b>。写错了后面全歪，而且<b>到第五课才会疼</b>。"</p>
+  <p><b>【巡场就抓这一件事】</b>阶段一的 25 分钟，你只做一件事：<b>逐组看事件清单，把功能句改成事件句</b>。改不动的组，让他们对每一条问"能加'已'字吗"。</p>
+  <p><b>【KB 依赖表值得单提一句】</b>"≥3 个知识源且更新频繁 → <b>建议做一个伴生知识库插件</b>。康养项目的 D7 就是这么长出来的。"</p></div>
+</section>
+
+<!-- 19 实操 domain-model -->
+<section class="slide" data-title="实操 · 域建模">
+  <div class="kicker"><span class="half">下半场</span> ④ 实操 阶段二 · 25′</div>
+  <h2 class="title">域建模：精华在"不用自建"那一段</h2>
+  <pre class="code mt-s" data-anim="fade-up">/studio-planner:domain-model &lt;domain-slug&gt;</pre>
+  <p class="dim mt-s"><b><span class="mono">domain-map.md</span> 的 5 个 H2</b>：Analysis Mode · Artifacts · <b>Plugin Candidates</b> · <b>Generic Capabilities</b> · Collection Structure</p>
+  <div class="card card-accent mt-m" data-anim="fade-up">
+    <h4>⭐ <span class="mono">## Generic Capabilities</span> 这一段是精华</h4>
+    <p class="dim">它列的是"<b>不需要定制插件</b>的能力"。<br>
+    你最容易犯的错是<b>什么都想自己建</b>。这一段逼你回答：<b>"这个能力买现成的行不行？"</b> 答案常常是行。<br>
+    <b>康养项目 D7 定位 Generic-Support、草业项目/辣椒共用底座，都是这个判断的产物。</b></p>
+  </div>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>Collection Structure 三种模式</h4><p class="dim">1 个插件 = 不建 collection<br>2–5 个相关 = 一个 collection 且<b>必须有明确的 core</b><br>不同领域 = 分开 collection</p></div>
+    <div class="card warncard"><h4>⚠️ 增量模式下的硬确认点</h4><p class="dim">会给你一张"插件影响评估"表，<b>必须显式确认才继续</b>。<br><b>这是整条流水线上唯一被标为"关键决策点"的地方</b>——它决定要动哪些既有插件。</p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">domain-model</span><span class="slide-number" data-current="19" data-total="22"></span></div>
+  <div class="notes"><p><b>【Generic Capabilities 空着的组要点名】</b>这一段空 = 学员什么都想自己建。<b>当场让他们说出至少一条"这个买现成的就行"。</b></p></div>
+</section>
+
+<!-- 20 实操 skill-design + 停 -->
+<section class="slide" data-title="实操 · 技能设计与停止线">
+  <div class="kicker"><span class="half">下半场</span> ④ 实操 阶段三 · 20′</div>
+  <h2 class="title">🛑 跑到 <span class="mono" style="font-family:inherit">skill-map.md</span> 就停</h2>
+  <pre class="code mt-s" data-anim="fade-up">/studio-planner:skill-design &lt;plugin-name&gt;
+
+<b>Step 1.5 五个 traits 逐个判过 —— 不要直接回车接受默认</b></pre>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <h4>为什么必须停在这里</h4>
+    <p class="dim"><span class="mono">spec-generate</span> 和 <span class="mono">build-skills</span> <b>属于第八课</b>。<br>
+    一路跑下去会<b>把第八课的内容提前消耗掉</b>，而且<b>在没做第五课本体的情况下就去建插件骨架，顺序就乱了</b>。<br>
+    <span class="mono">spec-generate</span> 是<b>零确认点的纯自动化</b>，一跑就把骨架全生成了——<b>在没想清 traits 的情况下生成的骨架，等于白生成。</b></p>
+  </div>
+  <h3 class="mt-m" data-anim="fade-up">⚠️ 三个已知翻车点</h3>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><td style="width:36%"><b><span class="mono">spec-generate</span> 找不到模板</b><br><span class="dim">（会在第八课撞上）</span></td><td>它去读 <span class="mono">../../templates/</span>，但 studio-planner <b>没有这个目录</b>——模板住在 <b>studio-core</b> 下。会按内嵌结构生成，<b>结果可用。知道就行，不用修</b></td></tr>
+    <tr><td><b>文档里的 <span class="mono">/studio-insight:create-expert</span></b></td><td><b>是错的</b>，正确的是 <span class="mono">/studio-core:create-expert</span></td></tr>
+    <tr><td><b><span class="mono">build-skills</span> 的 phase 硬门</b></td><td>phase 不是 <span class="mono">building</span> 会直接报错退出。<b>这是设计，不是 bug</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">停止线</span><span class="slide-number" data-current="20" data-total="22"></span></div>
+  <div class="notes"><p><b>【"跑到 skill-map 就停"必须明说，而且要说两遍】</b>一遍在实操开始前，一遍在阶段三开始时。<b>不说，一定有组一路跑到 build-skills。</b></p></div>
+</section>
+
+<!-- 21 分叉 -->
+<section class="slide" data-title="⭐ 后面是分叉不是流水线">
+  <div class="kicker"><span class="half">下半场</span> ⭐ 本课结束时必讲</div>
+  <h2 class="title">后面是分叉，不是流水线</h2>
+  <pre class="code mt-s" data-anim="fade-up">                    ┌──▶ <b>第五课 本体建模</b>   ← 要"可执行的规则与闸"
+   domain-map ──────┼──▶ <b>第六课 文档工程</b>   ← 要"可评审的文书"
+   + skill-map      └──▶ <b>第八课 技能插件</b>   ← 要"可发版的插件"
+                    （第七课 原型基本独立，随时可插）</pre>
+  <p class="lede mt-m" data-anim="fade-up"><b>它们并行、不互为前置。</b></p>
+  <div class="card goodcard mt-m" data-anim="fade-up">
+    <h4>活证据 · 学前教育项目</h4>
+    <p class="dim">那个项目<b>没做本体建模、没有画像 / 旅程</b>，照样交出了 <b>653KB 可研 + 完整送审报价包 + 单一来源论证</b>。</p>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:52%">你的交付模式</th><th>先走哪条</th></tr>
+    <tr><td>模式二 To-G 大盘、<b>赢单靠评审</b></td><td><b>第六课</b>优先</td></tr>
+    <tr><td>模式一 SaaS 应用、<b>赢单靠能用</b></td><td><b>第五 + 第七课</b>优先</td></tr>
+    <tr><td>要做可复用能力沉淀</td><td><b>第八课</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">分叉</span><span class="slide-number" data-current="21" data-total="22"></span></div>
+  <div class="notes"><p><b>【这一页第一课打过预防针，这里是第二次，也是落地的一次】</b>第一课讲的时候学员没有实感；现在他们手上有 domain-map 和 skill-map 了，<b>这时候讲"接下来你可以选择走哪条"，才是真的。</b></p>
+  <p><b>【别让学员以为"不编译本体就不能写方案"】</b>学前教育项目这个活证据要说出来。<b>排课顺序是教学顺序（由内到外），不是依赖顺序。</b></p></div>
+</section>
+
+<!-- 22 下半场 checkout -->
+<section class="slide" data-title="下半场 checkout">
+  <div class="kicker"><span class="half">下半场</span> checkout · 20′</div>
+  <h2 class="title">八项对照</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:18%">维度</th><th style="width:40%">达标</th><th>警示</th></tr>
+    <tr><td>事件写法</td><td>全是过去式既成事实（"材料已上传"）</td><td>写成功能清单 → <b>一票警示</b></td></tr>
+    <tr><td>域切分理由</td><td>每个域能说清"谁对它负责"+ 至少一条切分判据</td><td>按功能模块切（"查询域""管理域"）</td></tr>
+    <tr><td>Generic 判断</td><td><span class="mono">Generic Capabilities</span> 非空，说得清什么不用自建</td><td>什么都要自己建</td></tr>
+    <tr><td>core 明确</td><td>collection 里有且仅有一个明确的 core</td><td>2–5 个插件平级、无 core</td></tr>
+    <tr><td><b>skill-map 溯源</b></td><td><b>每个插件都能在第三课项目描述里找到出处</b></td><td>有凭空想出来的插件</td></tr>
+    <tr><td>traits</td><td>五个逐个判过，说得出为什么选 / 不选</td><td>直接回车接受默认</td></tr>
+    <tr><td>越域</td><td>无跨域直写设计</td><td>有"就改一个字段"的越界冲动（<b>B-8</b>）</td></tr>
+    <tr><td><b>停在正确的位置</b></td><td>跑到 <span class="mono">skill-map.md</span> 停</td><td>一路跑到 build-skills（<b>抢了第八课</b>）</td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">下半场 checkout</span><span class="slide-number" data-current="22" data-total="22"></span></div>
+  <div class="notes"><p><b>【互评只看两项】</b><b>事件写法</b>和 <b>skill-map 溯源</b>。这两项过了，第五课就跑得动。</p>
+  <p><b>【收口，接第五课】</b>"明天是全课的重心，也是唯一一堂产出'机器会强制执行的东西'的课。<b>你们今天切的这些域，明天要一个一个编译成能跑的本体——切歪的地方，明天会疼。</b>"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

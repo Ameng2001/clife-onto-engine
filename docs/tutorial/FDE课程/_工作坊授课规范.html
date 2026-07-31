@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDE 课程 · 工作坊授课规范（所有工作坊统一遵循）</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">FDE 课程 · 工作坊授课规范（所有工作坊统一遵循）</h1>
+</header>
+<h1 id="fde-课程-工作坊授课规范所有工作坊统一遵循">FDE 课程 · 工作坊授课规范（所有工作坊统一遵循）</h1>
+<blockquote>
+<p>参照团队既有的《行业数据模型探索工作坊》（STPB 四阶九步）的<strong>敏捷引导式</strong>授课形式固化而成。 目的：把 FDE 工作坊从“静态练习册”升级为“可被敏捷教练直接主持的脚本”。<strong>所有 <code>工作坊/NN_*.md</code> 统一按本规范重构。</strong> 这份规范本身也是 <strong>L6「锚定口径」</strong>的示范——授课形式单点定义、八课一致套用。</p>
+</blockquote>
+<hr />
+<h2 id="一核心授课模型启发-执行先看范例再动手">一、核心授课模型：启发 → 执行（先看范例，再动手）</h2>
+<p><strong>每一个步骤都是“启发-执行”两拍</strong>： 1. <strong>启发（教练给）</strong>：先给一个<strong>康养项目/案例的 worked example（范例）</strong>，让学员看“做对了长什么样”——用 <code>&lt;details&gt;</code> 折叠，现场点开。 2. <strong>执行（学员做）</strong>：学员/小组在<strong>时间盒</strong>内，照着范例对<strong>自己的项目</strong>产出同类产物。</p>
+<blockquote>
+<p>铁律：<strong>先启发、后讨论</strong>。不给范例直接让学员讨论，会跑偏（方法论 06：“没有蓝图的 Vibe Coding 会失控”）。</p>
+</blockquote>
+<hr />
+<h2 id="二工作坊纪律每份工作坊开头照抄教练开场宣读">二、工作坊纪律（每份工作坊开头照抄，教练开场宣读）</h2>
+<ol type="1">
+<li><strong>启发-执行纪律</strong>：先看启发范例，再动手；不跳过范例直接空想。</li>
+<li><strong>时间盒纪律</strong>：个人发言、小组讨论严格遵从时间盒，铃响即停。</li>
+<li><strong>终止铃纪律</strong>：敏捷教练终止铃响起，讨论立即停止，进入下一步。</li>
+<li><strong>停车场纪律</strong>：一时争不出的问题挂到“停车场（parking lot）”，会后再议，不占时间盒。</li>
+<li><strong>checkout 纪律</strong>：每阶段末、工作坊末做 checkout（对照输出与验收标准）。</li>
+</ol>
+<h2 id="三工作坊宣言照抄开场齐读">三、工作坊宣言（照抄，开场齐读）</h2>
+<ul>
+<li><strong>完成大于完美</strong></li>
+<li><strong>团队大于个人</strong></li>
+<li><strong>共识大于对错</strong></li>
+</ul>
+<hr />
+<h2 id="四单份工作坊的结构模板10-份统一">四、单份工作坊的结构模板（10 份统一）</h2>
+<pre><code># 第 N 讲 · 工作坊：&lt;一句话名&gt;
+&gt; 学员用 · 演练 XX′ + 复盘 XX′ · 对应能力 CX
+
+## 〇、开场（教练宣读）
+- 工作坊纪律（五条，见规范）
+- 工作坊宣言（三条）
+- 本坊目标（1 句，落到&quot;产出什么&quot;）
+- 过程方法论（点名本坊用的 FDE 方法：如 SOP 七阶段 / HIL 四判据 / OAG 五要素 / 商业模式五件套…）
+
+## 一、工作坊流程（时间盒总表）
+| 序号 | 阶段 | 时长 | 产出 |
+| 1 | 开场导入 | X′ | — |
+| 2 | 阶段一 … | X′ | 产物A |
+| … |
+
+## 二、输入材料（可直接发学员）
+（真实脱敏件 + 康养项目基线数字 + 速查卡）
+
+## 三、分阶段脚本（每步：任务 / 输出 / 难点 + 启发范例）
+### 阶段一 · &lt;名&gt;（X′）
+#### 步骤① · &lt;名&gt;（X′）
+&gt; 🔔 **任务**：&lt;做什么&gt;
+&gt; 🔔 **输出**：*&lt;明确产物，蓝字级别的具体交付&gt;*
+&gt; 🔔 **难点/注意**：&lt;最容易踩的坑&gt;
+
+&lt;details&gt;&lt;summary&gt;💡 启发 · 点开看康养项目范例&lt;/summary&gt;
+
+&lt;康养项目/案例的 worked example——做对了长什么样&gt;
+
+&lt;/details&gt;
+
+（后续步骤同上）
+
+## 四、checkout（验收标准 = 原评分卡，改成对照清单）
+| 维度 | 达标 | 警示 |
+（原 4 维×25 分转为 checkout 对照；保留&quot;一票警示&quot;）
+
+## 五、复盘研讨（3 题，教练收口）
+
+## 六、参考答案要点（讲师版 · 标&quot;讲师专用勿发学员&quot;）</code></pre>
+<hr />
+<h2 id="五写作约定给重构工作坊的作者">五、写作约定（给重构工作坊的作者）</h2>
+<ul>
+<li><strong>每个动手步骤必须配一个 <code>💡 启发</code> 折叠范例</strong>，范例一律取自<strong>康养项目/某工业城市/教育督导项目/草业项目/辣椒真实案例</strong>（成熟度诚实标注：仅康养项目已交付，其余方案/调研级/Mock）。</li>
+<li><strong>🔔 输出</strong>要写成“能验收的具体产物”（如“7 域 ontology-map 一段”“HIL 设点表 5–8 行”“商业模式画布 9 宫格填满”），不是“讨论一下”。</li>
+<li><strong>时间盒</strong>落到分钟，总和 = 讲义里该讲的“练 + 议”时长（保持 4:4:2 的后 6 成）。</li>
+<li><strong>难点</strong>要点名该讲反例（B-x）或方法论坑（如“区分行为与过程的粒度”→FDE 版“区分 declarative rule 与 function rule”）。</li>
+<li>保留原有的<strong>评分卡</strong>内容，转成 checkout 对照表（达标/警示两栏），并保留“一票警示”。</li>
+<li>术语、数字、案例成熟度严格对齐 <code>_WRITING_BRIEF.md</code>（引用不重算，防 B-5）。</li>
+<li>Markdown 用 GFM：<code>&lt;details&gt;&lt;summary&gt;</code> 折叠范例（pandoc 渲染成可点开）；🔔/💡 emoji 直接用；🔔任务/输出/难点用引用块 <code>&gt;</code> 包裹。 </content></li>
+</ul>
+</body>
+</html>

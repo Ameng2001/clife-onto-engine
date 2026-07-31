@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDE 八课总纲</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">FDE 八课总纲</h1>
+</header>
+<h1 id="c-life-fde-实战工作坊--八课总纲v03--体系化重排">C-Life FDE 实战工作坊 · 八课总纲（v0.3 · 体系化重排）</h1>
+<blockquote>
+<p>版本 <strong>v0.3</strong>（2026-07-27）· 取代 v0.2 的「九步十册」 <strong>一句话</strong>：<strong>先给地图，再上路。</strong> 第一课把「FDE 是什么」讲透，后面每课一个工作环节、一次实操。</p>
+</blockquote>
+<hr />
+<h2 id="一为什么重排v02-的病在认知层与操作层混杂">一、为什么重排：v0.2 的病在"认知层与操作层混杂"</h2>
+<p>v0.2 按<strong>工具链</strong>排课（T1 环境 → T2 采集 → … → T9 路演），结果是<strong>关于 FDE 本身的认知被拆散塞进各册</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>学员想知道</th>
+<th>v0.2 里它在哪</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FDE 是什么</td>
+<td>T1 §九（交付断层）</td>
+<td>只有一半</td>
+</tr>
+<tr class="even">
+<td>别人的 FDE 怎么做</td>
+<td><strong>T7 界面原型 §七</strong></td>
+<td>为什么在讲原型的册子里？</td>
+</tr>
+<tr class="odd">
+<td>FDE 的能力模型</td>
+<td><strong>T8 插件开发 §九</strong></td>
+<td>同上</td>
+</tr>
+<tr class="even">
+<td>一人公司的边界</td>
+<td>T9 结课 §一</td>
+<td>最后一课才讲边界，太晚</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这是"内容找地方塞"，不是"按认知逻辑组织"。</strong> 学员想搞清楚"FDE 到底是什么"，得翻四册。</p>
+<p><strong>v0.3 的原则</strong>：</p>
+<ol type="1">
+<li><strong>认知层聚合成第一课</strong>（纯讲解，不碰工具、不碰命题）——回答"我为什么要学后面那些"</li>
+<li><strong>操作层每课一个环节</strong>，且<strong>每课结构统一</strong></li>
+<li><strong>第一课末尾用 SOP 七阶段做接口</strong>，每一阶段点名对应后面第几课——认知与操作在这里咬合</li>
+</ol>
+<hr />
+<h2 id="二八课总表">二、八课总表</h2>
+<table>
+<thead>
+<tr class="header">
+<th>课</th>
+<th>主题</th>
+<th>形式</th>
+<th>时长</th>
+<th>实操产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L1</strong></td>
+<td><strong>FDE：What-Why-How</strong></td>
+<td><strong>纯讲解</strong></td>
+<td>180′</td>
+<td>—（建立认知）</td>
+</tr>
+<tr class="even">
+<td><strong>L2</strong></td>
+<td>项目与工具</td>
+<td>讲解 + 实操</td>
+<td>120′</td>
+<td>命题认领 + 可用工作区</td>
+</tr>
+<tr class="odd">
+<td><strong>L3</strong></td>
+<td>如何正确采集信息</td>
+<td>讲解 + 实操</td>
+<td>120′</td>
+<td>① 项目定义 + <strong>喂给智能体的 prompt</strong></td>
+</tr>
+<tr class="even">
+<td><strong>L4</strong></td>
+<td>认知萃取 + 领域建模</td>
+<td>讲解 + 实操</td>
+<td>240′</td>
+<td>② 画像/旅程/热点 ③ 域图 + skill-map</td>
+</tr>
+<tr class="odd">
+<td><strong>L5</strong></td>
+<td>本体建模 + 设闸</td>
+<td>讲解 + 实操</td>
+<td>180′</td>
+<td>④ 五要素本体 ⑥ SOP ⑦ HIL 设点表 ⑧ 取证清单</td>
+</tr>
+<tr class="even">
+<td><strong>L6</strong></td>
+<td>文档工程</td>
+<td>讲解 + 实操</td>
+<td>150′</td>
+<td>⑤ 商业模式+财务语言 ⑨ 方案稿+配图</td>
+</tr>
+<tr class="odd">
+<td><strong>L7</strong></td>
+<td>原型开发</td>
+<td>讲解 + 实操</td>
+<td>120′</td>
+<td>⑪ demo 原型 + Mock 清单</td>
+</tr>
+<tr class="even">
+<td><strong>L8</strong></td>
+<td>总结与能力沉淀</td>
+<td>讲解 + 路演</td>
+<td>180′ + 路演</td>
+<td>⑩ 团队编成+90天计划 · ⑫ 插件（加分）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>合计 ≈ 1290′（21.5h）</strong> + 每组 20′ 路演。</p>
+<hr />
+<h2 id="三l3l7-的统一四段结构">三、L3–L7 的统一四段结构</h2>
+<blockquote>
+<p><strong>这是本次重排最重要的约定：第三到第七课，每一课都是同一个骨架。</strong> 学员上到第四课就知道流程了，认知负担只在内容上，不在形式上。</p>
+</blockquote>
+<pre><code>① 目的      一句话：这一课学完能干什么
+② 启发      原理 · 方法 · 工具（讲师讲，含课件）
+③ 沉浸      真实案例&quot;做对了长什么样&quot;（点开看，不是听说）
+④ 实操      各组在本组命题上真跑，产物落盘
+   └ checkout  达标/警示对照，互评</code></pre>
+<p><strong>L1 只有②（纯讲解）· L2 是①②④（案例较少）· L8 是②④+路演。</strong></p>
+<hr />
+<h2 id="四逐课定义">四、逐课定义</h2>
+<h3 id="l1--fdewhat-why-how纯讲解--180">L1 · FDE：What-Why-How（纯讲解 · 180′）</h3>
+<p><strong>目的</strong>：给一个关于 FDE 的<strong>完整概念</strong>，让学员知道后面五天在练什么、为什么值得练。</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>内容</th>
+<th>来自</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>What ①</strong> 交付断层</td>
+<td>25′</td>
+<td>客户要的是结果，组织给的是工序；信息在工序间衰减</td>
+<td>旧讲 1</td>
+</tr>
+<tr class="even">
+<td><strong>What ②</strong> 一人公司 OPC</td>
+<td>25′</td>
+<td>FDE = 企业级 OPC；<strong>可替 / 必须人扛的边界</strong>；C7 只能筛选</td>
+<td>旧讲 3</td>
+</tr>
+<tr class="odd">
+<td><strong>Why</strong> 认知杠杆</td>
+<td>30′</td>
+<td>从人月堆叠到认知杠杆；康养项目实证（1 人+智能体 vs 5+ 人数周）</td>
+<td>旧讲 2</td>
+</tr>
+<tr class="even">
+<td><strong>别人怎么做</strong></td>
+<td>30′</td>
+<td>Palantir Delta/Echo · OpenAI/Anthropic · <strong>官方/二手/未获证实三档来源纪律</strong></td>
+<td>旧讲 9</td>
+</tr>
+<tr class="odd">
+<td><strong>能力模型</strong></td>
+<td>30′</td>
+<td>C1–C7 七维；<strong>Lv.1 见习 / Lv.2 胜任 / Lv.3 主理</strong>；团队编成随交付模式变</td>
+<td>旧讲 8</td>
+</tr>
+<tr class="even">
+<td><strong>⭐ FDE 如何工作</strong></td>
+<td>40′</td>
+<td><strong>SOP 七阶段总览</strong>，每阶段点名对应后面第几课</td>
+<td>旧讲 6 骨架</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 最后 40′ 是与实操的接口</strong>，必须讲：</p>
+<pre><code>S1 认知萃取 → L4 上半场      S5 合规治理 → L5 下半场 + L6
+S2 结构收敛 → L4 下半场      S6 交付物工程 → L6 + L7
+S3 域切分   → L4 下半场      S7 HIL 运行留痕 → 横切，L5 起贯穿
+S4 本体建模+设闸 → L5</code></pre>
+<p><strong>不做的事</strong>：不碰工具、不碰命题、不做实操。<strong>这一课就是纯讲。</strong></p>
+<hr />
+<h3 id="l2--项目与工具讲解--实操--120">L2 · 项目与工具（讲解 + 实操 · 120′）</h3>
+<p><strong>目的</strong>：各组领到自己的实操项目，并把工具装好。</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 介绍项目</td>
+<td>30′</td>
+<td>5 个真实命题（跨两种交付模式）· 各组认领 · 写下<strong>一句话项目定义</strong></td>
+</tr>
+<tr class="even">
+<td>② 介绍流程</td>
+<td>20′</td>
+<td>后面六课怎么走 · 每课产出什么 · <strong>结课交付包 11 件</strong></td>
+</tr>
+<tr class="odd">
+<td>③ 介绍工具</td>
+<td>30′</td>
+<td>Astra Studio 九插件全景 · <strong>产物即接口</strong> · <strong>OAG ≠ RAG</strong></td>
+</tr>
+<tr class="even">
+<td>④ <strong>实操：装工具</strong></td>
+<td>40′</td>
+<td>marketplace → 8 插件 → <strong>重启</strong> → <code>/studio-core:init</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 本课必然卡人</strong>（网络/权限/Node 版本）。别让全班等——装好的先读命题卡。</p>
+<hr />
+<h3 id="l3--如何正确采集信息120">L3 · 如何正确采集信息（120′）</h3>
+<p><strong>目的</strong>：学会描述项目、采集信息，并组织成<strong>喂给智能体的 prompt</strong>。</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 目的</td>
+<td>5′</td>
+<td><strong>唯一一个错了无法在下游补救的环节</strong></td>
+</tr>
+<tr class="even">
+<td>② 启发</td>
+<td>55′</td>
+<td>信息衰减链 · <strong>全/准两标准</strong> · 工具箱（电梯演讲/5W2H/利益相关者/原话留存）· <strong>提示词工程</strong>（输入≠文档 · 六条规范 · 输入包三层）</td>
+</tr>
+<tr class="odd">
+<td>③ 沉浸</td>
+<td>20′</td>
+<td><strong>某草业集团 · 辣椒 · HR项目</strong> 三份真实调研件；<strong>B-11 主场</strong>（同模板复用的数字迁移污染）</td>
+</tr>
+<tr class="even">
+<td>④ 实操</td>
+<td>30′</td>
+<td>A 电梯演讲 → B 填模板 → <strong>C 改写成 <code>_INPUT.md</code> 输入包</strong></td>
+</tr>
+<tr class="odd">
+<td>checkout</td>
+<td>10′</td>
+<td>十二项对照</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="l4--认知萃取--领域建模240--上下半场">L4 · 认知萃取 + 领域建模（240′ · 上下半场）</h3>
+<p><strong>目的</strong>：把项目描述压成人/路径/机会，再切成限界上下文。</p>
+<table>
+<thead>
+<tr class="header">
+<th>半场</th>
+<th>时长</th>
+<th>② 启发</th>
+<th>③ 沉浸</th>
+<th>④ 实操产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>上 · 认知萃取</strong></td>
+<td>120′</td>
+<td>栈① 产品设计 · insight 六件套 · 专家发现与静默覆盖</td>
+<td><strong>教育督导项目三件套</strong>（画像/旅程/流程唯一三件齐）</td>
+<td>② 画像≥3 旅程≥2 流程≥2 热点</td>
+</tr>
+<tr class="even">
+<td><strong>下 · 领域建模</strong></td>
+<td>120′</td>
+<td>栈② DDD · <strong>plan 不是编排引擎</strong> · traits 是分叉开关</td>
+<td>康养项目 7 域 · <strong>HR项目 9 插件切分</strong></td>
+<td>③ 域图 + skill-map</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 上半场末尾讲认知杠杆的回收</strong>（学员刚产出一批东西，此时有实感）。 <strong>⭐ 下半场末尾必讲：L5 之后是分叉不是流水线</strong>（活证据：学前教育项目没做本体也交了 653KB 可研）。</p>
+<hr />
+<h3 id="l5--本体建模--设闸180--全课重心">L5 · 本体建模 + 设闸（180′ · 全课重心）</h3>
+<p><strong>目的</strong>：把业务分析编译成<strong>受治理的可运行底座</strong>，并完成 HIL 设闸。</p>
+<table>
+<thead>
+<tr class="header">
+<th>半场</th>
+<th>时长</th>
+<th>② 启发</th>
+<th>③ 沉浸</th>
+<th>④ 实操产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>上 · 本体建模</strong></td>
+<td>90′</td>
+<td><strong>这不是编译器</strong> · 七段 IR · 规则三问 · SPI 槽位真相</td>
+<td><strong>grass 完整</strong> vs <strong>chili 反面（0 关系）</strong></td>
+<td>④ 五要素本体草案 + 收尾 6 项清单</td>
+</tr>
+<tr class="even">
+<td><strong>下 · 设闸与治理</strong></td>
+<td>90′</td>
+<td><strong>★两道闸</strong>（写入闸 vs 副作用闸）· HIL 四判据 + 兜底闸 · validate 四段</td>
+<td>康养项目 26 个 HIL 点 · <strong><code>smoke_cq.py</code> 现场演示</strong></td>
+<td>⑥ SOP ⑦ HIL 设点表 ⑧ 取证清单</td>
+</tr>
+</tbody>
+</table>
+<p><strong>绝不拆开跨天，绝不压缩。</strong> 这是唯一产出"机器会强制执行的东西"的一课。</p>
+<hr />
+<h3 id="l6--文档工程150">L6 · 文档工程（150′）</h3>
+<p><strong>目的</strong>：造一个写作专家，让 N 个智能体并行写作而文风口径不打架。</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>② 启发</td>
+<td>60′</td>
+<td>栈④商业模式与财务语言 · 栈⑥⑦交付物工程与合规 · <strong>编号权归装配期</strong> · 三本招投标蓝图</td>
+</tr>
+<tr class="even">
+<td>③ 沉浸</td>
+<td>20′</td>
+<td><strong>肖作仕</strong>写作专家 · 学前教育项目 653KB/44 章可研 · HR项目 招标↔︎投标↔︎验收</td>
+</tr>
+<tr class="odd">
+<td>④ 实操</td>
+<td>50′</td>
+<td>造写作专家 → 选蓝图 → plan（<strong>停在确认点细看 Gap</strong>）→ 写 1–2 章 → assemble</td>
+</tr>
+<tr class="even">
+<td>checkout</td>
+<td>20′</td>
+<td>八项对照</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="l7--原型开发120">L7 · 原型开发（120′）</h3>
+<p><strong>目的</strong>：让方案有"能点开的应用形态"，同时守住 demo 的诚实边界。</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>② 启发</td>
+<td>30′</td>
+<td>截图→.pen→openspec→代码 · <strong>.pen 是明文 JSON</strong>（实测澄清）</td>
+</tr>
+<tr class="even">
+<td>③ 沉浸</td>
+<td>25′</td>
+<td>⭐<strong>demo 可信度分级</strong>：教育督导项目（数据真）vs 草业项目（全仿真）——<strong>当场打开两份 <code>lib/data.ts</code></strong></td>
+</tr>
+<tr class="odd">
+<td>④ 实操</td>
+<td>45′</td>
+<td>三步跑通 + <strong>grep 所有 TODO 写成 Mock 清单</strong></td>
+</tr>
+<tr class="even">
+<td>checkout</td>
+<td>20′</td>
+<td>八项对照，重点查<strong>可信度自评</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="l8--总结与能力沉淀180--路演">L8 · 总结与能力沉淀（180′ + 路演）</h3>
+<p><strong>目的</strong>：把方法变成下一个项目的起点，然后交卷。</p>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>能力沉淀</strong></td>
+<td>50′</td>
+<td>⭐"你们这五天做的动作，哪个值得沉淀成插件？"· spec-generate→build-skills→validate→promote <strong>演示</strong>（不动手）· <strong>fund-review 活证据</strong>（某工业城市项目反向沉淀出插件）· 三层固化回收</td>
+</tr>
+<tr class="even">
+<td><strong>OPC 边界回收</strong></td>
+<td>30′</td>
+<td>呼应 L1：哪些必须人扛（C7 四项）· 11 处占位不编造</td>
+</tr>
+<tr class="odd">
+<td><strong>C-Life 落地</strong></td>
+<td>60′</td>
+<td>选人→训练→平台→试点→度量→规模化 · <strong>90 天启动计划</strong></td>
+</tr>
+<tr class="even">
+<td><strong>拼交付包</strong></td>
+<td>20′</td>
+<td>11 件拼成一份，检查口径一致</td>
+</tr>
+<tr class="odd">
+<td><strong>路演</strong></td>
+<td>每组 20′</td>
+<td>八维评审卡 · <strong>三条一票警示</strong></td>
+</tr>
+<tr class="even">
+<td><strong>定级</strong></td>
+<td>20′</td>
+<td>L1/L2/L3 + 差距清单</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>⑫ 可发版插件 = 加分项</strong>，做到通过 <code>validate</code> 即达成，做不完不扣分——<strong>评审看的是"说得出哪个动作值得沉淀"</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="五排期集训-5-天">五、排期（集训 5 天）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>天</th>
+<th>上午</th>
+<th>下午</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D1</strong></td>
+<td><strong>L1 FDE：What-Why-How</strong>（180′）</td>
+<td><strong>L2 项目与工具</strong>（120′）+ 各组消化</td>
+</tr>
+<tr class="even">
+<td><strong>D2</strong></td>
+<td><strong>L3 如何正确采集信息</strong>（120′）</td>
+<td><strong>L4 上 · 认知萃取</strong>（120′）</td>
+</tr>
+<tr class="odd">
+<td><strong>D3</strong></td>
+<td><strong>L4 下 · 领域建模</strong>（120′）</td>
+<td><strong>L5 本体建模 + 设闸</strong>（180′）</td>
+</tr>
+<tr class="even">
+<td><strong>D4</strong></td>
+<td><strong>L6 文档工程</strong>（150′）</td>
+<td><strong>L7 原型开发</strong>（120′）</td>
+</tr>
+<tr class="odd">
+<td><strong>D5</strong></td>
+<td><strong>L8 总结与能力沉淀</strong>（180′）</td>
+<td><strong>路演 + 定级</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>压缩档（3 天）</strong>：D1（L1+L2+L3）/ D2（L4+L5）/ D3（L6 或 L7 择一 + L8）　<strong>·　专题课 S1 不开</strong></li>
+<li><strong>分散档（8 周）</strong>：每周一课，配合在手真实项目——<strong>L5/L6 的产出需要真实项目承载，这一档最理想</strong>　<strong>·　S1 放第 0 周</strong></li>
+</ul>
+<blockquote>
+<p><strong>压缩时砍什么</strong>：优先砍 L7（原型可课后做）与 L8 的能力沉淀段。<strong>L5 绝不砍。</strong></p>
+</blockquote>
+<h3 id="开专题课-s1-时的变体排期-d3-变成本体日">开专题课 S1 时的变体排期（⭐ D3 变成"本体日"）</h3>
+<p><strong>S1 排在 L5 之前，且同一天</strong>——上午讲"为什么必须有这层"，下午做"我们这套工具怎么把它做出来"。</p>
+<table>
+<thead>
+<tr class="header">
+<th>天</th>
+<th>上午</th>
+<th>下午</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D1</strong></td>
+<td>L1 FDE：What-Why-How（180′）</td>
+<td>L2 项目与工具（120′）+ 各组消化</td>
+</tr>
+<tr class="even">
+<td><strong>D2</strong></td>
+<td>L3 如何正确采集信息（120′）</td>
+<td>L4 上 · 认知萃取（120′）　<strong>+ L4 下 · 领域建模（120′，15:30–17:30）</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>⭐ D3</strong></td>
+<td><strong>S1 本体论（180′ · 选修）</strong></td>
+<td><strong>L5 本体建模 + 设闸（180′）</strong></td>
+</tr>
+<tr class="even">
+<td><strong>D4</strong></td>
+<td>L6 文档工程（150′）</td>
+<td>L7 原型开发（120′）</td>
+</tr>
+<tr class="odd">
+<td><strong>D5</strong></td>
+<td>L8 总结与能力沉淀（180′）</td>
+<td>路演 + 定级</td>
+</tr>
+</tbody>
+</table>
+<p><strong>动了什么</strong>：<strong>L4 下半场从 D3 上午前移到 D2 下午的第二段</strong>，腾出 D3 上午给 S1。</p>
+<blockquote>
+<p>⚠️ <strong>代价要说清</strong>：D2 变成 <strong>09:00–17:30 的满负荷长日</strong>，<strong>原本 15:30–17:00 的"各组补齐"缓冲没有了</strong>。 这意味着 <strong>D2 当天必须把画像 / 旅程 / 域图全部跑完</strong>，落后的组只能靠晚上补。 <strong>不开 S1 时不要这么排</strong>——那个缓冲本来是留给"实操超时"的。</p>
+</blockquote>
+<blockquote>
+<p>⭐ <strong>为什么非要同一天</strong>：<strong>S1 是 L5 的方法论前置，隔开讲会大幅衰减。</strong> 上午刚说完"把业务规则从'模型应该知道的事'变成'系统强制执行的约束'"，下午就动手把它编译出来——<strong>这个衔接是 S1 最大的教学价值。</strong> 隔一天讲，学员会把 S1 当成一堂独立的认知课，回收不到 L5 上。</p>
+</blockquote>
+<hr />
+<h2 id="六旧编号对照v02-十册--v03-八课">六、旧编号对照（v0.2 十册 → v0.3 八课）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>v0.3</th>
+<th>内容来自 v0.2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L1</strong></td>
+<td><strong>新聚合</strong>：T1§九(讲1) + T9§一(讲3) + T3§七(讲2) + T7§七(讲9) + T8§九(讲8) + T5b§四骨架(讲6)</td>
+</tr>
+<tr class="even">
+<td><strong>L2</strong></td>
+<td>主持手册开场（命题认领）+ 讲义07（工具全景）+ <strong>T2 环境准备</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>L3</strong></td>
+<td><strong>T1 信息获取</strong>（原样）</td>
+</tr>
+<tr class="even">
+<td><strong>L4</strong></td>
+<td><strong>T3 认知萃取</strong> + <strong>T4 领域建模</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>L5</strong></td>
+<td><strong>T5a 本体建模</strong> + <strong>T5b 设闸与治理</strong></td>
+</tr>
+<tr class="even">
+<td><strong>L6</strong></td>
+<td><strong>T6 文档工程</strong>（原样）</td>
+</tr>
+<tr class="odd">
+<td><strong>L7</strong></td>
+<td><strong>T7 界面原型</strong>（原样，去掉 §七 讲 9 部分）</td>
+</tr>
+<tr class="even">
+<td><strong>L8</strong></td>
+<td><strong>T9 结课路演</strong> + <strong>T8 技能插件开发</strong>（降为演示）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>v0.2 的十册<strong>不作废</strong>，作为 L1–L8 的素材底稿保留在 <code>工具实操/</code>；八课手册在 <code>课程/</code>。</p>
+</blockquote>
+<hr />
+<h2 id="七每课两件产物v03--2026-07-31">七、每课两件产物（v0.3 · 2026-07-31）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>产物</th>
+<th>给谁</th>
+<th>装什么</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><code>slides/LN_*.html</code></strong></td>
+<td><strong>讲师投屏</strong></td>
+<td>每屏正文 + <strong><code>.notes</code> 演讲者备注</strong>：口播稿 / 时间盒 / 卡点提示 / "要砍先砍哪里" / 必须现场做的演示动作</td>
+<td><code>S</code> 开演讲者窗口（当前页+下一页+备注+计时）· <code>N</code> 拉备注抽屉 · <code>O</code> 总览 · <code>← →</code> 翻页。<strong>投屏侧看不到备注</strong></td>
+</tr>
+<tr class="even">
+<td><strong><code>课程/LN_*.md</code></strong></td>
+<td><strong>学员，打印成册</strong></td>
+<td>学员视角读物 + 实操步骤 + checkout + <strong>参考答案</strong> + 一页纸速查</td>
+<td>浏览器打开 HTML → 打印为 PDF。手册内已插分页符</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>课</th>
+<th>课件</th>
+<th>屏数</th>
+<th>学员手册</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>L1</td>
+<td><code>slides/L1_FDE总论.html</code></td>
+<td>27</td>
+<td><code>课程/L1_FDE总论.md</code></td>
+</tr>
+<tr class="even">
+<td>L2</td>
+<td><code>slides/L2_项目与工具.html</code></td>
+<td>16</td>
+<td><code>课程/L2_项目与工具.md</code></td>
+</tr>
+<tr class="odd">
+<td>L3</td>
+<td><code>slides/L3_采集信息.html</code></td>
+<td>18</td>
+<td><code>课程/L3_如何正确采集信息.md</code></td>
+</tr>
+<tr class="even">
+<td>L4</td>
+<td><code>slides/L4_萃取与建模.html</code></td>
+<td>22</td>
+<td><code>课程/L4_认知萃取与领域建模.md</code></td>
+</tr>
+<tr class="odd">
+<td><strong>L5</strong></td>
+<td><code>slides/L5_本体与设闸.html</code></td>
+<td><strong>26</strong></td>
+<td><code>课程/L5_本体建模与设闸.md</code></td>
+</tr>
+<tr class="even">
+<td>L6</td>
+<td><code>slides/L6_文档工程.html</code></td>
+<td>18</td>
+<td><code>课程/L6_文档工程.md</code></td>
+</tr>
+<tr class="odd">
+<td>L7</td>
+<td><code>slides/L7_原型开发.html</code></td>
+<td>12</td>
+<td><code>课程/L7_原型开发.md</code></td>
+</tr>
+<tr class="even">
+<td>L8</td>
+<td><code>slides/L8_能力沉淀.html</code></td>
+<td>16</td>
+<td><code>课程/L8_总结与能力沉淀.md</code></td>
+</tr>
+<tr class="odd">
+<td><strong>S1</strong></td>
+<td><code>slides/S1_本体论.html</code></td>
+<td><strong>26</strong></td>
+<td><code>课程/S1_本体论.md</code></td>
+</tr>
+<tr class="even">
+<td><strong>S2</strong></td>
+<td><code>slides/S2_本体引擎.html</code></td>
+<td><strong>17</strong></td>
+<td><code>课程/S2_本体引擎的工程实现.md</code></td>
+</tr>
+<tr class="odd">
+<td><strong>S3</strong></td>
+<td><code>slides/S3_建模端与引擎.html</code></td>
+<td><strong>15</strong></td>
+<td><code>课程/S3_建模端如何支撑引擎.md</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>首页</strong>：<code>slides/index.html</code>（8 课 × 每课两件产物）。 <strong>旧课件</strong>：v0.2 时期按十讲切分的 14 份已移入 <code>slides/_legacy/</code>，<strong>不上课</strong>。</p>
+<blockquote>
+<p>⚠️ <strong>改内容时两边都要改。</strong> 只改手册不改课件，讲师投屏的内容就与学员手上的对不上—— <strong>这正是本课程自己教的 B-5（单一真相源）。</strong></p>
+</blockquote>
+<hr />
+<h2 id="八专题课-s1s32026-07-31-新增s2s3-同日扩充">八、专题课 S1–S3（2026-07-31 新增，S2/S3 同日扩充）</h2>
+<p><strong>专题课是一条线，三门课回答三个连续的问题，终点是第五课。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>S1 · 本体论</strong></th>
+<th><strong>S2 · 本体引擎的工程实现</strong></th>
+<th><strong>S3 · 建模端如何支撑引擎</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>回答</strong></td>
+<td>本体<strong>是什么</strong>、为什么必须有</td>
+<td><strong>怎么把它造出来</strong>（整张架构图的运行时端）</td>
+<td><strong>怎么给它编译应用</strong>（架构图右下角那个橙色框）</td>
+</tr>
+<tr class="even">
+<td><strong>教材来源</strong></td>
+<td>《工程师的本体论》方法论文集（45 篇 + 番外）<br><code>~/Codes/onto-fundary-plugins/reference/methodology/</code></td>
+<td><strong>一档</strong>：<code>clife-onto-engine</code> 源码 + <strong>架构图 <code>docs/assets/architecture-overview.svg</code></strong> + 内核"宪法" + CI 门禁脚本</td>
+<td><strong>一档</strong>：我们自己的 <code>studio-ontology</code>（<code>Ameng2001/astra-studio-plugins</code>）<br><strong>二档（仅第十三章行业参照）</strong>：信通院 / CCSA TC601 对 Palantir 的公开分析</td>
+</tr>
+<tr class="odd">
+<td><strong>视角</strong></td>
+<td>架构师</td>
+<td>内核工程师</td>
+<td><strong>建模端 FDE</strong></td>
+</tr>
+<tr class="even">
+<td><strong>形式</strong></td>
+<td>纯讲解 180′</td>
+<td>讲解 + <strong>当场读码</strong> 180′</td>
+<td>讲解 + <strong>管线走查</strong> 180′</td>
+</tr>
+<tr class="odd">
+<td><strong>产出</strong></td>
+<td>判断力</td>
+<td>那张架构图 + 两处断裂</td>
+<td><strong>能把建模端讲清楚，并诚实说出它的边界</strong></td>
+</tr>
+<tr class="even">
+<td><strong>课件 / 手册</strong></td>
+<td><code>slides/S1_本体论.html</code> 26 屏<br><code>课程/S1_本体论.md</code></td>
+<td><code>slides/S2_本体引擎.html</code> 17 屏<br><code>课程/S2_本体引擎的工程实现.md</code></td>
+<td><code>slides/S3_建模端与引擎.html</code> 15 屏<br><code>课程/S3_建模端如何支撑引擎.md</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一句话串起来</strong>：<strong>S2 讲运行时端（clife-onto-engine），S3 讲建模端（studio-ontology），第五课把两端接起来。</strong></p>
+<pre><code>S1  本体是 LLM OS 的文件系统
+S2  这就是那个 OS
+S3  怎么给它编译应用
+L5  你亲手编译一个</code></pre>
+</blockquote>
+<h3 id="-三门课怎么衔接到-l5">⭐ 三门课怎么衔接到 L5</h3>
+<pre><code>S1  本体是什么、为什么必须有          → 判断力
+S2  引擎怎么造（clife-onto-engine）   → 运行时端的骨架
+S3  平台与交付 + 建模端 studio-ontology → 商业全貌 + 你要用的那把工具
+──────────────────────────────────────────────────────────────
+L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插件</code></pre>
+<p><strong>S3 的最后一章（第十一章）就是交棒章</strong>——它讲 <code>studio-ontology</code> 的两端分工、四命令与强制停点、 IR 七段 → SPI 七槽位的编译去向，然后把学员直接送进第五课。</p>
+<h3 id="️-排期三门课-540塞不进-5-天集训档">⚠️ 排期：三门课 540′，塞不进 5 天集训档</h3>
+<p><strong>这是必须先说清楚的约束</strong>：8 课已占满 5 天，专题课再加 540′（9 小时）<strong>放不下</strong>。 不要试图压缩八课去腾位置——<strong>这三门是选修，八课是主干。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>档</th>
+<th>怎么排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>集训档（5 天）</strong></td>
+<td><strong>只插 S1</strong>（⭐ D3 上午，L5 之前；L4 下半场前移到 D2——见第五节变体排期）。<br><strong>S2 / S3 不进 5 天</strong>。想上就在集训<strong>之前</strong>加 D0 / D-1。</td>
+</tr>
+<tr class="even">
+<td><strong>⭐ 本体专题日（推荐，独立 1.5 天）</strong></td>
+<td><strong>Day A</strong>：S1 上午 + S2 下午　·　<strong>Day B 上午</strong>：S3<br>→ 结束后直接进主课程，<strong>L5 那天效果最好</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>分散档（8 周）</strong></td>
+<td>第 0 周 S1；第 0 周末或第 1 周 S2 → S3。<strong>只要都在 L5 那周之前即可。</strong></td>
+</tr>
+<tr class="even">
+<td><strong>压缩档（3 天）</strong></td>
+<td><strong>三门全不开。</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>独立开设</strong></td>
+<td>面向不做实操的架构师 / 管理者：<strong>S1 + S3 两门</strong>即可（S2 需要读码基础）。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="顺序上不能破的三条">顺序上不能破的三条</h3>
+<ol type="1">
+<li><strong>S2 必须在 S3 之前</strong> —— S3 第四章「确定性优先」、第十六章「飞轮 = SPI 七槽位」都要回扣 S2 的内容。 不上 S2 直接上 S3，学员会把那些词当营销话术记下来。</li>
+<li><strong>S3 必须在 L5 之前</strong> —— S3 第十一章是 L5 的交棒章，讲的正是 L5 要用的那把工具。</li>
+<li><strong>S1 必须在 L5 之前，且尽量与 L5 同日或相邻</strong> —— 隔开讲会大幅衰减（原因见下）。</li>
+</ol>
+<blockquote>
+<p>⭐ <strong>为什么 S1 最好和 L5 挨着</strong>：上午刚说完"把业务规则从'模型应该知道的事'变成'系统强制执行的约束'"， 下午就动手把它编译出来——<strong>这个衔接是 S1 最大的教学价值。</strong> 隔一天讲，学员会把 S1 当成一堂独立的认知课，回收不到 L5 上。</p>
+</blockquote>
+<h3 id="各课骨架">各课骨架</h3>
+<p><strong>S1 · 本体论（十章）</strong> ① 我们缺少的不是数据，而是本体（露华浓 · <strong>字典 vs 物理引擎</strong>） ② 本体在架构里的位置（幻觉的真正成因 · 七维对照 · <strong>四层架构</strong>） ③ 五要素：世界的结构与动力（<strong>本体不是知识库，是 inode 和 link</strong>） ④ <strong>OAG ≠ RAG 的分界</strong>（六维对照 · <strong>GraphRAG 仍属"读"</strong>） ⑤ <strong>三层能力逐层拆</strong>（操作发现 / 执行约束 / 决策追溯）← <strong>重心之一</strong> ⑥ Software 3.0：本体是 LLM OS 的文件系统（<strong>LLM 是协处理器，不是 CPU</strong>） ⑦ <strong>Harness 管循环，本体管世界</strong> ⑧ <strong>建模 SOP</strong>（四阶段有先后不并行）← <strong>重心之二</strong> ⑨ 进阶：动态 Schema · 双本体联邦　⑩ 收口：AI FDE 为什么能 work</p>
+<p><strong>S2 · 本体引擎的工程实现（一张图讲完，十四章 / 16 屏）</strong> <strong>全课主梁 = 架构图 <code>docs/assets/architecture-overview.svg</code></strong>，标题自称「<strong>自有本体语义 OS</strong>」。 从下往上：① 元模型五要素 + <strong>判缝准则</strong> → ② GraphStore SPI（<strong>一 ontology 一 space 硬隔离</strong>） → ③ <strong>治理写 Action 引擎</strong>（全图唯一那条红线）→ ④ <strong>⭐ 与 OS 只有两处不一样：先写后判 · 收集全部违反</strong> → ⑤ 两条读路径（<strong>遥测读只产计划不当 TSDB</strong>）→ ⑥ 信任基础设施（<strong>⭐ 置信度总线：OS 没有的一层</strong>） → ⑦ 展示与交互层（<strong>读默认开 / 写 opt-in</strong> · <strong>现场演示 <code>/viz/grass</code> vs <code>/viz/chili</code></strong>） → ⑧ 侧边两块（生态<strong>可关</strong>·非脊椎 / 建模端上游）→ ⑨ <strong>⭐ 两个 CI 门禁</strong> → ⑩ <strong>⭐ 真 Qwen 实证</strong>（<code>docs/05</code>，六步：合规提交 1 / 治理拒绝 2 / 错误 0） → ⑪ <strong>⭐ 题眼：确定性边界置于模型之外</strong></p>
+<p><strong>S3 · 建模端如何支撑引擎（十五章 / 15 屏）</strong> <strong>全课 = 架构图右下角那个橙色框。</strong> ① 两仓一条流水线　② <strong>为什么不直接手写插件</strong>（业务专家看不懂 Python → IR 存在的理由） ③ 业务分析两个入口（<strong>Intake 12 段是责任分配表</strong>）　④ <strong>⭐ DDD ↔︎ 五要素翻译表</strong>（不发明新语言） ⑤ <strong>IR 七段</strong>（§4 Rules ★FDE 核心 · <strong>declarative 全自动</strong>）　⑥ 编译产物与四类 <code>NotImplementedError</code> ⑦ <strong>⭐ 四命令，唯一那个强制停点 ⏸</strong>（+ 校验器无 Write 权限） ⑧ <strong>⭐ 诚实边界：设计上的克制 ≠ 能力上的边界</strong> ⑨ <strong>⭐ IR 七段只覆盖 SPI 五格</strong>——⑤⑥ 是<strong>结构性缺口</strong>不是待补功能 ⑩ <strong>⭐ 验收标准：产物与手写 <code>plugins/grass</code> 五要素同构</strong>　⑪ <strong>⚠️ 两仓红线</strong>（plugins vs tenants） ⑫ 行业参照（<strong>二档来源，一节带过</strong>；五阶段交付 / FDE 飞轮等完整材料<strong>移入手册附录，不上课</strong>） ⑬ <strong>交棒第五课</strong></p>
+<h3 id="️-口径纪律三门课各不相同不要互相套用">⚠️ 口径纪律（三门课各不相同，不要互相套用）</h3>
+<p><strong>S1 —— 外部方法论，不掺自家数字</strong></p>
+<blockquote>
+<p>S1 的案例不在 <code>_WRITING_BRIEF.md</code> 的六案例成熟度表里—— 露华浓、采购 Agent / 供应商 Beta / ACME、认证 30 天、信用额度，<strong>全部出自方法论文集原文</strong>。</p>
+<p>· 讲 S1 时<strong>不引康养项目数字</strong>（3835 行、7 域、26 个 HIL 点…）——那是 L5 的口径 · 讲 L5 时<strong>不把露华浓当自己的案例</strong>——那是外部公开案例</p>
+<p><strong>原因</strong>：S1 的价值恰恰在于它是<strong>独立于我们实现的方法论</strong>。掺进自家数字，就变成产品宣讲了。</p>
+</blockquote>
+<p><strong>S2 —— 只讲仓库里真有的东西</strong></p>
+<blockquote>
+<p>每一处架构主张都要能翻到文件和行号。<strong>不确定的当场说"我回去核实"。</strong> ⚠️ 特别注意 <strong>SPI 七槽位</strong>：宪法文档说编译产物"正好填满七槽位"，<strong>第五课实测不是</strong> （⑤⑥ 完全不生成、③④ 只出骨架、⑦ 格式不匹配）。<strong>口径以第五课实测为准。</strong></p>
+</blockquote>
+<p><strong>S3 —— Palantir 数字是公开口径，不是我方业绩</strong></p>
+<blockquote>
+<p>收入、薪酬、周期全部说明来源与地域（美国市场）。 <strong>不得拿去对标国内薪资，不得在客户面前用它论证我们的报价。</strong></p>
+<p>⚠️ <strong>产品名核实提示</strong>：「<strong>Ontology Studio</strong>」这个名称出自<strong>信通院那篇分析</strong>， <strong>我们没有核对过 Palantir 官方文档</strong>。Foundry 里长期为人所知的建模应用叫 <strong>Ontology Manager</strong>。 讲的时候说「<strong>据信通院的公开分析</strong>」，<strong>不要说「Palantir 官方称」</strong>。 <strong>这正是 L1 三档来源纪律用在我们自己教材上的一次元示范。</strong></p>
+<p>另有两条容易讲错的： · <strong>别说"我们没有 Studio"</strong> —— <code>studio-ontology</code> 就是我们的建模端。 准确说法是<strong>两端都有，建模端的自动化覆盖度还差一截（七槽位覆盖五格）</strong>。 · <strong>设计上的克制 ≠ 能力上的边界</strong> —— "核心语义决策留给人签字"是主动选择（值得讲）； "function 规则体现在生成不了"是能力边界（别包装成克制）。<strong>在客户面前要分开讲。</strong></p>
+</blockquote>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 7 讲 · 工作坊：端到端跑通一个 mini 管线</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第 7 讲 · 工作坊：端到端跑通一个 mini 管线</h1>
+</header>
+<h1 id="第-7-讲-工作坊端到端跑通一个-mini-管线">第 7 讲 · 工作坊：端到端跑通一个 mini 管线</h1>
+<blockquote>
+<p>⚠️ <strong>本文件为 v0.1（十讲制）时期的学员工作坊材料，已于 2026-07-27 被 v0.3 八课制取代，不再上课使用。</strong> 现行版本：<code>课程/L1–L8_*.md</code>（单文件全案，实操与 checkout 都在里面）。结构定义见 <code>00_八课总纲.md</code>。 保留原因：Exercise 输入材料、评分卡与讲师版参考答案有留痕价值，改课时可作第一手参考。 ⚠️ 内含的“第 N 讲”引用与“L1/L2/L3 定级”是当时的编号（v0.3 定级已改为 <strong>Lv.1/Lv.2/Lv.3</strong>），<strong>刻意未改</strong>——改了会篡改历史记录。换算表见 <code>00_课程总纲.md</code> 第九节。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>⚠️ <strong>本文件为 v1 十环节时期的执行脚本，已被 <code>工具实操/T1–T8_*.md</code> 八份实操手册取代，保留备查、不再上课用。</strong> 新的执行主干见 <code>_legacy/00_工具实操总纲_T1-T8.md</code>；本讲的方法论内容现作为对应 T 步的<strong>知识注入</strong>。 ⚠️ <strong>口径已变</strong>：本文件内的案例成熟度与商业口径是 2026-07-20 之前的版本（如「嘉城数联合资公司」「草业项目 13 页 demo」）。<strong>现行口径以 <code>_WRITING_BRIEF.md</code> 与十册为准</strong>——主体叫<strong>项目联合体</strong>，IRR 主口径叫<strong>运营口径</strong>，草业项目 demo 是 <strong>11 页</strong>。</p>
+</blockquote>
+<blockquote>
+<p>📎 <strong>本文件是《FDE 实战工作坊》第 7 环节的「动手脚本」</strong>（不是独立工作坊）——整个培训是<strong>一个</strong>工作坊，总流程见 <code>_legacy/00_FDE实战工作坊_主持手册.md</code>。本环节各组对<strong>本组命题</strong>动手产出，沉淀进贯穿工作簿。</p>
+</blockquote>
+<blockquote>
+<p>学员用（敏捷引导式）· 演练 48′ + 复盘 18′ · 对应能力 <strong>C6 交付物工程 / 层间接口负责</strong> 配套讲义 <code>讲义/07_工具体系打通认知到行动.md</code> · 授课形式遵 <code>_工作坊授课规范.md</code> · 口径遵 <code>_WRITING_BRIEF.md</code></p>
+</blockquote>
+<hr />
+<h2 id="开场教练宣读4">〇、开场（教练宣读，4′）</h2>
+<blockquote>
+<p>📌 <strong>本组命题推进（贯穿沙盘）</strong>：本讲请用<strong>本组认领的命题</strong>（见 <code>_贯穿沙盘_分组命题.md</code>）推进一步——产出 本组命题走一遍管线，产出<strong>一节方案稿 + 一张配图占位</strong>，沉淀进本组「贯穿工作簿」。下方的 💡 启发范例是<strong>标尺、不是模板</strong>：康养项目/教育督导项目/辣椒/草业项目做对了长这样，但你的命题城市/切口/规模不同，<strong>照结构做、别抄数字</strong>。</p>
+</blockquote>
+<p><strong>🎯 本坊目标</strong>：走完<strong>五道层间交接口</strong>，产出 <strong>一条贯通记录</strong> —— 从 1 个事件，经流程节点 → 本体五要素 → 一节营收正文（约 200 字）+ 1 个合法图占位，且自检无 B-3 式 slug 断裂、无 B-8 式跨域越写。</p>
+<p><strong>🧭 过程方法论（本坊用的 FDE 方法）</strong>：五道层间交接口（认知→流程→本体→正文→呈现）· 跨域纪律（画像 canonical 在 D4 / 结算汇 D2 / 越域一律 ref）· 图占位契约（slug 先定后画）· 两条质检线（内容质检有校验器帮一半 / 格式质检只能 FDE 亲走）。</p>
+<p><strong>📏 工作坊纪律（教练宣读）</strong> 1. <strong>启发-执行</strong>：每步先点开“💡启发”看康养项目范例，再动手；不空想。 2. <strong>时间盒</strong>：铃响即停，个人跑通/同桌互检都守时。 3. <strong>终止铃</strong>：教练铃响，讨论立即停，进下一步。 4. <strong>停车场</strong>：争不出的挂 parking lot，会后再议，不占时间盒。 5. <strong>checkout</strong>：每阶段末对照输出与验收。</p>
+<p><strong>🙌 工作坊宣言（齐读）</strong>：完成大于完美 · 团队大于个人 · 共识大于对错。</p>
+<blockquote>
+<p>本坊要你亲手当一次“层间接口的唯一负责人”：数据从 event 一路流到图占位，任何一道接口掉了数据，最终交付物就断在那里。</p>
+</blockquote>
+<hr />
+<h2 id="一工作坊流程时间盒总表">一、工作坊流程（时间盒总表）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序号</th>
+<th>阶段</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>开场导入</td>
+<td>4′</td>
+<td>认领 mini 场景</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>阶段一 · 个人跑通五道交接口</td>
+<td>25′</td>
+<td>mini 管线贯通记录（个人版）</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>阶段二 · 同桌互检层间接口</td>
+<td>10′</td>
+<td>互检记录 + 最大一处断层</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>阶段三 · 全班挑 2 组过链路</td>
+<td>9′</td>
+<td>两条链路公开复盘</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>阶段四 · D7 产品 demo 原型</strong>（可延伸/课后）</td>
+<td><strong>60–120′</strong></td>
+<td>可点开 demo 原型（3–6 屏）+ 诚实说明“外壳非跑通”</td>
+</tr>
+<tr class="even">
+<td>—</td>
+<td>复盘研讨（议段，另计）</td>
+<td>18′</td>
+<td>3 题共识</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="二输入材料可直接发学员">二、输入材料（可直接发学员）</h2>
+<h3 id="mini-场景取自康养项目会员飞轮真实入口已缩小">2.1 mini 场景（取自康养项目会员飞轮真实入口，已缩小）</h3>
+<blockquote>
+<p><strong>场景：长者食堂获客到店转化。</strong> 康养站点办“长者食堂/助餐”（对应康养项目事件 <strong>E45/E46</strong>），是三大到店获客入口之一（另两个是义诊 E38、老带新 E03）。一位长者因助餐首次到店，站点希望把他从“仅体验”转化为“会员并交叉复购”（中医理疗 / 康养商城器械）。本场景归属 <strong>D3 会员营收飞轮域</strong>。</p>
+</blockquote>
+<h3 id="你可以直接借用的康养项目真实结构照抄口径勿另造">2.2 你可以直接借用的康养项目真实结构（照抄口径，勿另造）</h3>
+<ul>
+<li><strong>会员飞轮流程决策点（6+1，每个 = 一个 skill 边界）</strong>：D1 命中试做 · D2 转化 or 流失 · D3 分层定价（≤200 走量 vs 500–1500 溢价）· D4 交叉推荐命中 · D5 持续复购 · D6/D6b 进召回。</li>
+<li><strong>三条营收线咬合</strong>：中医理疗（E40）+ 长者食堂/助餐（E45/E46）+ 康养商城/器械（E52/E53/E54）。</li>
+<li><strong>三元支付口径</strong>：自费为主，仅助餐 E45/E46 挂政府购买补贴。</li>
+<li><strong>跨域纪律</strong>：画像 canonical 在 <strong>D4</strong> 不分裂；结算一律汇 <strong>D2</strong>；越域一律 ref/发布，不越界 stage_write。</li>
+<li><strong>D3 本体参考规模</strong>：10 Object / 11 Link / 6 Function / 6 Rule / 7 Action（你只需产出其中很小一部分）。</li>
+</ul>
+<h3 id="图占位契约必须遵守否则当场制造-b-3">2.3 图占位契约（必须遵守，否则当场制造 B-3）</h3>
+<ul>
+<li>写法：<code>![图7-X 图名](../figures/fig-7-X-&lt;slug&gt;.png)</code>，下一行 <code>**图 7-X 图名**</code>，再 2–4 句图说。</li>
+<li><strong>slug 先定后画</strong>：你在正文里声明的 slug，必须和你在交付物末尾“图清单”里登记的 slug <strong>逐字一致</strong>。本演练不实际画图，但 slug 契约要对得上——这是你现场规避 <strong>B-3（图片路径断裂）</strong> 的动作。</li>
+</ul>
+<h3 id="交付物模板填空-五道交接口对应五段">2.4 交付物模板（填空 · 五道交接口对应五段）</h3>
+<pre><code>=== mini 管线贯通记录 ===
+
+[接口0 认知] 事件：E___  一句话：__________  获客入口：□义诊E38 □老带新E03 □助餐E45/46
+
+[接口1 流程] 触发决策点（≥2）：
+  - 决策点 ___（如 D2 转化or流失）→ 为什么是 skill 边界：______
+  - 决策点 ___ → ______
+
+[接口2 本体] D3 域五要素（≥1 Object + 1 Action + 1 Rule）：
+  - Object：______（属性：______）
+  - Action：______（是否涉跨域？→ 结算 ref→D2 / 画像 ref→D4，勿 stage_write 他域）
+  - Rule：______（挂什么 citations/口径：______）
+
+[接口3 正文] 营收章节一节（~200 字，每个论断跟一个康养项目数字/口径）：
+  ______________________________________________
+  （须体现：三条营收线咬合 / 三元支付 / 分层定价双档 至少一项）
+
+[接口4 呈现] 图占位：
+  ![图7-X 图名](../figures/fig-7-X-&lt;slug&gt;.png)
+  **图 7-X 图名**
+  图说（2–4 句）：______
+
+[图清单登记]  slug: fig-7-X-______   ← 必须与正文占位逐字一致（防 B-3）
+
+[自检 · 内容质检线]  □ 数字锚口径不自造  □ 跨域用 ref 未越写  □ 论断都有康养项目证据
+[自检 · 格式质检线]  □ 占位 slug 与图清单一致  □ 图说齐全  □ 占位格式合规</code></pre>
+<hr />
+<h2 id="三分阶段脚本每步任务-输出-难点-启发范例">三、分阶段脚本（每步：🔔任务 / 🔔输出 / 🔔难点 + 💡启发范例）</h2>
+<h3 id="阶段一-个人跑通五道交接口25">阶段一 · 个人跑通五道交接口（25′）</h3>
+<h4 id="步骤①-接口-0-认知捕获-event5">步骤① · 接口 0 认知捕获 · event（5′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：从场景里抽出 1 个核心业务事件，写成“E编号 + 一句话”（可复用 E45 助餐到店，或自拟一个），记下它属于哪个获客入口。 🔔 <strong>输出</strong>：<em>接口 0 一行</em>——事件 E编号 + 一句话 + 获客入口（义诊/老带新/助餐三选一）。 🔔 <strong>难点/注意</strong>：事件要是一个<strong>可被后续挂到流程决策点</strong>的具体动作，不是一句愿景。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目接口 0 范例
+</summary>
+<p><code>E45 长者助餐到店</code>，入口 = 助餐（三大到店获客入口之一，另两个义诊 E38、老带新 E03）。这就是一条 mini 链的起点——从义诊/助餐到店 E38/E45，一路走到可研一节，就是本讲“认知到行动 = OAG”的缩影。</p>
+</details>
+<h4 id="步骤②-接口-1-event-流程节点6">步骤② · 接口 1 event → 流程节点（6′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：把事件挂到会员飞轮流程上，用 2.2 的 6+1 决策点，指明它触发了哪些决策点（<strong>至少落 2 个</strong>），说明每个决策点为什么是一个 skill 边界。 🔔 <strong>输出</strong>：<em>接口 1 两条</em>——≥2 个决策点 + 每个“为什么是 skill 边界”的理由。 🔔 <strong>难点/注意</strong>：skill 边界的判据是“逻辑与数据源不同、可独立演进”，不是“看起来是两步”。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目接口 1 范例
+</summary>
+<p>E45 触发 <code>D2 转化or流失</code>（判断这位长者是转会员还是仅体验流失）+ <code>D4 交叉推荐命中</code>（助餐画像 → 推中医理疗）。二者是 skill 边界，因为一个管“转化判定”、一个管“交叉推荐引擎”，逻辑与数据源不同，切成两个 skill 可独立演进。</p>
+</details>
+<h4 id="步骤③-接口-2-流程-本体五要素8">步骤③ · 接口 2 流程 → 本体五要素（8′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：把决策点落成 D3 域的本体要素——至少产出 <strong>1 Object + 1 Action + 1 Rule</strong>。Action 若涉及转化/下单，遵“结算汇 D2、画像读 D4”的跨域纪律，用 ref 不越域写。 🔔 <strong>输出</strong>：<em>接口 2 三要素</em>——Object（带属性）+ Action（标清跨域 ref 落点）+ Rule（挂 citations/口径）。 🔔 <strong>难点/注意</strong>：<strong>这是最容易撞 B-8 的一步</strong>——图省事让 Action 直接 <code>stage_write</code> D2 结算对象或 D4 画像对象，就制造了越界。画像 canonical 在 D4 不分裂、结算汇 D2，越写就是悬空/越界。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目接口 2 范例（守住跨域纪律）
+</summary>
+<ul>
+<li><strong>Object</strong> = <code>MembershipTrialVisit</code>（属性：<code>elder_id</code> ref→D4、<code>entry=助餐</code>、<code>trial_date</code>）；</li>
+<li><strong>Action</strong> = <code>convert_to_member</code>（转化成功→<strong>发布</strong> ServiceOrder 给 D3、结算 <strong>ref→D2</strong>、画像 <strong>ref→D4</strong>，<strong>绝不</strong> stage_write D2/D4 对象）；</li>
+<li><strong>Rule</strong> = <code>分层定价双档</code>（≤200 走量 / 500–1500 溢价，按片区画像动态，挂三元支付口径）。</li>
+</ul>
+<p>7/7 零悬空就是这么一条条守出来的——跨域一律 ref/发布，你越写就制造了 B-8。</p>
+</details>
+<h4 id="步骤④-接口-3-本体-一节正文6">步骤④ · 接口 3 本体 → 一节正文（6′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：从本体要素写出可研营收章节的一节正文，约 200 字，把“三条营收线咬合”的结构讲清楚。<strong>每个论断后跟一个康养项目数字或口径</strong>。 🔔 <strong>输出</strong>：<em>接口 3 正文约 200 字</em>，须体现“三条营收线咬合 / 三元支付 / 分层定价双档”至少一项作为数字锚。 🔔 <strong>难点/注意</strong>：<strong>别写空话</strong>。“通过精细化运营提升转化”这类没有康养项目数字的句子，就是证据密度红线的反面。每个论断挂一个口径。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目接口 3 数字锚清单
+</summary>
+<p>正文里可当数字锚的口径：<strong>三条营收线咬合</strong>（理疗 E40 + 助餐 E45/E46 + 商城器械 E52/E53/E54）；<strong>三元支付</strong>（自费为主、仅助餐挂政府购买补贴）；<strong>分层定价双档</strong>（≤200 走量 / 500–1500 溢价）；付费意愿可引 <strong>368 份问卷校准</strong>。至少出现其中一项，正文才算“有证据密度”，否则 D4 判低分。</p>
+</details>
+<h4 id="步骤⑤-接口-4-呈现图占位-图清单登记融入步骤④">步骤⑤ · 接口 4 呈现（图占位 + 图清单登记）（融入步骤④）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：在正文合适处插入 1 个合法图占位（遵 2.3 契约），并在末尾登记图清单，slug 逐字一致。 🔔 <strong>输出</strong>：<em>接口 4 图占位 + 图说 2–4 句 + 图清单 slug 登记</em>，正文占位 slug 与图清单 slug 逐字相同。 🔔 <strong>难点/注意</strong>：<strong>slug 先定后画</strong>。正文写 <code>fig-7-1-飞轮转化</code>、图清单却登记成 <code>fig7-1-飞轮</code> 或事后改了图名，就是 B-3——真实导出这里<strong>静默丢图</strong>，docx 照样生成、管线全绿，客户翻到这页才发现。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目接口 4 范例
+</summary>
+<p><code>![图7-1 会员飞轮三入口转化](../figures/fig-7-1-飞轮转化.png)</code>，下一行 <code>**图 7-1 会员飞轮三入口转化**</code>，图清单登记 slug = <code>fig-7-1-飞轮转化</code>，与正文占位<strong>逐字一致</strong>。占位符即契约——slug 先定后画，这就是现场规避 B-3 的动作。</p>
+</details>
+<h4 id="步骤⑥-自检两条质检线融入末尾">步骤⑥ · 自检两条质检线（融入末尾）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：过一遍“内容质检”和“格式质检”（见 2.4 模板末尾），确认无 slug 断裂、无跨域越写。 🔔 <strong>输出</strong>：<em>两条质检线打勾</em>，标出哪些是校验器能帮的、哪些只能靠眼睛。 🔔 <strong>难点/注意</strong>：<strong>内容质检有校验器帮你一半，格式质检一个字都没人帮你</strong>——slug 一致、导出验图、Word 主题色不覆盖浅色配图（B-4），只能 FDE 亲眼看。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看两条质检线的标准清单
+</summary>
+<ul>
+<li><strong>内容质检线（部分可被校验器覆盖）</strong>：数字锚单点不自造（防 B-5）、跨域 ref 不越写（防 B-8，quality 结构校验能抓）、引用 citations 挂对（能核）。</li>
+<li><strong>格式质检线（校验器守不住，只能 FDE 亲走）</strong>：占位 slug 与文件名一致（防 B-3）、导出后逐张验图不丢、Word 主题色不覆盖浅色配图（防 B-4）、排版/字体对齐客户模板。</li>
+<li>收口一句：<strong>“内容质检有校验器帮你一半，格式质检一个字都没人帮你——26 张图你得亲眼看 26 遍。这就是为什么 FDE 是层间接口的唯一负责人。”</strong></li>
+</ul>
+</details>
+<h3 id="阶段二-同桌互检层间接口10">阶段二 · 同桌互检层间接口（10′）</h3>
+<h4 id="步骤⑦-换手互检10">步骤⑦ · 换手互检（10′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：和同桌交换贯通记录，逐道接口对照第四节 checkout 互检，重点盯“哪道接口掉了数据”“有没有越域写”“slug 对不对得上”，各自记下对方最大一处断层。 🔔 <strong>输出</strong>：<em>互检记录 + 我要回去补的最大一处断层 1 条</em>。 🔔 <strong>难点/注意</strong>：互检别客气，专抓 B-8 越域写和 B-3 slug 断裂这两处“当场制造反例”的动作。</p>
+</blockquote>
+<h3 id="阶段三-全班挑-2-组过链路9">阶段三 · 全班挑 2 组过链路（9′）</h3>
+<h4 id="步骤⑧-公开过链路9">步骤⑧ · 公开过链路（9′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：教练挑 2 组，从接口 0 到接口 4 完整口述一遍链路，全班对照 checkout 找断点。 🔔 <strong>输出</strong>：<em>两条链路公开复盘 + 每条一个可迁移的教训</em>。 🔔 <strong>难点/注意</strong>：口述时重点验“数据可追溯地从 event 流到正文+图占位，无断层”。</p>
+</blockquote>
+<h3 id="阶段四-d7-产品-demo-原型60120可延伸课后">阶段四 · D7 产品 demo 原型（60–120′，可延伸/课后）</h3>
+<blockquote>
+<p>承接阶段一的 D5 交付物成文（一节稿 + 图占位）——<strong>再往产品化前推一步</strong>：把本组命题做成一个<strong>可点开的交互原型/外壳</strong>，让方案有“应用形态”。<strong>但这一步最容易翻车</strong>：demo 跑通的是 UI，不是模型；把外壳当成“产品跑通了”去演示，就是骗客户。本阶段的核心纪律就是<strong>诚实标 Mock</strong>。</p>
+</blockquote>
+<h4 id="步骤⑨-搭本组命题的可点开-demo-外壳50110">步骤⑨ · 搭本组命题的可点开 demo 外壳（50–110′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：把本组命题做成<strong>几屏可点开的交互原型</strong>——<strong>模式一（Token-SaaS 应用，如教育督导项目/草业项目类）做应用主界面几屏</strong>（会员/督导/工作台/证据溯源…）；<strong>模式二（大平台）做关键几屏/驾驶舱</strong>（一张图/核心闭环）。工具不限：低代码 / Pencil / AI 生成 HTML 原型均可。屏与屏之间能点跳转即可，别追求真数据。 🔔 <strong>输出</strong>：<em>一个可点开的 demo 原型（3–6 屏）+ 一句诚实说明</em>——白纸黑字写清“<strong>这是交互外壳、AI 为 Mock（关键词路由/写死数据）、非模型跑通</strong>”。 🔔 <strong>难点/注意</strong>：<strong>别把外壳当交付</strong>——demo 跑通的是 UI 不是模型。演示时<strong>必须先说清哪些是 Mock</strong>（哪屏的“AI 回答”是写死的、哪块数据是假的），再展示交互。把 Mock 藏起来当真跑通演示 = 撞<strong>讲 7 反面警示 + 讲 9 诚实边界</strong>，一票警示。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看 demo 成熟度标尺（草业项目）+ 诚实注（教育督导项目）
+</summary>
+<ul>
+<li><strong>标尺（草业项目 🟡 方案 + Mock demo）</strong>：草业项目做了 <strong>11 页 Next.js demo</strong>，<strong>7 个角色可切换</strong>、界面里带<strong>证据溯源块</strong>（点开能看“这条结论挂了哪些来源”）——完成度足以让客户点着走一遍流程。<strong>但它的 AI 是 Mock：关键词路由 + 写死回答，不是真模型跑通</strong>。这就是你的目标形态：<strong>外壳做到能点、能演一条完整用户流，同时诚实标 Mock</strong>。</li>
+<li><strong>⚠️ 诚实注（教育督导项目 🟢 建模 + 方案·无 demo）</strong>：教育督导项目只做到“<strong>产品方案 + 数据报告</strong>”，<strong>并没有可跑通的 demo</strong>。所以别拿“教育督导项目都做了产品”当借口把外壳吹成产品——<strong>我们各组做的也只是“交互外壳（Mock）”</strong>，成熟度诚实标：外壳 ≠ 模型跑通。</li>
+<li><strong>一句话</strong>：demo 的价值在“让客户看见应用长什么样”，不在“证明模型能跑”——这两件事说混了，就从演示变成了欺骗。</li>
+</ul>
+</details>
+<hr />
+<h2 id="四checkout验收对照表-原评分卡转达标警示">四、checkout（验收对照表 · 原评分卡转“达标/警示”）</h2>
+<blockquote>
+<p>每阶段末 + 收尾各对照一次。四维，每维看“达标线”与“一票警示”。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>✅ 达标线</th>
+<th>⚠️ 警示（踩了要回炉）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D1 层间贯通完整</strong></td>
+<td>五道交接口全部走到，数据可追溯地从 event 流到正文+图占位，无断层</td>
+<td>只做了某一层（如只写正文），没有贯通链；缺 1 道接口或某处衔接跳跃</td>
+</tr>
+<tr class="even">
+<td><strong>D2 本体纪律（核心）</strong></td>
+<td>Object/Action/Rule 齐；Action 跨域用 ref（结算→D2、画像→D4），<strong>未越域 stage_write</strong></td>
+<td><strong>出现越域写他域对象（当场制造 B-8）</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>D3 呈现契约</strong></td>
+<td>图占位格式合规，<strong>slug 与图清单逐字一致</strong>，图说齐全，主动规避 B-3</td>
+<td><strong>slug 断裂 / 占位不合规（现场重现 B-3）</strong></td>
+</tr>
+<tr class="even">
+<td><strong>D4 证据密度</strong></td>
+<td>正文每个论断后都跟康养项目数字/口径（三元支付/分层定价/营收线咬合等），无空洞概念</td>
+<td>通篇概念堆砌，无康养项目证据</td>
+</tr>
+<tr class="odd">
+<td><strong>D5 demo 诚实边界（D7）</strong></td>
+<td>demo 可点开（3–6 屏），<strong>且白纸黑字标了“交互外壳 / AI 为 Mock / 非模型跑通”</strong>，演示时先说清哪些是 Mock</td>
+<td><strong>把外壳当“产品跑通了”演示、不标 Mock</strong>（撞讲 7 反面警示 + 讲 9 诚实边界）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>评级参照</strong>：四维全达标 = 能独立当一次层间接口负责人；缺接口/衔接跳跃 = 需补链。 <strong>一票警示</strong>：<strong>D3 slug 断裂 = 现场亲手复现了 B-3，罚重听要点页 3–4；D2 越域写 = 撞了第 5 讲 B-8，说明两讲都没消化；D5 demo 不标 Mock、把外壳吹成模型跑通 = 撞诚实边界</strong> —— 任一命中，本坊不通过。</p>
+<hr />
+<h2 id="五复盘研讨3-题教练收口18">五、复盘研讨（3 题，教练收口，18′）</h2>
+<ol type="1">
+<li><strong>（卡点放大）</strong> 你这条 mini 链里，哪道交接口花的时间最多、最容易掉数据？把它放大到康养项目 102 事件 / 7 域 / 11 章的规模，这个卡点会被放大成什么样的事故？</li>
+<li><strong>（静默丢图）</strong> 你现场是否差点制造一个 B-3（slug 对不上）？如果这是真实的 26 图交付、且导出是<strong>静默</strong>丢图（不报错），你打算用什么机制保证不把残缺交付物送到客户手里？</li>
+<li><strong>（谁守得住）</strong> 讲义说“自动校验守内容结构，守不住呈现（B-3 丢图 / B-4 串色）”。在你的 mini 交付物里，哪些检查是校验器能替你做的，哪些<strong>只能靠你的眼睛</strong>？把后者列成一张“FDE 亲走清单”。</li>
+</ol>
+<blockquote>
+<p>教练收口锚点：题 1 指向“层间接口是最易掉数据处，规模放大后卡点变事故”；题 2 回收“占位符即契约、slug 先定后画”，静默丢图靠导出后逐张验图兜；题 3 收口——<strong>“内容质检有校验器帮你一半，格式质检一个字都没人帮你——26 张图你得亲眼看 26 遍。这就是为什么 FDE 是层间接口的唯一负责人。”</strong></p>
+</blockquote>
+<hr />
+<h2 id="六参考答案要点讲师版-标讲师专用勿发学员">六、参考答案要点（讲师版 · 标“讲师专用勿发学员”）</h2>
+<blockquote>
+<p>⚠️ 讲师专用，勿发学员。</p>
+</blockquote>
+<p><strong>一条标准贯通链示范（供对照，学员不必完全一致）</strong>： - 接口 0：<code>E45 长者助餐到店</code>，入口 = 助餐。 - 接口 1：触发 <code>D2 转化or流失</code>（判断这位长者是转会员还是仅体验流失）+ <code>D4 交叉推荐命中</code>（助餐画像 → 推中医理疗）。二者是 skill 边界，因为一个管“转化判定”、一个管“交叉推荐引擎”，逻辑与数据源不同，切成两个 skill 可独立演进。 - 接口 2：Object = <code>MembershipTrialVisit</code>（属性：elder_id ref→D4、entry=助餐、trial_date）；Action = <code>convert_to_member</code>（转化成功→<strong>发布</strong> ServiceOrder 给 D3、结算<strong>ref→D2</strong>、画像<strong>ref→D4</strong>，绝不 stage_write D2/D4 对象）；Rule = <code>分层定价双档</code>（≤200 走量 / 500–1500 溢价，按片区画像动态，挂三元支付口径）。 - 接口 3：正文须出现“三条营收线咬合（理疗+助餐+商城器械）”“三元支付：自费为主、仅助餐挂政府购买补贴”“分层定价双档”至少一项作为数字锚。 - 接口 4：<code>![图7-1 会员飞轮三入口转化](../figures/fig-7-1-飞轮转化.png)</code>，图清单登记 slug 与之逐字一致。</p>
+<p><strong>必须抓的三类现场错误</strong>： - <strong>越域写（撞 B-8）</strong>：学员图省事让 <code>convert_to_member</code> 直接写 D2 结算对象或 D4 画像对象。当场用第 5 讲 B-8 纠正：“跨域一律 ref/发布，画像 canonical 在 D4 不分裂、结算汇 D2，你越写就制造了悬空/越界，7/7 零悬空就是这么守出来的。” - <strong>slug 断裂（撞 B-3）</strong>：正文占位写 <code>fig-7-1-飞轮转化</code>，图清单登记写成 <code>fig7-1-飞轮</code> 或事后改了图名。当场演示：“真实导出这里就静默丢图，docx 照样生成、管线全绿，客户翻到这页才发现——这就是 B-3。占位符即契约，slug 先定后画。” - <strong>空洞无证据（撞证据密度红线）</strong>：正文写“通过精细化运营提升转化”这类没有康养项目数字的空话，判 D4 低分。要求每个论断挂一个口径（三元支付/分层定价/368 份问卷校准出的付费意愿等）。</p>
+<p><strong>两条质检线的标准清单（发给学员当模板）</strong>： - 内容质检线（部分可被校验器覆盖）：数字锚单点不自造（防 B-5）、跨域 ref 不越写（防 B-8，quality 结构校验能抓）、引用 citations 挂对（能核）。 - 格式质检线（<strong>校验器守不住，只能 FDE 亲走</strong>）：占位 slug 与文件名一致（防 B-3）、导出后逐张验图不丢、Word 主题色不覆盖浅色配图（防 B-4）、排版/字体对齐客户模板。 - 收口一句：<strong>“内容质检有校验器帮你一半，格式质检一个字都没人帮你——26 张图你得亲眼看 26 遍。这就是为什么 FDE 是层间接口的唯一负责人。”</strong></p>
+</body>
+</html>

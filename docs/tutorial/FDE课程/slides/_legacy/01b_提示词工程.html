@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 01b 提示词工程</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .metric{font-size:60px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent-2)}
+  .metric-sm{font-size:40px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:15px;color:var(--text-2);margin-top:10px;line-height:1.4}
+  .bignum{font-size:104px;font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--accent-2)}
+  .chain{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-weight:700;font-size:22px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:38px;line-height:1.4;font-weight:600;color:var(--accent);max-width:24ch}
+  .num-strip{display:flex;gap:40px;flex-wrap:wrap}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="eyebrow" data-anim="fade-down">FDE 课程 · T1 信息获取 · 附册 01b</div>
+    <h1 class="title" data-anim="fade-up">提示词工程<br>从「信息」到「模型能吃的输入」</h1>
+    <div class="divider-accent mb-m"></div>
+    <p class="quote-big" data-anim="fade-up">人读文档会脑补，模型不会。<br>你省下的每一句，<br>它都会自己编一句填上。</p>
+    <div class="row mt-l" data-anim="fade-up">
+      <span class="pill pill-accent">承接 T1 信息获取 · 20′</span>
+      <span class="pill">这不是话术技巧，是把纪律写进输入</span>
+    </div>
+    <p class="mt-l" data-anim="fade-up" style="font-size:14.5px;color:var(--text-2);line-height:1.6;max-width:60ch;border-left:3px solid var(--accent-2);padding-left:14px">
+      <b>为什么单独成册：</b>信息问全问准了，<b>组织方式错了模型照样答偏</b>。这一步是信息获取与后面所有工具步骤之间的转换器——本课程自己的十册手册，就是按这套规范由 5 个子智能体并行写出来的。</p>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="5"></span></div>
+    <div class="notes"><p>这一册单独拎出来讲，因为它是个转换器。前面信息获取解决的是把话问全问准，这一册解决的是问到了之后怎么组织成模型能高效消费的输入。很多人以为这是 AI 使用技巧，不是——技巧是话术，这里讲的是把协作纪律写进输入。最有说服力的证据是：你们手上这十册手册，就是按这套规范由五个子智能体并行写出来的。</p></div>
+  </section>
+
+  <section class="slide" data-title="提示词工程 · 输入≠文档">
+    <div class="kicker">方法 · 提示词工程 1</div>
+    <h2 class="title">给模型吃的输入，不是给人看的文档</h2>
+    <div class="grid g2 mt-s" data-anim="stagger-list">
+      <div class="card-outline"><h4>给人看的文档</h4><p class="dim">靠上下文推断，<b>留白是优雅</b><br>段落叙述，逻辑藏在行文里<br>术语换着说，避免啰嗦<br>数字散落各章，读者自己会对<br>篇幅越长越显充分</p></div>
+      <div class="card-accent"><h4>给智能体吃的输入</h4><p class="dim"><b>留白是漏洞</b>，隐含前提必须显式<br><b>结构化</b>：表格 / 清单 / 字段<br><b>术语锁定</b>，一个概念一种写法<br><b>数字锚在单点</b>，别处引用不重算<br>篇幅越长越稀释重点，<b>约束前置</b></p></div>
+    </div>
+    <p class="quote-big mt-l" data-anim="fade-up">人读文档会脑补，模型不会。<br><b>你省下的每一句，它都会自己编一句填上。</b></p>
+    <div class="deck-footer"><span class="ftag">提示词工程</span><span class="slide-number" data-current="0" data-total="19"></span></div>
+    <div class="notes"><p>信息问全问准了，还没完。组织方式错了，模型照样答偏。这一步学员最常见的想法是把资料丢给它就行——不行。给人看的文档和给模型吃的输入，是两种东西。给人看的，留白是优雅，读者会脑补；给模型的，留白就是漏洞，你没写的它会自己编一句填上。术语也是，写文章我们避免重复会换着说，但对模型来说同一个概念必须只有一种写法，否则它认为你在说两件事。这不是 AI 使用技巧，这是 FDE 的活——把纪律写进输入。</p></div>
+  </section>
+
+  <section class="slide" data-title="提示词工程 · 六条规范">
+    <div class="kicker">方法 · 提示词工程 2</div>
+    <h2 class="title">六条规范，每条都有本课的现成实物</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card"><h4>① 锚定口径</h4><p class="dim">术语表 + 核心数据 + 禁用词，<b>写在最前面</b><br><span class="mono">_WRITING_BRIEF.md</span></p></div>
+      <div class="card"><h4>② 结构化契约</h4><p class="dim">每段标注「谁填 + 产出哪个要素」<br><span class="mono">domain-intake 12 段</span></p></div>
+      <div class="card"><h4>③ 约束前置</h4><p class="dim">红线与禁用词写开头，<b>不写附录</b><br>埋在第 8 页＝没写</p></div>
+      <div class="card"><h4>④ 单点数字</h4><p class="dim">一个数只在一处定义<br>否则分节作者各算一遍（<b>B-5</b>）</p></div>
+      <div class="card"><h4>⑤ 诚实占位</h4><p class="dim">查不到写 <span class="mono">[待补]</span>，别让它猜<br>否则它会"合理推测"一个文号（<b>B-10</b>）</p></div>
+      <div class="card"><h4>⑥ 产出格式契约</h4><p class="dim">明确要什么、不要什么<br><b>「只回摘要不回正文」</b></p></div>
+    </div>
+    <p class="dim mt-m" data-anim="fade-up">这六条不是理论——<b>本课程的 <span class="mono">_WRITING_BRIEF.md</span> 就是逐条按它写的</b>，现场可以打开对着看。</p>
+    <div class="deck-footer"><span class="ftag">六条规范</span><span class="slide-number" data-current="0" data-total="19"></span></div>
+    <div class="notes"><p>六条规范，每一条我们课程里都有现成的实物，你现在就能打开看。第一条锚定口径，术语表加核心数据加禁用词写在最前面，就是我们的 WRITING BRIEF。第二条结构化契约，每一段标注谁填、产出哪个要素，就是 domain intake 那 12 段。第三条约束前置，红线写在开头不写附录——埋在第八页的合规要求等于没写。第四条单点数字，一个数只在一处定义，不然分节作者各算一遍，这就是反例 B-5。第五条诚实占位，查不到就写待补，别让模型猜，它真的会给你合理推测一个文号出来，这就是 B-10。第六条产出格式契约，明确要什么不要什么，比如只回摘要不回正文。</p></div>
+  </section>
+
+  <section class="slide" data-title="提示词工程 · 输入包三层">
+    <div class="kicker">方法 · 提示词工程 3</div>
+    <h2 class="title">模板填完了，还不是 prompt</h2>
+    <div class="chain mt-s" data-anim="fade-up">
+      <span class="step">① 事实层</span><span class="arrow">+</span>
+      <span class="step">② 口径层</span><span class="arrow">+</span>
+      <span class="step">③ 任务层</span><span class="arrow">=</span>
+      <span class="step">输入包</span>
+    </div>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card"><h4>① 事实层</h4><p class="dim">模板 A/B 填好的内容 + 客户原话<br><span class="dim">缺了 → <b>它开始编业务</b></span></p></div>
+      <div class="card"><h4>② 口径层</h4><p class="dim">术语表 · 关键数字 · 禁用词 · 成熟度标注<br><span class="dim">缺了 → <b>每次说法都不一样，装配时打架</b></span></p></div>
+      <div class="card"><h4>③ 任务层</h4><p class="dim">做什么 / 产出什么格式 / <b>不许做什么</b><br><span class="dim">缺了 → <b>给你一篇散文，不是你要的表</b></span></p></div>
+    </div>
+    <div class="card-accent mt-l" data-anim="fade-up">
+      <h4>⭐ 活体示范：这门课自己就是这么产出的</h4>
+      <p>十册手册（4842 行 · 80 段口播稿）由 <b>5 个子智能体并行写成</b>。给它们的 prompt 只有四样：范围界定 · 风格范本 · 硬纪律（数字不重算、成熟度口径、口播稿原文照搬）· <b>只回摘要不回正文</b>。<br>
+      结果：<b>五组并行、零口径漂移、上下文没爆。</b></p>
+    </div>
+    <div class="deck-footer"><span class="ftag">输入包</span><span class="slide-number" data-current="0" data-total="19"></span></div>
+    <div class="notes"><p>信息获取的产物，模板 A 或 B 填完了，那还不是 prompt。要再套三层才是输入包：事实层、口径层、任务层。学员最常见的错就是只给第一层，然后抱怨它答得不对。缺事实层，它开始编业务；缺口径层，术语和数字每次都不一样，装配的时候打架；缺任务层，它给你一篇散文，而不是你要的那张表。最后这个框是活体示范：你们手上这十册手册，四千八百多行、八十段口播稿，是五个子智能体并行写出来的，给它们的提示词只有四样东西。结果是五组并行、零口径漂移、上下文没爆。所以我说，提示词工程不是话术技巧，是把协作纪律写进输入。一句难听话：它理解不了我的需求，九成是你的输入里没有第二层和第三层。模型不会读心，你没写的约束，它没有义务遵守。</p></div>
+  </section>
+
+  <section class="slide" data-title="收口 · 难听话">
+    <div class="kicker">收口</div>
+    <h2 class="title">"它理解不了我的需求"</h2>
+    <p class="quote-big mt-m" data-anim="fade-up">九成是你的输入里<br><b>没有②口径层和③任务层。</b></p>
+    <div class="grid g3 mt-l" data-anim="stagger-list">
+      <div class="card"><h4>模型不会读心</h4><p class="dim">你没写的约束，<b>它没有义务遵守</b>。</p></div>
+      <div class="card"><h4>留白不是留余地</h4><p class="dim">是留了一个<b>它必须自己填</b>的坑。</p></div>
+      <div class="card"><h4>纪律要写进输入</h4><p class="dim">不是写在你脑子里，<b>更不是写在附录第 8 页</b>。</p></div>
+    </div>
+    <p class="dim mt-l" data-anim="fade-up">下一步 → <b>T1 实操</b>：把本组的项目描述改写成「输入包」（事实层 + 口径层 + 任务层），checkout 逐条对照。</p>
+    <div class="deck-footer"><span class="ftag">收口</span><span class="slide-number" data-current="5" data-total="5"></span></div>
+    <div class="notes"><p>最后一句难听话。以后你们再听到有人说它理解不了我的需求，九成不是模型的问题，是输入里没有口径层和任务层。模型不会读心，你没写的约束它没有义务遵守。留白在给人看的文档里是留余地，在给模型的输入里就是留了一个它必须自己填的坑——而它填的东西，看起来还挺像那么回事。所以纪律要写进输入，不是写在你脑子里，更不是写在附录第八页。接下来实操，把你们组的项目描述改写成输入包，三层齐全。</p></div>
+  </section>
+
+  
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

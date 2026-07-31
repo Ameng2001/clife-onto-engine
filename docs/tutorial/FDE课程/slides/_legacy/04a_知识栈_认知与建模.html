@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="corporate-clean"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 第4讲 · 知识栈（分册）</title>
+<link rel="stylesheet" href="../assets/fonts.css"><link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css"></head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .metric{font-size:60px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent-2)}
+  .metric-sm{font-size:40px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:15px;color:var(--text-2);margin-top:10px;line-height:1.4}
+  .quote-big{font-family:var(--font-serif);font-size:38px;line-height:1.4;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .rtable{width:100%;border-collapse:collapse;font-size:14px}
+  .rtable th,.rtable td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+  .rtable th{background:var(--surface-2);color:var(--text-1);font-weight:700}
+  .rtable td.hl{background:var(--surface-2)}
+  .rtable .now{color:var(--accent-2);font-weight:700}
+  .rtable .later{color:var(--text-3)}
+  .chip{display:inline-block;background:var(--surface-2);border:1px solid var(--border);border-radius:5px;padding:5px 10px;font-size:14px;font-weight:600;margin:3px}
+  .chip-acc{background:var(--accent);color:#fff;border:none}
+  .bridge{border-left:4px solid var(--accent-2);background:var(--surface-2)}
+  .chain{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:700;font-size:18px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:8px 12px}
+  .chain .arrow{color:var(--accent-2)}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="eyebrow" data-anim="fade-down">FDE 课程 · 第 4 讲 · 分册 1 / 4 · 认知与建模</div>
+    <h1 class="title" data-anim="fade-up">知识背景栈<br>一个人，装下七个专业角色的方法论</h1>
+    <div class="divider-accent mb-m"></div>
+    <p class="quote-big" data-anim="fade-up">FDE 不是"会建模的人"，<br>是七个角色方法论的合体。</p>
+    <div class="row mt-l" data-anim="fade-up">
+      <span class="pill pill-accent">本册讲栈①产品设计 · 栈② 领域驱动设计</span>
+      <span class="pill">能力位 C1 认知萃取 · C2 结构建模</span>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="14"></span></div>
+    <div class="notes"><p>第四讲我拆成四册讲。这一册讲两件事：认知，和建模。开场先把命题钉死——很多人以为 FDE 约等于会做领域建模、会画本体。这一讲要扭转的就是这个误解。FDE 本质上是七个专业角色方法论的合体：产品经理、领域架构师、知识工程师、商业顾问、财评专家、方案工程师、合规官。过去这七种人各坐一屋、各说行话，交接处全是信息衰减。FDE 把这七套方法论装进一个脑子。本册先讲头两栈，也是大家最熟的两栈：产品设计和领域驱动设计。</p></div>
+  </section>
+
+  <!-- 2 命题 -->
+  <section class="slide" data-title="命题 · 建模只是七分之二">
+    <div class="kicker">本讲命题</div>
+    <h2 class="title">建模只是七分之二</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <p class="lede">FDE 出现之前，做康养项目这种项目，会议室里要坐<strong>七种人</strong>——各司其职、各说行话，交接处全是信息衰减。</p>
+        <div class="card bridge"><p>FDE 消除断层的办法，不是协调这七个人，是把<strong>七套方法论装进一个人</strong>，从头跑到尾。</p></div>
+      </div>
+      <div class="card card-outline center">
+        <div>
+          <p class="metric-label" style="margin:0 0 8px">很多人以为 FDE ≈</p>
+          <div class="metric-sm" style="text-decoration:line-through;opacity:.55">会做领域建模 / 本体</div>
+          <p class="metric-label" style="margin:14px 0 8px">真相：建模只是</p>
+          <div class="metric">2 / 7</div>
+          <p class="metric-label">栈②栈③而已。多数技术人恰恰倒在栈④⑤⑥——盘不出账、过不了财评、组织不起交付物。</p>
+        </div>
+      </div>
+    </div>
+    <p class="tc mt-l" style="font-size:20px;font-weight:700;color:var(--accent)">康养项目那条链：102 事件 → 7 域 → 3835 行本体 → IRR 15.2% → 18 处挂国标 → 11 章可研——每一段由一个不同角色的方法论撑着，缺一段链就断。</p>
+    <div class="deck-footer"><span class="ftag">建模只是七分之二</span><span class="slide-number" data-current="2" data-total="14"></span></div>
+    <div class="notes"><p>这一页要扭转的误解，我说得直白点：你以为 FDE 就是会建模，其实建模只是七分之二，就是栈②栈③。康养项目那条链你数一遍——一百零二个事件、切七个域、三千八百三十五行本体、算到 IRR 十五点二、挂十八处国标、写十一章可研——每一段都是一个不同角色的方法论在撑。多数技术出身的人不是倒在建模上，恰恰倒在后面三栈：盘不出账、过不了财评、组织不起百页交付物。所以别把这门课听成"教你建模"。建模你可能已经会了，缺的是另外五个角色。</p></div>
+  </section>
+
+  <!-- 3 每个知识栈=一条方法论管线 -->
+  <section class="slide" data-title="每个知识栈 = 一条方法论管线">
+    <div class="kicker">本讲的看法 · pipeline</div>
+    <h2 class="title">别把七栈当七门要背的知识——<br>每栈是一条方法论管线</h2>
+    <p class="dim mt-s">每一栈都有<strong>输入 → 产出 → 下一段接口</strong>。七条管线首尾相接，就是 FDE 那条完整交付管线。</p>
+    <div class="grid g2 mt-s" data-anim="stagger-list">
+      <div class="card card-soft"><h4>栈① 产品（认知萃取）</h4><p class="dim">事件 → 画像 → 旅程 → 机会矩阵</p></div>
+      <div class="card card-soft"><h4>栈② DDD（域切分）</h4><p class="dim">事件簇 → 限界上下文 → 上下文映射</p></div>
+      <div class="card card-soft"><h4>栈③ 本体（建模）</h4><p class="dim">业务语义 → 五要素 → 编译 → 校验</p></div>
+      <div class="card card-soft"><h4>栈⑤ 财评（测算）</h4><p class="dim">功能点 → 取值依据 → 投资估算</p></div>
+      <div class="card card-soft" style="grid-column:1/-1"><h4>栈⑥ 交付物（成文）</h4><p class="dim">锚定口径 → 并行写作 → 装配 → 质检</p></div>
+    </div>
+    <div class="chain mt-m" data-anim="fade-up" style="font-size:14px">
+      <span class="step">event-storm</span><span class="arrow">→</span>
+      <span class="step">persona/journey/opportunity</span><span class="arrow">→</span>
+      <span class="step">限界上下文 domain-model</span><span class="arrow">→</span>
+      <span class="step">五要素本体 clife-onto-engine</span><span class="arrow">→</span>
+      <span class="step">citations 治理 quality</span><span class="arrow">→</span>
+      <span class="step">可研生成 docs</span>
+    </div>
+    <div class="card bridge mt-m" data-anim="fade-up"><p><strong>因果方向别搞反：</strong>本讲讲"方法论管线本身"；第 5 讲讲"管线为什么要被平台固化"；第 7 讲讲"工具怎么把每段管线咬合"。<strong>先有方法论管线，才有 Astra Studio 这些工具——工具是管线的固化物，不是反过来。</strong></p></div>
+    <div class="deck-footer"><span class="ftag">方法论管线</span><span class="slide-number" data-current="3" data-total="14"></span></div>
+    <div class="notes"><p>正式进七栈之前，先给你一个贯穿全讲的框架，别把这七栈当成七门要背的知识。每一栈本质上是一条方法论管线——有明确的输入、产出、和交给下一段的接口。产品栈是"事件到画像到旅程到机会矩阵"的认知萃取管线；DDD 栈是"事件簇到限界上下文到上下文映射"的域切分管线；本体栈是"业务语义到五要素到编译到校验"的建模管线，就是 methodology 零三那四阶段；财评栈是"功能点到取值依据到投资估算"的测算管线；交付物栈是"锚定口径到并行写作到装配到质检"的成文管线。把这七条管线首尾接起来，就是 FDE 那条完整交付管线：从 event-storm 开始，经 planner 出画像旅程机会矩阵，到 domain-model 切限界上下文，到 clife-onto-engine 建五要素本体，到 quality 做 citations 治理，最后到 docs 生成可研。这也是本讲和第五、第七讲的桥。记住一个因果方向,千万别搞反:本讲讲管线本身,第五讲讲管线为什么要被固化,第七讲讲工具怎么咬合。是先有了这些方法论管线,Astra Studio 才长成这些工具;工具是管线的固化物,不是反过来。所以你学这一讲,是在脑子里装那条能自己跑、也能交给工具跑的交付管线。</p></div>
+  </section>
+
+  <!-- 4 七角色总览 -->
+  <section class="slide" data-title="七角色 · 七栈 · 七经典 全景">
+    <div class="kicker">本讲主轴 · 逐栈展开</div>
+    <h2 class="title">七角色 → 七栈 → 七经典</h2>
+    <table class="rtable mt-s">
+      <thead><tr><th>#</th><th>知识栈</th><th>FDE 之前是谁</th><th>业界经典 / 范本</th><th>康养项目及案例</th></tr></thead>
+      <tbody>
+        <tr class="now"><td>①</td><td>产品设计</td><td>产品经理</td><td>《设计冲刺 Sprint》+ 内部《场景化产品设计》</td><td>102 事件 / 7 画像·368 问卷</td></tr>
+        <tr class="now"><td>②</td><td>领域驱动设计</td><td>领域架构师</td><td>Evans 蓝皮书 + Vernon 红皮书</td><td>7 域 D1–D7 / 防腐层 / 零悬空</td></tr>
+        <tr><td>③</td><td>本体建模 OAG</td><td>知识工程师</td><td>Palantir Foundry Ontology 方法论</td><td>五要素 76/75/38/47/54</td></tr>
+        <tr class="later"><td>④</td><td>商业模式与财务</td><td>商业顾问</td><td>康养项目 BP 财务测算 Excel 范本</td><td>EBITDA 5219万 / IRR 15.2%</td></tr>
+        <tr class="later"><td>⑤</td><td>财务与财评</td><td>财评专家</td><td>柳财审〔2020〕16号 + NESMA + GB/T 36964</td><td>某工业城市 27,056 FP → 4,839 万</td></tr>
+        <tr class="later"><td>⑥</td><td>交付物工程</td><td>方案/标书工程师</td><td>发改可研大纲 + 肖作仕写作规范</td><td>11 章可研 / 锚定口径</td></tr>
+        <tr class="later"><td>⑦</td><td>合规与标准治理</td><td>合规官 / 法务</td><td>等保 GB/T 22239 / 个保法 / 数安法</td><td>18 挂标 / 11 占位</td></tr>
+      </tbody>
+    </table>
+    <div class="row mt-s">
+      <span class="chip chip-acc">本册（1/4）讲栈 ①②</span>
+      <span class="chip">本体 OAG ③ → 分册 2/4 单独详解（重头）</span>
+      <span class="chip">栈 ④⑤⑥⑦ → 分册 3/4、4/4</span>
+    </div>
+    <div class="deck-footer"><span class="ftag">七角色全景</span><span class="slide-number" data-current="4" data-total="14"></span></div>
+    <div class="notes"><p>这是全讲的主轴表，你把它当地图。七栈、七个原来各司其职的角色、每栈一本压舱经典、每栈在康养项目怎么落地。划重点：这不是让你成为七个专家，是让你从七个角色的方法论里各取"能独立跑完交付"的那一层，样样够用、缝缝对齐、边界自知。今天这一册只讲头两栈，也是技术人相对熟的两栈——产品设计和 DDD。本体栈太重，我单独拆成第二册讲。后面四栈——商业、财评、交付物、合规——放三册四册。你先记住这张表的结构，尤其是"谁原来占这个角色"那一列。</p></div>
+  </section>
+
+  <!-- 4 议程 -->
+  <section class="slide" data-title="议程 4:4:2">
+    <div class="kicker">AGENDA · 120′</div>
+    <h2 class="title">时间分配 · 4 : 4 : 2</h2>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card card-accent"><h4>认知输入 · 48′</h4><p class="dim">开场"七角色合体"3′ + 七栈逐维（每栈约 7′，紧凑）+ 收口"乘法"2′。本册覆盖栈①②。</p></div>
+      <div class="card card-accent"><h4>现场演练 · 48′</h4><p class="dim">七角色能力盘点：每角色你到 L 几，画七维雷达；选最弱一栈精读对应经典一章，写一页"用到案例"的笔记。</p></div>
+      <div class="card card-accent"><h4>复盘研讨 · 24′</h4><p class="dim">3 研讨题 + 讲师收口 + 难听话 + 两反例（B-6 标准号误标 / B-5 数据张冠李戴）。</p></div>
+    </div>
+    <p class="dim mt-l">本册（1/4）对应"认知输入"里的开场与栈①栈②两段；本体栈另起一册详解。</p>
+    <div class="deck-footer"><span class="ftag">4 : 4 : 2</span><span class="slide-number" data-current="5" data-total="14"></span></div>
+    <div class="notes"><p>时间还是四四二，落到分钟。认知输入四十八分钟，开场三分钟讲"为什么是角色合体不是技能清单"，然后七栈逐维每栈约七分钟，收口两分钟讲"七栈是乘法不是加法"。演练四十八分钟做两件残忍的事：按七个角色给自己逐个定级画雷达，再为最弱那栈翻一章经典写一页能用的笔记。复盘二十四分钟三个研讨题加两个反例。这一册对应的是认知输入里的开场加栈一栈二。本体那栈内容最重，我单独拉一册讲，别在这挤。</p></div>
+  </section>
+
+  <!-- 5 栈① 四个具体方法 -->
+  <section class="slide" data-title="栈① 产品设计 · 四个具体方法">
+    <div class="kicker">栈 ① · 产品设计 · 产品经理的方法论</div>
+    <h2 class="title">四个把模糊意图变结构的具体方法</h2>
+    <p class="dim mt-s">产品设计不是"画原型"——是四件<strong>可照做的方法</strong>，一步步把"客户想要点什么"逼成<strong>可归域的结构</strong>。</p>
+    <div class="grid g2 mt-s" data-anim="stagger-list">
+      <div class="card card-accent"><h4>① Persona 用户画像</h4><p class="dim">按<strong>行为 / 目标 / 动机 / 痛点</strong>定义真实用户——不是人口属性堆砌。画像是整条旅程的地基。</p></div>
+      <div class="card card-accent"><h4>② User Journey Map 用户旅程图</h4><p class="dim">Figma 五要素框架：把用户在各阶段的行为、情绪、机会点画出来（下一页详解）。</p></div>
+      <div class="card card-accent"><h4>③ Opportunity Matrix 机会矩阵</h4><p class="dim">把旅程暴露的痛点<strong>排优先级</strong>：影响 × 可行性 × √频率、ROI 排序，决定先做哪个。</p></div>
+      <div class="card card-accent"><h4>④ Event Storming 事件风暴</h4><p class="dim">业务事件<strong>全量铺开再归簇</strong>，喂给后面栈② 的限界上下文。</p></div>
+      <div class="card card-soft" style="grid-column:1/-1"><h4>＋ 产品思维（情绪与势能内核 · 梁宁《产品思维30讲》）</h4><p class="dim">给上面四法补一层"人和情绪"：<strong>同理心</strong>（痛点/痒点/爽点，画像旅程里的"痛点"就从这来）· <strong>点线面体</strong>（从一个点看到所附着的线—面—体与势能，别做没势能的孤点）· <strong>用户体验五层</strong>（战略存在/能力圈/资源结构/角色框架/感知层——底下四层才决定成败）。这是 <strong>Persona/Journey 的情绪与势能内核</strong>。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">栈① 四法 + 产品思维</span><span class="slide-number" data-current="6" data-total="14"></span></div>
+    <div class="notes"><p>第一栈，产品设计，原本是产品经理的活——把客户模糊的意图变成"要做什么"。我把它讲实：产品设计不是画原型，核心是四件可照做的方法，一步步把"客户想要点什么"逼成可归域的结构。第一件，Persona 用户画像，按行为、目标、动机、痛点来定义真实用户，不是拿人口属性堆砌，画像是整条旅程的地基。第二件，User Journey Map 用户旅程图，用 Figma 那套五要素框架把用户在各阶段的行为、情绪、机会点画出来，这个下一页专门拆。第三件，Opportunity Matrix 机会矩阵，把旅程里暴露的痛点排优先级，按影响乘可行性乘频率的开方做 ROI 排序，决定先做哪个。第四件，Event Storming 事件风暴，把业务事件全量铺开再归簇，喂给后面栈二的限界上下文。这四件方法是有顺序、能照做的，不是玄学。最后补一层底：产品思维，梁宁《产品思维30讲》那套。前面四法是骨架，产品思维给它补"人和情绪"这层肉——同理心把需求分成痛点、痒点、爽点，画像旅程里的痛点就从这来；点线面体提醒你从一个具体产品这个"点"，看到它附着的线、面、体和势能，别做一个没势能的孤点；用户体验五层告诉你产品不止感知层好看，底下战略存在、能力圈、资源结构、角色框架四层才决定成败。所以产品思维是 Persona 和 Journey 的情绪与势能内核。</p></div>
+  </section>
+
+  <!-- 6 栈① User Journey Map 详解 -->
+  <section class="slide" data-title="栈① User Journey Map 详解">
+    <div class="kicker">栈 ① · 用户旅程图 · Figma 五要素框架</div>
+    <h2 class="title">Journey Map 五要素 · 五步做法</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <div class="card card-soft"><h4>五要素</h4><p class="dim">① 用户（persona）② 场景与目标 ③ <strong>旅程阶段</strong> ④ <strong>行为·态度·情绪</strong>（每阶段正负情绪）⑤ <strong>机会点</strong>（从摩擦/痛点长出来）。</p></div>
+        <div class="card card-accent"><h4>旅程阶段（可按业务定制）</h4>
+          <div class="chain" style="font-size:15px;margin-top:6px">
+            <span class="step">awareness</span><span class="arrow">→</span>
+            <span class="step">consideration</span><span class="arrow">→</span>
+            <span class="step">decision</span><span class="arrow">→</span>
+            <span class="step">purchase</span><span class="arrow">→</span>
+            <span class="step">retention</span>
+          </div>
+        </div>
+      </div>
+      <div class="card"><h4>五步做法</h4>
+        <div class="chain" style="flex-direction:column;align-items:flex-start;gap:8px;font-size:16px;margin-top:6px">
+          <span class="step">① 从研究数据定 persona 与目标</span>
+          <span class="step">② 找触点</span>
+          <span class="step">③ 可视化阶段</span>
+          <span class="step">④ 逐阶段记录行为与情绪</span>
+          <span class="step">⑤ 用真实反馈校验迭代</span>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">Journey Map 五要素</span><span class="slide-number" data-current="7" data-total="14"></span></div>
+    <div class="notes"><p>四个方法里 User Journey Map 最容易被做成流水账，所以单独一页讲透。它用 Figma 给的五要素框架：第一是用户，就是 persona，让旅程反映真实用户视角；第二是场景与目标；第三是旅程阶段，通用的一条线是 awareness、consideration、decision、purchase、retention，认知、考虑、决策、购买、留存，可以按你的业务定制；第四是行为、态度、情绪，每个阶段都要标出用户的正面和负面情绪，这一栏最常被漏掉；第五是机会点，机会点不是拍脑袋想的，是从摩擦和痛点里长出来的。五步做法照着走：先从研究数据定 persona 和目标，再找触点，再把阶段可视化，逐阶段记录行为和情绪，最后一定要用真实反馈校验迭代。一张合格的旅程图，情绪和机会点两栏必须齐全，否则就退化成了功能清单。</p></div>
+  </section>
+
+  <!-- 7 栈① 经典/来源 + 血脉 -->
+  <section class="slide" data-title="栈① 经典/来源 + 一条血脉">
+    <div class="kicker">栈 ① · 经典 / 来源 + 一条血脉</div>
+    <h2 class="title">四处来源 · 产品栈是本体栈的前身</h2>
+    <div class="grid g2 mt-s">
+      <div class="card"><h4>《设计冲刺 Sprint》</h4><p class="dim">Jake Knapp · Google Ventures——五天从问题到可测原型，HMW、用户测试是骨架。</p></div>
+      <div class="card"><h4>Figma User Journey Map 资源库</h4><p class="dim">旅程图<strong>五要素与五步做法</strong>的权威框架。</p></div>
+      <div class="card card-accent"><h4>梁宁《产品思维30讲》· 得到</h4><p class="dim">同理心 / 点线面体 / 用户体验五层——补足"<strong>情绪与势能</strong>"维度。</p></div>
+      <div class="card"><h4>《场景化产品设计》</h4><p class="dim">刘亚蒙 · 2018——内部资产，把这套落成可操作流程。</p></div>
+    </div>
+    <div class="card bridge mt-m" data-anim="fade-up">
+      <h4>点破：产品栈与本体栈本是一条血脉</h4>
+      <div class="row mt-s">
+        <div style="flex:1"><span class="chip">"建立共同的认知约定"</span><p class="dim" style="margin-top:6px">= 本课程反复讲的<strong>锚定口径机制的原型</strong>。</p></div>
+        <div style="flex:1"><span class="chip">"场景七要素"</span><p class="dim" style="margin-top:6px">= OAG 五要素里 <strong>Action（动作）的前身</strong>。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">一条血脉</span><span class="slide-number" data-current="8" data-total="14"></span></div>
+    <div class="notes"><p>这栈四处来源。外部经典是《设计冲刺》，Google Ventures 那套五天从问题到可测原型，HMW 和用户测试是骨架。旅程图那套五要素五步，权威框架来自 Figma 的 User Journey Map 资源库，你直接去查它的模板。第三处是梁宁的《产品思维30讲》，得到上那门课，同理心、点线面体、用户体验五层，专门补足情绪和势能这个维度，前面几法容易只做骨架、漏了人的情绪，这门补上。内部还有一份《场景化产品设计》，刘亚蒙二零一八年写的，把这套落成了可操作流程。我要特别点破一件事——它不只是产品资料：里面"建立共同的认知约定，名词、概念、流程、节奏"这一条，就是我们这门课反复讲的锚定口径机制的原型；它的"场景七要素"，就是后面 OAG 五要素里 Action 的前身。所以产品栈和本体栈本来就是一条血脉，你学产品设计不是学画原型，是在给建本体打认知底子。</p></div>
+  </section>
+
+  <!-- 8 栈① 落成 Astra Studio planner -->
+  <section class="slide" data-title="栈① 落成 Astra Studio planner">
+    <div class="kicker">栈 ① · 落成工具 · Astra Studio planner / insight</div>
+    <h2 class="title">方法固化成 studio 技能 · 与本体栈对称</h2>
+    <p class="dim mt-s">这些方法在 C-Life <strong>不是靠手画白板，是固化成 studio 技能</strong>——像本体栈锚到 clife-onto-engine 一样，产品栈锚到 Astra Studio planner 工具链。</p>
+    <div class="row mt-s" data-anim="stagger-list">
+      <span class="chip chip-acc">persona-insight 画像</span>
+      <span class="chip chip-acc">journey-map 用户旅程</span>
+      <span class="chip chip-acc">process-flow 业务流程</span>
+      <span class="chip chip-acc">opportunity-brief 机会矩阵（Impact×Feasibility×√Freq → ROI）</span>
+      <span class="chip chip-acc">behavior-matrix 行为矩阵</span>
+      <span class="chip chip-acc">domain-canvas 领域画布</span>
+      <span class="chip chip-acc">event-storm 事件风暴</span>
+    </div>
+    <div class="card bridge mt-m" data-anim="fade-up"><p><strong>对称结构：</strong>产品栈锚 <strong>Astra Studio planner</strong> ↔ 本体栈锚 <strong>clife-onto-engine</strong>——两栈的方法论都被<strong>平台固化</strong>（呼应第 5 讲"FDE 依赖成熟工程化平台"）。方法论不是嘴上功夫，是能被工具复用的资产。</p></div>
+    <div class="deck-footer"><span class="ftag">锚 studio planner</span><span class="slide-number" data-current="9" data-total="14"></span></div>
+    <div class="notes"><p>这一页是新增的重点。这些方法在 C-Life 不是靠某个高手手画白板，是固化成了 studio 技能，任何人都能调。你看这一串：persona-insight 做画像，journey-map 做用户旅程，process-flow 做业务流程，opportunity-brief 做机会矩阵、里面就是影响乘可行性乘频率开方那套 ROI 排序，behavior-matrix 做行为矩阵，domain-canvas 做领域画布，event-storm 做事件风暴。注意这个结构——它跟本体栈是对称的：本体栈锚到 clife-onto-engine 这个内核，产品栈锚到 Astra Studio 的 planner 工具链。两栈的方法论都被平台固化了，这正好呼应第五讲讲的"FDE 依赖成熟工程化平台"。这告诉你一件事：方法论不是嘴上功夫，真正成体系的方法论最后都会沉淀成能被工具复用的资产。</p></div>
+  </section>
+
+  <!-- 9 栈① 康养项目/教育督导项目 + 自评 -->
+  <section class="slide" data-title="栈① 康养项目/教育督导项目 + 自评">
+    <div class="kicker">栈 ① · 康养项目 / 教育督导项目 + 自评到能交付</div>
+    <h2 class="title">同一套 planner 方法 · 跨行业成立</h2>
+    <div class="chain mt-s" data-anim="fade-up" style="font-size:15px">
+      <span class="step">event-storm 102 事件/16 簇</span><span class="arrow">→</span>
+      <span class="step">persona-insight 7 画像·368 问卷（按行为）</span><span class="arrow">→</span>
+      <span class="step">journey-map 7 旅程</span><span class="arrow">→</span>
+      <span class="step">process-flow 5 流程</span><span class="arrow">→</span>
+      <span class="step">opportunity-brief 10 热点 P1–P5</span>
+    </div>
+    <div class="grid g2 mt-m">
+      <div class="card card-soft"><h4>行为分群（不是人口属性）</h4><p class="dim">按行为切：<strong>熟人获客接受度 77.59%</strong>、<strong>智能监护接受但要简单式 84.48%</strong>。教育督导项目同一套——3 画像（李科长/张园长/王老师）+ opportunity-brief ROI（<strong>material-qc / standard-decode 为 P0</strong>）。</p></div>
+      <div class="card" style="border-left:4px solid var(--good)"><h4>自评到能交付</h4><p class="dim">能独立主持事件风暴产出<strong>可归域</strong>事件集；做一张<strong>情绪+机会点齐全</strong>的 journey map；每个画像特征都能指到一份数据来源（368 问卷=B-5 前的"锚点"纪律）。</p></div>
+    </div>
+    <p class="tc mt-m" style="font-size:19px;font-weight:700;color:var(--accent)">同一套 planner 方法跨行业跨模式成立——这就是第 8 讲"C1 认知萃取迁移力"的底座。</p>
+    <div class="deck-footer"><span class="ftag">栈① 康养项目/教育督导项目证据</span><span class="slide-number" data-current="10" data-total="14"></span></div>
+    <div class="notes"><p>看这套 planner 方法在康养项目怎么串起来：event-storm 出一百零二个事件、十六簇，persona-insight 定七个画像、用三百六十八份问卷按行为聚类校准，journey-map 画七条旅程，process-flow 出五个流程，opportunity-brief 排十个热点 P1 到 P5。重点还是行为分群：不按"六十岁以上老人"这种人口属性切，是按行为切——熟人获客接受度百分之七十七点五九、智能监护接受但要简单式百分之八十四点四八。关键的证据在这——教育督导项目用的是同一套：三个画像李科长、张园长、王老师，加 journey，加 opportunity-brief 做 ROI 排序，把 material-qc 和 standard-decode 排成 P0。同一套 planner 方法，从康养跨到学前教育照样成立，这就是第八讲讲的 C1 认知萃取迁移力的底座。自评标准：能独立主持事件风暴产出可归域的事件集，能做一张情绪和机会点齐全的旅程图，每个画像特征都能指到一份数据来源——康养项目那三百六十八份问卷，就是反例 B-5 之前那条"锚点"纪律的正面示范。</p></div>
+  </section>
+
+  <!-- 10 栈② 角色+内核+经典 -->
+  <section class="slide" data-title="栈② DDD · 角色与内核">
+    <div class="kicker">栈 ② · 领域驱动设计 · 领域架构师的方法论</div>
+    <h2 class="title">把大系统切成边界清晰、各自内聚的域</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card"><h4>统一语言</h4><p class="dim">Ubiquitous Language——同一名词全域一个意思，杜绝行话打架。</p></div>
+      <div class="card"><h4>限界上下文</h4><p class="dim">Bounded Context——每个域自成边界、各自内聚，域内定义只在域内成立。</p></div>
+      <div class="card"><h4>上下文映射</h4><p class="dim">Context Mapping，含<strong>防腐层 ACL</strong>——域与域之间是"引用"还是"发布"，边界怎么防污染。</p></div>
+    </div>
+    <div class="grid g2 mt-m">
+      <div class="card card-accent"><h4>蓝皮书 · 开山之作</h4><p class="dim">《领域驱动设计》Eric Evans——DDD 起点。重点啃"限界上下文"与"上下文映射"两章。</p></div>
+      <div class="card card-accent"><h4>红皮书 · 落地版</h4><p class="dim">《实现领域驱动设计》Vaughn Vernon——把蓝皮书落到工程；配 DDD 实战课练手。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">栈② DDD</span><span class="slide-number" data-current="11" data-total="14"></span></div>
+    <div class="notes"><p>第二栈，领域驱动设计，原本是领域架构师的活——负责把一个大系统切成边界清晰、各自内聚的域。DDD 三件核心你必须记牢：统一语言，同一个名词在全域只有一个意思，杜绝行话打架；限界上下文，每个域自成边界各自内聚，域内的定义只在域内成立；上下文映射，包含防腐层 ACL，讲的是域和域之间到底是引用还是发布、边界怎么防污染。两本经典压舱：蓝皮书是 Evans 的《领域驱动设计》，开山之作，重点啃限界上下文和上下文映射两章；红皮书是 Vernon 的《实现领域驱动设计》，落地版，再配一门实战课练手。这栈技术人相对熟，但真正的坑在下一页——切域的纪律。</p></div>
+  </section>
+
+  <!-- 9 栈② 康养项目 7 域 -->
+  <section class="slide" data-title="栈② 康养项目 7 域">
+    <div class="kicker">栈 ② · 康养项目怎么用</div>
+    <h2 class="title">7 域限界上下文 · 两处防腐层 · 零悬空</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <div class="card card-soft"><h4>切域</h4><p class="dim">102 事件 / 16 簇 → <strong>7 域 D1–D7</strong>。切的判据："谁拥有这个决策"，不是"谁的数据"。</p></div>
+        <div class="card card-soft"><h4>跨域纪律</h4><p class="dim">一律 <strong>ref 引用 / 发布不越界写入</strong>；两处<strong>防腐层 ACL</strong>（D6↔D5、D4↔D5）；<strong>Elder 共享根单一写入点</strong>=统一语言+单一真相。</p></div>
+      </div>
+      <div class="card card-accent center">
+        <div><div class="metric">7 / 7</div>
+        <p class="metric-label">A 结构校验零悬空引用</p>
+        <p class="metric-label" style="margin-top:16px">切得对不对，不靠嘴说，靠<strong>结构校验兜底</strong>——没有一个对象被两个域同时写。</p></div>
+      </div>
+    </div>
+    <p class="dim mt-s">越域写入的冲动是真实的坑——本讲埋钩，第 5 讲 B-8 专讲。</p>
+    <div class="deck-footer"><span class="ftag">栈② 康养项目证据</span><span class="slide-number" data-current="12" data-total="14"></span></div>
+    <div class="notes"><p>康养项目怎么用这栈。把栈一那一百零二个事件、十六簇，切成七个限界上下文 D1 到 D7。切域的判据我强调一句：看"谁拥有这个决策"，不是看"谁的数据"，这是新手最容易切错的地方。切完之后立三条纪律：跨域一律 ref 引用或者发布，绝不越界写入；两处防腐层，D6 对 D5、D4 对 D5，这就是 DDD 里的 ACL；Elder 这个共享根只有一个写入点，这就是统一语言加单一真相的落地。切得对不对不靠嘴说，靠结构校验兜底——A 结构七比七零悬空引用，意思是没有任何一个对象被两个域同时写。越域写入的冲动特别真实，人人都想抄近路直接写别人域，这个坑第五讲 B-8 会专门讲。</p></div>
+  </section>
+
+  <!-- 10 栈② 自评 -->
+  <section class="slide" data-title="栈② 自评">
+    <div class="kicker">栈 ② · 自评到能交付</div>
+    <h2 class="title">能独立切一个域并通过结构校验</h2>
+    <div class="grid g2 mt-m">
+      <div class="card goodcard" style="border-left:4px solid var(--good)"><h4>练法</h4><p class="dim">把栈①的事件集按"<strong>谁拥有这个决策</strong>"切域；切完自查：<strong>有没有一个对象被两个域同时写</strong>。</p></div>
+      <div class="card goodcard" style="border-left:4px solid var(--good)"><h4>验收标准</h4><p class="dim">能独立完成 1 个域的 ontology-map 并<strong>通过结构校验</strong>；能一句话说清两个域之间是"<strong>引用</strong>"还是"<strong>发布</strong>"。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:22px;font-weight:700;color:var(--accent)">切域对了，本体才立得住——栈②是栈③的地基。</p>
+    <div class="deck-footer"><span class="ftag">栈② 自评</span><span class="slide-number" data-current="13" data-total="14"></span></div>
+    <div class="notes"><p>这栈自评标准。练法：把你在栈一产出的事件集，按"谁拥有这个决策"切成几个域，切完做一件事自查——有没有哪个对象被两个域同时写，只要有，就是切错了。验收到能交付的标准是两条：第一，你能独立完成一个域的 ontology-map 并且通过结构校验；第二，随便指两个域，你能一句话说清它俩之间是引用关系还是发布关系。为什么这栈这么重要？因为切域是本体的地基，域切歪了，下一册讲的本体五要素全立在流沙上。所以别急着跳到本体，先把这栈的切域纪律吃透。</p></div>
+  </section>
+
+  <!-- 11 过渡 -->
+  <section class="slide" data-title="过渡 · 本体单独一册">
+    <div class="kicker">本册收口 · 承接</div>
+    <h2 class="title">本体是重头 —— 单独一册讲</h2>
+    <div class="center" style="flex:1">
+      <p class="quote-big" data-anim="fade-up" style="max-width:32ch">栈①把意图变成场景，栈②把场景切成域。<br>下一册：把域<strong>建成机器可推理、可执行的本体</strong>。</p>
+    </div>
+    <div class="row center mt-m" data-anim="fade-up">
+      <span class="pill pill-accent">分册 2 / 4 · 本体 OAG 详解（重头）</span>
+      <span class="pill">锚 Palantir Foundry Ontology 方法论</span>
+      <span class="pill">D1 真实插件逐要素拆</span>
+    </div>
+    <p class="dim tc mt-l">这栈是这门课区别于"传统信息化建模"的硬核——它值得单独一册，也是你最该学会写的东西。</p>
+    <div class="deck-footer"><span class="ftag">→ 分册 2/4</span><span class="slide-number" data-current="14" data-total="14"></span></div>
+    <div class="notes"><p>本册收口，做个承接。你看这条链已经走了两步：栈一把客户模糊的意图变成一个个场景，栈二把场景切成边界清晰的域。下一步是什么？把这些域真正建成机器可推理、可执行的本体，而不是给人看的 ER 图。这一栈是这门课区别于传统信息化建模的硬核，也是最该学会写的东西，内容太重，我把它单独拉成第二册。第二册我会锚 Palantir 的 Foundry Ontology 方法论，然后对着康养项目 D1 那个真正编译出来的插件，把五要素一个一个拆给你看。休息一下，我们进本体册。</p></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body></html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 专题课 S1 · 本体论</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:46px 70px}
+  .mt-l{margin-top:17px}.mt-m{margin-top:11px}
+  .lede{font-size:17px;line-height:1.48}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:5px;font-size:15px}
+  .card p,.card-accent p,.card-outline p{font-size:13.8px;line-height:1.5}
+  h2.title{font-size:35px;line-height:1.14}
+  .chain{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-weight:700;font-size:17px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:7px 11px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:24px;line-height:1.34;font-weight:600;color:var(--accent);max-width:28ch}
+  .huge{font-family:var(--font-serif);font-size:31px;line-height:1.22;font-weight:700;color:var(--accent)}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:13.4px}
+  table.t th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:5px 9px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:4.6px 9px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:12.4px;line-height:1.55;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:11px 15px;overflow:auto;color:var(--text-1)}
+  .src{font-size:12px;color:var(--text-3);font-style:italic}
+  .layer{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;margin-bottom:5px;font-size:14px}
+  .layer b{color:var(--text-1)}
+  .layer.hot{background:var(--grad-soft);border-color:var(--accent)}
+  .slide.tight .card,.slide.tight .card-accent,.slide.tight .card-outline{padding-top:7px;padding-bottom:7px}
+  .slide.tight table.t td{padding-top:3.2px;padding-bottom:3.2px}
+  .slide.tight pre.code{padding-top:8px;padding-bottom:8px}
+  .slide.tight .mt-l{margin-top:12px}.slide.tight .mt-m{margin-top:8px}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 专题课 S1 · 180′ · 纯讲解</div>
+  <h1 class="title" data-anim="fade-up">本体论<br>从数据到世界模型</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">数据记录了世界是什么，<br><b>本体定义了世界如何运转。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">第五课的方法论前置</span>
+    <span class="pill">工具会换，这套判断不会</span>
+  </div>
+  <p class="src mt-m">教材完全基于《工程师的本体论》方法论文集（45 篇 + 番外），不引入具体引擎的实现细节</p>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="26"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 180′】</b> 一 缺的不是数据 25′ ｜ 二 架构位置 30′ ｜ 三 五要素 25′ ｜ 四 OAG≠RAG 20′ ｜ <b>五 三层能力 35′</b> ｜ 六 Software 3.0 20′ ｜ 七 Harness vs 本体 15′ ｜ 八 建模 SOP 20′ ｜ 九 进阶 10′ ｜ 十 收口 + 自查 15′　<b>（合计 215′，见下面的压缩建议）</b></p>
+    <p><b>⚠️【已知超时，压缩优先级】</b> 砍 ①第九章进阶（动态 Schema / 双本体联邦，手册里写全了）②第六章的 OS 对照表 ③第二章的完整采购流程走查。<b>绝不砍：字典 vs 物理引擎、OAG 三层能力、Harness 边界、建模四阶段。</b></p>
+    <p><b>【这门课和第五课的关系，开场就说清】</b>"第五课教的是<b>我们这套工具怎么跑</b>；今天这一课教的是<b>为什么必须有这层、该怎么想</b>。<b>建议顺序是先这门再第五课。如果你只上一门，上这一门——工具会换，这套判断不会。</b>"</p>
+    <p><b>【本课定调】</b> 这是<b>纯讲解课</b>，和第一课同类。学员不动手。但<b>每一章都要落到一个可复用的判据上</b>，不要讲成概念梳理。</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="本课路线">
+  <div class="kicker">本课路线</div>
+  <h2 class="title">十章，一条线</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>问题与位置</h4><p class="dim">① 我们缺少的不是数据，而是本体<br>② 本体在架构里的位置<br>③ 五要素：世界的结构与动力</p></div>
+    <div class="card card-accent"><h4>OAG：从会查到会做</h4><p class="dim">④ OAG ≠ RAG 的分界<br><b>⑤ 三层能力逐层拆</b>（操作发现 / 执行约束 / 决策追溯）</p></div>
+    <div class="card"><h4>架构定位</h4><p class="dim">⑥ Software 3.0：本体是 LLM OS 的文件系统<br>⑦ Harness 管循环，本体管世界</p></div>
+    <div class="card card-accent"><h4>怎么做</h4><p class="dim"><b>⑧ 建模 SOP</b>（可照做）<br>⑨ 进阶：规则会变，域会有两个<br>⑩ 收口：AI FDE 为什么能 work</p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">如果你只上一门课，<br><b>上这一门。</b></p>
+  <div class="deck-footer"><span class="ftag">路线</span><span class="slide-number" data-current="2" data-total="26"></span></div>
+  <div class="notes"><p><b>【先给地图】</b>和第一课一样的打法。让学员知道 180 分钟会去哪。</p>
+  <p><b>【标粗的两块是本课重心】</b>第五章"三层能力"和第八章"建模 SOP"——<b>前者是判断力，后者是可照做的动作</b>。</p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="露华浓">
+  <div class="kicker">① 缺的不是数据 1/4</div>
+  <h2 class="title">一套承诺"消灭数据孤岛"的系统，<br>把公司送进了深渊</h2>
+  <p class="lede mt-s" data-anim="fade-up">2018 年 2 月，露华浓（Revlon）上线新 ERP，要统一订单、库存、生产排期、财务，<b>终结数据孤岛</b>。</p>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <p class="dim">然后北卡罗来纳州牛津工厂的生产线出了问题：ERP <b>无法把订单信息传递给生产排程</b>，也<b>无法把库存状态传递回客户履约模块</b>。多个系统业务规则不兼容，数据格式对不上。<br>
+    当工人需要知道"<b>现在该生产哪个 SKU、备多少料、发给哪个零售商</b>"时——<b>系统给不出一个可信的答案。</b></p>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:20%">时间</th><th>发生了什么</th></tr>
+    <tr><td><b>2018 Q4</b></td><td>净亏损超过 <b>7000 万美元</b></td></tr>
+    <tr><td>公告后</td><td>股价<b>单日暴跌超过 6%</b></td></tr>
+    <tr><td>同期</td><td>因财务数据失真，<b>无法按时向 SEC 提交年报</b></td></tr>
+    <tr><td><b>四年后</b></td><td><b>申请破产保护</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">露华浓</span><span class="slide-number" data-current="3" data-total="26"></span></div>
+  <div class="notes"><p><b>【开场就用这个案例，别先讲定义】</b>本体这个词太玄，先讲一个真实的、有代价的失败。<b>7000 万美元、单日跌 6%、交不出年报、四年后破产保护</b>——这几个数字要一个一个念出来。</p>
+  <p><b>【关键的反转在下一页】</b>先不揭晓。让他们以为这是"数据没打通"的故事。</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="它知道什么，不知道什么">
+  <div class="kicker">① 缺的不是数据 2/4</div>
+  <h2 class="title">讽刺的是，露华浓的数据从来就不少</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:44%">它知道</th><th>它不知道</th></tr>
+    <tr><td>有一个 SKU 叫"超持久唇膏 210#"，<b>库存 12,000 支</b></td><td>这张订单<b>是否已经触发了生产排程</b></td></tr>
+    <tr><td>沃尔玛有一张待履约的采购订单，<b>数量 8,000 支</b></td><td>生产排程<b>需要哪条产线腾出来</b></td></tr>
+    <tr><td></td><td>如果那条产线正在跑另一个优先级更高的订单，<b>应该由谁来决策插单还是延期</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">这些"知道"，分散在<b>生产主管、供应链协调员、IT 管理员各自的脑子里</b>，以及一套<b>没人敢动的 Excel 排班表</b>中。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">系统记录了结果，<b>没有记录"法则"。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">数据治理困境的本质<b>不是数据不够多</b>，是缺少了描述"<b>实体之间如何相互关联、如何相互约束、如何相互触发</b>"的那一层——<br>哲学家把它叫做<b>本体（Ontology）</b>。</p>
+  <div class="deck-footer"><span class="ftag">缺了哪一层</span><span class="slide-number" data-current="4" data-total="26"></span></div>
+  <div class="notes"><p><b>【这一页是反转，慢讲】</b>"讽刺的是，<b>露华浓的数据从来就不少</b>。"——停一下。学员这时候会重新理解上一页。</p>
+  <p><b>【"没人敢动的 Excel 排班表"这句要说】</b>每个企业都有那么一张表。<b>它就是本体缺失的物证。</b></p>
+  <p><b>【收口】</b>"<b>这不是露华浓的特殊困境。这是几乎所有完成了'数字化第一阶段'的企业的共同症状。</b>"</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="字典 vs 物理引擎">
+  <div class="kicker">① 缺的不是数据 3/4 · <b>本课第一个心智模型</b></div>
+  <h2 class="title">字典 vs 物理引擎</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-outline"><h4>字典</h4><p class="dim">有"员工"、"订单"、"设备"、"供应商"，<b>每个词都有定义，精确无误</b>。<br><br>
+    <b>但它不会告诉你</b>：<br>· 员工<b>有权限</b>操作哪些订单？<br>· 订单超 10 万时<b>必须</b>经过谁审批？<br>· 设备故障<b>应该</b>触发哪个流程？<br><br>
+    <b>字典是死的。它只记录名词，不记录物理定律。</b></p></div>
+    <div class="card-accent"><h4>物理引擎</h4><p class="dim">不仅定义<b>名词</b>（实体），还定义<b>动词</b>（操作）和<b>物理约束</b>（规则）：<br><br>
+    "员工（<b>实体</b>）<b>持有</b>操作权限（<b>关系</b>），可以修改订单状态（<b>行为</b>），但金额<b>不能超过 10 万</b>（<b>约束</b>），超出则<b>自动触发</b>审批工作流（<b>连锁反应</b>）。"</p></div>
+  </div>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <p class="dim">这一段逻辑，在传统数据库里<b>大概分散在五个不同的代码文件里，靠程序员的"约定"维持</b>——<br>
+    <b>任何一个人离职或者某次迭代没跟上，这条规则就悄无声息地断掉了。</b></p>
+  </div>
+  <p class="huge mt-m" data-anim="fade-up">数据记录了世界是什么，<br>本体定义了世界如何运转。</p>
+  <div class="deck-footer"><span class="ftag">字典 vs 物理引擎</span><span class="slide-number" data-current="5" data-total="26"></span></div>
+  <div class="notes"><p><b>⚠️【这一页是全课最该记住的一页】</b>如果学员只带走一个心智模型，就是这个。<b>讲慢，讲透，允许停顿。</b></p>
+  <p><b>【现场动作，效果最好】</b>问一句："<b>你们项目里，有没有一条规则是散在五个文件里、靠约定维持的？</b>那条规则，如果写它的人明天离职，还成立吗？"——让他们想 10 秒。<b>这个问题会让整节课落地。</b></p>
+  <p><b>【最后那句要板书】</b>"数据是事实的存档，本体是现实的法则。<b>没有法则，再多的事实也只是一堆彼此不相识的数字。</b>"</p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="为什么现在重提">
+  <div class="kicker">① 缺的不是数据 4/4</div>
+  <h2 class="title">为什么现在重提"本体"</h2>
+  <p class="lede mt-s" data-anim="fade-up">语义网、知识图谱，这些概念已经炒了二十年。<br>
+  <b>因为大语言模型的出现，把这个问题从"技术债"升级成了生死线。</b></p>
+  <div class="card mt-m" data-anim="fade-up">
+    <p class="dim">LLM 能力极强——能读懂需求、写代码、写报告、做分析。<b>但它的本质，是一个基于概率的统计机器</b>：<br>
+    · 它<b>没有</b>你公司的私有业务逻辑　· 它<b>没有</b>现实世界的约束感知　· 它唯一会做的事，是根据概率"<b>猜</b>"</p>
+  </div>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <h4>如果把露华浓那套割裂的数据直接喂给 LLM</h4>
+    <p class="dim">让它决策"今天牛津工厂应该优先生产哪个 SKU"——<br>
+    <b>LLM 会给出一个看起来头头是道的答案，置信度 92%。</b><br>
+    但它<b>不知道</b>沃尔玛订单有优先级协议、<b>不知道</b>某条产线今天在换模具、<b>不知道</b>某个原料供应商上周刚发来一封延期通知还没录入系统。<br><br>
+    <b>商业履约不接受 8% 的错误率，更不接受"我以为"。</b></p>
+  </div>
+  <p class="huge mt-m" data-anim="fade-up">大模型负责理解和推理（概率），<br>本体层负责确立边界和错误拦截（确定性）。</p>
+  <div class="deck-footer"><span class="ftag">为什么是现在</span><span class="slide-number" data-current="6" data-total="26"></span></div>
+  <div class="notes"><p><b>【"置信度 92%"这个细节要念出来】</b>它比"模型会出错"具体得多——<b>模型很自信地错，而且看起来头头是道</b>。</p>
+  <p><b>【最后那句是全课的总纲】</b>后面所有章节都是在展开这一句。板书。</p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="幻觉的真正成因">
+  <div class="kicker">② 架构位置 1/5</div>
+  <h2 class="title">幻觉的真正成因</h2>
+  <p class="quote-big mt-s" data-anim="fade-up">模型给的答案，<b>外行读起来头头是道，<br>内行读起来胡说八道。</b></p>
+  <div class="card mt-m" data-anim="fade-up">
+    <h4>一个例子</h4>
+    <p class="dim">你让 AI 决策"明天哪批原材料可以优先入库"，它给出一份<b>排序合理、逻辑自洽</b>的清单。<br>
+    但库管主管一眼看出问题：<b>清单里第一位的供应商，合同上有一条"季度末不接收入库"的条款，今天恰好是季度末倒数第二天。</b></p>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>模型没有撒谎。它只是不知道那条合同条款的存在。</b></p>
+  <div class="card card-accent mt-m" data-anim="fade-up">
+    <p class="dim">这类错误工程师通常归结为"幻觉"。但准确地说——<br>
+    <b>这不是幻觉，是因为大模型不懂业务规则。</b><br>
+    <b>模型的问题不在于它在概率上算错了，而在于它根本没有接触过那条约束它行为的"业务规则"。</b></p>
+  </div>
+  <p class="huge mt-m" data-anim="fade-up">所以需要的不是更大的模型，<br>而是一个不同的架构层。</p>
+  <div class="deck-footer"><span class="ftag">幻觉</span><span class="slide-number" data-current="7" data-total="26"></span></div>
+  <div class="notes"><p><b>【这一页会改变很多人的判断】</b>大部分人的第一反应是"幻觉 → 微调 / 换更大的模型 / 加 RAG"。<b>这一页要把这条路堵死。</b></p>
+  <p><b>【一句可以补的话】</b>"<b>LLM 的边界是自然语言，业务的决策边界是规则空间。两者之间没有等价关系。</b> 所以这和是否微调没什么关系——概率机器一定会有幻觉。"</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="数据中台的边界">
+  <div class="kicker">② 架构位置 2/5</div>
+  <h2 class="title">数据中台做了什么，没做什么</h2>
+  <p class="lede mt-s" data-anim="fade-up">过去十年最流行的架构选择。它解决了一个真实且重要的问题，<b>而且做成了</b>——大多数完成数字化的企业今天都有一张能出实时报表的大屏。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">但它有一个根本性的设计边界：<br><b>只管数据的流动，不管业务的逻辑。</b></p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:44%">它能告诉你</th><th>它不知道</th></tr>
+    <tr><td>这个供应商今年交货了 <b>1200 次</b></td><td>这个供应商的合同<b>当前是否处于合规状态</b></td></tr>
+    <tr><td>库存余量是 <b>8000 件</b></td><td>这 8000 件里<b>哪些已经被预占</b>、预占的<b>优先级</b>是什么、<b>谁有权调整</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">把这张数据表直接喂给大模型，<b>模型拿到的是一堆精确的数字，但没有数字背后的运转规则。</b></p>
+  <div class="deck-footer"><span class="ftag">数据中台</span><span class="slide-number" data-current="8" data-total="26"></span></div>
+  <div class="notes"><p><b>【别把数据中台讲成错的】</b>先肯定："<b>这件事做成了。</b>" 学员里很多人做过数据中台，上来否定他们会关闭。<b>要讲的是边界，不是对错。</b></p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="七维对照">
+  <div class="kicker">② 架构位置 3/5</div>
+  <h2 class="title">传统数据中台 vs 本体平台</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:18%">维度</th><th style="width:34%">传统数据中台</th><th>本体平台</th></tr>
+    <tr><td>设计目标</td><td>数据的存储、加工与查询</td><td><b>业务决策的建模与执行</b></td></tr>
+    <tr><td>核心单元</td><td>表、列、行、指标</td><td><b>Object（对象）、Link（关系）、Action（操作）</b></td></tr>
+    <tr><td>业务逻辑的位置</td><td>散落在各种应用代码里</td><td><b>集中在本体层，可查询、可治理</b></td></tr>
+    <tr><td>AI 接入方式</td><td>直接读表，<b>只读</b></td><td>通过本体接口，<b>可读可写</b></td></tr>
+    <tr><td>写回能力</td><td>依赖人工或 ETL 流程</td><td><b>Action 触发原生写回，支持事务</b></td></tr>
+    <tr><td>权限粒度</td><td>表级 / 行级</td><td><b>属性级 + 操作级</b>（精确到每个 Action）</td></tr>
+    <tr><td><b>对 AI 的约束</b></td><td><b>无约束，模型可以自由发挥</b></td><td><b>前置条件拦截非法操作，后置规则确保操作合理</b></td></tr>
+  </table>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <p class="dim">⭐ <b>最关键的是最后一行。</b> 传统数据中台的设计假设是"<b>AI 只负责分析，人负责决策和执行</b>"。<br>
+    但 Agentic AI 打破了这个假设——<b>AI 开始执行操作，而不只是给出建议</b>。<br>
+    <b>如果 AI 能直接写入系统，而系统没有业务规则层来约束它，出问题只是时间问题。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">七维对照</span><span class="slide-number" data-current="9" data-total="26"></span></div>
+  <div class="notes"><p><b>【指着最后一行讲】</b>前六行是"功能差异"，学员会觉得是产品对比。<b>最后一行是"假设差异"</b>——那才是分水岭。</p>
+  <p>"数据中台不是做错了，是<b>它被设计出来的时候，AI 还不会写</b>。"</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="四层架构">
+  <div class="kicker">② 架构位置 4/5</div>
+  <h2 class="title">本体在哪一层</h2>
+  <div class="mt-s" data-anim="stagger-list">
+    <div class="layer"><b>L4 业务消费层</b>　AI Agent · 业务应用 · 决策看板<br><span class="dim">只通过本体接口交互，<b>不直接访问底层数据库</b></span></div>
+    <div class="layer hot"><b>L3 业务本体平台</b>　Object（对象）· Link（关系）· Action（操作）<br><span class="dim">★ <b>数据层和应用层之间的语义枢纽</b>。不重新存储数据，在数据之上建立语义模型</span></div>
+    <div class="layer"><b>L2 数据仓库 / 数据湖</b>　ODS → DWD → DWS<br><span class="dim">结构化的事实数据，<b>但没有业务语义</b></span></div>
+    <div class="layer"><b>L1 源系统</b>　ERP · CRM · 生产控制 · IoT<br><span class="dim">原始数据的产生地，通常是<b>割裂的、异构的</b></span></div>
+  </div>
+  <p class="huge mt-l" data-anim="fade-up">AI 看到的世界，<br>是被本体层"翻译"过的世界。</p>
+  <p class="lede mt-m" data-anim="fade-up">它看到的<b>不是原始表</b>，而是<b>有名字、有关系、有规则的业务对象</b>。</p>
+  <div class="deck-footer"><span class="ftag">四层</span><span class="slide-number" data-current="10" data-total="26"></span></div>
+  <div class="notes"><p><b>【L3 那行的两个"不"要强调】</b><b>不重新存储数据</b>（它不是又一个数据库）、<b>不直接访问底层</b>（L4 必须走它）。学员最容易把本体理解成"又一层数据库"。</p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="有无本体层的差异">
+  <div class="kicker">② 架构位置 5/5</div>
+  <h2 class="title">本体为什么能解决幻觉</h2>
+  <div class="card badcard mt-s" data-anim="fade-up">
+    <h4>❌ 没有本体层时</h4>
+    <p class="dim">用户问 AI → LLM 读供应商表和库存表 → 基于概率推断给出排序 → 排序里有一个条款异常的供应商 → <b>执行后违约</b></p>
+  </div>
+  <div class="card goodcard mt-m" data-anim="fade-up">
+    <h4>✅ 有本体层时</h4>
+    <p class="dim">① 问题被转化为对 <span class="mono">Supplier</span> 和 <span class="mono">InboundOrder</span> 两个对象的查询<br>
+    ② AI 识别出需要执行 <span class="mono">schedule_inbound</span> 这个 Action<br>
+    ③ <b>前置条件检查</b>：<span class="mono">contract_status == 'active'</span> 且 <span class="mono">today NOT IN restricted_dates</span><br>
+    ④ 系统发现该供应商的 <span class="mono">restricted_dates</span> 包含今日 → <b>Action 被阻断</b>，AI 自动转向下一个候选<br>
+    ⑤ 最终执行的操作，<b>已经通过了所有业务规则的校验</b></p>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>这个拦截发生在系统层面，不依赖 prompt 工程，不依赖模型的"理解能力"。</b><br>
+  哪怕你用的是一个刚上线的小模型，<b>只要它调用的是同一个 Action，就会经历同一套约束校验</b>。</p>
+  <p class="huge mt-m" data-anim="fade-up">把业务规则从"模型应该知道的事"<br>变成"系统强制执行的约束"。</p>
+  <div class="deck-footer"><span class="ftag">机制</span><span class="slide-number" data-current="11" data-total="26"></span></div>
+  <div class="notes"><p><b>【"哪怕你用的是一个刚上线的小模型"这句很重要】</b>它说明<b>这个方案不随模型能力波动</b>——这是架构解，不是调参解。</p>
+  <p><b>【最后那句是本章落点】</b>"前者依赖概率，后者是确定性的。"</p>
+  <p><b>【完整采购流程走查可以砍】</b>Supplier A/B/C 三种结果那一段，超时就跳过，手册里有。</p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="本体不是知识库">
+  <div class="kicker">③ 五要素 1/3 · <b>一个纠偏</b></div>
+  <h2 class="title">本体不是知识库，更像文件系统</h2>
+  <p class="lede mt-s" data-anim="fade-up">工程师理解本体时，<b>容易被"知识图谱""语义模型"这些词带偏</b>。这些词没有错，但<b>不够准确</b>。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">对一个要支撑 Agent 执行的系统，<br>本体首先要回答的是：<br><b>什么对象可以存在，怎么命名，怎么连接，<br>怎么被读取，怎么被写入，怎么过期，怎么追溯。</b></p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:24%">本体元素</th><th>文件系统类比</th></tr>
+    <tr><td><b>ObjectType</b></td><td>文件类型和 <b>inode schema</b>——定义系统里<b>允许存在什么东西</b>：约束、模式、决策记录、业务流程、反模式</td></tr>
+    <tr><td><b>LinkType</b></td><td>文件系统的<b>链接关系，但语义更强</b>——<b>不是"参见某某"的文本提示，而是可遍历、可审计、可治理的关系</b><br><span class="dim"><span class="mono">derived_from</span> 决策血缘 · <span class="mono">contradicts</span> 矛盾 · <span class="mono">supersedes</span> 替代 · <span class="mono">impacts</span> 影响传播</span></td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">ObjectType 和 LinkType 不是知识库字段，<br>而是 AI 内存系统的 inode 和 link。</p>
+  <div class="deck-footer"><span class="ftag">纠偏</span><span class="slide-number" data-current="12" data-total="26"></span></div>
+  <div class="notes"><p><b>【这一页专治"本体=知识图谱"的误解】</b>"文件系统关心的是——<b>这个对象是什么类型，和谁连接，谁能读，谁能写，何时失效，出了问题怎么修</b>。知识库不关心后面四个。"</p>
+  <p><b>【LinkType 的例子要念一两个】</b><span class="mono">contradicts</span>（矛盾）和 <span class="mono">supersedes</span>（替代）最能说明"语义更强"——<b>知识图谱里的边通常只是"相关"，这里的边是能驱动系统行为的</b>。</p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-title="结构与动力">
+  <div class="kicker">③ 五要素 2/3</div>
+  <h2 class="title">结构层与动力层</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>记忆层 · 让世界<b>有结构</b></h4><p class="dim"><b>ObjectType + LinkType + 对象实例</b><br><br>保存企业世界的<b>结构化状态</b>，记录<b>决策血缘</b>，支持检索和注入，管理<b>记忆生命周期</b><br><br>
+    <span class="dim">⚠️ 只有这一层，本体<b>仍然只是一个结构化存储系统</b></span></p></div>
+    <div class="card card-accent"><h4>动力层 · 让世界<b>会运动</b></h4><p class="dim">
+    <b>Action</b>　受治理的写操作。<b>它不是普通 tool calling</b>——普通工具调用只描述函数签名，<b>没有说明这个操作在业务世界里是否合法、是否需要审计、会影响哪些对象、失败时如何解释</b><br>
+    <b>Function</b>　可计算的<b>读路径</b>。不一定改变状态，但<b>定义了"系统如何理解当前世界"</b><br>
+    <b>Rule</b>　<b>边界</b>。决定什么操作能执行、什么写回能晋升、什么记忆必须保护</p></div>
+  </div>
+  <p class="huge mt-l" data-anim="fade-up">ObjectType / LinkType 让世界有结构；<br>Action / Function / Rule 让世界会运动。</p>
+  <p class="lede mt-m" data-anim="fade-up">动力层回答的不是"<b>世界是什么</b>"，而是"<b>世界如何合法地变化</b>"。</p>
+  <div class="deck-footer"><span class="ftag">结构 · 动力</span><span class="slide-number" data-current="13" data-total="26"></span></div>
+  <div class="notes"><p><b>⚠️【"Action 不是普通 tool calling"要讲透】</b>这是学员最容易滑过去的一句。<b>关键不是格式，而是语义：Action 改变的是一个受约束的企业世界。</b> 一个普通的 function calling schema 描述"怎么调"，Action 描述"<b>调了之后世界会怎样、允不允许</b>"。</p></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-title="五要素判据">
+  <div class="kicker">③ 五要素 3/3 · <b>建模时逐个问</b></div>
+  <h2 class="title">五个判据</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%">要素</th><th>判据</th></tr>
+    <tr><td><b>Object</b></td><td>有没有自己的<b>生命周期</b>？有没有<b>独立的属性集</b>？<b>是否被其他对象引用</b>？</td></tr>
+    <tr><td><b>Link</b></td><td>有<b>方向</b>吗（依据"<b>从哪边查更自然</b>"来选）？能<b>带属性</b>吗？</td></tr>
+    <tr><td><b>Function</b></td><td>是<b>算出来的</b>，不是记下来的？<b>只读、无副作用</b>？</td></tr>
+    <tr><td><b>Rule</b></td><td>是<b>必须始终成立</b>的约束吗？</td></tr>
+    <tr><td><b>Action</b></td><td>是<b>需要被明确记录</b>的操作吗？</td></tr>
+  </table>
+  <h3 class="mt-m" data-anim="fade-up">采购场景的对象判定</h3>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:20%">业务概念</th><th style="width:12%">独立对象</th><th>判断依据</th></tr>
+    <tr><td>供应商</td><td>✅</td><td>有<b>注册→合作→停用</b>的生命周期，被采购订单引用</td></tr>
+    <tr><td>采购订单</td><td>✅</td><td>有<b>草稿→审批→执行→完成</b>的状态流转</td></tr>
+    <tr><td>合同</td><td>✅</td><td>有独立有效期，<b>与采购订单是不同维度的关联</b></td></tr>
+    <tr><td>认证证书</td><td>✅</td><td>有过期日期和认证类型，<b>独立于供应商主档</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">判据</span><span class="slide-number" data-current="14" data-total="26"></span></div>
+  <div class="notes"><p><b>【"认证证书"那一行最值得讲】</b>新手会把认证做成供应商的一个字段。<b>但它有自己的过期日期和类型，而且规则要单独引用它</b>——所以是独立对象。<b>这个判断直接决定了后面能不能写出"认证有效期不足 30 天"这条规则。</b></p>
+  <p><b>【Link 方向的判据很实用】</b>"<b>从哪边查更自然</b>"——不用纠结业务上谁属于谁。</p></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-title="OAG vs RAG 分界">
+  <div class="kicker">④ OAG ≠ RAG 1/2</div>
+  <h2 class="title">一个客服场景暴露的分界</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-outline"><h4>"我的订单 PO-2026-001 到哪了？"</h4><p class="dim"><b>RAG 能答。</b><br>检索订单文档，拼进提示词，生成流畅回复——<br><b>全程只读，世界状态没有任何改变。</b></p></div>
+    <div class="card badcard"><h4>"帮我把这笔订单取消，改从 ACME 重新下单。"</h4><p class="dim"><b>RAG 卡住了。</b><br>它可以生成"取消步骤说明"，甚至写出看起来像 API 调用的伪代码——<br><b>但它不能真正执行写操作</b>，更无法保证执行后的状态仍符合业务规则。</p></div>
+  </div>
+  <p class="huge mt-l" data-anim="fade-up">差的不是模型能力，是架构层：<br>RAG 增强"生成内容的依据"，<br>OAG 增强"行动的能力与边界"。</p>
+  <div class="card mt-m" data-anim="fade-up">
+    <p class="dim"><b>RAG 的结构性边界</b>：Embedding 是基于切片的，<b>切片之间很难构建语义关系</b>；检索和生成都发生在 LLM 的上下文里，<b>不触及业务系统的写路径</b>。<br>
+    <b>可以理解成"开卷考试"——书翻得再快，考生也不能改教科书里的内容。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">分界</span><span class="slide-number" data-current="15" data-total="26"></span></div>
+  <div class="notes"><p><b>【"开卷考试"这个比喻很好用，念出来】</b>它一句话说清了 RAG 的天花板。</p>
+  <p><b>【别贬低 RAG】</b>"<b>对问答、总结、分析类任务，这够了。</b> 对'帮我把这笔采购批了'这类任务，不够。"——是分工，不是优劣。</p></div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-title="六维对照与三层能力">
+  <div class="kicker">④ OAG ≠ RAG 2/2</div>
+  <h2 class="title">六维对照，与三层能力</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:22%">维度</th><th style="width:32%">RAG</th><th><b>OAG</b></th></tr>
+    <tr><td>增强的对象</td><td>生成内容的<b>依据</b></td><td><b>行动的能力与边界</b></td></tr>
+    <tr><td>LLM 输入</td><td>检索到的文档片段</td><td><b>业务对象 + 可用操作</b></td></tr>
+    <tr><td>LLM 输出</td><td>自然语言答案</td><td><b>结构化操作调用</b></td></tr>
+    <tr><td>对世界的影响</td><td><b>只读</b></td><td><b>写操作（受规则约束）</b></td></tr>
+    <tr><td>出错后果</td><td>答案不准</td><td><b>状态被错误改变</b></td></tr>
+    <tr><td>追溯性</td><td>难以还原决策依据</td><td><b>完整决策血统</b></td></tr>
+  </table>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <p class="dim">⚠️ <b>一个容易混淆的点</b>：<b>GraphRAG、知识图谱增强检索，仍然属于"读"的范畴</b>——它们帮模型更好地理解实体关系，<b>但不提供受治理的写回路径，挡不住"写错"</b>。</p>
+  </div>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>操作发现</h4><p class="dim">Agent 怎么知道<b>能做什么</b>、参数是什么</p></div>
+    <div class="card card-accent"><h4>执行约束</h4><p class="dim">违规操作怎么被<b>实时拦截</b></p></div>
+    <div class="card card-accent"><h4>决策追溯</h4><p class="dim">三个月后怎么回答"<b>为什么这样做</b>"</p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>只有发现没有约束</b> → 和直连数据库一样危险　｜　<b>只有约束没有追溯</b> → 合规团队不会签字　｜　<b>只有追溯</b> → 事后能看到，事前拦不住</p>
+  <div class="deck-footer"><span class="ftag">三层能力</span><span class="slide-number" data-current="16" data-total="26"></span></div>
+  <div class="notes"><p><b>⚠️【GraphRAG 那条要点名，学员一定会问】</b>判据一句话：<b>有没有受治理的写路径。</b> 有图不等于 OAG。</p>
+  <p><b>【三层能力是接下来 35 分钟的骨架】</b>"<b>OAG 不是 RAG 的升级版，是 Agent 进入写操作时代的必要基础设施。</b> 接下来我们一层一层拆。"</p></div>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-title="操作发现">
+  <div class="kicker">⑤ 三层能力 1/3 · 操作发现</div>
+  <h2 class="title">Schema 即能力清单</h2>
+  <p class="lede mt-s" data-anim="fade-up">Agent 在调用任何操作之前，需要回答四个问题：<b>有哪些可执行的操作 · 需要哪些参数</b>（<span class="mono">supplier_pk</span> 还是 <span class="mono">vendor_name</span>）<b>· 有什么前置条件 · 执行后会触发什么规则</b>。<br>
+  <b>靠 Agent"自己猜"，猜错一次就是一次无效调用。</b></p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:8%">#</th><th style="width:28%">错误做法</th><th>为什么错</th></tr>
+    <tr><td>1</td><td><b>硬编码进 prompt</b></td><td>本体一变 prompt 就得重写；操作一多，prompt 膨胀到 LLM 读不完。<b>定义和 prompt 两份维护，迟早不同步</b></td></tr>
+    <tr><td>2</td><td><b>让 LLM 读 API 文档</b></td><td>文档是<b>给人读的叙述性文字</b>，不是 LLM 工具框架需要的结构化 schema。<b>理解不稳定，token 开销大</b></td></tr>
+    <tr><td>3</td><td><b>让 LLM 读源码</b></td><td>LLM 读不懂执行细节，<b>也不该让它读</b>——<b>Agent 只需要知道"能调用什么"，不需要知道"怎么实现的"</b></td></tr>
+  </table>
+  <h3 class="mt-m" data-anim="fade-up">正确做法：同一份定义，三个消费者</h3>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>业务人员</h4><p class="dim">打开文件<b>审查规则对不对</b></p></div>
+    <div class="card"><h4>执行引擎</h4><p class="dim">加载定义，<b>执行操作</b></p></div>
+    <div class="card"><h4>Agent</h4><p class="dim">通过能力清单<b>发现可调用的操作</b></p></div>
+  </div>
+  <p class="huge mt-m" data-anim="fade-up">定义本身就是说明书，<br>一份文件同时讲给人和机器听。</p>
+  <div class="deck-footer"><span class="ftag">操作发现</span><span class="slide-number" data-current="17" data-total="26"></span></div>
+  <div class="notes"><p><b>【三种错误做法，学员至少中一个】</b>问一句："你们现在是哪一种？" 大部分人是第 1 种。</p>
+  <p><b>【"三个消费者"是本页落点】</b>"<b>当定义文件同时服务人和机器，'文档和代码不同步'的问题又少了一种来源。</b>"——这和第六课教的"单一真相源"是同一条纪律，只是换了层。</p></div>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-title="执行约束">
+  <div class="kicker">⑤ 三层能力 2/3 · 执行约束</div>
+  <h2 class="title">为什么提示词工程不够</h2>
+  <pre class="code mt-s" data-anim="fade-up">你在发起采购前，必须检查供应商认证有效期是否大于 30 天。</pre>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card badcard"><h4>会被遗忘</h4><p class="dim">多轮对话后，<b>早期指令权重下降</b></p></div>
+    <div class="card badcard"><h4>会被稀释</h4><p class="dim">上下文窗口塞满后，<b>约束被挤出去</b></p></div>
+    <div class="card badcard"><h4>会被绕过</h4><p class="dim"><b>提示词注入攻击</b>可以让 Agent"忘记"所有约束</p></div>
+  </div>
+  <p class="huge mt-m" data-anim="fade-up">自觉遵守不是工程约束。</p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:20%">层次</th><th style="width:36%">机制</th><th style="width:14%">强度</th><th>可绕过性</th></tr>
+    <tr><td>提示词层</td><td>靠 LLM 自觉</td><td>最弱</td><td><b>高（注入即破）</b></td></tr>
+    <tr><td>API 网关层</td><td>校验 HTTP 请求参数</td><td>中</td><td>中（参数可伪造）</td></tr>
+    <tr><td><b>本体层</b></td><td><b>校验业务状态 + 全局不变式</b></td><td><b>最强</b></td><td><b>低（引擎强制，无旁路）</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>API 网关能查"参数格式对不对"，但查不了"这笔采购加上去之后，未结金额会不会超过信用额度"</b>——<b>那需要看到写入后的新状态。只有本体层的全局规则能做到。</b></p>
+  <div class="deck-footer"><span class="ftag">执行约束</span><span class="slide-number" data-current="18" data-total="26"></span></div>
+  <div class="notes"><p><b>【先讲反面：假设 Agent 能直连数据库】</b>"它接到任务'补充 50 万备料'，选中一家<b>认证还有 13 天到期</b>的供应商，<b>写入成功</b>。数据库里多了一行记录。<b>审批流没触发。信用额度没检查。业务规则全部绕过了</b>——<b>不是 Agent 有意为之，是它根本不知道这些规则的存在。</b>"</p>
+  <p><b>【最后那句是本页最硬的论证】</b>网关层为什么不够——<b>因为它看不到写入后的新状态</b>。这一句能挡住"我们有 API 网关就够了"的反驳。</p></div>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-title="结构化拒绝">
+  <div class="kicker">⑤ 三层能力 2/3 · <b>结构化拒绝三件套</b></div>
+  <h2 class="title">Agent 被拦的那一刻，收到了什么</h2>
+  <pre class="code mt-s" data-anim="fade-up">{
+  "status": "rejected",
+  "triggered_rule": "certification_validity",          <b>← 为什么不行</b>
+  "message": "供应商认证有效期不足 30 天，订单已阻断",
+  "current_state": {                                    <b>← 当时世界是什么样</b>
+    "Supplier/S-BETA-002": { "outstanding_amount": 120000 },
+    "Certification/CERT-002": { "days_remaining": 13 }
+  },
+  "suggestion": "建议选择认证有效的备选供应商 S-ACME-001（ACME）"   <b>← 可以怎么调整</b>
+}</pre>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card badcard"><h4>很多系统的拒绝长这样</h4><p class="mono" style="font-size:15px">{ "error": "操作失败" }</p><p class="dim"><b>Agent 收到这个，只能盲试。</b></p></div>
+    <div class="card goodcard"><h4>OAG 闭环</h4><p class="dim"><b>发现 → 调用 → 被拒 → 调整 → 重试成功</b><br>第 2 轮改选 ACME → 认证有效、额度充足 → <b>成功</b>。<br><b>全程在本体层约束内完成，没有绕过。</b></p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up">这和"<b>日志存快照</b>"是同一哲学：<b>记录上下文，而不只是记录结果。</b><br>区别是——<b>日志给审计人员看，拒绝响应给 Agent 看</b>。受众不同，但都需要完整的决策上下文。</p>
+  <div class="deck-footer"><span class="ftag">三件套</span><span class="slide-number" data-current="19" data-total="26"></span></div>
+  <div class="notes"><p><b>【这一页是本课最有画面感的一页】</b>"引擎内部发生了什么：前置条件通过 → 内存中创建订单 → 全局规则命中（<b>剩余 13 天 &lt; 30 天</b>）→ <b>回滚，文件从未被写</b>。"</p>
+  <p><b>【三个字段逐个指着讲】</b><span class="mono">triggered_rule</span> 让 Agent <b>理解失败原因</b>；<span class="mono">current_state</span> 让它<b>判断是临时状态还是结构性问题</b>；<span class="mono">suggestion</span> 让它<b>直接调整参数重试</b>。<b>Agent 不需要"猜"下一步。</b></p></div>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-title="决策追溯">
+  <div class="kicker">⑤ 三层能力 3/3 · 决策追溯</div>
+  <h2 class="title">三个月后，你能回答吗</h2>
+  <p class="quote-big mt-s" data-anim="fade-up">"5 月 30 号那笔 28 万的采购，<br>AI 为什么觉得能下单？<br><b>当时供应商的认证状态是什么？</b>"</p>
+  <p class="lede mt-m" data-anim="fade-up"><b>这不是技术排查，是业务审计。</b></p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:18%">日志类型</th><th style="width:32%">典型内容</th><th style="width:18%">能回答</th><th>不能回答</th></tr>
+    <tr><td>数据库日志</td><td><span class="mono">INSERT INTO purchase_orders</span></td><td>写了什么</td><td><b>为什么写</b></td></tr>
+    <tr><td>应用日志</td><td><span class="mono">POST /actions 200 OK</span></td><td>调用成功没</td><td><b>当时业务状态是什么</b></td></tr>
+    <tr><td>监控指标</td><td><span class="mono">CPU 85%, latency 120ms</span></td><td>系统健不健康</td><td><b>Agent 看到了什么</b></td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">它存的不是"改了什么"，<br>而是"当时世界是什么样"。</p>
+  <p class="lede mt-m" data-anim="fade-up">一条记录里有：<span class="mono">action_id · caller · params · <b>snapshot</b> · passed_rules · outcome</span>。<br>
+  <b>不需要猜，不需要拼凑多个系统的日志。一行 JSON，一个完整的决策上下文。</b></p>
+  <div class="deck-footer"><span class="ftag">决策追溯</span><span class="slide-number" data-current="20" data-total="26"></span></div>
+  <div class="notes"><p><b>【用这一条记录当场回答合规团队的四个问题】</b>为什么选 ACME（认证剩余 365 天，合同有效）· 为什么金额没问题（未结 18 万 + 新单 8 万 = 26 万 &lt; 额度 50 万）· 谁发起的（<span class="mono">procurement-agent-v2</span>）· 通过了哪些规则。</p>
+  <p><b>【三种传统日志那张表要指着念】</b>学员里做过运维的会立刻共鸣——<b>他们都被问过"为什么"，也都答不上来。</b></p></div>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-title="三个审计场景">
+  <div class="kicker">⑤ 三层能力 3/3 · 审计的价值</div>
+  <h2 class="title">三个审计查询场景</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:30%">场景</th><th style="width:28%">查什么</th><th>洞察</th></tr>
+    <tr><td><b>① 某供应商被 AI 频繁选中，为什么？</b></td><td>决策次数、成功/拒绝分布、常见通过规则</td><td><b>不是 AI"偏好"某家供应商，是规则筛选的结果</b></td></tr>
+    <tr><td><b>② 某条规则上线后拦截了多少次？</b></td><td>拦截次数、主要触发者</td><td>评估<b>规则是否过严</b>、是否需要调整阈值（30 天改 45 天）</td></tr>
+    <tr><td><b>③ 某个 Agent 的决策质量如何？</b></td><td>成功率、高频违规规则</td><td><b>成功率低不一定是 Agent 的问题</b>——可能是它在探索边界</td></tr>
+  </table>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <p class="dim">⚠️ <b>场景 ② 背后有一条重要判断</b>：<b>误拦截比漏拦截更危险。</b><br>
+    <b>持续误拦截会逼业务绕过本体，整套约束就失效了。</b></p>
+  </div>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>合规追溯</h4><p class="dim">合规团队 / 审计方<br>按 <span class="mono">event_id</span> 还原<b>任意一次</b>决策</p></div>
+    <div class="card"><h4>模型优化</h4><p class="dim">AI 工程师<br>分析高频违规，调整策略</p></div>
+    <div class="card"><h4>规则迭代</h4><p class="dim">业务人员<br>评估拦截率，决定阈值松紧</p></div>
+  </div>
+  <p class="huge mt-m" data-anim="fade-up">信任不是一次性的授权，<br>是持续可验证的。</p>
+  <div class="deck-footer"><span class="ftag">审计</span><span class="slide-number" data-current="21" data-total="26"></span></div>
+  <div class="notes"><p><b>⚠️【"误拦截比漏拦截更危险"是全课最反直觉的一句】</b>大部分人的本能是"宁可多拦"。<b>但持续误拦截会逼业务绕过本体——一旦业务开始绕，整套约束就等于不存在了。</b> 这一句要讲慢。</p>
+  <p><b>【场景 ③ 的价值】</b>"<b>审计的价值是区分'Agent 犯错'和'Agent 在规则内试错'。</b>"——这句能救很多被误判的 Agent。</p></div>
+</section>
+
+<!-- 22 -->
+<section class="slide" data-title="Software 3.0">
+  <div class="kicker">⑥ Software 3.0 1/2</div>
+  <h2 class="title">Karpathy 的三代划分，少了一层</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:12%">代</th><th>人做什么</th></tr>
+    <tr><td><b>1.0</b></td><td>人写<b>显式代码</b></td></tr>
+    <tr><td><b>2.0</b></td><td>人造<b>数据集</b>，程序学进权重矩阵</td></tr>
+    <tr><td><b>3.0</b></td><td>人写 <b>prompt、上下文、工具、记忆</b>——<b>上下文窗口就是程序，LLM 是解释器</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">这很像一个 OS 的内核：<b>CPU 是 LLM，RAM 是 Context Window，外设是 MCP、API、CLI</b>。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">不过这里有一个问题：<br><b>文件系统在哪里？</b></p>
+  <div class="mt-m" data-anim="stagger-list">
+    <div class="layer"><b>交互层</b>　自然语言或 API 接入意图。<span class="dim">此时的输入<b>尚未绑定对象</b>，只是原始信号</span></div>
+    <div class="layer"><b>逻辑内核（LLM OS Kernel）</b>　<span class="dim">128k–2M 的上下文适合<b>"当前这轮"推理</b>，不适合承载企业世界的完整约束与血缘。<b>内核处理概率，不拥有业务真理</b></span></div>
+    <div class="layer hot"><b>本体（Business Ontology）</b>　<span class="dim"><b>持久的世界模型</b>。实体与关系、业务规则、历史快照、不可违反的硬约束——<b>Agent 的寻址空间</b></span></div>
+    <div class="layer"><b>MCP 外设</b>　<span class="dim">数据库、向量库、外部 API 的标准化 I/O</span></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">Software 3.0</span><span class="slide-number" data-current="22" data-total="26"></span></div>
+  <div class="notes"><p><b>【"内核处理概率，不拥有业务真理"这句要念】</b>它把 LLM 的位置说死了。</p>
+  <p><b>【引一句 Karpathy 的原话铺垫】</b>"2026 年 4 月，Karpathy 在 Sequoia Ascent 上说：<b>他从未像现在这样'落后'于编程。</b> 不是不会写代码，是工作流变了——<b>从逐行敲代码，变成向 Agent 委派整块任务</b>。"</p></div>
+</section>
+
+<!-- 23 -->
+<section class="slide" data-title="三条边界与一个分歧">
+  <div class="kicker">⑥ Software 3.0 2/2</div>
+  <h2 class="title">三条边界，与一个关键分歧</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card badcard"><h4>① 上下文不是存储</h4><p class="dim">RAM <b>易失、有长度上限</b>；本体承担<b>跨会话、跨 Agent、跨任务</b>的一致性</p></div>
+    <div class="card badcard"><h4>② MCP 不是语义层</h4><p class="dim">它是<b>驱动</b>；本体是 <b>syscall 表</b>——定义签名、前置条件、写回路径</p></div>
+    <div class="card badcard"><h4>③ 内核与外设必须经本体解耦</h4><p class="dim">否则<b>每个 Agent 都要重新"理解"一遍业务</b>，锯齿状智能会在集成边界上放大</p></div>
+  </div>
+  <h3 class="mt-m" data-anim="fade-up">⭐ LLM 是 CPU，还是协处理器？</h3>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:20%">维度</th><th style="width:20%">Karpathy</th><th style="width:20%">行业共识</th><th>本体论视角</th></tr>
+    <tr><td>内核是什么</td><td>LLM</td><td>语义内核</td><td><b>规则执法者</b></td></tr>
+    <tr><td><b>LLM 的角色</b></td><td><b>CPU（可信）</b></td><td>大脑</td><td><b>协处理器（不可信）</b></td></tr>
+    <tr><td>核心关切</td><td>能力扩展</td><td>用户体验</td><td><b>决策正确性</b></td></tr>
+    <tr><td><b>信任模型</b></td><td><b>LLM 可信</b></td><td>LLM 是核心</td><td><b>LLM 不可信</b></td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">Karpathy 回答"如何让 LLM 更强大"，<br>本体论回答<b>"如何让 LLM 的输出更可信"</b>。</p>
+  <div class="deck-footer"><span class="ftag">边界 · 分歧</span><span class="slide-number" data-current="23" data-total="26"></span></div>
+  <div class="notes"><p><b>【这一页要敢于表明立场】</b>"我们和 Karpathy 的分歧不在技术，在<b>信任模型</b>。他把 LLM 当 CPU，<b>我们把它当协处理器——一个能力很强但不可信的协处理器</b>。"</p>
+  <p><b>【顺带一个很好用的类比表，超时可砍】</b>传统 OS：用户程序不能直接操作硬件 → <b>syscall</b>；AI Native OS：<b>LLM 不能直接改状态 → Action</b>。内存保护（MMU）→ <b>规则校验</b>；审计日志（auditd）→ <b>决策血统</b>。<br><b>传统 OS 解决的是确定性计算的资源管理问题。当计算引擎从确定性变成概率性，传统 OS 没有任何机制能处理新出现的"语义正确性"问题。</b></p></div>
+</section>
+
+<!-- 24 -->
+<section class="slide tight" data-title="Harness 管循环">
+  <div class="kicker">⑦ Harness vs 本体</div>
+  <h2 class="title">Harness 越多，越说明缺了一层</h2>
+  <p class="lede mt-s" data-anim="fade-up">Harness、Loop、Agent 运行时、Workflow、Memory、Multi-Agent——<b>名字不同，工程问题很接近</b>：让模型能规划、执行、观察、验证、重试。<br>
+  <b>但它们最后都会撞到同一个边界：智能体到底运行在一个什么样的世界里？</b></p>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <p class="dim">如果这个世界只是<b>提示词、聊天历史、向量库、工具 schema 和临时 JSON 的拼接</b>，系统很快会出现：<br>
+    规则<b>没有强制性</b> · 记忆<b>没有生命周期</b> · 写回<b>没有血缘</b> · 多 Agent 之间<b>没有共享语义</b> · 业务逻辑<b>散落在提示词和工具代码里</b></p>
+  </div>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>Harness / Loop（运行层）</h4><p class="dim">管<b>控制流</b>：谁先跑，谁后跑，<b>失败回哪一步</b>，重试几次，什么时候中止，什么时候升级</p></div>
+    <div class="card card-accent"><h4>本体（世界层）</h4><p class="dim">管<b>世界</b>：有哪些对象，<b>哪些规则算数</b>，哪些记忆能读，<b>哪些结果能写回</b>，什么经验能跨任务复用</p></div>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:46%">放错地方</th><th>后果</th></tr>
+    <tr><td>规则放在 <b>prompt</b> 里</td><td>失败只能得到"<b>模型觉得不对</b>"</td></tr>
+    <tr><td>规则存在<b>结构化约束</b>里</td><td>失败<b>带规则 ID</b>，系统知道是哪条约束被违反</td></tr>
+    <tr><td>成功经验只在 <b>chat log</b> 里</td><td><b>下轮很难稳定复用</b></td></tr>
+  </table>
+  <p class="lede mt-s" data-anim="fade-up">出问题时你必须能判断：<b>是 Harness 路由错了、本体规则错了、上下文拼错了，还是 Agent 输出错了？</b><br>
+  <b>层次混在一起，排查成本会指数级上升，导致多智能体系统无法落地。</b></p>
+  <div class="deck-footer"><span class="ftag">Harness vs 本体</span><span class="slide-number" data-current="24" data-total="26"></span></div>
+  <div class="notes"><p><b>【一句话记住】</b>"<b>Harness 框架是一套脚手架，它用来控制大模型怎么跑。本体相当于一个业务世界的数字孪生，它决定了大模型跑在哪个世界里。</b>"</p>
+  <p><b>【最后那句是本章落点】</b>排查成本指数级上升——<b>这是很多多智能体项目死掉的真实原因</b>，不是模型不行。</p></div>
+</section>
+
+<!-- 25 -->
+<section class="slide tight" data-title="共享本体与两条线">
+  <div class="kicker">⑦ Harness vs 本体 · 补</div>
+  <h2 class="title" style="font-size:31px">多智能体是应用层，不是架构中心</h2>
+  <p class="lede mt-s" data-anim="fade-up">企业里的多智能体有很多角色：采购、风控、财务、销售、运维、代码、测试。<br>
+  <b>分工很重要，但它们不应该各自维护一套私有的世界模型。</b></p>
+  <p class="huge mt-s" style="font-size:27px" data-anim="fade-up">稳定的多智能体协作，<br>不来自"大家聊得更好"，<br>而来自共享的对象、规则、动作。</p>
+  <div class="card mt-s" data-anim="fade-up">
+    <p class="dim">它们可以有<b>不同的上下文清单、权限和 token 预算</b>，<b>但底层世界应该是一套</b>。<b>长期记忆如果只属于某个 Agent，就会变成角色私有笔记</b>——企业系统需要的是<b>共享内存：对象一致、血缘一致、规则一致、写回一致</b>。<br>
+    <b>多智能体之间当然需要协议，但协议不是根，根是共享本体。</b></p>
+  </div>
+  <h3 class="mt-s" data-anim="fade-up" style="font-size:18px">⭐ 本体自己也需要一套多智能体</h3>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>应用线：Agent <b>使用</b>本体</h4><p class="dim">采购、风控、运维、编码 Agent——<b>处理某张订单或修某个 bug</b></p></div>
+    <div class="card card-accent"><h4>生产线：Agent <b>建设</b>本体</h4><p class="dim">Object Modeling · Link Modeling · Action Designer · Function Engineer · Rule Engineer · Memory Curator · Migration · <b>Verifier（检查本体变更是否破坏已有流程）</b></p></div>
+  </div>
+  <p class="lede mt-s" data-anim="fade-up"><b>企业本体不会一次建完</b>——对象会拆分，链接会增加，规则会迁移，旧记忆会失效。<br>
+  <b>靠人手工维护全部变化，不现实；靠通用聊天 Agent 自动乱改，也不可靠。</b></p>
+  <div class="deck-footer"><span class="ftag">两条线</span><span class="slide-number" data-current="25" data-total="26"></span></div>
+  <div class="notes"><p><b>【"两条线"是这一页的记忆点】</b>"<b>一条是应用线：Agent 使用本体。一条是生产线：Agent 建设本体。</b>"——很多人只想到第一条。</p>
+  <p><b>【更合理的方式】</b>让一组本体工程 Agent <b>在 Harness 约束下工作：提出变更，生成迁移，跑验证，经过晋升闸后再生效。</b></p></div>
+</section>
+
+<!-- 26 -->
+<section class="slide tight" data-title="建模 SOP 与收口">
+  <div class="kicker">⑧ 建模 SOP + ⑩ 收口</div>
+  <h2 class="title">建模四阶段，与一句收口</h2>
+  <div class="card badcard mt-s" data-anim="fade-up">
+    <p class="dim"><b>建模不能从"有哪些数据"开始。正确的起点是：现在的做法在哪里出了问题，这些问题集中在哪个业务范围内。</b><br>
+    三类症状：<b>信息没法汇聚</b>（拿到的是不同时间点的拼凑结果）· <b>规则无法被执行</b>（Agent 走后端接口绕过前端校验——<b>规则没有失效，只是从来没有在这条路径上被执行</b>）· <b>决策无法还原</b></p>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:24%">阶段</th><th style="width:40%">要点</th><th>完成标志</th></tr>
+    <tr><td><b>① 调研与建模</b></td><td><b>业务专家必须在场，工程师单独做往往跑偏</b>。<b>结果用文档呈现（不是代码）</b>，请业务人员逐条确认</td><td>一份<b>经业务确认</b>的本体定义文档或原型</td></tr>
+    <tr><td><b>② 数据盘点与治理</b></td><td><b>模型建完后再确认数据来源</b></td><td>每个属性有明确来源和同步方式</td></tr>
+    <tr><td><b>③ 引擎搭建与接入</b></td><td><b>前两个阶段产出文档或原型，这个阶段才开始写代码</b></td><td>每次操作后留下<b>可追溯的决策记录</b></td></tr>
+    <tr><td><b>④ 场景验证与调优</b></td><td><b>贯穿全程</b>，与业务人员<b>走查规则边界</b></td><td>业务团队确认：<b>知道它会在什么情况下拦截，被拦截时能看到清晰原因</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>先建模、再看数据——顺序不能反。</b> 先看数据会被现有系统结构带偏，建出"<b>系统长什么样</b>"而非"<b>业务是什么样</b>"。<br>
+  <b>三个判断</b>：信息汇聚实现了吗 · 规则真在执行吗（<b>警惕误拦截 &gt; 漏拦截</b>）· 决策能不能当天说清楚</p>
+  <p class="huge mt-m" data-anim="fade-up">本体建模是把业务知识变成可执行定义的过程，<br>而不是软件开发本身。</p>
+  <div class="deck-footer"><span class="ftag">SOP · 收口</span><span class="slide-number" data-current="26" data-total="26"></span></div>
+  <div class="notes"><p><b>【"规则没有失效，只是从来没有在这条路径上被执行"——这句是全课最精准的一句诊断】</b>它解释了为什么"我们有校验"和"规则被执行了"是两回事。</p>
+  <p><b>【金句板书】</b>"<b>最难的环节不是选技术栈，而是和业务人员一起把那些'大家都知道但没有人写下来'的规则，变成能被系统执行的精确描述。</b>"</p>
+  <p><b>【全课收口，接第五课】</b>"<b>FDE 真正做的是世界建模</b>——理解业务对象、理解对象关系、理解操作、构建应用，<b>这四件事合起来就是本体建模</b>。<b>大模型负责生成候选，本体负责收敛候选</b>：schema 校验合法性、rule 检查可执行、lineage 记录来源、分支/提案/评审让变更先在隔离环境验证。<br>
+  <b>AI FDE 的工作方式不是'一次生成正确答案'，而是'生成候选 → 放进本体和执行循环里验证 → 然后晋升'。</b><br>
+  最后四句话记住：<b>Harness 管循环，Ontology 管世界，Promotion Gate 管写回，Memory Pipeline 管下轮怎么读。</b><br>
+  <b>RAG 是读材料，AI FDE 是改世界。</b>"</p>
+  <p><b>【告诉他们下一步】</b>"今天讲的是<b>为什么和怎么想</b>。第五课讲<b>我们这套工具怎么把它做出来</b>——你们会看到今天这些概念，一个一个变成能跑的东西。"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第7讲 工具体系：打通认知到行动</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:56px 84px}
+  .big-num{font-family:var(--font-display);font-weight:800;line-height:1;color:var(--accent-2);letter-spacing:-.03em}
+  .stat .n{font-size:40px;font-weight:800;color:var(--accent-2);line-height:1}
+  .stat .l{font-size:13px;color:var(--text-2);margin-top:6px}
+  .quote-hard{font-family:var(--font-serif);font-size:32px;line-height:1.35;font-weight:600;color:var(--accent);
+    border-left:5px solid var(--accent-2);padding:6px 0 6px 26px;margin:0}
+  .badcase{border-top:3px solid var(--bad)}
+  .badcase .tag{display:inline-block;font-weight:700;color:var(--bad);font-size:13px;letter-spacing:.08em}
+  .lbl{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+  table.t{border-collapse:collapse;width:100%;font-size:14px}
+  table.t th,table.t td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.t th{background:var(--surface-2);font-weight:600;color:var(--accent)}
+  .chip{display:inline-block;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:600;
+    background:color-mix(in srgb,var(--accent-2) 12%,transparent);color:var(--accent-2);margin:2px}
+  .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:14px}
+  .flow .step{background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:7px 12px;font-weight:600}
+  .flow .arr{color:var(--text-3);font-weight:700}
+  .code{font-family:var(--font-mono,monospace);background:var(--surface-2);border:1px solid var(--border);
+    border-radius:6px;padding:12px 16px;font-size:14px;color:var(--accent);white-space:pre-wrap}
+  h2.title{font-size:42px}
+  .lede{font-size:19px}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="kicker">C-Life FDE 课程 · 第 7 讲</div>
+    <h1 class="title">工具体系<br>打通认知到行动</h1>
+    <p class="lede">工具体系的价值不在"有哪些工具"，而在<b style="color:var(--accent)">"层与层如何咬合"</b>——数据从认知无损流到行动。</p>
+    <div class="row mt-l" style="gap:14px">
+      <span class="pill pill-accent">能力靶：C6 交付物工程 · 兼顾 C1→C2 数据流</span>
+      <span class="pill">实践蓝本：康养行业大模型平台</span>
+    </div>
+    <div class="notes">第五讲讲了平台的固化一面，纪律变校验器。这一讲讲同一个平台的咬合一面：Astra Studio 的 planner、insight、docs、quality 四层，如何把客户嘴里的一句模糊话一路传导成可研报告里的一节字、一张图、一条校验通过记录，中间不掉数据、不断链。靶子是另一个误区：学员容易以为工具各管一段就行。本讲要点破——层间的接口，也就是产物契约，比工具本身更重要；而交付物的格式质检和内容质检是两条独立的线，FDE 都得自己走一遍，这是 B-3 B-4 的主场。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="1" data-total="15"></span></div>
+  </section>
+
+  <!-- 2 命题 -->
+  <section class="slide" data-title="本讲命题">
+    <div class="lbl mb-m">本讲命题</div>
+    <p class="quote-hard">工具不是并列的四个工具箱，<br>是一条流水线的四道工位。</p>
+    <p class="lede mt-l">难点从来不在<b>单层内部</b>——event-storm 会不会用、export 命令怎么敲，一学就会。真正的卡点永远在<b style="color:var(--accent)">层与层之间的交接</b>。</p>
+    <div class="card mt-l" style="border-left:4px solid var(--accent-2)">
+      <p style="font-size:18px;margin:0"><b>FDE 是层间接口的唯一负责人。</b>你不需要是每一层的顶尖专家，但你必须是唯一一个对整条链负责的人——因为每一层的工具都只对自己那段负责，<b>没有任何工具对"端到端不掉链"负责</b>。</p>
+    </div>
+    <div class="notes">这一页立命题。工具不是并列的四个工具箱，是一条流水线的四道工位。这个视角一换，你就明白难点在哪了。难点从来不在单层内部——event-storm 会不会用、export 命令怎么敲，那是操作一学就会。真正的卡点永远在层与层之间的交接。所以本讲的核心角色定位是：FDE 是层间接口的唯一负责人。你不需要是每一层的顶尖专家，但你必须是唯一一个对整条链负责的人，因为每一层的工具都只对自己那段负责，没有任何工具对端到端不掉链负责，那个责任是你的，且只能是你的。第五讲说平台省人，本讲补一句：平台省的是层内的力气，省不掉层间的责任。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="2" data-total="15"></span></div>
+  </section>
+
+  <!-- 3 四层地图图 -->
+  <section class="slide" data-title="四层地图">
+    <h2 class="title">四层地图：planner / insight / docs / quality</h2>
+    <div class="center" style="flex:1;flex-direction:column">
+      <img src="../figures/fig-5-1-平台分层.png" alt="图5-1 Astra Studio 工具栈分层与咬合" style="max-width:100%;max-height:52vh">
+      <p class="dim2 mt-s" style="font-size:14px"><b>图 5-1</b>（第 5 讲同图复用）· 本讲看它的<b>"咬合"面</b>：planner→insight→ontology→docs 四层数据单向流转，quality 横切各层校验。第 5 讲讲每层如何"固化纪律"，本讲讲层与层"如何交接数据不掉链"。</p>
+    </div>
+    <div class="notes">先给你们一张全景，然后沿一条数据流走一遍。Astra Studio 不是一个大工具，是一族插件，分四类职能。planner 认知萃取，把人脑里的业务认知榨出来结构化，下面有 event-storm、domain-model、skill-design、spec-generate，康养项目的一百零二事件、十六簇、七域就是这一层的产物。insight 画像旅程流程，把事件变成谁在什么旅程走什么流程痛在哪，康养项目七画像、七旅程、五流程、十热点出自这里。docs 文档生成装配，把认知产物装配成对客交付物，康养项目十一章十一万字二十六图的可研是这层吐出来的。quality 校验，跨层守结构与合规，七比七结构校验、只 import sdk 红线是它跑的。再加运行时地基 clife-onto-engine 本体运行时。这张图第五讲讲每层如何固化纪律，本讲看它的咬合面：层与层如何交接数据不掉链。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="3" data-total="15"></span></div>
+  </section>
+
+  <!-- 4 四层职能表 -->
+  <section class="slide" data-title="四层职能">
+    <h2 class="title">四层各管什么 · 康养项目证据</h2>
+    <table class="t mt-m">
+      <tr><th>层</th><th>职能</th><th>下辖</th><th>康养项目产物</th></tr>
+      <tr><td><b>planner</b></td><td>认知萃取</td><td>event-storm / domain-model / skill-design / spec-generate</td><td><b>102</b> 事件 → <b>16</b> 簇 → <b>7</b> 域 D1–D7</td></tr>
+      <tr><td><b>insight</b></td><td>画像/旅程/流程</td><td>persona / journey / process / domain-canvas / behavior-matrix</td><td><b>7</b> 画像（<b>368</b> 问卷=310+58）/ <b>7</b> 旅程 / <b>5</b> 流程 / <b>10</b> 热点</td></tr>
+      <tr><td><b>ontology</b></td><td>本体运行时</td><td>clife-onto-engine（固化认知产物为数智本体）</td><td>Object <b>76</b>/Link <b>75</b>/Func <b>38</b>/Rule <b>47</b>/Action <b>54</b>/HIL <b>26</b></td></tr>
+      <tr><td><b>docs</b></td><td>文档生成装配</td><td>blueprint / plan / write / assemble / export</td><td><b>11</b> 章 / ~<b>11 万</b>字 / <b>26</b> 图 + 2 附录 docx</td></tr>
+      <tr><td><b>quality</b></td><td>跨层校验</td><td>validate / wire-mcp（横切）</td><td><b>7/7</b> 结构校验 · 只 import sdk 红线</td></tr>
+    </table>
+    <p class="lede mt-l" style="color:var(--accent)"><b>关键不是记住这些名字，是理解：它们是一条流水线的四道工位，每一层的输出是下一层的输入。</b></p>
+    <div class="notes">这张表把四层的职能、下辖插件、康养项目产物列清楚。planner 认知萃取，产物是一百零二事件、十六簇、七域。insight 画像旅程流程，七画像三百六十八份问卷校准、七旅程、五流程、十热点分五层。中间还有个运行时地基 ontology，clife-onto-engine 把认知产物固化成七域数智本体，七十六对象、七十五链接、五十四 Action、二十六个 HIL，它既是 docs 的数据源，也是 quality 的校验对象。docs 装配成十一章十一万字二十六图的可研。quality 横切各层做校验，七比七结构、只 import sdk 红线。关键不是记住这些名字，是理解它们不是并列的四个工具箱，是一条流水线的四道工位，每一层的输出是下一层的输入。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="4" data-total="15"></span></div>
+  </section>
+
+  <!-- 5 两套 plugin 体系 + 认知到行动=OAG -->
+  <section class="slide" data-title="两套plugin体系·认知到行动=OAG">
+    <div class="lbl mb-m">要点页 1·补 · 呼应第 4 讲栈③ / 第 5 讲两套 plugin</div>
+    <h2 class="title">这四层，分属两套 plugin 体系</h2>
+    <div class="grid g2 mt-m">
+      <div class="card card-soft">
+        <div class="lbl" style="color:var(--accent-2)">智能体 plugin 体系 · 建模端 build-time</div>
+        <p style="font-size:20px;margin:6px 0 4px"><b>Astra Studio</b></p>
+        <p style="font-size:15px;margin:0">planner / insight / docs / quality——把 FDE 方法论固化的技能插件。</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--text-3)">对标 Palantir <b>AIP 编排层</b>（Agents·Skills·Tools·Workflows）</p>
+      </div>
+      <div class="card card-soft">
+        <div class="lbl" style="color:var(--accent-2)">ontology plugin 体系 · 运行时 run-time</div>
+        <p style="font-size:20px;margin:6px 0 4px"><b>clife-onto-engine</b></p>
+        <p style="font-size:15px;margin:0">7 域本体编译成能被调用、能<b>受治理写回</b>的本体插件。</p>
+        <p style="font-size:13px;margin:8px 0 0;color:var(--text-3)">对标 Palantir <b>Ontology 本体层</b></p>
+      </div>
+    </div>
+    <div class="flow mt-l" style="justify-content:center">
+      <span class="step">认知端 Astra Studio（planner/insight 榨认知）</span><span class="arr">→</span>
+      <span class="step">本体固化 clife-onto-engine</span><span class="arr">→</span>
+      <span class="step">行动端 Action 受治理写回</span>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>这就是"认知到行动"= OAG：从"会查"升级到"会做且做得对、可追溯"——不是 RAG。</b>工具体系的终点不是生成一份好看的文档，是让智能体能安全地按本体去改变世界。</p>
+    <div class="notes">上一页那四层，其实分属两套 plugin 体系——这跟第五讲讲的是同一件事，你要在这一讲把它接上。第一套叫智能体 plugin 体系，是建模端、build-time，就是 Astra Studio：planner、insight、docs、quality。它们是把 FDE 方法论固化下来的技能插件，帮你在建的时候把认知萃取、画像旅程、文档装配、质检跑通，对标 Palantir 的 AIP 编排层。第二套叫 ontology plugin 体系，是运行时、run-time，就是 clife-onto-engine：把建出来的七域本体编译成能被智能体调用、能受治理写回的本体插件，对标 Palantir 的 Ontology 本体层。为什么这一讲叫打通认知到行动？因为这两套体系接起来，正好是一条从认知到行动的完整链——planner 和 insight 把模糊认知榨成结构，这是认知；clife-onto-engine 的 Action 让智能体据此受治理地做事、写回，这是行动。这就是第四讲栈三讲的 OAG：让 AI 从会查升级到会做、且做得对、可追溯，不是 RAG。工具体系的终点不是生成一份好看的文档，是让一个智能体能安全地按本体去改变世界。方法论出处是文集 07 和 17。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="5" data-total="15"></span></div>
+  </section>
+
+  <!-- 6 一条数据流 -->
+  <section class="slide" data-title="一条数据流">
+    <h2 class="title">跟一条真实数据走 5 层：E38 义诊到店</h2>
+    <div class="stack mt-s" style="gap:8px">
+      <div class="card card-soft" style="padding:12px 16px"><b>1 · planner/event-storm</b> — E38 义诊作为 102 事件之一被捕获，聚进营收簇（旁边站 E45 长者食堂、E03 老带新，三个到店入口）</div>
+      <div class="card card-soft" style="padding:12px 16px"><b>2 · insight/journey+process</b> — 三入口进"会员转化与交叉复购飞轮"流程，<b>6+1 个决策点，每个就是一个 skill 切分边界</b>；数据从"孤立事件"变成"带上下文的流程节点"</div>
+      <div class="card card-soft" style="padding:12px 16px"><b>3 · domain-model→ontology</b> — 决策点归 <b>D3 member-revenue-flywheel</b>，落五要素（10 Object/11 Link/6 Func/6 Rule/7 Action）；E38 变成 Object、Action、Rule</div>
+      <div class="card card-soft" style="padding:12px 16px"><b>4 · docs/blueprint→plan→write→assemble→export</b> — 营收章作者从 D3 本体取"三条营收线咬合"结构，写成正文，配一张流程图</div>
+      <div class="card card-soft" style="padding:12px 16px"><b>5 · quality/validate</b> — 引用的对象、图的 slug、规则挂的 citations 都过校验</div>
+    </div>
+    <p class="lede mt-m" style="color:var(--accent)"><b>同一个 E38，从"客户嘴里一句义诊获客"无损传导到可研一节字加一张图。断一环，前面认知白萃取。</b></p>
+    <div class="notes">光看四层地图是抽象的，我带你们跟一条真实的数据从头走到尾，你就懂咬合是什么意思。拿会员飞轮里一个具体事件 E38 义诊，到店获客入口。第一步 event-storm，E38 作为一百零二事件之一被捕获聚进营收簇，旁边站着 E45 长者食堂、E03 老带新，三个到店入口。第二步 journey 加 process，这三个入口进入会员转化与交叉复购飞轮流程，六加一个决策点，每个决策点就是一个 skill 切分边界，数据在这一步从孤立事件变成带上下文的流程节点。第三步 domain-model 到 ontology，这些决策点归到 D3 域，落成本体五要素，D3 建成十对象十一链接六函数六规则七 Action，E38 到此变成了 Object、Action、Rule。第四步 docs，可研营收章节写作时作者从 D3 本体里取三条营收线咬合这个结构写成正文配图。第五步 quality，这一节引用的对象、图的 slug、规则挂的 citations 都过校验。看到没有，同一个 E38 从客户嘴里一句义诊获客无损传导到了可研一节字加一张图。每一层的输出是下一层的输入，这条链但凡断一环，前面的认知就白萃取了。FDE 的核心工程能力就是维护这条链不断。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="6" data-total="15"></span></div>
+  </section>
+
+  <!-- 6 产物契约 -->
+  <section class="slide" data-title="产物契约">
+    <h2 class="title">层间接口 = 产物契约："占位符即契约"</h2>
+    <p class="lede">层与层靠<b>产物契约</b>交接——上一层交给下一层的东西有一个双方都认的<b>格式约定</b>，不是随手扔个文件。</p>
+    <div class="card mt-m" style="border-left:4px solid var(--accent-2)">
+      <div class="lbl" style="color:var(--accent-2)">最典型例子：图片占位符</div>
+      <div class="code mt-s">![图N-M 图名](../figures/fig-N-M-&lt;slug&gt;.png)</div>
+      <p style="font-size:15px;margin:8px 0 0">docs 层写正文时图还没画（图并行制作）。这个 <b>slug</b> 就是正文层和制图层之间的契约：正文说"我要一张 fig-5-1-平台分层"，制图那边就必须交一个文件名正好是 <span class="mono">fig-5-1-平台分层.png</span> 的图。两边对同一个 slug，图才能在导出时被 docx 正确嵌进去。</p>
+    </div>
+    <p class="lede mt-m" style="color:var(--accent)"><b>铁律：slug 先定后画 · 一律用 figures 表已列 slug · 不自造不改名。改 slug = 改 API 签名 = 调用方全断。</b></p>
+    <div class="notes">上一页讲了数据怎么流，这一页讲层与层之间靠什么交接——靠产物契约。什么叫产物契约？就是上一层交给下一层的东西有一个双方都认的格式约定，不是随手扔个文件。最典型的例子是图片占位符。docs 层写正文时图还没画，图是并行制作的，正文里先写一个占位。这个 slug 就是正文层和制图层之间的契约，正文说我这里要一张 fig-5-1-平台分层，制图那边就必须交一个文件名正好是 fig-5-1-平台分层点 png 的图，两边对的是同一个 slug 图才能在导出时被 docx 正确嵌进去。所以我们定了一条铁律：slug 必须先定后画，一律用 figures 表已列的 slug，不自造、不事后改名。这不是龟毛，这是接口纪律。你把 slug 当成两个模块之间的 API 签名，签名一改调用方全断。下一页的反例 B-3 就是这个契约被破坏后的惨状。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="7" data-total="15"></span></div>
+  </section>
+
+  <!-- 7 反例主场定调 -->
+  <section class="slide" data-title="反例主场定调">
+    <div class="lbl mb-m">反例主场 · B-3 + B-4</div>
+    <h2 class="title">内容对了，交付物照样能崩</h2>
+    <p class="quote-hard" style="margin-top:22px">交付物的"格式质检"和"内容质检"，<br>是两条独立的线，FDE 都得自己走一遍。</p>
+    <div class="grid g2 mt-l">
+      <div class="card card-soft"><div class="lbl">内容质检问</div><p style="font-size:16px;margin:6px 0 0">字对不对？数对不对？引用断没断？</p></div>
+      <div class="card card-soft"><div class="lbl">格式质检问</div><p style="font-size:16px;margin:6px 0 0">图显不显示？色冲不冲突？排版散没散？字体对不对？</p></div>
+    </div>
+    <p class="lede mt-l">B-3 与 B-4 的共同点：<b style="color:var(--bad)">内容层没错，是交付物的"格式/呈现"这条独立质检线出的事。</b></p>
+    <div class="notes">这一讲的反例是 B-3 图片路径断裂加 B-4 Word 主题色覆盖。二者共同点：内容层没错，是交付物的格式呈现这条独立质检线出的事。核心原则先撂在这：交付物格式与内容是两条独立质检线，FDE 都得自己走一遍。这两条线问的问题完全不同。内容质检问字对不对、数对不对、引用断没断。格式质检问图显不显示、色冲不冲突、排版散没散、字体对不对。两条线两套检查动作，都得 FDE 自己走一遍，因为没有任何一个校验器会替你看这张图套进 Word 好不好看。下面两页把 B-3 B-4 拆开讲。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="8" data-total="15"></span></div>
+  </section>
+
+  <!-- 8 反例 B-3 -->
+  <section class="slide" data-title="反例 B-3">
+    <div class="card badcase">
+      <span class="tag">反例 B-3 · 图片路径断裂</span>
+      <h3 class="mt-s">导出 docx 时<b>丢图</b>了——正文写了占位、图也画好了，Word 里几张图不见了</h3>
+    </div>
+    <div class="grid g2 mt-l">
+      <div class="card card-soft"><div class="lbl">怎么发生的</div><p style="font-size:16px;margin:8px 0 0">正文占位的 slug 和实际图片文件名的 slug <b>对不上</b>——<span class="mono">../figures/fig-X-Y-slug.png</span> 里的 slug 和 figures 目录真实文件的 slug 有出入。可能有人事后改了图名，也可能写占位时手抖。</p></div>
+      <div class="card badcase"><div class="lbl" style="color:var(--bad)">最阴险的地方：静默</div><p style="font-size:16px;margin:8px 0 0">契约一破，导出层照断掉的路径找图，找不到就<b>静默丢图</b>——它<b>不报错</b>，docx 照样生成，你不逐张翻还发现不了。<b style="color:var(--bad)">内容全对，管线全绿，交付物却是残的。</b></p></div>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>对策：slug 先定后画（占位即契约）；导出后必须人肉逐张验图，不能信"管线跑通了"。</b></p>
+    <div class="notes">先讲 B-3 图片路径断裂。康养项目导出 docx 的时候丢图了，正文里明明写了占位、图也画好了，导出的 Word 里就是有几张图不见了。查下去原因很朴素：正文占位的 slug 和实际图片文件名的 slug 对不上，占位路径里的 slug 和 figures 目录里真实文件的 slug 有出入，可能是有人事后改了图名，也可能是正文写占位时手抖。这就是上一页占位符即契约被违反的直接后果。契约一破，导出层照着断掉的路径去找图，找不到就静默丢图。注意静默两个字——它不报错，docx 照样生成，你不逐张翻还发现不了。这是最阴险的一类 bug：内容全对，管线全绿，交付物却是残的。教训：slug 先定后画是 B-3 的直接对策；而且导出后必须人肉逐张验图，不能信管线跑通了。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="9" data-total="15"></span></div>
+  </section>
+
+  <!-- 9 反例 B-4 -->
+  <section class="slide" data-title="反例 B-4">
+    <div class="card badcase">
+      <span class="tag">反例 B-4 · Word 主题色覆盖</span>
+      <h3 class="mt-s">用对齐客户模板的 Word 主题，<b>主题色把浅色系配图给覆盖/冲突了</b></h3>
+    </div>
+    <div class="grid g2 mt-l">
+      <div class="card card-soft"><div class="lbl">崩在哪</div><p style="font-size:16px;margin:8px 0 0">内容一个字没错、图一个像素没错、slug 也对得上。崩在<b>呈现层</b>：图按浅色系精心配，套进 Word 模板一看主题色一压，图文风格割裂，有的图直接看不清。</p></div>
+      <div class="card card-accent"><div class="lbl" style="color:#fff">原则</div><p style="font-size:16px;margin:8px 0 0;color:#fff">交付物的"格式质检"是一条和"内容质检"<b>完全独立</b>的线。没有任何校验器会替你看"这张图套进 Word 好不好看"。<b>呈现的最后一道闸，是 FDE 的眼睛。</b></p></div>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>把 B-3 和 B-4 放一起：quality 层自动校验能守结构（悬空、越界、红线），守不住呈现（丢图、串色）。</b></p>
+    <div class="notes">再讲 B-4，更微妙。导出 docx 的时候我们用了对齐客户模板的 Word 主题，结果 Word 的主题色把我们浅色系的配图给覆盖冲突了，图是按浅色系精心配的，套进 Word 模板一看主题色一压，图文风格割裂，有的图直接看不清。这里内容一个字没错、图一个像素没错、slug 也对得上，崩在呈现层：交付物的视觉规范和内容是两回事。B-4 告诉你一件残酷的事——交付物的格式质检是一条和内容质检完全独立的线。内容质检问字对不对数对不对引用断没断，格式质检问图显不显示色冲不冲突排版散没散字体对不对，两条线两套检查动作都得 FDE 自己走一遍，因为没有任何一个校验器会替你看这张图套进 Word 好不好看。把 B-3 和 B-4 放一起你就看清了：quality 层的自动校验能守结构，悬空越界红线，守不住呈现，丢图串色。呈现的最后一道闸是 FDE 的眼睛。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="10" data-total="15"></span></div>
+  </section>
+
+  <!-- 10 反例：外壳当交付 -->
+  <section class="slide" data-title="外壳当交付·草业项目demo=Mock">
+    <div class="card badcase">
+      <span class="tag">反例警示 · 别把外壳当交付</span>
+      <h3 class="mt-s">草业项目 demo「看着能用」——<b>但它的 AI 是 Mock</b></h3>
+    </div>
+    <div class="grid g2 mt-l">
+      <div class="card card-soft"><div class="lbl">外壳：真的很像</div><p style="font-size:16px;margin:8px 0 0">草业大模型有一个<b>真实可点开的 11 页 Next.js demo</b>：7 个角色可切换、每屏带证据溯源块。点起来顺、界面完整——<b>看着就是个能用的产品</b>。</p></div>
+      <div class="card badcase"><div class="lbl" style="color:var(--bad)">内核：其实是壳</div><p style="font-size:16px;margin:8px 0 0">它的 AI 是 <b>Mock</b>：关键词路由 + 仿真数据。<span class="mono">mock-ai.ts</span> 自己注明「真实落地替换为草业项目本体 + RAG」。<b style="color:var(--bad)">UI 跑通 ≠ 模型跑通。</b></p></div>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>FDE 的质检要能识破"看着能用其实是壳"。演示 demo 必须如实说"这是交互外壳、不是模型跑通"——把 demo 吹成产品 = 骗客户。</b></p>
+    <div class="notes">再给你们上一堂反面警示课，呼应本讲 B-3 B-4 那句"FDE 得自己质检"。草业大模型有一个真实可以点开的 demo，十三页 Next.js，七个角色能切换，每一屏还带证据溯源块，你点起来很顺、界面很完整，第一眼就觉得这是个能用的产品。但你要是信了这一眼，就中招了。翻开代码你会看到它的 AI 是 Mock——关键词路由加仿真数据，连它自己的 mock-ai.ts 文件里都写着一行字：真实落地时替换为草业项目本体加 RAG。也就是说 UI 跑通了，模型根本没跑通，这是两件事。这就是 B-3 B-4 教你的自己质检往前再走一步：格式质检看呈现，内容质检看数字，而这里你还要质检"这个能点的东西，内核到底是真模型还是关键词壳"。演示 demo 没问题，但你必须如实说这是交互外壳、不是模型跑通。你要是把这种 demo 吹成产品交给客户，那不是演示，是骗客户。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="11" data-total="15"></span></div>
+  </section>
+
+  <!-- 11 收束 卡点在层间 -->
+  <section class="slide" data-title="卡点在层间">
+    <h2 class="title">收束：认知到行动，卡点永远在"层间"</h2>
+    <div class="stack mt-m">
+      <div class="card"><b>planner → ontology</b>：会不会<b>掉信息</b>？102 事件归 7 域，归错一个簇，后面全歪。</div>
+      <div class="card"><b>ontology → docs</b>：会不会<b>断链</b>？D3 本体里的规则，写进可研时引用对不对。</div>
+      <div class="card"><b>docs write → export</b>：会不会<b>崩相</b>？B-3 丢图、B-4 串色，全在这一交接口。</div>
+    </div>
+    <div class="card mt-l" style="border-left:4px solid var(--accent-2)">
+      <p style="font-size:18px;margin:0"><b>平台省的是层内的力气，省不掉层间的责任。</b>层间接口这道活永远是 FDE 亲自扛，扛不动的人，交付物就在"最后一公里"崩给你看。</p>
+    </div>
+    <div class="notes">把今天收成一句话。工具体系打通认知到行动，难点从来不在单层内部，event-storm 会不会用、export 命令怎么敲那是操作一学就会，真正的卡点永远在层与层之间的交接。认知到结构之间会不会掉信息？一百零二事件归七域，归错一个簇后面全歪。结构到交付之间会不会断链？D3 本体里的规则写进可研时引用对不对。内容到呈现之间会不会崩相？B-3 丢图 B-4 串色全在这一交接口。所以 FDE 是层间接口的维护者，你不需要是每一层的顶尖专家，但你必须是唯一一个对整条链负责的人，因为每一层的工具都只对自己那段负责，没有任何工具对端到端不掉链负责，那个责任是你的且只能是你的。这也是为什么第五讲说平台省人，本讲要补一句：平台省的是层内的力气，省不掉层间的责任。层间接口这道活永远是 FDE 亲自扛，扛不动的人交付物就在最后一公里崩给你看。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="12" data-total="15"></span></div>
+  </section>
+
+  <!-- 11 演练导入 -->
+  <section class="slide" data-title="现场演练导入">
+    <div class="lbl mb-s">现场演练 · 48′</div>
+    <h2 class="title">端到端跑通一个 mini 管线</h2>
+    <p class="lede">给你一个巴掌大的康养小事件，你要<b>从一个事件端到端走到一节文档 + 一个图占位</b>，中间经过：</p>
+    <div class="flow mt-m">
+      <span class="step">事件</span><span class="arr">→</span>
+      <span class="step">流程节点</span><span class="arr">→</span>
+      <span class="step">本体要素</span><span class="arr">→</span>
+      <span class="step">一节正文</span><span class="arr">→</span>
+      <span class="step">过校验</span>
+    </div>
+    <div class="card card-soft mt-l"><p style="font-size:17px;margin:0">规模很小，但<b>五道交接口一个不少</b>。你要亲手体会：数据在层间交接时哪里最容易掉。特别注意 <b>slug 契约</b>——你写的图占位 slug 要对得上你声明的图名，<b style="color:var(--bad)">别当场制造一个 B-3</b>。</p></div>
+    <p class="dim2 mt-m" style="font-size:14px">详细材料见 <span class="mono">工作坊/07_工具体系打通认知到行动_workshop.md</span></p>
+    <div class="notes">讲了一路层间咬合，现在你们自己跑一遍。我给你们一个巴掌大的场景，一个康养小事件，你们要从一个事件端到端走到一节文档加一个图占位，中间经过事件、流程节点、本体要素、一节正文、过校验。规模很小，但五道交接口一个不少。你们要亲手体会：数据在层间交接时哪里最容易掉。特别注意 slug 契约——你写的图占位 slug 要能对得上你声明的图名，别当场制造一个 B-3。翻到工作坊。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="13" data-total="15"></span></div>
+  </section>
+
+  <!-- 12 研讨 -->
+  <section class="slide" data-title="复盘研讨">
+    <h2 class="title">复盘研讨</h2>
+    <div class="stack mt-m">
+      <div class="card"><span class="chip">题 1 · 层间难点</span> 你跑 mini 管线时哪个"层间交接口"最卡？事件归流程、流程归本体、还是本体写成文？<b>为什么层间比层内难？</b></div>
+      <div class="card"><span class="chip">题 2 · 静默故障</span> B-3 是"内容对、呈现崩"的静默故障。举一个你自己"管线全绿但交付物是残的"例子——你是人肉逐张验出来的，还是<b>客户替你发现的</b>？</div>
+      <div class="card"><span class="chip">题 3 · 两条质检线</span> 为你的交付物类型，各列一个"内容质检清单"和一个"格式质检清单"（各 3 条）。<b>哪条线现在是你的盲区？</b></div>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>收口：工具的价值在层间咬合；层间靠产物契约（slug 先定后画）；两条独立质检线内容与格式，自动校验守内容结构，守不住呈现。</b></p>
+    <div class="notes">三个研讨题。第一题层间难点，坐实卡点在层间这个本讲主命题——你跑 mini 管线时哪个层间交接口最卡，为什么层间比层内难。第二题静默故障，B-3 是内容对呈现崩的静默故障，逼出格式质检必须 FDE 亲走、不能等客户发现的痛感——举一个你自己管线全绿但交付物是残的例子，你是人肉逐张验出来的还是客户替你发现的。第三题两条质检线，把抽象原则落成学员可带走的两张 checklist，为你的交付物类型各列一个内容质检清单和一个格式质检清单各三条，哪条线现在是你的盲区。收口三件事：第一工具体系的价值在层间咬合不在单层功能；第二层间靠产物契约交接、占位符即契约、slug 先定后画；第三交付物有两条独立质检线内容和格式，自动校验守内容结构守不住呈现，B-3 丢图 B-4 串色都在提醒你呈现层的最后一道闸是你的眼睛。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="14" data-total="15"></span></div>
+  </section>
+
+  <!-- 13 难听话 + 钩子 -->
+  <section class="slide" data-title="难听话与钩子">
+    <div class="lbl mb-m">本讲难听话</div>
+    <p class="quote-hard">你把可研跑出来了、管线全绿，就以为交付完了？<br>B-3 丢了图你都不知道，因为它不报错——是客户翻到那一页替你发现的。</p>
+    <p class="lede mt-m">工具能替你跑管线，替不了你逐张验图。那道活你不干，就等着在<b style="color:var(--bad)">客户会议室里</b>干。</p>
+    <table class="t mt-l">
+      <tr><th>方向</th><th>关联</th></tr>
+      <tr><td>← 第 5 讲</td><td><b>共用 fig-5-1</b>：第 5 讲讲"固化"面（B-8/B-9），本讲讲"咬合"面（B-3/B-4）——同一平台两个横截面</td></tr>
+      <tr><td>← 第 6 讲</td><td>第 6 讲 B-1/B-2/B-5/B-10 讲 docs <b>装配</b>阶段一致性；本讲 B-3/B-4 讲 docs <b>导出</b>阶段呈现——合起来覆盖"装配→导出"全交接口</td></tr>
+      <tr><td>→ 第 8 讲</td><td>"FDE 是层间接口的唯一负责人"是第 8 讲"这些坑谁来兜"的直接论据</td></tr>
+    </table>
+    <div class="notes">本讲难听话：你把可研跑出来了管线全绿就以为交付完了？B-3 丢了图你都不知道，因为它不报错，是客户翻到那一页替你发现的。工具能替你跑管线替不了你逐张验图，那道活你不干就等着在客户会议室里干。钩子三条。往前接第五讲，共用 fig-5-1，第五讲讲固化面 B-8 B-9，本讲讲咬合面 B-3 B-4，同一平台两个横截面。往前接第六讲，第六讲 B-1 B-2 B-5 B-10 讲 docs 装配阶段的一致性纪律，本讲 B-3 B-4 是 docs 导出阶段的呈现纪律，两讲合起来覆盖 docs 层装配到导出的全交接口。往后埋第八讲，本讲 FDE 是层间接口的唯一负责人是第八讲这些坑谁来兜的直接论据。今天记住：平台把你从层内的苦力里解放出来，就是为了让你有精力去当好那个唯一对端到端负责的人。</div>
+    <div class="deck-footer"><span>FDE 工具体系</span><span class="slide-number" data-current="15" data-total="15"></span></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

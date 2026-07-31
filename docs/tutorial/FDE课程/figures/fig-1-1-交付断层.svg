@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
+  <defs>
+    <marker id="ab" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2563eb"/></marker>
+  </defs>
+  <style>text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}</style>
+  <rect x="0" y="0" width="960" height="720" fill="#ffffff"/>
+  <text x="480" y="52" font-size="24" font-weight="700" fill="#111827" text-anchor="middle">交付断层:工序制 vs FDE 贯通</text>
+  <text x="60" y="110" font-size="16" font-weight="600" fill="#6b7280">传统「工序制」交付链</text>
+  <rect x="40" y="150" width="140" height="72" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="110" y="191" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">需求分析</text>
+  <rect x="225" y="150" width="140" height="72" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="295" y="191" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">方案设计</text>
+  <rect x="410" y="150" width="140" height="72" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="480" y="191" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">架构设计</text>
+  <rect x="595" y="150" width="140" height="72" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="665" y="191" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">开发</text>
+  <rect x="780" y="150" width="140" height="72" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="850" y="191" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">测试交付</text>
+  <line x1="182" y1="186" x2="223" y2="186" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="202" y="172" font-size="18" fill="#dc2626" text-anchor="middle">&#9889;</text>
+  <rect x="166" y="230" width="72" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="202" y="242" font-size="11" fill="#dc2626" text-anchor="middle">信息衰减</text>
+  <line x1="367" y1="186" x2="408" y2="186" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="387" y="172" font-size="18" fill="#dc2626" text-anchor="middle">&#9889;</text>
+  <rect x="351" y="230" width="72" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="387" y="242" font-size="11" fill="#dc2626" text-anchor="middle">信息衰减</text>
+  <line x1="552" y1="186" x2="593" y2="186" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="572" y="172" font-size="18" fill="#dc2626" text-anchor="middle">&#9889;</text>
+  <rect x="536" y="230" width="72" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="572" y="242" font-size="11" fill="#dc2626" text-anchor="middle">信息衰减</text>
+  <line x1="737" y1="186" x2="778" y2="186" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="757" y="172" font-size="18" fill="#dc2626" text-anchor="middle">&#9889;</text>
+  <rect x="721" y="230" width="72" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="757" y="242" font-size="11" fill="#dc2626" text-anchor="middle">信息衰减</text>
+  <text x="480" y="278" font-size="13" fill="#6b7280" text-anchor="middle">5+ 人接力 · 4 道接缝,每道都在丢信息</text>
+  <text x="60" y="400" font-size="16" font-weight="600" fill="#6b7280">FDE 一人贯通模式</text>
+  <rect x="40" y="430" width="880" height="80" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="480" y="470" font-size="20" font-weight="700" fill="#166534" text-anchor="middle">FDE · 认知萃取 → 建模 → 写作 → 装配 → 交付</text>
+  <text x="480" y="492" font-size="12" fill="#16a34a" text-anchor="middle">同一心智贯通全链 · 0 接缝 · 无信息衰减</text>
+  <line x1="186" y1="442" x2="186" y2="498" stroke="#16a34a" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
+  <line x1="333" y1="442" x2="333" y2="498" stroke="#16a34a" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
+  <line x1="480" y1="442" x2="480" y2="498" stroke="#16a34a" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
+  <line x1="626" y1="442" x2="626" y2="498" stroke="#16a34a" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
+  <line x1="773" y1="442" x2="773" y2="498" stroke="#16a34a" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
+  <rect x="140" y="560" width="680" height="70" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="300" y="592" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">传统:5+ 人 · 4 接缝</text>
+  <text x="300" y="614" font-size="12" fill="#6b7280" text-anchor="middle">信息逐段衰减</text>
+  <text x="480" y="602" font-size="20" font-weight="700" fill="#dc2626" text-anchor="middle">vs</text>
+  <text x="660" y="592" font-size="15" font-weight="600" fill="#166534" text-anchor="middle">FDE:1 人 · 0 接缝</text>
+  <text x="660" y="614" font-size="12" fill="#16a34a" text-anchor="middle">信息零损耗</text>
+  <rect x="700" y="94" width="14" height="14" rx="3" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="720" y="106" font-size="12" fill="#6b7280">蓝=工序盒</text>
+  <line x1="810" y1="101" x2="828" y2="101" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="834" y="106" font-size="12" fill="#6b7280">红=断层</text>
+</svg>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 5 讲 · 工作坊：无平台重做康养项目 · 成本推演</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第 5 讲 · 工作坊：无平台重做康养项目 · 成本推演</h1>
+</header>
+<h1 id="第-5-讲-工作坊无平台重做康养项目-成本推演">第 5 讲 · 工作坊：无平台重做康养项目 · 成本推演</h1>
+<blockquote>
+<p>⚠️ <strong>本文件为 v0.1（十讲制）时期的学员工作坊材料，已于 2026-07-27 被 v0.3 八课制取代，不再上课使用。</strong> 现行版本：<code>课程/L1–L8_*.md</code>（单文件全案，实操与 checkout 都在里面）。结构定义见 <code>00_八课总纲.md</code>。 保留原因：Exercise 输入材料、评分卡与讲师版参考答案有留痕价值，改课时可作第一手参考。 ⚠️ 内含的“第 N 讲”引用与“L1/L2/L3 定级”是当时的编号（v0.3 定级已改为 <strong>Lv.1/Lv.2/Lv.3</strong>），<strong>刻意未改</strong>——改了会篡改历史记录。换算表见 <code>00_课程总纲.md</code> 第九节。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>⚠️ <strong>本文件为 v1 十环节时期的执行脚本，已被 <code>工具实操/T1–T8_*.md</code> 八份实操手册取代，保留备查、不再上课用。</strong> 新的执行主干见 <code>_legacy/00_工具实操总纲_T1-T8.md</code>；本讲的方法论内容现作为对应 T 步的<strong>知识注入</strong>。 ⚠️ <strong>口径已变</strong>：本文件内的案例成熟度与商业口径是 2026-07-20 之前的版本（如「嘉城数联合资公司」「草业项目 13 页 demo」）。<strong>现行口径以 <code>_WRITING_BRIEF.md</code> 与十册为准</strong>——主体叫<strong>项目联合体</strong>，IRR 主口径叫<strong>运营口径</strong>，草业项目 demo 是 <strong>11 页</strong>。</p>
+</blockquote>
+<blockquote>
+<p>📎 <strong>本文件是《FDE 实战工作坊》第 5 环节的「动手脚本」</strong>（不是独立工作坊）——整个培训是<strong>一个</strong>工作坊，总流程见 <code>_legacy/00_FDE实战工作坊_主持手册.md</code>。本环节各组就<strong>本组命题</strong>做启发式研讨，思考沉淀进贯穿工作簿。</p>
+</blockquote>
+<blockquote>
+<p>学员用（敏捷引导式）· 演练 36′ + 复盘 18′ · 对应能力 <strong>C6 交付物工程 / 平台杠杆认知</strong> 配套讲义 <code>讲义/05_为什么FDE依赖成熟工程化平台.md</code> · 授课形式遵 <code>_工作坊授课规范.md</code> · 口径遵 <code>_WRITING_BRIEF.md</code></p>
+</blockquote>
+<hr />
+<h2 id="开场教练宣读4">〇、开场（教练宣读，4′）</h2>
+<blockquote>
+<p>📌 <strong>本环节为研讨环节（不产交付包物件）</strong>——本讲就本组命题做启发式研讨，产出记进工作簿的“思考”区即可，不强塞交付物。下方的 💡 启发范例是<strong>标尺、不是模板</strong>：康养项目/教育督导项目/辣椒/草业项目做对了长这样，帮你把研讨聊到点子上、照结构想，别抄数字。</p>
+</blockquote>
+<p><strong>🎯 本坊目标</strong>：就本组命题研讨清楚 <strong>① 没有平台、纯手工维护跨域一致性，会慢且必错到什么量级</strong> + <strong>② 平台到底替我们扛了什么风险</strong>（能说成向老板辩护平台投资的一句话）——产出是<strong>研讨观点 / 一句话共识</strong>，记进工作簿“思考”区，不必成表。</p>
+<p><strong>🧭 过程方法论（本坊用的 FDE 方法）</strong>：一致性维护成本推演 · 五类校验动作清单 · <strong>发现成本曲线</strong>（错误发现越晚越贵）· 手工 ÷ 平台 倍率 · 平台 = 方法论固化物。</p>
+<p><strong>📏 工作坊纪律（教练宣读）</strong> 1. <strong>启发-执行</strong>：每步先点开“💡启发”看康养项目范例，再动手；不空想。 2. <strong>时间盒</strong>：铃响即停，个人估算/分组核对都守时。 3. <strong>终止铃</strong>：教练铃响，讨论立即停，进下一步。 4. <strong>停车场</strong>：争不出的挂 parking lot，会后再议，不占时间盒。 5. <strong>checkout</strong>：每阶段末对照输出与验收。</p>
+<p><strong>🙌 工作坊宣言（齐读）</strong>：完成大于完美 · 团队大于个人 · 共识大于对错。</p>
+<blockquote>
+<p>本坊的核心不是算出精确工时，是让你<strong>亲手撞到那堵墙</strong>：人类做跨对象一致性维护，慢且必错——而这正是平台真正的价值密度所在。</p>
+</blockquote>
+<hr />
+<h2 id="一工作坊流程时间盒总表">一、工作坊流程（时间盒总表）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序号</th>
+<th>阶段</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>开场导入</td>
+<td>4′</td>
+<td>锚定五类校验动作</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>阶段一 · 手工成本个人估量讨论</td>
+<td>10′</td>
+<td>对量级的个人观点</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>阶段二 · 分组研讨 + 与平台基线对照</td>
+<td>20′</td>
+<td>对“手工÷平台”量级的组内共识</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>阶段三 · 研讨平台价值</td>
+<td>6′</td>
+<td>平台替我们扛了什么的一句话共识</td>
+</tr>
+<tr class="odd">
+<td>—</td>
+<td>复盘研讨（议段，另计）</td>
+<td>18′</td>
+<td>3 题共识</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="二输入材料可直接发学员">二、输入材料（可直接发学员）</h2>
+<h3 id="康养项目-7-域真实规模清单本推演的工作量底数">2.1 康养项目 7 域真实规模清单（本推演的“工作量底数”）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>数量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>数智本体（域）</td>
+<td><strong>7</strong></td>
+<td>D1–D7，限界上下文</td>
+</tr>
+<tr class="even">
+<td>Object</td>
+<td><strong>76</strong></td>
+<td>跨域对象总数（含 3 个跨域共享根 Elder/Member、ServiceOrder、Station）</td>
+</tr>
+<tr class="odd">
+<td>Link</td>
+<td><strong>75</strong></td>
+<td>域内 + 跨域 12 条承重 Link</td>
+</tr>
+<tr class="even">
+<td>Function</td>
+<td><strong>38</strong></td>
+<td>只读派生（风险分级/支付拆分/DIP 报销/补贴测算等）</td>
+</tr>
+<tr class="odd">
+<td>Rule</td>
+<td><strong>47</strong></td>
+<td>声明式 18 + function 骨架 29</td>
+</tr>
+<tr class="even">
+<td>Action</td>
+<td><strong>54</strong></td>
+<td>写操作（含 26 处需 HIL）</td>
+</tr>
+<tr class="odd">
+<td>HIL 闸</td>
+<td><strong>26</strong></td>
+<td>站长 HIL + 民政 DP-H 等</td>
+</tr>
+<tr class="even">
+<td>代码骨架</td>
+<td><strong>3835 行</strong> Python + 21 YAML</td>
+<td>机械编译产物</td>
+</tr>
+</tbody>
+</table>
+<h3 id="平台实际达成的基线你要拿自己的推演跟它比">2.2 平台实际达成的基线（你要拿自己的推演跟它比）</h3>
+<ul>
+<li><strong>编译</strong>：7 域<strong>同一天</strong>并行编译成插件骨架；统一校验 <strong>7/7 通过</strong>（py_compile ✓ + 每域 3 个 YAML ✓ + “只 import sdk”红线 ✓）。</li>
+<li><strong>结构校验</strong>：ontology-validate 静态 A 结构 <strong>7/7 零悬空引用</strong>；B source 治理 <strong>7/7，0 空 source</strong>。</li>
+<li><strong>人力</strong>：<strong>1 名 FDE + 智能体编队</strong>（传统对照：产品经理 + 架构师 + 行业顾问 + 方案经理 + 美工，5+ 人 / 数周）。</li>
+</ul>
+<h3 id="两个真实冲动存疑现场推演时要把它们的返工成本算进去">2.3 两个真实“冲动/存疑”现场（推演时要把它们的返工成本算进去）</h3>
+<ul>
+<li><strong>B-8 越域写入冲动</strong>：编译期多次想让 Action 直接 <code>stage_write</code> 他域对象（图省事）。平台靠 A 结构校验器当场拦下，最终跨域全部 ref/发布写注释。<strong>问自己：手工模式下，这个越界谁来发现？多久发现？</strong></li>
+<li><strong>B-9 SDK 能力想当然</strong>：<code>PropertySpec.default</code>/<code>Evaluation</code> 是否导出编译期存疑，7 域统一 docstring 显式挂账。<strong>问自己：手工模式下，你会不会“应该支持吧”往前写，然后在集成期集体返工？</strong></li>
+</ul>
+<h3 id="研讨要点围绕这些点估量级不必成表">2.4 研讨要点（围绕这些点估量级，不必成表）</h3>
+<p>研讨“手工重做”的成本时，围绕这七个点估个量级、感受平台价值——不追求精确工时，追求撞到那堵墙：</p>
+<ul>
+<li><strong>① 悬空引用检查</strong>：每条 Link/Action 的 ref 是否指向真实存在的 Object（底数：75 Link + 54 Action）。</li>
+<li><strong>② 跨域越界检查（B-8）</strong>：有没有 Action 越域 stage_write（底数：54 Action）。</li>
+<li><strong>③ 命名一致性</strong>：76 对象跨 7 域命名不冲突不漂移。</li>
+<li><strong>④ 红线检查</strong>：每个插件“只 import sdk”。</li>
+<li><strong>⑤ SDK 能力核实（B-9）</strong>：每处存疑符号是否真被导出/支持。</li>
+<li><strong>⑥ 返工放大</strong>：一处错误连累多少下游（改一处牵一串）。</li>
+<li><strong>⑦ 沟通损耗</strong>：手工必然多人，跨人一致性再打折。</li>
+</ul>
+<p>再拿它对照 <strong>2.2 平台基线</strong>（当天 / 7 域 / 1 FDE / A 结构 7/7 零悬空 / B source 7/7），感受“手工 ÷ 平台”的量级差；最后用一句话说清 <strong>平台替我们扛了什么风险、代价是什么、值不值</strong>。</p>
+<hr />
+<h2 id="三分阶段脚本每步任务-输出-难点-启发范例">三、分阶段脚本（每步：🔔任务 / 🔔输出 / 🔔难点 + 💡启发范例）</h2>
+<h3 id="阶段一-手工成本个人估量讨论10">阶段一 · 手工成本个人估量讨论（10′）</h3>
+<h4 id="步骤①-锚定五类校验动作3">步骤① · 锚定五类校验动作（3′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：就本组命题想清“手工重做”必须人肉完成的一致性校验动作，至少数出五类：① 悬空引用检查（每个 Link/Action 的 ref 是否指向真实存在的 Object）；② 跨域越界检查（有没有 Action 越域 stage_write，B-8）；③ 命名一致性（76 对象跨 7 域命名不冲突不漂移）；④ 红线检查（只 import sdk）；⑤ SDK 能力核实（B-9）。 🔔 <strong>输出</strong>：<em>能数清这五类校验动作的研讨观点</em>，认到“哪些是人肉最易疲劳出错的活”。 🔔 <strong>难点/注意</strong>：别把“打字/写代码”当校验动作——3835 行是机械生成的，真正的成本在<strong>一致性维护</strong>，不是敲键盘。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看平台把这五类校验做成了什么
+</summary>
+<p>康养项目平台里，这五类不是靠人肉，是靠<strong>确定性校验器</strong>一次跑完：① 悬空引用 = ontology-validate 的 A 结构校验（结果 7/7 零悬空）；② 越界 = A 结构校验器当场拦 B-8；③ 命名一致性 = 编译期跨域符号解析；④ 红线 = “只 import sdk” 静态检查；⑤ SDK 能力 = docstring 显式挂账 + 编译核实。<strong>你要推演的，是把这一整套“当天 7/7”的确定性保证，换成人肉一条条核，要花多少工时、必然漏多少。</strong></p>
+</details>
+<h4 id="步骤②-个人估个量级7">步骤② · 个人估个量级（7′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：围绕 2.4 研讨要点，对每个校验动作心里估个“单位工时”和“错误率”的量级，说得出你的假设（比如“1 个人查 1 条 Link 的引用完整性约 X 分钟”）。不必成表，形成对量级的个人观点即可。 🔔 <strong>输出</strong>：<em>对手工成本量级的个人观点</em>，每个错误率/工时判断都带一句可辩护的假设。 🔔 <strong>难点/注意</strong>：<strong>错误率别给太低</strong>。谁说“我很仔细所以错误率 1%”，要能被 B-8 反问顶回去。数字取自 2.1 清单，不拍脑袋另造。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看仅“悬空引用”一项的量级
+</summary>
+<p>只算校验动作①：75 Link + 54 Action = <strong>129 条引用</strong>，每条人工核需交叉查“这个 ref 指的 Object 到底存不存在”约 2–3 分钟，单人跑一遍就是 <strong>4–6 小时</strong>，且必然有漏。这还只是一个域一遍、一类校验。乘上 7 域、多轮迭代、返工放大后，手工达到“零悬空”的成本是平台“当天 7/7”的<strong>一到两个数量级</strong>。重点不是这个数，是让你自己撞到“人类做跨对象一致性维护慢且必错”这堵墙。</p>
+</details>
+<h3 id="阶段二-分组研讨-与平台基线对照20">阶段二 · 分组研讨 + 与平台基线对照（20′）</h3>
+<h4 id="步骤③-分组研讨12">步骤③ · 分组研讨（12′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：4 人一组就本组命题研讨。重点吵三件事：谁的错误率最乐观、谁漏了“返工放大”（一处越界改动会连累多少下游）、谁忘了“沟通损耗”（手工模式必然多人，跨人一致性还要再打折）。让研讨把⑥返工放大、⑦沟通损耗都聊进去。 🔔 <strong>输出</strong>：<em>组内对手工成本量级的研讨共识</em>，明确⑥⑦两项不能漏。 🔔 <strong>难点/注意</strong>：<strong>手工模式的致命点不是“会错”，是“错误发现得晚”</strong>。B-8 在平台里编译期发现（便宜），手工里可能对账期才发现（昂贵，还要追责复现）。这条“发现成本曲线”必须在研讨里被点出来。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看返工放大与发现成本曲线
+</summary>
+<ul>
+<li><strong>返工放大</strong>：命名一致性是 <strong>B-5（数据张冠李戴）的放大版</strong>——76 个对象跨 7 域，一处命名漂移可能连累所有引用它的 Link/Action，改一处牵一串。</li>
+<li><strong>发现成本曲线</strong>：训练有素的 FDE 在<strong>有校验器兜底</strong>的情况下，编译期还<strong>多次</strong>想越域写入（B-8）。没有校验器兜底，凭什么相信自己 99% 不越界？而且越界若在集成/对账阶段才暴露，成本比编译期发现高一到两个数量级。把这条曲线套到你自己的项目上，就是研讨题 2。</li>
+</ul>
+</details>
+<h4 id="步骤④-与平台基线对照8">步骤④ · 与平台基线对照（8′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：把你组研讨出的手工成本量级 vs 平台的“当天 7/7、零悬空”摆一起，研讨出对<strong>倍率量级</strong>（手工 ÷ 平台）的一句话共识。 🔔 <strong>输出</strong>：<em>对倍率量级的一句话共识</em> + 一句“这个倍率里多少来自打字、多少来自一致性维护”。 🔔 <strong>难点/注意</strong>：不追求精确值，追求意识到“<strong>倍率主要不来自打字</strong>”。若你组研讨落在“倍率主要是打字工时”，说明还没识别一致性维护才是主成本。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看平台基线的“当天 7/7”意味着什么
+</summary>
+<p>平台基线是：<strong>7 域同一天并行编译、7/7 统一校验通过、A 结构 7/7 零悬空、B source 7/7 零空 source，1 名 FDE 完成</strong>。传统对照是 5+ 人 / 数周。你的手工推演倍率，量级上应落在“一到两个数量级”这个区间——不是因为平台打字快，是因为平台把“人类最易疲劳出错、且错误发现越晚越贵的一致性维护”固化成了确定性校验器。</p>
+</details>
+<h3 id="阶段三-研讨平台价值6">阶段三 · 研讨平台价值（6′）</h3>
+<h4 id="步骤⑤-研讨出一句话共识6">步骤⑤ · 研讨出一句话共识（6′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：就本组命题研讨收口——"平台替我们承担了 ___ 风险，代价是 ___ 投入，值/不值因为 ___“，聊出一句能向老板辩护平台投资的话。 🔔 <strong>输出</strong>：<em>平台价值的一句话共识</em>，量级站得住、值/不值有据。 🔔 <strong>难点/注意</strong>：结论别空洞、别与研讨量级脱节。”平台承担的风险“要具体到”7 域跨 76 对象/75 链接的一致性维护与越界防护“，不是”提高效率"。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看标准三句结论骨架
+</summary>
+<ol type="1">
+<li>平台替我们承担了 <strong>7 域跨 76 对象 / 75 链接的一致性维护与越界防护</strong> 风险（B-8 靠校验器而非自觉挡住）；</li>
+<li>代价是 <strong>平台建设 + 学习 + 管线维护</strong> 的一次性与持续投入；</li>
+<li><strong>值</strong>，因为一致性维护是人类最易疲劳出错、且错误发现越晚越贵的环节，把它固化进校验器，等于把“复制加班”变成“复制能力”——<strong>没有平台，你复制不了康养项目的 7/7，只能复制那个人的加班。</strong></li>
+</ol>
+</details>
+<hr />
+<h2 id="四checkout研讨深度对照-不看交付物看想没想透">四、checkout（研讨深度对照 · 不看交付物，看想没想透）</h2>
+<blockquote>
+<p>每阶段末 + 收尾各对照一次。四维，每维看“研讨到位没”与“一票警示”。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>✅ 研讨到位</th>
+<th>⚠️ 警示（没聊到点上）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D1 落到本组命题</strong></td>
+<td>用本组命题的规模底数（对照 76/75/38/47/54/26、3835 行、7 域）来研讨，不空谈</td>
+<td>脱离本组命题，或自造数字、严重偏离规模清单</td>
+</tr>
+<tr class="even">
+<td><strong>D2 识别一致性维护是主成本（核心）</strong></td>
+<td>研讨数清五类校验动作，且<strong>点出 B-8 越界的下游放大</strong>和多人沟通损耗</td>
+<td><strong>只盯“打字工时”，没认到一致性维护是主成本</strong>（把成本当“打字慢”而非“一致性维护”）</td>
+</tr>
+<tr class="odd">
+<td><strong>D3 诚实不乐观</strong></td>
+<td>错误率量级不糊弄、说得出可辩护的假设；含 B-9 式“不确定就挂账”的态度</td>
+<td>判断无假设支撑，或错误率乐观到不可信；对 SDK 能力想当然“假设都支持”（撞 B-9）</td>
+</tr>
+<tr class="even">
+<td><strong>D4 说得清平台价值</strong></td>
+<td>能用一句话说清平台替我们扛了什么风险、值不值，量级站得住</td>
+<td>说不出平台价值密度，或与研讨量级脱节</td>
+</tr>
+</tbody>
+</table>
+<p><strong>评级参照</strong>：四维都聊透 = 真懂了平台的价值密度在“一致性维护”；D2 只盯打字 = 没听懂本讲。 <strong>一票警示</strong>：<strong>D2 把成本当成“打字慢”而非“一致性维护”</strong> —— 视为没听懂本讲，需重听要点页 3；对 SDK 能力想当然“假设都支持”即撞 B-9，同样警示。</p>
+<hr />
+<h2 id="五复盘研讨3-题教练收口18">五、复盘研讨（3 题，教练收口，18′）</h2>
+<ol type="1">
+<li><strong>（价值密度）</strong> 你组算出的“手工 ÷ 平台”倍率是多少？这个倍率里，有多少来自“打字慢”，有多少来自“一致性维护 + 返工 + 沟通损耗”？哪一块是平台真正的价值密度所在？</li>
+<li><strong>（发现成本曲线）</strong> B-8 的越界，在平台里是编译期当场报错（零成本发现）；在手工模式里可能要到集成/对账阶段才暴露（高成本发现）。请把“错误发现得越晚越贵”这条曲线，套到你自己正在做的项目上举一个例子。</li>
+<li><strong>（无平台怎么办）</strong> 如果你所在的项目<strong>没有</strong> Astra Studio 这样的成熟平台，你打算用哪些“半固化”手段（review 清单 / 命名约定 / pre-commit 钩子 / docstring 挂账）替代校验器？这些替代手段的持续维护成本记在谁头上？</li>
+</ol>
+<blockquote>
+<p>教练收口锚点：题 1 指向“倍率主要不来自打字”——价值密度在一致性维护；题 2 回收 B-8 的发现成本曲线（编译期便宜 vs 对账期昂贵）；题 3 引 B-9 纪律——“不确定就显式挂账（docstring），把存疑留成白纸黑字，而不是’应该支持吧’往前推”，与第 3 讲“错文号比空缺更有害”同一条纪律。</p>
+</blockquote>
+<hr />
+<h2 id="六参考答案要点讲师版-标讲师专用勿发学员">六、参考答案要点（讲师版 · 标“讲师专用勿发学员”）</h2>
+<blockquote>
+<p>⚠️ 讲师专用，勿发学员。下面是引导标尺，不是唯一正解——学员的绝对数字可以不同，关键看结构对不对。</p>
+</blockquote>
+<p><strong>关于推演倍率的合理区间</strong>：不追求精确值，追求学员意识到“倍率主要不来自打字”。一个可引导的参照：仅悬空引用检查一项，75 Link + 54 Action = 129 条引用，每条人工核 2–3 分钟且需交叉查对象是否存在，单人一遍就是 4–6 小时且必然有漏；7 域 × 多轮 × 返工放大后，手工达到“零悬空”的成本是平台“当天 7/7”的<strong>一到两个数量级</strong>。重点不是这个数，是让学员自己撞到“人类做跨对象一致性维护，慢且必错”这堵墙。</p>
+<p><strong>必须点破的三个常见错误</strong>： - <strong>只算打字工时</strong>：最典型的失分。要追问“3835 行是机械生成的，手写才是问题；但手写更大的问题是 76 个对象命名跨 7 域保持一致——这是 B-5（数据张冠李戴）的放大版”。 - <strong>错误率给太低</strong>：谁写“我很仔细所以错误率 1%”，直接用 B-8 反问：“训练有素的 FDE 在有校验器兜底的情况下，编译期还<strong>多次</strong>想越域写入。没有校验器兜底，你凭什么相信自己 99% 不越界？” - <strong>漏掉发现成本曲线</strong>：手工模式的致命点不是“会错”，是“错误发现得晚”。B-8 在平台里编译期发现（便宜），手工里可能对账期才发现（昂贵，且要追责、复现）。</p>
+<p><strong>收口给标准答案骨架（三句结论范例）</strong>： 1. 平台替我们承担了 <strong>7 域跨 76 对象/75 链接的一致性维护与越界防护</strong> 风险（B-8 靠校验器而非自觉挡住）； 2. 代价是 <strong>平台建设 + 学习 + 管线维护</strong> 的一次性与持续投入； 3. <strong>值</strong>，因为一致性维护是人类最易疲劳出错、且错误发现越晚越贵的环节，把它固化进校验器，等于把“复制加班”变成“复制能力”——<strong>没有平台，你复制不了康养项目的 7/7，只能复制那个人的加班。</strong></p>
+<p><strong>与 B-9 的联动提醒</strong>：若有学员在 ⑤ SDK 能力核实里写“假设 SDK 都支持”，当场纠正——这正是 B-9 的错误姿势。正解是“不确定就显式挂账（docstring），把存疑留成白纸黑字，而不是’应该支持吧’往前推”，与第 3 讲“错文号比空缺更有害”同一条纪律。</p>
+</body>
+</html>

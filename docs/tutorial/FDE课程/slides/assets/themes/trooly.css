@@ -1,0 +1,22 @@
+/* theme: trooly — 清新金融/医养 白底翡翠绿圆角卡 */
+:root{
+  --bg:#ffffff;--bg-soft:#f2faf6;--surface:#ffffff;--surface-2:#edf7f1;
+  --border:rgba(11,43,38,.10);--border-strong:rgba(11,43,38,.24);
+  --text-1:#0d2b25;--text-2:#48605a;--text-3:#8aa39c;
+  --accent:#0bb07b;--accent-2:#0e9f6e;--accent-3:#12b3a6;
+  --good:#0bb07b;--warn:#f59e0b;--bad:#ef4444;
+  --grad:linear-gradient(135deg,#0bb07b,#12b3a6 60%,#0e9f6e);
+  --grad-soft:linear-gradient(135deg,#eafaf3,#e6f7f4);
+  --radius:20px;--radius-sm:14px;--radius-lg:28px;
+  --shadow:0 10px 28px rgba(11,60,45,.07),0 2px 6px rgba(11,60,45,.05);
+  --shadow-lg:0 24px 60px rgba(11,60,45,.13),0 6px 16px rgba(11,60,45,.06);
+  --font-sans:'Manrope','Inter','Noto Sans SC',sans-serif;
+  --font-display:'Manrope','Inter','Noto Sans SC',sans-serif;
+}
+.card{border:1px solid var(--border)}
+.card-accent{border-top:3px solid var(--accent)}
+.divider-accent{background:var(--grad);height:4px;width:64px;border-radius:3px}
+.kicker{color:var(--accent-2)}
+.eyebrow{color:var(--accent-2)}
+h1.title,h2.title,.h1,.h2{font-weight:800;color:var(--text-1)}
+.pill-accent{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent-2);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}

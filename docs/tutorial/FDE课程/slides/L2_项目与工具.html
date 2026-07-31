@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 第二课 · 项目与工具</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  /* —— 密排配方（与 L1 一致） —— */
+  .slide{padding:56px 80px}
+  .mt-l{margin-top:22px}
+  .mt-m{margin-top:14px}
+  .lede{font-size:19px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:6px}
+  .card p,.card-accent p,.card-outline p{font-size:15px;line-height:1.55}
+  h2.title{font-size:42px;line-height:1.15}
+  .metric{font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent-2)}
+  .metric-sm{font-size:36px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:14px;color:var(--text-2);margin-top:8px;line-height:1.4}
+  .chain{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-weight:700;font-size:20px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:8px 14px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:31px;line-height:1.38;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+  .warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:15px}
+  table.t th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:6px 10px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:6.5px 10px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  pre.code{font-family:var(--font-mono,ui-monospace,Menlo,monospace);font-size:14px;line-height:1.65;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:14px 18px;overflow:auto;color:var(--text-1)}
+  .m1{background:rgba(26,175,108,.12);color:#0f7a4a;border-radius:4px;padding:1px 7px;font-size:12px;font-weight:700;white-space:nowrap}
+  .m2{background:rgba(59,108,255,.12);color:#2a4fc4;border-radius:4px;padding:1px 7px;font-size:12px;font-weight:700;white-space:nowrap}
+  .slide.tight .card,.slide.tight .card-accent,.slide.tight .card-outline{padding-top:7px;padding-bottom:7px}
+  .slide.tight table.t td{padding-top:3.2px;padding-bottom:3.2px}
+  .slide.tight pre.code{padding-top:8px;padding-bottom:8px}
+  .slide.tight .mt-l{margin-top:12px}.slide.tight .mt-m{margin-top:8px}
+</style>
+<div class="deck">
+
+<!-- 1 封面 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 第二课 · 120′</div>
+  <h1 class="title" data-anim="fade-up">项目与工具</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">今天不进入 SOP 的任何一个阶段。<br><b>今天领车、加油。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">产出：一句话项目定义 + 可用工作区</span>
+    <span class="pill">⚠️ 本课必然卡人</span>
+  </div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="16"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 120′】</b> 开场 5′ ｜ 介绍项目 + 认领 30′ ｜ 介绍流程 20′ ｜ 介绍工具 30′ ｜ <b>实操装工具 + 重启 40′</b> ｜ checkout 10′（合计 135′，开场与流程可各压 5′）</p>
+    <p><b>【开场话术 · 先在第一课的地图上指位置】</b>"昨天我们讲了 SOP 七阶段。<b>今天不进入任何一个阶段</b>——今天做两件准备：领到你们要练的那个项目，把工具装上。明天才正式从立项那一步开始。"</p>
+    <p><b>【本课最大风险】</b> 装环境卡人，全班陪等。<b>别让全班等</b>——装好的先读命题卡、想一句话定义，你单独捞卡住的人。<b>提前 10 分钟让他们开始下载</b>，你在旁边讲工具全景。</p>
+    <p><b>【必须守住的一件事】</b> 收尾统一重启一次，逐个确认 <span class="mono">/studio-ontology:map</span> 可见。没这一步，第五课全班翻车。</p>
+  </div>
+</section>
+
+<!-- 2 本课两件事 -->
+<section class="slide" data-title="本课两件事">
+  <div class="kicker">本课路线</div>
+  <h2 class="title">拿到两样东西就算过关</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-accent"><h4>① 你们组的项目</h4><p class="dim">五个真实命题，各组认领一个<br><b>认领后不换</b><br>当场写下<b>一句话项目定义</b></p></div>
+    <div class="card-accent"><h4>② 一台跑得起来的机器</h4><p class="dim">8 个插件 + 外部依赖<br><b>重启</b>后确认 skill 可见<br><span class="mono">/studio-core:init</span></p></div>
+  </div>
+  <table class="t mt-l" data-anim="stagger-list">
+    <tr><th style="width:24%">段</th><th style="width:14%">时长</th><th>你们要做什么</th></tr>
+    <tr><td>介绍项目 + 认领</td><td>30′</td><td><b>认领 + 写一句话定义</b></td></tr>
+    <tr><td>介绍流程</td><td>20′</td><td>记进工作簿</td></tr>
+    <tr><td>介绍工具</td><td>30′</td><td>听（同时可以后台下载）</td></tr>
+    <tr><td><b>实操：装工具 + 重启</b></td><td><b>40′</b></td><td><b>跟敲</b></td></tr>
+    <tr><td>checkout</td><td>10′</td><td>七项自查</td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">本课路线</span><span class="slide-number" data-current="2" data-total="16"></span></div>
+  <div class="notes"><p>把两件事说死，学员就知道今天的验收线在哪。<b>特别强调"认领后不换"</b>——每年都有组在第四课觉得难想换题，现在就把话说在前面。</p></div>
+</section>
+
+<!-- 3 为什么真实命题 -->
+<section class="slide" data-title="为什么用真实命题">
+  <div class="kicker">介绍项目 1/3</div>
+  <h2 class="title">玩具题练不出 FDE</h2>
+  <p class="quote-big mt-s" data-anim="fade-up">FDE 的难点从来不是"会不会用工具"，<br>是<b>在信息不全、口径打架、有人反对的<br>真实环境里做判断</b>。</p>
+  <p class="lede mt-l" data-anim="fade-up">所以每个命题都带了四样东西：</p>
+  <div class="grid g4 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>客户背景</h4><p class="dim">让你有上下文</p></div>
+    <div class="card card-accent"><h4>客户原话</h4><p class="dim">模糊意图，<b>要你自己压成结构</b>——这才是 FDE 的活</p></div>
+    <div class="card"><h4>已知约束</h4><p class="dim">预算 · 工期 · 政策边界</p></div>
+    <div class="card warncard"><h4>故意埋的<br>"查不到的项"</h4><p class="dim">逼你在第五课练<b>留占位不编造</b></p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">真实命题</span><span class="slide-number" data-current="3" data-total="16"></span></div>
+  <div class="notes"><p>"我们不给你们一道干净的题。因为客户不会给你干净的题。每个命题里我都埋了至少一项<b>公开渠道查不到的东西</b>——不是我偷懒没查，是<b>故意的</b>。到第五课你们就知道为什么了。"</p>
+  <p><b>【别提前剧透】</b>不要现在就说埋了哪几项，让他们自己在第三课撞上。</p></div>
+</section>
+
+<!-- 4 五个命题 -->
+<section class="slide" data-title="五个命题">
+  <div class="kicker">介绍项目 2/3</div>
+  <h2 class="title">五个命题，跨两种交付模式</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:30%">命题</th><th style="width:12%">行业</th><th style="width:26%">交付模式</th><th>对标启发案例</th></tr>
+    <tr><td><b>A · 微康养</b><br><span class="dim">县域"助浴+喘息"服务网络</span></td><td>康养</td><td><span class="m2">模式二</span> 平台建设+运营</td><td>康养项目（🟢 已交付）</td></tr>
+    <tr><td><b>B · 园本知识库</b><br><span class="dim">区域幼儿园课程库+保教助手</span></td><td>教育</td><td><span class="m1">模式一</span> Token-SaaS</td><td>教育督导项目（🟢 建模+方案）</td></tr>
+    <tr><td><b>C · 智慧工作台</b><br><span class="dim">连锁美业门店工作台</span></td><td>美业</td><td><span class="m1">模式一</span> SaaS</td><td>康养项目会员复购飞轮</td></tr>
+    <tr><td><b>D · 标准化种植</b><br><span class="dim">地方特色作物大模型</span></td><td>农业</td><td><span class="m2">模式二</span> 平台建设</td><td>辣椒 / 草业项目（🟡 方案级）</td></tr>
+    <tr><td><b>E · 监管督导</b><br><span class="dim">区级养老机构星评督导应用</span></td><td>监管</td><td><span class="m1">模式一</span> SaaS（G 端）</td><td>教育督导项目（换域同构）</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">跨模式<b>不是为了公平分配</b>，是为了逼你们在第六课用对财务语言：<br>模式二讲 <b>IRR / 回本周期</b>，模式一讲 <b>MRR / LTV:CAC / NRR</b>。<b>答反了当场露怯。</b></p>
+  <div class="deck-footer"><span class="ftag">五个命题</span><span class="slide-number" data-current="4" data-total="16"></span></div>
+  <div class="notes"><p>发命题卡。让各组花 5 分钟看完再举手认领，<b>不要先到先得抢</b>——抢完的组往往没看清自己领了什么。</p>
+  <p><b>【模式分布是刻意的】</b>模式一 B/C/E，模式二 A/D。第六课写财务那一段，两边用的是完全不同的语言。现在埋下这颗雷，第六课引爆。</p>
+  <p><b>【如果某个命题没人领】</b>不要强塞。让人多的组拆成两组，或者你指定——但要说明理由，别显得随机。</p></div>
+</section>
+
+<!-- 5 一句话定义 -->
+<section class="slide" data-title="一句话项目定义">
+  <div class="kicker">介绍项目 3/3 · <b>现在就做</b></div>
+  <h2 class="title">🔔 写下一句话项目定义</h2>
+  <div class="card card-accent mt-s" data-anim="fade-up">
+    <p style="font-size:22px;line-height:1.6">给【<b>谁</b>】做一个【<b>什么</b>】，<br>解决【<b>什么错配 / 痛点</b>】。</p>
+  </div>
+  <div class="card mt-m" data-anim="fade-up">
+    <h4>示例（命题 A）</h4>
+    <p class="dim" style="font-size:16px">给<b>县域失能老人家庭</b>做一个<b>"助浴+喘息"上门服务调度与结算网络</b>，<br>解决<b>"服务供给散在各机构、家属找不到、补贴走不通"的三方错配</b>。</p>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up">这一句在<b>第三课会被打回来重写好几次</b>。<br><b>现在写得糙没关系，但必须写下来</b>——它是后面所有产出的锚。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">命题一旦认领<b>就不换</b>。</p>
+  <div class="deck-footer"><span class="ftag">项目定义</span><span class="slide-number" data-current="5" data-total="16"></span></div>
+  <div class="notes"><p><b>【现场动作，别只是讲】</b>给 5 分钟，每组必须把这句话写在工作簿首页并念出来。念出来这一步不能省——念的时候自己就会发现哪里空。</p>
+  <p><b>【常见毛病，当场纠】</b>①"给政府做一个智慧养老平台"——谁是政府？民政局和医保局要的完全不是一个东西。②"解决信息化水平低的问题"——这不是错配，这是形容词。<b>逼他们说出"谁和谁之间对不上"</b>。</p>
+  <p>"一认到底"要说重一点：<b>中途换题的组，等于把前面所有产出作废。这本身就是 FDE 的一课——需求会变，但项目不会因为你觉得难就换一个。</b>"</p></div>
+</section>
+
+<!-- 6 全程一张表 -->
+<section class="slide" data-title="后面六课怎么走">
+  <div class="kicker">介绍流程 1/2</div>
+  <h2 class="title">后面六课，你们要交出什么</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%">课</th><th style="width:28%">主题</th><th>交付包里的哪几件</th></tr>
+    <tr><td><b>第三课</b></td><td>如何正确采集信息</td><td>① 项目定义 + 交付模式判定 + <b>喂给智能体的输入包</b></td></tr>
+    <tr><td><b>第四课</b></td><td>认知萃取 + 领域建模</td><td>② 画像 / 旅程 / 热点　③ 域图 + skill-map</td></tr>
+    <tr><td><b>第五课</b> ⭐</td><td>本体建模 + 设闸</td><td>④ 五要素本体　⑥ SOP　⑦ <b>HIL 设点表</b>　⑧ 取证清单</td></tr>
+    <tr><td><b>第六课</b></td><td>文档工程</td><td>⑤ 商业模式 + 财务语言　⑨ 方案稿 + 配图</td></tr>
+    <tr><td><b>第七课</b></td><td>原型开发</td><td>⑪ demo 原型 + <b>Mock 清单</b></td></tr>
+    <tr><td><b>第八课</b></td><td>总结与能力沉淀</td><td>⑩ 团队编成 + 90 天计划　⑫ 插件（加分）</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">结课交出一份「<b>迷你 FDE 交付包</b>」，共 <b>11 件</b>（⑫ 为加分项，<b>做不完不扣分</b>）。</p>
+  <div class="deck-footer"><span class="ftag">全程地图</span><span class="slide-number" data-current="6" data-total="16"></span></div>
+  <div class="notes"><p>这张表要让他们抄进工作簿。<b>11 件是硬承诺</b>——每一件都有归属的课，不重不漏。</p>
+  <p><b>【⑫ 要特别说明】</b>插件是加分项，<b>做不完不扣分</b>。评审看的不是你做出来没有，是<b>你说不说得出"这五天哪个动作值得沉淀成插件"</b>。现在说清楚，免得有组为了凑加分把第八课的正课时间挤没了。</p></div>
+</section>
+
+<!-- 7 固定节奏 + 三条纪律 -->
+<section class="slide" data-title="固定节奏与三条纪律">
+  <div class="kicker">介绍流程 2/2</div>
+  <h2 class="title">每课同一个骨架，纪律只有三条</h2>
+  <pre class="code mt-s" data-anim="fade-up">① 目的      这一课学完能干什么
+② 启发      原理 · 方法 · 工具
+③ 沉浸      真实案例"做对了长什么样"—— <b>当场点开看，不是听说</b>
+④ 实操      在你们自己的命题上真跑，<b>产物落盘</b>
+   └ checkout  达标 / 警示对照，组间互评</pre>
+  <p class="dim mt-s" data-anim="fade-up">从第三课开始每课都是这个骨架。<b>上到第二次你就熟了——认知负担只在内容上，不在形式上。</b></p>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card goodcard"><h4>① 真跑工具，产物落盘</h4><p class="dim"><b>产物没落盘就是没做</b></p></div>
+    <div class="card goodcard"><h4>② 案例只做标尺</h4><p class="dim"><b>照结构做，别抄数字</b></p></div>
+    <div class="card goodcard"><h4>③ 查不到的留占位</h4><p class="dim"><b>结课路演的一票警示</b></p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">节奏 · 纪律</span><span class="slide-number" data-current="7" data-total="16"></span></div>
+  <div class="notes"><p>三条纪律第一课立过，这里<b>再念一遍就行，不要重讲</b>。重点在"③ 是一票警示"——把结课的判罚标准提前告知，这是公平问题。</p>
+  <p>"③ 我要多说一句：路演时如果你把 Mock demo 说成'已实现'，或者交付包里有一个你答不出来源的数字，<b>当场会被指出来</b>。现在说清楚，免得第五天喊冤。"</p></div>
+</section>
+
+<!-- 8 九插件全景 -->
+<section class="slide" data-title="九插件全景">
+  <div class="kicker">介绍工具 1/4</div>
+  <h2 class="title">九个插件，各管一段，产物首尾相接</h2>
+  <pre class="code mt-s" data-anim="fade-up">studio-core      工作区管理（init / status / promote / create-expert）   ← <b>第二课 / 第八课</b>
+studio-insight   业务分析六件套（画像/旅程/流程/画布/行为矩阵/机会）     ← <b>第四课上</b>
+studio-planner   规划流水线（事件风暴→域模型→技能设计→骨架→填充）       ← <b>第四课下 / 第八课</b>
+studio-ontology  本体编译（五要素 → 可运行插件）                         ← <b>第五课</b>
+studio-docs      文档交付（蓝图/写作专家/并行写作/装配/导出）            ← <b>第六课</b>
+studio-platform  平台文档套件（脑图/技术设计/项目计划/迎检话术）          ← <b>第六课</b>
+studio-design    设计转代码（截图→.pen→openspec→React）                 ← <b>第七课</b>
+studio-quality   插件校验 + MCP 接线                                    ← <b>第八课</b>
+fund-review      政府采购报价优化 + 财评预审                            ← <b>第八课 选修</b></pre>
+  <p class="lede mt-m" data-anim="fade-up"><b>四条依赖</b>：<span class="mono">planner → core + insight</span>；<span class="mono">docs / platform / ontology → core</span>；<span class="mono">insight / quality / design</span> 零依赖。</p>
+  <div class="deck-footer"><span class="ftag">工具全景</span><span class="slide-number" data-current="8" data-total="16"></span></div>
+  <div class="notes"><p>不要逐个插件讲功能——<b>那是说明书，不是课</b>。只讲三件事：①每个插件对应哪一课（右边那一列）；②它们靠文件串起来；③依赖关系决定装的顺序。</p>
+  <p>"这一页你们不用背。你只要知道：<b>每一课我会告诉你今天用哪一个</b>。现在看右边那列——它就是你们后面六天的日程。"</p></div>
+</section>
+
+<!-- 9 产物即接口 -->
+<section class="slide" data-title="产物即接口">
+  <div class="kicker">介绍工具 2/4 · <b>必须建立的认知 ①</b></div>
+  <h2 class="title">工具之间不靠内存传参，<b>靠文件</b></h2>
+  <p class="lede mt-s" data-anim="fade-up"><span class="mono">studio/changes/{domain}/</span> 下每个文件，都是<b>上一步的输出、下一步的输入</b>。</p>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>随时可中断</h4><p class="dim">今天跑到域图，明天接着跑</p></div>
+    <div class="card"><h4>每步可单独跑</h4><p class="dim">不用从头再来</p></div>
+    <div class="card"><h4>可以人工改产物再继续</h4><p class="dim">模型给的结构不满意，<b>你直接改文件</b></p></div>
+  </div>
+  <div class="card warncard mt-l" data-anim="fade-up">
+    <h4>占位符即契约</h4>
+    <p class="dim">你在文档里写了要引用的文件，<b>它就必须存在</b>。<br>这条在第八课有物理落点——<b>校验器会把"引用了不存在的文件"直接判 failed</b>。</p>
+  </div>
+  <div class="deck-footer"><span class="ftag">产物即接口</span><span class="slide-number" data-current="9" data-total="16"></span></div>
+  <div class="notes"><p>"这一条听起来像技术细节，其实是<b>方法论</b>。它决定了你可以在任何一步停下来、改一改、再往下走——<b>而不是必须一口气跑完，跑歪了推倒重来</b>。"</p>
+  <p><b>【第三条最重要】</b>"可以人工改产物再继续"——这是 FDE 和"让 AI 全自动跑"的分界。<b>模型提议，你拍板，然后接着跑。</b>第五课会看到它的物理机制。</p></div>
+</section>
+
+<!-- 10 OAG ≠ RAG -->
+<section class="slide" data-title="OAG ≠ RAG">
+  <div class="kicker">介绍工具 3/4 · <b>必须建立的认知 ②</b></div>
+  <h2 class="title">认知到行动 = OAG，不是 RAG</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-outline"><h4>RAG</h4><p class="dim" style="font-size:19px"><b>检索得准一点</b><br><br>防幻觉在<b>检索层</b><br>——找对了资料，但生成还是自由的</p></div>
+    <div class="card-accent"><h4>OAG</h4><p class="dim" style="font-size:19px"><b>越权的结果根本生成不出来</b><br><br>防幻觉在<b>执行层</b>（本体约束求解）<br>——不是"劝它别这么干"，是"它干不了"</p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">LLM proposes,<br><b>ontology enforces.</b></p>
+  <p class="lede mt-m" data-anim="fade-up">第五课会讲透，并给出物理机制：<span class="mono">guards</span> / <span class="mono">post_rules</span> / <span class="mono">HilPolicy</span> <b>三道关</b>。</p>
+  <div class="deck-footer"><span class="ftag">OAG ≠ RAG</span><span class="slide-number" data-current="10" data-total="16"></span></div>
+  <div class="notes"><p><b>【这一页会有人抬杠，准备好】</b>常见反驳："RAG 加上好的 prompt 也能约束住。"回答：<b>prompt 是劝，不是拦。</b>劝有概率失败，拦没有。第五课我们会当场演示一个被引擎硬回滚的写入——<b>数据根本没落库</b>。</p>
+  <p>"今天你只要记住这一句：<b>LLM proposes, ontology enforces.</b> 模型负责提议，本体负责执法。这句话是第五课全课的题眼。"</p></div>
+</section>
+
+<!-- 11 三层固化 -->
+<section class="slide" data-title="平台=方法论的固化物">
+  <div class="kicker">介绍工具 4/4</div>
+  <h2 class="title">⭐ 平台 = 方法论的固化物</h2>
+  <div class="chain mt-s" data-anim="fade-up" style="font-size:22px">
+    <span class="step">产出</span><span class="arrow">=</span><span class="step">结构化能力</span><span class="arrow">×</span>
+    <span class="step" style="background:var(--grad-soft);border-color:var(--accent)">平台固化</span><span class="arrow">×</span><span class="step">模型算力</span>
+  </div>
+  <p class="dim mt-s">第一课的公式。<b>这一堆插件就是第二个因子。</b></p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:16%">层</th><th style="width:26%">固化了什么</th><th>例</th></tr>
+    <tr><td><b>工具层</b></td><td>做事的<b>步骤顺序</b></td><td>planner 的 5 步流水线，不用每次想"先干哪个"</td></tr>
+    <tr><td><b>结构层</b></td><td>产物的<b>形状</b></td><td>每个 skill 的产出路径与章节结构固定，下游能直接消费</td></tr>
+    <tr><td><b>纪律层</b></td><td><b>什么不许做</b></td><td>校验器的治理审计、编译红线</td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">工具能省时间，<b>纪律能防事故</b>。<br>而纪律有个特点——<b>它在你最想违反的时候生效。</b></p>
+  <div class="deck-footer"><span class="ftag">三层固化</span><span class="slide-number" data-current="11" data-total="16"></span></div>
+  <div class="notes"><p><b>【第三层最值钱，讲慢一点】</b>"前两层是效率，第三层是安全。而且你注意——<b>纪律有个特点，它在你最想违反的时候生效</b>。你赶工期的时候最想跳过校验，而校验器恰恰在那时候拦住你。<b>这不是碍事，这是它的全部价值。</b>"</p>
+  <p><b>【活证据 fund-review】</b>"政府采购报价优化插件，首发案例就是学前教育项目。一个真实交付里反复做的动作，被沉淀成可复用插件，下个项目直接调用。<b>第八课我们会再回收一次——到时候我会问你们：你们这五天做的动作，哪个值得沉淀？</b>"</p></div>
+</section>
+
+<!-- 12 固化的反面 B-11 预告 -->
+<section class="slide" data-title="固化的反面 · B-11 预告">
+  <div class="kicker">介绍工具 · 补</div>
+  <h2 class="title">⚠️ 但固化也有反面</h2>
+  <p class="quote-big mt-s" data-anim="fade-up">模板可以复用，<br><b>数字不可以。</b></p>
+  <div class="card badcard mt-l" data-anim="fade-up">
+    <h4>反例 B-11 · 模板复用的数字迁移污染</h4>
+    <p class="dim">辣椒和草业项目两份调研件是<b>同一个模板换领域填的</b>——结尾整段逐字相同，连"关系数 40万/200万/500万+"都一样。<br><br>
+    草业项目那三个数（10万+案例 / 500+标准 / 200+专利）挂在客户<b>30 年真实积累</b>上、<b>有主</b>；<br>
+    辣椒同样这三个数<b>无主</b>——是模板带过来的。</p>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up">今天只需要记住一句：<br><b>固化提问结构是对的，固化答案是灾难。</b><span class="dim"> 第三课深讲。</span></p>
+  <div class="deck-footer"><span class="ftag">B-11 预告</span><span class="slide-number" data-current="12" data-total="16"></span></div>
+  <div class="notes"><p><b>【纪律：点到即止，不抢第三课的主场】</b>这一页只讲"正面之外还有反面"，<b>不要展开讲怎么防</b>——那是第三课的主场戏。给他们一个悬念就行。</p>
+  <p>"我刚讲完平台固化有多好，现在给你们看它的反面。<b>固化提问结构是对的——那叫方法论。固化答案是灾难——那叫抄。</b> 这两件事长得非常像，而且是同一份文件。第三课我们把这两份原件打开，一段一段比给你们看。"</p></div>
+</section>
+
+<!-- 13 实操命令 -->
+<section class="slide tight" data-title="实操 · 装工具">
+  <div class="kicker">实操 · 40′</div>
+  <h2 class="title">照着敲</h2>
+  <pre class="code mt-s" data-anim="fade-up"># 1) 注册 marketplace
+claude plugin marketplace add github:VanLengs/astra-studio-plugins
+
+# 2) ★ 刷新快照 —— <b>跳过这步会装不到 studio-ontology</b>
+claude plugin marketplace update astra-studio
+
+# 3) 核心四件套
+claude plugin install studio-core@astra-studio
+claude plugin install studio-insight@astra-studio
+claude plugin install studio-planner@astra-studio
+claude plugin install studio-quality@astra-studio
+
+# 4) 交付四件套
+claude plugin install studio-docs@astra-studio
+claude plugin install studio-platform@astra-studio
+claude plugin install studio-design@astra-studio
+claude plugin install studio-ontology@astra-studio
+
+# 5) ★★ <b>重启 Claude Code</b> —— 不重启，新装的 skill 在当前会话里看不见
+
+# 6) 初始化工作区
+/studio-core:init</pre>
+  <div class="deck-footer"><span class="ftag">命令序列</span><span class="slide-number" data-current="13" data-total="16"></span></div>
+  <div class="notes"><p><b>【投屏保持在这一页别翻】</b>学员要照着敲。你去巡场。</p>
+  <p><b>【巡场优先级】</b>①先解决完全卡住的（网络/权限）；②再看装了一半的；③装完的让他们去读命题卡、打磨一句话定义——<b>不要让他们干等</b>。</p>
+  <p><b>【第 5 步是全课的命门】</b>到点了统一喊停，全班一起重启。然后逐个确认 <span class="mono">/studio-ontology:map</span> 可见。<b>这一步不做，第五课全班翻车，而且到时候查不出原因。</b></p></div>
+</section>
+
+<!-- 14 外部依赖 -->
+<section class="slide" data-title="实操 · 外部依赖">
+  <div class="kicker">实操 · 补</div>
+  <h2 class="title">外部依赖：一硬两软</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card badcard"><h4>★ 硬依赖</h4><p class="mono" style="font-size:14px">brew install pandoc</p><p class="dim"><b>缺了第六课直接 STOP</b></p></div>
+    <div class="card"><h4>软依赖</h4><p class="mono" style="font-size:14px">npm i -g @mermaid-js/mermaid-cli</p><p class="dim">缺了 Mermaid 图<b>降级为代码块</b></p></div>
+    <div class="card"><h4>软依赖</h4><p class="mono" style="font-size:14px">pip install python-docx</p><p class="dim">缺了只输出<b>裸 pandoc DOCX</b>（样式差一点，能用）</p></div>
+  </div>
+  <h3 class="mt-l" data-anim="fade-up">30 秒冒烟测试</h3>
+  <pre class="code mt-s" data-anim="fade-up">pandoc &lt;(printf '# 测试\n\n| a | b |\n|---|---|\n| 1 | 2 |\n') -o /tmp/smoke.docx &amp;&amp; echo "导出链路 OK"</pre>
+  <p class="lede mt-m" data-anim="fade-up">看到 <span class="mono">导出链路 OK</span> 就说明 md → docx 这条路通了。</p>
+  <div class="deck-footer"><span class="ftag">外部依赖</span><span class="slide-number" data-current="14" data-total="16"></span></div>
+  <div class="notes"><p><b>【pandoc 必须当场验】</b>不是"装了就行"，是<b>跑一遍冒烟测试看到 OK</b>。每年都有人 brew 装完路径不对，到第六课才发现。</p>
+  <p>"这个冒烟测试你们要记住这个习惯——<b>FDE 上客户现场前先跑冒烟测试。别在客户会议室里第一次执行安装命令。</b>"</p></div>
+</section>
+
+<!-- 15 四个翻车点 -->
+<section class="slide" data-title="四个翻车点">
+  <div class="kicker">⚠️ 实测踩出来的</div>
+  <h2 class="title">四个翻车点</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:26%">现象</th><th style="width:28%">原因</th><th>正确处置</th></tr>
+    <tr><td><b>① 装完当前会话<br>看不到新 skill</b><br><span class="dim">install 明确报成功</span></td>
+        <td><b>插件在会话启动时加载，装完不会热更新</b></td>
+        <td><b>重启 Claude Code。</b><br><span class="dim">别重装——重装解决不了，因为它根本没装失败。反复卸载重装会浪费十分钟还越搞越乱</span></td></tr>
+    <tr><td><b>② 装不到<br>studio-ontology</b></td>
+        <td>它是<b>后加进 marketplace</b> 的，旧快照里没有</td>
+        <td>先跑 <span class="mono">marketplace update</span>。<br>打印 <span class="mono">Found stale directory…</span> 是<b>正常行为，不是报错</b></td></tr>
+    <tr><td><b>③ 升级没生效</b></td>
+        <td>再跑一次 <span class="mono">install</span> <b>无效</b></td>
+        <td><span class="mono">marketplace update</span> + <span class="mono">plugin update</span>；<br>兜底 <span class="mono">install --force</span></td></tr>
+    <tr><td><b>✅ ④ 两个仓库 URL</b><br><span class="dim">曾以为是坑</span></td>
+        <td><span class="mono">Ameng2001</span> 与 <span class="mono">VanLengs</span> <b>指向同一个 commit</b>——改名后 GitHub 自动重定向</td>
+        <td>手册统一用 <span class="mono">VanLengs</span>。<br><b>看到另一个也别慌，不是两个仓库</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">翻车点</span><span class="slide-number" data-current="15" data-total="16"></span></div>
+  <div class="notes"><p><b>【① 要讲透，它是最真实的课堂翻车点】</b>"install 明确回报成功，但技能列表里就是没有。这时候人的本能是'一定是装失败了'，然后去卸载重装。<b>反复重装十分钟，越搞越乱。</b> 实际上它根本没装失败——插件是会话启动时加载的，<b>装完不会热更新</b>。"</p>
+  <p><b>【④ 是诚实边界的小示范】</b>"这一条我们一开始以为是个坑，写进了讲义。后来 <span class="mono">git ls-remote</span> 一查，两个 URL 指向同一个 commit——是仓库改名后 GitHub 的自动重定向。<b>所以我们把讲义改了。查证之后推翻自己的结论，这也是这门课要教的。</b>"</p></div>
+</section>
+
+<!-- 16 checkout -->
+<section class="slide" data-title="checkout">
+  <div class="kicker">checkout · 10′</div>
+  <h2 class="title">七项自查</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%">维度</th><th style="width:42%">达标</th><th>警示</th></tr>
+    <tr><td>命题</td><td>认领完成 + <b>一句话项目定义已钉进工作簿</b></td><td>还在挑题 / 定义没写下来</td></tr>
+    <tr><td>模式判定</td><td>说得出本组是模式一还是模式二</td><td>说不出——<b>第六课会用错财务语言</b></td></tr>
+    <tr><td>marketplace</td><td>快照下能看到 <b>9 个插件目录</b></td><td>只有 7 个 → <b>没跑 update</b>，第五课必翻车</td></tr>
+    <tr><td>安装</td><td><span class="mono">claude plugin list</span> 见到 8 个 <span class="mono">studio-*</span></td><td>缺 studio-ontology</td></tr>
+    <tr><td><b>skill 可见</b></td><td>技能列表里能看到 <span class="mono">/studio-ontology:map</span></td><td>看不到 → <b>没重启</b>（不是装失败，别重装）</td></tr>
+    <tr><td>工作区</td><td><span class="mono">/studio-core:status</span> 能列出工作区</td><td>报错找不到 <span class="mono">studio/</span></td></tr>
+    <tr><td>导出链路</td><td><span class="mono">pandoc --version</span> 有输出</td><td>缺 pandoc → 第六课一票警示</td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">今天装的不是工具，<br><b>是别人已经走通的方法论。</b></p>
+  <div class="deck-footer"><span class="ftag">checkout</span><span class="slide-number" data-current="16" data-total="16"></span></div>
+  <div class="notes"><p><b>【逐项举手确认，不要口头问"都好了吗"】</b>七项逐项让他们举手。<b>第五项"skill 可见"必须每个人当场敲一次给你看</b>——这一项没过，第五课就是灾难。</p>
+  <p><b>【收口 + 留悬念】</b>"今天装的不是工具，是别人已经走通的方法论。明天开始上路。<b>带一个问题回去：你写的那句话项目定义，客户会同意吗？</b> 明天第一件事，就是把它打回来重写。"</p>
+  <p><b>【下课前】</b>提醒明天带上本组的工作簿和笔记本电脑，<b>确保电脑今晚不要动系统更新</b>。</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

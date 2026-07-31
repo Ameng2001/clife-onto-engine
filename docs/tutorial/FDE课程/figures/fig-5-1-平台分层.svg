@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
+  <defs><marker id="au" markerWidth="10" markerHeight="10" refX="5" refY="8" orient="auto"><path d="M5,0 L10,8 L0,8 Z" fill="#16a34a"/></marker></defs>
+  <style>text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}</style>
+  <rect x="0" y="0" width="960" height="720" fill="#ffffff"/>
+  <text x="480" y="52" font-size="24" font-weight="700" fill="#111827" text-anchor="middle">Astra Studio 平台分层</text>
+  <text x="480" y="78" font-size="13" fill="#6b7280" text-anchor="middle">工具栈自下而上:底座 → 认知萃取 → 洞察 → 本体 → 文档 → 校验</text>
+  <rect x="100" y="104" width="660" height="76" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.8"/>
+  <text x="130" y="138" font-size="18" font-weight="700" fill="#9a3412">studio-quality</text>
+  <text x="130" y="162" font-size="13" fill="#6b7280">校验 · validate</text>
+  <rect x="100" y="196" width="660" height="76" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.8"/>
+  <text x="130" y="230" font-size="18" font-weight="700" fill="#166534">studio-docs</text>
+  <text x="130" y="254" font-size="13" fill="#6b7280">文档 · plan / write / assemble / export</text>
+  <rect x="100" y="288" width="660" height="76" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.8"/>
+  <text x="130" y="322" font-size="18" font-weight="700" fill="#5b21b6">clife-onto-engine</text>
+  <text x="130" y="346" font-size="13" fill="#6b7280">本体运行时 · OAG 五要素落库</text>
+  <rect x="100" y="380" width="660" height="76" rx="8" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.8"/>
+  <text x="130" y="414" font-size="18" font-weight="700" fill="#0f766e">studio-insight</text>
+  <text x="130" y="438" font-size="13" fill="#6b7280">洞察 · 画像 / 旅程 / 流程 / 画布 / 矩阵</text>
+  <rect x="100" y="472" width="660" height="76" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.8"/>
+  <text x="130" y="506" font-size="18" font-weight="700" fill="#1d4ed8">studio-planner</text>
+  <text x="130" y="530" font-size="13" fill="#6b7280">认知萃取 · event-storm / domain-model</text>
+  <rect x="100" y="564" width="660" height="76" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.8"/>
+  <text x="130" y="598" font-size="18" font-weight="700" fill="#374151">studio-core</text>
+  <text x="130" y="622" font-size="13" fill="#6b7280">底座 · 插件运行时 / 编排调度</text>
+  <line x1="70" y1="640" x2="70" y2="120" stroke="#16a34a" stroke-width="2.5" marker-end="url(#au)"/>
+  <text x="58" y="390" font-size="13" font-weight="600" fill="#16a34a" transform="rotate(-90 58 390)" text-anchor="middle">依赖自下而上</text>
+  <path d="M772,104 h14 v168 h-14" fill="none" stroke="#9333ea" stroke-width="2"/>
+  <text x="812" y="188" font-size="15" font-weight="700" fill="#7c3aed" transform="rotate(90 812 188)" text-anchor="middle">方法论固化为校验器</text>
+</svg>

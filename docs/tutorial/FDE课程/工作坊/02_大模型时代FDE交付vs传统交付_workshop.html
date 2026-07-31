@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 2 讲 · 工作坊：给一次交付做人月/工序重估</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第 2 讲 · 工作坊：给一次交付做人月/工序重估</h1>
+</header>
+<h1 id="第-2-讲-工作坊给一次交付做人月工序重估">第 2 讲 · 工作坊：给一次交付做人月/工序重估</h1>
+<blockquote>
+<p>⚠️ <strong>本文件为 v0.1（十讲制）时期的学员工作坊材料，已于 2026-07-27 被 v0.3 八课制取代，不再上课使用。</strong> 现行版本：<code>课程/L1–L8_*.md</code>（单文件全案，实操与 checkout 都在里面）。结构定义见 <code>00_八课总纲.md</code>。 保留原因：Exercise 输入材料、评分卡与讲师版参考答案有留痕价值，改课时可作第一手参考。 ⚠️ 内含的“第 N 讲”引用与“L1/L2/L3 定级”是当时的编号（v0.3 定级已改为 <strong>Lv.1/Lv.2/Lv.3</strong>），<strong>刻意未改</strong>——改了会篡改历史记录。换算表见 <code>00_课程总纲.md</code> 第九节。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>⚠️ <strong>本文件为 v1 十环节时期的执行脚本，已被 <code>工具实操/T1–T8_*.md</code> 八份实操手册取代，保留备查、不再上课用。</strong> 新的执行主干见 <code>_legacy/00_工具实操总纲_T1-T8.md</code>；本讲的方法论内容现作为对应 T 步的<strong>知识注入</strong>。 ⚠️ <strong>口径已变</strong>：本文件内的案例成熟度与商业口径是 2026-07-20 之前的版本（如「嘉城数联合资公司」「草业项目 13 页 demo」）。<strong>现行口径以 <code>_WRITING_BRIEF.md</code> 与十册为准</strong>——主体叫<strong>项目联合体</strong>，IRR 主口径叫<strong>运营口径</strong>，草业项目 demo 是 <strong>11 页</strong>。</p>
+</blockquote>
+<blockquote>
+<p>📎 <strong>本文件是《FDE 实战工作坊》第 2 环节的「动手脚本」</strong>（不是独立工作坊）——整个培训是<strong>一个</strong>工作坊，总流程见 <code>_legacy/00_FDE实战工作坊_主持手册.md</code>。本环节各组就<strong>本组命题</strong>做启发式研讨，思考沉淀进贯穿工作簿。</p>
+</blockquote>
+<blockquote>
+<p>学员用（敏捷引导式）· 演练 36′ + 复盘 18′ · 对应能力 <strong>C2 杠杆归因（人月/工序重估）</strong> 配套讲义 <code>讲义/02_大模型时代FDE交付vs传统交付.md</code> · 授课形式遵 <code>_工作坊授课规范.md</code> · 口径遵 <code>_WRITING_BRIEF.md</code></p>
+</blockquote>
+<hr />
+<h2 id="开场教练宣读2">〇、开场（教练宣读，2′）</h2>
+<blockquote>
+<p>📌 <strong>本环节为研讨环节（不产交付包物件）</strong>——本讲就本组命题做启发式研讨，产出记进工作簿的“思考”区即可，不强塞交付物。下方的 💡 启发范例是<strong>标尺、不是模板</strong>：康养项目/教育督导项目/辣椒/草业项目做对了长这样，帮你把研讨聊到点子上、照结构想，别抄数字。</p>
+</blockquote>
+<p><strong>🎯 本坊目标</strong>：就本组命题（或你亲历的一次交付）研讨清楚三件事——<strong>① FDE 模式下压缩比大概到什么量级；② 杠杆主要来自 L 结构化 / P 平台 / T 打字快 哪个；③ 哪些环节压不动（1.0×）。</strong> 产出是<strong>研讨观点 / 一句话共识</strong>，不是一张交付表。</p>
+<p><strong>🧭 过程方法论（本坊用的 FDE 方法）</strong>：工序级人月重估 · 杠杆归因三分类（L 结构化能力 / P 平台固化 / T 打字快）· 压不动环节四判据（涉钱/涉合规/涉责任/方向性返工）。</p>
+<p><strong>📏 工作坊纪律（教练宣读）</strong> 1. <strong>启发-执行</strong>：每步先点开“💡启发”看康养项目范例，再动手；不空想。 2. <strong>时间盒</strong>：铃响即停，拆解/重估都守时。 3. <strong>终止铃</strong>：教练铃响，讨论立即停，进下一步。 4. <strong>停车场</strong>：争不出的挂 parking lot，会后再议，不占时间盒。 5. <strong>checkout</strong>：每阶段末对照输出与验收标准。</p>
+<p><strong>🙌 工作坊宣言（齐读）</strong>：完成大于完美 · 团队大于个人 · 共识大于对错。</p>
+<hr />
+<h2 id="一工作坊流程时间盒总表">一、工作坊流程（时间盒总表）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序号</th>
+<th>阶段</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>开场导入 · 选交付</td>
+<td>2′</td>
+<td>选定一次可谈真实人数/工时的交付作研讨样本</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>阶段一 · 研讨工序拆法</td>
+<td>10′</td>
+<td>观点：这次交付大致该拆成哪 6–12 个环节</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>阶段二 · 研讨逐环节杠杆</td>
+<td>14′</td>
+<td>观点：各环节压缩大概多少、主要来自 L/P/T 哪个</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>阶段三 · 研讨压不动项</td>
+<td>6′</td>
+<td>观点：哪些环节压不动（1.0×）及理由</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>研讨总账</td>
+<td>4′</td>
+<td>一句话共识：整体压缩量级 + 剔 T 后是否仍成立</td>
+</tr>
+<tr class="even">
+<td>—</td>
+<td>复盘研讨（议段，另计）</td>
+<td>18′</td>
+<td>3 题共识</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="二输入材料可直接发学员">二、输入材料（可直接发学员）</h2>
+<h3 id="康养项目基线锚一律引用不重算-防反例-b-5">2.1 康养项目基线锚（一律引用，不重算 —— 防反例 B-5）</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>传统模式</th>
+<th>FDE 模式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>人力</td>
+<td>产品经理+架构师+行业顾问+方案经理+美工 = <strong>5+ 人</strong></td>
+<td><strong>1 名 FDE + 智能体编队</strong></td>
+</tr>
+<tr class="even">
+<td>工期</td>
+<td>数周</td>
+<td>同量级交付，节奏并行</td>
+</tr>
+<tr class="odd">
+<td>交付物</td>
+<td>Word/PPT 方案（与系统两张皮）</td>
+<td>100+ 页可研（11 章/~11 万字/26 图）+ 2 附录 docx <strong>＋ 3835 行可运行骨架 + 21 YAML（同源）</strong></td>
+</tr>
+<tr class="even">
+<td>结构</td>
+<td>不可校验</td>
+<td>五要素 Object76/Link75/Function38/Rule47/Action54；A/B 校验 <strong>7/7 零悬空/零空 source</strong></td>
+</tr>
+<tr class="odd">
+<td>节奏</td>
+<td>串行接力</td>
+<td><strong>35 节并行写作 + 26 图同步 + 7 域同日编译</strong></td>
+</tr>
+<tr class="even">
+<td>质量控制</td>
+<td>事后评审会</td>
+<td>事前 <code>_WRITING_BRIEF.md</code> 锚定口径 + 结构校验器</td>
+</tr>
+<tr class="odd">
+<td>知识资产</td>
+<td>—</td>
+<td>14 类知识库 / 8 图谱 / 约 350 万三元组</td>
+</tr>
+</tbody>
+</table>
+<p>（康养项目 🟢 已交付·本体已编译，全部量化链条可直引）</p>
+<h3 id="杠杆归因三分类重估每个环节时选一个来源">2.2 杠杆归因三分类（重估每个环节时选一个来源）</h3>
+<ul>
+<li><strong>L 结构化能力</strong>：靠 FDE 的判断把混乱压成结构（模型只加速，不替判断）。压缩来自“一个人连续判断，不再跨人重判”。</li>
+<li><strong>P 平台固化</strong>：靠 Astra Studio 固化管线（studio-planner→domain-model→clife-onto-engine→citations→可研）。压缩来自“方法论进平台，不依赖个人状态”。</li>
+<li><strong>T 打字快</strong>：仅生成速度提升。<strong>线性、上限低（2–3×）。若某环节压缩主要靠 T，是危险信号。</strong></li>
+</ul>
+<h3 id="压不动环节参照清单哪些不该算进压缩">2.3 压不动环节参照清单（哪些不该算进压缩）</h3>
+<ul>
+<li>涉钱的拍板判断（如投资/定价口径确认）</li>
+<li>涉合规的取证（如向监管逐项取件、核国标文号）</li>
+<li>跟客户的责任性对话（承诺、边界、政治敏感度）</li>
+<li><strong>方向性判断的返工</strong>（见反例 B-7：旅程建模过重返工，压不掉，只能靠事前想清结果避免）</li>
+</ul>
+<hr />
+<h2 id="三分阶段脚本每步任务-输出-难点-启发范例">三、分阶段脚本（每步：🔔任务 / 🔔输出 / 🔔难点 + 💡启发范例）</h2>
+<h3 id="阶段一-研讨工序拆法10">阶段一 · 研讨工序拆法（10′）</h3>
+<h4 id="步骤①-选交付研讨该怎么拆到工序级2-选-10-研讨">步骤① · 选交付、研讨该怎么拆到工序级（2′ 选 + 10′ 研讨）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：就本组命题（或一次你深度参与、能谈出真实人数与工时的交付）<strong>研讨</strong>：它大致该拆成哪 6–12 个环节？每个环节原本大概几人、几人天、是否跨人交接？边聊边在工作簿“思考”区记要点。 🔔 <strong>输出</strong>：<em>研讨观点——这次交付的工序拆法草图（6–12 个环节的口头/草稿共识）</em>，每个环节能说出个“原人天”的量级感（不求精确、但别拍脑袋）。 🔔 <strong>难点/注意</strong>：<strong>要聊到工序级</strong>，别停在“整体三周”这种粗颗粒——不拆到工序级就看不清杠杆来自哪。跨人交接的环节顺手标一下（下一讲研讨复用）。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p>康养项目认知侧交付若按传统 5+ 人拆，工序级大致是：① 客户访谈/认知萃取（行业顾问）② 需求结构化（产品经理）③ 域/架构设计（架构师）④ 本体/数据建模（架构师）⑤ 可研正文写作（方案经理）⑥ 26 图绘制（美工）⑦ 合规取证/文号核对（行业顾问）⑧ 交付物排版对模板（方案经理）。每条都能挂上“原人天 + 是否跨人”。启发点：拆到这个颗粒度，才看得清“哪条是结构化判断、哪条只是打字”——只报“整体 3 周”看不出杠杆来自哪。</p>
+</details>
+<h3 id="阶段二-研讨逐环节杠杆14">阶段二 · 研讨逐环节杠杆（14′）</h3>
+<h4 id="步骤②-逐环节过三连研讨14">步骤② · 逐环节过“三连”研讨（14′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：对每个环节<strong>研讨</strong>三连——a. FDE + 智能体模式下这一条大概要几人天？b. 压缩主要来自 L / P / T 哪个（可多选，聊出主导项）？c. 压缩量级大概几倍？ 🔔 <strong>输出</strong>：<em>研讨观点——各环节压缩大概多少、主导杠杆是 L/P/T 哪个</em>，能对几个关键环节说出“为什么不是打字快”。 🔔 <strong>难点/注意</strong>：<strong>分清 L/P/T 是本讲命门</strong>，也是研讨要聊透的点。若某环节压缩主要靠 T（打字快），是危险信号——T 线性、上限 2–3×；真正的结构性压缩来自 L（判断不跨人重判）× P（管线固化）。别把“AI 生成快”一律当成大压缩。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<ul>
+<li><strong>需求结构化</strong>（原产品经理 5 人天 → 新 1 人天，<strong>L 主导</strong>）：压缩来自“102 事件→16 簇→7 域”由同一 FDE 连续判断，不跨人重判；模型只加速、不替判断。</li>
+<li><strong>7 域本体编译</strong>（原架构师数人天串行 → 新同日并行编译，<strong>P 主导</strong>）：压缩来自 Astra Studio 固化管线——<strong>7 域同日并行编译、7/7 零悬空引用</strong>靠平台，不靠个人状态。</li>
+<li><strong>可研正文写作</strong>（<strong>L+P，非纯 T</strong>）：<strong>35 节并行写作</strong>看似“打字快”，实则靠 <code>_WRITING_BRIEF.md</code> 锚定口径（P）+ 结构化拆章（L）才零口径冲突；若只算 T，会把这条的压缩记虚。</li>
+<li><strong>26 图绘制</strong>（部分 <strong>T</strong>）：纯生成提速，诚实标 T、压缩比封在 2–3×，不夸大。</li>
+</ul>
+<p>启发点：同一份交付里 L/P/T 混在不同环节——把它们分开标，才知道压缩比是“结构性”还是“打字快虚高”。</p>
+</details>
+<h3 id="阶段三-研讨压不动项-总账10">阶段三 · 研讨压不动项 + 总账（10′）</h3>
+<h4 id="步骤③-研讨哪些环节压不动6">步骤③ · 研讨哪些环节压不动（6′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：对照 2.3 清单<strong>研讨</strong>：本组命题里哪些环节压不动？为什么（涉钱/涉合规/涉责任/方向性返工）？这些环节就该记 <strong>1.0×（不压）</strong>。 🔔 <strong>输出</strong>：<em>研讨观点——至少能点出 1 条压不动环节及其理由</em>。 🔔 <strong>难点/注意</strong>：<strong>聊不出任何 1.0× 压不动项 = 还没理解杠杆</strong>。研讨要分清“真压不动”（涉钱/涉合规/涉责任/方向性返工，纪律该守）与“不敢让智能体碰”（对平台不信任的短板，该补）——别把后者当成前者。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p>康养项目里明确压不动、记 1.0× 的环节： - <strong>补 11 处地方文号/企业 SOP 编号</strong>（涉合规取证）——查不到就<strong>留占位转取证清单</strong>，不是智能体能压掉的，得进机关的身份逐项取件。 - <strong>定站长 HIL 置信度阈值 0.75</strong>（涉钱+涉责任）——错误增收风险要人担立场，压不动。 - <strong>方向性返工</strong>：引反例 <strong>B-7——长者旅程初版做“夜间急救”过重、返工改会员飞轮</strong>（🟢 已交付真实失误）。这返工压不掉，只能靠事前想清结果避免；它属于“本就压不掉”，<strong>不是“不敢让智能体碰”</strong>。区分二者是本步的评分眼。</p>
+</details>
+<h4 id="步骤④-研讨总账-剔-t-反问4">步骤④ · 研讨总账 + 剔 T 反问（4′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：<strong>研讨</strong>收口——整体压缩大概什么量级？再追问一句“把打字快（T 主导环节）的贡献折半，压缩还成不成立？”看杠杆是否真来自 L+P。 🔔 <strong>输出</strong>：<em>一句话共识——整体压缩量级 + 剔 T 后是否仍显著 + 压不动的硬核是什么</em>（我的压缩主要来自 L/P/T 哪个）。 🔔 <strong>难点/注意</strong>：<strong>研讨的好坏不在压缩比喊得多大</strong>。能说清“剔除 T 后依然显著、且有明确 1.0× 压不动项”的组，比喊“全能压 10×、没有压不动项”的组理解得深——后者恰是没理解杠杆。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p>康养项目的量级是 <strong>5+ 人 / 数周 → 1 人 / 同量级并行</strong>，这是<strong>结构性</strong>变化，不是打字快：即便把所有 T 主导环节（如 26 图生成）压缩折半重算，总压缩比依然显著——因为主杠杆是 L（102 事件→7 域，判断不跨人重判）× P（7 域同日并行编译、7/7 零悬空引用靠固化管线）。一句话结论范本：“我的压缩主要来自 <strong>L+P</strong>，压不动的硬核是 <strong>涉合规取证（11 处文号占位）+ 方向性返工（B-7）</strong>。”引 BRIEF 主张 1、2。</p>
+</details>
+<hr />
+<h2 id="四checkout研讨深度对照">四、checkout（研讨深度对照）</h2>
+<blockquote>
+<p>每阶段末 + 收尾各对照一次。这是<strong>研讨环节</strong>，checkout 看的是“研讨深度”——有没有落到本组命题、有没有真观点，而不是有没有交出一张表。四维，每维看“到位线”与“没聊透的信号”。</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>✅ 研讨到位</th>
+<th>⚠️ 没聊透（信号）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D1 落到本组命题</strong></td>
+<td>研讨是就本组命题（或亲历交付）聊到工序级，不是空谈概念</td>
+<td>只停在“整体三周”粗颗粒，或聊的是泛泛而非本组命题</td>
+</tr>
+<tr class="even">
+<td><strong>D2 分清杠杆来源（L/P/T）</strong></td>
+<td>对关键环节有<strong>自己的判断</strong>、能说清为何不是打字快，不是照抄范例</td>
+<td>全部归“AI 快”、不分来源，L/P/T 混作一团</td>
+</tr>
+<tr class="odd">
+<td><strong>D3 诚实承认压不动</strong></td>
+<td>主动点出涉钱/涉合规/涉责任/方向性返工的压不动环节，不注水</td>
+<td>声称“全能压”、聊不出任何一条压不动项</td>
+</tr>
+<tr class="even">
+<td><strong>D4 结论可辩护</strong></td>
+<td>有一句“剔 T 后仍成立、杠杆来自 L+P”的可辩护共识</td>
+<td>只喊压缩比虚高、主要靠 T，自相矛盾</td>
+</tr>
+</tbody>
+</table>
+<p><strong>评级参照</strong>：四维都聊透、剔 T 后仍成立 = 真懂杠杆（L2 潜质）；方向对但论证弱 = L1 见习；研讨里只有“全能压 10×、无压不动项” = 认知没到位。 <strong>没聊透的头号信号</strong>：<strong>全程只喊“AI 快”、没分清杠杆来源、也聊不出任何一条压不动项</strong> —— 说明没理解杠杆来自哪、也没理解 HIL 硬判据（第 3/6 讲）。研讨若停在这里，教练要把话头拽回 L/P/T 和压不动项上。</p>
+<hr />
+<h2 id="五复盘研讨3-题教练收口18">五、复盘研讨（3 题，教练收口，18′）</h2>
+<ol type="1">
+<li><strong>（杠杆归因）</strong> 你的压缩比里，最大那块来自“结构化能力(L)”、“平台固化(P)”还是“打字快(T)”？若主要来自 T，说明什么？</li>
+<li><strong>（压不动 vs 不敢碰）</strong> 你标“压不动”的环节，是真压不动，还是你不敢让智能体碰？两者区别在哪？</li>
+<li><strong>（无平台反事实）</strong> 同样这份交付，若你没有 Astra Studio 平台、只有一个人 + 通用大模型，压缩比会掉到多少？</li>
+</ol>
+<blockquote>
+<p>教练收口锚点：题 1——主要靠 T = 没理解杠杆（T 线性、上限 2–3×）；康养项目是 5+ 人→1 人的结构性变化，靠 L×P（引 BRIEF 主张 1、2）。题 2——真压不动 = HIL 硬判据（涉钱/涉合规/涉责任/方向性返工，纪律该守）；不敢碰 = 对平台不信任的短板（该补）；引 B-7：旅程返工是方向判断错、压不掉，属“本就压不掉”不属“不敢碰”。题 3——会大幅掉且质量不可控，正是主张 2“没工程化平台的 FDE 只是更累的架构师”（7 域同日并行编译、35 节零口径冲突靠平台），预告第 5 讲“无平台重做康养项目成本推演”。</p>
+</blockquote>
+<hr />
+<h2 id="六参考答案要点讲师版-标讲师专用勿发学员">六、参考答案要点（讲师版 · 标“讲师专用勿发学员”）</h2>
+<blockquote>
+<p>⚠️ 讲师专用，勿发学员。</p>
+</blockquote>
+<ul>
+<li><strong>研讨题 1</strong>：主要靠 T（打字快）= 没理解杠杆。打字快线性、上限 2–3×；康养项目是 5+ 人→1 人的结构性变化，来自 L（102 事件→16 簇→7 域，模型不替判断）× P（7 域同日并行编译、7/7 零悬空引用靠固化管线）。引 BRIEF 主张 1、2。</li>
+<li><strong>研讨题 2</strong>：真压不动 = 涉钱/涉合规/涉责任/方向性返工（HIL 硬判据，第 3、6 讲）；不敢碰 = 对平台不信任的能力缺口。前者是纪律（应该守），后者是短板（应该补）。别混。引反例 B-7：旅程返工是方向判断错，压不动，只能靠事前想清结果避免——它不属于“不敢碰”，属于“本就压不掉”。</li>
+<li><strong>研讨题 3</strong>：会大幅掉，且质量不可控——正是主张 2“没工程化平台的 FDE 只是更累的架构师”。7 域同日并行编译、7/7 零悬空、35 节并行零口径冲突（靠 <code>_WRITING_BRIEF.md</code> 锚定），换成裸大模型都保不住。此题是第 5 讲“无平台重做康养项目成本推演”的引子，可预告。</li>
+<li><strong>评分校准</strong>：警惕“压缩比越大分越高”的直觉。真正高分表的特征是——<strong>有明确的 1.0× 压不动项、剔除 T 后压缩比依然成立</strong>。把 D4 结论可辩护当主锚：一张诚实标了压不动、承认返工压不掉的 3× 表，胜过一张全能压的 10× 表（对应“一票警示”）。</li>
+<li><strong>口径纪律</strong>：所有康养项目数字引用 2.1 基线锚，不重算不改口径（BRIEF 第二节 / 反例 B-5 精神）。</li>
+</ul>
+</body>
+</html>

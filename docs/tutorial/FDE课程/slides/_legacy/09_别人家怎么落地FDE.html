@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第9讲 别人家怎么落地 FDE</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:44px 60px;justify-content:flex-start}
+  .slide>.kicker{margin-top:8px}
+  .slide h2.title{font-size:40px;margin:6px 0 14px}
+  .slide h1.title{font-size:60px}
+  .fill-mid{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+  table.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface)}
+  table.tbl th,table.tbl td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top;line-height:1.4}
+  table.tbl thead th{background:var(--surface-2);color:var(--accent);font-weight:700;font-size:13px}
+  table.tbl .fde{background:color-mix(in srgb,var(--accent-2) 9%,transparent)}
+  table.tbl th.dim{font-weight:600;color:var(--text-2);white-space:nowrap}
+  table.tbl.sm{font-size:12.5px}
+  table.tbl.sm th,table.tbl.sm td{padding:6px 9px}
+  .bignum{font-size:58px;font-weight:800;color:var(--accent);line-height:1;letter-spacing:-.03em}
+  .bignum small{font-size:16px;font-weight:600;color:var(--text-2);display:block;margin-top:6px;letter-spacing:0}
+  .statcard{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-2);border-radius:var(--radius);padding:20px 22px}
+  .quote{font-family:var(--font-serif);font-size:30px;line-height:1.4;color:var(--accent);font-weight:600}
+  .redbox{border:2px solid var(--bad);border-radius:var(--radius);padding:16px 20px;background:color-mix(in srgb,var(--bad) 5%,transparent)}
+  .lead{font-size:19px;line-height:1.6;color:var(--text-2);max-width:70ch}
+  ul.clean{margin:0;padding-left:20px}
+  ul.clean li{margin:7px 0;line-height:1.55}
+  figure{margin:0;text-align:center}
+  figcaption{margin-top:12px;font-size:14px;color:var(--text-3)}
+  .cap{font-size:13px;color:var(--text-3);margin-top:8px}
+  .src{display:inline-block;font-family:var(--font-mono);font-weight:700;font-size:11.5px;padding:1px 7px;border-radius:4px;white-space:nowrap;letter-spacing:0}
+  .src.a{color:#1a7f4b;background:color-mix(in srgb,#1a7f4b 12%,transparent)}
+  .src.b{color:#b7791f;background:color-mix(in srgb,#b7791f 14%,transparent)}
+  .src.u{color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+  .srclegend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--text-2)}
+  code.mono{font-family:var(--font-mono);font-size:13px;background:var(--surface-2);padding:1px 6px;border-radius:4px}
+</style>
+<div class="deck">
+
+  <!-- 1 Cover -->
+  <section class="slide" data-title="封面">
+    <div class="fill-mid">
+      <span class="kicker">C-Life FDE 能力课程 · 第 9 讲</span>
+      <h1 class="title anim-fade-up">别人家<br>怎么落地 FDE</h1>
+      <div class="divider-accent mt-m mb-m"></div>
+      <p class="lead">Palantir 的原产地、OpenAI/Anthropic 的当代变体、国内的水土不服——<br>把别人家看清楚，是为了知道<b style="color:var(--accent)">能抄什么、什么抄不得</b>。而看清的第一关，是敢不敢在查不到时写"未获证实"。</p>
+      <div class="srclegend mt-l">
+        <span><span class="src a">官方明确</span> 公司博客/招聘页原文</span>
+        <span><span class="src b">二手报道</span> 分析机构/媒体转述</span>
+        <span><span class="src u">未获证实</span> 无一手源/口径打架</span>
+      </div>
+    </div>
+    <div class="deck-footer"><span>C-Life FDE 课程</span><span class="slide-number" data-current="1" data-total="13"></span></div>
+    <div class="notes">这一讲讲别人家怎么落地 FDE——Palantir、OpenAI、Anthropic、国内。学员天然想听内幕，但本讲真正要教的不是这些公司的八卦，而是一件事：当你要把外部实践当论据时，你标注来源的严谨程度，等于你专业的可信程度。这和康养项目十一处地方文号查不到就留占位不编造，是同一条纪律，只是取证对象从医保局文号换成了 Palantir 的招聘页。所以本讲每一条外部事实我都紧跟来源标注，且刻意分三档：官方明确、二手报道、未获证实。我讲的时候会把这三档亲口念出来，因为你念的方式，就是学员将来对客户标注来源的方式。记住那句先撂在这里的话：对标不是抄作业，对标是先证明你有资格抄，而资格第一关是敢不敢写未获证实。</div>
+  </section>
+
+  <!-- 2 命题 / 三档纪律 -->
+  <section class="slide" data-title="命题与三档纪律">
+    <span class="kicker">要点 1 · 命题</span>
+    <h2 class="title">对标不是抄作业，是先证明你有资格抄</h2>
+    <div class="fill-mid">
+      <p class="quote">FDE 不是 C-Life 发明的——它有原产地，有前沿变体，也有国内的真实困境。<br>把别人家看清楚，第一关是你敢不敢在查不到时写"未获证实"。</p>
+      <div class="grid g3 mt-l" style="gap:18px">
+        <div class="statcard"><p class="src a">官方明确</p><p class="dim" style="font-size:15px;margin-top:8px">公司自己的博客 / 招聘页写的，可直接引用原话。</p></div>
+        <div class="statcard"><p class="src b">二手报道</p><p class="dim" style="font-size:15px;margin-top:8px">分析机构 / 媒体 / 自媒体转述——能用，但必须说清是二手。</p></div>
+        <div class="statcard"><p class="src u">未获证实</p><p class="dim" style="font-size:15px;margin-top:8px">检索不到一手出处，或多方口径打架——只能标不确定，不能当事实。</p></div>
+      </div>
+      <p class="cap mt-l">能力模型定位：本讲主打 <b>C4 合规治理</b>（来源取证 / 诚实边界），回收全课程主张——"FDE 专业性一半体现在敢说不知道"。呼应反例 B-10：<b style="color:var(--bad)">错来源比空缺更有害</b>。</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="2" data-total="13"></span></div>
+    <div class="notes">先把命题撂清楚：FDE 不是 C-Life 发明的，它有原产地 Palantir，有前沿实验室 OpenAI 和 Anthropic 的当代变体，也有国内水土不服的真实困境。把别人家看清楚，是为了知道我们能抄什么、什么抄不得。但抄之前先过一关——你敢不敢在查不到时写未获证实。这就是本讲的三档纪律：官方明确是公司自己写的可直引，二手报道是媒体转述能用但要声明，未获证实是无一手源或口径打架只能标不确定。本讲主打能力模型 C4 合规治理，回收全课程那句 FDE 专业性一半体现在敢说不知道。整堂课我会反复用这三个颜色的标签，你听的时候注意每条事实挂的是哪一档，这比事实本身更重要。</div>
+  </section>
+
+  <!-- 3 Palantir Delta -->
+  <section class="slide" data-title="Palantir原产地">
+    <span class="kicker">要点 2 · 原产地</span>
+    <h2 class="title">FDE 的原产地：Palantir 的 "Delta"</h2>
+    <div class="fill-mid">
+      <div class="row" style="gap:26px;align-items:stretch">
+        <div style="flex:1.15">
+          <div class="statcard"><p class="src a">官方明确 · blog.palantir.com</p>
+            <p class="lead" style="font-size:17px;margin-top:10px">"A Forward Deployed Software Engineer（FDSE），or <b>'Delta'</b>, is a software engineer who <b>embeds directly</b> with our customers to configure Palantir's existing software platforms to solve their toughest problems."</p>
+            <p class="lead" style="font-size:17px;margin-top:12px">"A traditional engineer（'Dev'）focuses on <b>one capability for many customers</b>; FDSEs focus on <b>many capabilities for a single customer</b>."</p>
+          </div>
+        </div>
+        <div class="statcard center" style="flex:.85;flex-direction:column;justify-content:center">
+          <div class="quote" style="font-size:24px">Dev：一个能力 → 很多客户<br>FDE：很多能力 → 一个客户</div>
+          <p class="dim mt-m" style="font-size:14px">这句话是 FDE 与产品经理的分水岭，也是康养项目做法的祖师爷定义。</p>
+        </div>
+      </div>
+      <p class="cap mt-l"><b>康养项目证据</b>：康养项目就是"很多能力喂给一个客户"的活样本——为一地配 7 域数智本体（Object 76 / Link 75 / Function 38 / Rule 47 / Action 54 / HIL 26）、3835 行插件骨架。<b>差异</b>：Palantir 派人长期驻客户机房；我们是 1 名 FDE 带智能体编队远程 + 短驻，用平台管线抵消人数。</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="3" data-total="13"></span></div>
+    <div class="notes">回到源头。FDE 这个词不是硅谷这两年才火的新概念，它出生在 Palantir——一家长期给政府和大企业做保密数据整合的公司。它的解法很反常识：不把产品打包卖出去让客户自己用，而是把工程师直接派到客户现场长期驻场，配到能解决客户具体问题为止。官方博客对这个岗位的定义我原话念，这是官方明确档：FDSE，代号 Delta，是直接嵌入客户、配置 Palantir 平台解决最难问题的工程师。还有一句最关键：普通研发一个能力卖给很多客户，FDSE 是很多能力喂给一个客户。这句话就是 FDE 和产品经理的分水岭。康养项目就是这句定义的活样本，为一地配 7 域本体、3835 行骨架。差异在于 Palantir 派人驻机房，我们靠一人加智能体编队加平台管线抵消人数。</div>
+  </section>
+
+  <!-- 4 Delta x Echo -->
+  <section class="slide" data-title="Delta×Echo分工">
+    <span class="kicker">要点 3 · 组织设计</span>
+    <h2 class="title">经典配对：Delta（FDE）× Echo（部署策略师）</h2>
+    <div class="fill-mid">
+      <table class="tbl">
+        <thead><tr><th>角色</th><th>Owns</th><th>职责</th><th>来源档位</th></tr></thead>
+        <tbody>
+          <tr><td><b>Delta</b> = FDE</td><td class="mono">"HOW"</td><td>技术上的 construction power（建造力）</td><td><span class="src a">官方明确</span> blog.palantir.com</td></tr>
+          <tr><td><b>Echo</b> = DS</td><td class="mono">"WHY / WHAT / WHOM"</td><td>该建什么、为什么重要、交付给谁怎么交付</td><td><span class="src a">官方明确</span> blog.palantir.com</td></tr>
+          <tr><td colspan="2">"DS owns why/what, FDE owns how" 的一句提炼</td><td>招聘中介的精炼，与官方口径一致</td><td><span class="src b">二手报道</span> paraform.com</td></tr>
+          <tr class="fde"><td colspan="2">FDSE 与 Forward Deployed AI Engineer 细分职责差异</td><td>招聘页正文抓取返回 403，未取到全文——故意不脑补</td><td><span class="src u">未获证实</span></td></tr>
+        </tbody>
+      </table>
+      <p class="cap mt-l"><b>落回 C-Life</b>：Palantir 把"该建什么(Echo)"和"怎么建(Delta)"拆给两个人；<b>康养项目是一个 FDE 把两头都扛了</b>——既做认知萃取（102 事件→7 域，Echo 的活），又做结构建造（本体编译、代码骨架，Delta 的活），正对应能力模型 <b>C1+C2</b>。不能照抄"配两个人"，只能照抄"两组能力都得有"——靠 Astra Studio 把 Delta 那半固化。</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="4" data-total="13"></span></div>
+    <div class="notes">Palantir 最值得抄的不是岗位，是岗位的配对设计。它不让 FDE 单打独斗，给 FDE 配了个搭子叫部署策略师，代号 Echo。官方博客说：Delta 负责技术上的建造力，Echo 决定该建什么、为什么重要、交付给谁怎么交付。招聘平台 Paraform 有一句精炼——DS owns why and what, FDE owns how——我标二手，因为这不是官网原话，是招聘中介的提炼，但和官方口径一致，能用但要说清是二手。再看一个我故意留白的点：Palantir 同时挂 FDSE 和 Forward Deployed AI Engineer 两类岗，岗位存在是官方明确，但两者职责细粒度差别我检索时页面返回 403 没取到正文，所以标未获证实，我不替你们脑补，这就是示范。落回 C-Life：Palantir 拆两个人，康养项目一个人扛两头，我们抄的是两组肌肉都得有，不是配两个人。</div>
+  </section>
+
+  <!-- 5 我们一手对照 Palantir FDE（方法论06）-->
+  <section class="slide" data-title="我们一手对照PalantirFDE">
+    <div class="kicker">要点页 2·补 · 我们自己的一手对照 <span class="src b">我们的立场·方法论06</span></div>
+    <h2 class="title">Palantir FDE vs 新型 FDE（本课程定义）</h2>
+    <table class="tbl mt-s">
+      <thead><tr><th class="dim">维度</th><th>Palantir FDE</th><th class="fde">新型 FDE（我们要的）</th></tr></thead>
+      <tbody>
+        <tr><th class="dim">依赖平台</th><td>Foundry（<b>需采购</b>）</td><td class="fde">基本工具链 + 其余靠辅助编程</td></tr>
+        <tr><th class="dim">核心技能</th><td>深度懂 Foundry + 领域建模</td><td class="fde"><b>第一性原理建模 + 判断力 + AI 执行力</b></td></tr>
+        <tr><th class="dim">交付速度</th><td>受平台部署周期限制</td><td class="fde"><b>第一天对话，第二天出 Demo</b></td></tr>
+        <tr><th class="dim">适用战场</th><td>已采购 Foundry 的客户</td><td class="fde">探索 / 概念验证 / 新项目落地</td></tr>
+        <tr><th class="dim">瓶颈</th><td>平台能力边界</td><td class="fde">数据治理、组织推动的<b>时间</b></td></tr>
+      </tbody>
+    </table>
+    <div class="grid g2 mt-m">
+      <ul class="clean" style="font-size:14.5px">
+        <li><b>新型 FDE = 建模 + 判断力 + AI 执行力</b>——与第 3/4 讲能力模型同构。</li>
+        <li>"<b>本体不是 Palantir 的专利，是一种工程方法论</b>"——所以不必买 Foundry（第 4 讲栈③ = 我们自有的 clife-onto-engine）。</li>
+        <li>战场边界：探索/验证 <b style="color:#1a7f4b">✅ 不可替代</b>；规模化/组织推动 <b style="color:var(--bad)">❌ 瓶颈在人 = 第 3 讲 C7</b>。</li>
+      </ul>
+      <div class="statcard fill-mid">
+        <p class="quote" style="font-size:23px">平台越来越便宜，本体模型越来越值钱；<br>会建模型的人不会被替代，<b>而是被放大</b>。</p>
+      </div>
+    </div>
+    <p class="cap mt-s"><b>诚实标注：</b>上一页 Delta/Echo 是<b>外部事实</b>（已分档：官方/二手/未获证实）；本页是<b>我们自有方法论 06 的一手立场</b>，标"我们的立场"而非"行业公认"。两者不冲突——Palantir 双人 + 采购平台 vs 我们一人 + 自有平台，正是第 3 讲 OPC 的外部印证。</p>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="5" data-total="13"></span></div>
+    <div class="notes">前面讲的 Palantir Delta、Echo，是外部事实，我按官方、二手、未获证实分了档。这一页换个来源——我们自己方法论文集里的一手观点，出自 clife-onto-engine 的 reference methodology 零六《AI 时代的 FDE》。这不是检索来的，是我们自己写的，所以我不标未获证实，我标它是我们的立场。它把 Palantir FDE 和新型 FDE 做了一张对照表，注意，这个新型 FDE 正是我们这门课定义的 FDE。逐维度看：依赖平台，Palantir 要采购 Foundry，我们靠基本工具链加辅助编程；核心技能，Palantir 是深度懂 Foundry 加建模，我们是第一性原理建模加判断力加 AI 执行力；交付速度，Palantir 受部署周期限制，我们第一天对话第二天出 Demo；战场，Palantir 服务已采购 Foundry 的客户，我们做探索、验证、新项目落地；瓶颈，Palantir 卡在平台能力边界，我们卡在数据治理和组织推动的时间。三个判断直接搬进这门课：第一，新型 FDE 等于建模加判断力加 AI 执行力，和第三第四讲能力模型完全同构；第二，本体不是 Palantir 的专利，是一种工程方法论，所以我们不买 Foundry 也能做它做的事，这就是我们自有的 clife-onto-engine；第三，战场边界——探索验证新项目不可替代，但规模化和组织推动瓶颈在人不是工具，这就是第三讲的 C7、第八讲的能力半径。金句板书：平台越来越便宜，本体模型越来越值钱，会建模型的人不会被替代，而是被放大。最后强调诚实这条线：上一页是外部事实分档，这一页是我们的一手立场，两者不冲突,Palantir 拆两个人加采购平台,我们一个人加自有平台,正好是第三讲 OPC 一人公司的外部印证。</div>
+  </section>
+
+  <!-- 6 OpenAI / Anthropic -->
+  <section class="slide" data-title="前沿实验室变体">
+    <span class="kicker">要点 4 · 当代变体</span>
+    <h2 class="title">前沿实验室：OpenAI / Anthropic 的 Forward Deployed</h2>
+    <div class="fill-mid">
+      <table class="tbl sm">
+        <thead><tr><th>公司</th><th>岗位 / 团队</th><th>职责要点</th><th>薪资（注意口径）</th></tr></thead>
+        <tbody>
+          <tr><td><b>OpenAI</b></td><td>Forward Deployed Engineer (FDE)<br>SF / NYC / Tokyo / Gov<br><span class="src a">官方岗位存在</span></td><td>demo → live production；own discovery→scoping→design→build→rollout 全流程<br><span class="src a">官方岗位</span> + <span class="src b">二手转述职责</span>（官网正文 403）</td><td>35–55 万美元总包，资深超 60 万<br><span class="src u">未获证实</span>（fde.academy 自述引自 Levels.fyi，非官方薪资表）</td></tr>
+          <tr><td><b>Anthropic</b></td><td>团队 = Applied AI<br>岗 = FDE, Applied AI<br><span class="src a">官方明确</span></td><td>用 Claude 建生产应用；交付 MCP servers / sub-agents / agent skills；出差 25–50% 到客户现场；codify repeatable patterns 反哺产品<br><span class="src a">官方明确 · 可直引</span></td><td><b>base $200K–$300K</b> <span class="src a">官方(招聘板转发)</span><br>total comp $350K–$550K <span class="src b">二手·口径不同</span></td></tr>
+        </tbody>
+      </table>
+      <div class="redbox mt-m"><p style="font-size:15px;margin:0"><b>教科书级打架案例</b>：Anthropic 同一岗位，Menlo 招聘板转发的官方 JD 写 base <code class="mono">$200K–$300K</code>；另一家分析媒体（getperspective.ai）写 total comp <code class="mono">$350K–$550K</code>。两个数字都存在但<b>口径不同（base vs 总包）</b>，后者是二手。<b style="color:var(--bad)">只抄一个数字不写口径，你就在制造错误。</b></p></div>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="6" data-total="13"></span></div>
+    <div class="notes">FDE 这两年重新火是因为大模型来了。OpenAI、Anthropic 卖前沿模型，遇到和 Palantir 一样的问题：模型放 API 里客户用不起来，得有人把它落进真实业务。先看 OpenAI，官网 careers 确实设了 Forward Deployed Engineer 岗，SF、纽约、东京、政府都有坑，岗位存在是官方明确；职责是把前沿模型从 demo 变成生产系统、own 全流程——但官网正文对抓取返回 403，这段职责措辞来自搜索索引加二手指南转述，所以标官方岗位存在加二手转述职责。薪资 35 到 55 万美元总包，我标未获证实，因为唯一给数字的来源自己写明引自 Levels.fyi 不是官方薪资表。再看 Anthropic，团队叫 Applied AI，职责可直引：用 Claude 建生产应用、交付 MCP 服务和 skills、出差 25 到 50%、codify 可复用模式反哺产品。薪资这里有个教科书级打架案例：招聘板转发官方 JD 写 base 20 到 30 万，另一家媒体写总包 35 到 55 万，两个都真但口径不同，只抄一个不写口径就是制造错误。</div>
+  </section>
+
+  <!-- 6 Anthropic 同构 -->
+  <section class="slide" data-title="Anthropic同构反哺">
+    <span class="kicker">要点 4 · 对照</span>
+    <h2 class="title">Anthropic 的一条 JD，和康养项目高度同构</h2>
+    <div class="fill-mid">
+      <div class="row" style="gap:28px;align-items:stretch">
+        <div class="statcard" style="flex:1"><h4>Anthropic JD 原文 <span class="src a">官方明确</span></h4>
+          <p class="lead" style="font-size:17px;margin-top:10px">"Identify and <b>codify repeatable deployment patterns</b> and contribute insights back to our Product and Engineering teams."</p>
+          <p class="dim mt-s" style="font-size:14px">把现场可复用模式沉淀，反哺产品团队。</p>
+        </div>
+        <div class="statcard" style="flex:1;border-top-color:var(--accent)"><h4>康养项目在做同一件事</h4>
+          <ul class="clean" style="font-size:15px;margin-top:8px">
+            <li>沉淀 <code class="mono">_WRITING_BRIEF.md</code> 统一口径</li>
+            <li>沉淀 SOP、7 域本体范式、HIL 设点判据</li>
+            <li>沉淀反例库 B-1 … B-10</li>
+          </ul>
+          <p class="dim mt-s" style="font-size:14px">这就是 "codify repeatable patterns"。</p>
+        </div>
+      </div>
+      <p class="quote mt-l" style="font-size:24px">方向一致，对象不同——<br>Anthropic 反哺 Claude 产品团队；我们反哺 Astra Studio 管线和这门课本身。</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="7" data-total="13"></span></div>
+    <div class="notes">这一页把 Anthropic 和康养项目拉近看。Anthropic 的 JD 里有一条和我们高度同构，官方明确档，可直引：identify and codify repeatable deployment patterns，把现场可复用的部署模式沉淀下来反哺产品和工程团队。康养项目这次也在做同一件事：把交付过程沉淀成 WRITING_BRIEF 统一口径文件、沉淀 SOP 和 7 域本体范式和 HIL 设点判据、沉淀反例库 B-1 到 B-10。这就是 codify repeatable patterns。差异在于对象：Anthropic 反哺的是 Claude 的产品团队，我们反哺的是 Astra Studio 这条内部管线和这门课本身。方向完全一致，只是反哺的对象不同。这说明一件事：把现场经验固化回产品和方法，不是硅谷专利，是 FDE 这个工种的共同本能，康养项目已经在自觉地做了。</div>
+  </section>
+
+  <!-- 7 国内困境 -->
+  <section class="slide" data-title="国内水土不服">
+    <span class="kicker">要点 5 · 国内现状</span>
+    <h2 class="title">国内：岗位真在招，模式存疑，数字大多不可当事实</h2>
+    <div class="fill-mid">
+      <table class="tbl sm">
+        <thead><tr><th>说法</th><th>内容</th><th>档位</th></tr></thead>
+        <tbody>
+          <tr><td>腾讯云在招"前线部署工程师(FDE)"</td><td>多篇报道与开发者社区文章提及</td><td><span class="src a">官方岗位存在</span> / <span class="src b">二手</span></td></tr>
+          <tr><td>腾讯云上海 FDE 35–65K×15 薪</td><td>知乎 / 招聘平台转述，非官方薪酬公告</td><td><span class="src u">未获证实</span></td></tr>
+          <tr><td>"最低评标价法致乙方承担试错成本"</td><td>客户只为成品付费，探索成本默认乙方兜</td><td><span class="src b">二手·媒体观点</span></td></tr>
+          <tr><td>"应届交付岗 10–15 万 vs 大厂研发 30–55 万"</td><td>人才鄙视链，顶尖人才流向大厂</td><td><span class="src b">二手·观点</span></td></tr>
+          <tr><td>"95% 企业 AI 试点失败"等百分比</td><td>未能核到原始出处</td><td><span class="src u">未获证实·数字未核源</span></td></tr>
+          <tr><td>"中国版 FDE ≈ 干了 30 年的外包换皮"</td><td>ERP 实施 / 驻场顾问 / 驻场开发的旧概念</td><td><span class="src b">二手·业界普遍认为</span></td></tr>
+        </tbody>
+      </table>
+      <p class="cap mt-l">来源：腾讯云开发者社区 cloud.tencent.com；虎嗅《万字解读 FDE 为什么在中国是扯淡的》huxiu.com。<b>检索纪律</b>：岗位在招可查证是真的，但薪资、成败结论、具体百分比大量是二手甚至未获证实——你越想用一个数字支撑观点，越要先问"一手出处在哪"。</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="8" data-total="13"></span></div>
+    <div class="notes">镜头转回国内。学员最该关心的是这套东西在中国的 To-G、To-B 能不能成。我先给结论：国内在招 FDE 这件事上有真实动作，但在 FDE 模式能否跑通这件事上，公开信息普遍悲观，且很多细节我查不到。有动作的部分：腾讯云确实在招前线部署工程师这类岗，多篇报道和开发者社区文章提及，岗位存在算官方或二手；但网传上海 FDE 35 到 65K 乘 15 薪，我标未获证实，出处是知乎和招聘平台转述不是官方薪酬公告。悲观判断部分来自虎嗅那篇万字解读，列了几条障碍——最低评标价法致乙方承担试错成本、人才鄙视链、甲方不真信 AI 引 95% 试点失败——但这些是媒体作者观点，不是行业统计定论，那些具体百分比我未能核到原始出处必须标未获证实。还有一类声音把中国版 FDE 等同于干了 30 年的外包换皮。总结这一页的纪律：岗位真、模式存疑、数字大多不可当事实用。</div>
+  </section>
+
+  <!-- 8 共性差异 落回 C-Life -->
+  <section class="slide" data-title="共性差异表">
+    <span class="kicker">要点 6 · 收口</span>
+    <h2 class="title">别人家的共性与差异，一张表落回 C-Life</h2>
+    <div class="fill-mid">
+      <table class="tbl sm">
+        <thead><tr><th></th><th>共性（可抄）</th><th>差异（不可照抄）</th></tr></thead>
+        <tbody>
+          <tr><th class="dim">Palantir</th><td>现场嵌入 · Delta×Echo 两组肌肉 <span class="src a">官方</span></td><td>配双人 · 战略大客户 · 长期驻场</td></tr>
+          <tr><th class="dim">OpenAI</th><td>demo → production · own 全流程 <span class="src a">官方</span>+<span class="src b">二手</span></td><td>战略客户 · 总包几十万美元抢研究岗人</td></tr>
+          <tr><th class="dim">Anthropic</th><td>codify patterns 反哺产品 <span class="src a">官方</span></td><td>Fortune 500 · 出差 25–50%</td></tr>
+          <tr><th class="dim">国内</th><td>岗位真在招 <span class="src a">岗位存在</span></td><td>最低价 / 鄙视链 → 堆人驻场跑不通 <span class="src b">二手</span></td></tr>
+          <tr class="fde"><th class="dim">C-Life 取舍</th><td colspan="2"><b>抄</b>：两组肌肉 + production 交付 + 反哺；　<b>弃</b>：堆人驻场；　<b>改</b>：工程化平台 + 一人多角</td></tr>
+        </tbody>
+      </table>
+      <p class="lead mt-l">Palantir 教我们 FDE 该有哪两组肌肉（Echo+Delta）；前沿实验室教我们大模型时代 FDE 交付什么（production + 反哺）；国内的水土不服教我们哪条路不能走（堆人驻场）。三者合起来，指向 C-Life 唯一可行的路。</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="9" data-total="13"></span></div>
+    <div class="notes">最后收口，把四家放一起抽三条共性三条差异。共性可抄：第一，现场嵌入、产品级交付，都不是写报告给建议，而是把东西真正跑进客户生产环境，Palantir embeds directly、OpenAI demo to production、Anthropic build production applications 口径一致，都官方明确。第二，把现场经验反哺回产品和方法，Anthropic codify patterns 和康养项目沉淀 BRIEF、SOP 同构。第三，强调现场取证不臆造，这是下一段专讲的。差异不能照抄：客户体量不同，他们主打财富 500 强和政府，钱多能配双人；人和平台的比例不同，他们堆高薪人才驻场，我们靠平台把 Delta 那半固化用更少人扛更长链条；薪资和人才市场不同，硅谷 FDE 总包几十万美元能抢研究岗，国内交付岗在鄙视链底端。一句话落地：抄两组肌肉加 production 加反哺，弃堆人驻场，改平台加一人多角，这就是 C-Life 唯一可行的路，也是第 10 讲主线。</div>
+  </section>
+
+  <!-- 9 来源清单三档总表 -->
+  <section class="slide" data-title="来源清单三档">
+    <span class="kicker">本讲价值观 · 不能省的一页</span>
+    <h2 class="title">全讲外部事实，逐条挂三档来源</h2>
+    <div class="fill-mid">
+      <table class="tbl sm">
+        <thead><tr><th>事实</th><th>档位</th><th>出处</th></tr></thead>
+        <tbody>
+          <tr><td>FDSE="Delta"，embeds directly，"many capabilities for a single customer"</td><td><span class="src a">官方明确</span></td><td>Palantir 官方博客 blog.palantir.com</td></tr>
+          <tr><td>DS="Echo"，Delta=construction，DS 定 what/why/whom</td><td><span class="src a">官方明确</span></td><td>Palantir 官方博客 blog.palantir.com</td></tr>
+          <tr><td>"DS owns why/what, FDE owns how" 的提炼</td><td><span class="src b">二手报道</span></td><td>Paraform paraform.com</td></tr>
+          <tr><td>Palantir 同挂 FDSE 与 Forward Deployed AI Engineer 岗</td><td><span class="src a">官方(岗位存在)</span></td><td>招聘页 jobs.lever.co/palantir</td></tr>
+          <tr><td>FDSE 与 FD-AI-Engineer 细分职责差异</td><td><span class="src u">未获证实</span></td><td>招聘页正文 403，未取全文</td></tr>
+          <tr><td>OpenAI 设 FDE 岗（SF/NYC/Tokyo/Gov）</td><td><span class="src a">官方(岗位存在)</span></td><td>openai.com/careers</td></tr>
+          <tr><td>OpenAI FDE 职责 demo→production、own 全流程</td><td><span class="src a">官方岗位</span>+<span class="src b">二手转述</span></td><td>openai.com（正文 403）+ fde.academy</td></tr>
+          <tr><td>OpenAI FDE 薪资 35–55 万美元总包</td><td><span class="src u">未获证实</span></td><td>fde.academy 引自 Levels.fyi，非官方</td></tr>
+          <tr><td>Anthropic Applied AI 的 FDE 职责（MCP/skills、出差25-50%）</td><td><span class="src a">官方明确</span></td><td>Anthropic JD，经 jobs.menlovc.com 转发</td></tr>
+          <tr><td>Anthropic FDE base $200K–$300K</td><td><span class="src a">官方(招聘板转发)</span></td><td>jobs.menlovc.com</td></tr>
+          <tr><td>Anthropic FDE 总包 $350K–$550K</td><td><span class="src b">二手/口径不同</span></td><td>getperspective.ai（total comp 口径）</td></tr>
+          <tr><td>腾讯云在招"前线部署工程师(FDE)"</td><td><span class="src a">岗位存在</span>/<span class="src b">二手</span></td><td>cloud.tencent.com、知乎转述</td></tr>
+          <tr><td>腾讯云上海 FDE 35–65K×15 薪</td><td><span class="src u">未获证实</span></td><td>招聘平台/知乎转述</td></tr>
+          <tr><td>中国 FDE 障碍（最低价 / 鄙视链 / 95% 试点失败）</td><td><span class="src b">二手</span> · 部分数字<span class="src u">未获证实</span></td><td>虎嗅 huxiu.com</td></tr>
+          <tr><td>"中国版 FDE ≈ 干了 30 年的外包换皮"</td><td><span class="src b">二手·业界普遍认为</span></td><td>多篇国内自媒体/社区文章</td></tr>
+        </tbody>
+      </table>
+      <p class="cap mt-l">未获证实的四条（细分职责 / OpenAI 薪资 / 腾讯薪资 / 95% 百分比），讲课时必须亲口说"这条未核到一手源"。<b>你怎么念，学员将来就怎么对客户标注。</b></p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="10" data-total="13"></span></div>
+    <div class="notes">这一页是本讲价值观不能省的一页，把整堂课念过的外部事实逐条挂上三档来源，当众摊开给你们看什么叫标注严谨。你会看到官方明确的绿标最多的是 Palantir 官方博客和 Anthropic 招聘板转发的 JD；二手报道的黄标是 Paraform 提炼、getperspective 的总包口径、虎嗅观点；未获证实的红标一共四条——Palantir 岗位细分职责差异因为 403 没取到正文、OpenAI 薪资是 Levels 二手、腾讯云薪资是知乎转述、还有 95% 试点失败这个百分比没核到源。这四条我讲的时候每一条都亲口说了这条我没核到一手源。这一整页就是示范：一个专业的 FDE 引用外部事实时，桌面上永远摆着这样一张挂了档位的清单，客户随时问一句这个数据哪来的，你都答得出出处和档位。你怎么念，学员将来就怎么对客户标注。</div>
+  </section>
+
+  <!-- 10 反例 B-10 -->
+  <section class="slide" data-title="反例B-10">
+    <span class="kicker">反例讲解 · B-10 复调第三次</span>
+    <h2 class="title">B-10：11 处地方文号无解 → 对标 Palantir 的现场取证</h2>
+    <div class="fill-mid">
+      <div class="redbox"><p style="font-size:16px;margin:0">康养项目 7 处本地文号（本地 DIP 细则、助餐补贴办法等）+ 4 处企业 SOP 编号<b>公开渠道查不到</b>。处理不是编一个"看起来像"的文号糊过去，而是：留 <code class="mono">[本地待补文号]</code> 占位 + 锚定上位国标 + 转成向医保局/民政局/政数局逐项取件的清单。内部原话：<b style="color:var(--bad)">"错文号比空缺更有害。"</b></p></div>
+      <div class="grid g3 mt-l" style="gap:18px">
+        <div class="statcard"><h4>Palantir FDSE</h4><p class="dim" style="font-size:14.5px">官方定义强调 embeds directly，在客户现场把问题<b>取证清楚</b>再建，不远程臆想客户环境。<span class="src a">blog.palantir.com</span></p></div>
+        <div class="statcard"><h4>康养项目留占位</h4><p class="dim" style="font-size:14.5px">在自己的交付里对客户环境<b>取证到底、不臆造</b>——转成取件清单交给对口部门。</p></div>
+        <div class="statcard"><h4>你的对标卡</h4><p class="dim" style="font-size:14.5px">对外部实践<b>取证到底、不臆造</b>——查不到就标"未获证实"，不把二手当官方。</p></div>
+      </div>
+      <p class="quote mt-l" style="font-size:24px">同一种职业本能：FDE 的可信度，建立在"敢承认取不到证"这件事上。</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="11" data-total="13"></span></div>
+    <div class="notes">这一讲把反例 B-10 抬到第三次出现，第 3 讲、第 6 讲、本讲，是复调不是重复。康养项目里有 7 处本地文号加 4 处企业 SOP 编号公开渠道查不到，当时的处理不是编一个看起来像的文号糊过去，而是留本地待补文号占位、锚定上位国标、转成向医保局民政局政数局逐项取件的清单，内部原话错文号比空缺更有害。本讲要点破它和 Palantir 的深层同构：Palantir 官方定义强调 embeds directly，在客户现场把问题取证清楚再建，不靠远程臆想客户环境；康养项目留占位转取件清单，是在自己的交付里对客户环境取证到底不臆造；你们做对标卡时标未获证实，是对外部实践取证到底不臆造。三者是同一种职业本能：FDE 的可信度建立在敢承认取不到证这件事上。谁在这条纪律上偷懒，谁的方案就经不起客户一句这个数据哪来的。</div>
+  </section>
+
+  <!-- 11 演练 + 难听话 -->
+  <section class="slide" data-title="演练与难听话">
+    <span class="kicker">现场演练 · 外部实践对标卡</span>
+    <h2 class="title">轮到你取证：把"未获证实"当场标出来</h2>
+    <div class="fill-mid">
+      <div class="row" style="gap:28px;align-items:stretch">
+        <div class="statcard" style="flex:1.1"><h4>任务：外部实践对标卡</h4>
+          <ul class="clean" style="font-size:15px;margin-top:8px">
+            <li>逐维度把 Palantir FDE 与 C-Life FDE 摆一起比</li>
+            <li>发给你的 JD 片段每段带来源，<b>故意混进标了"未获证实"的说法</b></li>
+            <li>评分重点：<b>把哪些是二手 / 网传当场标出来</b>——不主要看你比得多全</li>
+          </ul>
+          <p class="cap mt-m">B-10 的当代版：<b style="color:var(--bad)">错来源比空缺更有害。</b></p>
+        </div>
+        <div class="redbox center" style="flex:.9;flex-direction:column;justify-content:center"><h4 style="color:var(--bad)">本讲难听话</h4>
+          <p class="lead" style="font-size:16px">"我念了十几条外部事实，你能当场分清哪条官方、哪条二手、哪条网传吗？分不清，你就没资格拿 Palantir 给客户站台——<b>你只是在转发朋友圈。</b>"</p>
+        </div>
+      </div>
+      <p class="cap mt-l">研讨三题：①分工题（门槛更高还是平台消化了？你缺哪半肌肉）②取证题（引"OpenAI 年薪 50 万"怎么标才专业：数字+出处档位+口径+不确定性四件套）③本土化题（甲方只为成品付费→堆人还是平台压成本？你核到一手源了吗）</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="12" data-total="13"></span></div>
+    <div class="notes">讲完别人家，现在轮到你们做取证。我发一份真实检索到的岗位 JD 片段，每段带来源，也故意混进一些我标了未获证实的说法。你们做一张外部实践对标卡：逐维度把 Palantir FDE 和 C-Life FDE 摆一起比，这是评分重点——把哪些信息是未获证实的当场标出来。这张卡我不主要看你比得多全，我看你有没有把二手当官方、有没有把网传数字当事实，这就是错文号比空缺更有害的当代版：错来源比空缺更有害。本讲难听话我撂在这：我念了十几条外部事实，你能当场分清哪条官方哪条二手哪条网传吗，分不清你就没资格拿 Palantir 给客户站台，你只是在转发朋友圈。研讨三题重点在取证题的四件套：给数字加给出处档位加给口径加给不确定性，缺一不可，这和康养项目 11 处文号留占位是同一个动作。第三题里谁主动补一句虎嗅那条我没核到一手源，谁就 get 到了本讲。</div>
+  </section>
+
+  <!-- 12 收口 -->
+  <section class="slide" data-title="收口">
+    <span class="kicker">收口 · 钩子第 10 讲</span>
+    <h2 class="title">把"不编造文号"升级为"不编造来源"</h2>
+    <div class="fill-mid">
+      <p class="quote">对标不是抄作业，对标是先证明你有资格抄。<br>而资格的第一关，是你敢不敢在查不到时写"未获证实"。</p>
+      <div class="grid g3 mt-l" style="gap:16px">
+        <div class="statcard"><h4>抄什么</h4><p class="dim" style="font-size:14.5px">两组肌肉（Echo+Delta）+ production 交付 + 现场经验反哺。</p></div>
+        <div class="statcard"><h4>弃什么</h4><p class="dim" style="font-size:14.5px">堆人长期驻场——国内最低价/鄙视链下正是跑不通的点。</p></div>
+        <div class="statcard"><h4>改成什么</h4><p class="dim" style="font-size:14.5px">工程化平台 + 一人多角，把探索成本压到甲方肯付的水平。</p></div>
+      </div>
+      <p class="cap mt-l">→ <b>第 10 讲：C-Life 怎么做</b>。本讲"共性抄什么、差异弃什么"直接喂给落地路径——弃堆人驻场，走"平台 + 选人训练"自造 FDE。B-10 的诚实边界，在本讲对标 Palantir 现场取证，在第 10 讲落成一条组织红线。</p>
+    </div>
+    <div class="deck-footer"><span>第 9 讲 · 别人家怎么落地 FDE</span><span class="slide-number" data-current="13" data-total="13"></span></div>
+    <div class="notes">收口。本讲是反例 B-10 的价值观收束点，把不编造文号升级为不编造来源。回到那句命题：对标不是抄作业，对标是先证明你有资格抄，资格第一关是敢不敢在查不到时写未获证实。三句话带走：抄什么——两组肌肉加 production 交付加现场经验反哺；弃什么——堆人长期驻场，国内最低价和鄙视链下这正是跑不通的点；改成什么——工程化平台加一人多角，把探索成本压到甲方肯付的水平。这三句直接喂给第 10 讲 C-Life 怎么做的落地路径：弃堆人驻场，走平台加选人训练自造 FDE。第 9 讲对标 Palantir 的现场取证文化，第 10 讲会把这份诚实边界落成一条组织红线——让每个新项目都有一个敢说不知道的人压阵，而不是靠又碰到一个好人的运气。下一讲我们就把别人家的经验，落成 C-Life 自己认领到人头的 90 天计划。</div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

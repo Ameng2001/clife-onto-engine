@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>T7  界面原型studio-design</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">T7 界面原型studio-design</h1>
+</header>
+<h1 id="t7-界面原型studio-design">T7 · 界面原型（studio-design）</h1>
+<blockquote>
+<p>目标：让方案有“能点开的应用形态”，同时<strong>守住 demo 的诚实边界</strong>。<strong>120′</strong>（知识注入 25′ + 实操 70′ + checkout 25′） 知识（讲什么）：讲 7 残余 + <strong>讲 9 全文：外部对标（Palantir/OpenAI/Anthropic）与诚实边界三档来源</strong>（讲义 <code>讲义/09_别人家怎么落地FDE.md</code> 已并入本册第七节与第十二节，讲师无需另开文件） 主教具：<strong>教育督导项目 47 页 demo（真数据）vs 草业项目 11 页 demo（全仿真）</strong> —— 可信度对照组 工具：<code>studio-design</code> v0.1.0（零插件依赖）</p>
+</blockquote>
+<hr />
+<h2 id="这一步最容易翻车先立规矩">〇、这一步最容易翻车，先立规矩</h2>
+<p>学员做出能点开的界面会很兴奋，然后就开始拿它当“产品”演示。<strong>这是本课程唯一一条“路演一票警示”的红线。</strong></p>
+<blockquote>
+<p><strong>demo 跑通的是 UI，不是模型。</strong> 把外壳当成“产品跑通了”去演示，<strong>就是骗客户。</strong></p>
+</blockquote>
+<p>所以 T7 的验收标准有两条，缺一不可： 1. 做出 3–6 屏可点开的原型 2. <strong>白纸黑字写清哪些是 Mock</strong></p>
+<hr />
+<h2 id="一三步流水线">一、三步流水线</h2>
+<pre><code>/studio-design:design &lt;截图路径&gt;
+  ① screenshot-to-pencil  → docs/design/screens.pen      ⏸ 你确认
+  ② pencil-to-openspec    → openspec/changes/{id}/       ⏸ 你确认
+  ③ openspec-to-code      → React/Next.js 代码</code></pre>
+<p><strong>可从任意阶段切入</strong>：给 <code>.png/.jpg</code> → 从①开始；给 <code>.pen</code> → 从②；给 change-id → 从③。 &gt; ⚠️ 判定算法插件文档没写明（是按参数形态推断的）。<strong>建议显式指定要跑哪一步</strong>，别赌它猜对。</p>
+<p>三个薄命令 <code>screenshot-to-pencil</code> / <code>pencil-to-openspec</code> / <code>openspec-to-code</code> 也可单独调用。</p>
+<hr />
+<h2 id="二①-截图-.pen">二、① 截图 → .pen</h2>
+<h3 id="pen-到底是什么实测澄清">.pen 到底是什么（实测澄清）</h3>
+<blockquote>
+<p><strong>实测结论</strong>：本地三份真实 <code>.pen</code>（含一份 1.7MB 的）<strong>都是明文 UTF-8 JSON</strong>，顶层键 <code>children / variables / version</code>，<code>version: 2.10</code>，首节点 <code>type: frame</code>。 所以 <strong>studio-design 把 .pen 当普通 JSON 直接读写的路子是成立的</strong>。插件的 <code>CLAUDE.md</code> 里“需要 Pencil MCP”的说法与本地实际文件不符。</p>
+</blockquote>
+<p><strong>结构四层</strong>：<code>frame</code>（屏）→ 布局区 → 组件组 → <code>text</code> / <code>icon_font</code> / <code>ellipse</code> <strong>节点 ID</strong>：5 位字母数字随机 <strong>尺寸标准</strong>：桌面 1440×900、移动 390×844</p>
+<h3 id="转换四步">转换四步</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>步</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 视觉分解</td>
+<td>整体布局 → 主区块 → 组件（导航/按钮四型/输入/卡片列表表格/模态下拉提示/图标）→ 字号字重层级 → 取色板 → 间距 → 尺寸</td>
+</tr>
+<tr class="even">
+<td>② <strong>令牌抽取</strong></td>
+<td>背景 <code>$bg/$bg-sidebar/$bg-card/$bg-input/$bg-muted</code>；文本 <code>$text-primary/secondary/muted</code>；强调 <code>$accent/$destructive/$green/$blue/$red</code>；边框 <code>$border/$border-light</code></td>
+</tr>
+<tr class="odd">
+<td>③ 结构生成</td>
+<td>四层节点树；<code>layout</code>+<code>gap</code>+<code>padding</code>+<code>alignItems</code>；图标映射到 Lucide 名；<strong>重复出现的模式标 <code>reusable: true</code></strong>，其他帧用 <code>type: "ref"</code> 引用</td>
+</tr>
+<tr class="even">
+<td>④ 输出</td>
+<td>新建写完整 JSON；追加则 push frame 并 merge 令牌</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⏸ “已存在”交互</strong>：若 <code>docs/design/</code> 下已有 <code>.pen</code>，会问你<strong>“向其追加一个新 frame”还是“新建文件”</strong>。 选追加时它会：<strong>复用设计令牌 · 复用 <code>reusable:true</code> 的组件 · 确定下一帧序号 · 避免 ID 冲突</strong>。</p>
+<blockquote>
+<p>⭐ <strong>教学点</strong>：颜色<strong>必须走 <code>$variable</code>，不许写死色值</strong>——这就是为什么追加帧能自动统一风格。 <strong>令牌就是设计层的“口径单点”</strong>，和 T6 的 BRIEF 数字单点是同一个思想。</p>
+</blockquote>
+<p><strong>它明确不做</strong>：不生成代码 · 不建 OpenSpec · <strong>不需要 Pencil 桌面端</strong> · 不处理动效交互</p>
+<hr />
+<h2 id="三②-.pen-openspec">三、② .pen → OpenSpec</h2>
+<p>产物落在 <code>openspec/changes/{change-id}/</code>：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>proposal.md</code></td>
+<td><code>## Why</code>（从帧名/内容反推设计意图）· <code>## What Changes</code>（每能力一条）· <code>## Impact</code>（影响的 specs 与代码路径）</td>
+</tr>
+<tr class="even">
+<td><code>specs/{capability}/spec.md</code></td>
+<td><strong>每能力一份</strong>，五类需求各写成 <code>### Requirement:</code>（用 SHALL/MUST）+ <code>#### Scenario:</code> + <code>- **WHEN** / **THEN** / **AND**</code></td>
+</tr>
+<tr class="odd">
+<td><code>tasks.md</code></td>
+<td>5 组带编号复选框：1.Setup · 2.Components · 3.Shared Components · 4.Styling · 5.Integration</td>
+</tr>
+<tr class="even">
+<td><code>design.md</code></td>
+<td><strong>条件产出</strong>：仅当涉及多能力 / 有共享架构决策 / 状态管理不显然时才生成</td>
+</tr>
+</tbody>
+</table>
+<p><strong>五类需求</strong>：①Layout 布局（含具体像素）②Component 组件（<strong>占位符文案直接取自 .pen 的 content</strong>）③State 状态 ④Navigation 导航（含 active 高亮）⑤Visual 视觉（深色主题令牌一致性）</p>
+<p><strong>⭐ 帧 → 能力的映射规则</strong>（这是本步最需要理解的一条）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>.pen 里</th>
+<th>→ OpenSpec 里</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>同一页的不同状态帧</strong>（“1. 空状态”、“1a. 下拉展开”、“1b. 已提交”）</td>
+<td><strong>一个能力，多个 Scenario</strong></td>
+</tr>
+<tr class="even">
+<td>不同页</td>
+<td>不同能力</td>
+</tr>
+<tr class="odd">
+<td><code>reusable</code> 组件</td>
+<td>共享能力或横切需求</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>命名一律 kebab-case 动宾式：新增 <code>add-{capability}</code>、改版 <code>update-{capability}</code>。</p>
+</blockquote>
+<blockquote>
+<p>⚠️ 已知不一致：<code>openspec-guide.md</code> 规定 spec delta 要分 <code>## ADDED / MODIFIED / REMOVED Requirements</code> 三段，但 <code>pencil-to-openspec</code> 的模板<strong>没写这层包裹</strong>。<strong>按 guide 补上。</strong></p>
+</blockquote>
+<hr />
+<h2 id="四③-openspec-代码">四、③ OpenSpec → 代码</h2>
+<p><strong>读取顺序</strong>：<code>proposal.md</code> → <code>tasks.md</code> → <code>design.md</code> → 全部 <code>specs/</code> → 扫项目（现有路由、<code>components/ui/</code> 看已装 shadcn、tailwind 配置、package.json）→ <strong>回读 .pen 取精确尺寸与颜色</strong></p>
+<p><strong>⭐ 它不按 tasks.md 的原序做</strong>，而是重排成固定 6 级实现顺序：</p>
+<pre><code>layouts → shared components → feature components → pages → routes → integration</code></pre>
+<p><strong>逐条 Scenario 心算校验 WHEN/THEN/AND</strong>，不满足就补逻辑。最后<strong>回写 <code>tasks.md</code>，把 <code>- [ ]</code> 改成 <code>- [x]</code></strong>。</p>
+<p><strong>技术栈</strong>（<code>references/tech-stack.md</code> 规定）：Next.js App Router · TanStack Query · Tailwind CSS 4 · shadcn/ui · Zustand · React 19 · LangGraph SDK（AI 通信） <strong>已装 shadcn 组件 14 个</strong>：Button/Input/Textarea/Card/Dialog/DropdownMenu/Sidebar/Tooltip/Tabs/Badge/Separator/ScrollArea/Avatar/Skeleton <strong>样式硬约束</strong>：只用 Tailwind + <code>cn()</code>，<strong>禁内联样式 / CSS Modules / styled-components</strong>；禁 <code>useEffect+fetch</code> 取数；禁超 2 层 prop drilling</p>
+<p><strong>⭐ 缺信息时的兜底约定（这条直接关系诚实边界）</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>缺什么</th>
+<th>它怎么做</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>缺 API</td>
+<td><strong>mock 数据 + <code>TODO: connect to API</code></strong></td>
+</tr>
+<tr class="even">
+<td>缺状态管理</td>
+<td>本地 useState + <code>TODO: lift state</code></td>
+</tr>
+<tr class="odd">
+<td>缺鉴权</td>
+<td><code>TODO: add auth guard</code></td>
+</tr>
+<tr class="even">
+<td>缺错误态</td>
+<td>基础 error boundary + <code>TODO: improve error handling</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这些 TODO 就是你的 Mock 清单。</strong> 演示前把它们 grep 出来，就是一份现成的“哪些是假的”说明。 <strong>别删掉它们。</strong> 删了 TODO 不等于实现了功能，只等于你看不见了。</p>
+</blockquote>
+<p><strong>一条硬纪律</strong>：<strong>未经询问不得新增 npm 依赖。</strong></p>
+<blockquote>
+<p>⚠️ 目录前缀坑：<code>tech-stack.md</code> 的真实结构是 <code>frontend/src/app/...</code>，但 pencil-to-openspec 生成的路径和 openspec-to-code 的扫描都用无前缀的 <code>app/</code>、<code>components/</code>。<strong>落到你的仓库时要人工对齐前缀</strong>，skill 不会自动加。</p>
+</blockquote>
+<hr />
+<h2 id="五-demo-可信度分级本步的灵魂">五、⭐⭐ demo 可信度分级（本步的灵魂）</h2>
+<p>学员会说“我们的 demo 是 Mock”。<strong>但 Mock 不是一档。</strong> 把这两个真实案例并排放：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>教育督导项目</strong></th>
+<th><strong>草业大模型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>页数</td>
+<td><strong>47 个 <code>page.tsx</code></strong> + 18 张成品截图</td>
+<td><strong>11 页</strong>（README 标题写“13 个页面”，自身表格与代码都是 11）</td>
+</tr>
+<tr class="even">
+<td>AI</td>
+<td>Mock（关键词路由）</td>
+<td>Mock（<code>mock-ai.ts</code> 12.6KB，正则分支 + <code>setTimeout(550)</code> <strong>假装思考延时</strong>）</td>
+</tr>
+<tr class="odd">
+<td><strong>数据</strong></td>
+<td><strong>真的</strong> —— <code>lib/data.ts</code> 用 <code>fs.readFileSync</code> 直接读 <strong>79 园真实 CSV</strong>（7 张表），还支持多城市切换</td>
+<td><strong>全仿真</strong> —— <code>lib/data.ts</code> 写死</td>
+</tr>
+<tr class="even">
+<td>分级</td>
+<td><strong>壳假 · 数据真</strong></td>
+<td><strong>壳假 · 数据也假</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>同样一句“这是 Mock demo”，含金量差一个量级。</strong></p>
+<blockquote>
+<p>⭐ 更值得学的是：<strong>草业项目的 <code>mock-ai.ts</code> 自己在文件头写着</strong> “Mock AI 引擎 — 关键词路由到五大智能体，注入仿真数据 / <strong>真实落地替换为 草业项目本体大模型 + RAG 三通道</strong>”，README 结尾也标了“数据为仿真演示数据”。 <strong>它的诚实标注做得很好，可以直接当正面教具。</strong></p>
+</blockquote>
+<p><strong>⚠️ 同时纠正一个常见误引</strong>：<strong>辣椒没有 demo</strong>（<code>demo-app/</code> 只有一个 0 字节 <code>.gitkeep</code>）。别顺口说成“三个农业案例都有 demo”。</p>
+<h3 id="给学员的三档自评">给学员的三档自评</h3>
+<table>
+<thead>
+<tr class="header">
+<th>档</th>
+<th>你的 demo 是</th>
+<th>演示时必须说</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A</strong></td>
+<td>壳真 + 数据真 + 模型真</td>
+<td>（还没有人到这一档）</td>
+</tr>
+<tr class="even">
+<td><strong>B</strong></td>
+<td>壳假 + <strong>数据真</strong></td>
+<td>“界面是原型，<strong>数据是客户真实数据</strong>，AI 回答是预设的”</td>
+</tr>
+<tr class="odd">
+<td><strong>C</strong></td>
+<td>壳假 + 数据假</td>
+<td>“这是交互外壳，<strong>数据和 AI 回答都是演示用的</strong>，不是模型跑通”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说不出自己在哪一档 → 路演一票警示。</strong></p>
+<hr />
+<h2 id="六实操70">六、实操（70′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>做什么</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>准备输入：一张参考截图 / 手绘图 / 或直接描述屏</td>
+<td>10′</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>screenshot-to-pencil</code>，⏸ 确认 .pen</td>
+<td>20′</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>pencil-to-openspec</code>，⏸ 看 spec 的 Scenario 写得对不对</td>
+<td>15′</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>openspec-to-code</code> 出代码</td>
+<td>15′</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>grep 所有 <code>TODO:</code> 写成 Mock 清单</strong></td>
+<td>10′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🔔 交付物</strong>：3–6 屏可点开原型 + <strong>一句诚实说明</strong> + <strong>Mock 清单</strong></p>
+<p><strong>🔔 按交付模式分形态</strong> - <strong>模式一（SaaS 应用，如教育督导项目/草业项目类）</strong> → 做<strong>应用主界面几屏</strong>（工作台 / 会员 / 督导 / 证据溯源） - <strong>模式二（大平台）</strong> → 做<strong>关键几屏</strong>（一张图 / 驾驶舱 / 核心闭环）</p>
+<p><strong>🔔 强烈建议做的一屏：HIL 确认界面</strong> 把 T5 设的闸<strong>画出来</strong>——谁在审、审什么、按错的代价是什么。 &gt; 现成参考：<code>Plugins/courses-workshop-plugins/apps/teaching-workshop-ui*/hil-confirm.html</code>，那个仓有 <strong>v1→v3 四代 UI 原型</strong>，可以做 before/after 对照。 &gt; <strong>能把闸画出来的方案，客户才相信你真的想过责任归属。</strong></p>
+<hr />
+<h2 id="七知识讲什么-外部对标与诚实边界">七、知识（讲什么）· 外部对标与诚实边界</h2>
+<blockquote>
+<p>本节吸收讲义「第 9 讲 · 别人家怎么落地 FDE」全文要点。<strong>要照着念的原话在第十二节「讲师包 · 口播稿」，本节是骨架与板书。</strong> <strong>时间盒 25′</strong>：讲 7 残余 3′ · 页 1–2 Palantir 8′ · 页 2·补 我们的一手对照 4′ · 页 3 前沿实验室 4′ · 页 4 国内困境 3′ · 页 5 共性差异 + 复调收口 3′。</p>
+</blockquote>
+<h3 id="讲师须先读为什么来源标注比信息量更重要">〇 讲师须先读：为什么“来源标注”比“信息量”更重要</h3>
+<p>这一节讲 Palantir/OpenAI/Anthropic 怎么落地 FDE。<strong>学员天然想听“内幕”。但本节真正要教的，不是这些公司的八卦。</strong></p>
+<blockquote>
+<p><strong>当你要把外部实践当作论据时，你标注来源的严谨程度，等于你专业的可信程度。</strong></p>
+</blockquote>
+<p>这和康养项目“11 处地方文号查不到就留 <code>[本地待补文号]</code> 占位不编造”是<strong>同一条纪律</strong>（B-10）。区别只是：那次取证对象是某市医保局的文号，这次取证对象是 Palantir 的招聘页。<strong>原则一模一样——错的来源比空缺更有害。</strong></p>
+<p><strong>⭐ 三档来源纪律（本节的教学主体，不是免责声明）</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>档位</th>
+<th>定义</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>【官方明确】</strong></td>
+<td>公司自己的博客 / 招聘页写的</td>
+<td>Palantir 官博对 FDSE 的定义；Anthropic JD 的产出物清单</td>
+</tr>
+<tr class="even">
+<td><strong>【二手报道】</strong></td>
+<td>分析机构 / 媒体 / 自媒体转述的</td>
+<td>Paraform 那句 “DS owns why/what, FDE owns how”</td>
+</tr>
+<tr class="odd">
+<td><strong>【未获证实】</strong></td>
+<td>检索不到一手出处，或多方口径打架</td>
+<td>OpenAI FDE 35–55 万美元总包；腾讯云 35-65K×15 薪；“95% 企业 AI 试点失败”</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>讲这一节时，讲师必须把这三档亲口念出来。你念的方式，就是学员将来对客户标注来源的方式。</strong> <strong>绝不能把“未获证实”藏进脚注</strong>——藏进脚注就等于默认它是事实。</p>
+</blockquote>
+<p><strong>一句先撂下的话</strong>： &gt; <strong>对标不是抄作业，对标是先证明你有资格抄——而资格的第一关，是你敢不敢在查不到时写“未获证实”。</strong></p>
+<hr />
+<h3 id="讲-7-残余认知到行动的最后一公里3">讲 7 残余：认知到行动的最后一公里（3′）</h3>
+<p>前面 T3–T6 产出的都是<strong>认知</strong>（画像、域图、本体、文书）。T7 是<strong>第一次把认知变成客户能摸到的东西</strong>。</p>
+<blockquote>
+<p><strong>但要提醒</strong>：能摸到 ≠ 能用。<strong>摸得越真，越要说清哪里是假的</strong>——因为客户的信任是按“他摸到的东西”建立的，不是按你文档里的免责声明。</p>
+</blockquote>
+<hr />
+<h3 id="页-1-fde-的原产地palantir-的-delta4">页 1 · FDE 的原产地：Palantir 的 “Delta”（4′）</h3>
+<p><strong>【板书】</strong></p>
+<pre><code>Palantir FDSE = &quot;Delta&quot;
+  · embeds directly with customers（现场嵌入）
+  · Dev:  一个能力 → 很多客户
+  · FDSE: 很多能力 → 一个客户   ← FDE 的基因
+来源档位：【官方明确】blog.palantir.com</code></pre>
+<p>两句可直引的<strong>【官方明确】</strong>原文（出自 Palantir 官方博客《A Day in the Life of a Palantir Forward Deployed Software Engineer》）： - ‘A Forward Deployed Software Engineer（FDSE），or “Delta,” is a software engineer who <strong>embeds directly</strong> with our customers to configure Palantir’s existing software platforms to solve their toughest problems.’ - ‘While a traditional software engineer, or “Dev,” focuses on creating <strong>a single capability that can be used for many customers</strong>, FDSEs focus on enabling <strong>many capabilities for a single customer</strong>.’</p>
+<p><strong>【康养项目证据】</strong> 康养项目就是“很多能力喂给一个客户”的活样本：不卖通用养老 SaaS，而是为康养项目一地配出 <strong>7 域数智本体</strong>、五要素合计 <strong>Object 76 / Link 75 / Function 38 / Rule 47 / Action 54 / HIL 26</strong>、<strong>3835 行</strong>插件骨架。 <strong>差异</strong>：Palantir 派人长期驻客户机房；<strong>我们是 1 名 FDE 带智能体编队远程 + 短驻，用平台管线抵消了人数。</strong></p>
+<hr />
+<h3 id="页-2-经典组织设计deltafde-echodeployment-strategist4">页 2 · 经典组织设计：Delta（FDE）× Echo（Deployment Strategist）（4′）</h3>
+<p><strong>⭐ Palantir 最值得抄的不是岗位，是岗位的配对设计。</strong></p>
+<p><strong>【板书】</strong></p>
+<pre><code>Palantir 的双人配对（关键组织设计）
+  Delta = FDE      → owns &quot;HOW&quot;  技术建造力              【官方明确】
+  Echo  = DS       → owns &quot;WHY/WHAT/WHOM&quot;  该建什么/为谁   【官方明确】
+  &quot;why/what&quot; vs &quot;how&quot; 的提炼 → Paraform                  【二手报道】
+  FDSE vs FD-AI-Engineer 细分职责差别 →                  【未获证实】</code></pre>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>事实</th>
+<th>档位</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Delta 负责技术上的 ‘construction power’；DS 决定 ‘what should be built’ / ‘why it is important’ / ‘to whom and how it should be delivered’</td>
+<td><strong>【官方明确】</strong></td>
+<td>Palantir 官博《A Day in the Life of a Palantir Deployment Strategist》</td>
+</tr>
+<tr class="even">
+<td>‘The deployment strategist owns the “why” and “what,” while the forward-deployed engineer owns the “how.”’</td>
+<td><strong>【二手报道】</strong></td>
+<td>Paraform 博客——<strong>不是官网原话，是招聘中介的提炼；口径与官方一致，可以用，但要说清它是二手</strong></td>
+</tr>
+<tr class="odd">
+<td>Palantir 招聘页同时挂 ‘Forward Deployed Software Engineer’ 与 ‘Forward Deployed AI Engineer’</td>
+<td><strong>【官方明确：岗位存在】</strong></td>
+<td>jobs.lever.co/palantir 职位列表标题</td>
+</tr>
+<tr class="even">
+<td><strong>两者职责的细粒度差别</strong></td>
+<td><strong>【未获证实】</strong></td>
+<td>招聘页正文对自动抓取返回 <strong>403</strong>，未取到全文——<strong>这里故意不脑补，这就是示范</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>【落回 C-Life 的关键判断】</strong> Palantir 把“该建什么(Echo)”和“怎么建(Delta)”拆给两个人。<strong>康养项目这次是一个 FDE 把两头都扛了</strong>——既做认知萃取（102 事件 → 7 域，Echo 的活），又做结构建造（本体编译、代码骨架，Delta 的活）。 - <strong>借鉴</strong>：Echo/Delta 是一张能力清单，提醒我们 FDE 必须<strong>同时具备“定义问题”和“实现方案”两组肌肉</strong>（＝ C1 认知萃取 + C2 结构建模）。 - <strong>不适用/要警惕</strong>：Palantir 有钱给每个客户配两个高薪人。C-Life 是<strong>一人分饰两角，靠 Astra Studio 把 Delta 那半的手工活固化掉</strong>。<strong>不能照抄“配两个人”，只能照抄“两组能力都得有”。</strong></p>
+<blockquote>
+<p>这也解释了 T8 那句“多数人第一次会停在 L1”——<strong>因为 Echo+Delta 两套肌肉，多数人只有一套。</strong></p>
+</blockquote>
+<hr />
+<h3 id="页-2补-我们自己对-palantir-fde-的一手对照4">页 2·补 · 我们自己对 Palantir FDE 的一手对照（4′）</h3>
+<p><strong>来源换档</strong>：前两页是<strong>外部事实</strong>（标了档）；这一页是<strong>我们自己方法论文集里的一手观点</strong>（<code>clife-onto-engine · reference/methodology 06《AI 时代的 FDE》</code>）。 &gt; <strong>不是检索来的，是我们自己写的</strong>——所以不标“未获证实”，标它是<strong>我们的立场</strong>（一手，但也要说清是“立场”不是“行业公认”）。</p>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>Palantir FDE</th>
+<th>新型 FDE（我们要的）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>依赖的平台</td>
+<td>Foundry（<strong>需采购</strong>）</td>
+<td>基本工具链 + 其余靠辅助编程完成</td>
+</tr>
+<tr class="even">
+<td>核心技能</td>
+<td>深度理解 Foundry + 领域建模</td>
+<td><strong>从第一性原理建模 + AI 工具执行 + 业务领域知识</strong></td>
+</tr>
+<tr class="odd">
+<td>交付速度</td>
+<td>受平台部署周期限制</td>
+<td><strong>第一天对话，第二天出 Demo</strong></td>
+</tr>
+<tr class="even">
+<td>适用战场</td>
+<td>已采购 Foundry 的客户</td>
+<td>探索 / 概念验证 / 新项目落地</td>
+</tr>
+<tr class="odd">
+<td>瓶颈</td>
+<td>平台能力边界</td>
+<td><strong>数据治理、组织推动的时间</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>三个判断直接搬进这门课</strong>： 1. <strong>新型 FDE = 领域建模 + 判断力 + AI 执行力</strong>——把“不知道”变成“精确定义” + 知道该做什么 + 用 AI 把定义变成可运行系统。 2. <strong>“本体不是 Palantir 的专利，它是一种工程方法论”</strong>——所以不必买 Foundry，也能做 Palantir 做的事（T5 的 clife-onto-engine 就是自有实现）。 3. <strong>战场边界</strong>：探索/验证/新项目落地 <strong>✅ 不可替代</strong>；规模化/组织推动/运维 <strong>❌ 瓶颈在人，不是工具</strong>——<strong>AI 能压缩建造时间，压缩不了数据治理和组织推动的时间。</strong></p>
+<p><strong>金句（可板书）</strong>：<strong>“平台越来越便宜，本体模型越来越值钱。会建模型的人，不会被替代，而是被放大。”</strong></p>
+<blockquote>
+<p><strong>与前页的关系</strong>：Palantir 用<strong>双人 + 采购平台</strong>，我们用<strong>一人 + 自有平台</strong>达到同类交付——<strong>这正是“一人公司 OPC”的外部印证。</strong></p>
+</blockquote>
+<hr />
+<h3 id="页-3-当代变体openai-anthropic-怎么做-forward-deployed4">页 3 · 当代变体：OpenAI / Anthropic 怎么做 Forward Deployed（4′）</h3>
+<p><strong>【板书】</strong></p>
+<pre><code>前沿实验室的 Forward Deployed 变体
+OpenAI:    岗位=Forward Deployed Engineer (FDE)     【官方岗位存在】
+           职责: demo → production，own 全流程       【官方+二手转述】
+           薪资 35-55万刀总包                        【未获证实·Levels.fyi二手】
+Anthropic: 团队=Applied AI；岗=FDE, Applied AI       【官方明确】
+           产出物: MCP servers / sub-agents / skills 【官方明确·可直引】
+           出差 25-50% 到客户现场                    【官方明确】
+           base $200-300K【官方(招聘板转发)】 vs 总包$350-550K【二手·口径不同】</code></pre>
+<p><strong>Anthropic JD 的五条职责（【官方明确】，经 Menlo Ventures 招聘板转发官方职位）</strong>： - ‘Work within customer systems to build production applications with Claude models’ - ‘Deliver technical artifacts for customers like <strong>MCP servers, sub-agents, and agent skills</strong>’ - ‘Provide white glove deployment support for Anthropic products in enterprise environments’ - ‘<strong>Identify and codify repeatable deployment patterns</strong> and contribute insights back to our Product and Engineering teams’ - ‘Travel frequently (25-50%) to customer sites to build in person with customers’</p>
+<p><strong>⭐ 教科书级的“口径打架”案例（本节最该讲的一个技术动作）</strong>： 同一岗位，Menlo 招聘板转发的官方 JD 写 <strong>base $200,000–$300,000 USD</strong>；另一家分析媒体（getperspective.ai）写 total comp <strong>$350K–$550K</strong>。 &gt; <strong>两个数字都存在，但口径不同（base vs total comp），且后者是二手。</strong> &gt; 正确标注：base 区间 <strong>$200K–$300K【官方明确（经招聘板转发）】</strong>；<strong>$350K–$550K 总包【二手 / 未获证实为官方】</strong>。 &gt; <strong>如果你只抄一个数字不写口径，你就在制造错误。</strong></p>
+<p><strong>【康养项目对照】</strong> Anthropic 那条 ‘codify repeatable patterns’（把现场可复用模式沉淀、反哺产品）和我们高度同构：康养项目把交付过程沉淀成 <code>_WRITING_BRIEF.md</code>、SOP、反例库 B-1…B-10。 <strong>差异</strong>：Anthropic 反哺的是 Claude 的产品团队；<strong>我们反哺的是 Astra Studio 这条内部管线和这门课本身</strong>。方向一致，对象不同。</p>
+<hr />
+<h3 id="页-4-国内尝试为什么交付即研发在中国普遍水土不服3">页 4 · 国内尝试：为什么“交付即研发”在中国普遍水土不服（3′）</h3>
+<p><strong>结论先给</strong>：<strong>国内在“招 FDE”这件事上有真实动作，但在“FDE 模式能否跑通”这件事上，公开信息普遍是悲观的，且很多细节查不到。</strong></p>
+<p><strong>【板书】</strong></p>
+<pre><code>国内现状（检索纪律示范）
+  ✓ 腾讯云在招&quot;前线部署工程师(FDE)&quot;        【官方岗位存在/二手】
+  ? 腾讯云 35-65K×15薪                       【未获证实·招聘平台转述】
+  ~ &quot;最低评标价法致乙方承担试错成本&quot;         【二手·媒体观点·可信度较高】
+  ? &quot;95%企业AI试点失败&quot;&quot;41%低于合理成本&quot;等   【未获证实·数字未核到一手源】
+  ~ &quot;中国版FDE≈干了30年的外包换皮&quot;           【二手·业界普遍认为】
+结论：岗位真、模式存疑、数字大多不可当事实用</code></pre>
+<p>虎嗅《万字解读 FDE 为什么在中国是扯淡的》列的三条障碍（<strong>【二手报道·观点】，不是行业统计定论</strong>）： 1. <strong>商业模式相反</strong>——“中国强制要求标准技术服务项目采用最低评标价法，客户只愿为成品付费”，探索/试错成本默认由乙方承担； 2. <strong>人才鄙视链</strong>——文章称应届生交付岗年薪 10-15 万，同级别大厂研发 30-55 万； 3. <strong>甲方不真信 AI</strong>——文章引“95% 的企业 AI 试点失败”等数字。<strong>这些具体百分比未核到原始出处，标【未获证实】，讲课时必须连同“这是文章里的数字、我没核到源”一起说。</strong></p>
+<p><strong>【落回 C-Life】</strong> 虎嗅那条“甲方只为成品付费、不为探索过程付费”，恰恰是 C-Life 要正面面对的<strong>中国 To-G 现实约束</strong>。 我们的应对不是“派人长期驻场熬成本”（那正是国内跑不通的点），而是<strong>用平台把探索过程的成本压到极低</strong>——康养项目 1 人 + 智能体编队完成传统 5+ 人数周的活，本质是<strong>把“甲方不肯付费的探索成本”用工程化平台消化掉</strong>。</p>
+<hr />
+<h3 id="页-5-共性与差异一张表落回-c-life3">页 5 · 共性与差异，一张表落回 C-Life（3′）</h3>
+<pre><code>                 共性(抄)                    差异(不抄)
+Palantir     现场嵌入·Delta×Echo双肌肉      配双人·大客户·驻场
+OpenAI       demo→production·全流程own      战略客户·总包几十万刀
+Anthropic    codify patterns 反哺产品        Fortune500·出差25-50%
+国内         岗位真在招                       最低价/鄙视链→堆人驻场跑不通
+─────────────────────────────────────────────────────────
+C-Life 取舍：抄&quot;两组肌肉+production+反哺&quot;，弃&quot;堆人驻场&quot;，改&quot;平台+一人多角&quot;</code></pre>
+<p><strong>三条共性（可借鉴）</strong>：① <strong>现场嵌入、产品级交付</strong>（Palantir ‘embeds directly’、OpenAI ‘demo → production’、Anthropic ‘build production applications’，口径一致【均官方明确】）· ② <strong>把现场经验反哺回产品/方法</strong> · ③ <strong>强调现场取证、不臆造客户环境</strong>。 <strong>三条差异（不能照抄）</strong>：客户体量 · 人 vs 平台的比例 · 薪资与人才市场。</p>
+<blockquote>
+<p><strong>一句话落地</strong>：<strong>Palantir 教我们 FDE 该有哪两组肌肉（Echo+Delta）；前沿实验室教我们大模型时代 FDE 交付什么（production + 反哺）；国内的水土不服教我们哪条路不能走（堆人驻场）。三者合起来，指向 C-Life 唯一可行的路——工程化平台 + 一人多角。</strong></p>
+</blockquote>
+<hr />
+<h3 id="复调收口同一条判据的四个场景3">⭐ 复调收口：同一条判据的四个场景（3′）</h3>
+<p><strong>这一段是全课程价值观的支点，T7 讲师必须讲透。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>场景</th>
+<th>说法</th>
+<th>在哪讲</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>B-10</strong></td>
+<td><strong>查不到的文号留占位不编造</strong>——“错文号比空缺更有害”</td>
+<td>T5 / T6 栈⑦</td>
+</tr>
+<tr class="even">
+<td><strong>B-11</strong></td>
+<td><strong>别人的数字不是你的数字</strong>——模板可复用，数字不可复用</td>
+<td>T1 / T6</td>
+</tr>
+<tr class="odd">
+<td><strong>T7 · Mock 边界</strong></td>
+<td><strong>Mock 不能说成跑通</strong>——壳假就说壳假，数据假就说数据假</td>
+<td>本册第五节</td>
+</tr>
+<tr class="even">
+<td><strong>讲 9 · 三档来源</strong></td>
+<td><strong>外部事实分官方/二手/未获证实，“未获证实”要亲口念出来</strong></td>
+<td>本节</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>四者不是四条纪律，是同一句判据的四个场景</strong>：<strong>空缺可以补，编造无法挽回。</strong> 前三个场景管的是<strong>你自己的数据</strong>，第四个场景管的是<strong>别人的数据</strong>——<strong>很多人守得住前三条，栽在第四条上</strong>，因为“引用外部权威”感觉上像是在增强可信度，实际上是在把别人的不确定性转成自己的承诺。 <strong>B-10 的当代版就一句话：错来源比空缺更有害。</strong></p>
+</blockquote>
+<p><strong>⚠️ 反例 B-10 在本节的深层同构</strong>（第三次出现，是复调不是重复）： - Palantir FDSE 官方定义强调 ‘embeds directly’——<strong>在客户现场把问题取证清楚再建，不靠远程臆想客户环境</strong>； - 康养项目留占位、转取件清单——<strong>在自己的交付里对客户环境取证到底、不臆造</strong>； - 学员做对标卡时标“未获证实”——<strong>对外部实践取证到底、不臆造</strong>。</p>
+<blockquote>
+<p>三者是同一种职业本能：<strong>FDE 的可信度，建立在“敢承认取不到证”这件事上。</strong> <strong>谁在这条纪律上偷懒，谁的方案就经不起客户一句“这个数据哪来的”。</strong></p>
+</blockquote>
+<h3 id="外部来源清单讲师备查档位已标">📎 外部来源清单（讲师备查，档位已标）</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>事实</th>
+<th>档位</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>FDSE=“Delta”，embeds directly，“many capabilities for a single customer”</td>
+<td>官方明确</td>
+<td>Palantir 官博《A Day in the Life of a Palantir FDSE》blog.palantir.com</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>DS=“Echo”，Delta 负责 construction power，DS 定 what/why/whom</td>
+<td>官方明确</td>
+<td>Palantir 官博《A Day in the Life of a Palantir Deployment Strategist》</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>“DS owns why/what, FDE owns how” 的提炼</td>
+<td>二手报道</td>
+<td>Paraform paraform.com</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Palantir 同时挂 FDSE 与 Forward Deployed AI Engineer 岗位</td>
+<td>官方明确(岗位存在)</td>
+<td>jobs.lever.co/palantir</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>FDSE 与 FD-AI-Engineer 细分职责差异</strong></td>
+<td><strong>未获证实</strong></td>
+<td>招聘页正文抓取 403，未取到全文</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>OpenAI 设 FDE 岗（SF/NYC/Tokyo/Gov 等）</td>
+<td>官方明确(岗位存在)</td>
+<td>openai.com/careers</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>OpenAI FDE 职责：demo→production、own 全流程</td>
+<td>官方岗位存在 + 二手转述</td>
+<td>openai.com/careers（正文 403）+ fde.academy 转述</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><strong>OpenAI FDE 薪资 35-55 万美元总包</strong></td>
+<td><strong>未获证实</strong></td>
+<td>fde.academy 自述引自 Levels.fyi / 行业薪酬报告，非官方</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Anthropic Applied AI 的 FDE 职责（MCP/sub-agents/skills、出差25-50%）</td>
+<td>官方明确</td>
+<td>Anthropic JD，经 jobs.menlovc.com 转发</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Anthropic FDE base $200K–$300K</td>
+<td>官方明确(招聘板转发)</td>
+<td>同上</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Anthropic FDE 总包 $350K–$550K</td>
+<td>二手/口径不同</td>
+<td>getperspective.ai（total comp 口径，非官方 base）</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>腾讯云在招“前线部署工程师(FDE)”</td>
+<td>官方岗位存在/二手</td>
+<td>腾讯云开发者社区、知乎专栏转述</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td><strong>腾讯云上海 FDE 35-65K×15薪</strong></td>
+<td><strong>未获证实</strong></td>
+<td>招聘平台/知乎转述，非腾讯官方薪酬公告</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>中国 FDE 模式障碍（最低价、鄙视链、<strong>95%试点失败</strong>等）</td>
+<td>二手报道·<strong>部分数字未获证实</strong></td>
+<td>虎嗅《万字解读FDE为什么在中国是扯淡的》huxiu.com</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>“中国版 FDE≈干了30年的外包换皮”</td>
+<td>二手·业界普遍认为</td>
+<td>多篇国内自媒体/腾讯云社区文章共同表述</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>讲师提示</strong>：上表第 <strong>5、8、13</strong> 行以及第 <strong>14</strong> 行的百分比，<strong>讲课时必须亲口说“这条未获证实/未核到一手源”</strong>。 <strong>你怎么念，学员将来就怎么对客户标注。</strong></p>
+</blockquote>
+<hr />
+<h2 id="八checkout25">八、checkout（25′）</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>屏数</td>
+<td>3–6 屏可点开，能演一条完整用户流</td>
+<td>单屏静态图</td>
+</tr>
+<tr class="even">
+<td>令牌</td>
+<td>颜色全走 <code>$variable</code></td>
+<td>写死色值（追加帧时风格必崩）</td>
+</tr>
+<tr class="odd">
+<td>Scenario</td>
+<td>spec 的 WHEN/THEN/AND 与实际交互对得上</td>
+<td>spec 写了但代码没实现</td>
+</tr>
+<tr class="even">
+<td><strong>Mock 清单</strong></td>
+<td><strong>grep 出全部 <code>TODO:</code>，逐条列明</strong></td>
+<td>删掉 TODO 假装实现了 → <strong>一票警示</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>可信度自评</strong></td>
+<td>说得出自己在 B 档还是 C 档</td>
+<td>笼统说“这是 demo”</td>
+</tr>
+<tr class="even">
+<td>诚实说明</td>
+<td>白纸黑字写明“交互外壳 / AI 为 Mock / 非模型跑通”</td>
+<td>演示时含糊带过</td>
+</tr>
+<tr class="odd">
+<td>HIL 可视化</td>
+<td>有一屏展示闸（谁审、审什么、按错代价）</td>
+<td>闸只在文档里</td>
+</tr>
+<tr class="even">
+<td>依赖</td>
+<td>没擅自新增 npm 包</td>
+<td>装了一堆没问过</td>
+</tr>
+<tr class="odd">
+<td><strong>外部引用档位</strong></td>
+<td>引 Palantir/OpenAI/Anthropic 时<strong>逐条标官方/二手/未获证实</strong>，且给数字必带口径（base vs total comp）</td>
+<td>把二手当官方、把网传数字当事实 → <strong>一票警示</strong></td>
+</tr>
+<tr class="even">
+<td><strong>敢说不知道</strong></td>
+<td>主动说得出“这条我没核到一手源”</td>
+<td>只报能撑观点的那半</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="九翻车点">九、翻车点</h2>
+<h3 id="别把外壳当交付一票警示">⚠️ 1. 别把外壳当交付（<strong>一票警示</strong>）</h3>
+<p>demo 跑通的是 UI 不是模型。演示时<strong>必须先说清哪些是 Mock</strong>（哪屏的“AI 回答”是写死的、哪块数据是假的），<strong>再展示交互</strong>。顺序不能反。</p>
+<h3 id="目录前缀要人工对齐">⚠️ 2. 目录前缀要人工对齐</h3>
+<p>生成的路径是 <code>app/</code>、<code>components/</code>，而 tech-stack 规定的是 <code>frontend/src/app/</code>。<strong>skill 不会自动加前缀。</strong></p>
+<h3 id="spec-delta-缺-addedmodifiedremoved-包裹">⚠️ 3. spec delta 缺 ADDED/MODIFIED/REMOVED 包裹</h3>
+<p>模板没写，按 <code>openspec-guide.md</code> 补。</p>
+<h3 id="端到端尚未实测诚实标注">⚠️ 4. 端到端尚未实测（诚实标注）</h3>
+<blockquote>
+<p>本手册的 <code>.pen</code> 格式结论来自对<strong>现存文件</strong>的实测（明文 JSON、version 2.10、结构吻合规范）。 <strong>但“跑一次 <code>screenshot-to-pencil</code> 然后用 Pencil 编辑器打开产物”这条端到端链路还没实测过。</strong> 首次开课前建议补跑一次。 —— 把这条写在手册里，本身就是 T7 要教的东西。</p>
+</blockquote>
+<hr />
+<h2 id="十给讲师的时间盒120">十、给讲师的时间盒（120′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场：立“一票警示”的规矩</td>
+<td>5′</td>
+</tr>
+<tr class="even">
+<td>三步流水线讲解 + .pen 是什么</td>
+<td>20′</td>
+</tr>
+<tr class="odd">
+<td><strong>demo 可信度分级（教育督导项目 vs 草业项目并排）</strong></td>
+<td>20′</td>
+</tr>
+<tr class="even">
+<td>实操三步 + Mock 清单</td>
+<td>70′ ← 穿插</td>
+</tr>
+<tr class="odd">
+<td><strong>知识（讲什么）· 外部对标与诚实边界（页 1–5 + 四场景复调收口）</strong></td>
+<td>25′</td>
+</tr>
+<tr class="even">
+<td>checkout</td>
+<td>25′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>主持提示</strong>：“可信度分级”那一节要<strong>当场打开两个 demo 的 <code>lib/data.ts</code> 给学员看</strong>——一个 <code>fs.readFileSync</code> 读真 CSV，一个写死数组。<strong>代码摆在那里，比讲十遍诚实边界都管用。</strong> <strong>第二条主持提示</strong>：第七节的口播稿在<strong>第十二节</strong>，<strong>要照着念</strong>。尤其是标了“未获证实”的那几处（OpenAI 薪资、腾讯云薪资、FDSE 与 FD-AI-Engineer 职责差异、95% 试点失败），<strong>必须亲口念出档位，不许一带而过</strong>——这一节的教学效果不在信息量，在<strong>学员有没有看见讲师当众承认“这条我查不到”</strong>。</p>
+<hr />
+<h2 id="十一与下游的衔接">十一、与下游的衔接</h2>
+<pre><code>T7 产物
+  ↓ 可点开原型 + Mock 清单 → 结课路演（交付包第 ⑪ 件）
+  ↓ HIL 确认界面           → 佐证 T5 设的闸不是纸上谈兵
+  ↓ openspec/changes/      → 真要开发时，这就是需求基线</code></pre>
+<p><strong>一句话</strong>：T7 让方案<strong>看得见</strong>。但看得见的东西最容易被误解成“已经有了”——<strong>你越会做原型，越要会划边界。</strong></p>
+<hr />
+<h2 id="十二讲师包-口播稿">十二、讲师包 · 口播稿</h2>
+<h3 id="本步用哪几个课件">本步用哪几个课件</h3>
+<blockquote>
+<p>课件在 <code>../slides/</code>，浏览器直接打开。<strong>键盘 ← → 翻页 · S 演讲者模式 · O 总览。</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>课件</th>
+<th>用在哪一段</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>slides/09_别人家怎么落地FDE.html</code></td>
+<td>知识节·外部对标</td>
+<td><strong>全用</strong>。Palantir Delta/Echo、<strong>官方/二手/未获证实三档</strong>——标「未获证实」的那几屏<strong>务必亲口念出来</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>课件是旧十讲时期做的</strong>，口径以本册为准——课件若与本册冲突（尤其案例成熟度、「合资」旧口径），<strong>以本册为准，当场改口</strong>。</p>
+</blockquote>
+<blockquote>
+<p>以下 <strong>6 段【讲述脚本】原文照搬自讲义 <code>讲义/09_别人家怎么落地FDE.md</code></strong>，另附 2 段过渡与收口话术。 <strong>这是要照着念的，不是要点提纲。</strong>穿插在第七节讲，不另占时间盒。 ⚠️ <strong>标了“未获证实”“我没核到源”的句子一个字都不能省</strong>——那几句才是这一节的教学主体。</p>
+</blockquote>
+<h3 id="口播-要点页-1-fde-的原产地palantir-的-delta">口播 · 要点页 1 · FDE 的原产地：Palantir 的 “Delta”</h3>
+<p>"我们先回到源头。FDE 这个词不是硅谷 2026 年才火的新概念，它出生在 Palantir——一家长期给政府和大企业做保密数据整合分析的公司。Palantir 的解法很反常识：不把产品打包卖出去让客户自己用，而是<strong>把工程师直接派到客户现场长期驻场</strong>，在现场找瓶颈、搭原型、把平台配到能解决客户具体问题为止。</p>
+<p>Palantir 官方博客对这个岗位的定义，我原话念给你们听——<strong>【官方明确】</strong>：‘A Forward Deployed Software Engineer（FDSE），or “Delta,” is a software engineer who embeds directly with our customers to configure Palantir’s existing software platforms to solve their toughest problems.’（据 Palantir 官方博客《A Day in the Life of a Palantir Forward Deployed Software Engineer》，blog.palantir.com）</p>
+<p>注意两个词：<strong>embeds directly（直接嵌入客户）</strong>、<strong>Delta（内部代号）</strong>。还有一句我认为最关键——<strong>【官方明确】</strong>：‘While a traditional software engineer, or “Dev,” focuses on creating a single capability that can be used for many customers, FDSEs focus on enabling many capabilities for a single customer.’（同上）</p>
+<p>翻译成大白话：普通研发是’一个能力卖给很多客户’，FDE 是’很多能力喂给一个客户’。这句话你们记住，它就是 FDE 和产品经理的分水岭，也是我们康养项目做法的祖师爷定义。"</p>
+<h3 id="口播-要点页-2-delta-echo-的组织设计">口播 · 要点页 2 · Delta × Echo 的组织设计</h3>
+<p>"Palantir 最值得抄的不是岗位，是<strong>岗位的配对设计</strong>。它不是让一个 FDE 单打独斗，而是给 FDE 配了一个搭子，叫 <strong>Deployment Strategist（部署策略师），内部代号 Echo</strong>。</p>
+<p>Palantir 官方博客怎么说这两者的分工——<strong>【官方明确】</strong>：Forward-Deployed Engineers（Deltas）负责技术上的’construction power（建造力）‘，而 Deployment Strategists 决定’what should be built（该建什么）’、‘why it is important（为什么重要）’、‘to whom and how it should be delivered（交付给谁、怎么交付）’。（据 Palantir 官方博客《A Day in the Life of a Palantir Deployment Strategist》，blog.palantir.com）</p>
+<p>用一句话概括这个分工——<strong>【二手报道】</strong>，招聘平台 Paraform 的总结很精炼：‘The deployment strategist owns the “why” and “what,” while the forward-deployed engineer owns the “how.”’（据 Paraform 博客《Forward-Deployed Engineer vs. Deployment Strategist》，paraform.com）我把它标成二手，因为这句话不是 Palantir 官网原话，是招聘中介的提炼——但和官方博客口径一致，可以用，但要说清楚它是二手。</p>
+<p>再补一个常被混淆的点：Palantir 内部还有 <strong>FDSE（Forward Deployed Software Engineer）</strong> 和 <strong>FDE / Forward Deployed AI Engineer</strong> 等不同挂牌。Palantir 招聘页（jobs.lever.co/palantir）确实同时挂着 ‘Forward Deployed Software Engineer’ 和 ‘Forward Deployed AI Engineer’ 两类岗位——<strong>【官方明确：岗位存在】</strong>（据 Palantir 官方招聘页 jobs.lever.co/palantir 的职位列表标题）。但两者职责的细粒度差别，我检索时<strong>未能取到招聘页正文全文</strong>（页面对自动抓取返回 403），所以<strong>具体差异标：未获证实</strong>。这里我故意不替你们脑补，这就是示范。"</p>
+<h3 id="口播-要点页-2补-我们自己对-palantir-fde-的一手对照方法论-06">口播 · 要点页 2·补 · 我们自己对 Palantir FDE 的一手对照（方法论 06）</h3>
+<p>"前面讲的 Palantir Delta/Echo，是<strong>外部事实</strong>，我按官方/二手/未获证实分了档。这一页换个来源——<strong>我们自己方法论文集里的一手观点</strong>（<code>clife-onto-engine · reference/methodology 06《AI 时代的 FDE》</code>）。这不是检索来的，是我们自己写的，所以我不标’未获证实’，我标它是<strong>我们的立场</strong>。</p>
+<p>它把 <strong>Palantir FDE 和’新型 FDE’做了一张对照表</strong>——注意，这正是我们这门课定义的 FDE：</p>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>Palantir FDE</th>
+<th>新型 FDE（我们要的）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>依赖的平台</td>
+<td>Foundry（<strong>需采购</strong>）</td>
+<td>基本工具链 + 其余靠辅助编程完成</td>
+</tr>
+<tr class="even">
+<td>核心技能</td>
+<td>深度理解 Foundry + 领域建模</td>
+<td><strong>从第一性原理建模 + AI 工具执行 + 业务领域知识</strong></td>
+</tr>
+<tr class="odd">
+<td>交付速度</td>
+<td>受平台部署周期限制</td>
+<td><strong>第一天对话，第二天出 Demo</strong></td>
+</tr>
+<tr class="even">
+<td>适用战场</td>
+<td>已采购 Foundry 的客户</td>
+<td>探索 / 概念验证 / 新项目落地</td>
+</tr>
+<tr class="odd">
+<td>瓶颈</td>
+<td>平台能力边界</td>
+<td>数据治理、组织推动的时间</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三个判断直接搬进这门课</strong>： 1. <strong>新型 FDE = 领域建模 + 判断力 + AI 执行力</strong>——把’不知道’变成’精确定义’ + 知道该做什么 + 用 AI 把定义变成可运行系统。这和第 3/4 讲的能力模型完全同构。 2. <strong>‘本体不是 Palantir 的专利，它是一种工程方法论’</strong>——所以我们不必买 Foundry，也能做 Palantir 做的事（第 4 讲栈③ = 我们自有的 clife-onto-engine）。 3. <strong>战场边界</strong>：探索/验证/新项目落地 <strong>✅ 不可替代</strong>；规模化/组织推动/运维 <strong>❌ 瓶颈在人，不是工具</strong>——<strong>这就是第 3 讲的 C7、第 8 讲的能力半径</strong>：AI 能压缩建造时间，压缩不了数据治理和组织推动的时间。</p>
+<p>金句直引（可板书）：<strong>‘平台越来越便宜，本体模型越来越值钱。会建模型的人，不会被替代，而是被放大。’</strong>"</p>
+<h3 id="口播-要点页-3-前沿实验室-openai-anthropic-的变体">口播 · 要点页 3 · 前沿实验室 OpenAI / Anthropic 的变体</h3>
+<p>"FDE 这两年重新火，是因为大模型来了。原来 Palantir 卖的是数据分析平台，现在 OpenAI、Anthropic 卖的是前沿模型——但它们遇到了和 Palantir 一样的问题：<strong>模型放在 API 里客户用不起来，得有人把它落进客户的真实业务里</strong>。于是这两家也建了 Forward Deployed 团队。</p>
+<p>先看 <strong>OpenAI</strong>。OpenAI 官网 careers 页确实设了这个岗——<strong>【官方明确：岗位存在】</strong>，标题就叫 ‘Forward Deployed Engineer (FDE)’，有 SF、NYC、Tokyo、Gov（华盛顿）等多个坑（据 OpenAI 官方招聘页 openai.com/careers）。职责概括是——‘embeds directly with OpenAI’s most strategic enterprise and government customers to take frontier models from a demo into a live, working production system’，并且 own 从 discovery、scoping、system design、build 到 production rollout 的全过程（据 OpenAI 官方招聘页职位摘要 openai.com/careers；<strong>注意</strong>：我检索时官网正文对自动抓取返回 403，这段摘要来自搜索引擎对官方页的索引 + 二手指南 fde.academy 转述，所以我把职责措辞标为<strong>【官方明确岗位存在 + 二手转述职责】</strong>）。</p>
+<p>关于 OpenAI FDE 的薪资——网上流传 35 万到 55 万美元总包、资深超 60 万——<strong>这个我标【未获证实】</strong>。因为唯一给出数字的来源（fde.academy）自己写明’these figures are compiled from Levels.fyi and industry comp reports’，不是 OpenAI 官方薪资表。<strong>流传的数字不等于官方数字，这一步不能省。</strong></p>
+<p>再看 <strong>Anthropic</strong>。Anthropic 把这个团队叫 <strong>Applied AI</strong>，岗位全称 ‘Forward Deployed Engineer, Applied AI’——<strong>【官方明确】</strong>，职责原话我念（据 Anthropic 招聘 JD，经 Menlo Ventures 招聘板 jobs.menlovc.com 转发官方职位）： - ‘Work within customer systems to build production applications with Claude models’ - ‘Deliver technical artifacts for customers like MCP servers, sub-agents, and agent skills’ - ‘Provide white glove deployment support for Anthropic products in enterprise environments’ - ‘Identify and codify repeatable deployment patterns and contribute insights back to our Product and Engineering teams’ - ‘Travel frequently (25-50%) to customer sites to build in person with customers’</p>
+<p>薪资，这里有个<strong>教科书级的打架案例，我专门留给你们看</strong>：同一岗位，Menlo 招聘板转发的官方 JD 写年薪 <strong>$200,000–$300,000 USD（base）</strong>；而另一家分析媒体（getperspective.ai）写 total comp 落在 <strong>$350K–$550K</strong>。<strong>两个数字都存在，但口径不同（base vs total comp），且后者是二手</strong>。正确的标注是：base 区间 $200K–$300K【官方明确（经招聘板转发）】；$350K–$550K 总包【二手 / 未获证实为官方】。<strong>如果你只抄一个数字不写口径，你就在制造错误。</strong>"</p>
+<h3 id="口播-要点页-4-国内为什么交付即研发普遍水土不服">口播 · 要点页 4 · 国内为什么“交付即研发”普遍水土不服</h3>
+<p>"现在把镜头转回国内。学员最该关心的是：这套东西在中国的 To-G/To-B 能不能成？我先给结论：<strong>国内在’招 FDE’这件事上有真实动作，但在’FDE 模式能否跑通’这件事上，公开信息普遍是悲观的，且很多细节我查不到。</strong></p>
+<p><strong>有动作的部分【官方岗位存在 / 二手】</strong>：腾讯云确实在招’前线部署工程师（FDE）’这类岗位，多篇报道与其开发者社区文章提及（据腾讯云开发者社区 cloud.tencent.com 相关文章、知乎专栏转述）。网传腾讯云上海 FDE 岗 35-65K×15 薪——<strong>这个薪资数字我标【未获证实】</strong>，出处是知乎/招聘平台转述，非腾讯官方薪酬公告。</p>
+<p><strong>悲观判断的部分【二手报道·观点】</strong>：虎嗅有一篇《万字解读 FDE 为什么在中国是扯淡的》（作者 AI Humanist by 杉森楠，huxiu.com），列了几条障碍，我念给你们，但要说清楚<strong>这是媒体作者的观点，不是行业统计定论</strong>： - 商业模式相反：‘中国强制要求标准技术服务项目采用最低评标价法，客户只愿为成品付费’——探索/试错的成本默认由乙方承担； - 人才鄙视链：文章称’应届生交付岗年薪仅 10-15 万，同级别大厂研发达 30-55 万’，顶尖人才流向大厂； - 甲方不真信 AI：文章引’95% 的企业 AI 试点失败’等数字。<strong>注意：这些具体百分比我未能核到原始出处，标【未获证实】，讲课时必须连同’这是文章里的数字、我没核到源’一起说。</strong></p>
+<p>还有一类声音直接把中国版 FDE 等同于老概念——‘国内从早年的 ERP 实施、驻场顾问到驻场开发，已经做了 30 年 FDE 的核心业务，只是一直把这个工种叫外包’（据多篇国内自媒体/腾讯云社区文章的共同表述，属<strong>【二手报道·业界普遍认为】</strong>）。</p>
+<p><strong>总结这一页的检索纪律</strong>：国内这块，<strong>岗位在招是真的（可查到招聘挂牌），但薪资数字、成败结论、具体百分比大量属于二手甚至未获证实</strong>。这正是本讲要教的——你越是想用一个数字支撑观点，越要先问’这个数字的一手出处在哪’。"</p>
+<h3 id="口播-要点页-5-共性与差异一张表落回-c-life">口播 · 要点页 5 · 共性与差异，一张表落回 C-Life</h3>
+<p>"最后收口。把 Palantir、OpenAI、Anthropic、国内放在一起，抽三条共性、三条差异。</p>
+<p><strong>共性（可借鉴）</strong>： 1. <strong>现场嵌入、产品级交付</strong>——都不是’写报告给建议’，而是把东西真正跑进客户生产环境。Palantir ‘embeds directly’、OpenAI ‘demo → production’、Anthropic ‘build production applications’，口径一致【均官方明确】。 2. <strong>把现场经验反哺回产品/方法</strong>——Anthropic ‘codify repeatable patterns’，这和康养项目沉淀 BRIEF/SOP 同构。 3. <strong>强调现场取证、不臆造客户环境</strong>——这是我最想让你们记住的一条，也是反例 B-10 的呼应，下一段专门讲。</p>
+<p><strong>差异（不能照抄）</strong>： 1. <strong>客户体量</strong>：Palantir/OpenAI/Anthropic 主打 Fortune 500、政府、战略级大客户，钱多、能配双人（Delta+Echo）。C-Life 是 <strong>To-G 康养 + 微康养网络</strong>，甲方是地级市国资/民政/医保，预算受最低价约束，只能一人分饰多角靠平台补。 2. <strong>人 vs 平台的比例</strong>：他们靠堆高薪人才驻场；我们靠 Astra Studio 把 Delta 那半固化，用更少的人扛更长的链条。 3. <strong>薪资与人才市场</strong>：硅谷 FDE 总包几十万美元、能和研究岗抢人；国内交付岗在鄙视链底端（前述【二手/未获证实】）。这决定了 C-Life 不能靠’招现成 FDE’，只能靠’选人 + 训练 + 平台’自造，这正是第 10 讲的主线。</p>
+<p>一句话落地：<strong>Palantir 教我们 FDE 该有哪两组肌肉（Echo+Delta）；前沿实验室教我们大模型时代 FDE 交付什么（production + 反哺）；国内的水土不服教我们哪条路不能走（堆人驻场）。三者合起来，指向 C-Life 唯一可行的路——工程化平台 + 一人多角。</strong>"</p>
+<h3 id="口播-转入演练过渡话术">口播 · 转入演练（过渡话术）</h3>
+<p>"讲完别人家，现在轮到你们做取证。我给你们发一份<strong>真实检索到的岗位 JD 片段</strong>，每段都带来源，也<strong>故意混进了一些我标了’未获证实’的说法</strong>。你们要做一张《外部实践对标卡》：逐维度把 Palantir FDE 和 C-Life FDE 摆在一起比，并且——这是评分重点——<strong>把哪些信息是’未获证实’的当场标出来</strong>。</p>
+<p>记住：这张卡我不主要看你比得多全，我看你<strong>有没有把二手当官方、有没有把网传数字当事实</strong>。这就是 B-10 那句’错文号比空缺更有害’的当代版：<strong>错来源比空缺更有害</strong>。现在翻开工作坊。"</p>
+<h3 id="口播-难听话">口播 · 难听话</h3>
+<p>“你觉得’查不到就写未获证实’很简单？那你回顾一下这堂课——我念了十几条外部事实，你能当场分清哪条是官方、哪条是二手、哪条是网传吗？分不清，你就没资格拿 Palantir 给客户站台，你只是在转发朋友圈。”</p>
+</body>
+</html>

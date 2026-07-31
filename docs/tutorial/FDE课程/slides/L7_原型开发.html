@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 第七课 · 原型开发</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:56px 80px}
+  .mt-l{margin-top:22px}.mt-m{margin-top:14px}
+  .lede{font-size:19px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:6px}
+  .card p,.card-accent p,.card-outline p{font-size:15px;line-height:1.55}
+  h2.title{font-size:42px;line-height:1.15}
+  .quote-big{font-family:var(--font-serif);font-size:29px;line-height:1.38;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:15px}
+  table.t th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:6px 10px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:6.5px 10px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;line-height:1.6;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:13px 17px;overflow:auto;color:var(--text-1)}
+  .grade{display:inline-block;border-radius:6px;padding:3px 12px;font-weight:800;font-size:15px}
+  .gA{background:rgba(26,175,108,.14);color:#0f7a4a}
+  .gB{background:rgba(245,165,36,.16);color:#9a6708}
+  .gC{background:rgba(224,68,90,.13);color:#a92b3d}
+  .slide.tight .card,.slide.tight .card-accent,.slide.tight .card-outline{padding-top:7px;padding-bottom:7px}
+  .slide.tight table.t td{padding-top:3.2px;padding-bottom:3.2px}
+  .slide.tight pre.code{padding-top:8px;padding-bottom:8px}
+  .slide.tight .mt-l{margin-top:12px}.slide.tight .mt-m{margin-top:8px}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 第七课 · 120′ · SOP【S6 交付物工程 · 应用形态】</div>
+  <h1 class="title" data-anim="fade-up">原型开发</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">demo 跑通的是 UI，<b>不是模型</b>。<br>把外壳当成"产品跑通了"去演示，<br><b>就是骗客户。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">产出：3–6 屏原型 + 诚实说明 + Mock 清单</span>
+    <span class="pill">⚠️ 全课程唯一一条"一票警示"红线</span>
+  </div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="12"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 120′】</b> 开场立规矩 5′ ｜ 三步流水线 + .pen 是什么 20′ ｜ <b>demo 可信度分级 20′</b> ｜ <b>实操 70′（穿插）</b> ｜ 三档来源纪律复调 15′ ｜ checkout 25′　<b>（合计 155′，实操可压到 55′）</b></p>
+    <p><b>【开场第一件事就是立规矩】</b>不要先讲工具。<b>先说"这是全课程唯一一条一票警示的红线"</b>，再讲怎么做。顺序反了，学员做完 demo 已经兴奋起来，再讲边界就晚了。</p>
+    <p><b>【主持提示 1】</b> "可信度分级"那一节要<b>当场打开两个 demo 的 <span class="mono">lib/data.ts</span> 给学员看</b>——一个 <span class="mono">fs.readFileSync</span> 读真 CSV，一个写死数组。<b>代码摆在那里，比讲十遍诚实边界都管用。</b></p>
+    <p><b>【主持提示 2】</b> 第一课那些标了"未获证实"的外部事实（OpenAI 薪资、腾讯云薪资、FDSE 职责差异、95% 试点失败），本课复调时<b>再点一次名</b>——这一节的教学效果不在信息量，在<b>学员有没有看见讲师当众承认"这条我查不到"</b>。</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="先立规矩">
+  <div class="kicker">① 目的 · <b>开场第一件事</b></div>
+  <h2 class="title">这一步最容易翻车</h2>
+  <p class="lede mt-s" data-anim="fade-up">你做出能点开的界面会很兴奋，然后就开始拿它当"<b>产品</b>"演示。</p>
+  <div class="grid g2 mt-l" data-anim="stagger-list">
+    <div class="card goodcard"><h4>验收标准 ①</h4><p class="dim" style="font-size:19px">做出 <b>3–6 屏可点开</b>的原型</p></div>
+    <div class="card goodcard"><h4>验收标准 ②</h4><p class="dim" style="font-size:19px"><b>白纸黑字写清哪些是 Mock</b></p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up"><b>缺一不可。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">你越会做原型，<b>越要会划边界</b>。</p>
+  <div class="deck-footer"><span class="ftag">立规矩</span><span class="slide-number" data-current="2" data-total="12"></span></div>
+  <div class="notes"><p><b>【5 分钟，把规矩说死】</b>"这是这门课<b>唯一一条会在路演上一票否决的红线</b>。做得漂亮不加分，说不清哪些是假的，直接判。<b>现在说清楚，免得第五天喊冤。</b>"</p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="三步流水线">
+  <div class="kicker">② 启发 · 工具 1/3</div>
+  <h2 class="title">三步流水线</h2>
+  <pre class="code mt-s" data-anim="fade-up">/studio-design:design &lt;截图路径&gt;
+
+  ① screenshot-to-pencil  → docs/design/screens.pen      <b>⏸ 你确认</b>
+  ② pencil-to-openspec    → openspec/changes/{id}/       <b>⏸ 你确认</b>
+  ③ openspec-to-code      → React/Next.js 代码</pre>
+  <p class="lede mt-m" data-anim="fade-up"><b>可从任意阶段切入</b>：给 <span class="mono">.png/.jpg</span> → 从①；给 <span class="mono">.pen</span> → 从②；给 change-id → 从③。<br>
+  三个薄命令也可<b>单独调用</b>。</p>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <p class="dim">⚠️ 判定算法插件文档<b>没写明</b>（是按参数形态推断的）。<b>建议显式指定要跑哪一步，别赌它猜对。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">流水线</span><span class="slide-number" data-current="3" data-total="12"></span></div>
+  <div class="notes"><p><b>【两个 ⏸ 确认点是本课的教学时刻】</b>特别是第②步——<b>看 spec 的 Scenario 写得对不对</b>。学员会直接回车放过，<b>拦住</b>。</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide tight" data-title=".pen 是什么">
+  <div class="kicker">② 启发 · 工具 2/3 · <b>实测澄清</b></div>
+  <h2 class="title">.pen 到底是什么</h2>
+  <div class="card card-accent mt-s" data-anim="fade-up">
+    <h4>实测结论</h4>
+    <p class="dim">本地三份真实 <span class="mono">.pen</span>（含一份 1.7MB 的）<b>都是明文 UTF-8 JSON</b>，顶层键 <span class="mono">children / variables / version</span>，<span class="mono">version: 2.10</span>，首节点 <span class="mono">type: frame</span>。<br>
+    所以 <b>把 .pen 当普通 JSON 直接读写的路子是成立的</b>。<br>
+    <b>插件的 CLAUDE.md 里"需要 Pencil MCP"的说法，与本地实际文件不符。</b></p>
+  </div>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>结构四层</h4><p class="dim"><span class="mono">frame</span>（屏）→ 布局区 → 组件组 → <span class="mono">text</span> / <span class="mono">icon_font</span> / <span class="mono">ellipse</span></p></div>
+    <div class="card"><h4>尺寸标准</h4><p class="dim">桌面 <b>1440×900</b><br>移动 <b>390×844</b></p></div>
+    <div class="card"><h4>它明确不做</h4><p class="dim">不生成代码 · 不建 OpenSpec<br><b>不需要 Pencil 桌面端</b> · 不处理动效交互</p></div>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">令牌就是<b>设计层的"口径单点"</b>——<br>和第六课的 BRIEF 数字单点<b>是同一个思想</b>。</p>
+  <p class="lede mt-m" data-anim="fade-up">颜色<b>必须走 <span class="mono">$variable</span>，不许写死色值</b>——这就是为什么追加帧能自动统一风格。</p>
+  <div class="deck-footer"><span class="ftag">.pen</span><span class="slide-number" data-current="4" data-total="12"></span></div>
+  <div class="notes"><p><b>【这一页本身就是"别信文档，去看代码"的又一个实例】</b>"插件文档说需要 Pencil MCP，<b>我们打开文件一看，就是普通 JSON</b>。<b>第五课六处、第六课九处、今天又一处——你们该形成条件反射了：文档说 A，先去看看代码是不是 B。</b>"</p>
+  <p><b>【令牌 = 口径单点，这个类比要点破】</b>第六课的数字锚在 BRIEF 单点，这里的颜色锚在 <span class="mono">$variable</span> 单点。<b>同一个思想在不同层的两次出现。</b></p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="帧到能力的映射">
+  <div class="kicker">② 启发 · 工具 3/3</div>
+  <h2 class="title">⭐ 帧 → 能力的映射规则</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:48%">.pen 里</th><th>→ OpenSpec 里</th></tr>
+    <tr><td><b>同一页的不同状态帧</b><br><span class="dim">"1. 空状态" / "1a. 下拉展开" / "1b. 已提交"</span></td><td><b>一个能力，多个 Scenario</b></td></tr>
+    <tr><td>不同页</td><td>不同能力</td></tr>
+    <tr><td><span class="mono">reusable</span> 组件</td><td>共享能力或横切需求</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>五类需求</b>：①Layout 布局（含具体像素）②Component 组件（<b>占位符文案直接取自 .pen 的 content</b>）③State 状态 ④Navigation 导航（含 active 高亮）⑤Visual 视觉</p>
+  <h3 class="mt-m" data-anim="fade-up">③ 出代码时，它不按 tasks.md 的原序做</h3>
+  <pre class="code mt-s" data-anim="fade-up">layouts → shared components → feature components → pages → routes → integration
+<b># 逐条 Scenario 心算校验 WHEN/THEN/AND，不满足就补逻辑；最后回写 tasks.md 打勾</b></pre>
+  <p class="dim mt-s" data-anim="fade-up">⚠️ <b>两个已知坑</b>：spec delta 模板<b>缺 ADDED/MODIFIED/REMOVED 包裹</b>（按 guide 补）；生成路径用 <span class="mono">app/</span> 而技术栈规定 <span class="mono">frontend/src/app/</span>，<b>要人工对齐前缀</b>。<b>一条硬纪律：未经询问不得新增 npm 依赖。</b></p>
+  <div class="deck-footer"><span class="ftag">映射规则</span><span class="slide-number" data-current="5" data-total="12"></span></div>
+  <div class="notes"><p><b>【"同一页不同状态帧 = 一个能力多个 Scenario"是最需要理解的一条】</b>学员容易把每一帧都当成一个页面，结果 spec 里冒出一堆重复能力。<b>画状态帧的时候就要想清楚它是"另一个状态"还是"另一个页"。</b></p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="Mock 清单的来源">
+  <div class="kicker">② 启发 · <b>直接关系诚实边界</b></div>
+  <h2 class="title">缺信息时的兜底约定 = 你的 Mock 清单</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:30%">缺什么</th><th>它怎么做</th></tr>
+    <tr><td>缺 API</td><td><b>mock 数据 + <span class="mono">TODO: connect to API</span></b></td></tr>
+    <tr><td>缺状态管理</td><td>本地 useState + <span class="mono">TODO: lift state</span></td></tr>
+    <tr><td>缺鉴权</td><td><span class="mono">TODO: add auth guard</span></td></tr>
+    <tr><td>缺错误态</td><td>基础 error boundary + <span class="mono">TODO: improve error handling</span></td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">这些 TODO 就是你的 Mock 清单。<br><b>别删掉它们。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">演示前把它们 grep 出来，就是一份现成的"哪些是假的"说明。<br>
+  <b>删了 TODO 不等于实现了功能，只等于你看不见了。</b></p>
+  <div class="deck-footer"><span class="ftag">Mock 清单</span><span class="slide-number" data-current="6" data-total="12"></span></div>
+  <div class="notes"><p><b>【这一页是本课最实用的一页】</b>学员会觉得"Mock 清单"是个额外的作业。<b>不是——工具已经替你标好了，你只要 grep 出来。</b></p>
+  <p><b>【"删了不等于实现了"要说重一点】</b>每年都有学员为了让代码"看起来干净"把 TODO 删掉。<b>那就是从"诚实的 demo"变成"骗人的 demo"的那一步。</b></p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="⭐ demo 可信度分级">
+  <div class="kicker">③ 沉浸 · <b>本课的灵魂</b> · 20′</div>
+  <h2 class="title">⭐ Mock 不是一档</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:14%"></th><th style="width:40%">教育督导项目</th><th>草业大模型</th></tr>
+    <tr><td><b>页数</b></td><td><b>47 个 <span class="mono">page.tsx</span></b> + 18 张成品截图</td><td><b>11 页</b><span class="dim">（README 标题写"13 个页面"，但其自身表格与代码都是 11）</span></td></tr>
+    <tr><td><b>AI</b></td><td>Mock（关键词路由）</td><td>Mock（<span class="mono">mock-ai.ts</span> 12.6KB，正则分支 + <span class="mono">setTimeout(550)</span> <b>假装思考延时</b>）</td></tr>
+    <tr><td><b>数据</b></td><td><b>真的</b>——<span class="mono">lib/data.ts</span> 用 <span class="mono">fs.readFileSync</span> 直接读 <b>79 园真实 CSV</b>（7 张表），还支持多城市切换</td><td><b>全仿真</b>——<span class="mono">lib/data.ts</span> 写死</td></tr>
+    <tr><td><b>分级</b></td><td><span class="grade gB">壳假 · 数据真</span></td><td><span class="grade gC">壳假 · 数据也假</span></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">同样一句"这是 Mock demo"，<br><b>含金量差一个量级。</b></p>
+  <div class="card goodcard mt-m" data-anim="fade-up">
+    <p class="dim">⭐ <b>更值得学的是草业项目的诚实标注</b>：<span class="mono">mock-ai.ts</span> 自己在文件头写着 "Mock AI 引擎 — 关键词路由到五大智能体，注入仿真数据 / <b>真实落地替换为 草业项目本体大模型 + RAG 三通道</b>"，README 结尾也标了"数据为仿真演示数据"。<b>可以直接当正面教具。</b><br>
+    ⚠️ 同时纠正一个常见误引：<b>辣椒没有 demo</b>（<span class="mono">demo-app/</span> 只有一个 0 字节 <span class="mono">.gitkeep</span>）。<b>别顺口说成"三个农业案例都有 demo"。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">可信度分级</span><span class="slide-number" data-current="7" data-total="12"></span></div>
+  <div class="notes"><p><b>⚠️【必须当场打开两个 lib/data.ts 并排看】</b>一个 <span class="mono">fs.readFileSync</span> 读真 CSV，一个写死数组。<b>代码摆在那里，比讲十遍诚实边界都管用。</b></p>
+  <p><b>【草业项目那段自述要念出来】</b>它自己写了"真实落地替换为本体大模型 + RAG"。<b>这是一个团队在诚实标注上做对了的样本——用正面例子讲诚实，比用反面例子有效。</b></p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="三档自评">
+  <div class="kicker">③ 沉浸 · 落到你自己身上</div>
+  <h2 class="title">你的 demo 在哪一档？</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:10%">档</th><th style="width:34%">你的 demo 是</th><th>演示时必须说</th></tr>
+    <tr><td><span class="grade gA">A</span></td><td>壳真 + 数据真 + 模型真</td><td><b>（还没有人到这一档）</b></td></tr>
+    <tr><td><span class="grade gB">B</span></td><td>壳假 + <b>数据真</b></td><td>"界面是原型，<b>数据是客户真实数据</b>，AI 回答是预设的"</td></tr>
+    <tr><td><span class="grade gC">C</span></td><td>壳假 + 数据假</td><td>"这是<b>交互外壳</b>，<b>数据和 AI 回答都是演示用的</b>，不是模型跑通"</td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">说不出自己在哪一档<br>→ <b>路演一票警示。</b></p>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <h4>⚠️ 演示顺序不能反</h4>
+    <p class="dim"><b>必须先说清哪些是 Mock</b>（哪屏的"AI 回答"是写死的、哪块数据是假的），<b>再展示交互</b>。<br>
+    <b>反过来做，前面说的一切都成了事后免责声明。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">三档自评</span><span class="slide-number" data-current="8" data-total="12"></span></div>
+  <div class="notes"><p><b>【A 档那句"还没有人到这一档"要说】</b>包括康养项目。<b>这门课里没有任何一个 demo 是模型真跑通的。</b> 承认这一点，学员才不会觉得"三档自评"是在为难他们。</p>
+  <p><b>【顺序不能反，讲一个反例】</b>先演一圈把客户逗乐了，最后补一句"当然这还是原型"——<b>客户只会记得前面那一圈。那不叫诚实标注，那叫事后免责。</b></p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="实操">
+  <div class="kicker">④ 实操 · 70′</div>
+  <h2 class="title">跑三步，最后 grep 出 Mock 清单</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:8%">序</th><th style="width:56%">做什么</th><th>时长</th></tr>
+    <tr><td>1</td><td>准备输入：一张参考截图 / 手绘图 / 或直接描述屏</td><td>10′</td></tr>
+    <tr><td>2</td><td><span class="mono">screenshot-to-pencil</span>，⏸ 确认 .pen</td><td>20′</td></tr>
+    <tr><td>3</td><td><span class="mono">pencil-to-openspec</span>，⏸ <b>看 spec 的 Scenario 写得对不对</b></td><td>15′</td></tr>
+    <tr><td>4</td><td><span class="mono">openspec-to-code</span> 出代码</td><td>15′</td></tr>
+    <tr><td><b>5</b></td><td><b>grep 所有 <span class="mono">TODO:</span> 写成 Mock 清单</b></td><td>10′</td></tr>
+  </table>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>按交付模式分形态</h4><p class="dim"><b>模式一（SaaS 应用）</b> → 做应用主界面几屏（工作台 / 会员 / 督导 / 证据溯源）<br>
+    <b>模式二（大平台）</b> → 做关键几屏（一张图 / 驾驶舱 / 核心闭环）</p></div>
+    <div class="card card-accent"><h4>🔔 强烈建议做的一屏：HIL 确认界面</h4><p class="dim">把第五课设的闸<b>画出来</b>——<b>谁在审、审什么、按错的代价是什么</b>。<br>
+    <b>能把闸画出来的方案，客户才相信你真的想过责任归属。</b></p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">实操</span><span class="slide-number" data-current="9" data-total="12"></span></div>
+  <div class="notes"><p><b>【第 5 步不许省】</b>到时间统一喊停，<b>每组当场跑一次 grep 并念出条数</b>。这份清单是路演的必交件。</p>
+  <p><b>【HIL 那一屏要力推】</b>现成参考在 <span class="mono">Plugins/courses-workshop-plugins/apps/teaching-workshop-ui*/hil-confirm.html</span>，那个仓有 <b>v1→v3 四代 UI 原型</b>，可以做 before/after 对照。<b>它是第五课与第七课之间唯一的可视化桥。</b></p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="四场景复调">
+  <div class="kicker">② 启发 · 知识回收 · 15′</div>
+  <h2 class="title">同一条纪律，第四个场景</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:26%">场景</th><th style="width:44%">纪律</th><th>在哪一课</th></tr>
+    <tr><td>查不到的文号</td><td><b>留占位，不编造</b>（B-10）</td><td>第五课</td></tr>
+    <tr><td>别处模板的数字</td><td><b>复用模板可以，复用数字不行</b>（B-11）</td><td>第三课</td></tr>
+    <tr><td>外部实践的来源</td><td><b>官方 / 二手 / 未获证实三档，亲口念出档位</b></td><td>第一课</td></tr>
+    <tr><td><b>⭐ demo 的成色</b></td><td><b>Mock 不能说成跑通；说得出自己在哪一档</b></td><td><b>本课</b></td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">四个场景是同一句判据的四次出现：<br><b>空缺可以补，编造无法挽回。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">第一课讲这条纪律时用的是 Palantir 的招聘页，<br>本课用的是<b>你自己的 demo</b>——<b>对象换了，判据没换。</b></p>
+  <div class="deck-footer"><span class="ftag">四场景</span><span class="slide-number" data-current="10" data-total="12"></span></div>
+  <div class="notes"><p><b>【收口话术，照念】</b>"你们在第一课听我念'未获证实'的时候，可能觉得那是我谨慎。今天你们自己做了个 demo，它的 AI 是 Mock、数据是假的。<b>下周你拿它去见客户，你会怎么说？</b><br>
+  说'我们做了个智能体'——没错，<b>但客户听到的是另一件事</b>。<br>
+  说'这是交互外壳、AI 是预设回答、数据是演示数据'——<b>你会紧张，觉得掉价。但这一句话，就是客户以后愿不愿意信你第二次的分界线。</b>"</p>
+  <p><b>【难听话】</b>"你觉得'查不到就写未获证实'很简单？那你回顾一下第一课——我念了十几条外部事实，<b>你能当场分清哪条是官方、哪条是二手、哪条是网传吗</b>？分不清，<b>你就没资格拿 Palantir 给客户站台，你只是在转发朋友圈</b>。"</p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="翻车点">
+  <div class="kicker">⚠️ 四个翻车点</div>
+  <h2 class="title">其中一条是我们自己的诚实标注</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card badcard"><h4>1. 别把外壳当交付（<b>一票警示</b>）</h4><p class="dim">演示时<b>必须先说清哪些是 Mock，再展示交互。顺序不能反。</b></p></div>
+    <div class="card warncard"><h4>2. 目录前缀要人工对齐</h4><p class="dim">生成的是 <span class="mono">app/</span>，技术栈规定的是 <span class="mono">frontend/src/app/</span>。<b>工具不会自动加前缀。</b></p></div>
+    <div class="card warncard"><h4>3. spec delta 缺三段包裹</h4><p class="dim">模板没写 <span class="mono">ADDED/MODIFIED/REMOVED</span>，<b>按 guide 补</b>。</p></div>
+    <div class="card card-accent"><h4>4. <b>端到端尚未实测</b>（诚实标注）</h4><p class="dim">本课的 <span class="mono">.pen</span> 格式结论来自对<b>现存文件</b>的实测。<br>
+    <b>但"跑一次 screenshot-to-pencil 然后用 Pencil 编辑器打开产物"这条端到端链路还没实测过。</b></p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">把第 4 条写在手册里，<br><b>本身就是本课要教的东西。</b></p>
+  <div class="deck-footer"><span class="ftag">翻车点</span><span class="slide-number" data-current="11" data-total="12"></span></div>
+  <div class="notes"><p><b>【第 4 条是全课最重要的一次身教】</b>"这门课教你们诚实标注。<b>那我们自己呢？</b> 这条链路我们没跑通过，所以我在手册里写了'尚未实测'。<b>我完全可以不写——你们也查不出来。但那样我就没资格站在这里讲 B-10。</b>"</p>
+  <p><b>【首次开课前建议补跑一次】</b>如果讲师课前补跑了，把结果当场更新给学员看——<b>那比什么都好。</b></p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="checkout">
+  <div class="kicker">checkout · 25′</div>
+  <h2 class="title" style="font-size:34px">十项对照</h2>
+  <table class="t mt-s" data-anim="stagger-list" style="font-size:12.5px">
+    <tr><th style="width:18%">维度</th><th style="width:40%">达标</th><th>警示</th></tr>
+    <tr><td>屏数</td><td>3–6 屏可点开，<b>能演一条完整用户流</b></td><td>单屏静态图</td></tr>
+    <tr><td>令牌</td><td>颜色全走 <span class="mono">$variable</span></td><td>写死色值（<b>追加帧时风格必崩</b>）</td></tr>
+    <tr><td>Scenario</td><td>spec 的 WHEN/THEN/AND 与实际交互对得上</td><td>spec 写了但代码没实现</td></tr>
+    <tr><td><b>Mock 清单</b></td><td><b>grep 出全部 <span class="mono">TODO:</span>，逐条列明</b></td><td><b>删掉 TODO 假装实现了 → 一票警示</b></td></tr>
+    <tr><td><b>可信度自评</b></td><td>说得出自己在 <b>B 档还是 C 档</b></td><td>笼统说"这是 demo"</td></tr>
+    <tr><td>诚实说明</td><td>白纸黑字写明"交互外壳 / AI 为 Mock / 非模型跑通"</td><td>演示时含糊带过</td></tr>
+    <tr><td>HIL 可视化</td><td>有一屏展示闸（<b>谁审、审什么、按错代价</b>）</td><td>闸只在文档里</td></tr>
+    <tr><td>依赖</td><td>没擅自新增 npm 包</td><td>装了一堆没问过</td></tr>
+    <tr><td><b>外部引用档位</b></td><td>引 Palantir/OpenAI/Anthropic 时<b>逐条标档位</b>，给数字必带口径（base vs total comp）</td><td>把二手当官方、把网传数字当事实 → <b>一票警示</b></td></tr>
+    <tr><td><b>敢说不知道</b></td><td>主动说得出"这条我没核到一手源"</td><td>只报能撑观点的那半</td></tr>
+  </table>
+  <p class="quote-big mt-s" style="font-size:24px" data-anim="fade-up">本课让方案<b>看得见</b>。<br>但看得见的东西<b>最容易被误解成"已经有了"</b>。</p>
+  <div class="deck-footer"><span class="ftag">checkout</span><span class="slide-number" data-current="12" data-total="12"></span></div>
+  <div class="notes"><p><b>【互评只看两项】</b><b>Mock 清单</b>和<b>可信度自评</b>。这两项直接决定路演会不会被一票警示。</p>
+  <p><b>【收口，接第八课】</b>"这五天你们从一句客户的话，走到了一个能点开的东西。<b>明天最后一课要问你们一个问题：这一路上的动作，哪一个值得沉淀下来，让下一个项目不必从零开始？</b>"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

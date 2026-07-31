@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第2讲 大模型时代 FDE 交付 vs 传统交付</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .metric{font-size:60px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent-2)}
+  .metric-sm{font-size:40px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:15px;color:var(--text-2);margin-top:10px;line-height:1.4}
+  .bignum{font-size:100px;font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--accent-2)}
+  .quote-big{font-family:var(--font-serif);font-size:38px;line-height:1.4;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+  .formula{font-size:34px;font-weight:800;color:var(--accent);letter-spacing:-.02em;line-height:1.5}
+  .formula .op{color:var(--accent-2)}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="eyebrow" data-anim="fade-down">FDE 课程 · 第 2 讲</div>
+    <h1 class="title" data-anim="fade-up">大模型时代<br>FDE 交付 vs 传统交付</h1>
+    <div class="divider-accent mb-m"></div>
+    <p class="quote-big" data-anim="fade-up">从人月堆叠，<br>到认知杠杆。</p>
+    <div class="row mt-l" data-anim="fade-up">
+      <span class="pill pill-accent">本讲在能力模型：C6 交付物工程 · C2 结构建模</span>
+      <span class="pill">实践蓝本 · 康养行业大模型平台</span>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="13"></span></div>
+    <div class="notes"><p>命题一句话：从人月堆叠到认知杠杆。传统交付靠堆人月——活变多就加人，加人就多接缝。FDE 交付靠认知杠杆——一个人的结构化判断被智能体编队和工程化平台放大数倍。这一讲最关键要讲清：杠杆不来自打字快，来自结构化能力加平台固化。打字快是线性的，结构化加平台是指数的。本讲指向 C6 交付物工程和 C2 结构建模，仍是"为什么、凭什么"，具体怎么建模第 4 讲起训练。</p></div>
+  </section>
+
+  <!-- 2 议程 -->
+  <section class="slide" data-title="本讲议程">
+    <div class="kicker">AGENDA</div>
+    <h2 class="title">本讲议程 · 4 : 4 : 2</h2>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card card-accent"><h4>认知输入 · 36′</h4><p class="dim">①人力对比实证 ②交付物形态的根本变化 ③节奏与质量控制的变化 ④杠杆来自哪里（不是打字快）</p></div>
+      <div class="card card-accent"><h4>现场演练 · 36′</h4><p class="dim">对一次自己经历的交付做"人月/工序重估表"，估理论压缩比 + 诚实标注压不动的环节。</p></div>
+      <div class="card card-accent"><h4>复盘研讨 · 18′</h4><p class="dim">3 个研讨题 + 收口：压缩来自结构化、平台、还是打字快？</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="2" data-total="13"></span></div>
+    <div class="notes"><p>时间分配 4:4:2。认知输入 36 分钟四个要点页，页①10′、页②9′、页③9′、页④8′。演练做一张人月/工序重估表。复盘三个研讨题。提醒学员：这一讲的钉子在最后一页——杠杆到底来自哪里，前面三页都是为它铺垫。</p></div>
+  </section>
+
+  <!-- 3 要点1 人力对比 -->
+  <section class="slide" data-title="要点1 · 人力对比实证">
+    <div class="kicker">认知输入 · 要点 1</div>
+    <h2 class="title">同一条交付链，两种投入结构</h2>
+    <div class="grid g2 mt-m">
+      <div class="card badcard center"><div>
+        <h4 class="dim">传统模式</h4><div class="bignum">5+</div>
+        <div class="metric-label">产品经理 + 架构师 + 行业顾问 + 方案经理 + 美工<br>数周 · 至少 4 道接缝，每道都在漏</div>
+      </div></div>
+      <div class="card goodcard center"><div>
+        <h4 class="dim">FDE 模式</h4><div class="bignum">1</div>
+        <div class="metric-label">1 名 FDE + 智能体编队<br>0 接缝</div>
+      </div></div>
+    </div>
+    <p class="tc mt-l" style="font-size:22px;font-weight:700;color:var(--accent)">不是"省了 4 个人"——是交付的组织形态变了：按认知链分给一个人，靠智能体扩手脚。</p>
+    <div class="deck-footer"><span class="ftag">人力对比 · 1 vs 5+</span><span class="slide-number" data-current="3" data-total="13"></span></div>
+    <div class="notes"><p>上一讲我说一个人贯通消除断层，肯定有人嘀咕：一个人扛得动吗？今天用康养项目的账一笔一笔算。同一条交付链——从需求调研到 7 域本体建模、到 3835 行可运行插件骨架、到 100+ 页对客可研——传统模式是产品经理加架构师加行业顾问加方案经理加美工，5 人以上、数周，这 5 个人之间至少 4 道接缝，每道都在漏。FDE 模式是 1 名 FDE 加智能体编队，0 接缝。这不是省了 4 个人这么简单，是交付的组织形态变了：从按工种分人、靠流程串起来，变成按认知链分给一个人、靠智能体扩手脚。但注意，1 人扛得动的前提是后面三页要讲的杠杆机制。</p></div>
+  </section>
+
+  <!-- 4 配图 fig-2-1 -->
+  <section class="slide" data-title="图2-1 传统 vs FDE">
+    <div class="kicker">图 2-1</div>
+    <h3>传统交付流 vs FDE 交付流对比</h3>
+    <div class="center" data-anim="fade-up"><img src="../figures/fig-2-1-传统vsFDE.png" alt="传统交付流 vs FDE 交付流" style="max-width:100%;max-height:60vh"></div>
+    <p class="dim tc mt-s">上半区传统流：5 角色横排、4 道接缝漏斗、工期数周；下半区 FDE 流：1 名 FDE 下挂智能体编队并行分支、0 接缝。两区右端对齐同一交付物（100+ 页可研）。</p>
+    <div class="deck-footer"><span class="ftag">传统 vs FDE</span><span class="slide-number" data-current="4" data-total="13"></span></div>
+    <div class="notes"><p>看图。上半区传统流，5 个角色横向排开，中间 4 道接缝画成漏斗，信息在漏，总工期数周。下半区 FDE 流，1 个 FDE 居中，下挂智能体编队——事件风暴、建模、写作、制图并行分支，0 接缝。两区右端对齐同一个交付物：100+ 页可研，11 章、约 11 万字、26 图，外加 2 份附录 docx，格式对齐客户既有模板。同样的结果，两种投入结构——这就是这张图要凸显的。</p></div>
+  </section>
+
+  <!-- 5 要点2 交付物形态 -->
+  <section class="slide" data-title="要点2 · 交付物形态的根本变化">
+    <div class="kicker">认知输入 · 要点 2</div>
+    <h2 class="title">交出去的东西，传统模式根本产不出</h2>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card"><h4>① 方案与代码同源</h4><p class="dim">传统：可研 Word 与系统两张皮。康养项目：11 章可研背后是 3835 行可运行 Python + 21 YAML，7/7 py_compile 通过。方案是"已建好骨架的说明书"。</p></div>
+      <div class="card"><h4>② 结构可校验</h4><p class="dim">7 域五要素 OAG，A 结构校验 7/7 零悬空引用，B source 治理 7/7 零空 source。你怎么校验一份 Word 的内部一致性？</p></div>
+      <div class="card"><h4>③ 规模与深度同时在线</h4><p class="dim">14 类知识库 / 8 个知识图谱 / 约 350 万三元组。这个体量，传统 5 人团队数周产不出，产出来也无法保证内部一致。</p></div>
+    </div>
+    <p class="dim mt-l tc">板书：传统 Word 方案 ⟂ 系统（两张皮）　vs　FDE 11 章可研 ‖ 3835 行骨架（同源）</p>
+    <div class="deck-footer"><span class="ftag">交付物形态</span><span class="slide-number" data-current="5" data-total="13"></span></div>
+    <div class="notes"><p>再看交出去的东西变了没有。很多人以为 AI 只是让你写得快，交付物还是老三样，错。康养项目的交付物形态是传统模式根本产不出的。第一，方案与代码同源。传统里可研是方案经理写的 Word，跟系统两张皮。康养项目不是，11 章可研背后是 3835 行可运行的 Python 加 21 个 YAML，7 个全部 py_compile 通过。方案里写的每个域都有能编译的结构撑着。第二，结构可校验，7 域五要素，结构校验 7/7 零悬空引用。传统方案没有校验这个概念——你怎么校验一份 Word 的内部一致性？第三，规模与深度同时在线：14 类知识库、8 个图谱、约 350 万三元组。这个体量传统 5 人团队数周产不出，产出来也无法保证内部一致。</p></div>
+  </section>
+
+  <!-- 6 数字页 OAG -->
+  <section class="slide" data-title="康养项目证据 · 结构化数字">
+    <div class="kicker">康养项目证据 · 可校验的规模</div>
+    <h2 class="title">3835 行 · 7/7 编译 · 350 万三元组</h2>
+    <div class="grid g4 mt-m" data-anim="stagger-list">
+      <div class="card center"><div><div class="metric">3835</div><div class="metric-label">行 Python 骨架 + 21 YAML</div></div></div>
+      <div class="card center"><div><div class="metric">7/7</div><div class="metric-label">py_compile 通过 · 只 import sdk</div></div></div>
+      <div class="card center"><div><div class="metric">26</div><div class="metric-label">HIL 人在环闸门</div></div></div>
+      <div class="card center"><div><div class="metric-sm">≈350万</div><div class="metric-label">知识图谱三元组</div></div></div>
+    </div>
+    <div class="row mt-l center" data-anim="fade-up">
+      <div class="card card-soft center" style="flex:1"><div><div class="metric-sm">76 / 75</div><div class="metric-label">Object / Link</div></div></div>
+      <div class="card card-soft center" style="flex:1"><div><div class="metric-sm">38 / 47</div><div class="metric-label">Function / Rule</div></div></div>
+      <div class="card card-soft center" style="flex:1"><div><div class="metric-sm">54</div><div class="metric-label">Action</div></div></div>
+      <div class="card card-soft center" style="flex:1"><div><div class="metric-sm">14 / 8</div><div class="metric-label">知识库类 / 图谱</div></div></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">康养项目证据</span><span class="slide-number" data-current="6" data-total="13"></span></div>
+    <div class="notes"><p>把可校验的规模摆出来：3835 行 Python 加 21 个 YAML，7/7 py_compile 通过，只 import sdk 红线也过。五要素 Object 76、Link 75、Function 38、Rule 47（声明式 18 加 function 骨架 29）、Action 54、HIL 26。知识侧 14 类知识库、8 个图谱、约 350 万三元组。这些数字的意义不是"多"，是"可校验"——每一个都能被结构校验器和编译器验证，这是传统 Word 方案永远给不了的确定性。</p></div>
+  </section>
+
+  <!-- 7 要点3 节奏与质量 -->
+  <section class="slide" data-title="要点3 · 节奏与质量控制">
+    <div class="kicker">认知输入 · 要点 3</div>
+    <h2 class="title">串行接力 → 并行铺开</h2>
+    <div class="grid g2 mt-m">
+      <div class="stack">
+        <div class="card"><h4>节奏：Σ 各段 → max 各支线</h4><p class="dim">35 个分节并行写作；制图 26 张与写作同步跑；7 个域同一天并行编译。不是把串行加速，是把串行改成并行。</p></div>
+      </div>
+      <div class="stack">
+        <div class="card goodcard"><h4>质控：事后评审 → 事前锚定</h4><p class="dim">先立一份 <span class="mono">_WRITING_BRIEF.md</span>（术语表 + 核心数据表 + 观点主张 + 协作纪律）当唯一真相源，35 节全部引用不重算，再用结构校验器兜底。</p></div>
+      </div>
+    </div>
+    <div class="card badcard mt-m"><p class="dim">诚实说：并行不是没代价的。散了口径就要收口——第 6 讲的 B-1（图目计数漂移，标题写 22 张实际 26 行）、B-2（章节编号冲突），都是并行的账。但账靠纪律可控，不靠不并行。</p></div>
+    <div class="deck-footer"><span class="ftag">串行→并行</span><span class="slide-number" data-current="7" data-total="13"></span></div>
+    <div class="notes"><p>节奏也变了。传统是串行接力，需求做完交设计，一棒接一棒，总时长是各段之和。FDE 是并行铺开，一个人同一时间指挥智能体编队并行跑多条支线。康养项目可研写作就是活样本：35 个分节并行写、26 张图与写作同步跑、7 个域同一天并行编译。这不是把串行加速，是把串行改成并行，这是质的差别。但并行有个致命风险：各写各的，口径会散。所以质控方式也变了，传统靠评审会事后抓错，FDE 靠锚定口径加结构校验事前防错。康养项目先立一份 WRITING_BRIEF 当唯一真相源，35 节全引用不重算，再用校验器兜底。我要诚实说：并行有代价，图目漂移、编号冲突就是账，但靠纪律可控，不靠不并行。</p></div>
+  </section>
+
+  <!-- 8 要点4 杠杆公式 -->
+  <section class="slide" data-title="要点4 · 杠杆来自哪里">
+    <div class="kicker">认知输入 · 要点 4 · 全讲的钉子</div>
+    <h2 class="title">杠杆到底来自哪里</h2>
+    <div class="center mt-m"><p class="formula" data-anim="fade-up">认知杠杆 <span class="op">=</span> 结构化能力（做对）<br><span class="op">×</span> 平台固化（做快做稳）</p></div>
+    <div class="grid g2 mt-l">
+      <div class="card card-accent"><h4>结构化能力 · 做对</h4><p class="dim">102 乱事件 → 16 簇 → 7 域，模型不替你做判断。你能力越强，放大倍数越大；你是零，放大零还是零。</p></div>
+      <div class="card card-accent"><h4>平台固化 · 做快做稳</h4><p class="dim">studio-planner → domain-model → clife-onto-engine → citations → 可研 一条固化管线。没平台的 FDE 只是"更累的架构师"。</p></div>
+    </div>
+    <p class="tc mt-m" style="font-size:20px;font-weight:700;color:var(--bad)">打字快 ∉ 这个公式</p>
+    <div class="deck-footer"><span class="ftag">杠杆公式</span><span class="slide-number" data-current="8" data-total="13"></span></div>
+    <div class="notes"><p>最后这页是全讲的钉子，钉不进去前面白讲。FDE 的杠杆不来自打字快，来自两样：结构化能力加平台固化。先说结构化能力，康养项目最难一步是把 102 个乱糟糟的业务事件收敛成 16 簇、压成 7 个域，这一步没有任何模型能替你做判断，模型只能加速你做完，不能替你做对。你结构化能力越强，模型放大倍数越大；你是零，放大零还是零。再说平台固化，7 个域同一天并行编译、7/7 零悬空，靠的不是手速，是 studio-planner 到 domain-model 到 clife-onto-engine 到 citations 到可研这条固化管线。方法论固化进平台，就不再依赖这个人今天状态好不好。没有工程化平台的 FDE 只是更累的架构师——能做对，但做不快、做不稳、复制不了。所以杠杆等于结构化能力乘平台固化，打字快连一项都不是。</p></div>
+  </section>
+
+  <!-- 9 Vibe Coding 真相 -->
+  <section class="slide" data-title="Vibe Coding 真相">
+    <div class="kicker">要点 4·补 · Vibe Coding 的真相（方法论 06）</div>
+    <h2 class="title">AI 能干什么、不能干什么</h2>
+    <div class="grid g2 mt-s">
+      <div class="card goodcard"><h4>AI 能干 · "实现"变便宜</h4><p class="dim">给<b>明确规格</b> → 快速生成代码：伪代码 → Python、文件读写、测试、格式化，<b>10 分钟</b>的活。</p></div>
+      <div class="card badcard"><h4>AI 不能干 · "判断"没变容易</h4><p class="dim">工程判断：规则写在<b>前置校验还是写后校验</b>？日志存<b>快照还是只存改变</b>？Schema 用 <b>YAML 还是 Python</b>？多规则违反<b>短路还是收集</b>？——是判断，不是编码。</p></div>
+    </div>
+    <div class="center mt-l"><p class="quote-big" data-anim="fade-up" style="max-width:30ch">AI 能把"想清楚的事"<br>快速变成代码，<br>但不能代替"想清楚"这件事本身。</p></div>
+    <p class="tc mt-m" style="font-size:17px;color:var(--text-2)">认知杠杆真相：AI 让"实现"变便宜，但没让"判断"变容易。没蓝图的 Vibe Coding 会失控——<b style="color:var(--bad)">一处改动带出三处 bug</b>。<b style="color:var(--accent)">平台越来越便宜，本体模型越来越值钱；会建模的人不被替代，而是被放大。</b></p>
+    <div class="deck-footer"><span class="ftag">Vibe Coding 真相</span><span class="slide-number" data-current="9" data-total="13"></span></div>
+    <div class="notes"><p>补一页，专治一个流行误解——以为有了 AI，Vibe Coding 就能替你干活。看清楚 AI 到底能干什么、不能干什么。AI 能干的：你给它明确规格，它十分钟就能把伪代码变成 Python，文件读写、写测试、格式化，这些实现层的活它做得又快又好，实现确实变便宜了。AI 不能干的：那些工程判断——这条规则该写在前置校验还是写后校验？留痕该存决策快照还是只存改变了什么？Schema 用 YAML 声明还是 Python？多条规则同时违反是短路返回还是收集全部？这些全是判断，不是编码，而且都发生在写代码之前。所以请把这句话记死：AI 能把想清楚的事快速变成代码，但不能代替想清楚这件事本身。认知杠杆的真相就是——AI 把实现变便宜了，但没把判断变容易。谁判断力强谁杠杆大；没有判断，AI 放大的是一堆能跑但错的代码，没蓝图的 Vibe Coding 会失控，一处改动带出三处 bug。再补方法论 06 同篇一句：平台越来越便宜，本体模型越来越值钱；会建模的人不会被替代，而是被放大。这条直接支撑本讲杠杆公式第一项结构化能力，也预告第 4 讲栈三——判断想清楚就是本体建模。</p></div>
+  </section>
+
+  <!-- 10 反例引用 B-7 -->
+  <section class="slide" data-title="反例引用 B-7 · 返工压不动">
+    <div class="row"><span class="pill" style="background:var(--bad);color:#fff;border:none">反例 B-7 · 人月视角</span><h3 style="margin:0">压缩比再高，也压不掉"方向错了的返工"</h3></div>
+    <div class="grid g2 mt-m">
+      <div class="card badcard"><h4>反直觉事实</h4><p class="dim">长者旅程初版做"夜间急救"过重、返工改会员飞轮。这笔返工在传统人月账里是实打实的重做工时——而 FDE 模式下同样压不掉。它不是打字慢造成的，是判断偏了造成的。</p></div>
+      <div class="card goodcard"><h4>引出的道理</h4><p class="dim">杠杆的支点是结构化判断：判断对，压缩比才成立；判断错，智能体只会让你更快地错更多。做人月重估时，别把"因方向错误产生的返工"算进"可压缩"里。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">反例 B-7</span><span class="slide-number" data-current="10" data-total="13"></span></div>
+    <div class="notes"><p>本讲不强制配新反例，引第 1 讲的 B-7 补充人月视角。长者旅程初版做夜间急救过重、返工改会员飞轮，这笔返工在传统人月账里是实打实的重做工时。这里要点破一个反直觉的事实：FDE 模式下，压缩比再高，也压不掉方向错了导致的返工。B-7 的返工不是打字慢造成的，是判断偏了造成的——正说明杠杆的支点是结构化判断。判断对，压缩比才成立；判断错，智能体只会让你更快地错更多。所以做人月重估时，别把因方向错误产生的返工算进可压缩里，它压不动，只能靠一开始想清结果来避免。</p></div>
+  </section>
+
+  <!-- 10 Exercise 预告 -->
+  <section class="slide" data-title="Exercise 预告">
+    <div class="kicker">现场演练 · 36′</div>
+    <h2 class="title">人月 / 工序重估表</h2>
+    <p class="lede">别拿康养项目套——拿你自己经历过的一次交付套。列出原本的人、工序，逐条问"FDE + 智能体能压掉多少"，算出理论压缩比。</p>
+    <div class="card badcard mt-m"><h4>真正的分，在诚实标注哪些环节压不动</h4><p class="dim">算出"全能压、压 10 倍"的就是没懂。一定有环节压不动：涉钱的判断、涉合规的取证、跟客户拍板的对话——这些智能体碰都不该碰（第 3、6 讲展开）。</p></div>
+    <p class="dim mt-m">工作坊材料见 <span class="mono">02_大模型时代FDE交付vs传统交付_workshop.md</span>。</p>
+    <div class="deck-footer"><span class="ftag">Exercise</span><span class="slide-number" data-current="11" data-total="13"></span></div>
+    <div class="notes"><p>公式给你了，现在你自己套。别拿康养项目套，拿你自己经历过的一次交付套。接下来 36 分钟做一张人月/工序重估表：把那次交付原本花的人、花的工序列出来，逐条问这一条 FDE 加智能体模式能压掉多少，算出一个理论压缩比。但我把话撂前头：这个练习真正的分，在你诚实标注哪些环节压不动。谁算出压缩 10 倍全能压，谁就是没懂——一定有环节压不动，涉钱的判断、涉合规的取证、跟客户拍板的对话，这些第 3、6 讲会讲，智能体碰都不该碰。</p></div>
+  </section>
+
+  <!-- 11 难听话 -->
+  <section class="slide" data-title="本讲难听话">
+    <div class="kicker">本讲难听话</div>
+    <div class="center" style="flex:1">
+      <p class="quote-big" data-anim="fade-up" style="max-width:32ch">你之所以觉得 AI 就是"帮你写得快一点"，是因为你自己的活里，就没有多少需要结构化判断的成分——你一直在做搬运，所以你只能想象一个"搬得更快"的 AI。<br><br>杠杆放大的是判断力。<span class="gradient-text">你没有判断力，AI 放大的就是你的空白。</span></p>
+    </div>
+    <div class="deck-footer"><span class="ftag">难听话 · 内部专业培训</span><span class="slide-number" data-current="12" data-total="13"></span></div>
+    <div class="notes"><p>难听话，慢读。你之所以觉得 AI 就是帮你写得快一点，是因为你自己的活里就没有多少需要结构化判断的成分——你一直在做搬运，所以你只能想象一个搬得更快的 AI。杠杆放大的是判断力，你没有判断力，AI 放大的就是你的空白。停顿，让它落地，再进收口。</p></div>
+  </section>
+
+  <!-- 12 收口/钩子 -->
+  <section class="slide" data-title="收口与钩子">
+    <div class="kicker">收口 · 与其他讲的钩子</div>
+    <h2 class="title">一个人扛得动——靠结构化 + 平台，不靠手速</h2>
+    <div class="grid g4 mt-m" data-anim="stagger-list">
+      <div class="card card-accent"><h4>← 第 1 讲</h4><p class="dim">"5+ 人 4 接缝"正是断层的人力来源；本讲回答"一个人扛得动吗"。</p></div>
+      <div class="card card-accent"><h4>→ 第 3 讲</h4><p class="dim">把"压不动的环节"系统化为必须人扛的 C7 边界。</p></div>
+      <div class="card card-accent"><h4>→ 第 5 讲</h4><p class="dim">"平台固化"是第 5 讲主命题；"无平台压缩比掉到多少"引出成本推演。</p></div>
+      <div class="card card-accent"><h4>→ 第 6 讲</h4><p class="dim">并行的账（B-1 图目漂移、B-2 编号冲突）在第 6 讲深讲。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:22px;font-weight:700;color:var(--accent)">没平台的 FDE 只是"更累的架构师"——能做对，但做不快、做不稳、复制不了。</p>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="13" data-total="13"></span></div>
+    <div class="notes"><p>收口。本讲用杠杆机制回答了第 1 讲遗留的"一个人扛得动吗"。如果你的压缩比主要来自打字快，说明你还没理解杠杆——打字快最多快 2、3 倍，康养项目是 5+ 人到 1 人的结构性变化，那来自结构化加平台，是量级差别。你标为"压不动"的环节，是真压不动（涉钱、涉合规、涉责任，第 3、6 讲的 HIL 硬判据），还是你不敢让智能体碰（对平台的信任缺口）？别混为一谈。没有 Astra Studio 这样的平台、只有 FDE 加通用大模型，压缩比会掉很多、质量不可控——这正是第 5 讲要专门推演的。</p></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

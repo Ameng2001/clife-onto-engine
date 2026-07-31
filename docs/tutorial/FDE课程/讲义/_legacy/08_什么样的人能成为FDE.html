@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 8 讲 · 什么样的人能成为 FDE（讲师用讲义） · 讲义</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root{
+      --bg:#f7f9fb;--card:#ffffff;--ink:#0f172a;--dim:#475569;--line:#e2e8f0;--line2:#cbd5e1;
+      --blue:#2563eb;--blue-bg:#eff6ff;--code-bg:#f1f5f9;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    /* 覆盖 pandoc 默认模板的 body{max-width:36em;padding:50px}——那是页面变窄的根因 */
+    body{font-family:'Helvetica Neue',Helvetica,Arial,'PingFang SC','Microsoft YaHei',sans-serif;
+      background:var(--card);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased;font-size:16px;
+      max-width:none !important;width:auto !important;margin:0 !important;padding:0 !important}
+    /* 全宽流式：填满浏览器宽度，两侧留白随窗口自适应 */
+    .page{width:auto;max-width:none;margin:0;background:var(--card);min-height:100vh;
+      padding:44px clamp(20px,5vw,90px) 96px;border:0;box-shadow:none}
+    .topbar{width:auto;max-width:none;margin:0;padding:12px clamp(20px,5vw,90px);font-size:12.5px;color:var(--dim);
+      background:var(--bg);border-bottom:1px solid var(--line)}
+    .topbar a{color:var(--blue);text-decoration:none}
+    .topbar a:hover{text-decoration:underline}
+    h1{font-size:30px;font-weight:800;letter-spacing:-.01em;line-height:1.3;margin:.2em 0 .6em;
+      padding-bottom:.4em;border-bottom:2px solid var(--ink)}
+    h2{font-size:22px;font-weight:750;margin:1.8em 0 .6em;padding-bottom:.25em;border-bottom:1px solid var(--line)}
+    h3{font-size:18px;font-weight:700;margin:1.5em 0 .5em;color:#1e293b}
+    h4{font-size:15.5px;font-weight:700;margin:1.2em 0 .4em;color:var(--dim)}
+    p{margin:.7em 0}
+    a{color:var(--blue)}
+    ul,ol{padding-left:1.5em;margin:.6em 0}
+    li{margin:.28em 0}
+    strong{color:#0b1220;font-weight:700}
+    blockquote{margin:1em 0;padding:.6em 1.1em;background:var(--blue-bg);border-left:3px solid var(--blue);
+      border-radius:0 8px 8px 0;color:#1e3a5f}
+    blockquote p{margin:.35em 0}
+    code{font-family:'SF Mono',Menlo,Consolas,monospace;background:var(--code-bg);
+      padding:.12em .4em;border-radius:4px;font-size:.86em;color:#b91c1c}
+    pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.55}
+    pre code{background:none;color:inherit;padding:0}
+    table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:14px;display:block;overflow-x:auto}
+    th,td{border:1px solid var(--line2);padding:8px 12px;text-align:left;vertical-align:top}
+    th{background:#f1f5f9;font-weight:700;color:#1e293b;white-space:nowrap}
+    tr:nth-child(even) td{background:#fafbfc}
+    hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+    img{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+    @media(max-width:720px){.page{padding:32px 20px 64px}.topbar{padding:10px 20px}h1{font-size:24px}}
+  </style>
+</head>
+<body>
+<div class="topbar">📘 讲义 · <a href="../slides/index.html">← 返回课程目录</a></div>
+<div class="page">
+<header id="title-block-header">
+<h1 class="title">第 8 讲 · 什么样的人能成为 FDE（讲师用讲义） · 讲义</h1>
+</header>
+<h1 id="第-8-讲--什么样的人能成为-fde讲师用讲义">第 8 讲 · 什么样的人能成为 FDE（讲师用讲义）</h1>
+<blockquote>
+<p>版本 v1.0 · 对象：C-Life 内部专业人员 · 时长 120′ · 实践蓝本：康养行业大模型及微康养生态运营平台 本讲义讲"怎么讲"；学员动手材料见 <code>工作坊/08_什么样的人能成为FDE_workshop.md</code>，不重复。</p>
+</blockquote>
+<hr />
+<h2 id="一一句话命题--能力位置">一、一句话命题 + 能力位置</h2>
+<p><strong>命题：解决方案架构师、交付架构师、需求分析师——都不是 FDE。</strong></p>
+<p>这三类是我们组织里现成的、看起来"最像 FDE"的人，也正因为像，才最危险：他们会以为自己"稍微学一下 AI 工具就是 FDE 了"。这一讲的任务是把这层误会当众撕开——不是打击谁，是让每个人看清<strong>自己现在的能力结构差在哪一维</strong>，然后知道往哪补。</p>
+<p><strong>本讲在能力模型中的位置：<strong>本讲是能力模型（C1–C7）的</strong>总检票口</strong>。前 7 讲逐维训练 C1–C6、反复点名 C7；本讲把七维拉成一张<strong>招聘/选拔可用的对照表和画像</strong>，并落到一句总纲里那句话上——<strong>C1–C6 可训练，C7 只能筛选</strong>。本讲不新增技能，发的是"照镜子的尺子"。</p>
+<hr />
+<h2 id="二时间分配表4--4--2落到分钟">二、时间分配表（4 : 4 : 2，落到分钟）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>占比</th>
+<th>分钟</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>认知输入（讲）</td>
+<td>40%</td>
+<td>48′</td>
+<td>5 个要点页：①三类"像 FDE"的人 ②六维对照表（工作起点/交付物/客户关系/失败归因/能力半径/工具依赖）③硬能力矩阵 C1–C6 ④软能力 C7：只能筛不能训 ⑤团队编成：1 主理 + N 见习 + 平台组</td>
+</tr>
+<tr class="even">
+<td>现场演练（练）</td>
+<td>40%</td>
+<td>48′</td>
+<td>Exercise：用能力矩阵做自我差距诊断 + 起草团队编成草案</td>
+</tr>
+<tr class="odd">
+<td>复盘研讨（议）</td>
+<td>20%</td>
+<td>24′</td>
+<td>3 个研讨题 + 收口</td>
+</tr>
+</tbody>
+</table>
+<p>要点页时间细分：页①8′ / 页②12′ / 页③12′ / 页④8′ / 页⑤8′。</p>
+<hr />
+<h2 id="三认知输入">三、认知输入</h2>
+<h3 id="要点页-1--三类看起来最像-fde的人为什么都不是8">要点页 1 · 三类"看起来最像 FDE"的人，为什么都不是（8′）</h3>
+<p><strong>【讲述脚本】（讲师原话级）</strong></p>
+<p>"我们先把三个候选人请上台，因为你们中的大多数，简历上写的正是这三个词之一。</p>
+<p><strong>解决方案架构师</strong>——他从'一个技术方案'开始工作，交给客户一份架构图。他很强，但他的起点是'系统怎么搭'，不是'客户的模糊话到底是什么意思'。康养项目这条链的第一步不是画架构，是把客户一句'帮站长管好老人'拆成 102 个业务事件——这一步架构师通常直接跳过，因为他默认需求已经有人整理好了。</p>
+<p><strong>交付架构师</strong>——他从'一个已经定型的方案'开始，负责把它落地、集成、上线，交付一套跑得起来的系统。他的价值在'把定好的东西做出来'，可 FDE 的价值恰恰在'定'之前那一段——从 16 事件簇收敛到 7 域限界上下文，那是判断，不是集成。</p>
+<p><strong>需求分析师</strong>——他离 FDE 最近，也最容易自我感觉良好。他会做访谈、写需求文档。但他的交付物是'一份需求清单'，交给下游就结束了；他不为'这份需求能不能编译成 7 域、38 个 Function、47 条 Rule、54 个 Action'负责，更不为'哪个 Action 要设 HIL 闸、按错了谁赔'负责。</p>
+<p>三个人都真、都强、都有用。但他们各自只握住 FDE 这条链的一段。<strong>FDE 不是这三个人里最好的那个，FDE 是这三段本来就不该切开的那条链。</strong>"</p>
+<p><strong>【板书/图】</strong></p>
+<p><img src="../figures/fig-8-1-角色对照.png" alt="图8-1 传统三角色 vs FDE 六维对照" /> <strong>图 8-1 传统三角色 vs FDE 六维对照</strong></p>
+<p>图说：左三列为解决方案架构师 / 交付架构师 / 需求分析师，右一列为 FDE。六行分别是工作起点、交付物、与客户的关系、失败归因、能力半径、工具依赖。用颜色深浅表示"覆盖了 FDE 这条链的哪一段"，直观呈现三类角色各自只覆盖一段、FDE 贯通全段。</p>
+<p><strong>【康养项目证据】</strong></p>
+<p>康养项目这条链——102 事件 → 16 簇 → 7 画像 → 7 旅程 → 5 流程 → 10 热点（P1–P5）→ 7 域 D1–D7 → 3835 行骨架 + 26 个 HIL 点 → 11 章可研——由 <strong>1 名 FDE 带智能体编队</strong>完成。传统模式是产品经理 + 架构师 + 行业顾问 + 方案经理 + 美工 <strong>5+ 人 / 数周</strong>。三类角色恰好分别对应其中一段：架构师管"系统怎么搭"、方案经理管"落地"、需求分析对应产品经理那段的一部分。<strong>没有任何一段能单独对客户的最终结果负责。</strong></p>
+<hr />
+<h3 id="要点页-2--六维对照表逐维拆开三类角色与-fde-的差12">要点页 2 · 六维对照表：逐维拆开三类角色与 FDE 的差（12′）</h3>
+<p><strong>【讲述脚本】</strong></p>
+<p>"现在我把这张对照表逐维讲透。你们招人、内部选拔，就用这六维当尺子。我一维一维过，每一维你都对号入座——你自己现在站在哪一列。"</p>
+<p><strong>【板书/图】</strong>（此表即 fig-8-1 的文字版，讲师逐行讲解）</p>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>解决方案架构师</th>
+<th>交付架构师</th>
+<th>需求分析师</th>
+<th><strong>FDE（前置交付工程师）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 工作起点</strong></td>
+<td>一个待搭的技术方案</td>
+<td>一个已定型的方案</td>
+<td>一次访谈 / 一份原始需求</td>
+<td><strong>客户一句模糊意图</strong>（"帮站长管好老人"）→ 自己负责拆成 102 事件</td>
+</tr>
+<tr class="even">
+<td><strong>② 交付物</strong></td>
+<td>架构图 / 技术选型</td>
+<td>可上线的集成系统</td>
+<td>需求规格文档</td>
+<td><strong>认知侧全链条</strong>：事件集 → 7 域 ontology-map → HIL 设点表 → 可研 + 配图 + 取证清单</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 与客户的关系</strong></td>
+<td>技术顾问（被咨询）</td>
+<td>实施乙方（被验收）</td>
+<td>信息采集者（被回答）</td>
+<td><strong>结果承诺人</strong>：对"客户拿到的东西 = 客户真正要的结果"负责</td>
+</tr>
+<tr class="even">
+<td><strong>④ 失败归因</strong></td>
+<td>"需求变了 / 需求没给清"</td>
+<td>"方案本身有问题 / 集成环境不配合"</td>
+<td>"他们没说清楚 / 后面改了"</td>
+<td><strong>无处甩锅</strong>：全链一个人走，断层归自己（第 1 讲：接缝数 = 断层数）</td>
+</tr>
+<tr class="odd">
+<td><strong>⑤ 能力半径</strong></td>
+<td>深在技术栈，窄在业务与合规</td>
+<td>深在工程落地，窄在前端认知萃取</td>
+<td>宽在沟通，浅在结构化与可编译</td>
+<td><strong>C1–C6 全维 + C7</strong>：认知萃取→结构建模→风险设闸→合规治理→商业建模→交付物工程</td>
+</tr>
+<tr class="even">
+<td><strong>⑥ 工具依赖</strong></td>
+<td>IDE / 架构工具，个人手艺</td>
+<td>CI/CD、集成中间件</td>
+<td>文档模板、访谈提纲</td>
+<td><strong>Astra Studio 建模管线</strong>：planner→domain-model→clife-onto-engine→citations→可研生成（第 5 讲：没平台的 FDE 只是更累的架构师）</td>
+</tr>
+</tbody>
+</table>
+<p>"看第 4 维'失败归因'——这是最见人品的一维。三类角色出了问题，话术都是'别人的锅'；FDE 没有这个话术，因为<strong>全链是他一个人走的，接缝数为零，断层无处推</strong>。这不是道德要求，是结构决定的：你把四段合成一段，就再也找不到'上一棒没交好'这个借口了。"</p>
+<p><strong>【康养项目证据】</strong></p>
+<ul>
+<li>第 ④ 维实证：康养项目全链 0 次跨人交接，7 域引用 7/7 零悬空——因为定义方和引用方是同一个大脑，没有"D3 引 D1 对不上口径"这种接缝断层（呼应第 1 讲）。</li>
+<li>第 ⑥ 维实证：7 个域<strong>同一天并行编译</strong>、7/7 py_compile 通过，靠的是 studio-planner → domain-model → clife-onto-engine 这条固化管线，不是个人手速（呼应第 5 讲主张二"没有工程化平台的 FDE 只是更累的架构师"）。</li>
+</ul>
+<hr />
+<h3 id="要点页-3--硬能力矩阵-c1c6可训练的六维12">要点页 3 · 硬能力矩阵 C1–C6：可训练的六维（12′）</h3>
+<p><strong>【讲述脚本】</strong></p>
+<p>"好消息先说：FDE 的六维硬能力，<strong>都能训练</strong>。坏消息随后：训练它们，比你想的贵、慢、且必须在真实项目上磨。我把 C1–C6 逐维给你判定基线——达到哪个程度算过关。这张矩阵你在工作坊里就要拿来给自己打分。"</p>
+<p><strong>【板书/图】</strong> 硬能力矩阵（招聘/选拔可直接用）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>维</th>
+<th>能力项</th>
+<th>康养项目对应动作</th>
+<th>L1 见习判据</th>
+<th>L3 主理判据</th>
+<th>三类角色常见起点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>C1 认知萃取</strong></td>
+<td>事件风暴 / 画像 / 旅程 / 流程 / 热点分层</td>
+<td>102 事件 / 7 画像（368 份问卷校准）/ 10 热点 P1–P5</td>
+<td>能在指导下参与一场事件风暴</td>
+<td>独立主持事件风暴并产出可归域事件集</td>
+<td>需求分析师起点较高，但止于"采集"不做"分层"</td>
+</tr>
+<tr class="even">
+<td><strong>C2 结构建模</strong></td>
+<td>DDD 限界上下文 + 本体五要素 OAG</td>
+<td>7 域；Object 76 / Link 75 / Function 38 / Rule 47 / Action 54</td>
+<td>能读懂一个域的 ontology-map</td>
+<td>独立完成 1 个域并通过结构校验（零悬空）</td>
+<td>架构师有结构感，但缺 OAG 本体语言</td>
+</tr>
+<tr class="odd">
+<td><strong>C3 风险设闸</strong></td>
+<td>HIL 设点、不可逆/涉钱/涉合规判定</td>
+<td>26 个 HIL 点；站长 HIL + 民政 DP-H 闸</td>
+<td>能说出某 Action 该不该设闸</td>
+<td>对任一 Action 判"设不设闸、谁按、按错代价"</td>
+<td>三类角色普遍缺失——这是 FDE 的护城河</td>
+</tr>
+<tr class="even">
+<td><strong>C4 合规治理</strong></td>
+<td>标准/法规取证、citations 挂接、诚实边界</td>
+<td>18 处挂国标；11 处占位不编造转取证清单</td>
+<td>能核对一处标准号是否现行</td>
+<td>产出可交现场的"待补取证清单"</td>
+<td>需求/架构师常"看起来像国标"就用（反例 B-6）</td>
+</tr>
+<tr class="odd">
+<td><strong>C5 商业建模</strong></td>
+<td>投资/收入/IRR/单店模型</td>
+<td>1.36 亿盘一 + 3200 万二期；60 站；约 21 个月回本；IRR≈15.2%</td>
+<td>能读懂一份财务口径</td>
+<td>独立复核一份财务口径的内部一致性</td>
+<td>技术三角色普遍空白</td>
+</tr>
+<tr class="even">
+<td><strong>C6 交付物工程</strong></td>
+<td>多智能体并行写作、锚口径、装配质检</td>
+<td><code>_WRITING_BRIEF.md</code> 统一口径 → 35 节并行 → 装配 → 质检</td>
+<td>能按 BRIEF 写 1 节不跑口径</td>
+<td>组织 ≥10 节并行写作零口径冲突</td>
+<td>三类角色多为串行手工，无并行编排经验</td>
+</tr>
+</tbody>
+</table>
+<p>"注意最后一列——三类角色<strong>各有一两维起点不低，但没有一类六维齐全</strong>。这正是'像 FDE 但不是 FDE'的结构原因。训练 FDE，不是把某一维练到顶，是<strong>把六维的短板逐一补齐到 L2 以上</strong>。"</p>
+<p><strong>【康养项目证据】</strong></p>
+<p>C1–C6 每一维都有康养项目的量化落点（见上表"康养项目对应动作"列）。特别是 C3：康养项目 54 个 Action 里筛出 <strong>26 个 HIL 点</strong>，其中 D6 民政域 8 个（DP-H 闸）、D4 居家照护 6 个（含急救指挥）——设闸判断没有任何模型能替你做，这是 C3 作为"护城河维"的直接证据。</p>
+<hr />
+<h3 id="要点页-4--软能力-c7只能筛选不能训练8">要点页 4 · 软能力 C7：只能筛选，不能训练（8′）</h3>
+<p><strong>【讲述脚本】</strong></p>
+<p>"现在讲最扎心的一维——C7，人的部分：客户关系、责任承担、价值判断、政治敏感度。总纲里那句话是全课程的支点：<strong>C1–C6 可训练，C7 只能筛选。</strong></p>
+<p>什么意思？C7 不是'练一练会变好'的技能，是'你这个人是不是这种人'的底色。我给你们四个具体切片：</p>
+<p><strong>客户关系</strong>——不是会说话，是客户信不信你敢对他说'这个我不知道'。康养项目 11 处地方文号查不到，FDE 的处理是坚决保留 <code>[本地待补文号]</code> 占位、锚定上位国标、转成向医保局/民政局逐项取件的清单，而不是编一个像模像样的假文号糊过去。内部原话——<strong>'错文号比空缺更有害。'</strong> 一个改不掉'不能在客户面前露怯'这个本能的人，永远做不到这一步。</p>
+<p><strong>责任承担</strong>——第 2 维对照里那个'无处甩锅'，能不能扛得住，是天性不是培训。</p>
+<p><strong>价值判断</strong>——康养项目那条红线：表述一律用'赋能优化'而非'替代'，因为涉及民政、就业、政治敏感。什么时候该踩刹车，是价值观在做判断，不是流程在做判断。</p>
+<p><strong>政治敏感度</strong>——To-G 项目里，一句话措辞不当就可能引火烧身。这个雷达，有的人天生有，有的人怎么教都装不上。</p>
+<p>所以选拔 FDE，<strong>C1–C6 看能不能补，C7 看是不是这块料</strong>。C7 不合格，前六维再强也不能给他 L3、不能让他对客户承诺负责。"</p>
+<p><strong>【板书/图】</strong> 板书四象限：横轴"可训练↔︎只能筛选"，纵轴"硬↔︎软"。C1–C6 落在"可训练"半区，C7 四项（客户关系/责任承担/价值判断/政治敏感度）落在"只能筛选"半区，用红框圈出并写一句：<strong>"C7 不是加分项，是一票否决项。"</strong></p>
+<p><strong>【康养项目证据】</strong></p>
+<p>C7 的四个切片各有康养项目锚点：客户关系→11 处占位不编造（"错文号比空缺更有害"）；价值判断→"赋能优化"而非"替代"的表述红线；政治敏感度→D6 民政域 8 个 DP-H 监管发布闸的设置本身，就是政治敏感度的结构化产物。</p>
+<hr />
+<h3 id="要点页-5--团队编成1-主理--n-见习--平台组8">要点页 5 · 团队编成：1 主理 + N 见习 + 平台组（8′）</h3>
+<p><strong>【讲述脚本】</strong></p>
+<p>"最后一页最实际。你现在知道 FDE 稀缺、C7 筛不出几个，那怎么组队干活？答案不是'招一堆全能 FDE'——那是幻想。答案是<strong>一个非对称编队</strong>：</p>
+<p><strong>1 名主理 FDE（L3）</strong>——C7 过关、C1–C6 齐全，主持项目、设 HIL 闸、对客户承诺负责。康养项目就是这个角色一个人带编队走完的。一个 L3 是整个编队的'判断中枢'和'甩锅终点'。</p>
+<p><strong>N 名见习 FDE（L1）</strong>——C7 有潜质、C1–C6 在补齐中。他们在 L3 指导下承接<strong>单一环节</strong>：比如专攻 C1 主持事件风暴、或专攻 C6 写并行章节。L1 不独立对客户承诺，但在真实项目里练六维。康养项目若要复制，第二个项目就应该配 2–3 个 L1 在 L3 身边过手。</p>
+<p><strong>平台组</strong>——不是 FDE，是让 FDE 不必'更累'的人。他们维护 Astra Studio 建模管线（planner/domain-model/clife-onto-engine/citations/可研生成），把方法论固化成工具，让 7 域能同日并行编译。<strong>没有平台组，L3 就退化成一个更累的架构师</strong>（第 5 讲主张二）。</p>
+<p>记住这个编队的本质：<strong>L3 提供判断和责任（C7 + 高阶 C1–C6），L1 提供手数和成长通道，平台组提供杠杆。三者缺一，康养项目都不可复制。</strong>"</p>
+<p><strong>【板书/图】</strong></p>
+<p><img src="../figures/fig-8-2-团队编成.png" alt="图8-2 FDE 团队编成（1 主理 + N 见习 + 平台组）" /> <strong>图 8-2 FDE 团队编成（1 主理 + N 见习 + 平台组）</strong></p>
+<p>图说：中心为 1 名主理 FDE（L3），标注"判断中枢 / 责任终点 / C7 过关"；环绕 N 名见习 FDE（L1），各标注承接的单一环节（C1 事件风暴 / C6 并行写作等）；底座为平台组，标注"维护 Astra Studio 管线 / 提供杠杆 / 非 FDE"。箭头体现 L3 向 L1 的指导流、平台组向全员的能力供给流。</p>
+<p><strong>【康养项目证据】</strong></p>
+<p>康养项目现状是"1 名 FDE 带智能体编队"跑通了单点——但总纲说得很直白：<strong>"目前不可复制——因为方法在一个人脑子里，不在组织里。"</strong> 这个编成图就是把"一个人的方法"变成"组织能力"的最小结构：L3 把判断显性化教给 L1，平台组把工具固化下来。第 10 讲的 90 天计划，第一步招的就是这三类人。</p>
+<h3 id="要点页-5补--能力半径--团队编成随交付模式变板书--4">要点页 5·补 · 能力半径 + 团队编成随"交付模式"变（板书 · 4′）</h3>
+<blockquote>
+<p><strong>讲述脚本</strong>："六维里最容易被高估的是 <strong>⑤ 能力半径</strong>，而它跨<strong>交付模式</strong>才见真章。有人在康养项目做完一个康养大平台，就以为自己是 L3 了。我泼盆冷水：<strong>能做模式二的大平台，不代表你能做模式一的 SaaS 应用，反之更是。</strong> 两种模式的团队编成根本不同——<strong>模式一（Token-SaaS，如教育督导项目）编成轻</strong>：1 个 FDE + 平台/运行时组，快跑快迭代；<strong>模式二（大平台建设运营，如康养项目/草业项目/辣椒）编成重</strong>：1 个主理 FDE（L3）+ N 个见习 + 平台组，而且要扛得起可研、财务测算、监管合规——商业和合规的能力半径要宽得多。你擅长哪种模式，直接决定你能主理哪种项目。 而真正的分水岭是 <strong>C1 认知萃取的跨行业迁移力</strong>：教育督导项目能用和康养项目同一套管线做出来，证明<strong>方法能迁移</strong>；但你能不能在一个<strong>你不熟的行业</strong>（学前督导、辣椒育种、草原修复）里，快速把模糊意图压成可归域的结构？康养你可能靠沉淀蒙对了，换个行业沉淀归零、<strong>只剩方法</strong>——这就是 L2 和 L3 的分界。 最后一句诚实话：辣椒/草业项目目前只到方案、草业项目 demo 还是 Mock，所以我讲它们只敢讲'定位与结构'，不敢讲交付实测——<strong>知道自己在哪个模式、哪个行业、哪个阶段还没有发言权，本身就是能力半径的一部分。</strong>"</p>
+</blockquote>
+<p><strong>板书</strong>：能力半径随交付模式变——模式一轻编成(1 FDE+平台组) / 模式二重编成(主理 L3+见习+平台组+宽商业合规半径)；C1 跨行业迁移力=L2/L3 分水岭。康养项目🟢/教育督导项目🟢/辣椒🟡/草业项目🟡。</p>
+<hr />
+<h2 id="四现场演练导入过渡话术">四、现场演练导入（过渡话术）</h2>
+<p>"道理讲完，现在照镜子。接下来 48 分钟分两步走：</p>
+<p>第一步，<strong>给自己打分</strong>。用刚才那张 C1–C7 矩阵，逐维给自己评 L0/L1/L2/L3，并且必须写出'证据'——你凭哪个真实项目动作打的这个分，不许空评。这一步会很难受，因为你会发现自己大概率停在 L1，尤其是 C3 风险设闸和 C4 合规治理这两维。<strong>停在 L1 是正常的，装作 L2 才是危险的</strong>（总纲原话）。</p>
+<p>第二步，<strong>起草一份团队编成草案</strong>。假设下个月给你一个康养项目量级的项目，你怎么配 1 主理 + N 见习 + 平台组？谁当 L3？为什么？你自己站哪个位子？</p>
+<p>工作坊材料里有能力矩阵打分表、编成草案模板和评分卡，翻到 <code>08_什么样的人能成为FDE_workshop.md</code>。"</p>
+<hr />
+<h2 id="五复盘研讨24">五、复盘研讨（24′）</h2>
+<p><strong>研讨题（详见 workshop，此处附讲师收口话术）：</strong></p>
+<ol type="1">
+<li><p><strong>你给自己 C3（风险设闸）和 C4（合规治理）打了几分？如果低，是"没学过"还是"没这个意识"？</strong></p>
+<ul>
+<li>收口话术："如果是'没学过'，好办，第 6 讲的 HIL 设点原则 + 本讲的 C4 取证纪律能补。如果是'没这个意识'——比如你从没想过'一个 Action 按错了谁赔'——那更值得警惕，因为这靠近 C7 的价值判断，不完全是可训练的技能。分清这两者，是你补课路线的起点。"</li>
+</ul></li>
+<li><p><strong>对照六维表，你现在最像哪一类角色（架构师/交付架构师/需求分析师）？你最可能卡在哪一维过不去？</strong></p>
+<ul>
+<li>收口话术："架构师型多卡在 C1——你太快想'系统怎么搭'，跳过了'客户到底要什么'的萃取。需求分析型多卡在 C2/C3——你能采集不能编译，能记录不能设闸。项目经理型多卡在 C2 结构建模——你会调度人，但压不出可编译的结构。看清自己卡哪维，比自我感觉良好有用得多。"（此三型判定见第六节难听话）</li>
+</ul></li>
+<li><p><strong>你的编成草案里，谁当 L3？如果你把自己填成了 L3，你的 C7 真的过关吗？拿一个"你敢对客户说不知道"的真实例子出来。</strong></p>
+<ul>
+<li>收口话术："举不出这个例子的人，不该给自己填 L3。C7 不是自封的，是你在客户压力下真做过'留白不编造'才算数。康养项目那 11 处占位，就是 L3 的资格证。"</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="六本讲难听话--反例讲解">六、本讲难听话 + 反例讲解</h2>
+<h3 id="难听话1-句">难听话（1 句）</h3>
+<p><strong>"你现在的能力结构做不了 FDE，而且我能当场说出你差在哪一维——</strong></p>
+<ul>
+<li><strong>架构师型</strong>：你卡在 <strong>C1 认知萃取</strong>。你太急着画架构图，默认'需求有人给你整理好了'，可 FDE 这条链的第一刀就是自己把客户一句模糊话拆成 102 个事件——这一步你从来没做过，你只是接手了别人做完的那一步。</li>
+<li><strong>需求分析型</strong>：你卡在 <strong>C2 结构建模 + C3 风险设闸</strong>。你能采集需求、能写文档，但你交出去就完事，从不为'这份需求能不能编译成 7 域 47 条 Rule 54 个 Action、哪个 Action 要设闸'负责——<strong>你握着离 FDE 最近的一段，却最容易停在 L1 而自以为是 L2</strong>。</li>
+<li><strong>项目经理型</strong>：你卡在 <strong>C2 结构建模</strong>（外加 C6 的'并行编排'你会调度但压不出结构）。你擅长把人和进度管起来，但 FDE 的杠杆不是管人，是<strong>一个人的头脑里长出可编译的结构</strong>——你调度得再好，结构还是得有人压出来，而那个人不是你。 <strong>别急着反驳。先在工作坊里诚实打一次分，你会发现我说得比你想的准。"</strong></li>
+</ul>
+<h3 id="反例讲解--全反例作这些坑谁来兜论据b-3--b-6--b-10-为主">反例讲解 · 全反例作"这些坑谁来兜"论据（B-3 / B-6 / B-10 为主）</h3>
+<p>本讲不专属某一个反例，而是把全课程反例库当作**"如果编队里少了某一维能力，这些坑就没人兜"**的证据链，正面论证六维缺一不可：</p>
+<ul>
+<li><strong>B-6 标准号误标</strong>（药食同源目录曾误标"GB 药食同源目录"、星评沿用已废止 MZ/T）——<strong>缺 C4 合规治理的人兜不住</strong>。需求分析师、架构师"看起来像国标就用"，正是 C4 缺位的典型症状。</li>
+<li><strong>B-3 图片路径断裂 / B-4 Word 主题色覆盖</strong>——<strong>缺 C6 交付物工程的人兜不住</strong>。这两个坑发生在"内容都对、但交付物散架"的环节，恰是三类角色最不设防的一维。</li>
+<li><strong>B-10 十一处地方文号无解</strong>——<strong>缺 C7 的人兜不住</strong>，会去编一个假文号。这个坑不是能力问题，是价值观问题，只能靠 C7 筛选把关。B-10 是全课程价值观支点，本讲第三次出现（前见第 3、6 讲），此处的角度是：<strong>它证明了为什么 C7 必须"只筛不训"</strong>——因为面对查不到的文号，"编还是留白"这个选择，暴露的是人的底色，不是技能的高低。</li>
+</ul>
+<p><strong>引出的原则：<strong>六维不是选修，是编队的六根承重柱。招聘和选拔时，你可以接受一个候选人某一维暂缺（L1 补），但你必须</strong>在编队层面凑齐六维</strong>，否则总有一类坑没人兜——而客户不会因为"那是别人负责的维度"就原谅你。</p>
+<hr />
+<h2 id="七与其他讲的钩子">七、与其他讲的钩子</h2>
+<ul>
+<li><strong>← 第 1 讲（交付断层）</strong>：本讲第 ④ 维"失败归因：无处甩锅"直接引用第 1 讲"接缝数 = 断层数"——三类角色的甩锅话术，本质是各自只握一段链、断层归下游；FDE 全链一人走，断层无处推。</li>
+<li><strong>← 第 3 讲（OPC 边界）</strong>：第 3 讲画"可替 / 必须人扛"的边界，本讲把"必须人扛"的部分精确定位到 <strong>C7 四项</strong>，并论证它"只能筛不能训"。两讲同引 B-10 作价值观支点。</li>
+<li><strong>← 第 5 讲（平台）</strong>：本讲第 ⑥ 维"工具依赖"与团队编成里的"平台组"，都在实证第 5 讲主张二"没有工程化平台的 FDE 只是更累的架构师"。</li>
+<li><strong>← 第 6 讲（SOP + HIL）</strong>：本讲 C3 风险设闸的判据（不可逆/涉钱/涉合规/跨组织 四判据 + 一置信度兜底闸）来自第 6 讲；26 个 HIL 点是 C3 的量化证据。</li>
+<li><strong>→ 第 10 讲（C-Life 怎么做）</strong>：本讲的团队编成图（1 主理 + N 见习 + 平台组）是第 10 讲 90 天启动计划"选人"环节的直接输入——第 10 讲要把"招哪三类人、谁认领"落到人头和时间轴上。本讲的自我差距诊断，就是第 10 讲"训练"环节每个人的补课清单来源。</li>
+</ul>
+</div>
+</body>
+</html>

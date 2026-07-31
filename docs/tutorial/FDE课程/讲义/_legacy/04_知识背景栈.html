@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 4 讲 · FDE 的知识背景栈——一个人，装下七个专业角色的方法论 · 讲义</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root{
+      --bg:#f7f9fb;--card:#ffffff;--ink:#0f172a;--dim:#475569;--line:#e2e8f0;--line2:#cbd5e1;
+      --blue:#2563eb;--blue-bg:#eff6ff;--code-bg:#f1f5f9;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    /* 覆盖 pandoc 默认模板的 body{max-width:36em;padding:50px}——那是页面变窄的根因 */
+    body{font-family:'Helvetica Neue',Helvetica,Arial,'PingFang SC','Microsoft YaHei',sans-serif;
+      background:var(--card);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased;font-size:16px;
+      max-width:none !important;width:auto !important;margin:0 !important;padding:0 !important}
+    /* 全宽流式：填满浏览器宽度，两侧留白随窗口自适应 */
+    .page{width:auto;max-width:none;margin:0;background:var(--card);min-height:100vh;
+      padding:44px clamp(20px,5vw,90px) 96px;border:0;box-shadow:none}
+    .topbar{width:auto;max-width:none;margin:0;padding:12px clamp(20px,5vw,90px);font-size:12.5px;color:var(--dim);
+      background:var(--bg);border-bottom:1px solid var(--line)}
+    .topbar a{color:var(--blue);text-decoration:none}
+    .topbar a:hover{text-decoration:underline}
+    h1{font-size:30px;font-weight:800;letter-spacing:-.01em;line-height:1.3;margin:.2em 0 .6em;
+      padding-bottom:.4em;border-bottom:2px solid var(--ink)}
+    h2{font-size:22px;font-weight:750;margin:1.8em 0 .6em;padding-bottom:.25em;border-bottom:1px solid var(--line)}
+    h3{font-size:18px;font-weight:700;margin:1.5em 0 .5em;color:#1e293b}
+    h4{font-size:15.5px;font-weight:700;margin:1.2em 0 .4em;color:var(--dim)}
+    p{margin:.7em 0}
+    a{color:var(--blue)}
+    ul,ol{padding-left:1.5em;margin:.6em 0}
+    li{margin:.28em 0}
+    strong{color:#0b1220;font-weight:700}
+    blockquote{margin:1em 0;padding:.6em 1.1em;background:var(--blue-bg);border-left:3px solid var(--blue);
+      border-radius:0 8px 8px 0;color:#1e3a5f}
+    blockquote p{margin:.35em 0}
+    code{font-family:'SF Mono',Menlo,Consolas,monospace;background:var(--code-bg);
+      padding:.12em .4em;border-radius:4px;font-size:.86em;color:#b91c1c}
+    pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.55}
+    pre code{background:none;color:inherit;padding:0}
+    table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:14px;display:block;overflow-x:auto}
+    th,td{border:1px solid var(--line2);padding:8px 12px;text-align:left;vertical-align:top}
+    th{background:#f1f5f9;font-weight:700;color:#1e293b;white-space:nowrap}
+    tr:nth-child(even) td{background:#fafbfc}
+    hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+    img{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+    @media(max-width:720px){.page{padding:32px 20px 64px}.topbar{padding:10px 20px}h1{font-size:24px}}
+  </style>
+</head>
+<body>
+<div class="topbar">📘 讲义 · <a href="../slides/index.html">← 返回课程目录</a></div>
+<div class="page">
+<header id="title-block-header">
+<h1 class="title">第 4 讲 · FDE 的知识背景栈——一个人，装下七个专业角色的方法论 · 讲义</h1>
+</header>
+<h1 id="第-4-讲--fde-的知识背景栈一个人装下七个专业角色的方法论">第 4 讲 · FDE 的知识背景栈——一个人，装下七个专业角色的方法论</h1>
+<blockquote>
+<p>讲义（讲师用）· 120′ · 对应能力模型 <strong>C1／C2／C4／C5／C6（可训练的那一半）</strong> 实践蓝本：康养项目（已交付）· 学前教育项目可研（财评实证）· 草业项目/辣椒（本体·商业实证）</p>
+</blockquote>
+<hr />
+<h2 id="1-一句话命题--本讲在能力模型中的位置">1. 一句话命题 + 本讲在能力模型中的位置</h2>
+<p><strong>命题</strong>：FDE 不是"会建模的人"，而是<strong>七个专业角色的方法论合体</strong>。在 FDE 出现之前，一个政企数字化项目要凑齐七种人各司其职——<strong>产品经理、领域架构师、知识工程师、商业顾问、财评专家、方案/标书工程师、合规官</strong>。FDE 把这七套方法论<strong>装进一个人</strong>：不是样样精通到专家级，而是每一套都**"够用到能独立交付"，并且清楚自己的边界在哪**。</p>
+<p><strong>这一讲要扭转一个误解</strong>：很多人以为 FDE ≈ 会做领域建模 / 本体。错。<strong>建模只是七分之二</strong>（栈②栈③）。康养项目那条链——102 事件 → 7 域 → 3835 行本体 → 1.36 亿投资 IRR 15.2% → 18 处挂国标 → 11 章可研——<strong>每一段都由一个不同角色的方法论撑着，缺一个角色，链就断在那一段</strong>。多数技术出身的人恰恰倒在栈④⑤⑥（盘不出账、过不了财评、组织不起百页交付物），而不是倒在建模。</p>
+<p><strong>能力位置</strong>：本讲是 <strong>C1（认知萃取）／C2（结构建模）／C5（商业建模）／C4（合规治理）／C6（交付物工程）</strong> 的知识底座。上一讲（第 3 讲）说 <strong>C7 补不了</strong>；这一讲说 <strong>这七套方法论全能补，而且每套都有一本业界经典压舱</strong>。两讲是"筛选 vs 训练"的一体两面。</p>
+<p><strong>七角色—七栈—七经典 全景（本讲主轴，逐栈展开）</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>知识栈</th>
+<th>FDE 之前谁占据这个角色</th>
+<th>业界经典 / 权威标准</th>
+<th>康养项目及案例中怎么用</th>
+<th>能力位</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>①</td>
+<td>产品设计</td>
+<td>产品经理 / 产品设计师</td>
+<td>Persona · User Journey Map · 机会矩阵 · 产品思维（《设计冲刺》+ Figma 旅程图 + 梁宁《产品思维30讲》+ 内部《场景化产品设计》）→ 落成 Astra Studio planner 技能</td>
+<td>102 事件 / 7 画像（368 问卷）/ 7 旅程 / 10 热点机会矩阵</td>
+<td>C1</td>
+</tr>
+<tr class="even">
+<td>②</td>
+<td>领域驱动设计</td>
+<td>领域架构师</td>
+<td>《领域驱动设计》Eric Evans（蓝皮书）+《实现领域驱动设计》Vaughn Vernon（红皮书）</td>
+<td>7 域限界上下文 D1–D7 / 防腐层 / 统一语言</td>
+<td>C2 上</td>
+</tr>
+<tr class="odd">
+<td>③</td>
+<td>本体建模 OAG</td>
+<td>知识工程师 / 本体工程师</td>
+<td><strong>C-Life 自有方法论：<code>clife-onto-engine</code></strong>（OAG≠RAG / 五条设计红线 / 三层架构 Kernel·Plugin·Tenant / 元模型五要素 / 受治理的写）——对标 Palantir 本体语义 OS</td>
+<td>五要素 76/75/38/47/54 / 350 万三元组 / 草业项目 tenant-zero</td>
+<td>C2 下</td>
+</tr>
+<tr class="even">
+<td>④</td>
+<td>商业模式与财务基础</td>
+<td>商业顾问 / 战略</td>
+<td><strong>商业模式设计五件套</strong>（商业模式画布 / 免费·交叉补贴 / 三级火箭 / SaaS 指标 / 梁宁增长思维）+ <strong>康养项目 BP Excel 范本</strong> + EBITDA·IRR·NPV·MRR·LTV:CAC·NRR 财务语言</td>
+<td>营收 3.83 亿 / EBITDA 5219 万 / IRR 15.2% / 单店 73 万 21 月</td>
+<td>C5 上</td>
+</tr>
+<tr class="odd">
+<td>⑤</td>
+<td>财务与财评</td>
+<td>财务分析师 / 财评专家</td>
+<td>当地财评规定（柳财审〔2020〕16号）+ NESMA 功能点 +《软件研发成本度量规范》GB/T 36964-2018</td>
+<td>某工业城市 484 条目 → 27,056 FP → 22,014 人天 → 4,839 万；康养项目 IRR 15.2%</td>
+<td>C5 下</td>
+</tr>
+<tr class="even">
+<td>⑥</td>
+<td>项目文档 / 交付物工程</td>
+<td>方案经理 / 标书工程师</td>
+<td>政府投资项目可研编制规范（发改可研大纲）+ 肖作仕写作规范</td>
+<td>11 章可研 / 政务文风 / _WRITING_BRIEF 锚定口径 / 装配质检</td>
+<td>C6</td>
+</tr>
+<tr class="odd">
+<td>⑦</td>
+<td>合规与标准治理</td>
+<td>合规官 / 法务</td>
+<td>国标法规体系（等保 GB/T 22239 / 个保法 / 数据安全法 / 生成式 AI 办法）</td>
+<td>18 处挂国标 / 11 处占位不编造</td>
+<td>C4</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>划重点</strong>：这不是让你成为七个专家。是让你<strong>从七个角色各自的方法论里，各取"能独立跑完交付"的那一层</strong>，并用一个人的判断把它们串成一条不断链的链。<strong>样样够用、缝缝对齐、边界自知</strong>——这就是 FDE 的知识画像。</p>
+</blockquote>
+<p><strong>【本讲的看法：每个知识栈，本质是一条"方法论管线（pipeline）"】</strong> 不要把这七栈当成"七门要背的知识"。<strong>每一栈都是一条有输入、有产出、有下一段接口的方法论管线</strong>——产品栈是"事件→画像→旅程→机会矩阵"的认知萃取管线，DDD 栈是"事件簇→限界上下文→上下文映射"的域切分管线，本体栈是"业务语义→五要素→编译→校验"的建模管线（<code>03</code> 的四阶段就是这条管线），财评栈是"功能点→取值依据→投资估算"的测算管线，交付物栈是"锚定口径→并行写作→装配→质检"的成文管线……</p>
+<p><strong>七条管线首尾相接，就是 FDE 那条完整交付管线</strong>： <code>event-storm → persona/journey/opportunity（studio-planner/insight）→ 限界上下文（domain-model）→ 五要素本体（clife-onto-engine）→ citations 治理（studio-quality）→ 可研生成（studio-docs）</code>。</p>
+<p><strong>这就是本讲和后面第 5/7 讲的桥</strong>：知识背景这一讲讲的是<strong>方法论管线本身</strong>；第 5 讲讲<strong>为什么这些管线要被平台固化</strong>；第 7 讲讲<strong>Astra Studio 的工具怎么把每段管线咬合起来</strong>。一句话——<strong>Astra Studio 之所以长成这些工具，正因为知识背景这里先有了这些方法论管线；工具是管线的固化物，不是反过来。</strong> 所以你学这一讲，不只是学七套知识，是在脑子里装下那条<strong>能自己跑、也能交给工具跑</strong>的交付管线。</p>
+<hr />
+<h2 id="2-时间分配表4--4--2落到分钟120">2. 时间分配表（4 : 4 : 2，落到分钟，120′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>占比</th>
+<th>分钟</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>认知输入（讲）</td>
+<td>40%</td>
+<td>48′</td>
+<td>开场"七角色合体"3′ + 七栈逐维（栈①⑥⑦各 7′、栈②③④⑤各 7′，紧凑）+ 收口"乘法"2′</td>
+</tr>
+<tr class="even">
+<td>现场演练（练）</td>
+<td>40%</td>
+<td>48′</td>
+<td>转入工作坊：七角色能力盘点（每角色你到 L 几）+ 选最弱一栈精读对应经典一章、产出应用到案例的读书笔记</td>
+</tr>
+<tr class="odd">
+<td>复盘研讨（议）</td>
+<td>20%</td>
+<td>24′</td>
+<td>3 研讨题 + 讲师收口 + 难听话 + 两个反例（B-6 / B-5）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-认知输入七角色--七栈逐维48">3. 认知输入：七角色 · 七栈逐维（48′）</h2>
+<blockquote>
+<p>每栈讲四件事：<strong>【这个角色原本是谁】→【方法论内核 + 业界经典】→【康养项目/案例里 FDE 怎么用】→【怎么自学 / 自评到能交付】</strong>。</p>
+</blockquote>
+<h3 id="30-开场为什么是角色合体不是技能清单3">3.0 开场：为什么是"角色合体"，不是"技能清单"（3′）</h3>
+<p><strong>【讲述脚本】</strong>"上一版这一讲我讲'五维知识栈'，讲浅了。今天换个讲法，也是更真实的讲法：你要成为 FDE，本质上是要<strong>一个人干完过去七个岗位的活</strong>。传统模式做康养项目这种项目，会议室里坐七种人——产品经理定需求、架构师切系统、知识工程师建图谱、商业顾问搭模式、财评专家算功能点、方案经理写标书、法务把红线。他们各说各的行话，交接处全是信息衰减（这就是第 1 讲的交付断层）。FDE 消除断层的办法，不是协调这七个人，是<strong>把这七套方法论装进自己脑子</strong>，一个人从头跑到尾。所以这一讲不是七个技能点，是<strong>七个角色的方法论体系</strong>，每一个我都给你一本业界压舱的经典——你补哪一栈，就去啃那一本。"</p>
+<h3 id="31-栈①产品设计产品经理的方法论7">3.1 栈①｜产品设计：产品经理的方法论（7′）</h3>
+<p><strong>【原本是谁】</strong> 产品经理 / 产品设计师——负责把模糊的客户意图变成"要做什么"。</p>
+<p><strong>【方法论内核：四个把模糊意图变结构的具体方法】</strong> 产品设计不是"画原型"，核心是四件<strong>可照做的方法</strong>，一步步把"客户想要点什么"逼成可归域的结构：</p>
+<ul>
+<li><strong>Persona（用户画像）</strong>：按<strong>行为 / 目标 / 动机 / 痛点</strong>定义真实用户——<strong>不是人口属性堆砌</strong>。画像是整条旅程的地基（Figma：persona 让旅程"反映真实用户视角"）。</li>
+<li><strong>User Journey Map（用户旅程图）</strong>：Figma 给的五要素框架——① 用户（persona）② 场景与目标 ③ <strong>旅程阶段</strong>（通用 awareness→consideration→decision→purchase→retention，可按业务定制）④ <strong>行为·态度·情绪</strong>（每阶段的正负情绪）⑤ <strong>机会点</strong>（从摩擦/痛点里长出来）。五步做法：从研究数据定 persona 与目标 → 找触点 → 可视化阶段 → 逐阶段记录行为与情绪 → 用真实反馈校验迭代。</li>
+<li><strong>Opportunity Matrix（机会矩阵）</strong>：把旅程里暴露的痛点<strong>排优先级</strong>——按影响 × 可行性 × 频率打分、ROI 排序，决定先做哪个。</li>
+<li><strong>Event Storming（事件风暴）</strong>：把业务事件全量铺开、再归簇，喂给后面的限界上下文（栈②）。</li>
+<li><strong>产品思维（梁宁《产品思维30讲》，得到）</strong>：给上面这些方法补一层**"人和情绪"<strong>——① <strong>同理心</strong>：看懂用户情绪、顺应潜意识，把需求分成</strong>痛点 / 痒点 / 爽点**（画像和旅程里的"痛点"就从这来）；② <strong>机会判断·点线面体</strong>：从一个"点"（一个具体产品）看到它所附着的"线—面—体"（趋势与势能），别做一个没有势能的孤点；③ <strong>用户体验五层</strong>（战略存在 / 能力圈 / 资源结构 / 角色框架 / 感知层）——提醒你产品不止"感知层好看"，底下四层才决定成败。这套是 Persona/Journey 的<strong>情绪与势能内核</strong>。</li>
+</ul>
+<p><strong>【经典 / 来源】</strong> <strong>《设计冲刺 Sprint》</strong>（Jake Knapp，Google Ventures）——五天从问题到可测原型，HMW（How Might We）、用户测试是骨架；<strong>Figma User Journey Map 资源库</strong>——旅程图五要素与五步做法的权威框架；<strong>梁宁《产品思维30讲》</strong>（得到）——同理心 / 点线面体 / 用户体验五层，补足"情绪与势能"维度；内部 <strong>《场景化产品设计》</strong>（刘亚蒙，2018）——<strong>它的"建立共同的认知约定：名词/概念/流程/节奏"就是本课程锚定口径机制的原型；"场景七要素"就是 OAG 五要素 Action 的前身</strong>。产品栈和本体栈本是一条血脉。［来源：igetget.com 梁宁·产品思维30讲；Jake Knapp《Sprint》；figma.com 资源库］</p>
+<p><strong>【落成工具：Astra Studio planner / insight 阶段】</strong> 这些方法在 C-Life <strong>不是靠手画白板，是固化成 studio 技能</strong>——<code>persona-insight</code>（画像）· <code>journey-map</code>（用户旅程）· <code>process-flow</code>（业务流程）· <code>opportunity-brief</code>（机会矩阵，Impact × Feasibility × √Frequency 做 ROI 排序）· <code>behavior-matrix</code>（行为矩阵）· <code>domain-canvas</code>（领域画布）· <code>event-storm</code>（事件风暴）。<strong>这跟栈③本体锚到 clife-onto-engine 是对称的：产品栈锚到 Astra Studio planner 工具链——方法论被平台固化（呼应第 5 讲）。</strong></p>
+<p><strong>【康养项目 / 教育督导项目怎么用】</strong> 康养项目：<code>event-storm</code> 出 <strong>102 事件 → 16 簇</strong> → <code>persona-insight</code> 定 <strong>7 画像（368 问卷校准，按行为聚类）</strong>——不是按"60 岁以上老人"这种人口属性切，是按"熟人获客接受度 77.59%""智能监护接受但要简单式 84.48%"这种行为切 → <code>journey-map</code> 画 <strong>7 旅程</strong> → <code>process-flow</code> <strong>5 流程</strong> → <code>opportunity-brief</code> 排 <strong>10 热点 P1–P5</strong>（机会矩阵）。教育督导项目：同一套——3 画像（李科长/张园长/王老师）+ journey + <code>opportunity-brief</code> ROI 排序（material-qc / standard-decode / gap-diagnose 为 P0）。<strong>同一套 planner 方法跨行业跨模式成立，这就是第 8 讲"C1 认知萃取迁移力"的底座。</strong></p>
+<p><strong>【自学 / 自评】</strong> 读《设计冲刺》+ Figma User Journey Map 资源库；跑一遍 studio <code>persona-insight</code> / <code>journey-map</code> / <code>opportunity-brief</code>。练法——对一个熟悉业务，限时做一张<strong>含五要素（persona / 阶段 / 情绪 / 痛点 / 机会）的旅程图</strong>，再从痛点排一张机会矩阵。<strong>自评到能交付</strong>：能独立主持一场事件风暴并产出<strong>可归域</strong>（不是流水账）的事件集；能做一张情绪与机会点齐全的 journey map；每个画像特征都能指到一份数据来源（康养项目 368 问卷就是反例 B-5 前的"锚点"纪律）。</p>
+<h3 id="32-栈②领域驱动设计领域架构师的方法论7">3.2 栈②｜领域驱动设计：领域架构师的方法论（7′）</h3>
+<p><strong>【原本是谁】</strong> 领域架构师——负责把大系统切成边界清晰、各自内聚的域。</p>
+<p><strong>【内核 + 经典】</strong> DDD 三件核心：<strong>统一语言（Ubiquitous Language）</strong>、<strong>限界上下文（Bounded Context）</strong>、<strong>上下文映射（含防腐层 ACL）</strong>。</p>
+<ul>
+<li>业界经典：<strong>《领域驱动设计》Eric Evans（蓝皮书，DDD 开山之作）</strong> + <strong>《实现领域驱动设计》Vaughn Vernon（红皮书，落地版）</strong>；配合 DDD 实战课补练手。重点啃"限界上下文"与"上下文映射"两章。</li>
+</ul>
+<p><strong>【康养项目怎么用】</strong> 102 事件 / 16 簇切成 <strong>7 域限界上下文 D1–D7</strong>；<strong>跨域一律 ref/发布不越界写入</strong>，两处<strong>防腐层</strong>（D6↔︎D5、D4↔︎D5）就是 DDD 的 ACL；Elder 共享根单写入点就是"统一语言 + 单一真相"。切得对不对，用结构校验兜底：<strong>A 结构 7/7 零悬空引用</strong>。</p>
+<p><strong>【自学 / 自评】</strong> 练法——把栈①的事件集按"谁拥有这个决策"切域，切完自查有没有一个对象被两个域同时写。<strong>自评到能交付</strong>：能独立完成 1 个域的 ontology-map 并<strong>通过结构校验</strong>；能说清两个域之间是"引用"还是"发布"。（越域写入的冲动是真实的坑 → 第 5 讲 B-8。）</p>
+<h3 id="33-栈③本体建模-oag知识工程师的方法论c-life-自有方法论体系对标-palantir本栈重点详解">3.3 栈③｜本体建模 OAG：知识工程师的方法论（<strong>C-Life 自有方法论体系</strong>，对标 Palantir）（本栈重点详解）</h3>
+<blockquote>
+<p><strong>这一栈是全课程的技术分水岭，也是 C-Life 真正的护城河</strong>：别的方法论我们借业界经典，<strong>本体这一栈我们有自己成体系的方法论</strong>——<code>clife-onto-engine</code>（数智本体基础设施）。下面讲的不是教科书概念，是我们自己一行行写出来、CI 强制、跨行业复用的东西。</p>
+</blockquote>
+<p><strong>【原本是谁】</strong> 知识工程师 / 本体工程师——负责把领域知识落成<strong>机器可推理、可执行、可追溯</strong>的本体，而不是给人看的 ER 图。</p>
+<p><strong>【核心命题（记这一句）】</strong> <strong>大模型负责理解，本体负责确立边界与错误拦截。</strong> LLM 是概率机器，给不了确定性；当你让 Agent 不只"回答问题"而是"执行操作"（出方案、评级、签发凭证、派工单）时，必须有一层<strong>确定性边界在模型之外把关</strong>。<code>clife-onto-engine</code> 就是这层边界的工程实现——一个坐在<strong>写路径</strong>上、对每次业务动作做"前置校验 → 内存变更 → 全局规则校验 → 提交或<strong>确定性回滚</strong> → 决策血统"的运行时内核。</p>
+<p><strong>【方法论内核一：OAG（行动增强）≠ RAG（检索增强）】</strong> 本体语义层的本质是 <strong>OAG（Ontology-Augmented Generation，行动增强，概念由 Palantir AIP 提出）</strong>，不是 RAG/Graph-RAG（只读检索增强）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>RAG</th>
+<th><strong>OAG</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>增强的对象</td>
+<td>生成内容的依据</td>
+<td><strong>行动的能力与边界</strong></td>
+</tr>
+<tr class="even">
+<td>LLM 输出</td>
+<td>自然语言答案</td>
+<td><strong>结构化操作调用</strong></td>
+</tr>
+<tr class="odd">
+<td>对世界的影响</td>
+<td>只读</td>
+<td><strong>写操作（受规则约束）</strong></td>
+</tr>
+<tr class="even">
+<td>出错后果</td>
+<td>答案不准</td>
+<td><strong>状态被错误改变</strong></td>
+</tr>
+<tr class="odd">
+<td>追溯性</td>
+<td>难还原依据</td>
+<td><strong>完整决策血统</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键澄清</strong>：GraphRAG / 知识图谱增强检索<strong>仍属"读"</strong>——帮模型理解关系，但<strong>不提供受治理的写回路径，挡不住"写错"</strong>。<strong>防幻觉发生在执行层（LLM 提议、引擎回滚），不在检索层。</strong> 一句话记住：<strong>概率推理在"选择层"，确定性约束在"执行层"。</strong> ⚠️给客户讲草业项目时我们曾用"Graph-RAG 约束求解防幻觉"的话术贴近认知，但那把 OAG 的功劳记到了 RAG 头上——对内必须讲准（见 <code>docs/02-oag-positioning.md</code> 纠偏卡）。</p>
+<p><strong>【方法论内核二：OAG 三件套】</strong> 操作发现（能力清单，Schema→可用 Action+参数）+ 执行约束（Action 引擎 guard→写后规则→<strong>确定性回滚</strong>）+ 决策追溯（审计<strong>快照</strong>，非日志）。缺一不可。</p>
+<p><strong>【方法论内核三：五条设计红线】</strong></p>
+<ol type="1">
+<li><strong>行业概念不进内核</strong>——内核源码禁止出现任何行业词（草/碳汇/辣椒/康养…），CI <code>check_kernel_purity</code> 强制；判缝准则"换成医疗大模型这段还成立吗？"成立→内核，不成立→插件。</li>
+<li><strong>本体是 enforced kernel，不是 advisory schema</strong>——Rule 是"违反就拦截+回滚"，不是"希望遵守"。</li>
+<li><strong>受治理的写</strong>——所有业务动作经 Action 引擎 <code>guard→变更→写后校验→提交/回滚→审计</code>，<strong>无旁路</strong>。</li>
+<li><strong>开源优先、薄适配</strong>——自研只做"接缝"（五要素契约、SPI、Action 流水线）。</li>
+<li><strong>多租户硬隔离</strong>——一个 <code>ontology_id</code> ↔︎ 一个图库 space + 租户作用域。</li>
+</ol>
+<p><strong>【方法论内核四：三层架构 Kernel / Plugin / Tenant】</strong>（机制 / 策略 / 实例三层分离）</p>
+<table>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>归属</th>
+<th>含行业词</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Kernel 内核（机制）</strong></td>
+<td>clife，一次投入跨行业复用</td>
+<td>否（CI 强制）</td>
+<td>元模型、Action 内核、规则引擎、回滚、审计、置信度、意图编译</td>
+</tr>
+<tr class="even">
+<td><strong>Plugin 行业插件（策略）</strong></td>
+<td>clife+行业专家，每行业一份</td>
+<td>是（隔离在插件内）</td>
+<td>五要素 Schema、映射、规则函数、Action handler、Agent、CQ</td>
+</tr>
+<tr class="odd">
+<td><strong>Tenant 租户配置（实例）</strong></td>
+<td>客户，每客户一份</td>
+<td>是（实例数据）</td>
+<td>私有物理映射、实例数据接入、密级与授权</td>
+</tr>
+</tbody>
+</table>
+<p>内核与插件<strong>只通过 <code>clife_onto_engine/sdk/</code>（Plugin SPI）通信</strong>——目录边界即红线。这就是第 5 讲"两套 plugin 体系"里 <strong>ontology plugin 体系</strong>的内部骨架；也印证"本体即基础设施"：<strong>内核只懂本体怎么运转、不懂任何行业</strong>，草业项目（草业）只是它的 tenant-zero，医疗/金融照样跑同一内核。</p>
+<p><strong>【方法论内核五：元模型五要素 = 内核↔︎插件唯一契约】</strong> 内核只理解五种元类型，任何行业概念都是插件用它们声明的实例：<strong>Object</strong>（业务实体，有独立生命周期）· <strong>Link</strong>（有向关系，带边语义）· <strong>Function</strong>（只读派生量，无副作用）· <strong>Rule</strong>（全局不变式，违反则回滚）· <strong>Action</strong>（受审计业务动作，有前置/有副作用/需留痕）。Action 的写路径是这栈的灵魂：<code>guard（前置 declarative）→ stage_write（内存变更）→ post_rules（写后强制，违反即回滚）→ 提交/确定性回滚 → 审计快照 + set_confidence 置信度 + add_evidence 证据</code>；<code>ctx</code> 是<strong>受限 Capability，不是裸 context</strong>。</p>
+<p><strong>【方法论内核六：本体建模 SOP——先把本体建模做对（<code>reference/methodology 03</code>）】</strong> 这栈的方法论不止有概念，还有<strong>可照做的建模 SOP</strong>——它是我们方法论文集里最实操的一篇：</p>
+<ul>
+<li><strong>起点不是"有哪些数据"，是"现在的做法在哪出了问题、集中在哪个业务范围"。</strong> 三类反复出现的问题：① <strong>信息没法汇聚</strong>（散在多系统、Agent 拿到不同时间点的拼凑结果）② <strong>规则无法被执行</strong>（Agent 走后端接口绕过了前端校验——规则没失效，只是从没在这条路径上被执行过）③ <strong>决策无法还原</strong>（日志记的是接口调用，看不出"为什么代采购经理下了这笔 28 万的单"）。先界定问题 → 划 <strong>MVP 边界</strong>。</li>
+<li><strong>基于业务语义（不是系统字段）推五要素</strong>：哪些独立实体（Object：独立生命周期/独立属性/被引用）· 哪些有意义关联（Link：有方向、可带属性）· 哪些指标需计算（Function：只读，是规则的数据来源）· 哪些约束必须始终成立（Rule：全局、所有入口、<strong>操作后</strong>校验、违反回滚——区别于只判本次的"前置条件"）· 哪些操作需被记录（Action：有名、需审计、携带业务意图）。</li>
+<li><strong>先建模、再看数据</strong>——顺序不能反：先看数据会被现有系统结构带偏，建出"系统长什么样"而非"业务是什么样"。建完再逐属性追溯来源系统 + 治理（编号对照表 / PDF 解析管道 / 只导近两年有完整状态的记录）。</li>
+<li><strong>四阶段有先后、不并行</strong>：① 调研与建模（<strong>业务专家必须在场，工程师单独做必跑偏</strong>；产出<strong>文档/原型不是代码</strong>，业务逐条确认）② 数据盘点与治理 ③ 引擎搭建与数据接入（<strong>这一阶段才开始写代码</strong>）④ 场景验证与调优（<strong>Demo 的价值在暴露边界，不是证明对</strong>）。</li>
+<li><strong>怎么判断建对了</strong>三问：信息汇聚实现没有？规则真在执行没有（<strong>警惕误拦截 &gt; 漏拦截</strong>——持续误拦截会逼业务绕过本体，整套约束就失效）？决策能不能当天说清楚？</li>
+<li>金句直引：<strong>"本体建模是把业务知识变成可执行定义的过程，而不是软件开发本身。最难的环节不是选技术栈，而是和业务人员一起把'大家都知道但没有人写下来'的规则，变成能被系统执行的精确描述。"</strong></li>
+</ul>
+<p><strong>【与 Palantir 的关系（对标坐标，不是照抄）】</strong> OAG 概念出自 Palantir AIP；Palantir 的 Ontology 分语义层（Object/Property/Link）+ 动能层（Action/Function/writeback），是"以本体为核心的企业智能操作系统"。<strong>C-Life 做的是这套语义 OS 的自有实现</strong>——语义读（OQL 查受治理对象图）、治理写（Action 引擎）、审计快照、Explorer 展示、MCP 桥，<strong>语义面全自有、不依赖外部脊椎</strong>。方法论文集 <code>06</code> 讲得更直白：<strong>新型 FDE = 从第一性原理建领域模型 + 判断力 + AI 执行力</strong>，"本体不是 Palantir 的专利，是一种工程方法论"；战场边界也和本课程一致——<strong>探索/验证/新项目落地不可替代，规模化/组织推动瓶颈在人（=第 3 讲 C7）</strong>。［来源：<code>reference/methodology</code> 01-36；clife-onto-engine README/docs；Palantir 官方文档 Foundry Ontology］</p>
+<p><strong>【落到康养项目的真实插件——五要素到底长什么样（本栈重点详解）】</strong> 光讲 Palantir 的概念还是悬空的。看康养项目<strong>真正编译出来的本体插件</strong>——这是这门课区别于"传统信息化建模"的硬核，也是你要学会写的东西。</p>
+<p><strong>① 一域一插件，四个文件</strong>。7 个域各编译成一个 <code>clife-onto-engine</code> 插件骨架，每个插件 4 个文件：</p>
+<ul>
+<li><code>__init__.py</code>——五要素的可运行声明（<strong>只 import <code>clife_onto_engine.sdk</code></strong>，红线）；</li>
+<li><code>mappings/objects.yaml</code>——对象到数据源的映射；</li>
+<li><code>cq/golden.yaml</code>——行为黄金问题（CQ，验收本体拦得住/放得过）；</li>
+<li><code>plugin.yaml</code>——插件元数据。 7 域合计 <strong>Object 76 / Link 75 / Function 38 / Rule 47 / Action 54 / HIL 26</strong>，<strong>3835 行 Python + 21 YAML，7/7 py_compile ✓</strong>。</li>
+</ul>
+<p><strong>② 五要素就是五种 SDK 构造</strong>。以 D1 <code>kangyang-agent-core</code>（10 对象/13 关系/5 函数/6 规则/6 动作/2 HIL）为例：</p>
+<ul>
+<li><strong>Object（对象）→ <code>ObjectType</code></strong>：如 <code>HealthInsight</code>（健康洞察）声明 <code>primary_key</code>、<code>properties</code>（每个属性一条 <code>PropertySpec</code>，带类型/是否必填/密级 <code>classification="confidential"</code>/单位）、状态机 <code>states=("new","triaged","addressed","closed")</code>。<strong>跨域共享根 <code>Elder</code> 一律 <code>ref(Elder)</code> 引用，不在本域重复声明全属性</strong>——这就是 Palantir "对象只有一个真相源"的纪律。</li>
+<li><strong>Link（关系）→ <code>LinkType</code></strong>：如 <code>root_caused_by</code>（洞察→根因，1:N），带 <code>edge_semantics</code>（<code>root_cause</code> / <code>hypothesis</code> / <code>derivation</code>）——语义化的边，不是一根裸箭头。飞轮再入用 <code>loops_back</code>（<code>hypothesis</code>，指向待续假设）。</li>
+<li><strong>Function（只读派生）→ <code>FunctionDef</code></strong>：无副作用的计算，如 <code>plan_confidence</code>、<code>red_flag_count</code>、<code>opportunity_estimate</code>——可重算，采纳才转 Action。</li>
+<li><strong>Rule（规则/不变式）→ <code>@spi.rule</code></strong>：分两类——<code>Backing.DECLARATIVE</code>（从 check 全自动、<code>source="通用"</code>、治理审计直接放行，如"方案须可解释""HIL 必留痕""链路顺序不可逆"）与 <code>Backing.FUNCTION</code>（需查图谱/跨对象的硬规则，如**"置信度闸·防橡皮图章"**、"药食/DIP 冲突拦截"）。每条规则带 <code>severity=Severity.HARD</code>、<code>source</code> 和 <strong><code>citations</code></strong>（挂国标/法规，如 <code>DIP 技术规范(医保办发〔2020〕50号)</code> + <code>某地级市 DIP 控费实施细则[本地待补文号]</code>——<strong>挂得上的挂国标，挂不上的留占位不编造</strong>，这就是栈⑦合规在本体层的落点）。</li>
+<li><strong>Action（动作/写回）→ <code>@spi.action</code></strong>：对外副作用，<code>writes</code> 本域对象、<code>guards</code> 引本域规则；跨域<strong>一律注释"发布到 D2/D3/D4"、不越界 <code>stage_write</code> 他域</strong>（Palantir 的"动作写回 + 边界"）。审批类动作挂 <strong><code>hil=HilPolicy(reviewer_role="站长", ...)</code></strong>——这就是站长 HIL 增收闸在代码里的样子。</li>
+</ul>
+<p><strong>③ 骨架 + 显式挂账</strong>。规则体/动作 handler/派生函数<strong>留 <code>raise NotImplementedError("…待实现")</code>，全域共 121 处</strong>（29 function 规则体 + 54 Action 回写 + 38 Function 派生）+ 7 seed，交现场 FDE 在引擎仓库内填。<strong>先跑通编译（可运行 &gt; 完美），再填规则体</strong>——不确定的（如 SDK 是否导出 <code>Evaluation</code>）显式落 docstring 挂账，不靠"应该支持吧"（→ 第 5 讲 B-9）。</p>
+<p><strong>【草业项目的印证】</strong> 草业项目的 OAG 订正稿把这套讲得更透——"防幻觉靠<strong>本体约束求解</strong>、LLM 只在合规候选集内生成、越权即 reject + HIL 兜底"，正是 Palantir 动能层"动作校验/动态安全"在大模型时代的用法（⚠️草业项目为方案+设计稿，本体未编译，与康养项目"已编译 3835 行"是两个成熟度）。</p>
+<p><strong>【自学 / 自评】</strong> 本栈的首选教材，就是 <strong><code>onto-fundary-plugins/reference/methodology/</code> 这套 36 篇方法论文集</strong>（"工程师的本体论"系列，我们自己写的、成体系）。给你一条阅读地图：</p>
+<ul>
+<li><strong>打底认知</strong>：<code>01 缺的不是数据，而是本体</code> · <code>02 决策系统的真正内核：本体模型</code> · <code>28 Software 3.0 的文件系统：本体</code></li>
+<li><strong>建模怎么做</strong>：<code>03 在动手之前，先把本体建模做对</code>（三步建模法 + 四阶段顺序 + 三个判断）· <code>06 AI 时代的 FDE</code>（新型 FDE = 建模 + 判断力 + AI 执行力）</li>
+<li><strong>OAG 的本质</strong>：<code>07 OAG 与 RAG 的分界</code> · <code>08 把 Schema 变成能力清单</code> · <code>09 Agent 以为成功了引擎在最后一刻回滚</code>（确定性回滚）· <code>10 三个月后你能回答 AI 为什么这样做</code>（可追溯）· <code>23 置信度总线</code></li>
+<li><strong>系统全貌</strong>：<code>17 我们在构建什么：AI 原生 OS 内核</code> · <code>22 意图编译器</code> · <code>33 双本体联邦</code></li>
+<li>配 <code>clife-onto-engine</code> README + <code>docs/01/02</code>；再读 <strong>Palantir Foundry Ontology 官方文档</strong>建对标坐标；最后对着康养项目某域 <code>ontology-map.md</code> + <code>compiled/__init__.py</code> 逐要素仿写。</li>
+</ul>
+<p>记住 <code>06</code> 的两句判断：<strong>"AI 能把想清楚的事快速变成代码，但不能代替'想清楚'这件事本身"</strong>；<strong>"平台越来越便宜，本体模型越来越值钱——会建模型的人，不会被替代，而是被放大。"</strong></p>
+<p><strong>自评到能交付</strong>：能讲清 <strong>OAG≠RAG（防幻觉在执行层不在检索层）</strong>；能照 <code>03</code> 的三步 SOP 独立建一个域并<strong>编译通过</strong>；能对任一 Action 判"改哪个对象、走 guard/post_rule 哪道校验、是否回滚、是否设 <code>HilPolicy</code> 闸"；能分清一条规则该 <code>DECLARATIVE</code> 还是 <code>FUNCTION</code>、区分"规则 vs 前置条件"；能说清 Kernel/Plugin/Tenant 三层"行业词为什么不能进内核"。<strong>这栈直接接第 9 讲</strong>——我们把 Palantir 那套语义 OS 做成了自有内核与方法论。</p>
+<h3 id="34-栈④商业模式与财务基础商业顾问的方法论设计工具箱--康养项目-bp-excel本栈已加深">3.4 栈④｜商业模式与财务基础：商业顾问的方法论（设计工具箱 + 康养项目 BP Excel）（本栈已加深）</h3>
+<p><strong>【原本是谁】</strong> 商业顾问 / 战略——负责回答"这事怎么挣钱、谁付钱、付多少、几年回本"。<strong>这是最多技术型 FDE 完全空白的一维</strong>：能出 7 域本体，却搭不出一个能自洽的商业模式，方案在客户那边就是"技术很好，但不知道怎么赚钱"。</p>
+<p><strong>【方法论内核：商业模式与增长设计五件套（业界框架，先有工具再看案例）】</strong> 商业模式设计不是拍脑袋，是有成熟框架的。FDE 要会用这五件套：</p>
+<ul>
+<li><strong>① 商业模式画布（Business Model Canvas，Osterwalder &amp; Pigneur, 2005）</strong>——把任何生意拆成 <strong>9 个模块</strong>：右侧"价值面"= 客户细分 / 价值主张 / 渠道 / 客户关系 / 收入来源；左侧"效率面"= 关键伙伴 / 关键活动 / 关键资源 / 成本结构。它是<strong>画一张就能和客户对齐"这生意怎么转"的通用底图</strong>。［来源：Osterwalder《Business Model Generation》；en.wikipedia.org/wiki/Business_model_canvas］</li>
+<li><strong>② 免费 / 交叉补贴模型（Chris Anderson《Free》, 2009）</strong>——"免费"其实有<strong>四型</strong>：<strong>直接交叉补贴</strong>（一个产品免费/低价引流、另一个高毛利变现，如剃须刀送、刀片赚；打印机便宜、墨盒贵）· <strong>三方市场/间接补贴</strong>（用户免费、广告主付费）· <strong>Freemium</strong>（多数人用免费、少数人买增值）· <strong>非货币市场</strong>（礼物经济/数据）。<strong>关键是想清楚"谁被补贴、谁来买单"。</strong>［来源：Chris Anderson《Free: The Future of a Radical Price》］</li>
+<li><strong>③ 互联网三级火箭（周鸿祎/360 · 梁宁《产品思维30讲》创新模式篇）</strong>——<strong>一级：头部流量</strong>（免费/高频入口打开市场，如 360 免费杀毒破了付费格局）→ <strong>二级：沉淀用户</strong>（把流量锁进商业场景/生态）→ <strong>三级：商业闭环</strong>（在低频高价处变现，如浏览器广告分发）。特征：<strong>从高频到低频、每级推力成本递减但风险递增；一级不赚钱，需要有耐心和融资能力的人扛。</strong>［来源：梁宁《产品思维30讲》创新模式；woshipm.com〕</li>
+<li><strong>④ SaaS 商业模式指标体系</strong>——订阅制生意有一套<strong>专用财务语言</strong>：<strong>MRR/ARR</strong>（月/年经常性收入）· <strong>CAC</strong>（获客成本）· <strong>LTV</strong>（客户生命周期价值）· <strong>LTV:CAC</strong>（健康线 ≥ 3:1）· <strong>Churn</strong>（流失率）· <strong>NRR 净收入留存</strong>（&gt;100% = 光靠老客户就增长，2026 投资人最看重）· <strong>Rule of 40</strong>（增长率 + 利润率 &gt; 40%）。［来源：SaaS metrics benchmarks，beancount.io / thesaaslibrary.com］</li>
+<li><strong>⑤ 增长思维（梁宁《增长思维30讲》，得到）</strong>——把"商业模式"从"怎么设计"推到"怎么持续增长"。核心一句：<strong>"增长能力 = 持续作出正确决定的能力。"</strong> 两个可直接用的抓手：<strong>北极星指标</strong>（全公司对齐的那<strong>一个</strong>核心增长指标，别拿一堆 KPI 糊弄自己）+ <strong>四个增长关卡</strong>（机会拿捏 → 模式取巧 → 组织扩容 → 战略借势，卡在哪一关就补哪一关）；并给增长定标尺——低于 GDP 增速=维持、2 倍 GDP=惯性增长、超 4 倍 GDP=爆发式。［来源：梁宁《增长思维30讲》，得到 igetget.com；growthhk.cn 图解〕</li>
+</ul>
+<p><strong>【⭐ 本栈最关键的洞察：财务语言随"交付模式"变】</strong> 把四件套接到第 6 讲的交付模式上——<strong>不同模式，用的是完全不同的财务语言，用错了当场露怯</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>交付模式</th>
+<th>商业模式底色</th>
+<th>该用的财务语言</th>
+<th>别用错</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>模式二 · 大平台建设+运营</strong>（康养项目/草业项目/辣椒）</td>
+<td>重资产、投—建—运、多元收入</td>
+<td><strong>投资估算 / EBITDA / IRR / NPV / 回本周期</strong>（重资产看回报率与回本年）</td>
+<td>别用 MRR——一次性建设 + 运营盘不是订阅</td>
+</tr>
+<tr class="even">
+<td><strong>模式一 · Token 计费 SaaS 应用</strong>（教育督导项目/草业项目 SaaS 层/辣椒 OQL 按量）</td>
+<td>轻资产、订阅/按量、可复制</td>
+<td><strong>MRR/ARR / LTV:CAC / NRR / Churn / Rule of 40</strong>（订阅看留存与单位经济）</td>
+<td>别用 IRR/回本年——SaaS 早期没有"回本年"这回事</td>
+</tr>
+</tbody>
+</table>
+<p><strong>一句话记死：客户问模式二的项目，你答 IRR 15.2%、第 9 年回本；客户问模式一的 SaaS，你答 LTV:CAC 3:1、NRR 120%。答反了，客户就知道你没做过这类生意。</strong></p>
+<p><strong>【范本：康养项目 BP 就是"交叉补贴 + 三级火箭"的活体】</strong> 康养项目这份 <strong>BP + 财务测算 Excel 模型</strong>（<code>嘉城数联医康养生态运营财务测算模型.xlsx</code>），不是凭空设计的，正好能用上面的框架拆开：</p>
+<p><strong>① 商业模式五段（从康养项目 BP 学结构）</strong>：</p>
+<ul>
+<li><strong>顶层逻辑（一句话商业模式）</strong>：门诊医疗引流 → 照护康养创收 → 产品增值补充 → 政企合作加速。<strong>这正是"交叉补贴 + 三级火箭"</strong>：门诊医疗是<strong>一级火箭</strong>（低毛利/引流入口，用交叉补贴换流量），会员沉淀复购是<strong>二级火箭</strong>（把患者锁成会员），照护/商城/长护险是<strong>三级火箭</strong>（高毛利变现）。用框架一眼看穿，比"背 BP 里那句话"深一层。</li>
+<li><strong>收入结构（谁付钱）</strong>：<strong>三元支付</strong> = 老人自费 + 长护险（PICC 康养项目已打通全闭环）+ 政府购买服务——对应商业模式画布的"收入来源"多渠道设计。To-G 项目收入设计的核心是"三方买单、互相补位"，本质是<strong>交叉补贴的一种</strong>（政府/长护险补贴了老人自付不起的那部分）。</li>
+<li><strong>最小验证单元</strong>：微康养单店模型——峰值资金约 <strong>73 万、约 21 个月回本</strong>、单站 1.5–5 人，<strong>60 站可复制</strong>。BP 的说服力来自"一个单元跑通、可复制"，不是"整盘很大"。</li>
+<li><strong>增长引擎</strong>：会员转化复购飞轮（把"患者"转"会员"，中医理疗 + 长者食堂 + 康养商城三线咬合）。</li>
+<li><strong>主体与分账</strong>：投—建—运分离、嘉城数联合资、分账核算——回答"钱怎么进、谁分、独立定价"。</li>
+</ul>
+<p><strong>② 一个 Excel 财务模型里的基础概念（技术人最缺，务必讲清）</strong>：</p>
+<ul>
+<li><strong>EBITDA（息税折旧摊销前利润，Earnings Before Interest, Taxes, Depreciation &amp; Amortization）</strong>：营收减去经营成本，但<strong>加回利息、税、折旧、摊销</strong>。它衡量的是<strong>主业本身的现金创造能力</strong>，剔除了"怎么融资、怎么折旧"的干扰。康养项目基准口径 <strong>EBITDA ≈ 5219 万/年</strong>（营收约 3.83 亿、净利约 3535 万）。</li>
+<li><strong>IRR（内部收益率，Internal Rate of Return）</strong>：使项目<strong>净现值 NPV = 0</strong> 的那个折现率——通俗说，是<strong>这个项目每年的"复合回报率"</strong>。它要跟一条<strong>门槛线</strong>比：康养项目 <strong>合资口径 IRR ≈15.2%（第 9 年回本）</strong>、<strong>发改口径 ≈8.7%（第 11 年回本，仍高于国企 6% 门槛）</strong>。<strong>两套口径并存不是矛盾</strong>——算的钱流范围不同（合资只看合资公司分到的，发改看整盘），这是财务常识。</li>
+<li><strong>NPV（净现值，Net Present Value）</strong>：把未来每年的净现金流按折现率折回今天再求和，&gt;0 才值得投。</li>
+<li><strong>回本周期（Payback）</strong>：<strong>累计净现金流由负转正</strong>的那一年（康养项目第 9 / 11 年）。</li>
+<li><strong>一句话串起来（模式二重资产语言）</strong>：营收 −成本 = <strong>EBITDA</strong>（主业赚钱力）→ 扣息税折旧 = 净利 → 逐年净现金流折现求和 = <strong>NPV</strong>、令 NPV=0 的折现率 = <strong>IRR</strong>、累计转正之年 = <strong>回本</strong>。这五个数，就是 To-G 大平台项目签字前客户和财评专家盯的那几行。</li>
+<li><strong>③ 换成模式一 SaaS 的语言（同一件事、另一套数）</strong>：如果做的是教育督导项目那种订阅/按量的 SaaS 应用，客户不问"几年回本"，问的是——<strong>获客花多少（CAC）、一个客户一辈子贡献多少（LTV）、这两个比值健不健康（LTV:CAC ≥ 3:1）、客户跑不跑（Churn）、光靠老客户能不能增长（NRR &gt; 100%）、整盘增长+利润够不够格（Rule of 40）</strong>。FDE 要能在两套语言间自由切换。</li>
+</ul>
+<p><strong>【自学 / 自评】</strong> ① 用<strong>商业模式画布</strong>给康养项目（或你自己项目）画一张 9 宫格；② 精读康养项目 BP + <code>04_运营模式与效益分析</code>，<strong>把财务测算 Excel 逐列看懂</strong>（营收假设 → 成本 → EBITDA → 净利 → 现金流 → IRR/回本）；③ 给一个假想 SaaS 算一遍 LTV:CAC 与 NRR。<strong>自评到能交付</strong>：能判断"这个项目是模式二该讲 IRR、还是模式一该讲 LTV:CAC/NRR"，并把对应的数说清；看到 EBITDA 5219 万、IRR 15.2% vs 8.7%，能说清每个数怎么来、两套口径差在哪；能用"交叉补贴/三级火箭"一句话拆穿一个商业模式的引流—变现结构。</p>
+<h3 id="35-栈⑤财务与财评财评专家的方法论7">3.5 栈⑤｜财务与财评：财评专家的方法论（7′）</h3>
+<p><strong>【原本是谁】</strong> 财务分析师 / 财评专家——负责把投资"算准、算到能过财政评审"。<strong>这是最多技术型 FDE 完全没有的一维</strong>，也是 To-G 项目最后卡人的一维。</p>
+<p><strong>【内核 + 经典】</strong> 两层：① <strong>财务评价</strong>——投资估算、NPV/IRR、回本周期、敏感性分析；② <strong>财评（财政评审）</strong>——用<strong>功能点法</strong>把定制软件的造价算到可复核。</p>
+<ul>
+<li>权威标准（真实、可查）：<strong>《某工业城市财政投资评审中心关于印发信息化项目评审有关规定的通知》（柳财审〔2020〕16号）</strong> 确立的<strong>定制软件功能点法</strong>；国际通行的 <strong>NESMA 功能点估算</strong>（五类功能 ILF/EIF/EI/EO/EQ 按复杂度加权）；国家标准 <strong>《软件研发成本度量规范》GB/T 36964-2018</strong>。方法论一句话：<strong>"功能点规模 × 功能点单价 = 软件开发费"，量价分离、据实归集、从严预留。</strong></li>
+</ul>
+<p><strong>【某工业城市/康养项目怎么用】</strong> 学前教育项目可研：以《可研功能点估算表》为唯一底账，<strong>484 个功能条目 → 约 27,056 功能点（FP）→ 约 22,014 人天（以逐条目人天累加为准，FP×0.81375 为近似校核系数）→ 软件开发费，总投资 4,839 万</strong>，三重依据（同类市场价 / 某工业城市信息化规定 / 技术方同类造价）交叉校核。康养项目侧：1.36 亿盘一 / 3200 万二期 / <strong>IRR 15.2%（合资口径，第 9 年回本）vs 8.7%（发改口径，第 11 年，高于国企 6% 门槛）</strong>——<strong>两套口径并存不是矛盾，是财评常识</strong>。</p>
+<p><strong>【自学 / 自评】</strong> 补 NPV/IRR/敏感性基本功 + 弄懂 NESMA 五类功能计数；给康养项目单店建一张自己的现金流表，看能不能推出"73 万峰值 / 21 个月回本"。<strong>自评到能交付</strong>：能独立复核一份财务口径的内部一致性（营收−成本能否推出 EBITDA、IRR 与回本年是否自洽）；能看着一份定制软件报价，判断它"功能点是否虚高、单价是否有据"。</p>
+<h3 id="36-栈⑥项目文档--交付物工程方案标书工程师的方法论7">3.6 栈⑥｜项目文档 / 交付物工程：方案/标书工程师的方法论（7′）</h3>
+<p><strong>【原本是谁】</strong> 方案经理 / 标书工程师——负责把一堆认知与测算，组织成<strong>一份能中标、能过评审的正式交付物</strong>。</p>
+<p><strong>【内核 + 经典】</strong> 政府投资项目<strong>可行性研究报告的编制规范</strong>（章节结构、政务文风、依据引用、图表规范）+ 招投标响应文件的组织。本课程把它固化为<strong>肖作仕写作规范</strong>（政务信息化解决方案文风：战略高度 + 落地细节、四字对仗、"依托…构建…实现…"递进、标题层级、红线表述）+ <strong>锚定口径机制（_WRITING_BRIEF）</strong>+ 装配质检。</p>
+<ul>
+<li>权威参照：发改委《政府投资项目可行性研究报告》编制大纲 / 各地可研编制规范；内部经典：<code>studio/agents/solution-expert-xiao.md</code> 写作规范。</li>
+</ul>
+<p><strong>【康养项目怎么用】</strong> 100+ 页可研（<strong>11 章 / ~11 万字 / 26 图</strong>）+ 2 附录 docx，格式对齐客户既有模板；<strong>35 个分节并行写作靠一份 <code>_WRITING_BRIEF.md</code> 统一口径</strong>；编号权归装配阶段（防 B-2）。<strong>这一栈就是把前五栈的产物"落成客户手里那份文件"的能力——没有它，你脑子里有 7 域本体，客户手里什么都没有。</strong></p>
+<p><strong>【自学 / 自评】</strong> 精读 2–3 份中标可研 + 肖作仕规范；练法——给康养项目写一节可研，交装配前先过"编号 / 图路径 / 术语"三项自检。<strong>自评到能交付</strong>：能独立组织一份 ≥10 节的并行写作且零口径冲突；能让交付物<strong>格式对齐客户模板</strong>（政务项目，格式错=不专业）。</p>
+<h3 id="37-栈⑦合规与标准治理合规官的方法论7">3.7 栈⑦｜合规与标准治理：合规官的方法论（7′）</h3>
+<p><strong>【原本是谁】</strong> 合规官 / 法务——负责守红线、给每条涉规论断挂可核验依据。</p>
+<p><strong>【内核 + 经典】</strong> 给方案里每条涉规则、涉标准的论断挂<strong>可核验的官方现行依据（citations）</strong>，查不到坚决留占位不编造。</p>
+<ul>
+<li>权威体系：等保 2.0（<strong>GB/T 22239-2019</strong>）、《个人信息保护法》、《数据安全法》、《生成式人工智能服务管理暂行办法》，及行业国标/法规。</li>
+</ul>
+<p><strong>【康养项目怎么用】</strong> <strong>18 处挂已核验国标/法规</strong>（等保、养老机构服务安全 GB 38600-2019、DIP 医保办发〔2020〕50号、长护 医保办发〔2021〕37号、个保法第 6/15/29/47 条…）；<strong>11 处坚决占位不编造</strong>（7 本地文号 + 4 企业 SOP），每处锚定上位国标、转取件清单。原话：<strong>"错文号比空缺更有害。"</strong></p>
+<p><strong>【自学 / 自评】</strong> 学会用"全国标准信息公共服务平台"核现行/废止、用"国家法律法规数据库"核法规。<strong>自评到能交付</strong>：能产出一份可交现场的"待补取证清单"；面对查不到的文号，默认动作是"留占位 + 锚上位国标 + 转取件"，不是"编一个像样的"。</p>
+<h3 id="38-收口七栈是乘法短板决定上限配图2">3.8 收口：七栈是乘法，短板决定上限（配图，2′）</h3>
+<p><img src="../figures/fig-4-1-知识栈雷达.png" alt="图4-1 FDE 七角色知识栈雷达" /> <strong>图 4-1 FDE 七角色知识栈雷达</strong> 七个轴：产品设计 / DDD 领域建模 / 本体 OAG / 商业模式 / 财务财评 / 交付物工程 / 合规治理，每轴 0–5 分。叠一条"康养项目基线"参考线，学员把自己分描上去，一眼看出<strong>塌陷的那一维</strong>。图说重点：雷达面积不重要，<strong>最短那根轴决定你能做几分之几个 FDE</strong>。</p>
+<p><strong>【康养项目证据·全链复述】</strong> 产品（102 事件/368 问卷）× DDD（7 域/零悬空）× 本体（OAG 五要素/3835 行）× 商业（三元支付/单店模型）× 财评（IRR 15.2%；某工业城市 27,056 FP）× 交付物（11 章可研/锚定口径）× 合规（18 挂标/11 占位）——<strong>七个角色的方法论各撑一段，缺一段链就断</strong>。这就是"乘法不是加法"。</p>
+<p><strong>【收口·七条方法论管线 → Astra Studio 工具（衔接第 5/7 讲）】</strong> 把七栈按"管线"再收一次——<strong>每条方法论管线，Astra Studio 都固化了对应工具；工具是果，管线是因</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>知识栈</th>
+<th>方法论管线（输入→产出）</th>
+<th>固化成的 Astra Studio 工具</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 产品设计</td>
+<td>事件 → 画像 → 旅程 → 机会矩阵</td>
+<td><code>event-storm</code> · <code>persona-insight</code> · <code>journey-map</code> · <code>process-flow</code> · <code>opportunity-brief</code></td>
+</tr>
+<tr class="even">
+<td>② DDD</td>
+<td>事件簇 → 限界上下文 → 上下文映射</td>
+<td><code>domain-model</code> · <code>domain-canvas</code> · <code>behavior-matrix</code></td>
+</tr>
+<tr class="odd">
+<td>③ 本体 OAG</td>
+<td>业务语义 → 五要素 → 编译 → 校验</td>
+<td><code>clife-onto-engine</code>（本体插件运行时 + <code>ontology-validate</code>）</td>
+</tr>
+<tr class="even">
+<td>⑤ 财评</td>
+<td>功能点 → 取值依据 → 投资估算</td>
+<td>财评底稿 / NESMA 功能点表（财评插件族）</td>
+</tr>
+<tr class="odd">
+<td>⑥ 交付物</td>
+<td>锚定口径 → 并行写作 → 装配 → 质检</td>
+<td><code>studio-docs</code>（blueprint/plan/write/assemble/export）</td>
+</tr>
+<tr class="even">
+<td>⑦ 合规</td>
+<td>规则 → citations 挂标 → 校验</td>
+<td><code>studio-quality:validate</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>一句话桥到后面</strong>：<strong>你现在学的是"管线"，第 5 讲讲"管线为什么要被平台固化成工具（否则复制不了）"，第 7 讲讲"这些工具怎么在 planner→insight→docs→quality 之间把管线咬合起来"。</strong> 记住因果方向——<strong>Astra Studio 长成这些工具，是因为知识背景这里先有了这些方法论管线。</strong></p>
+<hr />
+<h2 id="4-现场演练导入过渡话术">4. 现场演练导入（过渡话术）</h2>
+<p>"七栈讲完，别急着觉得'我大概都沾一点'。现在去工作坊做两件残忍的事：第一，<strong>按七个角色给自己逐个定级</strong>（这一栈你到 L1 还是能独立交付的 L3），画出七维雷达——你会看到明显塌下去的一两根轴，多数技术出身的人塌在<strong>栈④商业模式 / 栈⑤财评 / 栈⑥交付物</strong>。第二，为最弱那一栈，<strong>翻开它对应的那本经典的一章，读完写一页'怎么用到康养项目/我的项目'的笔记</strong>——不是读后感，是能用的动作。48 分钟。雷达不是让你自我感觉良好，是让你看清你现在能做<strong>几分之几</strong>个 FDE。"</p>
+<hr />
+<h2 id="5-复盘研讨3-题--收口">5. 复盘研讨（3 题 + 收口）</h2>
+<ol type="1">
+<li><strong>你七维里最短的那根轴是哪个角色？它塌了会让康养项目这条链断在哪一段？</strong>（收口：栈⑤塌 → 出得了本体盘不出账、过不了财评，方案签不了字；栈⑥塌 → 脑子里有本体、客户手里没文件；栈⑦塌 → 挂错文号，一份方案在客户处失信。）</li>
+<li><strong>七个角色里，哪两个你以为强、其实是靠另一个凑的？</strong>（收口：常见是用栈①产品的"会讲故事"掩盖栈⑤财评的"算不出账"；用栈⑥交付物的"文笔好"掩盖栈④商业的"模式空"。）</li>
+<li><strong>给你三个月只能补一个角色，补哪个、读哪本经典/范本、怎么验收补上没有？</strong>（收口：验收落到康养项目级动作——如"能独立复核一份 IRR 口径一致性 + 看懂一份 NESMA 功能点报价"，不是"我把康养项目 BP Excel 打开看了一眼"。）</li>
+</ol>
+<p><strong>讲师收口话术</strong>："七套方法论是这门课里<strong>唯一能靠努力补上的部分</strong>——上一讲的 C7 补不了，这一讲的七栈全能补，而且我把七本压舱经典都给你了。所以别在这找借口。雷达上那根短轴，就是你和'完整 FDE'之间的距离——它可量化、可补、也<strong>藏不住</strong>。还有一句要记住：<strong>七栈不是让你成为七个专家，是让你样样够用、缝缝对齐、边界自知</strong>。真专家该上场时（比如复杂财评、重大法律风险），你要认得出'这里该请专家了'——这也是能力半径的一部分。"</p>
+<hr />
+<h2 id="6-本讲难听话--反例讲解两个">6. 本讲难听话 + 反例讲解（两个）</h2>
+<p><strong>难听话（1 句）</strong>：</p>
+<blockquote>
+<p>"你以为 FDE 就是会建模？建模只是七分之二。你能交出 7 域本体、3835 行骨架——很好，那是栈②栈③。客户翻到可研最后一章问你'总投资多少、功能点怎么算的、IRR 几年回本'，你答不出某工业城市那样的'27,056 功能点 / 4,839 万'、答不出'15.2% 第 9 年回本'，你就只是个更贵的建模师，不是 FDE。缺的那五个角色，不会因为你建模漂亮就自动长出来。"</p>
+</blockquote>
+<p><strong>反例 B-6｜标准号误标（讲合规栈"核到官方现行版本"）</strong>： 康养项目编制期出过两处真实误标：一是把<strong>药食同源目录误标为"GB 药食同源目录"</strong>——它根本不是 GB，是原卫生部/卫健委发布的名单；二是<strong>星评标准沿用了已废止的 MZ/T 标准</strong>——标准还在，版本已废止。原则：<strong>引标准必须核到官方现行版本，"看起来像国标"不等于是国标，"标准存在"不等于"现行有效"。</strong> 这就是栈⑦自评"逐条核现行版本"为什么是硬动作。</p>
+<p><strong>反例 B-5｜数据张冠李戴（讲财评栈"锚在单点不重算"）</strong>： 县区七普老龄化率在跨节引用中错配——<strong>60+ 与 65+ 两个口径被混用</strong>。原则：<strong>关键数字必须锚在 BRIEF 单点，分节作者一律引用不重算。</strong> 这条直接扣栈⑤——财评/商业测算的每个数（4,839 万 / 27,056 FP / IRR 15.2% / 73 万 / 21 个月）都必须锚在核心数据表单点，谁都不许在自己那节重算，重算就是漂移的开始。跨案例场景更危险：该区园数 99/124/79、辣椒与草业项目"关系数逐字相同"——都是同一个根因。第 6 讲会把 B-5 在并行写作场景再讲一次（复调），本讲讲的是它在<strong>财评/数据层面</strong>的根因：不是笔误，是没建立"单一真相源"的纪律。</p>
+<hr />
+<h2 id="7-与其他讲的钩子">7. 与其他讲的钩子</h2>
+<ul>
+<li><strong>← 第 3 讲</strong>：第 3 讲说 C7 只能筛选、补不了；本讲说七栈能补、每栈给一本经典。<strong>"筛选 vs 训练"一体两面</strong>：短轴分两种，七栈努力能补，C7 努力也补不了。</li>
+<li><strong>→ 第 5 讲</strong>：栈②的"跨域不越界" → B-8（越域写入冲动）；栈③的"不确定就显式挂账" → B-9（SDK 能力想当然）+ 121 处 NotImplementedError；栈⑥的"平台固化交付物工程" → smart-agriculture 通用底座复用。</li>
+<li><strong>→ 第 6 讲</strong>：栈③自评的"Action 是否设闸" → <strong>HIL 设点四判据</strong>；栈⑥的"锚定口径 _WRITING_BRIEF" → 第 6 讲 SOP 的 S6 与"这门课就是这么造的"元证据；B-5 在并行写作场景复现。</li>
+<li><strong>→ 第 8 讲</strong>：七栈直接支撑第 8 讲的<strong>能力半径</strong>维——能在康养做完≠能在别的模式/行业做完，差的就是七栈里某几栈的跨行业迁移力。</li>
+<li><strong>→ 第 9 讲</strong>：栈⑦的"诚实边界 / 11 处占位" → 对标 Palantir 现场取证文化（B-10 复调）。</li>
+<li><strong>反例分配</strong>：本讲独占 B-6（标准号误标）；与第 6 讲共享 B-5（本讲讲财评/数据根因，第 6 讲讲并行写作纪律）。</li>
+</ul>
+</content>
+</div>
+</body>
+</html>

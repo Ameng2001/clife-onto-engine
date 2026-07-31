@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 第八课 · 总结与能力沉淀</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:56px 80px}
+  .mt-l{margin-top:22px}.mt-m{margin-top:14px}
+  .lede{font-size:19px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:6px}
+  .card p,.card-accent p,.card-outline p{font-size:15px;line-height:1.55}
+  h2.title{font-size:40px;line-height:1.15}
+  .chain{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-weight:700;font-size:17px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:7px 11px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:28px;line-height:1.38;font-weight:600;color:var(--accent);max-width:28ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:14.5px}
+  table.t th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:6px 10px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:6px 10px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.6;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:13px 17px;overflow:auto;color:var(--text-1)}
+  .huge{font-family:var(--font-serif);font-size:44px;line-height:1.25;font-weight:700;color:var(--accent)}
+  .slide.tight .card,.slide.tight .card-accent,.slide.tight .card-outline{padding-top:7px;padding-bottom:7px}
+  .slide.tight table.t td{padding-top:3.2px;padding-bottom:3.2px}
+  .slide.tight pre.code{padding-top:8px;padding-bottom:8px}
+  .slide.tight .mt-l{margin-top:12px}.slide.tight .mt-m{margin-top:8px}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 第八课 · 180′ + 每组 20′ 路演</div>
+  <h1 class="title" data-anim="fade-up">总结与能力沉淀</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">前七课收的是<b>手艺</b>。<br>这一课收的是——<br><b>能不能把手艺交给你。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">不发合格证，发能力等级 + 差距清单</span>
+    <span class="pill">三条一票警示</span>
+  </div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="16"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 180′ + 路演】</b> 开场立规矩 5′ ｜ <b>一 能力沉淀 50′</b> ｜ <b>二 OPC 边界回收 30′</b> ｜ <b>三 C-Life 落地 60′</b> ｜ 四 拼交付包 20′ ｜ <b>五–六 路演每组 20′ + 点评 5′</b>（按 5 组约 125′）｜ 七 定级 20′</p>
+    <p><b>⚠️【开场第一句就要立的规矩】</b>"本课结课<b>不发合格证</b>。发的是<b>能力等级 + 差距清单</b>。<b>多数人第一次会停在 Lv.1 见习——这是正常的，装作 Lv.2 才是危险的。</b>"</p>
+    <p><b>⚠️【编号消歧，第一句说清】</b>能力等级一律写 <b>Lv.1 / Lv.2 / Lv.3</b>，与课程编号第一到第八课<b>彻底分开</b>。<b>旧课件 slides/_legacy/08 里仍写作 L1/L2/L3</b>——投到那几屏时口头点一句"<b>这里说的是水平，不是第几课</b>"。</p>
+    <p><b>【三条警示要在第一组上台之前讲完】</b>事后追责不如事前立规矩——<b>这也是第五课教的"闸要前置"在课堂上的自我示范。</b></p>
+    <p><b>【本课形式变化】</b> 能力沉淀段是<b>讲师演示，各组不动手</b>（v0.2 原本是 150′ 动手，压成 50′ 演示）。动手改为课后自选，对应 ⑫ 加分项。</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="本课收什么口">
+  <div class="kicker">开场 · 5′</div>
+  <h2 class="title">六段，收六个口</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:22%">段</th><th style="width:10%">时长</th><th style="width:32%">做什么</th><th>收的口</th></tr>
+    <tr><td><b>一 · 能力沉淀</b></td><td>50′</td><td>一个反复做的动作怎么变成插件</td><td><b>从"我做过这件事"到"我们组织有这个能力"</b></td></tr>
+    <tr><td><b>二 · OPC 边界回收</b></td><td>30′</td><td>呼应第一课：哪些能放大，哪些必须人扛</td><td><b>知道自己在哪里必须叫人</b></td></tr>
+    <tr><td><b>三 · C-Life 落地</b></td><td>60′</td><td>六步 + 90 天计划</td><td>从"我做过"到"<b>组织有这个能力</b>"</td></tr>
+    <tr><td>四 · 拼交付包</td><td>20′</td><td>11 件拼成一份，检查口径一致</td><td><b>缺件照实标"缺"，不许现场补造</b></td></tr>
+    <tr><td><b>五–六 · 路演 + 评审</b></td><td>每组 20′</td><td>八维评审卡 · <b>三条一票警示</b></td><td><b>当众验诚实边界</b></td></tr>
+    <tr><td>七 · 定级</td><td>20′</td><td>发能力等级 + 差距清单</td><td><b>不发合格证</b></td></tr>
+  </table>
+  <p class="lede mt-l" data-anim="fade-up"><b>三条硬口径</b>：① C1–C6 可训练，<b>C7 只能筛选</b>　② <b>不发合格证</b>　③ ⑫ 插件是<b>加分项，做不完不扣分</b>——<b>评审看的是"说得出哪个动作值得沉淀"，不是插件本身</b></p>
+  <div class="deck-footer"><span class="ftag">本课路线</span><span class="slide-number" data-current="2" data-total="16"></span></div>
+  <div class="notes"><p><b>【课程验收标准原话，照念】</b>"独立承接中等复杂度 To-G/To-B 项目认知侧全链条，<b>且知道自己在哪里必须叫人</b>。"——<b>后半句才是今天要验的。</b></p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="三层固化回收">
+  <div class="kicker">一 · 能力沉淀 1/5 · <b>走完八课才集齐</b></div>
+  <h2 class="title">三层固化，现在每一层都有落点了</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%">层</th><th style="width:26%">固化了什么</th><th>在哪见到的</th></tr>
+    <tr><td><b>工具层</b></td><td>做事的<b>步骤顺序</b></td><td>第四课的 5 步流水线、第六课的 plan→write→assemble</td></tr>
+    <tr><td><b>结构层</b></td><td>产物的<b>形状</b></td><td>七段 IR、蓝图 structure、skill-map 的 H2、SKILL.md 的 6 个 H2</td></tr>
+    <tr><td><b>纪律层</b></td><td><b>什么不许做</b></td><td><b>第五课的 CI 红线执法、第六课的编号权归装配、本课的校验器 + "不做清单"</b></td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">工具能省时间，<b>纪律能防事故</b>。<br>而纪律有个特点——<br><b>它在你最想违反的时候生效。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">凌晨三点赶工期时，<b>你不会守纪律，但校验器会。</b></p>
+  <div class="deck-footer"><span class="ftag">三层固化</span><span class="slide-number" data-current="3" data-total="16"></span></div>
+  <div class="notes"><p><b>【第二课埋的，第八课收】</b>"第二课我讲三层固化的时候，它还是三个抽象名词。<b>现在你们走完八课，回来看——每一层你都亲手碰过。</b>"</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="固化三问">
+  <div class="kicker">一 · 能力沉淀 2/5 · <b>本节唯一要带走的心智模型</b></div>
+  <h2 class="title">⭐ 固化三问</h2>
+  <p class="quote-big mt-s" data-anim="fade-up">任何一条你反复叮嘱新人的纪律，<br>都问它三个问题——<br><b>能不能固化？固化成什么？谁来跑？</b></p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:14%">档</th><th style="width:26%">例子</th><th style="width:26%">固化成什么</th><th>人力成本</th></tr>
+    <tr><td><b>全固化</b></td><td>"跨域不许越界写"</td><td>A 结构校验器（编译期自动）</td><td><b>零人力，永不疲劳</b></td></tr>
+    <tr><td><b>全固化</b></td><td>"SKILL.md 引用的脚本必须存在"</td><td><span class="mono">validate_skills.py</span></td><td>零人力</td></tr>
+    <tr><td>半固化</td><td>"关键数字锚在单点、不重算"</td><td>BRIEF 单点 + 装配期一致检查</td><td>FDE 走一道人肉闸</td></tr>
+    <tr><td>半固化</td><td>"SDK 能力不确定就挂账"</td><td>docstring 显式挂账约定（<b>人肉跑</b>）</td><td>FDE 走一道人肉闸</td></tr>
+    <tr><td><b>未固化</b></td><td>只活在你脑子里的那条</td><td>无，全靠自觉</td><td><b>请假即崩</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>评估一个平台成不成熟，就看它把你多少条纪律固化进了校验器。</b><br>
+  康养项目能做到 1 人顶 5+ 人，<b>不是因为手快，是因为绝大部分一致性纪律被搬进了编译期和装配期。</b></p>
+  <div class="deck-footer"><span class="ftag">固化三问</span><span class="slide-number" data-current="4" data-total="16"></span></div>
+  <div class="notes"><p><b>【"请假即崩"这一行要点名】</b>"你们每个人脑子里都有几条这样的纪律。<b>今天回去数一数：如果你请假两周，团队会在哪条上翻车？那一条就是最该固化的。</b>"</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="四步链路">
+  <div class="kicker">一 · 能力沉淀 3/5 · 演示，各组不动手</div>
+  <h2 class="title">四步链路：从 skill-map 到发版</h2>
+  <pre class="code mt-s" data-anim="fade-up">（承接第四课的 skill-map.md）
+  ↓
+/studio-planner:spec-generate  ← <b>零确认点，纯自动</b>　　phase: planning → building
+/studio-planner:build-skills   ← <b>phase 必须 == building</b>　skill: draft → building → built
+/studio-quality:validate       ← 三组脚本校验　　　　　　phase: building → <b>approved</b>
+/studio-core:promote           ← 发版 + 归档　　　归档副本 shipped；活动区重置 planning、iteration+1</pre>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>traits 在这里兑现</h4><p class="dim">第四课选的开关<b>现在看到结果</b>：<br>
+    <span class="mono">stateful</span> → 多一个 <span class="mono">init-workspace</span> + 两个 runtime 模板<br>
+    <span class="mono">hil-gated</span> → 在 <span class="mono">## Out of Scope</span> <b>之前</b>插入 <span class="mono">## Approval Gate</span>（✅确认/✏️修改/❌拒绝）<br>
+    <span class="mono">multi-pipeline</span> → 每条流水线一个命令　<span class="mono">expert-scoped</span> → 生成 <span class="mono">agents/</span></p></div>
+    <div class="card badcard"><h4>两条必须记住的纪律</h4><p class="dim">
+    ① <b>本轮 skill-map 未列出的 skill，不得创建、不得删除、不得重写</b>——<b>边界之外一律不动，这正是可预测性的来源</b><br>
+    ② 单个 skill 构建失败 → <b>phase 一律保持 building，绝不自动进入 validation</b>——<b>工具不会自己给自己发合格证</b></p></div>
+  </div>
+  <p class="dim mt-m" data-anim="fade-up">⚠️ <b>注意区分两个 HIL</b>：这里的 <span class="mono">hil-gated</span> 是 <b>skill 层的审批段</b>（人在对话里点确认）；第五课的 <span class="mono">HilPolicy</span> 是 <b>Action 层的副作用闸</b>（引擎冻结 effects）。<b>一个在交互层，一个在执行层。</b></p>
+  <div class="deck-footer"><span class="ftag">四步链路</span><span class="slide-number" data-current="5" data-total="16"></span></div>
+  <div class="notes"><p><b>【演示时点开一份生成的 SKILL.md】</b>让学员<b>看见 traits 那几个开关变成了文件里的段落</b>。第四课他们按开关时是抽象的，现在能看见结果。</p>
+  <p><b>【"工具不会自己给自己发合格证"要点出来】</b>这是整条链路的设计哲学：<b>从 building 到 approved 必须过校验器那一关。</b></p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="校验器查什么">
+  <div class="kicker">一 · 能力沉淀 4/5 · <b>"什么叫做完了"的操作定义</b></div>
+  <h2 class="title">校验器查什么</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>A 结构（7 类）</h4><p class="dim" style="font-size:13.5px">
+    manifest 存在（退而找 <span class="mono">.draft</span>，<b>用 draft 会 warning</b>）· JSON 可解析 · <span class="mono">name/version/description</span> 非空 · <b>name 匹配 <span class="mono">^[a-z][a-z0-9-]*$</span> → failed</b> · name==目录名 → <b>warning 不是 failed</b> · version 格式 · <b>声明路径能 resolve</b></p></div>
+    <div class="card card-accent"><h4>B 技能（逐 skill 9 类）</h4><p class="dim" style="font-size:13.5px">
+    每子目录有 SKILL.md · <b>行数 ≤ 500</b>（超 = warning）· frontmatter 可解析 · <b>description ≤ 1024 字符（超 = failed）</b> · <b>未知 frontmatter key = warning，白名单只有 7 个</b>（<span class="mono">name, description, allowed-tools, user-invocable, disabled, trigger, model</span>）<br>
+    <b>⭐ 正文引用的 scripts/*.py、references/*.md 必须真实存在 → failed</b></p></div>
+    <div class="card"><h4>C 依赖（3 组）</h4><p class="dim" style="font-size:13.5px">
+    <span class="mono">.mcp.json</span>（每 server 必须有 command，重名 failed）· <span class="mono">hooks.json</span>（<b>事件名白名单 6 个</b>）· <span class="mono">dependencies[]</span>（找不到 = warning）<br><br>
+    报告 <span class="mono">.validation-report.json</span>，<b>verdict 只有 PASS / FAIL，warning 不影响 verdict</b></p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">B 组最后那条是 <b>B-3 的同类机制</b>：<br><b>占位符即契约。</b><br>康养项目当年是 docx 导出丢图，<br>这里是<b>校验器直接判 failed</b>。</p>
+  <div class="deck-footer"><span class="ftag">校验器</span><span class="slide-number" data-current="6" data-total="16"></span></div>
+  <div class="notes"><p><b>🔔【务必现场做的演示，2′】</b><b>当场故意制造一次 failed</b>——把某个 SKILL.md 引用的 <span class="mono">scripts/foo.py</span> 删掉，跑 validate 让它报 failed，再修好。<br><b>学员亲眼看到校验器抓住讲师，比听十遍"纪律靠机制"都管用。</b></p>
+  <p><b>【一处文档 vs 实现的落差】</b>SKILL.md 示例用 ✅/⚠️ emoji，<b>实际脚本输出纯文本 PASS/WARN/FAIL</b>。以脚本为准。<b>这已经是这门课的第 N 处了，学员应该不惊讶了。</b></p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide tight" data-title="B-8 B-9 与不做清单">
+  <div class="kicker">一 · 能力沉淀 5/5</div>
+  <h2 class="title" style="font-size:34px">校验器替你守纪律，与 promote 的「不做清单」</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:14%"></th><th style="width:36%">B-8 越域写入冲动</th><th>B-9 SDK 能力想当然</th></tr>
+    <tr><td>冲动是什么</td><td>让一个 Action <b>直接写别的域的对象</b>（省事）</td><td>某两个符号导没导出，不确定但"<b>应该支持吧</b>"</td></tr>
+    <tr><td><b>谁挡住了它</b></td><td><b>A 结构校验器</b>——当场报悬空/越界</td><td><b>没人挡</b>——校验器管不到运行时符号导出</td></tr>
+    <tr><td>最终处置</td><td>跨域发布<b>全部写成注释和 ref</b></td><td>7 域统一在 docstring 里<b>显式挂账</b></td></tr>
+    <tr><td>结果 / 档位</td><td><b>7/7 零悬空引用</b> · <b>全固化</b></td><td>存疑白纸黑字留在代码里 · <b>半固化</b></td></tr>
+  </table>
+  <p class="lede mt-s" data-anim="fade-up"><b>B-8 的教学点</b>：7/7 零悬空<b>不是因为我们 7 次都自觉，是因为校验器不给我们自觉的机会</b>。<br>
+  <b>B-9 的教学点</b>：<b>平台会告诉你它保证什么，也会暴露它不保证什么</b>——在校验器覆盖不到的地方，<b>用 docstring 手动补一道"诚实闸"</b>。</p>
+  <div class="card badcard mt-s" data-anim="fade-up">
+    <h4>⭐ promote 明确不做的事</h4>
+    <p class="dim">不拷贝实现文件 · <b>不 git add/commit</b> · 不删实现文件 · <b>不跑校验</b> · 不删活动工作区 · <b>不把 promote 当终态</b><br>
+    <b>为什么不自动 commit</b>：因为<b>提交是人的决定</b>。工具把状态推进到位，<b>但"我认可这个版本"这句话必须由人说出口</b>。</p>
+  </div>
+  <p class="quote-big mt-s" style="font-size:24px" data-anim="fade-up">校验器管"什么叫做完了"，<br>不做清单管"<b>做完了也不等于我认了</b>"。<br><b>机器判 PASS，人签字发版。</b></p>
+  <div class="deck-footer"><span class="ftag">B-8/B-9 · 不做清单</span><span class="slide-number" data-current="7" data-total="16"></span></div>
+  <div class="notes"><p><b>【这两条不是编的教学案例】</b>"是康养项目编译期<b>真实发生的冲动与存疑</b>。它们证明的是：<b>训练有素的 FDE 也会想抄近道，靠自觉挡不住。</b>"</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="fund-review 活证据">
+  <div class="kicker">一 · 能力沉淀 · <b>活证据</b></div>
+  <h2 class="title">💡 项目反向沉淀出插件</h2>
+  <div class="chain mt-m" data-anim="fade-up" style="font-size:18px">
+    <span class="step">某工业城市项目要做报价优化+财评预审</span><span class="arrow">→</span>
+    <span class="step">发现<b>每个 To-G 项目都要来一遍</b></span><span class="arrow">→</span>
+    <span class="step">沉淀成插件</span><span class="arrow">→</span>
+    <span class="step" style="background:var(--grad-soft);border-color:var(--accent)">下一个项目<b>直接 install</b></span>
+  </div>
+  <div class="grid g2 mt-l" data-anim="stagger-list">
+    <div class="card"><h4>fund-review 的形态</h4><p class="dim"><b>4 个 skill</b>（init-session / quote-optimize / quote-rewrite / quote-review）+ <b>2 个 agent</b>（quote-optimizer / financial-reviewer）+ <b>两轮迭代存档</b><br><br>
+    ⚠️ 诚实标注：该仓 README 明写"<b>插件实现已迁出本仓库</b>"，实现源在 marketplace，本仓只留设计文档与客户数据</p></div>
+    <div class="card card-accent"><h4>它为什么是活证据</h4><p class="dim"><b>插件不是先设计出来再找场景</b>，<br>是<b>真实项目做着做着发现"这个动作还会再做一遍"，反向沉淀出来的</b>。</p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">从"我做过这件事"<br>到"<b>我们组织有这个能力</b>"，<br>中间隔的就是这一步。</p>
+  <div class="deck-footer"><span class="ftag">fund-review</span><span class="slide-number" data-current="8" data-total="16"></span></div>
+  <div class="notes"><p><b>【第二课埋的，这里收】</b>"第二课讲三层固化时我提过 fund-review，说'第八课会再回收一次'。<b>现在回收。</b>"</p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="各组回答沉淀判断">
+  <div class="kicker">一 · 能力沉淀 · <b>各组口头交付 · 5′</b></div>
+  <h2 class="title">🔔 你们哪个动作值得沉淀成插件？</h2>
+  <p class="quote-big mt-s" style="font-size:25px" data-anim="fade-up">它是"<b>下个项目还会再做一遍</b>"的动作吗？<br>还是<b>只有你们这个命题才有</b>？</p>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card goodcard"><h4>✅ 答得好的形态</h4><p class="dim">"我们命题里反复在做'<b>把地方标准解码成可校验的规则条目</b>'——A 组做康养要做，E 组做督导也要做，<b>换个客户还得做一遍</b>。这个值得沉淀成 <span class="mono">standard-decode</span> 插件。"</p></div>
+    <div class="card badcard"><h4>❌ 答得不好的形态</h4><p class="dim">"我们想做一个把我们这次的域图导出成 PPT 的插件。"<br><br><b>——这是一次性动作，不是反复动作。</b></p></div>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:20%">判据</th><th style="width:40%">值得沉淀</th><th>不值得</th></tr>
+    <tr><td><b>频次</b></td><td>下个项目还会再做一遍</td><td>只这一次</td></tr>
+    <tr><td><b>边界</b></td><td>输入输出说得清、能写成 <span class="mono">## Expected Inputs/Outputs</span></td><td>说不清什么进什么出</td></tr>
+    <tr><td><b>判断含量</b></td><td><b>判断在人，重复劳动在工具</b></td><td>判断也想交给工具（<b>→ 交不了</b>）</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>为做插件而做插件，拿不到这个加分。</b></p>
+  <div class="deck-footer"><span class="ftag">沉淀判断</span><span class="slide-number" data-current="9" data-total="16"></span></div>
+  <div class="notes"><p><b>【逐组回答，每组 1 分钟】</b>这是本节唯一要各组交付的动作。<b>答不上来的组，路演第 ⑦ 段就拿不到加分</b>——现在给他们一次机会想。</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="OPC 边界回收">
+  <div class="kicker">二 · OPC 边界回收 · 30′ · <b>呼应第一课</b></div>
+  <h2 class="title">现在你可以把线画在自己的命题上了</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>可替侧：三类活</h4><p class="dim">
+    ① <b>认知萃取的加速</b>——102 事件 → 16 簇 → 7 画像/旅程/流程（<b>人判断归类，模型跑整理</b>）<br>
+    ② <b>建模骨架的生成</b>——五要素 76/75/38/47/54；3835 行 + 21 YAML<br>
+    ③ <b>并行写作</b>——1 份 BRIEF 口径 → 35 节并行 → 约 11 万字<br><br>
+    ⭐ <b>共同点：判断标准清晰 · 错了可回退 · 不牵扯对外承诺</b></p></div>
+    <div class="card warncard"><h4>必须人扛侧：C7 三个铁证</h4><p class="dim">
+    <b>客户关系 + 政治敏感度</b> → <b>11 处 citations 占位</b>，公开渠道查不到，<b>只在某个科室的文件柜里</b>。智能体<b>没有身份、进不了门</b><br>
+    <b>价值判断</b> → 站长闸的 <b>0.75 阈值</b>：<b>模型能给分布，那个阈值是人对"愿为速度冒多大错误风险"的表态</b><br>
+    <b>责任承担</b> → "赋能优化"而非"替代"的红线：<b>智能体会顺着 prompt 把话说满，守红线的是人</b></p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">智能体<b>没有身份</b>（进不了机关的门）、<br><b>没有立场</b>（拍不了 0.75）、<br><b>不承担后果</b>（守不了红线）。</p>
+  <pre class="code mt-m" data-anim="fade-up">① 需要一个<b>身份</b>才能做吗？　② 需要一个<b>立场</b>才能拍吗？　③ 做错了<b>谁签字</b>？
+                       <b>任一答案指向"人" ⇒ 在必须人扛侧</b></pre>
+  <div class="deck-footer"><span class="ftag">OPC 边界</span><span class="slide-number" data-current="10" data-total="16"></span></div>
+  <div class="notes"><p><b>【这一节不鼓吹一人万能，只画那条线】</b>"一人公司成立这件事康养项目已经证过了，<b>不再花时间证。本节只讲边界在哪。</b>"</p>
+  <p><b>🔔【路演前必问，3′】</b>"你清单里'必须人扛'的条目，<b>有几条其实是你懒得让智能体做</b>、误判成人扛的？反过来，有几条你标了'可替'、但其实<b>藏着一个身份/立场/签字问题</b>？"<br>
+  <b>收口</b>：<b>边界最常见的错误不是划错侧，是把偷懒当边界。</b></p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="六步路线图">
+  <div class="kicker">三 · C-Life 落地 1/3 · 60′</div>
+  <h2 class="title">第一步不是找试点，是<b>抽模板</b></h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-outline"><h4>常规路径</h4><p class="dim">设想 → 找试点 → <b>跑一年</b> → 才有样本</p></div>
+    <div class="card-accent"><h4>我们的路径</h4><p class="dim"><b>样本已在手（康养项目）</b> → 抽模板 → <b>直接复制到第 2 个项目</b><br><b>省掉的是最贵的一年。</b></p></div>
+  </div>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <p class="dim">⚠️ <b>但要同时记住反面</b>："<b>这不是一次侥幸，但它目前不可复制——因为方法在一个人脑子里，不在组织里。</b>"<br>
+    <b>康养项目提供的是"能做成"的证据，不是"能复制"的证据</b>——后者要靠这 90 天造出来。</p>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:14%">步</th><th style="width:44%">做什么</th><th>过关判据</th></tr>
+    <tr><td><b>① 选人</b></td><td><b>C1–C6 看能不能补，C7 看是不是这块料</b></td><td>1 Lv.3 + 2–3 Lv.1 + 1–2 平台组<b>到位（人头签字）</b></td></tr>
+    <tr><td><b>② 训练</b></td><td><b>不是上课，是在康养项目模板上过手</b></td><td>每名 Lv.1 独立走完 1 个域并<b>通过结构校验</b></td></tr>
+    <tr><td><b>③ 平台</b></td><td>从"康养项目能用"固化到"<b>换个项目也能用</b>"</td><td>管线跑通一个<b>非康养项目</b> mini 样例</td></tr>
+    <tr><td><b>④ 试点</b></td><td>拿一个<b>新的</b>项目，Lv.3 带 Lv.1 走一遍</td><td>第 2 项目事件集 + 首域出仓</td></tr>
+    <tr><td><b>⑤ 度量</b></td><td>三个硬指标</td><td>三指标全部有基线读数</td></tr>
+    <tr><td><b>⑥ 规模化</b></td><td>达标才并联第 3、第 4 个项目</td><td><b>三指标达康养项目基线 + Lv.1 里有人升 Lv.2</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">六步</span><span class="slide-number" data-current="11" data-total="16"></span></div>
+  <div class="notes"><p><b>【"选人错了后面全白搭"要说透】</b>"因为 C7 筛不出来的话，<b>你训练的是一个永远不敢对客户说不知道的人</b>。"</p>
+  <p><b>【战场边界，决定该接什么单】</b>探索/验证/新项目落地 <b>✅ 不可替代</b>；规模化/组织推动/运维 <b>❌ 瓶颈在人不在工具</b>。</p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="90天计划与三指标">
+  <div class="kicker">三 · C-Life 落地 2/3</div>
+  <h2 class="title">90 天，三阶段，认领到人</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:18%">阶段</th><th style="width:10%">天数</th><th style="width:34%">里程碑</th><th>度量</th></tr>
+    <tr><td><b>一 选人+抽模板</b></td><td>0–30</td><td><b>M1 编队到位（人头签字）</b> / M2 模板包 v1 出仓</td><td>C7 筛选通过率；模板覆盖 7 域比例（目标 7/7）</td></tr>
+    <tr><td><b>二 训练+固化平台</b></td><td>31–60</td><td>M3 每名 Lv.1 交一个域并过结构校验 / M4 管线跑通<b>非康养项目</b>样例</td><td><b>首个 Lv.1 独立交付一域周期（目标 ≤ 10 个工作日）</b></td></tr>
+    <tr><td><b>三 试点启动+度量</b></td><td>61–90</td><td>M5 第 2 项目事件集 + 首域出仓 / M6 度量看板上线</td><td>三大硬指标全部有基线读数</td></tr>
+  </table>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>① 独立交付一域的周期</h4><p class="dim"><b>效率</b>　目标 <b>≤ 10 个工作日</b>，且一期比一期短</p></div>
+    <div class="card"><h4>② 交付物一次通过率</h4><p class="dim"><b>质量</b>　正面 7/7 py_compile、7/7 零悬空；反面 B-1 / B-2 / B-6</p></div>
+    <div class="card warncard"><h4>③ HIL 设点覆盖率</h4><p class="dim"><b>风控</b>　涉钱/涉合规/不可逆/跨组织 Action <b>全覆盖</b>。<b>最难，也最不能漏</b>——漏一个涉钱 Action 的闸，可能就是一次赔付或一次违规</p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>三条硬约束</b>：① <b>M1 到人头签字</b>——不是"物色中"，是"谁，确定了" ② <b>阶段二必须对标康养项目已交付版</b>——有标准答案的训练才叫训练 ③ <b>阶段三只启动不完成</b>——别把周期吹破</p>
+  <div class="deck-footer"><span class="ftag">90 天</span><span class="slide-number" data-current="12" data-total="16"></span></div>
+  <div class="notes"><p><b>【三条硬约束逐条念】</b>特别是第③条——<b>90 天目标是"第 2 项目跑起来且有度量"，不是交付完</b>。学员做计划最爱吹周期。</p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide tight" data-title="两条红线与编成">
+  <div class="kicker">三 · C-Life 落地 3/3</div>
+  <h2 class="title" style="font-size:34px">两条红线，与编成的本质</h2>
+  <div class="grid g2 mt-s" style="font-size:14px" data-anim="stagger-list">
+    <div class="card badcard"><h4>红线一：不许跳过度量直接铺量</h4><p class="dim">老板说"康养项目都成了，赶紧复制十个"——<b>这时候你要顶住</b>。<br><b>指标没达基线的复制，是把一次侥幸当成能力。</b></p></div>
+    <div class="card badcard"><h4>红线二：不许让平台组缺位去省成本</h4><p class="dim">没有平台组，<b>Lv.3 退化成"更累的架构师"</b>，单点或许能扛，<b>规模化必崩</b>。</p></div>
+  </div>
+  <div class="card warncard mt-s" data-anim="fade-up">
+    <p class="dim"><b>规模化后 B-10 会被放大</b>：单个项目里 Lv.3 靠 C7 顶住了 11 处占位；<b>但每个项目都有它自己的 B-10，而你只有一个 C7 过关的人</b>——<b>没有第二个敢留白的人，第二个项目的 B-10 就会被一个 Lv.1 用假文号填上。</b></p>
+  </div>
+  <p class="quote-big mt-s" style="font-size:21px" data-anim="fade-up">落地的本质：把那个 Lv.3 脑子里<br>"靠人品和经验兜住的东西"，<br><b>变成组织层面的红线、度量和平台约束</b>——<br>让第 N 个项目<b>不必再靠"又碰到一个好 Lv.3"的运气</b>。</p>
+  <p class="lede mt-s" data-anim="fade-up"><b>编成的本质（第 ⑩ 件就写这个）</b>：Lv.3 提供<b>判断和责任</b>，Lv.1 提供<b>手数和成长通道</b>，平台组提供<b>杠杆</b>。<b>三者缺一，康养项目都不可复制。别只写"1 主理 + N 见习"六个字。</b></p>
+  <div class="deck-footer"><span class="ftag">红线 · 编成</span><span class="slide-number" data-current="13" data-total="16"></span></div>
+  <div class="notes"><p><b>【一句冷水，讲完编成说】</b>"能做模式二的大平台，<b>不代表</b>你能做模式一的 SaaS 应用，反之更是。真正的分水岭是 <b>C1 认知萃取的跨行业迁移力</b>——换个你不熟的行业，<b>沉淀归零、只剩方法</b>，你还压得出可归域的结构吗？<b>这就是 Lv.2 和 Lv.3 的分界。</b>"</p></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-title="拼交付包与路演">
+  <div class="kicker">四 · 拼交付包 20′ + 五 · 路演每组 20′</div>
+  <h2 class="title">拼包三条自查，路演七段</h2>
+  <div class="card card-accent mt-s" data-anim="fade-up">
+    <h4>口径一致性自查三条（拼包时逐条对）</h4>
+    <p class="dim">① <b>同一个数字在 ⑤ 和 ⑨ 里是不是同一个数</b>——不同就是 B-5 同类<br>
+    ② <b>⑧ 的占位条目，在 ⑨ 的正文里是不是也保持占位</b>——文号不许在方案稿里"顺手补上"<br>
+    ③ <b>⑪ 的 Mock 清单和 ⑨ 里对能力的描述是不是一致</b>——方案写"已实现"、demo 是 Mock，就是第三条警示<br><br>
+    ⚠️ <b>缺件照实标"缺"，不许现场补造。这本身就是一次 B-10 演练。</b></p>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:34%">路演七段</th><th style="width:10%">时长</th><th>掉链子的信号</th></tr>
+    <tr><td>① 项目定义 + 交付模式判定</td><td>2′</td><td>说不清模式 → 后面财务语言必答反</td></tr>
+    <tr><td>② 认知 → 结构</td><td>4′</td><td>复述客户原话、域切不出来</td></tr>
+    <tr><td><b>③ HIL 设点 + 诚实边界</b></td><td>4′</td><td><b>跳过这段 = 直接触发警示排查</b></td></tr>
+    <tr><td>④ 商业模式 + 财务语言</td><td>3′</td><td>模式二讲 MRR，或模式一讲回本年</td></tr>
+    <tr><td><b>⑤ demo 演示</b></td><td>4′</td><td><b>先演惊艳的、最后才补一句"这是 demo"</b></td></tr>
+    <tr><td>⑥ 团队编成 + 90 天计划</td><td>2′</td><td>只有六个字"1 主理 + N 见习"</td></tr>
+    <tr><td>⑦ 加分：沉淀判断</td><td>1′</td><td>为做插件而做插件</td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">拼包 · 路演</span><span class="slide-number" data-current="14" data-total="16"></span></div>
+  <div class="notes"><p><b>【主持要点】</b>①<b>demo 最后演，且必须先念 Mock 清单</b>——学员一旦先演惊艳的界面，后面说什么都盖不住。②<b>不许让各组互相比"谁的 demo 好看"。比的是判断，不是美工。</b></p>
+  <p><b>【必问三问，每组至少挑一条】</b>1）"你这条标了'可替'的活，<b>做错了谁签字</b>？" 2）"你的 ⑧ 里留了几处占位？<b>当众念一条出来。</b>" 3）"你的编成草案里谁当 Lv.3？<b>如果你把自己填成了 Lv.3，拿一个'你敢对客户说不知道'的真实例子出来。</b>"</p>
+  <p><b>【八维评审卡的口径单点】</b>唯一真相源是 <span class="mono">工作坊/_贯穿沙盘_分组命题.md</span> 第五节。<b>把那一节打印出来当评分表——两处维护一张表，必然漂移</b>（这正是第六课教的"编号权归装配"同一条纪律）。</p></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-title="三条一票警示">
+  <div class="kicker">六 · 评审 · <b>第一组上台之前讲完</b></div>
+  <h2 class="title">⚠️ 三条一票警示</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:8%"></th><th style="width:40%">警示</th><th style="width:12%">编号</th><th>真实形态（不是明目张胆造假）</th></tr>
+    <tr><td><b>①</b></td><td><b>编造查不到的文号</b></td><td><b>B-10</b></td><td>"<b>看起来像国标就用</b>"——问一句"<b>这个号你在哪查到的</b>"，当场就露</td></tr>
+    <tr><td><b>②</b></td><td><b>把别处模板的数字当自己的</b></td><td><b>B-11</b></td><td>模板复用把上一个项目的数字一起带过来——问"<b>这个数是你们命题里的还是启发案例里的</b>"</td></tr>
+    <tr><td><b>③</b></td><td><b>把方案目标值 / Mock demo 说成已实现</b></td><td>—</td><td><b>含糊带过——不是撒谎，是不说</b>。所以规定 demo 必须<b>先念 Mock 清单再演</b></td></tr>
+  </table>
+  <p class="huge mt-l" data-anim="fade-up">空缺可以补，<br>编造无法挽回。</p>
+  <p class="lede mt-m" data-anim="fade-up">七课工具练的是手艺，<b>这一条练的是能不能把手艺交给你</b>。<br>
+  <b>无论其他七维多好，触发任一条即路演不通过。</b></p>
+  <div class="deck-footer"><span class="ftag">一票警示</span><span class="slide-number" data-current="15" data-total="16"></span></div>
+  <div class="notes"><p><b>⚠️【三条警示要在第一组上台之前讲完】</b>事后追责不如事前立规矩——<b>这也是第五课教的"闸要前置"在课堂上的自我示范。别到第三组才想起来说。</b></p>
+  <p><b>【"三条其实是同一条"要点破】</b>学员这五天分别在第三、五、六、七课撞过这条判据。<b>现在第五次出现，也是最后一次——让它落地成一句能带走的话。</b></p></div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-title="结课定级">
+  <div class="kicker">七 · 定级 · 20′</div>
+  <h2 class="title">不发合格证，发能力等级 + 差距清单</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%">观察点</th><th style="width:26%">指向 Lv.1 见习</th><th style="width:26%">指向 Lv.2 胜任</th><th>指向 Lv.3 主理</th></tr>
+    <tr><td>全链独立性</td><td>只在别人带的环节里做对</td><td><b>八课能自己走完一遍</b>，产物需复核</td><td>能带别人走，<b>且能判别人做得对不对</b></td></tr>
+    <tr><td><b>C3 设闸</b></td><td>说得出某 Action 该不该设闸</td><td>能给全链设出 5–8 个真闸</td><td>对任一 Action 判"设不设、谁按、<b>按错代价</b>"</td></tr>
+    <tr><td><b>C4 诚实边界</b></td><td>知道要留占位</td><td>产出可交现场的<b>待补取证清单</b></td><td><b>在客户压力下</b>仍然留白不编造</td></tr>
+    <tr><td><b>C7 客户承诺</b></td><td>不涉及</td><td>不独立对客户承诺</td><td><b>对客户承诺负责，签字的是他</b></td></tr>
+    <tr><td>路演表现</td><td>靠队友兜</td><td>自己讲得清全链</td><td><b>被追问三问仍答得住</b></td></tr>
+  </table>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <p class="dim">⚠️ <b>Lv.3 不能自封</b>：<b>举不出"我在客户压力下真做过留白不编造"这个例子的人，不该给自己填 Lv.3。</b><br>
+    <b>康养项目那 11 处占位，就是 Lv.3 的资格证。</b></p>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">诚实回答"补不了"的人，<br>比嘴上说"我都行"的人<b>更接近 Lv.3</b>。</p>
+  <div class="deck-footer"><span class="ftag">定级</span><span class="slide-number" data-current="16" data-total="16"></span></div>
+  <div class="notes"><p><b>【当堂填差距清单，每人一张，带走】</b>模板在学员手册里。<b>关键是"具体表现"那一栏要写一个这五天里的具体时刻，不写形容词</b>。</p>
+  <p><b>⚠️【别把最后一段用来煽情】</b>这门课的收口<b>不是"你们都很棒"</b>，是"<b>你现在是 Lv.1，差在 C3 和 C4，下个项目补这两维</b>"。<b>具体的差距清单，比任何鼓励都值钱。</b></p>
+  <p><b>【最后一句可以这么收】</b>"这五天你们从一句客户的话，走到了一份交付包。<b>但今天真正要你们带走的，不是这份包——是那句'我知道自己在哪里必须叫人'。</b>"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

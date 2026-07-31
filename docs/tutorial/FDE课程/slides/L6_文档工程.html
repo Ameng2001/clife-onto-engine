@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 第六课 · 文档工程</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:56px 80px}
+  .mt-l{margin-top:22px}.mt-m{margin-top:14px}
+  .lede{font-size:19px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:6px}
+  .card p,.card-accent p,.card-outline p{font-size:15px;line-height:1.55}
+  h2.title{font-size:42px;line-height:1.15}
+  .chain{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-weight:700;font-size:18px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:7px 12px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:31px;line-height:1.38;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:15px}
+  table.t th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:6px 10px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:6.5px 10px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;line-height:1.6;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:13px 17px;overflow:auto;color:var(--text-1)}
+  .m1{background:rgba(26,175,108,.12);color:#0f7a4a;border-radius:4px;padding:1px 7px;font-size:12px;font-weight:700;white-space:nowrap}
+  .m2{background:rgba(59,108,255,.12);color:#2a4fc4;border-radius:4px;padding:1px 7px;font-size:12px;font-weight:700;white-space:nowrap}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 第六课 · 150′ · SOP【S5 合规治理 / S6 交付物工程】</div>
+  <h1 class="title" data-anim="fade-up">文档工程</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">不是"用 AI 写文档"——那个谁都会。<br><b>是让 10 个作者写出来像一个人写的。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">产出：写作专家 + 一节方案稿 + 配图占位</span>
+    <span class="pill">栈④ 商业 · 栈⑥ 交付物 · 栈⑦ 合规</span>
+  </div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="18"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 150′】</b> 开场 10′ ｜ <b>知识三栈 30′</b>（栈④ 12′ + 栈⑥ 9′ + 栈⑦ 9′）｜ 写作专家拆解 20′ ｜ <b>实操 90′（穿插）</b> ｜ 三个蓝图快讲 10′ ｜ checkout 30′</p>
+    <p><b>【主持提示 1】</b> <span class="mono">generate</span> 全本跑下来很久，<b>课堂只写 1–2 章</b>。要让学员看到的是 <b>plan 的 Gap 清单</b>和 <b>assemble 的编号收口</b>，<b>不是完整文档</b>。</p>
+    <p><b>【主持提示 2】</b> 栈④商业建模那 12′ 是<b>技术型学员最容易走神的一段</b>——<b>不要念框架名</b>，要<b>当场打开康养项目财务测算 Excel 的列</b>，指着"营收 → 成本 → EBITDA → 净利 → 现金流 → IRR/回本"<b>一列一列走</b>。<b>看得见列，才记得住语言。</b></p>
+    <p><b>【要加时从哪借】</b> 从"三个蓝图快讲"那 10′ 里借。</p>
+    <p><b>【开场先在 SOP 图上指位置】</b>"今天进 S6，顺带把 S5 的合规做完。<b>昨天做的是机器会执行的规则，今天做的是人会签字的文件。</b>"</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="难点不在写">
+  <div class="kicker">① 目的</div>
+  <h2 class="title">全部难点不在"写"，在"<b>不打架</b>"</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>康养项目可研</h4><p class="dim" style="font-size:17px"><b>11 章 / 约 11 万字 / 26 图</b><br><b>35 个分节并行写作</b></p></div>
+    <div class="card"><h4>学前教育项目可研</h4><p class="dim" style="font-size:17px"><b>653KB / 44 分章</b><br>同一套打法</p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>并行写作的四个打架点</b>：术语要一致 · 数字要同源 · 编号不能撞 · 图文引用不能断</p>
+  <div class="grid g3 mt-l" data-anim="stagger-list">
+    <div class="card card-accent"><h4>① 蓝图</h4><p class="dim">定文档骨架<br><b>谁都不许自己发挥章节</b></p></div>
+    <div class="card card-accent"><h4>② 写作专家</h4><p class="dim">定文风<br><b>让 N 个作者有同一个人设</b></p></div>
+    <div class="card card-accent"><h4>③ 装配期收口</h4><p class="dim"><b>编号权、术语统一权归装配阶段</b><br>不归写作阶段</p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up">⭐ 第 3 条正是<b>反例 B-2 的教训固化成的机制</b>——<b>这就是"平台=方法论固化物"最具体的一次兑现。</b></p>
+  <div class="deck-footer"><span class="ftag">三件东西</span><span class="slide-number" data-current="2" data-total="18"></span></div>
+  <div class="notes"><p>"康养项目 35 节并行写作时各节自行起标题层级，装配期出现编号重复与跳号。<b>现在这条纪律被写进了工具</b>——写章节只管本章内部，跨章编号一律由装配重排。<b>一个反例，变成了一行代码。</b>"</p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="三栈为什么捆在一起">
+  <div class="kicker">② 启发 · 知识三栈 · 开场</div>
+  <h2 class="title">为什么这三栈捆在一起讲</h2>
+  <pre class="code mt-s" data-anim="fade-up">栈④ 商业模式与财务  → 决定文件里"<b>这生意怎么成立</b>"那几章有没有内容
+栈⑥ 交付物工程      → 决定这些内容能不能被组织成<b>一份能过评审的正式文书</b>
+栈⑦ 合规治理        → 决定这份文书<b>经不经得起一句"这个数据/文号哪来的"</b></pre>
+  <p class="quote-big mt-l" data-anim="fade-up">多数技术出身的人<b>不是倒在建模</b>，<br>是倒在这三栈——<br><b>盘不出账、过不了财评、组织不起百页交付物。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">第一课说过：<b>FDE 不是"会建模的人"，是七个专业角色的方法论合体；建模只是七分之二。</b><br><b>本课就是这三块塌陷的正面战场。</b></p>
+  <div class="deck-footer"><span class="ftag">三栈</span><span class="slide-number" data-current="3" data-total="18"></span></div>
+  <div class="notes"><p><b>【这一页定调，别跳过】</b>技术型学员到这里最容易觉得"文档是文秘的事"。<b>这三行要慢慢念</b>——它们共同决定了<b>客户手里那份文件能不能签字</b>。</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="栈④ 财务语言随模式变">
+  <div class="kicker">② 启发 · 栈④ 商业模式与财务 1/2 · 12′</div>
+  <h2 class="title" style="font-size:36px">⭐ 财务语言随"交付模式"变</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:24%">交付模式</th><th style="width:22%">商业模式底色</th><th style="width:30%">该用的财务语言</th><th>别用错</th></tr>
+    <tr><td><span class="m2">模式二</span> <b>大平台建设+运营</b><br><span class="dim">康养项目 / 草业项目 / 辣椒</span></td><td>重资产、投—建—运、多元收入</td><td><b>投资估算 / EBITDA / IRR / NPV / 回本周期</b></td><td><b>别用 MRR</b>——一次性建设+运营盘不是订阅</td></tr>
+    <tr><td><span class="m1">模式一</span> <b>Token 计费 SaaS</b><br><span class="dim">教育督导项目</span></td><td>轻资产、订阅/按量、可复制</td><td><b>MRR/ARR / LTV:CAC / NRR / Churn / Rule of 40</b></td><td><b>别用 IRR/回本年</b>——SaaS 早期没有"回本年"这回事</td></tr>
+  </table>
+  <p class="quote-big mt-m" style="font-size:25px" data-anim="fade-up">客户问模式二，你答 <b>IRR 15.2%、第 9 年回本</b>；<br>客户问模式一，你答 <b>LTV:CAC 3:1、NRR 120%</b>。<br><b>答反了，客户当场就知道你没做过这类生意。</b></p>
+  <p class="lede mt-s" data-anim="fade-up"><b>这条直接影响你今天的写作动作</b>：可研蓝图的效益分析章用的是模式二语言——<b>命题是模式一 SaaS 却照可研蓝图硬写 IRR，写出来就是空的。</b></p>
+  <div class="deck-footer"><span class="ftag">栈④</span><span class="slide-number" data-current="4" data-total="18"></span></div>
+  <div class="notes"><p><b>【第二课埋的雷，在这里引爆】</b>"第二课认领命题时我说过：命题刻意跨两种交付模式，<b>是为了逼你们在第六课用对财务语言</b>。<b>现在到时候了。</b>"</p>
+  <p><b>【逐组点名】</b>让每组说一遍"我们是模式几，所以我们要写哪几个数"。<b>模式一的组用了 IRR、模式二的组用了 MRR，当场纠。</b></p>
+  <p><b>【五件套框架可以快过】</b>商业模式画布 / 交叉补贴 / 三级火箭 / SaaS 指标 / 增长思维——<b>学员手册里列全了，这里念名字带过即可</b>，把时间留给下一页的 Excel。</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="栈④ 五个数">
+  <div class="kicker">② 启发 · 栈④ 2/2 · <b>当场打开 Excel 指着列走</b></div>
+  <h2 class="title">签字前客户盯的那五行</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%">概念</th><th style="width:46%">是什么</th><th>康养项目的数</th></tr>
+    <tr><td><b>EBITDA</b><br><span class="dim">息税折旧摊销前利润</span></td><td>营收减经营成本，但<b>加回利息、税、折旧、摊销</b>——衡量<b>主业本身的现金创造能力</b></td><td>约 <b>5219 万/年</b><br><span class="dim">营收约 3.83 亿/年、净利约 3535 万</span></td></tr>
+    <tr><td><b>IRR</b><br><span class="dim">内部收益率</span></td><td>使 <b>NPV = 0</b> 的那个折现率——项目每年的"复合回报率"，<b>必须跟一条门槛线比</b></td><td><b>运营口径 15.2%</b>（第 9 年回本，<b>主口径</b>）<br><b>发改口径 8.7%</b>（第 11 年，高于国企 6% 门槛）</td></tr>
+    <tr><td><b>NPV</b></td><td>未来每年净现金流折回今天求和，<b>&gt;0 才值得投</b></td><td>—</td></tr>
+    <tr><td><b>回本周期</b></td><td><b>累计净现金流由负转正</b>的那一年</td><td>第 <b>9</b> / <b>11</b> 年（两套口径）</td></tr>
+  </table>
+  <pre class="code mt-m" data-anim="fade-up">营收 − 成本 = <b>EBITDA</b>（主业赚钱力） → 扣息税折旧 = 净利
+  → 逐年净现金流折现求和 = <b>NPV</b> → 令 NPV=0 的折现率 = <b>IRR</b> → 累计转正之年 = <b>回本</b></pre>
+  <p class="lede mt-m" data-anim="fade-up">⭐ <b>两套 IRR 并存不是矛盾，是财务常识</b>——算的钱流范围不同。<b>看到 15.2% 和 8.7% 别以为数据打架，更别自己改一个——那就正好踩中 B-5。</b></p>
+  <div class="deck-footer"><span class="ftag">五个数</span><span class="slide-number" data-current="5" data-total="18"></span></div>
+  <div class="notes"><p><b>⚠️【这一页必须打开真 Excel，别只投幻灯片】</b>技术型学员对着表格记不住，<b>对着真实的列能记住</b>。指着走一遍：营收列 → 成本列 → EBITDA 行 → 净利行 → 现金流行 → IRR 单元格。</p>
+  <p><b>【口径名纠正，课上必须说】</b>叫<b>运营口径</b>，<b>不叫"合资口径"</b>（"合资/股权/注册资本"2026-07-20 起已禁用）。旧课件撞到这些词<b>当场改口</b>。</p>
+  <p><b>【顺带交代财评接口，一句话】</b>商业模式回答"<b>这生意成不成立</b>"，财评回答"<b>这笔钱算得准不准</b>"。学前教育项目走财评线：484 功能条目 → 约 27,056 功能点 → 约 22,014 人天 → 总投资 4,839 万。<b>两条线共用一条纪律：数字锚在单点。</b></p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="栈⑥ 三条铁律">
+  <div class="kicker">② 启发 · 栈⑥ 交付物工程 · 9′</div>
+  <h2 class="title">并行写作的三条铁律</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card goodcard"><h4>① 口径单点</h4><p class="dim">所有数字锚在一份 BRIEF，<b>分节作者一律引用不重算</b><br><b>B-5</b><br><br>反例根因：老龄化率 <b>60+ 与 65+ 两个口径被混用</b>。<b>不是笔误，是没建立"单一真相源"的纪律</b></p></div>
+    <div class="card goodcard"><h4>② 编号权归装配</h4><p class="dim">写作阶段<b>只管本章内部</b>，跨章编号一律由装配重排<br><b>B-2</b></p></div>
+    <div class="card goodcard"><h4>③ 占位符即契约</h4><p class="dim">slug <b>必须先定后画，不可事后改名</b><br><b>B-3</b>（第七课会再撞一次）<br><br>配套回收 <b>B-1</b>：图规格标题写"22 张"、表体实际 26 行——<b>现在图表编号由装配期统一分配</b></p></div>
+  </div>
+  <p class="quote-big mt-s" data-anim="fade-up">三条铁律都不是"建议"，<br><b>是被工具执行的。</b></p>
+  <p class="lede mt-s" data-anim="fade-up"><b>【原本是谁】</b>方案经理 / 标书工程师——把一堆认知与测算，组织成<b>一份能中标、能过评审的正式交付物</b>。<br>
+  <b>没有这一栈，你脑子里有 7 域本体，客户手里什么都没有。</b></p>
+  <div class="deck-footer"><span class="ftag">栈⑥</span><span class="slide-number" data-current="6" data-total="18"></span></div>
+  <div class="notes"><p><b>【"是被工具执行的"这句是本栈的落点】</b>三条铁律不是让学员背，是让他们<b>看到方法论怎么变成机制</b>。等下实操跑 assemble 时，让他们对照质量报告里的"图表编号分配"和"术语替换日志"——<b>那就是这三条在跑。</b></p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="栈⑦ 三态诚实与 B-6">
+  <div class="kicker">② 启发 · 栈⑦ 合规治理 · 9′</div>
+  <h2 class="title">三态诚实，与一个"看起来完全合规"的坑</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card goodcard"><h4>查到了现行有效的</h4><p class="dim">挂<b>标准号 + 发文字号</b><br><span class="dim">康养项目 <b>18 处</b></span></p></div>
+    <div class="card"><h4>是常识</h4><p class="dim">标"<b>通用</b>"</p></div>
+    <div class="card warncard"><h4>查不到</h4><p class="dim"><b>留占位 + 锚定上位国标 + 转取证清单</b><br><span class="dim">康养项目 <b>11 处</b>（7 本地文号 + 4 企业 SOP）</span></p></div>
+  </div>
+  <div class="card badcard mt-l" data-anim="fade-up">
+    <h4>⚠️ 反例 B-6 · 标准号误标（康养项目编制期两处真实误标）</h4>
+    <p class="dim">· 药食同源目录被误标为 <b>"GB 药食同源目录"</b>——<b>它根本不是 GB</b>，是原卫生部 / 卫健委发布的名单<br>
+    · 星评标准沿用了<b>已废止的 MZ/T 标准</b>——<b>标准还在，版本已废止</b></p>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">已废止<b>比查不到更危险</b>，<br>因为它<b>看起来完全合规</b>。</p>
+  <p class="lede mt-m" data-anim="fade-up"><b>硬动作</b>：用"全国标准信息公共服务平台"核现行/废止，用"国家法律法规数据库"核法规。</p>
+  <div class="deck-footer"><span class="ftag">栈⑦</span><span class="slide-number" data-current="7" data-total="18"></span></div>
+  <div class="notes"><p><b>【两句话区分】</b>"<b>看起来像国标</b>"不等于是国标；"<b>标准存在</b>"不等于"<b>现行有效</b>"。<b>这是两个不同的错，B-6 一次犯了两个。</b></p>
+  <p><b>【原话直引】</b>"错文号比空缺更有害。"（B-10）</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="⭐ 诚实边界的复调">
+  <div class="kicker">② 启发 · 栈⑦ · <b>课上要把这个复调点破</b></div>
+  <h2 class="title">⭐ 三个场景，同一条判据</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%">场景</th><th style="width:50%">说法</th><th>在哪讲</th></tr>
+    <tr><td><b>B-10</b></td><td>查不到的文号<b>留占位不编造</b></td><td>第五课 / <b>本课栈⑦</b></td></tr>
+    <tr><td><b>B-11</b></td><td><b>别人的数字不是你的数字</b>——模板可复用，数字不可复用</td><td>第三课 / 本课（迎检话术的"<b>无其他行业项目残留术语</b>"检查）</td></tr>
+    <tr><td><b>Mock 边界</b></td><td><b>Mock 不能说成跑通</b></td><td>第七课</td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">空缺可以补，<br><b>编造无法挽回。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">第七课会把这条推到<b>第四个场景</b>——外部事实分官方 / 二手 / 未获证实三档。<br><br>
+  <b>你会以为"合规"只是可研最后一章的事，其实它是这门课的价值观支点。</b><br>
+  <b>前面几课练的是手艺，这一条练的是——能不能把手艺交给你。</b></p>
+  <div class="deck-footer"><span class="ftag">复调</span><span class="slide-number" data-current="8" data-total="18"></span></div>
+  <div class="notes"><p><b>【这一页是全课程价值观的收拢点，慢讲】</b>学员到第六课已经撞过 B-10、B-11 各一次，现在第一次看到它们<b>是同一条判据的不同场景</b>。<b>这个"啊原来是一件事"的时刻，比单独讲三遍有效。</b></p>
+  <p><b>【最后两句要说出来】</b>"前面几课练的是手艺，这一条练的是<b>能不能把手艺交给你</b>。"——这是第一课 C7"只能筛不能训"在本课的落点。</p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="A线四命令与蓝图">
+  <div class="kicker">② 启发 · 工具 A 线</div>
+  <h2 class="title" style="font-size:36px">只有四个命令</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:34%">命令</th><th>产物 / 作用</th></tr>
+    <tr><td><span class="mono">/studio-docs:blueprint</span></td><td><span class="mono">studio/blueprints/{doc-type}.yaml</span></td></tr>
+    <tr><td><span class="mono">/studio-docs:writer</span></td><td><span class="mono">studio/agents/writers/{slug}.md</span></td></tr>
+    <tr><td><span class="mono">/studio-docs:generate</span></td><td>串 <b>plan → write×N（并行）→ assemble →(可选)export</b></td></tr>
+    <tr><td><span class="mono">/studio-docs:export</span></td><td>同目录的 <span class="mono">.docx</span> / <span class="mono">.pdf</span></td></tr>
+  </table>
+  <div class="card badcard mt-s" data-anim="fade-up">
+    <p class="dim">⚠️ 插件文档里出现的 <span class="mono">/studio-docs:plan</span>、<span class="mono">:write</span>、<span class="mono">:export-document</span> <b>都不存在</b>，别照着敲。</p>
+  </div>
+  <h3 class="mt-s" data-anim="fade-up">⭐ <span class="mono" style="font-family:inherit">artifact_sources</span> 是全链路打通的证据</h3>
+  <p class="lede mt-s" data-anim="fade-up">全部蓝图里只用了 <b>10 种取料来源，全是第四课的产物</b>——<br>
+  <span class="mono" style="font-size:12.5px">process-flow(19次) · domain-model(18) · skill-design(14) · persona-insight(11) · opportunity-brief(10) · behavior-matrix(10) · event-storm(9) · journey-map(7) · brief(7) · domain-canvas(5)</span></p>
+  <p class="quote-big mt-s" style="font-size:25px" data-anim="fade-up">第四课做得糙，<b>这里就没料可取。</b></p>
+  <div class="deck-footer"><span class="ftag">A 线</span><span class="slide-number" data-current="9" data-total="18"></span></div>
+  <div class="notes"><p><b>【那 10 个取料来源要指着念】</b>"你们前天做的每一个产物，<b>在这里都被真的用掉了</b>。<span class="mono">process-flow</span> 被引用 19 次——那是所有蓝图里被引用最多的。<b>你到这一步才会真正理解为什么前面要认真做。</b>"</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="三个重点蓝图">
+  <div class="kicker">② 启发 · 三个蓝图快讲 · 10′（超时可砍）</div>
+  <h2 class="title">HR项目 覆盖的那三本</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:22%">蓝图</th><th style="width:32%">结构</th><th>硬指标 / 看点</th></tr>
+    <tr><td><b>tender-document</b><br>招标文件</td><td>7 章 + 附件<br>tone <span class="mono">formal-legal</span><br>核心章 8000–12000 字</td><td>总分 100 分 · 资质无排他条款 · <b>预付款 ≤30%</b> · 须含格式模板 · 须声明采购方式及法律依据 · 技术需求<b>逐条编号</b> · 知识产权归属明确</td></tr>
+    <tr><td><b>bid-document</b><br>投标文件</td><td>3 大部分共 11 章<br>「详细技术方案」<b>10000–18000 字，全篇最大</b></td><td>required_elements 8 项含<b>需求响应表 / 偏离说明表 / 进度甘特图 / 人员组织架构图</b></td></tr>
+    <tr><td><b>acceptance-package</b><br>验收材料</td><td>9 部分 + 附件<br>含<b>需求跟踪矩阵</b></td><td>跟踪矩阵 <b>100% 覆盖</b> · <b>功能测试通过率 ≥98% 且 P1 缺陷归零</b> · 等保测评通过 · 培训覆盖率 100% · <b>决算不得超合同额</b></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">这三本连起来，<br>就是那个项目的<b>完整生命周期</b>——<br>也是全部案例里<b>唯一覆盖「招标↔投标↔验收」的</b>。</p>
+  <div class="deck-footer"><span class="ftag">三个蓝图</span><span class="slide-number" data-current="10" data-total="18"></span></div>
+  <div class="notes"><p><b>【超时优先砍这一页】</b>学员手册里写全了。但如果时间够，<b>验收材料那行的量化门槛值得念</b>——学员很少见过"验收"是怎么被量化定义的。</p>
+  <p><b>【康养项目和学前教育项目都只到可研】</b>接不到后面两段。<b>这是全案例矩阵里HR项目 唯一不可替代的价值。</b></p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="写作专家四维">
+  <div class="kicker">② 启发 · <b>本课主教具</b> · 20′</div>
+  <h2 class="title" style="font-size:34px">写作专家：把"文风"变成可测量的东西</h2>
+  <div class="grid g2 mt-s" style="font-size:14px" data-anim="stagger-list">
+    <div class="card"><h4>Writing Style 四维</h4><p class="dim">
+    <b>① 语言标记</b>　四字短语密度 · 对仗句式频率 · 递进模式（"从…到…"）· 标志性表达<br>
+    <b>② 政策引用</b>　引用格式模板 · 偏好机关 · 引用密度<br>
+    <b>③ 段落模式</b>　结构（论点+论据+价值阐述）· 字数区间 · 量化数据要求<br>
+    <b>④ 术语偏好</b>　✅/❌ 成对：✅信息化建设/❌IT建设、✅总体架构/❌系统架构、✅保障措施/❌风险应对</p></div>
+    <div class="card card-accent"><h4>量化启发式表</h4><p class="dim">
+    四字短语密度　每段计数　高 ≥5 · 中 2–4 · 低 0–1<br>
+    对仗句式　　　每页计数　高 ≥3 · 中 1–2 · 低 &lt;1<br>
+    政策引用密度　每章计数　高 ≥4 · 中 2–3 · 低 0–1<br>
+    段落长度　　　平均字符　短 &lt;150 · 中 150–350 · 长 &gt;350<br>
+    量化数据　　　每段计数　高 ≥2 · 中 1 · 低 &lt;1</p></div>
+  </div>
+  <p class="quote-big mt-m" style="font-size:25px" data-anim="fade-up">客户说"我要一个像肖总那样的写手"，<br><b>必须索要样稿——光有名字抓不到文风。</b></p>
+  <p class="lede mt-s" data-anim="fade-up">这句话可以推广到整个 FDE 工作：<b>客户给你一个人名 / 一个标杆，你要的是那个东西本身。</b></p>
+  <div class="deck-footer"><span class="ftag">写作专家</span><span class="slide-number" data-current="11" data-total="18"></span></div>
+  <div class="notes"><p><b>⚠️【诚实标注，课上必须说这句】</b>"BRIEF 以肖作仕为作者人设是<b>硬证据</b>；但'<b>这些 docx 逐字由该 agent 生成</b>'<b>无法证明</b>（没有生成日志）。准确说法是'<b>按其文风纲领组织写作</b>'。"<br><b>这本身就是本课的第一课：连自己的案例都要区分"能证明的"和"听起来像的"。</b></p>
+  <p><b>【三种造法，强调 A】</b>分析参考文档（最佳，2–3 页样本即可）/ 口述定义 / 定制已有。<b>没样本就去要——别凭空捏一个文风。</b></p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="plan 的 Gap 清单">
+  <div class="kicker">② 启发 · 并行写作三段 1/2 · <b>本课最该认真对待的地方</b></div>
+  <h2 class="title">plan 的确认点在告诉你<b>哪里没有料</b></h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>拆分阈值</h4><p class="dim">&lt;5,000 字符 → <b>1 个任务</b><br>5,000–15,000 → <b>2–3 个</b><br>&gt;15,000 → <b>4–6 个</b></p></div>
+    <div class="card warncard"><h4>覆盖度四分类</h4><p class="dim">✅ Full　⚠️ Partial　📝 Auto（模板可生成）<br><b>❌ Manual</b>（如经费预算）</p></div>
+  </div>
+  <div class="card card-accent mt-m" data-anim="fade-up">
+    <h4>⏸ 硬性人工确认点</h4>
+    <p class="dim">给你「章节×产物映射表 + 并行阶段图 + 统计 + <b>Gap 提示</b>」，你可以 approve / 改分组 / 预先标 manual / 调字数 / 排除可选章。</p>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">标 ❌Manual 的那些，<br><b>就是你得自己去要数据的地方</b>——<br>跟第五课的取证清单是<b>同一个动作</b>。</p>
+  <div class="deck-footer"><span class="ftag">plan</span><span class="slide-number" data-current="12" data-total="18"></span></div>
+  <div class="notes"><p><b>【实操时在这里喊停】</b>学员会想直接 approve 往下跑。<b>拦住</b>——让每组念一遍自己的 Gap 清单，<b>说出"这几章我们缺什么数据、回去找谁要"</b>。</p>
+  <p><b>⭐【写作的一条硬约束，念出来】</b>"<b>事实内容一律来自 artifacts，禁止编造统计数字、政策文号、预算。</b> 这就是 B-10 被写进工具的样子——<b>缺数据就写 [待补充：XXX]，不许圆。</b>"</p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-title="assemble 编号收口">
+  <div class="kicker">② 启发 · 并行写作三段 2/2</div>
+  <h2 class="title">⭐ assemble：编号权在这里</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:22%">收口动作</th><th>怎么做</th></tr>
+    <tr><td><b>章级编号</b></td><td>按蓝图约定校验并<b>补缺重排</b>（缺"三"则四→三顺移）</td></tr>
+    <tr><td><b>节级编号</b></td><td><span class="mono">（一）(二)</span> / <span class="mono">1. 2.</span> / <span class="mono">(1)(2)</span> 在<b>每章内独立重排</b>，校验标题不跳级</td></tr>
+    <tr><td><b>图表编号</b></td><td><b>统一在装配期分配</b>：图 <span class="mono">图X-Y</span>（caption 在图<b>下方</b>）、表 <span class="mono">表X-Y</span>（caption 在表<b>上方</b>）</td></tr>
+    <tr><td><b>术语统一</b></td><td>读 writer 的术语表替换变体；<b>不替换</b>代码块、mermaid、<span class="mono">「」</span>/<span class="mono">《》</span>内直引</td></tr>
+    <tr><td><b>交叉引用</b></td><td><b>只校验不自动修</b>（章/节/表/图/附录五类）</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>前置</b>：required 章缺失 → <b>停止装配</b>。<b>部分失败</b>：装配可用部分，缺口处插入 <span class="mono">⚠️ 本章内容待补充</span> 占位块 + 失败原因。</p>
+  <div class="card goodcard mt-m" data-anim="fade-up">
+    <p class="dim">⭐ <b>回收 B-1</b>：现在图表编号由装配期统一分配——<b>摘要与明细有了单一真相源</b>。<br>
+    <b>并行产出必须有收口回改动作，这条纪律现在是机器在执行。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">assemble</span><span class="slide-number" data-current="13" data-total="18"></span></div>
+  <div class="notes"><p><b>【实操跑完 assemble 后一定要打开质量报告】</b>指着"<b>术语替换日志</b>"（含出现次数与行号）和"<b>图表编号分配</b>"说：<b>"这两段就是刚才那三条铁律在跑。"</b></p>
+  <p><b>【交叉引用只校验不自动修，这是刻意的】</b>因为"图 3-1"到底该指哪张图，<b>机器判不了，只能提醒你</b>。<b>又是一处"机器立结构、人填判断"。</b></p></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-title="B线平台文档">
+  <div class="kicker">② 启发 · 工具 B 线</div>
+  <h2 class="title">B 线：平台文档套件</h2>
+  <pre class="code mt-s" data-anim="fade-up">/studio-platform:platform-docs {domain} [--steps brainmap|mapping|tech|plan|visual|speech]
+<b># 前置：需有 event-storm.md 与 domain-map.md</b></pre>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:14%">步</th><th style="width:30%">产物</th><th>看点</th></tr>
+    <tr><td>brainmap</td><td>索引 + 分模块脑图</td><td>每个智能体固定 4 小节；<b>agent 编号全局连续</b></td></tr>
+    <tr><td>mapping</td><td><span class="mono">agent-plugin-mapping.md</span></td><td>ASCII 架构图 + 模块-Plugin 矩阵 + <b>覆盖率分析</b> + P0–P3 优先级</td></tr>
+    <tr><td>tech</td><td><b>5 份技术设计</b></td><td>数仓走 <b>Kimball 分层</b>；数据采集有 <b>6 维质量框架</b>；RAG 有<b>四路混合检索</b></td></tr>
+    <tr><td>plan</td><td><span class="mono">project-plan.md</span></td><td>固定 10 章 + Mermaid 甘特 + 6–10 条并行 track</td></tr>
+    <tr><td>visual</td><td><span class="mono">{platform}.pen</span></td><td>4 帧（全景驾驶舱 / 角色智能体 / 知识网络 / 数智场景）</td></tr>
+    <tr><td>speech</td><td>迎检话术</td><td><b>与 .pen 四帧一一对齐</b>，要求朗读 <b>5–8 分钟</b></td></tr>
+  </table>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <p class="dim">⚠️ <span class="mono">--steps all</span> 且无交互时<b>全程不暂停</b>，会一口气生成 11 类文档。<b>先跑 <span class="mono">--steps brainmap</span> 看一下再决定。</b><br>
+    ⭐ 迎检话术的质量检查里有一条：<b>"无其他行业项目残留术语"</b>——这正是 <b>B-11</b> 在平台文档侧的同一个坑。<b>工具知道这个风险，你更要知道。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">B 线</span><span class="slide-number" data-current="14" data-total="18"></span></div>
+  <div class="notes"><p><b>【B 线课堂上不实操，只演示 brainmap】</b>时间不够。让他们知道有这条线、知道前置是什么就行。</p></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-title="实操">
+  <div class="kicker">④ 实操 · 90′（穿插）</div>
+  <h2 class="title">造专家 → 选蓝图 → plan → 写 1–2 章 → assemble</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:8%">序</th><th style="width:44%">做什么</th><th style="width:12%">时长</th><th>产出</th></tr>
+    <tr><td>1</td><td><span class="mono">writer analyze &lt;参考文档&gt;</span> 造写作专家</td><td>25′</td><td>四维填满的 writer</td></tr>
+    <tr><td>2</td><td><span class="mono">blueprint list</span> 看内置蓝图，选一本</td><td>10′</td><td>选定文档类型</td></tr>
+    <tr><td>3</td><td><span class="mono">generate</span> 跑到 plan 确认点 <b>停下细看</b></td><td>25′</td><td>doc-plan + <b>Gap 清单</b></td></tr>
+    <tr><td>4</td><td>让它写 <b>1–2 章（不用写全本）</b></td><td>20′</td><td><span class="mono">.parts/</span> 下的成稿</td></tr>
+    <tr><td>5</td><td>assemble + 看质量报告</td><td>10′</td><td>装配稿 + 质量报告</td></tr>
+  </table>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card badcard"><h4>难点 ①</h4><p class="dim">造专家<b>优先用"分析参考文档"</b>。<b>没样本就去要——别凭空捏一个文风</b></p></div>
+    <div class="card badcard"><h4>难点 ②</h4><p class="dim">plan 确认点<b>认真看 Gap 清单</b>。❌Manual 的章节<b>列进取证清单，别指望写作时圆过去</b></p></div>
+    <div class="card badcard"><h4>难点 ③</h4><p class="dim"><b>关键数字一律引用不重算</b>（B-5）。分节作者各算各的，<b>装配期必然对不上</b></p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">实操</span><span class="slide-number" data-current="15" data-total="18"></span></div>
+  <div class="notes"><p><b>⚠️【绝不让他们跑全本】</b><span class="mono">generate</span> 全本跑下来很久，一跑就到下课。<b>只写 1–2 章</b>——要看到的是 plan 的 Gap 清单和 assemble 的编号收口。</p>
+  <p><b>【巡场抓手】</b>①没样本硬造文风的组；②直接 approve 跳过 Gap 的组；③在自己那节重算数字的组。</p></div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-title="九个翻车点">
+  <div class="kicker">⚠️ 工具链的已知不一致</div>
+  <h2 class="title">照文档做会撞的九个坑</h2>
+  <table class="t mt-s" data-anim="stagger-list" style="font-size:14px">
+    <tr><th style="width:6%">#</th><th style="width:50%">坑</th><th>以什么为准</th></tr>
+    <tr><td>1</td><td>blueprint / writer 存放路径两说</td><td><b>以 SKILL 为准</b>（3 处一致 vs 1 处）</td></tr>
+    <tr><td>2</td><td>蓝图 schema：文档版用 <span class="mono">chapters:</span>，<b>实际内置蓝图用 <span class="mono">structure:</span></b></td><td>写新蓝图<b>按磁盘实际结构</b></td></tr>
+    <tr><td>3</td><td>artifact 名不统一：<span class="mono">skill-design.md</span> vs <span class="mono">skill-map</span></td><td>知道是同一个东西即可</td></tr>
+    <tr><td>4</td><td>studio-docs 用 <span class="mono">domain-model.md</span>，studio-platform 用 <b><span class="mono">domain-map.md</span></b></td><td>两插件要的文件名不同，<b>别以为写错了</b></td></tr>
+    <tr><td>5</td><td>导出字体<b>三套口径</b></td><td><b>以脚本为准</b></td></tr>
+    <tr><td>6</td><td><span class="mono">--blueprint</span> 参数<b>读了但从不使用</b></td><td>蓝图的 <span class="mono">export.fonts</span> <b>目前无效</b></td></tr>
+    <tr><td>7</td><td>mermaid 渲染实参与文档不符</td><td>以脚本为准</td></tr>
+    <tr><td>8</td><td><span class="mono">:plan</span> / <span class="mono">:write</span> / <span class="mono">:export-document</span> <b>不存在</b></td><td>只有 blueprint / writer / generate / export</td></tr>
+    <tr><td><b>9</b></td><td>草业项目那份调研 docx <b>python-docx 解析报错</b>（WPS 导出的异常 zip）</td><td><b>改用 pandoc 转</b>，实测可行</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">⭐ 第 9 条是<b>备课时真撞上的</b>——正好做本课的活教材：<br><b>交付物格式与内容是两条独立的质检线，都得 FDE 自己走一遍</b>（<b>B-4</b>）。</p>
+  <div class="deck-footer"><span class="ftag">翻车点</span><span class="slide-number" data-current="16" data-total="18"></span></div>
+  <div class="notes"><p><b>【和第五课那六处落差呼应】</b>"昨天六处，今天九处。<b>你们发现规律没有？每一个工具链都有一层'文档说 A、代码是 B'。</b> 这不是这套工具特别差——<b>这是所有工具的常态，只是我们把它写下来了。</b>"</p></div>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-title="导出与硬依赖">
+  <div class="kicker">② 启发 · 导出</div>
+  <h2 class="title" style="font-size:36px">导出：一个硬依赖，三个软依赖</h2>
+  <div class="grid g4 mt-s" data-anim="stagger-list">
+    <div class="card badcard"><h4>★ pandoc</h4><p class="dim"><b>唯一硬依赖</b><br><b>缺则 STOP</b></p></div>
+    <div class="card"><h4>mmdc</h4><p class="dim">缺 → 保留 mermaid 代码块</p></div>
+    <div class="card"><h4>python-docx</h4><p class="dim">缺 → 只出<b>裸 pandoc DOCX</b></p></div>
+    <div class="card"><h4>Chrome</h4><p class="dim">缺 → 跳过 PDF<br>（可退 XeLaTeX）</p></div>
+  </div>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>DOCX 六步固定流水线</h4><p class="dim">页面布局 → 标题 → 正文 → 表格 → 页眉 → 页脚<br><br>
+    <b>关键实现</b>：东亚字体通过 <b>XML 直写</b>（python-docx 不原生支持）；行距 <span class="mono">240×1.5=360</span>；页边距上下 2.54cm / 左右 3.17cm；页眉取首个 Title/H1 并加下边框线；页脚插 <span class="mono">PAGE</span> 域</p></div>
+    <div class="card"><h4>PDF</h4><p class="dim">优先 pandoc → html5 → 注入中文公文 CSS（A4、仿宋 14pt/1.5、方正小标宋标题）→ Chrome headless 打印<br>兜底 XeLaTeX</p></div>
+  </div>
+  <p class="quote-big mt-s" style="font-size:25px" data-anim="fade-up">导出后<b>自己打开看过</b>。<br>只看 md 不看 docx，<b>就是 B-4。</b></p>
+  <div class="deck-footer"><span class="ftag">导出</span><span class="slide-number" data-current="17" data-total="18"></span></div>
+  <div class="notes"><p><b>【第二课埋的 pandoc 在这里兑现】</b>"第二课我说 pandoc 是硬依赖，缺了第六课直接 STOP。<b>现在到了。</b> 当时冒烟测试没跑的，现在补跑来不及了。"</p>
+  <p><b>【B-4 的完整故事】</b>康养项目导出 docx 时模板主题色覆盖了浅色系配图，<b>图文风格割裂</b>。<b>只看 md 是看不出来的。</b> 交付物格式与内容<b>是两条独立的质检线</b>。</p></div>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-title="checkout">
+  <div class="kicker">checkout · 30′</div>
+  <h2 class="title" style="font-size:32px">九项对照</h2>
+  <table class="t mt-s" data-anim="stagger-list" style="font-size:12px">
+    <tr><th style="width:16%">维度</th><th style="width:40%">达标</th><th>警示</th></tr>
+    <tr><td>写作专家</td><td>四维填满，且<b>基于真实样稿</b>分析得来</td><td>凭空捏一个文风；或只给了个人名</td></tr>
+    <tr><td>蓝图选型</td><td>选对文档类型，<b>说得出为什么</b></td><td>拿可研的蓝图写投标文件</td></tr>
+    <tr><td>Gap 诚实</td><td>❌Manual 章节列进了取证清单</td><td>让模型"先写着，回头再补"</td></tr>
+    <tr><td>数字同源</td><td>关键数字引用 BRIEF，不重算</td><td>各章各算一遍（<b>B-5</b>）</td></tr>
+    <tr><td><b>财务语言选对</b></td><td>判得出模式二（IRR/EBITDA/回本年）还是模式一（LTV:CAC/NRR/Rule of 40），<b>并说得清每个数怎么来</b></td><td>模式一 SaaS 硬套"几年回本"；或看到 15.2% vs 8.7% 以为数据打架，<b>自己改一个</b></td></tr>
+    <tr><td>编号</td><td>交给装配期收口</td><td>写作时自己编号（<b>B-2</b>）</td></tr>
+    <tr><td>标准引用</td><td>核到<b>现行有效</b>版本</td><td>引了已废止的 / 编了个像国标的号 → <b>一票警示（B-6/B-10）</b></td></tr>
+    <tr><td>占位</td><td>缺数据处写 <span class="mono">[待补充：XXX]</span></td><td>用模型的猜测填满</td></tr>
+    <tr><td>格式质检</td><td>导出后<b>自己打开看过</b></td><td>只看 md 不看 docx（<b>B-4</b>）</td></tr>
+  </table>
+  <p class="quote-big" style="font-size:22px" data-anim="fade-up">本课交出去的东西<b>会被评审、会进合同、会被审计</b>。<br>前面几步做错还能改，<br><b>这一步做错是要签字的。</b></p>
+  <div class="deck-footer"><span class="ftag">checkout</span><span class="slide-number" data-current="18" data-total="18"></span></div>
+  <div class="notes"><p><b>【互评只看两项】</b><b>财务语言选对</b>和<b>标准引用</b>。这两项是路演一票警示的直接来源。</p>
+  <p><b>【收口，接第七课】</b>"今天你们把方案写出来了。明天要让它<b>看得见</b>——但<b>看得见的东西最容易被误解成'已经有了'</b>。明天讲的就是这条边界。"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>
