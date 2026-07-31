@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 3 讲 · 工作坊：画出你的一人公司边界</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第 3 讲 · 工作坊：画出你的一人公司边界</h1>
+</header>
+<h1 id="第-3-讲-工作坊画出你的一人公司边界">第 3 讲 · 工作坊：画出你的一人公司边界</h1>
+<blockquote>
+<p>⚠️ <strong>本文件为 v0.1（十讲制）时期的学员工作坊材料，已于 2026-07-27 被 v0.3 八课制取代，不再上课使用。</strong> 现行版本：<code>课程/L1–L8_*.md</code>（单文件全案，实操与 checkout 都在里面）。结构定义见 <code>00_八课总纲.md</code>。 保留原因：Exercise 输入材料、评分卡与讲师版参考答案有留痕价值，改课时可作第一手参考。 ⚠️ 内含的“第 N 讲”引用与“L1/L2/L3 定级”是当时的编号（v0.3 定级已改为 <strong>Lv.1/Lv.2/Lv.3</strong>），<strong>刻意未改</strong>——改了会篡改历史记录。换算表见 <code>00_课程总纲.md</code> 第九节。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>⚠️ <strong>本文件为 v1 十环节时期的执行脚本，已被 <code>工具实操/T1–T8_*.md</code> 八份实操手册取代，保留备查、不再上课用。</strong> 新的执行主干见 <code>_legacy/00_工具实操总纲_T1-T8.md</code>；本讲的方法论内容现作为对应 T 步的<strong>知识注入</strong>。 ⚠️ <strong>口径已变</strong>：本文件内的案例成熟度与商业口径是 2026-07-20 之前的版本（如「嘉城数联合资公司」「草业项目 13 页 demo」）。<strong>现行口径以 <code>_WRITING_BRIEF.md</code> 与十册为准</strong>——主体叫<strong>项目联合体</strong>，IRR 主口径叫<strong>运营口径</strong>，草业项目 demo 是 <strong>11 页</strong>。</p>
+</blockquote>
+<blockquote>
+<p>📎 <strong>本文件是《FDE 实战工作坊》第 3 环节的「动手脚本」</strong>（不是独立工作坊）——整个培训是<strong>一个</strong>工作坊，总流程见 <code>_legacy/00_FDE实战工作坊_主持手册.md</code>。本环节各组就<strong>本组命题</strong>做启发式研讨，思考沉淀进贯穿工作簿。</p>
+</blockquote>
+<blockquote>
+<p>学员用（敏捷引导式）· 演练 36′ + 复盘 18′ · 对应能力 <strong>C7（客户关系 / 责任承担 / 价值判断 / 政治敏感度）</strong> 配套讲义 <code>讲义/03_FDE是企业级OPC一人公司.md</code> · 授课形式遵 <code>_工作坊授课规范.md</code> · 口径遵 <code>_WRITING_BRIEF.md</code></p>
+</blockquote>
+<hr />
+<h2 id="开场教练宣读2">〇、开场（教练宣读，2′）</h2>
+<blockquote>
+<p>📌 <strong>本环节为研讨环节（不产交付包物件）</strong>——本讲就本组命题做启发式研讨，产出记进工作簿的“思考”区即可，不强塞交付物。下方的 💡 启发范例是<strong>标尺、不是模板</strong>：康养项目/教育督导项目/辣椒/草业项目做对了长这样，帮你把研讨聊到点子上、照结构想，别抄数字。</p>
+</blockquote>
+<p><strong>🎯 本坊目标</strong>：就本组命题研讨清楚 <strong>哪些关键环节可交给智能体放大（可替）、哪些必须人亲自扛（C7 客户关系/责任承担/价值判断/政治敏感度）</strong>，并用三问判据把归侧理由说透——产出是<strong>研讨观点 + 一句话边界共识</strong>（我能靠智能体放大的是什么、我必须亲自扛的是 C7 哪几项），记进工作簿“思考”区。</p>
+<p><strong>🧭 过程方法论（本坊用的 FDE 方法）</strong>：C7 四项（客户关系/责任承担/价值判断/政治敏感度）· 三问判据（需身份？需立场？谁签字？）· 偷懒项/误判项自审。</p>
+<p><strong>📏 工作坊纪律（教练宣读）</strong> 1. <strong>启发-执行</strong>：每步先点开“💡启发”看康养项目范例，再动手；不空想。 2. <strong>时间盒</strong>：铃响即停，列环节/过三问都守时。 3. <strong>终止铃</strong>：教练铃响，讨论立即停，进下一步。 4. <strong>停车场</strong>：争不出的挂 parking lot，会后再议，不占时间盒。 5. <strong>checkout</strong>：每阶段末对照输出与验收标准。</p>
+<p><strong>🙌 工作坊宣言（齐读）</strong>：完成大于完美 · 团队大于个人 · 共识大于对错。</p>
+<hr />
+<h2 id="一工作坊流程时间盒总表">一、工作坊流程（时间盒总表）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序号</th>
+<th>阶段</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>开场导入 · 定命题 + 拎关键环节</td>
+<td>2′ + 4′</td>
+<td>圈出几个关键环节当研讨靶子（先不判侧）</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>阶段一 · 过三问一起研讨判侧</td>
+<td>12′</td>
+<td>各环节“可替/人扛/❓”的研讨观点</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>阶段二 · 议理由 + 抠硬骨头</td>
+<td>10′ + 5′</td>
+<td>各条归侧的理由共识 + 一个最有争议的硬骨头讨论</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>阶段三 · 自审偷懒项 checkout</td>
+<td>3′</td>
+<td>偷懒/误判的自审讨论 + 一句话边界共识</td>
+</tr>
+<tr class="odd">
+<td>—</td>
+<td>复盘研讨（议段，另计）</td>
+<td>18′</td>
+<td>3 题共识</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="二输入材料可直接发学员">二、输入材料（可直接发学员）</h2>
+<h3 id="康养项目边界样例作为你的对照基准不要照抄">2.1 康养项目边界样例（作为你的对照基准，不要照抄）</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>环节</th>
+<th>侧</th>
+<th>归侧理由（三问）</th>
+<th>康养项目数字锚</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>102 业务事件整理归簇</td>
+<td>可替</td>
+<td>无需身份 / 无需立场 / 错可回退重跑</td>
+<td>102 事件 → 16 簇</td>
+</tr>
+<tr class="even">
+<td>7 域本体五要素骨架生成</td>
+<td>可替</td>
+<td>标准清晰 / 可编译验证</td>
+<td>OAG Obj76·Link75·Fn38·Rule47·Act54，3835 行 7/7 编译</td>
+</tr>
+<tr class="odd">
+<td>11 万字可研并行写作</td>
+<td>可替</td>
+<td>锚 1 份 BRIEF，35 节并行</td>
+<td>11 章 / 26 图 / 2 附录 docx</td>
+</tr>
+<tr class="even">
+<td>补 11 处地方文号</td>
+<td><strong>人扛</strong></td>
+<td>需进机关的<strong>身份</strong></td>
+<td>7 本地文号 + 4 企业 SOP 占位</td>
+</tr>
+<tr class="odd">
+<td>定站长 HIL 置信度阈值</td>
+<td><strong>人扛</strong></td>
+<td>需担错误增收风险的<strong>立场</strong></td>
+<td>阈值 0.75（占位待定），26 个 HIL 点之一</td>
+</tr>
+<tr class="even">
+<td>守“赋能优化”非“替代”红线</td>
+<td><strong>人扛</strong></td>
+<td>做错<strong>FDE 签字</strong>担责</td>
+<td>To-G 表述红线</td>
+</tr>
+</tbody>
+</table>
+<p>（康养项目 🟢 已交付·本体已编译，数字引用不重算）</p>
+<h3 id="三问判据卡贴在手边">2.2 三问判据卡（贴在手边）</h3>
+<blockquote>
+<p>任一答案指向“人”，即归“必须人扛侧”： ① 这活需要一个<strong>身份</strong>才能做吗？（客户关系 / 政治敏感度） ② 这活需要一个<strong>立场</strong>才能拍吗？（价值判断） ③ 做错了<strong>谁签字</strong>？（责任承担） 三问皆“否”（不需身份、不需立场、错了能回退），才归“可替侧”。</p>
+</blockquote>
+<h3 id="你要带来的输入">2.3 你要带来的输入</h3>
+<p>一个你正在做或最近做过的真实项目（To-G / To-B 皆可）。列出它认知侧的 <strong>8–12 个关键环节</strong>（从调研到交付物）。没有在手项目的，用康养项目二期“微康养 60 站点运营方案”做替身。</p>
+<hr />
+<h2 id="三分阶段脚本每步任务-输出-难点-启发范例">三、分阶段脚本（每步：🔔任务 / 🔔输出 / 🔔难点 + 💡启发范例）</h2>
+<h3 id="阶段一-拎关键环节-过三问研讨判侧4-12">阶段一 · 拎关键环节 + 过三问研讨判侧（4′ + 12′）</h3>
+<h4 id="步骤①-定命题拎几个关键环节当靶子2-4">步骤① · 定命题、拎几个关键环节当靶子（2′ + 4′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：就本组命题（无在手项目可借康养项目二期“微康养 60 站点运营方案”当替身），一起把认知侧从调研到交付大致捋一遍，<strong>拎出几个值得研讨的关键环节当靶子</strong>，<strong>先不判侧</strong>。 🔔 <strong>输出</strong>：<em>几个覆盖全链的关键环节（研讨靶子）</em>——不追求列全 8–12 条，够聊到点子上即可。 🔔 <strong>难点/注意</strong>：靶子要<strong>尽量覆盖全链</strong>（别只盯写作/建模一段，“进门/拍板/签字”这类链尾环节最出洞见）；先别急着划侧，划早了会被直觉带偏。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p>康养项目认知侧全链环节（做替身时可照此颗粒度）：① 客户访谈/认知萃取 ② 102 事件整理归簇 ③ 7 角色画像 ④ 7 域切分 ⑤ 7 域本体五要素骨架生成 ⑥ 3835 行插件骨架编译 ⑦ 11 万字可研并行写作 ⑧ 26 图绘制 ⑨ <strong>补 11 处地方文号/企业 SOP</strong> ⑩ <strong>定站长 HIL 置信度阈值 0.75</strong> ⑪ <strong>守“赋能优化非替代”To-G 红线</strong> ⑫ 交付物对客模板排版。启发点：链条要从“调研”一直拉到“交付/签字”——⑨⑩⑪ 这类“进门/拍板/签字”环节往往被漏在链尾，正是本讲要抓的人扛项。</p>
+</details>
+<h4 id="步骤②-就每个靶子过三问一起研讨判侧12">步骤② · 就每个靶子过三问、一起研讨判侧（12′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：拿 2.2 的三问，对每个靶子环节一起研讨——任一指向“人”就是“人扛”，否则“可替”；一时议不拢的先记“❓存疑”，这些争议点正是研讨富矿。 🔔 <strong>输出</strong>：<em>各环节判侧的研讨观点（可替 / 人扛 / ❓）+ 命中哪一问的说法</em>。 🔔 <strong>难点/注意</strong>：<strong>判据是“需不需要进门的身份/拍板的立场/签字的责任”，不是“难不难/活多不多”</strong>。别把“工作量大”（如“要写 11 万字”）当人扛——那恰是可替侧典范（三问皆否）。别把查得到的合规活划人扛、把查不到的文号划可替，这正好反了。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p>三问判侧示范（对照 2.1）： - <strong>11 万字可研并行写作</strong> → 三问皆否（不需身份、不需立场、错可回退重写），标 <strong>可替</strong>。工作量大 ≠ 人扛。 - <strong>补 11 处地方文号</strong> → 问①命中：需进某市医保局/民政局/政数局的<strong>身份</strong>逐项取件，标 <strong>人扛</strong>（政治敏感度/客户关系）。注意：这活“查不到”很难，但归人扛不是因为难，是因为“需要进门的身份”。 - <strong>定站长 HIL 阈值 0.75</strong> → 问②命中：要担“错误增收”的<strong>立场</strong>，标 <strong>人扛</strong>（价值判断）。 - <strong>守“赋能优化非替代”红线</strong> → 问③命中：做错是 <strong>FDE 签字</strong>担责，标 <strong>人扛</strong>（责任承担）。</p>
+<p>启发点：同样“难”的两件事，“编译 3835 行骨架”是可替（可编译验证、错可回退），“补文号”是人扛（需身份）——区别在三问，不在难度。</p>
+</details>
+<h3 id="阶段二-议理由-抠硬骨头10-5">阶段二 · 议理由 + 抠硬骨头（10′ + 5′）</h3>
+<h4 id="步骤③-逐条议清一句话理由10">步骤③ · 逐条议清一句话理由（10′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：就每个靶子研讨出一句话理由，格式：“归 X 侧，因为【命中/未命中哪一问】”。说不出理由的环节，退回“❓存疑”继续议。 🔔 <strong>输出</strong>：<em>各条归侧理由的研讨共识，明确指名命中/未命中哪一问</em>。 🔔 <strong>难点/注意</strong>：<strong>理由是“感觉/经验”一律不算数</strong>——必须落到三问的具体某一问。含糊如“这个得人来做比较稳”要被同伴顶回去重议。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p>一句话理由范本（每条落到三问）： - “102 事件归簇 → <strong>归可替侧，因为三问皆否</strong>（无需身份、无需立场、错可回退重跑）。” - “补 11 处文号 → <strong>归人扛侧，因为命中问①</strong>（需进机关的身份取件，属政治敏感度）。” - “定 0.75 阈值 → <strong>归人扛侧，因为命中问②</strong>（需担错误增收风险的立场，属价值判断）。” - 隐蔽项范例（加分）：“整理客户访谈纪要”看似可替，但<strong>决定哪句能写进对客文档、哪句是内部敏感信息</strong>这一判断命中问②（立场/政治敏感度）→ 该环节要拆成“整理=可替 / 定密=人扛”两层。</p>
+<p>启发点：理由的价值在“指名哪一问”，不在结论；同一环节划哪侧可争，但理由必须落到三问。</p>
+</details>
+<h4 id="步骤④-抠一个硬骨头一起吵5">步骤④ · 抠一个硬骨头一起吵（5′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：从靶子里挑 <strong>1 个最没把握、最有争议的</strong>，全组一起吵它到底在哪侧——这条会带进复盘研讨。 🔔 <strong>输出</strong>：<em>一个硬骨头的研讨观点</em>（哪个环节 / 议下来归哪侧 / 命中哪一问 / 争议点在哪）。 🔔 <strong>难点/注意</strong>：挑真拿不准的（往往是“看起来可替、其实藏着身份/立场/签字”的隐蔽项），别挑一眼能定的凑数。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p>硬骨头论证范本（50 字）：“我最没把握的是第 ⑫ 条<strong>交付物对客模板排版</strong>——看似纯可替（美工活、三问皆否），但<strong>排哪些数据进对客版、哪些留内部</strong>触到问②立场，故拆成’排版=可替 / 内容取舍=人扛’。”——这种“看起来可替、其实一半人扛”的拆分，正是硬骨头该有的深度（对照教育督导项目/辣椒方案级项目里“对客材料复核”也是同类人扛闸，🟡 方案级，非实测）。</p>
+</details>
+<h3 id="阶段三-自审偷懒项-checkout3">阶段三 · 自审偷懒项 checkout（3′）</h3>
+<h4 id="步骤⑤-双向自审-议出一句话边界共识3">步骤⑤ · 双向自审 + 议出一句话边界共识（3′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：回看议成“可替”的项，讨论哪些其实是你们<strong>懒得让智能体做</strong>而非真可替；回看“人扛”的项，讨论哪些其实藏着未识别的身份/立场/签字；最后议出一句话边界共识。 🔔 <strong>输出</strong>：<em>偷懒/误判的自审讨论 + 一句话边界共识</em>（能靠智能体放大的是_<strong><em>；必须亲自扛的是</em></strong>_，对应 C7 哪几项）。 🔔 <strong>难点/注意</strong>：“可替”全满、无一存疑 = 没真自审。<strong>把“我懒得做”当“人扛”是本讲要打掉的头号错误</strong>——它会让你误判自己的能力半径。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p>自审示范：把“7 域本体骨架生成”标了人扛？——回看三问皆否、可编译验证，其实是<strong>懒得让智能体做/不信任平台</strong>，改回可替（这是短板，该补，不是边界）。反向：把“整理访谈纪要”标了可替？——其中“定密”命中问②，藏着人扛，要拆出来。边界结论范本：“这个项目里，我能靠智能体放大的是<strong>认知萃取→本体→并行写作全链（可替侧）</strong>；我必须亲自扛、无法外包的是<strong>补文号（客户关系/政治敏感度）+ 定 0.75 阈值（价值判断）+ To-G 红线签字（责任承担）</strong>——对应 C7 的客户关系、价值判断、责任承担、政治敏感度。”</p>
+</details>
+<hr />
+<h2 id="四checkout研讨深度对照表">四、checkout（研讨深度对照表）</h2>
+<blockquote>
+<p>本环节不产交付物，checkout 看的是<strong>研讨深度</strong>——不是有没有交出清单，而是有没有真聊到点子上。每阶段末 + 收尾各对照一次。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>✅ 聊到位</th>
+<th>⚠️ 没聊透（要回去再想）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A 落到本组命题</strong></td>
+<td>研讨的靶子来自本组命题、覆盖调研→交付全链，不是空谈概念</td>
+<td>泛泛聊“FDE 边界”，没落到自己命题的具体环节</td>
+</tr>
+<tr class="even">
+<td><strong>B 判据严谨度</strong></td>
+<td>每条归侧都过三问、理由指名命中哪一问，是真判断不是感觉</td>
+<td>只表态站哪侧不给理由，或理由停在“感觉/经验”</td>
+</tr>
+<tr class="odd">
+<td><strong>C 边界洞察力</strong></td>
+<td>议出 ≥1 条隐蔽的 C7（看似可替、实藏身份/立场/签字），不把“活多”误当边界</td>
+<td>把“我懒得做”当“人扛”，或把 11 处文号类活当可替</td>
+</tr>
+<tr class="even">
+<td><strong>D 自审诚实度</strong></td>
+<td>敢当众承认自己的偷懒项/误判项并改口</td>
+<td>全说“可替”、无一处存疑，或全程没有一条自己的判断</td>
+</tr>
+</tbody>
+</table>
+<p><strong>研讨深度参照</strong>：四维都聊透、能挑出隐蔽项 = 看得清自己能力半径（L2 潜质）；议出 C7 但混着偷懒项 = 还在见习；把“懒得做”当边界、或全程没一条自己的判断 = 没进入研讨。 <strong>研讨红线</strong>：<strong>把“我懒得做”当“人扛”、把查不到的文号类活当“可替”、或全程没有一条属于自己的判断</strong> —— 这三种情况说明还没真研讨。把偷懒当边界正是本讲要打掉的错误（C7 只能筛不能训，主张 4）。</p>
+<hr />
+<h2 id="五复盘研讨3-题教练收口18">五、复盘研讨（3 题，教练收口，18′）</h2>
+<ol type="1">
+<li><strong>（偷懒 vs 人扛）</strong> 你清单里“必须人扛”的条目，有几条其实是你<strong>懒得让智能体做</strong>、被误判成人扛？反过来，有几条标了“可替”却藏着身份/立场/签字问题？</li>
+<li><strong>（不能外包的论证）</strong> 假如老板要求你把一条“必须人扛”的活外包给智能体“提效”，你如何解释它不能外包？请用康养项目 <strong>0.75 阈值</strong>或 <strong>11 处文号</strong>做类比说服他。</li>
+<li><strong>（C7 弱项）</strong> C7 四项（客户关系 / 责任承担 / 价值判断 / 政治敏感度）里你个人最弱的是哪一项？这门课能补吗？</li>
+</ol>
+<blockquote>
+<p>教练收口锚点：题 1——把“懒得做”当人扛会误判能力半径，回收本步自审。题 2——引 <strong>0.75 阈值（价值判断，需担错误增收立场）/ 11 处文号（政治敏感度，需进门身份）</strong>说明“提效”提不掉责任与立场。题 3——引导承认 C7 弱项补不了（对齐主张 4“C7 只能筛选”）；<strong>敢说“我政治敏感度不行、这类项目我需要搭档”的学员给正向反馈</strong>——这是第 8 讲“装作 L2 才是危险的”的预演。</p>
+</blockquote>
+<hr />
+<h2 id="六参考答案要点讲师版-标讲师专用勿发学员">六、参考答案要点（讲师版 · 标“讲师专用勿发学员”）</h2>
+<blockquote>
+<p>⚠️ 讲师专用，勿发学员。</p>
+</blockquote>
+<ul>
+<li><strong>本 Exercise 无标准答案，评的是判据使用，不是划侧结果。</strong> 同一环节划哪侧可争，但理由必须落到三问。理由是“感觉/经验”一律扣 B 维。</li>
+<li><strong>最常见错误（重点抓）</strong>：
+<ul>
+<li>把“工作量大”当“人扛”——如“要写 11 万字所以人扛”。错。11 万字并行写作恰是可替侧典范（三问皆否）。命中此错扣 C 维。</li>
+<li>把查得到的合规活划人扛、把查不到的文号划可替——正好反了。判据是“需不需要进门的身份”，不是“难不难”。</li>
+<li>“可替”栏全满、无一存疑——说明没做第 5 步自审，扣 D 维。</li>
+</ul></li>
+<li><strong>优秀样本长相</strong>：能指出一条“看起来可替、其实人扛”的隐蔽项。例：项目里“整理客户访谈纪要”看似可替，但<strong>决定哪句话能写进对客文档、哪句是内部敏感信息</strong>这一判断是政治敏感度（立场），须人扛——这层拆分给 C 维满分。</li>
+<li><strong>研讨题 3 收口</strong>：引导学员承认 C7 弱项补不了（对齐主张 4“C7 只能筛选”）。<strong>敢说“我政治敏感度不行、这类项目我需要搭档”的学员，给正向反馈</strong>——这正是第 8 讲“装作 L2 才是危险的”的预演。</li>
+<li><strong>与康养项目锚点对齐检查</strong>：学员若引数字，须用 BRIEF 口径（0.75 / 26 HIL / 11 处占位 / 3835 行 / 102 事件 → 7 域）。引错数字当场纠正，示范反例 B-5“锚在单点不重算”。</li>
+</ul>
+</body>
+</html>

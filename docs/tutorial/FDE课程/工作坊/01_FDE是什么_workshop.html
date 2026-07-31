@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 1 讲 · 工作坊：画出你项目的交付断层图</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第 1 讲 · 工作坊：画出你项目的交付断层图</h1>
+</header>
+<h1 id="第-1-讲-工作坊画出你项目的交付断层图">第 1 讲 · 工作坊：画出你项目的交付断层图</h1>
+<blockquote>
+<p>⚠️ <strong>本文件为 v0.1（十讲制）时期的学员工作坊材料，已于 2026-07-27 被 v0.3 八课制取代，不再上课使用。</strong> 现行版本：<code>课程/L1–L8_*.md</code>（单文件全案，实操与 checkout 都在里面）。结构定义见 <code>00_八课总纲.md</code>。 保留原因：Exercise 输入材料、评分卡与讲师版参考答案有留痕价值，改课时可作第一手参考。 ⚠️ 内含的“第 N 讲”引用与“L1/L2/L3 定级”是当时的编号（v0.3 定级已改为 <strong>Lv.1/Lv.2/Lv.3</strong>），<strong>刻意未改</strong>——改了会篡改历史记录。换算表见 <code>00_课程总纲.md</code> 第九节。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>⚠️ <strong>本文件为 v1 十环节时期的执行脚本，已被 <code>工具实操/T1–T8_*.md</code> 八份实操手册取代，保留备查、不再上课用。</strong> 新的执行主干见 <code>_legacy/00_工具实操总纲_T1-T8.md</code>；本讲的方法论内容现作为对应 T 步的<strong>知识注入</strong>。 ⚠️ <strong>口径已变</strong>：本文件内的案例成熟度与商业口径是 2026-07-20 之前的版本（如「嘉城数联合资公司」「草业项目 13 页 demo」）。<strong>现行口径以 <code>_WRITING_BRIEF.md</code> 与十册为准</strong>——主体叫<strong>项目联合体</strong>，IRR 主口径叫<strong>运营口径</strong>，草业项目 demo 是 <strong>11 页</strong>。</p>
+</blockquote>
+<blockquote>
+<p>📎 <strong>本文件是《FDE 实战工作坊》第 1 环节的「动手脚本」</strong>（不是独立工作坊）——整个培训是<strong>一个</strong>工作坊，总流程见 <code>_legacy/00_FDE实战工作坊_主持手册.md</code>。本环节各组就<strong>本组命题</strong>做启发式研讨，思考沉淀进贯穿工作簿。</p>
+</blockquote>
+<blockquote>
+<p>学员用（敏捷引导式）· 演练 36′ + 复盘 18′ · 对应能力 <strong>C1 全链贯通视角（看见交付断层）</strong> 配套讲义 <code>讲义/01_FDE是什么.md</code> · 授课形式遵 <code>_工作坊授课规范.md</code> · 口径遵 <code>_WRITING_BRIEF.md</code></p>
+</blockquote>
+<hr />
+<h2 id="开场教练宣读2">〇、开场（教练宣读，2′）</h2>
+<blockquote>
+<p>📌 <strong>本环节为研讨环节（不产交付包物件）</strong>——本讲就本组命题做启发式研讨，产出记进工作簿的“思考”区即可，不强塞交付物。下方的 💡 启发范例是<strong>标尺、不是模板</strong>：康养项目/教育督导项目/辣椒/草业项目做对了长这样，帮你把研讨聊到点子上、照结构想，别抄数字。</p>
+</blockquote>
+<p><strong>🎯 本坊目标</strong>：就本组命题研讨清楚 <strong>① 这条交付链的断层出在哪</strong>（信息衰减接缝在哪、掉了什么、返工与账记谁头上）+ <strong>② “一个人贯通”能消哪几道断层、哪几道消不了只是搬成时间压力</strong>——产出是<strong>研讨观点 / 一句话共识</strong>，记进工作簿“思考”区，不必交出成型物件。</p>
+<p><strong>🧭 过程方法论（本坊用的 FDE 方法）</strong>：全链贯通视角 · 交付断层三类根因（A 意图未全文档化 / B 工序本位优化 / C 求全式断层）· 保真度跌落折线 · FDE 反事实推演。</p>
+<p><strong>📏 工作坊纪律（教练宣读）</strong> 1. <strong>启发-执行</strong>：每步先点开“💡启发”看康养项目范例，再动手；不空想、不跳过范例。 2. <strong>时间盒</strong>：铃响即停，个人绘制/两两互检都守时。 3. <strong>终止铃</strong>：教练铃响，讨论立即停，进下一步。 4. <strong>停车场</strong>：争不出的挂 parking lot，会后再议，不占时间盒。 5. <strong>checkout</strong>：每阶段末对照输出与验收标准。</p>
+<p><strong>🙌 工作坊宣言（齐读）</strong>：完成大于完美 · 团队大于个人 · 共识大于对错。</p>
+<hr />
+<h2 id="一工作坊流程时间盒总表">一、工作坊流程（时间盒总表）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序号</th>
+<th>阶段</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>开场导入 · 选项目</td>
+<td>2′</td>
+<td>选定一个真返过工的项目</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>阶段一 · 研讨交付主链 + 找断层</td>
+<td>16′</td>
+<td>断层在哪的研讨观点（≥2 处）</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>阶段二 · 研讨保真度跌落 + FDE 反事实</td>
+<td>4′</td>
+<td>每段跌落的研讨说法 + 反事实共识</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>阶段三 · 两两互评研讨深度</td>
+<td>8′</td>
+<td>互评记录 + 最值得深挖的 1 点</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>收口共识</td>
+<td>6′</td>
+<td>一句话共识</td>
+</tr>
+<tr class="even">
+<td>—</td>
+<td>复盘研讨（议段，另计）</td>
+<td>18′</td>
+<td>3 题共识</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="二输入材料可直接发学员">二、输入材料（可直接发学员）</h2>
+<h3 id="康养项目对照样例正例贯通消除断层">2.1 康养项目对照样例（正例：贯通消除断层）</h3>
+<p>康养项目平台的认知侧交付链，由 <strong>1 名 FDE + 智能体编队</strong>走完，无跨人接缝：</p>
+<pre><code>客户模糊意图
+  └─(同一大脑)→ 102 业务事件 → 16 事件簇 → 7 角色画像
+     → 7 用户旅程 → 5 业务流程 → 10 热点(P1–P5)
+     → 7 域限界上下文 D1–D7 → 3835 行插件骨架
+     → 11 章/~11 万字/26 图 可研报告
+接缝数 = 0，断层数 = 0，跨人交接 = 0 次</code></pre>
+<p>对照传统模式：同样的链条需要 <strong>产品经理 + 架构师 + 行业顾问 + 方案经理 + 美工 = 5+ 人 / 数周</strong>，产生 <strong>≥4 道跨人接缝</strong>。（康养项目 🟢 已交付·本体已编译，数字引用不重算）</p>
+<h3 id="断层样例卡一道断层长什么样脱敏虚构供格式参照">2.2 断层样例卡（一道断层长什么样——脱敏虚构，供格式参照）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>字段</th>
+<th>示例填法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>接缝位置</td>
+<td>需求 → 设计 之间</td>
+</tr>
+<tr class="even">
+<td>掉了什么</td>
+<td>客户口头强调的“站长要能一眼看出哪个老人今晚有风险”，需求文档只写了“健康监测”，风险分层的口径丢失</td>
+</tr>
+<tr class="odd">
+<td>谁发现的 / 何时</td>
+<td>开发联调期，晚了 3 周</td>
+</tr>
+<tr class="even">
+<td>返工次数</td>
+<td>2 次（设计返工 1 + 开发返工 1）</td>
+</tr>
+<tr class="odd">
+<td>账记谁头上</td>
+<td>无主——设计说需求没写清，需求说这是常识</td>
+</tr>
+<tr class="even">
+<td>根因归类</td>
+<td>意图未全文档化（隐性知识蒸发）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三类根因标签画图时给每道断层贴一个">2.3 三类根因标签（画图时给每道断层贴一个）</h3>
+<ul>
+<li><strong>A 意图未全文档化</strong>（隐性知识在交接处蒸发）</li>
+<li><strong>B 工序本位优化</strong>（下游为“好实现/好画”改了口径）</li>
+<li><strong>C 求全式断层</strong>（某段做过重，客户其实不要那么全 —— 对应反例 B-7）</li>
+</ul>
+<hr />
+<h2 id="三分阶段脚本每步任务-输出-难点-启发范例">三、分阶段脚本（每步：🔔任务 / 🔔输出 / 🔔难点 + 💡启发范例）</h2>
+<h3 id="阶段一-研讨交付主链-找断层16本讲研讨核心">阶段一 · 研讨交付主链 + 找断层（16′，本讲研讨核心）</h3>
+<h4 id="步骤①-选项目就交付主链研讨6">步骤① · 选项目、就交付主链研讨（6′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：选你近 2 年深度参与、且真实发生过返工的一个项目；<strong>就本组命题</strong>在组内口述/白板梳理它的<strong>实际工序</strong>（不是理想流程），一起指认每道<strong>跨人交接点</strong>（换了负责人 = 一道接缝）。 🔔 <strong>输出</strong>：<em>一条研讨结论</em>——这条链有哪几道跨人接缝（接缝①②③…），组内说得清即可，不必成图。 🔔 <strong>难点/注意</strong>：太顺利的项目不聊（多半是你没看见断层）；聊的是“实际发生的”链条，不是流程规范里的理想图。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p><strong>正例（康养项目，接缝 0）</strong>：客户模糊意图→102 事件→16 簇→7 画像→7 旅程→5 流程→10 热点→7 域 D1–D7→3835 行骨架→可研，全程同一个 FDE 大脑，<strong>跨人接缝 = 0</strong>。</p>
+<p><strong>你要画的是它的反面（传统链条，有接缝）</strong>，示范画法：</p>
+<pre><code>[客户口述] ─接缝①→ [产品经理:需求文档] ─接缝②→ [架构师:设计] ─接缝③→ [开发:系统] ─接缝④→ [方案经理/美工:交付PPT]</code></pre>
+<p>每换一个负责人就画一道接缝——这四道接缝正是传统 5+ 人模式里信息衰减的发生地。选题启发：断层图要丑、要有血；选“顺得没故事”的项目等于交白卷。</p>
+</details>
+<h4 id="步骤②-逐道接缝研讨断层10">步骤② · 逐道接缝研讨断层（10′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：就每道接缝，参照 2.2 样例卡的追问角度研讨：掉了什么、谁何时发现、返工几次、账记谁头上、根因该贴哪类（A/B/C）。挑至少 2 道真实断层聊透。 🔔 <strong>输出</strong>：<em>研讨观点 ≥2 处</em>——每处能说清“掉了哪句意图/哪个口径 + 根因归哪类”，组内达成共识即可。 🔔 <strong>难点/注意</strong>：<strong>断层要精确落在“接缝”上，不是笼统怪某人</strong>；“掉了什么”要聊到具体丢失的那句意图/那个口径，不是“沟通不畅”。区分 C 类（求全式）——某段做过重不是敬业，是断层（B-7）。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目/脱敏件范例
+</summary>
+<p>照 2.2 样例卡填一道断层（脱敏，格式即范本）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>字段</th>
+<th>填法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>接缝位置</td>
+<td>需求 → 设计 之间</td>
+</tr>
+<tr class="even">
+<td>掉了什么</td>
+<td>客户口头强调“站长要一眼看出哪个老人今晚有风险”，需求文档只写“健康监测”——<strong>风险分层口径</strong>丢失</td>
+</tr>
+<tr class="odd">
+<td>谁/何时发现</td>
+<td>开发联调期，晚了 3 周</td>
+</tr>
+<tr class="even">
+<td>返工次数</td>
+<td>2 次（设计 1 + 开发 1）</td>
+</tr>
+<tr class="odd">
+<td>账记谁头上</td>
+<td>无主（设计说需求没写清，需求说是常识）</td>
+</tr>
+<tr class="even">
+<td>根因</td>
+<td><strong>A 意图未全文档化</strong></td>
+</tr>
+</tbody>
+</table>
+<p>两个要点：① 断层精确落在“需求→设计”这道跨人接缝上，不是骂“设计不行”；② “掉了什么”落到具体口径（风险分层），不是空话。C 类范例见反例 B-7——康养项目长者旅程初版把“夜间急救”做过重，后返工改会员飞轮，那是“认真地做错方向”，也是一道断层。</p>
+</details>
+<h3 id="阶段二-研讨保真度跌落-fde-反事实4">阶段二 · 研讨保真度跌落 + FDE 反事实（4′）</h3>
+<h4 id="步骤③-研讨保真度跌落-fde-反事实4">步骤③ · 研讨保真度跌落 + FDE 反事实（4′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：以需求端 100% 为起点，就本组命题研讨每道接缝后保真度大约跌到多少（如 100→80→65→55）、每段跌落丢的是哪部分意图；再研讨一个 FDE 反事实——若由 1 名 FDE 贯通，哪几道断层能消除、哪几道消不了（只是压成同一个人的时间压力）。 🔔 <strong>输出</strong>：<em>研讨结论</em>——每段跌落说得出丢了哪部分意图 + 一条反事实共识（区分“可消除”与“只是转成时间压力”）。 🔔 <strong>难点/注意</strong>：跌落不能随口打分，每段要能说出丢了哪部分意图；反事实<strong>别神化 FDE</strong>——A/B 类接缝断层可消，C 类方向性/求全断层消不了，只是搬成同一人的时间压力。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目范例
+</summary>
+<p><strong>保真度折线（示范）</strong>：需求 100 →产品经理转写丢“风险分层口径” 80 →架构师为“好实现”改口径（B 工序本位）65 →开发按字面实现 55。每一跌都挂得住是丢了哪段意图。</p>
+<p><strong>FDE 反事实（康养项目锚）</strong>：由 1 名 FDE 贯通，<strong>A 类（隐性知识蒸发）、B 类（本位优化）断层可消除</strong>——同一大脑不跨人重判，口径不在接缝处蒸发（康养项目接缝 0 即证）。<strong>C 类（方向性/求全）消不了</strong>：引反例 <strong>B-7——康养项目长者旅程初版做“夜间急救”过重、返工改会员飞轮</strong>（🟢 已交付项目的真实失误）。即使一个人贯通，方向判断错仍要返工，只是压成同一人的时间压力，不再是跨人接缝。诚实结论：可消的是“交接信息衰减”，消不了的是“判断本身的难度”。</p>
+</details>
+<h3 id="阶段三-两两互评研讨深度8">阶段三 · 两两互评研讨深度（8′）</h3>
+<h4 id="步骤④-换组互评-收口共识8-互评-6-收口">步骤④ · 换组互评 + 收口共识（8′ 互评 / 6′ 收口）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：与邻座交换各自的研讨观点，互相挑战“这道真的是断层吗？还是你事后归因？”；各自记下对方点出的<strong>最值得深挖的一点</strong>，据此把本组共识收口成一句话。 🔔 <strong>输出</strong>：<em>互评记录 + 我要回去再想的 1 点 + 一句话共识</em>。 🔔 <strong>难点/注意</strong>：互评别客气，重点盯“这道断层是真发生的、还是把’某人不行’当断层”“那段跌落说得出理由吗”。</p>
+</blockquote>
+<hr />
+<h2 id="四checkout研讨深度对照表">四、checkout（研讨深度对照表）</h2>
+<blockquote>
+<p>每阶段末 + 收尾各对照一次。本环节不产交付物，checkout 看的是<strong>研讨有没有聊深</strong>——四维，每维看“聊到位”与“一票警示”。</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>✅ 聊到位</th>
+<th>⚠️ 警示（没聊进去）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D1 落到本组命题</strong></td>
+<td>研讨真锚在本组命题的真实项目上，断层有具体时间、具体返工、追得到“谁何时发现”</td>
+<td>空谈原理、或套范例数字，没落到本组命题</td>
+</tr>
+<tr class="even">
+<td><strong>D2 定位精度</strong></td>
+<td>断层精确落在跨人交接点，根因（A/B/C）说得对</td>
+<td>把“某人不行”当断层，没找到接缝，或根因说反</td>
+</tr>
+<tr class="odd">
+<td><strong>D3 有自己的判断</strong></td>
+<td>保真度跌落每段说得出丢了哪部分意图，是自己的观点不是照搬启发范例</td>
+<td>随口打分说不出理由，或整段照抄康养项目范例</td>
+</tr>
+<tr class="even">
+<td><strong>D4 反事实诚实度</strong></td>
+<td>明确区分“可消除”与“只是转成时间压力”，不神化 FDE</td>
+<td>一律“FDE 全能解决”，或反事实聊不出</td>
+</tr>
+</tbody>
+</table>
+<p><strong>研讨深度参照</strong>：四维都聊到位 = 看得见全链、能诚实推演反事实（L2 潜质）；断层聊到了但反事实偏乐观 = 还差一层；把命题聊成理想流程图 = 没进去。 <strong>一票警示</strong>：<strong>全程套范例数字、没有一句自己的判断，或根本没落到本组命题</strong> —— 无论聊得多热闹，都算没进去。真实的断层研讨一定是“丑的、有血的、账算不清的”。</p>
+<hr />
+<h2 id="五复盘研讨3-题教练收口18">五、复盘研讨（3 题，教练收口，18′）</h2>
+<ol type="1">
+<li><strong>（反事实边界）</strong> 你图上最深的那道断层，若换成“一个人贯通”，真的能消除吗？还是只是把压力搬到了这个人身上？</li>
+<li><strong>（求全即断层）</strong> 你项目里有没有“求全导致的断层”（C 类）——某段做得过重、客户其实不要那么全？举不出，是真没有，还是你把“求全”当成了“敬业”？</li>
+<li><strong>（谁为全链负责）</strong> 你们组织现在为“全链保真”负责的是谁？如果答案是“没有这个人”，这说明了什么？</li>
+</ol>
+<blockquote>
+<p>教练收口锚点：题 1 区分“交接信息衰减（可消）”与“判断难度（消不了，只是转成时间压力）”，学员若答“FDE 全能”判为不及格认知，引出第 2 讲——智能体是扛“判断转成的时间压力”的杠杆，判断仍在人这里。题 2 用 <strong>B-7（夜间急救过重返工）</strong>点破“求全是没想清客户要的结果”。题 3 回收——组织答不出“谁为全链保真负责”，说明靠流程+文档补断层（补不住），FDE 补的是“对结果负责”的空位。</p>
+</blockquote>
+<hr />
+<h2 id="六参考答案要点讲师版-标讲师专用勿发学员">六、参考答案要点（讲师版 · 标“讲师专用勿发学员”）</h2>
+<blockquote>
+<p>⚠️ 讲师专用，勿发学员。</p>
+</blockquote>
+<ul>
+<li><strong>研讨题 1</strong>：正确答案要区分两件事。“一个人贯通”消除的是<strong>交接信息衰减</strong>（隐性知识蒸发、本位优化），消除不了的是<strong>判断本身的难度</strong>。学员若答“FDE 能解决一切”，判为不及格认知——引出第 2 讲：智能体正是用来扛住“判断难度转成的时间压力”的杠杆，但判断仍在人这里。</li>
+<li><strong>研讨题 2</strong>：多数学员举不出 C 类例子。讲师要点破：举不出往往不是没有，是把“求全”当成了“敬业”。用康养项目 <strong>B-7（长者旅程初版做“夜间急救”过重，返工改会员飞轮）</strong>佐证——最专业的团队也会栽在“认真地做错方向”。求全是“客户要的结果没想清”的症状。</li>
+<li><strong>研讨题 3</strong>：标准答案——组织若答不出“谁为全链保真负责”，说明现在靠<strong>流程+文档</strong>补断层（补不住，见讲义三点论证），而非靠<strong>一个看得见全链的人</strong>。FDE 补的正是这个“对结果负责”的空位，不是多一个能干的人。</li>
+<li><strong>评分校准</strong>：最常见的高分误判是“图很漂亮很完整”——漂亮完整恰恰可疑，真实断层图一定是“丑的、有血的、账算不清的”。评分锚定维度 D1 真实性，宁给丑图高分，不给完美流程图高分（对应“一票警示”）。</li>
+<li><strong>与康养项目基线的对照口径</strong>：正例数据一律引用讲义/BRIEF 单点（102 事件 / 7 域 / 3835 行 / 11 章 26 图 / 5+ 人对 1 人），不重算、不改口径（防反例 B-5）。</li>
+</ul>
+</body>
+</html>

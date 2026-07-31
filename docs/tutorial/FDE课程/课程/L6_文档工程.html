@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第六课 · 文档工程</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第六课 · 文档工程</h1>
+</header>
+<h1 id="第六课-文档工程">第六课 · 文档工程</h1>
+<blockquote>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 150 分钟 配套课件：<code>slides/L6_文档工程.html</code>（讲师投屏）</p>
+</blockquote>
+<hr />
+<h2 id="这一课真正在教什么">这一课真正在教什么</h2>
+<p><strong>不是“用 AI 写文档”——那个谁都会。</strong> <strong>是教“让 10 个作者写出来像一个人写的”。</strong></p>
+<blockquote>
+<p>康养项目可研 <strong>11 章 / 约 11 万字 / 26 图</strong>，是 <strong>35 个分节并行写作</strong>产出的。 学前教育项目可研 <strong>653KB / 44 分章</strong>，同一套打法。</p>
+<p><strong>并行写作的全部难点不在“写”，在“不打架”</strong>： 术语要一致、数字要同源、编号不能撞、图文引用不能断。</p>
+</blockquote>
+<p><strong>这门课的答案是三件东西</strong>：</p>
+<ol type="1">
+<li><strong>蓝图</strong>（blueprint）—— 定文档骨架，<strong>谁都不许自己发挥章节</strong></li>
+<li><strong>写作专家</strong>（writer）—— 定文风，<strong>让 N 个作者有同一个人设</strong></li>
+<li><strong>装配期收口</strong>（assemble）—— <strong>编号权、术语统一权归装配阶段，不归写作阶段</strong></li>
+</ol>
+<blockquote>
+<p>⭐ 第 3 条正是反例 <strong>B-2</strong> 的教训固化成的机制：康养项目 35 节并行写作时各节自行起标题层级，装配期出现编号重复与跳号。 <strong>现在这条纪律被写进了工具</strong>——写章节只管本章内部，跨章编号一律由装配重排。 <strong>这就是“平台=方法论固化物”最具体的一次兑现。</strong></p>
+</blockquote>
+<p><strong>你要交出什么</strong>：写作专家 1 份 + <strong>一节方案稿</strong> + 一张配图占位 +（可选）导出的 docx</p>
+<hr />
+<h2 id="一先说三栈知识为什么这三块捆在一起">一、先说三栈知识：为什么这三块捆在一起</h2>
+<p>第一课说过：<strong>FDE 不是“会建模的人”，是七个专业角色的方法论合体；建模只是七分之二。</strong></p>
+<p>这一课一次讲三栈，因为<strong>它们共同决定了客户手里那份文件能不能签字</strong>：</p>
+<pre><code>栈④ 商业模式与财务  → 决定文件里&quot;这生意怎么成立&quot;那几章有没有内容
+栈⑥ 交付物工程      → 决定这些内容能不能被组织成一份能过评审的正式文书
+栈⑦ 合规治理        → 决定这份文书经不经得起一句&quot;这个数据/文号哪来的&quot;</code></pre>
+<blockquote>
+<p><strong>多数技术出身的人不是倒在建模，是倒在这三栈</strong>——盘不出账、过不了财评、组织不起百页交付物。 <strong>本课就是这三块塌陷的正面战场。</strong></p>
+</blockquote>
+<hr />
+<h2 id="二栈④-商业模式与财务">二、栈④ 商业模式与财务</h2>
+<blockquote>
+<p><strong>【原本是谁】</strong> 商业顾问 / 战略——负责回答“这事怎么挣钱、谁付钱、付多少、几年回本”。</p>
+<p><strong>这是最多技术型 FDE 完全空白的一维</strong>：能出 7 域本体，却搭不出一个能自洽的商业模式， 方案在客户那边就是“<strong>技术很好，但不知道怎么赚钱</strong>”。</p>
+</blockquote>
+<h3 id="商业模式设计五件套">商业模式设计五件套</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>框架</th>
+<th>内核</th>
+<th>一句话记法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>①</td>
+<td><strong>商业模式画布</strong></td>
+<td><strong>9 个模块</strong>：右侧价值面＝客户细分 / 价值主张 / 渠道 / 客户关系 / <strong>收入来源</strong>；左侧效率面＝关键伙伴 / 关键活动 / 关键资源 / <strong>成本结构</strong></td>
+<td>画一张就能和客户对齐“这生意怎么转”的通用底图</td>
+</tr>
+<tr class="even">
+<td>②</td>
+<td><strong>免费 / 交叉补贴</strong>（Chris Anderson《Free》）</td>
+<td>四型：<strong>直接交叉补贴</strong>（剃须刀送、刀片赚）· <strong>三方市场</strong>（用户免费、广告主付）· <strong>Freemium</strong> · 非货币市场</td>
+<td><strong>关键是想清楚“谁被补贴、谁来买单”</strong></td>
+</tr>
+<tr class="odd">
+<td>③</td>
+<td><strong>互联网三级火箭</strong></td>
+<td>一级<strong>头部流量</strong>（免费高频入口）→ 二级<strong>沉淀用户</strong>（锁进商业场景）→ 三级<strong>商业闭环</strong>（低频高价变现）</td>
+<td>从高频到低频；<strong>一级不赚钱，要有人扛得住</strong></td>
+</tr>
+<tr class="even">
+<td>④</td>
+<td><strong>SaaS 指标体系</strong></td>
+<td>MRR/ARR · CAC · LTV · <strong>LTV:CAC ≥ 3:1</strong> · Churn · <strong>NRR &gt; 100%</strong> · <strong>Rule of 40</strong></td>
+<td>订阅制生意的<strong>专用财务语言</strong></td>
+</tr>
+<tr class="odd">
+<td>⑤</td>
+<td><strong>增长思维</strong></td>
+<td><strong>北极星指标</strong>（全公司只对齐一个）+ 四个增长关卡</td>
+<td><strong>“增长能力＝持续作出正确决定的能力”</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="本栈最关键的洞察财务语言随交付模式变">⭐ 本栈最关键的洞察：财务语言随“交付模式”变</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>交付模式</th>
+<th>商业模式底色</th>
+<th>该用的财务语言</th>
+<th>别用错</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>模式二 · 大平台建设+运营</strong><br><span style="font-size:.9em">（康养项目 / 草业项目 / 辣椒）</span></td>
+<td>重资产、投—建—运、多元收入</td>
+<td><strong>投资估算 / EBITDA / IRR / NPV / 回本周期</strong></td>
+<td><strong>别用 MRR</strong>——一次性建设+运营盘不是订阅</td>
+</tr>
+<tr class="even">
+<td><strong>模式一 · Token 计费 SaaS</strong><br><span style="font-size:.9em">（教育督导项目）</span></td>
+<td>轻资产、订阅 / 按量、可复制</td>
+<td><strong>MRR/ARR / LTV:CAC / NRR / Churn / Rule of 40</strong></td>
+<td><strong>别用 IRR / 回本年</strong>——SaaS 早期没有“回本年”这回事</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一句话记死</strong>： 客户问模式二的项目，你答 <strong>IRR 15.2%、第 9 年回本</strong>； 客户问模式一的 SaaS，你答 <strong>LTV:CAC 3:1、NRR 120%</strong>。</p>
+<p><strong>答反了，客户当场就知道你没做过这类生意。</strong></p>
+</blockquote>
+<p><strong>这条直接影响你今天的写作动作</strong>：可研蓝图里的效益分析章用的是<strong>模式二语言</strong>； 如果你的命题其实是模式一 SaaS，<strong>照着可研蓝图硬写 IRR，写出来就是空的</strong>。</p>
+<h3 id="范本康养项目-bp-是交叉补贴-三级火箭的活体">范本：康养项目 BP 是“交叉补贴 + 三级火箭”的活体</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>康养项目的答案</th>
+<th>对应框架</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>顶层逻辑</strong></td>
+<td>门诊医疗引流 → 照护康养创收 → 产品增值补充 → 政企合作加速</td>
+<td><strong>三级火箭</strong>：门诊医疗＝一级（低毛利引流）· 会员沉淀复购＝二级 · 照护/商城/长护险＝三级（高毛利变现）</td>
+</tr>
+<tr class="even">
+<td><strong>收入结构</strong></td>
+<td><strong>三元支付</strong> ＝ 老人自费 + 长护险 + 政府购买服务</td>
+<td>本质是<strong>交叉补贴</strong>——政府/长护险补贴了老人自付不起的那部分</td>
+</tr>
+<tr class="odd">
+<td><strong>最小验证单元</strong></td>
+<td>微康养单店：峰值资金约 <strong>73 万</strong>、<strong>约 21 个月回本</strong>、单站 1.5–5 人，<strong>60 站可复制</strong></td>
+<td><strong>BP 的说服力来自“一个单元跑通、可复制”，不是“整盘很大”</strong></td>
+</tr>
+<tr class="even">
+<td><strong>增长引擎</strong></td>
+<td>会员转化复购飞轮（中医理疗 + 长者食堂 + 康养商城三线咬合）</td>
+<td>画布的“客户关系”</td>
+</tr>
+<tr class="odd">
+<td><strong>主体与分账</strong></td>
+<td>投—建—运分离（EPCO）、<strong>项目联合体</strong>、分账核算</td>
+<td>⚠️ 2026-07-20 起<strong>禁用“合资公司 / 股权 / 注册资本”</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="一个-excel-财务模型里的基础概念技术人最缺">一个 Excel 财务模型里的基础概念（技术人最缺）</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>概念</th>
+<th>是什么</th>
+<th>康养项目的数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>EBITDA</strong><br>息税折旧摊销前利润</td>
+<td>营收减经营成本，但<strong>加回利息、税、折旧、摊销</strong>——衡量<strong>主业本身的现金创造能力</strong></td>
+<td>基准口径 <strong>约 5219 万/年</strong>（营收约 <strong>3.83 亿/年</strong>、净利约 <strong>3535 万</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>IRR</strong><br>内部收益率</td>
+<td>使<strong>净现值 NPV = 0</strong> 的那个折现率——通俗说是项目每年的“复合回报率”，<strong>必须跟一条门槛线比</strong></td>
+<td><strong>运营口径 15.2%（第 9 年回本，主口径）</strong><br><strong>发改口径 8.7%（第 11 年，仍高于国企 6% 门槛）</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>NPV</strong><br>净现值</td>
+<td>未来每年净现金流按折现率折回今天再求和，<strong>&gt;0 才值得投</strong></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><strong>回本周期</strong></td>
+<td><strong>累计净现金流由负转正</strong>的那一年</td>
+<td>第 <strong>9</strong> / <strong>11</strong> 年（两套口径）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 一句话串起来（模式二重资产语言）</strong>：</p>
+<pre><code>营收 − 成本 = EBITDA（主业赚钱力）
+  → 扣息税折旧 = 净利
+  → 逐年净现金流折现求和 = NPV
+  → 令 NPV = 0 的折现率 = IRR
+  → 累计转正之年 = 回本</code></pre>
+<p><strong>这五个数，就是 To-G 大平台项目签字前客户和财评专家盯的那几行。</strong></p>
+<blockquote>
+<p>⭐ <strong>两套 IRR 口径并存不是矛盾，是财务常识</strong>——算的钱流范围不同（<strong>运营口径</strong>只看运营主体分到的，<strong>发改口径</strong>看整盘）。 ⚠️ 口径名以成品可研为准：叫<strong>运营口径</strong>，<strong>不叫“合资口径”</strong>。</p>
+<p><strong>看到“15.2% 和 8.7%”第一反应不该是“数据打架”然后自己去改一个——那就正好踩中 B-5。</strong></p>
+</blockquote>
+<h3 id="换成模式一-saas-的语言">换成模式一 SaaS 的语言</h3>
+<p>客户不问“几年回本”，问的是： <strong>获客花多少（CAC）· 一个客户一辈子贡献多少（LTV）· 这两个比值健不健康（LTV:CAC ≥ 3:1）· 客户跑不跑（Churn）· 光靠老客户能不能增长（NRR &gt; 100%）· 整盘够不够格（Rule of 40）。</strong></p>
+<blockquote>
+<p><strong>FDE 要能在两套语言间自由切换</strong>——这就是本栈“自评到能交付”的标准。</p>
+</blockquote>
+<h3 id="栈④-与财评的接口">栈④ 与财评的接口</h3>
+<p>商业模式回答“<strong>这生意成不成立</strong>”，财评回答“<strong>这笔钱算得准不准</strong>”。</p>
+<ul>
+<li><strong>学前教育项目</strong>走财评这条线：<strong>484 个功能条目 → 约 27,056 功能点 → 约 22,014 人天 → 总投资 4,839 万</strong>（三重依据交叉校核）</li>
+<li><strong>康养项目</strong>走投资回报这条线：<strong>一期 1.36 亿（依托条件，不计入本轮新增）+ 二期 3200 万（五块预算）→ 运营口径 IRR 15.2%</strong></li>
+</ul>
+<blockquote>
+<p><strong>两条线在可研里是两章，但共用一条纪律：数字锚在单点，谁都不许在自己那节重算。</strong></p>
+</blockquote>
+<hr />
+<h2 id="三栈⑥-交付物工程">三、栈⑥ 交付物工程</h2>
+<blockquote>
+<p><strong>【原本是谁】</strong> 方案经理 / 标书工程师——负责把一堆认知与测算，组织成<strong>一份能中标、能过评审的正式交付物</strong>。</p>
+</blockquote>
+<p><strong>权威参照</strong>：发改委《政府投资项目可行性研究报告》编制大纲 / 各地可研编制规范 + 招投标响应文件的组织。</p>
+<p><strong>本课程把它固化成三件东西</strong>：<strong>写作规范</strong> + <strong>锚定口径机制</strong> + <strong>装配质检</strong>。</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>交付物规模</th>
+<th>组织方式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>康养项目</strong> 🟢</td>
+<td>可研 <strong>11 章 / 约 11 万字 / 26 图</strong> + 2 附录 docx</td>
+<td><strong>35 个分节并行写作</strong>，靠一份 BRIEF 统一口径；<strong>编号权归装配阶段</strong></td>
+</tr>
+<tr class="even">
+<td><strong>学前教育项目</strong> 🟢</td>
+<td>可研 <strong>653KB / 44 分章</strong> + 送审报价包 + 单一来源论证</td>
+<td>同一套打法；<strong>没做本体建模、没有画像旅程，照样交付</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这一栈就是把前面几栈的产物“落成客户手里那份文件”的能力——</strong> <strong>没有它，你脑子里有 7 域本体，客户手里什么都没有。</strong></p>
+</blockquote>
+<h3 id="并行写作的三条铁律">⭐ 并行写作的三条铁律</h3>
+<p><strong>1. 口径单点</strong> —— 所有数字锚在一份 BRIEF，<strong>分节作者一律引用不重算</strong>（<strong>B-5</strong>） &gt; 反例根因：老龄化率跨节引用中 <strong>60+ 与 65+ 两个口径被混用</strong>。 &gt; <strong>不是笔误，是没建立“单一真相源”的纪律。</strong></p>
+<p><strong>2. 编号权归装配</strong> —— 写作阶段只管本章内部，跨章编号一律由装配重排（<strong>B-2</strong>）</p>
+<p><strong>3. 占位符即契约</strong> —— slug 必须先定后画，<strong>不可事后改名</strong>（<strong>B-3</strong>，第七课会再撞一次） &gt; 配套回收 <strong>B-1</strong>：康养项目图规格文件标题写“22 张”、表体实际 26 行——<strong>摘要与明细必须有单一真相源</strong>，现在图表编号由装配期统一分配。</p>
+<blockquote>
+<p><strong>三条铁律都不是“建议”，是被工具执行的</strong>——这就是“平台＝方法论固化物”在本课的兑现。</p>
+</blockquote>
+<hr />
+<h2 id="四栈⑦-合规治理">四、栈⑦ 合规治理</h2>
+<blockquote>
+<p><strong>【原本是谁】</strong> 合规官 / 法务——负责守红线、给每条涉规论断挂<strong>可核验的官方现行依据</strong>。</p>
+</blockquote>
+<p><strong>权威体系</strong>：等保 2.0（<strong>GB/T 22239-2019</strong>）·《个人信息保护法》·《数据安全法》·《生成式人工智能服务管理暂行办法》，及行业国标 / 法规。</p>
+<h3 id="三态诚实写作时的三选一">三态诚实（写作时的三选一）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>情况</th>
+<th>怎么写</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>查到了<strong>现行有效</strong>的</td>
+<td>挂标准号 + 发文字号</td>
+</tr>
+<tr class="even">
+<td>是常识</td>
+<td>标“通用”</td>
+</tr>
+<tr class="odd">
+<td><strong>查不到</strong></td>
+<td><strong>留占位 + 锚定上位国标 + 转取证清单</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>康养项目的实数</strong>：<strong>18 处挂已核验国标 / 法规</strong>；<strong>11 处坚决保留 <code>[本地待补文号]</code></strong>（7 本地文号 + 4 企业 SOP），每处锚定上位国标、转成<strong>逐项取件的清单</strong>。</p>
+<blockquote>
+<p>内部原话：<strong>“错文号比空缺更有害。”</strong>（<strong>B-10</strong>）</p>
+</blockquote>
+<h3 id="反例-b-6-标准号误标">⚠️ 反例 B-6 · 标准号误标</h3>
+<p>康养项目编制期两处真实误标：</p>
+<ul>
+<li>药食同源目录被误标为 <strong>“GB 药食同源目录”</strong>——<strong>它根本不是 GB</strong>，是原卫生部 / 卫健委发布的名单</li>
+<li>星评标准沿用了<strong>已废止的 MZ/T 标准</strong>——<strong>标准还在，版本已废止</strong></li>
+</ul>
+<blockquote>
+<p><strong>引标准必须核到官方现行版本</strong>： “看起来像国标”不等于是国标，“标准存在”不等于“现行有效”。</p>
+<p><strong>已废止比查不到更危险，因为它看起来完全合规。</strong></p>
+<p><strong>硬动作</strong>：用“全国标准信息公共服务平台”核现行 / 废止，用“国家法律法规数据库”核法规。</p>
+</blockquote>
+<h3 id="复调三个场景同一条判据">⭐ 复调：三个场景，同一条判据</h3>
+<p>诚实边界不是本课的局部纪律，它在全课程出现三次——<strong>这是复调，不是重复</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>场景</th>
+<th>说法</th>
+<th>在哪讲</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>B-10</strong></td>
+<td>查不到的文号<strong>留占位不编造</strong></td>
+<td>第五课 / <strong>本课栈⑦</strong></td>
+</tr>
+<tr class="even">
+<td><strong>B-11</strong></td>
+<td><strong>别人的数字不是你的数字</strong>——模板可复用，数字不可复用</td>
+<td>第三课 / 本课（<code>generate-speech</code> 的“无其他行业项目残留术语”检查）</td>
+</tr>
+<tr class="odd">
+<td><strong>Mock 边界</strong></td>
+<td><strong>Mock 不能说成跑通</strong></td>
+<td>第七课</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>三者是同一句判据的三个场景：空缺可以补，编造无法挽回。</strong></p>
+<p>第七课会把这条推到第四个场景——<strong>外部事实分官方 / 二手 / 未获证实三档</strong>。</p>
+<p><strong>你会以为“合规”只是可研最后一章的事，其实它是这门课的价值观支点。</strong> <strong>前面几课练的是手艺，这一条练的是能不能把手艺交给你。</strong></p>
+</blockquote>
+<hr />
+<h2 id="五a-线工具招投标文书">五、A 线工具：招投标文书</h2>
+<h3 id="只有四个命令">只有四个命令</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>命令</th>
+<th>参数</th>
+<th>产物</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/studio-docs:blueprint [类型\|list\|customize X]</code></td>
+<td>文档类型名或 <code>list</code></td>
+<td><code>studio/blueprints/{doc-type}.yaml</code></td>
+</tr>
+<tr class="even">
+<td><code>/studio-docs:writer [名字\|analyze 路径\|list]</code></td>
+<td>专家名 或 参考文档路径</td>
+<td><code>studio/agents/writers/{slug}.md</code></td>
+</tr>
+<tr class="odd">
+<td><code>/studio-docs:generate [文档类型 域名] [export\|docx\|pdf]</code></td>
+<td></td>
+<td>串 plan → write×N（并行）→ assemble →(可选)export</td>
+</tr>
+<tr class="even">
+<td><code>/studio-docs:export [md路径 格式]</code></td>
+<td><code>docx</code>/<code>pdf</code>/<code>docx+pdf</code></td>
+<td>同目录的 <code>.docx</code> / <code>.pdf</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>只有这四个。</strong> 插件文档里出现的 <code>/studio-docs:plan</code>、<code>:write</code>、<code>:export-document</code> <strong>都不存在</strong>，别照着敲。 <code>write-section</code> 是<strong>内部技能</strong>，由 <code>generate</code> 调度，你不直接调用。</p>
+</blockquote>
+<p><strong><code>generate</code> 的四道前置检查</strong>： ① <code>studio/</code> 不存在 → 先 init ② 域的规划产物不存在 → 先跑规划 ③ 无 blueprint → 先跑 <code>blueprint</code> ④ 无 writer → 问你要不要先造一个</p>
+<h3 id="个内置蓝图">7 个内置蓝图</h3>
+<p><code>project-proposal</code>（项目建议书，8 章）· <code>feasibility-study</code>（可研，12 章+附录）· <code>preliminary-design</code>（初步设计）· <code>construction-plan</code>（建设方案）· <strong><code>tender-document</code>（招标文件）</strong> · <strong><code>bid-document</code>（投标文件）</strong> · <strong><code>acceptance-package</code>（验收材料）</strong></p>
+<h3 id="artifact_sources-是全链路打通的证据">⭐ <code>artifact_sources</code> 是全链路打通的证据</h3>
+<p>全部蓝图里只用了 10 种取料来源，<strong>全是第四课的产物</strong>——</p>
+<p><code>process-flow.md</code>(19次) · <code>domain-model.md</code>(18) · <code>skill-design.md</code>(14) · <code>persona-insight.md</code>(11) · <code>opportunity-brief.md</code>(10) · <code>behavior-matrix.md</code>(10) · <code>event-storm.md</code>(9) · <code>journey-map.md</code>(7) · <code>brief.md</code>(7) · <code>domain-canvas.md</code>(5)</p>
+<blockquote>
+<p><strong>第四课做得糙，这里就没料可取。</strong> <strong>你到这一步才会真正理解为什么前面要认真做。</strong></p>
+</blockquote>
+<h3 id="三个重点蓝图某工业城市-hr-覆盖的那三本">三个重点蓝图（HR项目 覆盖的那三本）</h3>
+<p><strong><code>tender-document</code> 招标文件</strong>（7 章 + 附件，tone <code>formal-legal</code>） 第四章「技术需求与服务要求」8000–12000 字是核心章。 <strong>compliance 硬指标</strong>：总分 100 分 · 资质无排他条款 · <strong>预付款 ≤30%</strong> · 须含格式模板 · 须声明采购方式及法律依据 · 技术需求逐条编号 · 知识产权归属明确</p>
+<p><strong><code>bid-document</code> 投标文件</strong>（3 大部分共 11 个 chapter） 「三、详细技术方案」<strong>10000–18000 字，全篇最大</strong>。 required_elements 8 项含<strong>需求响应表 / 偏离说明表 / 进度甘特图 / 人员组织架构图</strong>。</p>
+<p><strong><code>acceptance-package</code> 验收材料</strong>（9 部分 + 附件） 含<strong>需求跟踪矩阵</strong>（招标需求→功能模块→测试用例→完成状态）。 <strong>量化门槛</strong>：跟踪矩阵 100% 覆盖 · <strong>功能测试通过率 ≥98% 且 P1 缺陷归零</strong> · 等保测评通过 · 培训覆盖率 100% · 决算不得超合同额</p>
+<blockquote>
+<p>⭐ <strong>这三本连起来，就是HR项目 那个项目的完整生命周期</strong>—— <strong>也是全部案例里唯一覆盖「招标 ↔︎ 投标 ↔︎ 验收」的。</strong> 康养项目和学前教育项目都只到可研。</p>
+</blockquote>
+<hr />
+<h2 id="六-写作专家本课主教具">六、⭐ 写作专家：本课主教具</h2>
+<h3 id="它是什么">它是什么</h3>
+<p>「解决方案专家 — 肖作仕」（3.5KB）。领域是<strong>政府信息化项目建设方案 · 产教融合 · 人力资源数字化</strong>。</p>
+<p><strong>它同时是三样东西</strong>：</p>
+<ol type="1">
+<li><strong>官方文档里的示例名</strong>（还示范了命名规则 <code>解决方案专家-肖作仕</code> → <code>solution-expert-xiao.md</code>）</li>
+<li><strong>三个真实项目的作者人设</strong>：康养项目可研、学前教育项目可研（<strong>44 章 / 653KB 正文按此纲领产出</strong>）、HR项目 全套文书</li>
+<li><strong>你今天的现成范本</strong></li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>诚实标注</strong>：BRIEF 以它为作者人设是<strong>硬证据</strong>；但<strong>“这些 docx 逐字由该 agent 生成”无法证明</strong>（没有生成日志）。 准确说法是“<strong>按其文风纲领组织写作</strong>”。</p>
+<p><strong>这本身就是本课的第一课：连自己的案例都要区分“能证明的”和“听起来像的”。</strong></p>
+</blockquote>
+<h3 id="writing-style-四维造专家时要填满">Writing Style 四维（造专家时要填满）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>维</th>
+<th>填什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 语言标记</strong></td>
+<td>四字短语密度（高/中/低）· 对仗句式频率 · 递进模式（“从…到…”“由…向…转变”）· 标志性表达</td>
+</tr>
+<tr class="even">
+<td><strong>② 政策引用</strong></td>
+<td>引用格式模板（<code>《政策全称》（发文字号）</code>）· 偏好机关 · 引用密度</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 段落模式</strong></td>
+<td>结构（论点+论据+价值阐述）· 字数区间 · 量化数据要求</td>
+</tr>
+<tr class="even">
+<td><strong>④ 术语偏好</strong></td>
+<td>✅/❌ 成对列举：✅信息化建设 / ❌IT建设、✅总体架构 / ❌系统架构、✅保障措施 / ❌风险应对</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三种造法">三种造法</h3>
+<table>
+<thead>
+<tr class="header">
+<th>方式</th>
+<th>怎么做</th>
+<th>什么时候用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A 分析参考文档</strong>（最佳）</td>
+<td>给 1–3 篇样本 → 抽 6 类特征 → <strong>先给你看 style profile 确认，再生成</strong></td>
+<td>手上有客户既往文书</td>
+</tr>
+<tr class="even">
+<td>B 口述定义</td>
+<td>你描述风格，它翻译成结构化维度</td>
+<td>没样本但清楚要什么</td>
+</tr>
+<tr class="odd">
+<td>C 定制已有</td>
+<td>读已有 writer 改</td>
+<td>微调</td>
+</tr>
+</tbody>
+</table>
+<p><strong>方式 A 的量化启发式表</strong>（它把“文风”变成了可测量的东西）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>特征</th>
+<th>度量</th>
+<th>分级</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>四字短语密度</td>
+<td>每段计数</td>
+<td>高 ≥5 · 中 2–4 · 低 0–1</td>
+</tr>
+<tr class="even">
+<td>对仗句式</td>
+<td>每页计数</td>
+<td>高 ≥3 · 中 1–2 · 低 &lt;1</td>
+</tr>
+<tr class="odd">
+<td>政策引用密度</td>
+<td>每章计数</td>
+<td>高 ≥4 · 中 2–3 · 低 0–1</td>
+</tr>
+<tr class="even">
+<td>段落长度</td>
+<td>每段平均字符</td>
+<td>短 &lt;150 · 中 150–350 · 长 &gt;350</td>
+</tr>
+<tr class="odd">
+<td>量化数据</td>
+<td>每段数字/百分比计数</td>
+<td>高 ≥2 · 中 1 · 低 &lt;1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>工具里有一条实操提醒，值得记死</strong>： 客户说“我要一个像肖总那样的写手”时，<strong>必须索要样稿</strong>——<strong>光有名字抓不到文风</strong>。</p>
+<p><strong>这句话可以推广到整个 FDE 工作：客户给你一个人名 / 一个标杆，你要的是那个东西本身。</strong></p>
+</blockquote>
+<hr />
+<h2 id="七并行写作三段plan-write-assemble">七、并行写作三段：plan → write → assemble</h2>
+<h3 id="plan那个确认点是本课最该认真对待的地方">plan：那个确认点是本课最该认真对待的地方</h3>
+<p><strong>拆分阈值</strong>：&lt;5,000 字符 → 1 个任务；5,000–15,000 → 2–3 个；&gt;15,000 → 4–6 个</p>
+<p><strong>覆盖度四分类</strong>：✅Full · ⚠️Partial · 📝Auto（模板可生成）· <strong>❌Manual</strong>（如经费预算）</p>
+<p><strong>⏸ 硬性人工确认点</strong>：会给你「章节×产物映射表 + 并行阶段图 + 统计 + <strong>Gap 提示</strong>」，你可以 approve / 改分组 / 预先标 manual / 调字数 / 排除可选章。</p>
+<blockquote>
+<p><strong>这个确认点在告诉你哪些章节没有料可写。</strong> 标 ❌Manual 的那些，<strong>就是你得自己去要数据的地方</strong>—— <strong>跟第五课的 citations 取证清单是同一个动作。</strong></p>
+</blockquote>
+<h3 id="write一条最重要的硬约束">write：一条最重要的硬约束</h3>
+<p>每章写成 <code>.parts/{chapter_id}.md</code>，<strong>纯 markdown、无 frontmatter</strong>。<strong>同 chapter_id 重跑直接覆盖（幂等）。</strong></p>
+<p><strong>自检 7 项</strong>：编号约定 · 每大节 ≥1 Mermaid（若蓝图要求）· 数据密集节有表 · 政策引用 · 字数在区间 · 标题不跳级 · <code>[待补充：XXX]</code> <strong>仅用于真缺数据</strong></p>
+<blockquote>
+<p>⭐ <strong>最重要的一条硬约束</strong>： <strong>事实内容一律来自 artifacts，禁止编造统计数字、政策文号、预算。</strong></p>
+<p>这就是 B-10「错文号比空缺更有害」<strong>被写进工具的样子</strong>——<strong>缺数据就写 <code>[待补充：XXX]</code>，不许圆。</strong></p>
+</blockquote>
+<h3 id="assemble编号权在这里">⭐ assemble：编号权在这里</h3>
+<table>
+<thead>
+<tr class="header">
+<th>收口动作</th>
+<th>怎么做</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>章级编号</strong></td>
+<td>按蓝图约定校验并<strong>补缺重排</strong>（缺“三”则四→三顺移）</td>
+</tr>
+<tr class="even">
+<td><strong>节级编号</strong></td>
+<td><code>（一）(二)</code> / <code>1. 2.</code> / <code>(1)(2)</code> 在<strong>每章内独立重排</strong>，校验标题不跳级</td>
+</tr>
+<tr class="odd">
+<td><strong>图表编号</strong></td>
+<td><strong>统一在装配期分配</strong>：图 <code>图X-Y</code>（caption 在图<strong>下方</strong>）、表 <code>表X-Y</code>（caption 在表<strong>上方</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>术语统一</strong></td>
+<td>读 writer 的术语表替换变体；<strong>不替换</strong>代码块、mermaid、<code>「」</code>/<code>《》</code>内直引</td>
+</tr>
+<tr class="odd">
+<td><strong>交叉引用</strong></td>
+<td><strong>只校验不自动修</strong>（章/节/表/图/附录五类）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>前置</strong>：<strong>required 章缺失 → 停止装配</strong>。 <strong>部分失败</strong>：装配可用部分，并在缺口处插入 <code>&gt; ⚠️ **本章内容待补充**</code> 占位块 + 失败原因。</p>
+<blockquote>
+<p>⭐ <strong>回收 B-1</strong>：现在图表编号由装配期统一分配——<strong>摘要与明细有了单一真相源</strong>。 <strong>并行产出必须有收口回改动作，这条纪律现在是机器在执行。</strong></p>
+</blockquote>
+<h3 id="质量报告">质量报告</h3>
+<p>装配时间戳 · 章节清单 · <strong>术语替换日志</strong>（含出现次数与行号）· 交叉引用校验 · 图表编号分配 · 合规清单 · 缺失章节建议</p>
+<p><strong>6 条合规检查</strong>：政策引用数 ≥ 蓝图下限 · required 章齐全 · 含投资/预算表 · Mermaid 数量 ≥ 下限 · 字数在区间 · 需要则有甘特</p>
+<hr />
+<h2 id="八导出">八、导出</h2>
+<p><strong>依赖</strong>：<code>pandoc</code> <strong>唯一硬依赖，缺则 STOP</strong>；<code>mmdc</code> 缺 → 保留 mermaid 代码块；<code>python-docx</code> 缺 → 只出裸 pandoc DOCX；Chrome 缺 → 跳过 PDF</p>
+<p><strong>DOCX</strong>：pandoc 转换后由脚本做中文公文美化——六步固定流水线：页面布局 → 标题 → 正文 → 表格 → 页眉 → 页脚。 <strong>关键实现</strong>：东亚字体通过 XML 直写（python-docx 不原生支持），行距 <code>240×1.5=360</code>，页边距上下 2.54cm / 左右 3.17cm，页眉取首个 Title/Heading 1 并加下边框线，页脚插 <code>PAGE</code> 域。</p>
+<p><strong>PDF</strong>：优先 pandoc → html5 → 注入中文公文 CSS（A4、仿宋 14pt/1.5、方正小标宋标题）→ Chrome headless 打印；兜底 XeLaTeX。</p>
+<hr />
+<h2 id="九b-线平台文档套件">九、B 线：平台文档套件</h2>
+<pre><code>/studio-platform:platform-docs {domain} [--steps ...]</code></pre>
+<p><strong>六个可选步骤</strong>：<code>brainmap</code> | <code>mapping</code> | <code>tech</code> | <code>plan</code> | <code>visual</code> | <code>speech</code></p>
+<p><strong>前置</strong>：需有 <code>event-storm.md</code> 与 <strong><code>domain-map.md</code></strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>步</th>
+<th>产物</th>
+<th>看点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>brainmap</td>
+<td>索引 + 分模块脑图</td>
+<td>每个智能体固定 4 小节；<strong>agent 编号全局连续</strong></td>
+</tr>
+<tr class="even">
+<td>mapping</td>
+<td><code>agent-plugin-mapping.md</code></td>
+<td>ASCII 架构图 + 模块-Plugin 矩阵 + <strong>覆盖率分析</strong> + P0–P3 优先级</td>
+</tr>
+<tr class="odd">
+<td>tech</td>
+<td><strong>5 份技术设计</strong>（数仓 / 数据采集 / 知识图谱 / ML 模型 / RAG）</td>
+<td>数仓走 Kimball 分层；数据采集有 <strong>6 维质量框架</strong>；RAG 有<strong>四路混合检索</strong></td>
+</tr>
+<tr class="even">
+<td>plan</td>
+<td><code>project-plan.md</code></td>
+<td>固定 10 章 + Mermaid 甘特 + 6–10 条并行 track</td>
+</tr>
+<tr class="odd">
+<td>visual</td>
+<td><code>{platform}.pen</code></td>
+<td>4 帧（全景驾驶舱 / 角色智能体 / 知识网络 / 数智场景）</td>
+</tr>
+<tr class="even">
+<td>speech</td>
+<td>迎检话术</td>
+<td><strong>与 .pen 四帧一一对齐</strong>，要求朗读 <strong>5–8 分钟</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <code>--steps all</code> 且无交互时<strong>全程不暂停</strong>，会一口气生成 11 类文档。 <strong>先跑 <code>--steps brainmap</code> 看一下再决定。</strong></p>
+<p>⭐ 迎检话术的质量检查里有一条值得注意：<strong>“无其他行业项目残留术语”</strong> ——这正是 <strong>B-11</strong> 在平台文档侧的同一个坑。<strong>工具知道这个风险，你更要知道。</strong></p>
+</blockquote>
+<hr />
+<h2 id="十实操90">十、实操（90′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>做什么</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>/studio-docs:writer analyze &lt;参考文档&gt;</code> 造写作专家</td>
+<td>25′</td>
+<td>四维填满的 writer</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>/studio-docs:blueprint list</code> 看内置蓝图，选一本</td>
+<td>10′</td>
+<td>选定文档类型</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>/studio-docs:generate &lt;类型&gt; &lt;域&gt;</code> 跑到 plan 确认点<strong>停下细看</strong></td>
+<td>25′</td>
+<td>doc-plan + <strong>Gap 清单</strong></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>让它写 1–2 章（<strong>不用写全本</strong>）</td>
+<td>20′</td>
+<td><code>.parts/</code> 下的成稿</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>assemble + 看质量报告</td>
+<td>10′</td>
+<td>装配稿 + 质量报告</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三个难点</strong>：</p>
+<ul>
+<li><strong>造专家优先用“分析参考文档”方式</strong>，2–3 页样本即可。<strong>没样本就去要——别凭空捏一个文风。</strong></li>
+<li><strong>plan 确认点要认真看 Gap 清单</strong>：标 ❌Manual 的章节就是你缺数据的地方，<strong>列进取证清单，别指望写作时圆过去</strong>。</li>
+<li><strong>关键数字一律引用不重算</strong>（<strong>B-5</strong>）。分节作者各算各的，装配期必然对不上。</li>
+</ul>
+<hr />
+<h2 id="十一-九个翻车点照文档做会撞">十一、⚠️ 九个翻车点（照文档做会撞）</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>坑</th>
+<th>以什么为准</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>blueprint / writer 存放路径两说</td>
+<td><strong>以 SKILL 为准</strong>（3 处一致 vs 1 处）</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>蓝图 schema：文档版用 <code>chapters:</code>，<strong>实际内置蓝图用 <code>structure:</code></strong></td>
+<td>写新蓝图<strong>按磁盘实际结构</strong>，否则与内置蓝图不同构</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>artifact 名不统一：<code>skill-design.md</code> vs <code>skill-map</code></td>
+<td>知道是同一个东西即可</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>studio-docs 用 <code>domain-model.md</code>，studio-platform 用 <strong><code>domain-map.md</code></strong></td>
+<td>两个插件要的文件名不同，<strong>别以为写错了</strong></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>导出字体<strong>三套口径</strong></td>
+<td><strong>以脚本为准</strong></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><code>--blueprint</code> 参数<strong>读了但从不使用</strong></td>
+<td>蓝图的 <code>export.fonts</code> <strong>目前无效</strong>，别指望改蓝图能改字体</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>mermaid 渲染实参与文档不符</td>
+<td>以脚本为准</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><code>/studio-docs:plan</code>、<code>:write</code>、<code>:export-document</code> <strong>不存在</strong></td>
+<td>只有 blueprint / writer / generate / export</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>草业项目那份调研 docx <strong>python-docx 解析报错</strong>（WPS 导出的异常 zip）</td>
+<td><strong>改用 pandoc 转</strong>，实测可行</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ 第 9 条是<strong>备课时真撞上的</strong>——正好做本课的活教材： <strong>交付物格式与内容是两条独立的质检线，都得 FDE 自己走一遍</strong>（<strong>B-4</strong>）。</p>
+</blockquote>
+<hr />
+<h2 id="十二checkout">十二、checkout</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>写作专家</td>
+<td>四维填满，且<strong>基于真实样稿</strong>分析得来</td>
+<td>凭空捏一个文风；或只给了个人名</td>
+</tr>
+<tr class="even">
+<td>蓝图选型</td>
+<td>选对文档类型，<strong>说得出为什么</strong></td>
+<td>拿可研的蓝图写投标文件</td>
+</tr>
+<tr class="odd">
+<td>Gap 诚实</td>
+<td>❌Manual 章节列进了取证清单</td>
+<td>让模型“先写着，回头再补”</td>
+</tr>
+<tr class="even">
+<td>数字同源</td>
+<td>关键数字引用 BRIEF，不重算</td>
+<td>各章各算一遍（<strong>B-5</strong>）</td>
+</tr>
+<tr class="odd">
+<td><strong>财务语言选对</strong></td>
+<td>判得出本组是模式二（IRR/EBITDA/回本年）还是模式一（LTV:CAC/NRR/Rule of 40），<strong>并说得清每个数怎么来</strong></td>
+<td>模式一 SaaS 硬套“几年回本”；或看到 15.2% vs 8.7% 以为数据打架，<strong>自己改一个</strong></td>
+</tr>
+<tr class="even">
+<td>编号</td>
+<td>交给装配期收口</td>
+<td>写作时自己编号（<strong>B-2</strong>）</td>
+</tr>
+<tr class="odd">
+<td>标准引用</td>
+<td>核到<strong>现行有效</strong>版本</td>
+<td>引了已废止的 / 编了个像国标的号 → <strong>一票警示（B-6/B-10）</strong></td>
+</tr>
+<tr class="even">
+<td>占位</td>
+<td>缺数据处写 <code>[待补充：XXX]</code></td>
+<td>用模型的猜测填满</td>
+</tr>
+<tr class="odd">
+<td>格式质检</td>
+<td>导出后<strong>自己打开看过</strong></td>
+<td>只看 md 不看 docx（<strong>B-4</strong> 图文割裂就是这么来的）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="十三你的产出去了哪里">十三、你的产出去了哪里</h2>
+<pre><code>本课产物
+  ↓ 写作专家 → 后续所有文书复用（跨项目资产）
+  ↓ 方案稿   → 第七课原型的内容来源（demo 要演的就是方案里承诺的东西）
+  ↓ 取证清单 → 现场向客户逐项取件
+  ↓ 导出的 docx/pdf → 结课路演材料</code></pre>
+<blockquote>
+<p><strong>一句话</strong>：本课交出去的东西<strong>会被评审、会进合同、会被审计</strong>。 <strong>前面几步做错还能改，这一步做错是要签字的。</strong></p>
+</blockquote>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="附-一页纸速查">附 · 一页纸速查</h2>
+<p><strong>难点不在“写”，在“不打架”</strong>：术语一致 / 数字同源 / 编号不撞 / 图文不断</p>
+<p><strong>三件东西</strong>：蓝图定骨架 · 写作专家定文风 · <strong>装配期收口定编号</strong></p>
+<p><strong>三条铁律</strong>：口径单点（B-5）· 编号权归装配（B-2）· 占位符即契约（B-3）</p>
+<p><strong>财务语言随交付模式变</strong>：模式二讲 <strong>IRR / EBITDA / 回本年</strong>；模式一讲 <strong>LTV:CAC / NRR / Rule of 40</strong>。<strong>答反了当场露怯。</strong></p>
+<p><strong>两套 IRR 并存不是打架</strong>：运营口径 15.2%（主口径）· 发改口径 8.7%。<strong>别自己改一个。</strong></p>
+<p><strong>造写作专家必须索要样稿</strong>——光有名字抓不到文风。</p>
+<p><strong>缺数据写 <code>[待补充：XXX]</code>，不许圆。</strong></p>
+<p><strong>导出后自己打开看过</strong>——只看 md 不看 docx，就是 B-4。</p>
+</body>
+</html>

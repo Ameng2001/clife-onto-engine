@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 5 讲 · 为什么 FDE 依赖成熟工程化平台（讲义 / 讲师用） · 讲义</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root{
+      --bg:#f7f9fb;--card:#ffffff;--ink:#0f172a;--dim:#475569;--line:#e2e8f0;--line2:#cbd5e1;
+      --blue:#2563eb;--blue-bg:#eff6ff;--code-bg:#f1f5f9;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    /* 覆盖 pandoc 默认模板的 body{max-width:36em;padding:50px}——那是页面变窄的根因 */
+    body{font-family:'Helvetica Neue',Helvetica,Arial,'PingFang SC','Microsoft YaHei',sans-serif;
+      background:var(--card);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased;font-size:16px;
+      max-width:none !important;width:auto !important;margin:0 !important;padding:0 !important}
+    /* 全宽流式：填满浏览器宽度，两侧留白随窗口自适应 */
+    .page{width:auto;max-width:none;margin:0;background:var(--card);min-height:100vh;
+      padding:44px clamp(20px,5vw,90px) 96px;border:0;box-shadow:none}
+    .topbar{width:auto;max-width:none;margin:0;padding:12px clamp(20px,5vw,90px);font-size:12.5px;color:var(--dim);
+      background:var(--bg);border-bottom:1px solid var(--line)}
+    .topbar a{color:var(--blue);text-decoration:none}
+    .topbar a:hover{text-decoration:underline}
+    h1{font-size:30px;font-weight:800;letter-spacing:-.01em;line-height:1.3;margin:.2em 0 .6em;
+      padding-bottom:.4em;border-bottom:2px solid var(--ink)}
+    h2{font-size:22px;font-weight:750;margin:1.8em 0 .6em;padding-bottom:.25em;border-bottom:1px solid var(--line)}
+    h3{font-size:18px;font-weight:700;margin:1.5em 0 .5em;color:#1e293b}
+    h4{font-size:15.5px;font-weight:700;margin:1.2em 0 .4em;color:var(--dim)}
+    p{margin:.7em 0}
+    a{color:var(--blue)}
+    ul,ol{padding-left:1.5em;margin:.6em 0}
+    li{margin:.28em 0}
+    strong{color:#0b1220;font-weight:700}
+    blockquote{margin:1em 0;padding:.6em 1.1em;background:var(--blue-bg);border-left:3px solid var(--blue);
+      border-radius:0 8px 8px 0;color:#1e3a5f}
+    blockquote p{margin:.35em 0}
+    code{font-family:'SF Mono',Menlo,Consolas,monospace;background:var(--code-bg);
+      padding:.12em .4em;border-radius:4px;font-size:.86em;color:#b91c1c}
+    pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.55}
+    pre code{background:none;color:inherit;padding:0}
+    table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:14px;display:block;overflow-x:auto}
+    th,td{border:1px solid var(--line2);padding:8px 12px;text-align:left;vertical-align:top}
+    th{background:#f1f5f9;font-weight:700;color:#1e293b;white-space:nowrap}
+    tr:nth-child(even) td{background:#fafbfc}
+    hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+    img{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+    @media(max-width:720px){.page{padding:32px 20px 64px}.topbar{padding:10px 20px}h1{font-size:24px}}
+  </style>
+</head>
+<body>
+<div class="topbar">📘 讲义 · <a href="../slides/index.html">← 返回课程目录</a></div>
+<div class="page">
+<header id="title-block-header">
+<h1 class="title">第 5 讲 · 为什么 FDE 依赖成熟工程化平台（讲义 / 讲师用） · 讲义</h1>
+</header>
+<h1 id="第-5-讲--为什么-fde-依赖成熟工程化平台讲义--讲师用">第 5 讲 · 为什么 FDE 依赖成熟工程化平台（讲义 / 讲师用）</h1>
+<blockquote>
+<p>版本 v0.1 · 对象：C-Life 内部专业人员 · 实践蓝本：康养行业大模型平台 本文件是<strong>讲师稿</strong>：给你逐页要点、原话级讲述脚本、时间分配。学员动手材料在 <code>工作坊/05_为什么FDE依赖成熟工程化平台_workshop.md</code>。</p>
+</blockquote>
+<hr />
+<h2 id="一一句话命题--能力模型定位">一、一句话命题 + 能力模型定位</h2>
+<p><strong>命题：没有平台的 FDE，只是一个更累的架构师；平台 = 方法论的固化物。</strong></p>
+<p>一句难听的推论先撂在这里，整堂课都在证它：</p>
+<blockquote>
+<p><strong>没有平台，你复制不了康养项目，你只能复制加班。</strong></p>
+</blockquote>
+<p><strong>能力模型定位</strong>：本讲主打 <strong>C2 结构建模</strong> 与 <strong>C6 交付物工程</strong>，但真正的靶子是一个认知误区——学员容易把康养项目的成绩归功于"某个人手快/AI 强"。本讲要把功劳掰回到<strong>管线</strong>上：<code>studio-planner → domain-model → clife-onto-engine</code> 这条固化管线，才是"7 域同日并行编译、7/7 零悬空引用"的真实原因。这是全课程主张 2 的正面战场。</p>
+<hr />
+<h2 id="二时间分配90节奏-4--4--2">二、时间分配（90′，节奏 4 : 4 : 2）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>占比</th>
+<th>分钟</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>认知输入（讲）</td>
+<td>40%</td>
+<td>36′</td>
+<td>要点页 1–5（含 2·补）：平台=固化方法论；<strong>对照 Palantir 四层 / C-Life 两套 plugin 体系 + 规范</strong>；三个"同日"；反例 B-8/B-9；"纪律→校验器"固化机制</td>
+</tr>
+<tr class="even">
+<td>现场演练（练）</td>
+<td>40%</td>
+<td>36′</td>
+<td>Exercise「无平台重做康养项目」成本推演</td>
+</tr>
+<tr class="odd">
+<td>复盘研讨（议）</td>
+<td>20%</td>
+<td>18′</td>
+<td>3 研讨题 + 收口</td>
+</tr>
+</tbody>
+</table>
+<p>分钟级建议：页 1（5′）→ 页 2（5′）→ <strong>页 2·补 Palantir 四层/两套 plugin 体系（8′）</strong>→ 页 3 三个"同日"（7′）→ 页 4 反例 B-8/B-9（7′）→ 页 5 固化机制 + 演练导入（4′）→ 演练（36′）→ 研讨（18′）。</p>
+<hr />
+<h2 id="三认知输入">三、认知输入</h2>
+<h3 id="要点页-1--先算一笔账康养项目这条链条人到底省在哪">要点页 1 · 先算一笔账：康养项目这条链条，人到底省在哪</h3>
+<p><strong>【讲述脚本】</strong> "我先不讲平台，先给你们看一个数字，然后你们自己判断这数字是靠谁堆出来的。康养项目这个项目，最终交付了 100 多页可研（11 章、约 11 万字、26 图）加 2 份附录 docx，底下压着 7 个数智本体、3835 行可运行插件骨架、约 350 万条三元组的知识图谱。传统模式，这活儿是<strong>产品经理 + 架构师 + 行业顾问 + 方案经理 + 美工，5 个人以上、干数周</strong>。这次是<strong>1 名 FDE + 智能体编队</strong>。</p>
+<p>现在关键问题来了：省下的那 4 个人、那几周，是被'AI 很聪明'省掉的吗？不是。是被<strong>平台</strong>省掉的。今天这堂课就论证这一句话。你要是听完还觉得是靠个人天赋，那你回去只能复制加班，复制不了康养项目。"</p>
+<p><strong>【板书】</strong></p>
+<pre><code>传统:  PM + 架构师 + 行业顾问 + 方案经理 + 美工   → 5+人 · 数周
+康养项目:  1 FDE + 智能体编队 · 平台管线              → 数日
+省掉的 4 人不是 AI 省的，是【固化管线】省的</code></pre>
+<p><strong>【康养项目证据】</strong></p>
+<ul>
+<li>交付物：100+ 页可研（11 章 / ~11 万字 / 26 图）+ 2 份附录 docx（对齐客户既有模板）。</li>
+<li>底层资产：7 域数智本体、五要素合计 Object 76 / Link 75 / Function 38 / Rule 47 / Action 54 / HIL 26、3835 行 Python 骨架 + 21 个 YAML、约 350 万三元组。</li>
+<li>人力对比：传统 5+ 人 / 数周 → 本次 1 FDE + 智能体编队。</li>
+</ul>
+<hr />
+<h3 id="要点页-2--平台--方法论的固化物不是工具箱是纪律的容器">要点页 2 · 平台 = 方法论的固化物（不是工具箱，是纪律的容器）</h3>
+<p><strong>【讲述脚本】</strong> "很多人对'平台'的理解停留在'一堆好用的工具'。错。平台不是工具箱，平台是<strong>方法论被代码固化以后的样子</strong>。</p>
+<p>举个最硬的例子：DDD 说'限界上下文之间不能越界写对象'。这是一句方法论。方法论写在书上，靠人自觉。但在康养项目，这句话不是靠自觉——它变成了 <code>clife-onto-engine</code> 的一条<strong>结构校验器规则</strong>：任何 Action 想 <code>stage_write</code> 一个不属于本域的对象，编译期直接拦下来。方法论从'你应该'变成了'你做不到'。这就叫固化。</p>
+<p>所以我给平台下的定义是：<strong>平台把'资深 FDE 脑子里的纪律'变成了'新人也绕不过去的校验器'</strong>。这句话是本讲的题眼。你没有平台的时候，那些纪律只活在你一个人脑子里，你请假纪律就崩了；有了平台，纪律活在管线里，谁来都得守。"</p>
+<p><strong>【板书 / 图】</strong></p>
+<p><img src="../figures/fig-5-1-平台分层.png" alt="图5-1 Astra Studio 工具栈分层与咬合" /> <strong>图 5-1 Astra Studio 工具栈分层与咬合</strong> 四层自上而下：planner（认知萃取）→ insight（画像/旅程/流程）→ ontology（clife-onto-engine 本体运行时）→ docs/quality（生成与校验）。方法论在每一层被固化成"产物契约 + 校验器"，数据沿层单向流转不倒灌。本图第 7 讲复用，届时讲层间数据咬合，本讲只讲"固化"这一面。</p>
+<p><strong>【康养项目证据】</strong></p>
+<ul>
+<li>Astra Studio 实际插件族：studio-core / studio-planner（event-storm / domain-model / skill-design / spec-generate）/ studio-insight（persona / journey / process / domain-canvas / behavior-matrix / opportunity）/ studio-docs（blueprint / plan / write / assemble / export）/ studio-quality（validate / wire-mcp）/ studio-platform / clife-onto-engine（本体运行时）。</li>
+<li>固化管线（术语表锁定写法）：studio-planner（事件风暴）→ domain-model（限界上下文）→ clife-onto-engine（本体）→ citations 治理 → 可研报告生成。</li>
+</ul>
+<hr />
+<h3 id="要点页-2补--对照-palantir-四层c-life-的两套-plugin-体系与工程化规范8">要点页 2·补 · 对照 Palantir 四层：C-Life 的"两套 plugin 体系"与工程化规范（8′）</h3>
+<p><strong>【讲述脚本】</strong> "给你们一个业界坐标，你就明白 Astra Studio 不是我们拍脑袋造的玩具。看 <strong>Palantir 的平台架构——四层</strong>：最底 <strong>Foundry 数据底座层</strong>（接入任何数据源、语义化数据服务）；往上 <strong>Ontology 本体层</strong>（业务语义中枢——实体建模 / 关系建模 / 权限与边界建模，'统一语义 · 业务规则 · 逻辑一致 · 权限边界'）；再往上 <strong>AIP 编排层</strong>（多智能体协同 / 自然语言交互 / 确定性运行时 / 安全治理——它的运行时就是 <strong>Agents · Skills · Tools · Workflows</strong>）；最顶 <strong>应用层</strong>（面向行业的智能应用）。右侧还横着一条 <strong>跨层治理与安全</strong>（统一身份 / 权限 / 审计追溯 / 数据安全 / 合规标准）和一列 <strong>价值输出</strong>（决策 / 优化 / 风控）。一句话：<strong>Palantir 是'以本体为核心的企业智能操作系统'。</strong></p>
+<p>现在关键——<strong>C-Life 的工程化平台，本质上也是这套结构，而且它落成了两套可安装、可校验的 plugin（插件）体系</strong>：</p>
+<ul>
+<li><strong>第一套：智能体 plugin 体系（对标 Palantir 的 AIP 编排层）</strong> —— 就是 <strong>Astra Studio</strong>。studio-planner / insight / docs / quality 这些插件，每一个都是一组 <strong>Skill</strong>（SKILL.md），把'事件风暴 → 限界上下文 → 文档装配 → 质检'这套 FDE 方法论，固化成可被编排调用的技能。它对应 Palantir 的 Agents / Skills / Tools / Workflows。本会话启动时那句 '8 active plugin(s)'，就是这套体系在跑。</li>
+<li><strong>第二套：ontology plugin 体系（对标 Palantir 的 Ontology 本体层）</strong> —— 就是 <strong>clife-onto-engine 的本体插件</strong>。康养项目 7 个域，每个域编译成一个<strong>本体插件</strong>，装进引擎运行。这是'业务语义中枢'的 C-Life 落地。</li>
+</ul>
+<p><strong>为什么强调这个？因为这两套体系各自都有一套硬工程化规范——规范，才是平台的灵魂。</strong> 平台值不值钱，不看它功能多，看它的<strong>规范有多硬、校验器认不认</strong>。"</p>
+<p><strong>【板书 / 图】</strong></p>
+<p><img src="../figures/fig-5-2-plugin体系.png" alt="图5-2 Palantir 四层 ↔ C-Life 两套 plugin 体系" /> <strong>图 5-2 Palantir 四层架构 ↔︎ C-Life 两套 plugin 体系（以本体为核心）</strong> 左列 Palantir 四层（应用层 / AIP 编排层 / Ontology 本体层 / Foundry 数据底座层 + 跨层治理与安全）；右列 C-Life 对照——① 智能体 plugin 体系（Astra Studio，对 AIP 编排层）② ontology plugin 体系（clife-onto-engine 本体插件，对 Ontology 层）③ 数智底座五引擎 / 数据中台（对 Foundry）④ HIL + citations + 等保合规（对跨层治理）。中间用箭头连"层层对应"。</p>
+<p><strong>【两套 plugin 体系的工程化规范（本页重点，规范=可校验的约束）】</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>智能体 plugin 体系（Astra Studio）</th>
+<th>ontology plugin 体系（clife-onto-engine）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>对标 Palantir</strong></td>
+<td>AIP 编排层（Agents/Skills/Tools/Workflows）</td>
+<td>Ontology 本体层（业务语义中枢）</td>
+</tr>
+<tr class="even">
+<td><strong>一个插件长啥样</strong></td>
+<td>一组 Skill（<code>SKILL.md</code>）+ <code>plugin.json</code> manifest</td>
+<td>一域一插件，四文件：<code>__init__.py</code>（五要素）+ <code>mappings/objects.yaml</code> + <code>cq/golden.yaml</code> + <code>plugin.yaml</code></td>
+</tr>
+<tr class="odd">
+<td><strong>规范/红线</strong></td>
+<td>SKILL.md 结构规范、manifest 契约、命令与依赖声明</td>
+<td><strong>只 import <code>clife_onto_engine.sdk</code></strong>、<code>plugin.yaml</code>（plugin/ontology_id/version/engine_compat/provides）、跨域一律 ref/发布不越界</td>
+</tr>
+<tr class="even">
+<td><strong>校验器</strong></td>
+<td><code>studio-quality:validate</code>（结构/合规/技能质量）</td>
+<td><code>py_compile</code> + <code>ontology-validate</code> 四段：<strong>A 结构（零悬空）/ B 治理（citations/source）/ C 剩余 TODO / D 行为 CQ</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>康养项目实证</strong></td>
+<td>8 插件在跑、管线一键串联</td>
+<td>7 域 7/7 py_compile、A 结构 7/7 零悬空、48 条 golden CQ（含 17 rejected）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>【讲述脚本 · 收口】</strong> "看懂这张表你就懂了本讲的题眼：<strong>规范 + 校验器，就是'平台把方法论固化成纪律'的物理形态。</strong> 智能体插件那套规范，保证任何人写的 Skill 都能被编排、被质检；本体插件那套规范——'只 import sdk''四文件''零悬空'——保证任何人建的域都能被引擎装载、被静态校验。<strong>Palantir 用四层架构把这件事做成了一个操作系统；C-Life 用两套 plugin 体系把它做成了你能安装、能校验、能复制的东西。</strong> 这就是为什么 FDE 依赖平台：没有这两套规范，你的'方法论'永远只是你嘴上的叮嘱，落不成别人也能跑的资产。"</p>
+<p><strong>【康养项目证据】</strong></p>
+<ul>
+<li>智能体 plugin：SessionStart '8 active plugin(s)'；studio-* 插件族 + <code>studio-quality:validate</code> 校验。</li>
+<li>ontology plugin：<code>plugin.yaml</code>（plugin: kangyang-agent-core / ontology_id / version 0.1.0 / engine_compat / provides: schema+mappings+cq / generated_by: studio-ontology）；7 域 4 文件、只 import sdk 红线、7/7 py_compile、ontology-validate A/B/C/D 四段。</li>
+</ul>
+<hr />
+<h3 id="要点页-3--三个同日平台省掉的不是打字是一致性维护">要点页 3 · 三个"同日"：平台省掉的不是打字，是一致性维护</h3>
+<p><strong>【讲述脚本】</strong> "平台到底省了什么？不是省你打字，是省你<strong>维护一致性</strong>。我给你们看三个'同日'。</p>
+<p>第一，<strong>7 个域同一天并行编译</strong>。D1 建完，D2–D7 六个域照着 D1 这个范本并行建、机械编译，7 个插件骨架当天成型，统一校验 7/7 通过：py_compile 全过、每域 3 个 YAML 全过、'只 import sdk'红线全过，共 3835 行。</p>
+<p>第二，<strong>7/7 结构校验零悬空引用</strong>。ontology-validate 静态跑 A 结构：7 个本体全部零悬空引用，跨域纪律守住；B source 治理 7/7，0 空 source。你想想手工干这个——7 个域、76 个 Object、75 个 Link 交叉引用，谁引谁、有没有引到一个不存在的对象，人眼查一遍要多久，错几处？</p>
+<p>第三，<strong>3835 行骨架自动生成</strong>。这不是有人手写了 3835 行，是本体 IR 经编译器机械展开的。人手写 3835 行，光是把 76 个对象、54 个 Action 的命名保持一致就够呛，B-5（数据张冠李戴）就是人手维护一致性翻车的活证据——那还只是几个数字。</p>
+<p>结论：<strong>平台的价值密度，集中在'跨对象一致性维护'这件人类最不擅长、最容易疲劳出错的事上。</strong>"</p>
+<p><strong>【板书】</strong></p>
+<pre><code>三个&quot;同日&quot; = 平台省掉的不是打字，是一致性维护
+① 7 域同日并行编译 · 7/7 校验通过（py_compile + YAML + 只import sdk 红线）
+② 7/7 结构校验零悬空引用 · B source 治理 7/7（0 空 source）
+③ 3835 行骨架机械生成（非手写）+ 21 YAML
+人类弱项 = 跨 76 对象/75 链接的一致性维护 → 交给校验器</code></pre>
+<p><strong>【康养项目证据】</strong></p>
+<ul>
+<li>A 结构 7/7 ✅（零悬空引用）· B source 治理 7/7 ✅（0 空 source）· 3835 行 Python，7/7 py_compile ✓，只 import sdk 红线 ✓。</li>
+<li>五要素跨域规模：Object 76 / Link 75 / Function 38 / Rule 47 / Action 54 / HIL 26。</li>
+</ul>
+<hr />
+<h3 id="要点页-4--反例主场平台把纪律固化成校验器b-8--b-9">要点页 4 · 反例主场：平台把纪律固化成校验器（B-8 + B-9）</h3>
+<blockquote>
+<p>本讲反例 B-8（越域写入冲动）+ B-9（SDK 能力想当然）。二者都是"编译期真实发生的冲动/存疑"，说明<strong>即使是训练有素的 FDE，实操中也会想抄近道；靠自觉挡不住，靠校验器和显式挂账才挡得住。</strong></p>
+</blockquote>
+<p><strong>【讲述脚本 — B-8】</strong> "讲个我们自己犯的冲动。编译 7 个域的时候，好几次都想让一个 Action <strong>直接</strong> <code>stage_write</code> 别的域的对象——比如 D1 的智能体链路，一个方案审核通过了，最省事的写法是直接去 D3 把销售订单写了、去 D2 把结算记一笔、去 D4 把画像更新了。一步到位，多爽。</p>
+<p>但这是<strong>越域写入</strong>。DDD 的铁律是：跨域一律 ref / 发布，不能越界写别人家的对象。我们最后的处理是——<strong>跨域发布（→D3 Order / →D2 结算 / →D4 画像）全部写成注释和 ref，不越界 stage_write</strong>；整个 7 域'越域一律 ref/发布，不建越域 Link'。</p>
+<p>注意，挡住这个冲动的不是我'觉悟高'。是 <code>clife-onto-engine</code> 的结构校验器：越域 stage_write 过不了 A 结构校验，会当场报悬空/越界。所以最后 7/7 零悬空引用，不是因为我们 7 次都自觉，是因为<strong>校验器不给我们自觉的机会</strong>。这就是平台把'跨域纪律'固化成校验器的实例。没有这个校验器，7 个域里哪怕有 1 处一时手滑越了界，你后面对账、追责、复现就是一场灾难。"</p>
+<p><strong>【讲述脚本 — B-9】</strong> "再讲一个更微妙的坑：<strong>SDK 能力想当然</strong>。编译期我们要用 <code>PropertySpec.default</code>、要用 <code>Evaluation</code> 这些 SDK 能力，但当时<strong>不确定引擎到底导没导出</strong>这些符号。本机没有引擎仓库，只能 py_compile，验证不了运行时。</p>
+<p>两种态度：一种是'应该支持吧'，直接往前写；另一种是我们最后选的——<strong>不确定就显式挂账</strong>。<code>Evaluation</code> 未导出→7 域统一落到 docstring 里，白纸黑字写明'此处依赖 X，待引擎仓库内确认'。这跟第 3 讲主张 3 是同一条脊椎：<strong>敢说不知道</strong>。'错文号比空缺更有害'，'错用一个没导出的 SDK 符号，比显式挂账更有害'。</p>
+<p>这里的教训对平台的意义是：<strong>平台会告诉你它保证什么（py_compile、只 import sdk），也会暴露它不保证什么（运行时符号导出）。成熟的 FDE 要能读懂平台校验的边界，在校验器覆盖不到的地方，用 docstring 手动补一道'诚实闸'。</strong>"</p>
+<p><strong>【板书】</strong></p>
+<pre><code>B-8 越域写入冲动：想让 Action 直接 stage_write 他域对象（图省事）
+   → 挡它的是【校验器】不是【自觉】：越域 stage_write 过不了 A 结构校验
+   → 结果：跨域全部 ref/发布写注释，7/7 零悬空引用
+B-9 SDK 能力想当然：PropertySpec.default / Evaluation 是否导出，存疑
+   → 不&quot;应该支持吧&quot;往前推 → 7 域统一 docstring 显式挂账
+   → 校验器保证什么(py_compile/只import sdk) vs 不保证什么(运行时导出)</code></pre>
+<p><strong>【康养项目证据】</strong></p>
+<ul>
+<li>B-8：'跨域发布（→D3 Order/→D2 结算/→D4 画像）写为注释，不越界 stage_write'；'越域一律 ref/发布不建越域 Link'；最终 A 结构 7/7 零悬空引用。</li>
+<li>B-9：'Evaluation 未导出→落 docstring'；'PropertySpec.default、Evaluation 是否导出，编译期存疑未确认，7 域统一留 docstring'。</li>
+</ul>
+<hr />
+<h3 id="要点页-5--把纪律固化成校验器一个可迁移的心智模型">要点页 5 · 把纪律固化成校验器：一个可迁移的心智模型</h3>
+<p><strong>【讲述脚本】</strong> "我把前面收成一个你能带走的心智模型。任何一条你反复叮嘱新人的纪律，都要问自己三个问题：<strong>能不能固化？固化成什么？谁来跑？</strong></p>
+<ul>
+<li>'跨域不许越界写' → 能固化 → 固化成 A 结构校验器 → clife-onto-engine 编译期自动跑（B-8）。</li>
+<li>'关键数字锚在单点、不重算' → 能固化 → 固化成 BRIEF 单一真相源 + 装配期一致性检查 → docs/quality 跑（B-5 就是没跑好的反例）。</li>
+<li>'SDK 能力不确定就挂账' → 半固化 → 校验器管不到运行时，只能固化成 docstring 挂账约定 → FDE 人肉跑（B-9）。</li>
+</ul>
+<p>看出来了吗：<strong>纪律的固化程度，决定了它需要多少人力持续维护</strong>。全固化的（越域校验），零人力、永不疲劳；半固化的（citations 挂账、SDK 挂账），需要 FDE 走一道人肉闸。你评估一个平台成不成熟，就看它把你多少条纪律固化进了校验器。<strong>Astra Studio 之所以能让 1 个人干 5 个人的活，是因为它把资深 FDE 脑子里那批一致性纪律，绝大部分搬进了编译期和装配期的校验器。</strong></p>
+<p>所以回到那句难听话：平台不是让你更快地打字，是让你<strong>不必再靠意志力维持纪律</strong>。你一个人靠意志力能守 3 天纪律，守不了 3 个月、守不了 7 个域同时。这就是为什么没有平台，你复制的只有加班。"</p>
+<p><strong>【板书】</strong></p>
+<pre><code>固化三问：能不能固化？固化成什么？谁来跑？
+全固化  → 校验器  → 零人力（越域校验 B-8、结构 7/7）
+半固化  → 挂账约定 → FDE 人肉走一道（citations 30→已挂国标余11、SDK B-9）
+未固化  → 全靠自觉 → 请假即崩（这是&quot;更累的架构师&quot;的默认状态）
+平台成熟度 = 你多少条纪律进了校验器</code></pre>
+<p><strong>【康养项目证据】</strong></p>
+<ul>
+<li>全固化：A 结构 7/7 零悬空、只 import sdk 红线 7/7、py_compile 7/7。</li>
+<li>半固化挂账：citations 由"30 待补"→"已挂 18 处国标/法规，余 11 处 scoped 占位"；SDK 存疑统一 docstring（B-9）。</li>
+</ul>
+<hr />
+<h2 id="四现场演练导入过渡话术约-2">四、现场演练导入（过渡话术，约 2′）</h2>
+<p><strong>【讲述脚本】</strong> "讲了一路'平台省了多少'，现在反过来问你们一个残忍的问题：<strong>如果没有平台，你自己手工重做康养项目这 7 个域的一致性校验，要多久？会错几处？</strong> 别拍脑袋说'挺快的'。我给你们一份真实的 7 域规模清单，你们分组去推演工时和错误率，最后我们把这个数字和平台的'当天 7/7 通过'摆一起看。这个演练不是让你崇拜平台，是让你<strong>量化</strong>平台替你承担的那部分风险——因为将来你要向客户和自己的老板解释：为什么这个平台值得投入。翻到工作坊。"</p>
+<hr />
+<h2 id="五复盘研讨183-题--收口">五、复盘研讨（18′，3 题 + 收口）</h2>
+<p><strong>研讨题 1（约 5′）</strong>：你手上正在做的项目里，有哪一条纪律现在是"全靠你自觉守"的？它属于固化三问里的哪一档？能不能把它往"校验器"方向推一格？</p>
+<blockquote>
+<p>收口导向：逼学员把抽象的"我很小心"翻译成"我应该固化成什么"。</p>
+</blockquote>
+<p><strong>研讨题 2（约 5′）</strong>：B-8 里挡住越域写入的是校验器不是自觉。如果你所在项目的平台<strong>没有</strong>这道校验器，你会用什么低成本手段替代？（提示：code review 清单、命名约定、pre-commit 钩子——都是"半固化"）</p>
+<blockquote>
+<p>收口导向：让学员理解"没有成熟平台"不等于"没救"，而是"你要自己搭半固化的替代闸，成本记在你头上"。</p>
+</blockquote>
+<p><strong>研讨题 3（约 8′）</strong>：假设老板问你"我们为什么不直接让工程师用 ChatGPT 手撸，非要上 Astra Studio？"用今天的三个"同日"和固化三问，给一个 90 秒的回答。</p>
+<blockquote>
+<p>收口导向：这是本讲的实战出口——FDE 必须能为平台投资做商业辩护。</p>
+</blockquote>
+<p><strong>【讲师收口话术】</strong> "今天就一句话：<strong>平台是方法论的固化物，它把纪律从你的意志力里搬进校验器里。</strong> 你现在觉得自己不需要平台，是因为你还没同时扛过 7 个域。等你扛过，你会怀念那个当天报给你 7/7 的校验器。记住——<strong>没有平台，你复制不了康养项目，你只能复制加班。</strong>"</p>
+<hr />
+<h2 id="六本讲难听话--反例小结">六、本讲难听话 + 反例小结</h2>
+<p><strong>难听话</strong>：</p>
+<blockquote>
+<p><strong>"你以为康养项目是靠某个人手快？不。手快的人扛 7 个域，第 3 个域就开始出悬空引用了。你复制不了康养项目的手快，只能复制他的加班。"</strong></p>
+</blockquote>
+<p><strong>反例小结</strong>：</p>
+<ul>
+<li><strong>B-8 越域写入冲动</strong>：编译期多次想让 Action 直接 <code>stage_write</code> 他域对象图省事 → 靠 A 结构校验器（而非自觉）挡住 → 跨域全部 ref/发布，7/7 零悬空引用。<strong>原则：结构纪律靠校验器而非自觉。</strong></li>
+<li><strong>B-9 SDK 能力想当然</strong>：<code>PropertySpec.default</code>/<code>Evaluation</code> 是否导出编译期存疑 → 不"应该支持吧"往前推，7 域统一 docstring 显式挂账。<strong>原则：不确定就显式挂账，校验器保证什么/不保证什么都要读懂。</strong></li>
+</ul>
+<hr />
+<h2 id="七与其他讲的钩子">七、与其他讲的钩子</h2>
+<ul>
+<li><strong>← 第 3 讲（OPC 边界 / C7）</strong>：B-9 的"敢说不知道"与第 3 讲主张 3、"错文号比空缺更有害"同脊椎；平台能固化 C1–C6，固化不了 C7。</li>
+<li><strong>← 第 4 讲（知识栈）</strong>：本讲的"结构校验"落在 C2（DDD + OAG）；B-5（数据张冠李戴）在第 4 讲讲过，本讲作为"未固化一致性纪律翻车"的引证复用。</li>
+<li><strong>→ 第 6 讲（全流程复盘 / HIL）</strong>：本讲讲"平台固化结构纪律"，第 6 讲讲"HIL 固化风险纪律"——闸门也是一种固化，是把"这步必须人拍板"固化成 <code>human_gate=true</code>。</li>
+<li><strong>→ 第 7 讲（工具体系咬合）</strong>：本讲讲平台的"固化"一面（纪律→校验器），第 7 讲讲同一张 fig-5-1 的"咬合"一面（数据如何在 planner→insight→docs→quality 间流转）。<strong>两讲共用 fig-5-1-平台分层。</strong></li>
+<li><strong>→ 第 8 讲（什么样的人）</strong>：本讲难听话"手快扛不住 7 个域"是第 8 讲"架构师≠FDE"的前置论据。</li>
+</ul>
+</div>
+</body>
+</html>

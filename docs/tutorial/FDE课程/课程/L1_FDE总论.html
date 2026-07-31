@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第一课 · FDE：是什么，为什么，怎么工作</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第一课 · FDE：是什么，为什么，怎么工作</h1>
+</header>
+<h1 id="第一课-fde是什么为什么怎么工作">第一课 · FDE：是什么，为什么，怎么工作</h1>
+<blockquote>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 180 分钟 · 本课无实操 配套课件：<code>slides/L1_FDE总论.html</code>（讲师投屏）</p>
+</blockquote>
+<hr />
+<h2 id="读这本手册之前">读这本手册之前</h2>
+<p>这是发到你手上的<strong>八本手册中的第一本</strong>。八本合起来，就是这门课的全部。</p>
+<p><strong>这一本和后面七本不一样</strong>：后面每一课你都要动手，在自己组的命题上真跑工具、产物落盘；<strong>这一课你只需要听和想</strong>。</p>
+<p>为什么第一课不动手？因为一件事：</p>
+<blockquote>
+<p><strong>如果你不知道自己在练什么，练得再熟也只是学会了几条命令。</strong></p>
+</blockquote>
+<p>这一课给你一张地图。后面每一课开场，讲师都会回到这张地图上指一下“我们现在在这里”。</p>
+<p><strong>读完这一课，你应该能做到</strong>：</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+说得出交付断层的三条根因，并且知道它<strong>不是态度问题</strong></li>
+<li><input type="checkbox" disabled="" />
+举得出至少两件<strong>必须由人扛、智能体接不了</strong>的事，并说出判据</li>
+<li><input type="checkbox" disabled="" />
+复述认知杠杆的三因子公式，并且知道<strong>唯一能花钱买到的是哪一个</strong></li>
+<li><input type="checkbox" disabled="" />
+复述三档来源纪律，并且知道为什么“未获证实”必须说出口</li>
+<li><input type="checkbox" disabled="" />
+说得出自己现在大概在哪个能力等级、差在哪一维</li>
+<li><input type="checkbox" disabled="" />
+<strong>复述 SOP 七阶段，并说出每个阶段对应后面第几课</strong> ← 本课唯一的硬指标</li>
+</ul>
+<p>最后一条是硬指标。前面五条答不上来你损失的是理解，最后一条答不上来你会在第三课就迷路。</p>
+<hr />
+<h2 id="一交付断层东西掉在接缝上">一、交付断层：东西掉在接缝上</h2>
+<h3 id="先问你自己一个问题">先问你自己一个问题</h3>
+<p><strong>你上一个项目，客户最后拿到手的东西，和他当初嘴里说的那个东西，是同一个东西吗？</strong></p>
+<p>大概率不是。中间掉了很多。</p>
+<p>掉在哪儿了？<strong>不是掉在某个人不认真，是掉在接缝上。</strong></p>
+<p>需求的人把话交给设计的人，设计的人把图交给开发的人，开发的人把包交给交付的人——每交一次手，都有一部分<strong>只在上一个人脑子里、没写进文档</strong>的东西，永久丢失。</p>
+<p>这个丢失点，我们叫它<strong>交付断层</strong>。</p>
+<blockquote>
+<p><strong>客户要的是结果，组织给的是工序。</strong> 客户要的是“我的老人能被照顾好”；组织给的是需求→设计→开发→测试→交付这一串工序。</p>
+</blockquote>
+<p>断层不是 bug，是工序制的<strong>结构性产物</strong>。只要你把一件事切成四段交给四拨人，断层就一定存在，<strong>跟态度无关</strong>。</p>
+<h3 id="为什么文档写细一点补不上">为什么“文档写细一点”补不上</h3>
+<p>这是学员第一反应最常提的方案，也是最先要打消的。三条根因，每一条都堵死了这条路：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>根因</th>
+<th>具体表现</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>①</td>
+<td><strong>意图无法完全文档化</strong></td>
+<td>客户说“我要一个能帮站长管好老人的系统”，这句话背后有 <strong>102 件</strong>他没说出口的具体业务事件。你写需求文档时凭经验补了 60 件，剩下 42 件你没意识到，下游更不可能知道</td>
+</tr>
+<tr class="even">
+<td>②</td>
+<td><strong>每道工序都会做本位优化</strong></td>
+<td>开发拿到设计图，会为了“好实现”悄悄改口径；设计拿到需求，会为了“好画”裁掉边角。每次优化都是<strong>局部最优，叠起来就偏离了客户那个“结果”</strong></td>
+</tr>
+<tr class="odd">
+<td>③</td>
+<td><strong>返工的账没人认</strong></td>
+<td>断层导致的返工发生在下游，根子在上游的接缝。组织里没有一个人为整条链的保真度负责——因为<strong>没有一个人看得见整条链</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fde-消除断层的机制只有一句话">FDE 消除断层的机制，只有一句话</h3>
+<blockquote>
+<p><strong>把需要跨四个人接力的判断链，压进一个人的头脑里连续走完。</strong></p>
+</blockquote>
+<p>需求他做、建模他做、方案他做、交付物他做——<strong>不是他很能干什么都会，而是这条链本来就不该切开</strong>。切开的每一刀，都是为了适配“组织按工种分人”这件事，而不是为了把活干好。</p>
+<p>康养项目那条链长这样：</p>
+<pre><code>102 事件 → 16 簇 → 7 画像 → 7 旅程 → 5 流程 → 10 热点 → 7 域 D1–D7</code></pre>
+<p><strong>每一步都是判断，不是搬运。</strong> 换个人接手第二步，他不知道第一步为什么这么归类，只能重新判断——断层就是这么产生的。</p>
+<p>那智能体是什么角色？</p>
+<blockquote>
+<p><strong>智能体是这一个人的手脚，不是接力赛里的另一棒。</strong></p>
+</blockquote>
+<p>他用智能体把 102 个事件快速铺开、把 7 个域并行编译、把 35 节报告并行起草——<strong>但判断始终在他一个人这里</strong>。</p>
+<h3 id="一个必须现在就掐掉的误读贯通-求全">⚠️ 一个必须现在就掐掉的误读：贯通 ≠ 求全</h3>
+<p>“一个人贯通全链”<strong>不等于</strong>“一个人把每件事都做到最全”。</p>
+<p><strong>求全，本身就是断层的另一种表现</strong>——它是“你没搞清客户真正要的结果”导致的过度建模。</p>
+<blockquote>
+<p><strong>【真实反例 B-7 · 旅程建模过重】</strong> 康养项目长者旅程初版做的是<strong>“夜间急救”</strong>。场景很戏剧、很打动人——但<strong>过重且偏离营收主线</strong>，最后返工改成会员飞轮。</p>
+<p><strong>教训</strong>：建模要服务于业务优先级，不是求全。<strong>返工成本要记在方法论账上</strong>，不是记在“那次运气不好”账上。</p>
+</blockquote>
+<hr />
+<h2 id="二fde-一人公司opc但边界比能力半径更重要">二、FDE = 一人公司（OPC），但边界比能力半径更重要</h2>
+<h3 id="术语先锁死">术语先锁死</h3>
+<p>我们说 <strong>OPC（One-Person Company，一人公司）</strong>，<strong>不说“超级个体”，也不说“全能工程师”</strong>。</p>
+<p>因为后两个词把重点放在“这个人多牛”，而 OPC 的重点是——<strong>这个交付单元的边界在哪、谁负责</strong>。</p>
+<p>康养项目已经证明了“一人公司成立”这件事。所以这一课<strong>不花时间证明它成立，花时间讲它的边界</strong>。</p>
+<h3 id="可替侧智能体到底替你放大了什么">可替侧：智能体到底替你放大了什么</h3>
+<p>三类活可以交给智能体大幅加速。记住是<strong>加速</strong>，不是<strong>替代判断</strong>——模型替你做完，不替你做主。</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>可交给智能体（对应 <strong>C1–C6</strong>）</th>
+<th>具体例子</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>认知萃取的加速</strong></td>
+<td>判断在你脑子里，但落成结构化文本、补齐要素、交叉对齐，智能体比你快十倍。102 事件压成 16 簇，人来判断归类，模型来跑那一遍遍的整理</td>
+</tr>
+<tr class="even">
+<td><strong>建模骨架的生成</strong></td>
+<td>7 个域的五要素（Object 76 / Link 75 / Function 38 / Rule 47 / Action 54），一个字一个字敲，一个人敲不完。管线把骨架生成出来，<strong>7/7 py_compile 通过、3835 行 Python + 21 个 YAML</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>并行写作</strong></td>
+<td>11 万字可研，顺序写要写到天荒地老。锚定一份口径文件，拉起 <strong>35 节并行</strong>、装配、质检</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这三类活的共同点</strong>：判断标准清晰、<strong>错了可回退</strong>、不牵扯对外承诺。</p>
+<p>记住这个共同点——因为下面讲的“必须人扛侧”，<strong>恰好三条全反过来</strong>。</p>
+<h3 id="必须人扛侧c7-四项智能体结构上接不了">必须人扛侧：C7 四项，智能体结构上接不了</h3>
+<p>不是“现在接不好、以后会好”，是<strong>结构上接不了</strong>。</p>
+<table>
+<thead>
+<tr class="header">
+<th>C7 四项</th>
+<th>为什么接不了</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>客户关系</strong></td>
+<td>谁在会上不说话但会否决</td>
+</tr>
+<tr class="even">
+<td><strong>责任承担</strong></td>
+<td>这个数字错了谁签字</td>
+</tr>
+<tr class="odd">
+<td><strong>价值判断</strong></td>
+<td>这个季度先啃哪块硬骨头</td>
+</tr>
+<tr class="even">
+<td><strong>政治敏感度</strong></td>
+<td>说“替代”还是说“赋能优化”</td>
+</tr>
+</tbody>
+</table>
+<p>下面三个例子来自康养项目，一个对应一项。看完你就懂“接不了”是什么意思。</p>
+<h4 id="例一-客户关系-政治敏感度-11-处文号查不到也不能编">例一 · 客户关系 &amp; 政治敏感度 → 11 处文号，查不到也不能编</h4>
+<p>康养项目可研里有 11 处要挂本地依据：<strong>7 处本地文号</strong>（本地 DIP 细则、助餐补贴办法这类，标 <code>[本地待补文号]</code>）+ <strong>4 处企业 SOP 编号</strong>（标 <code>[企业标准,FDE 补编号]</code>）。</p>
+<p>这些东西<strong>公开渠道查不到</strong>——不在国务院令里，不在 GB 里，<strong>只在某市医保局、民政局、政数局某个科室的文件柜里</strong>。</p>
+<p>智能体面对这种情况只有两个选择：<strong>编一个像模像样的文号</strong>（灾难），或者<strong>留空</strong>。</p>
+<p>我们留空。转成一份逐项取件清单，让人拿着去机关一个一个要。</p>
+<blockquote>
+<p><strong>这一步是纯人的活：你得认识那个人、进得了那个门、说得上话。</strong> 智能体没有身份、没有关系、<strong>进不了门</strong>。</p>
+<p>内部原话：<strong>“错文号比空缺更有害。”</strong></p>
+</blockquote>
+<h4 id="例二-价值判断-站长-hil-的-0.75-阈值谁来拍">例二 · 价值判断 → 站长 HIL 的 0.75 阈值，谁来拍</h4>
+<p>康养项目设了 <strong>26 个 HIL（人在环）闸门</strong>，其中站长 HIL（增收闸）挂了一个<strong>置信度闸，阈值占位 0.75，待定</strong>。</p>
+<p>这个 0.75 是什么？是“智能体对一个增收动作有多少把握时，才允许它直接推给站长执行；多少把握以下必须人复核”。</p>
+<p>定 0.7 还是 0.8，差一点，就是“橡皮图章”和“闸门形同虚设”的区别，背后是真金白银和信任。</p>
+<blockquote>
+<p><strong>没有任何模型能替你定这个数</strong>——它不是算出来的，是<strong>权衡</strong>出来的： 你要权衡站长被打扰的频率、错误增收的代价、系统被信任的速度。</p>
+<p>模型能给你分布、给你历史误差，<strong>但那个阈值是人对“我愿意为速度冒多大错误风险”的表态。</strong></p>
+</blockquote>
+<h4 id="例三-责任承担-脱敏纪律与表述红线">例三 · 责任承担 → 脱敏纪律与表述红线</h4>
+<p>康养项目对外一律写<strong>“赋能优化”而不是“替代”</strong>——因为“AI 替代人”这个表述在 To-G 场景里是<strong>政治事故</strong>。</p>
+<p>这条红线智能体不会主动守，它会顺着你的 prompt 把话说满。</p>
+<p>守红线的是人，因为<strong>承担说错话后果的是人</strong>。一人公司里，对客户承诺、对政府表态、对合规兜底，<strong>署名的是你，不是模型</strong>。</p>
+<p><strong>责任不可外包给一个不承担后果的东西。</strong></p>
+<h3 id="边界判据三问这个比记清单管用">⭐ 边界判据三问（这个比记清单管用）</h3>
+<p>有人会说：文号将来能爬到、阈值将来能自动调、红线将来能写进 system prompt——<strong>边界会不会移动？</strong></p>
+<p>会移动。但移动的是<strong>可替侧的宽度</strong>，不是<strong>必须人扛侧的存在</strong>。</p>
+<p>拿任何一件活来问这三个问题：</p>
+<ol type="1">
+<li><strong>这件事需要一个身份才能做吗？</strong></li>
+<li><strong>这件事需要一个立场才能拍吗？</strong></li>
+<li><strong>这件事做错了谁签字？</strong></li>
+</ol>
+<p><strong>只要有一个答案指向“人”，这活就在必须人扛侧。</strong></p>
+<p>对照一下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>活</th>
+<th>需要身份？</th>
+<th>需要立场？</th>
+<th>谁签字？</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>11 处文号取件</td>
+<td>✅ 要能进机关门</td>
+<td>—</td>
+<td>—</td>
+<td><strong>人扛侧</strong></td>
+</tr>
+<tr class="even">
+<td>0.75 阈值</td>
+<td>—</td>
+<td>✅ 愿为速度担多大错</td>
+<td>—</td>
+<td><strong>人扛侧</strong></td>
+</tr>
+<tr class="odd">
+<td>脱敏红线</td>
+<td>—</td>
+<td>—</td>
+<td>✅ FDE 签字</td>
+<td><strong>人扛侧</strong></td>
+</tr>
+<tr class="even">
+<td>102 事件整理</td>
+<td>❌</td>
+<td>❌</td>
+<td>错了能回退重跑</td>
+<td>可替侧</td>
+</tr>
+<tr class="odd">
+<td>7 域骨架生成</td>
+<td>❌</td>
+<td>❌</td>
+<td>错了能回退重跑</td>
+<td>可替侧</td>
+</tr>
+<tr class="even">
+<td>35 节并行写作</td>
+<td>❌</td>
+<td>❌</td>
+<td>错了能回退重跑</td>
+<td>可替侧</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>C1–C6 可训练，C7 只能筛选。</strong> 这句话第八课会再回收一次。 一人公司不是让你逞能，是让你<strong>清楚地知道自己什么时候必须叫人</strong>。</p>
+<p>一个只会往前冲、不知道边界的 FDE，<strong>比一个慢一点但知道边界的 FDE 危险得多</strong>——因为前者会在 11 处文号那里编一个出来，会在 0.75 那里随手填个数，会把“替代”写进 To-G 方案。</p>
+</blockquote>
+<hr />
+<h2 id="三认知杠杆从人月堆叠到杠杆">三、认知杠杆：从人月堆叠到杠杆</h2>
+<h3 id="一次真实的实证">一次真实的实证</h3>
+<p>同一条交付链——从需求调研到 7 域本体建模、到 3835 行插件骨架、到 100+ 页对客可研：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>传统模式</th>
+<th>本次</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>人力</strong></td>
+<td>产品经理 + 架构师 + 行业顾问 + 方案经理 + 美工 = <strong>5+ 人 / 数周</strong></td>
+<td><strong>1 名 FDE + 智能体编队</strong></td>
+</tr>
+<tr class="even">
+<td><strong>接缝</strong></td>
+<td>至少 4 道，每道都在漏</td>
+<td><strong>0</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>产出</strong></td>
+<td>—</td>
+<td>7 域本体（3835 行可运行骨架）+ 11 章 / 约 11 万字 / 26 图可研 + 2 份附录</td>
+</tr>
+</tbody>
+</table>
+<p>这不是“省了 4 个人”这么简单。是<strong>交付的组织形态变了</strong>——从“按工种分人、靠流程串起来”，变成“按认知链分给一个人、靠智能体扩手脚”。</p>
+<h3 id="交付物的形态也变了">交付物的形态也变了</h3>
+<p>很多人以为 AI 只是让你“写得快”，交付物还是老三样。<strong>错。</strong> 康养项目的交付物是传统模式<strong>根本产不出</strong>的：</p>
+<p><strong>① 方案与代码同源</strong> 传统模式里，可研报告是方案经理写的 Word，跟真正的系统是两张皮。康养项目不是——11 章可研背后是 <strong>3835 行可运行的 Python 插件骨架 + 21 个 YAML，7/7 py_compile 通过</strong>。方案里写的每个域，都有能编译的结构撑着。 <strong>方案不再是“说说而已”，是“已经建好了骨架的说明书”。</strong></p>
+<p><strong>② 结构可校验</strong> A 结构校验 <strong>7/7 零悬空引用</strong>，B source 治理 <strong>7/7 零空 source</strong>。 传统方案没有“校验”这个概念——<strong>你怎么校验一份 Word 的内部一致性？</strong></p>
+<p><strong>③ 规模与深度同时在线</strong> 14 类知识库 / 8 个知识图谱 / 约 <strong>350 万三元组</strong>。这个体量，传统 5 人团队数周产不出，产出来也无法保证内部一致。</p>
+<h3 id="节奏从串行改成了并行">节奏从串行改成了并行</h3>
+<p>传统模式是<strong>串行接力</strong>，总时长是各段之和。FDE 模式是<strong>并行铺开</strong>：</p>
+<ul>
+<li><strong>35 个分节并行写作</strong>，不是一节一节写</li>
+<li>制图 26 张与写作<strong>同步跑</strong></li>
+<li>7 个域<strong>同一天并行编译</strong></li>
+</ul>
+<p><strong>这不是把串行加速，是把串行改成了并行</strong>——质的差别。</p>
+<p>但并行有致命风险：<strong>各写各的，口径会散</strong>。所以质量控制方式也变了：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>传统</th>
+<th>FDE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>抓错时机</td>
+<td>评审会<strong>事后</strong>抓</td>
+<td>锚定口径 + 结构校验<strong>事前</strong>防</td>
+</tr>
+<tr class="even">
+<td>机制</td>
+<td>靠人细心</td>
+<td>一份 <code>_WRITING_BRIEF.md</code> 当<strong>唯一真相源</strong>，35 节全部引用不重算，校验器兜底</td>
+</tr>
+</tbody>
+</table>
+<p>诚实说一句：<strong>并行不是没代价的</strong>。散了口径就要收口。第六课会讲到康养项目栽过的跟头——图目计数漂移、章节编号冲突——<strong>那都是并行的账</strong>。但账是可控的，靠的是纪律，不是靠不并行。</p>
+<h3 id="杠杆到底来自哪里这一页钉不进去前面白读">⭐ 杠杆到底来自哪里（这一页钉不进去，前面白读）</h3>
+<pre><code>产出 = 结构化能力 × 平台固化 × 模型算力</code></pre>
+<p>三个因子缺一不可，顺序不能反：</p>
+<table>
+<thead>
+<tr class="header">
+<th>因子</th>
+<th>谁提供</th>
+<th>缺了会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>结构化能力</strong></td>
+<td><strong>人</strong>（把模糊意图压成可执行结构）</td>
+<td>模型再强，也只是把你的模糊<strong>放大成一百页的模糊</strong></td>
+</tr>
+<tr class="even">
+<td><strong>平台固化</strong></td>
+<td>Astra Studio 等工具链</td>
+<td>每个项目从零起，方法留在个人脑子里</td>
+</tr>
+<tr class="odd">
+<td>模型算力</td>
+<td>大模型</td>
+<td>——</td>
+</tr>
+</tbody>
+</table>
+<p>康养项目最难的一步，是把 102 个乱糟糟的业务事件收敛成 16 簇、压成 7 个域。这一步<strong>没有任何模型能替你做判断</strong>——模型可以帮你列出 102 件事、可以写候选归类，但“该归成 16 簇还是 20 簇、这个域的边界划在哪”，是 FDE 的结构化判断。</p>
+<p><strong>模型只能加速你做完，不能替你做对。</strong></p>
+<blockquote>
+<p><strong>难听话</strong>： <strong>三个因子里，唯一可以花钱买到的是模型算力，而多数人以为它是全部。</strong></p>
+</blockquote>
+<h3 id="vibe-coding-的真相">🎯 Vibe Coding 的真相</h3>
+<p>有人用 AI 辅助，<strong>3 小时</strong>手搓了一个本体引擎原型。他复盘“这 3 小时里 AI 到底干了多少活”，得出一张清单：</p>
+<table>
+<thead>
+<tr class="header">
+<th>AI 能干的</th>
+<th>AI 不能干的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>给了明确规格后，把伪代码变 Python</td>
+<td>规则写入前还是后执行？</td>
+</tr>
+<tr class="even">
+<td>处理文件读写、生成测试、格式化输出</td>
+<td>日志存快照还是只存改变？</td>
+</tr>
+<tr class="odd">
+<td><strong>10 分钟搞定</strong></td>
+<td>Schema 用 YAML 还是 Python？</td>
+</tr>
+<tr class="even">
+<td><strong>共同特征：给明确规格，快速生成代码</strong></td>
+<td>多规则违反时短路还是收集？</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><strong>共同特征：工程判断，不是编码问题</strong></td>
+</tr>
+</tbody>
+</table>
+<p>一句话结论，请记死：</p>
+<blockquote>
+<p><strong>AI 能把“想清楚的事”快速变成代码，但不能代替“想清楚”这件事本身。</strong></p>
+</blockquote>
+<p>“想清楚”指的是：数据规模 vs 决策治理、规则 vs 前置条件、可追溯性要什么、业务人员要审查什么、边界条件怎么处理——<strong>这些判断全部发生在写代码之前</strong>。</p>
+<p>所以认知杠杆的真相是：<strong>AI 把“实现”变便宜了，但没把“判断”变容易。</strong></p>
+<p>没有蓝图的 Vibe Coding 会失控——<strong>它会很流畅地生成一堆自洽的、错的东西。一处改动带出三处 bug。你省下的思考，最后都要用返工还回来。</strong></p>
+<blockquote>
+<p><strong>平台越来越便宜，本体模型越来越值钱。会建模型的人，不会被替代，而是被放大。</strong></p>
+</blockquote>
+<hr />
+<h2 id="四别人家怎么落地-fde">四、别人家怎么落地 FDE</h2>
+<h3 id="这一节真正要教的不是八卦是来源标注">⭐ 这一节真正要教的不是八卦，是来源标注</h3>
+<blockquote>
+<p><strong>当你要把外部实践当作论据时，你标注来源的严谨程度，等于你专业的可信程度。</strong></p>
+</blockquote>
+<p><strong>三档来源纪律</strong>（写方案时也一样，必须写出档位，不许藏进脚注）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>档位</th>
+<th>定义</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>【官方明确】</strong></td>
+<td>公司自己的博客 / 招聘页写的</td>
+<td>Palantir 官博对 FDSE 的定义</td>
+</tr>
+<tr class="even">
+<td><strong>【二手报道】</strong></td>
+<td>分析机构 / 媒体转述</td>
+<td>“DS owns why/what, FDE owns how”</td>
+</tr>
+<tr class="odd">
+<td><strong>【未获证实】</strong></td>
+<td>检索不到一手出处，或多方口径打架</td>
+<td>OpenAI FDE 薪酬区间</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这和康养项目“11 处文号查不到就留占位”是<strong>同一条纪律</strong>（反例 B-10）。 区别只是取证对象从医保局的文号，换成了 Palantir 的招聘页。<strong>原则一模一样。</strong></p>
+</blockquote>
+<h3 id="palantirfde-的原产地">Palantir：FDE 的原产地</h3>
+<p>FDE 不是 2026 年才火的新概念，它出生在 Palantir——一家长期给政府和大企业做保密数据整合分析的公司。</p>
+<p>Palantir 的解法很反常识：<strong>不把产品打包卖出去让客户自己用，而是把工程师直接派到客户现场长期驻场</strong>。</p>
+<p><strong>【官方明确】</strong>（Palantir 官方博客《A Day in the Life of a Palantir Forward Deployed Software Engineer》）：</p>
+<blockquote>
+<p>“A Forward Deployed Software Engineer (FDSE), or ‘Delta,’ is a software engineer who embeds directly with our customers…”</p>
+</blockquote>
+<p>最关键的一句，<strong>【官方明确】</strong>（同上）：</p>
+<blockquote>
+<p>普通研发（“Dev”）focuses on creating a single capability that can be used for many customers； FDSE focuses on enabling <strong>many capabilities for a single customer</strong>。</p>
+</blockquote>
+<p><strong>翻译成大白话</strong>：普通研发是“一个能力卖给很多客户”，FDE 是“很多能力喂给一个客户”。</p>
+<p><strong>这句话是 FDE 和产品经理的分水岭。</strong></p>
+<h3 id="delta-echo最值得抄的不是岗位是配对设计">Delta × Echo：最值得抄的不是岗位，是配对设计</h3>
+<p>Palantir 不让 FDE 单打独斗，给他配了个搭子：<strong>Deployment Strategist（部署策略师），内部代号 Echo</strong>。</p>
+<p><strong>【官方明确】</strong>（Palantir 官方博客《A Day in the Life of a Palantir Deployment Strategist》）：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>角色</th>
+<th>负责</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Delta</strong>（FDE）</td>
+<td>技术上的 <strong>construction power（建造力）</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Echo</strong>（DS）</td>
+<td><strong>what should be built</strong>（该建什么）· <strong>why it is important</strong>（为什么重要）· <strong>to whom and how it should be delivered</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>【二手报道】</strong>（招聘平台 Paraform 博客）的精炼总结：</p>
+<blockquote>
+<p>“The deployment strategist owns the ‘why’ and ‘what,’ while the forward-deployed engineer owns the ‘how.’”</p>
+</blockquote>
+<p>⚠️ 这句标二手，因为<strong>不是 Palantir 官网原话，是招聘中介的提炼</strong>——和官方口径一致，可以用，但<strong>要说清楚它是二手</strong>。</p>
+<p>⚠️ 另外：Palantir 招聘页同时挂着 “Forward Deployed Software Engineer” 和 “Forward Deployed AI Engineer” 两类岗位——<strong>【官方明确：岗位存在】</strong>。但两者职责的细粒度差别，<strong>检索时页面对自动抓取返回 403，未能取到正文全文</strong>，所以<strong>具体差异标：未获证实</strong>。</p>
+<blockquote>
+<p><strong>这里故意不脑补。这就是示范。</strong></p>
+</blockquote>
+<h3 id="我们自己对-palantir-的一手对照">我们自己对 Palantir 的一手对照</h3>
+<p>上面是<strong>外部事实</strong>。下面这张表换个来源——<strong>我们自己方法论文集里的一手观点</strong>（<code>clife-onto-engine · methodology 06</code>）。这不是检索来的，是我们自己写的，所以不标“未获证实”，标它是<strong>我们的立场</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>Palantir FDE</th>
+<th>新型 FDE（这门课要的）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>依赖的平台</td>
+<td>Foundry（<strong>需采购</strong>）</td>
+<td>基本工具链 + 其余靠辅助编程完成</td>
+</tr>
+<tr class="even">
+<td>核心技能</td>
+<td>深度理解 Foundry + 领域建模</td>
+<td><strong>第一性原理建模 + AI 执行力 + 业务领域知识</strong></td>
+</tr>
+<tr class="odd">
+<td>交付速度</td>
+<td>受平台部署周期限制</td>
+<td><strong>第一天对话，第二天出 Demo</strong></td>
+</tr>
+<tr class="even">
+<td>适用战场</td>
+<td>已采购 Foundry 的客户</td>
+<td>探索 / 概念验证 / 新项目落地</td>
+</tr>
+<tr class="odd">
+<td>瓶颈</td>
+<td>平台能力边界</td>
+<td>数据治理、组织推动的时间</td>
+</tr>
+</tbody>
+</table>
+<p>三个判断直接进这门课：</p>
+<ol type="1">
+<li><strong>新型 FDE = 领域建模 + 判断力 + AI 执行力</strong></li>
+<li><strong>“本体不是 Palantir 的专利，它是一种工程方法论”</strong>——所以我们不必买 Foundry，也能做 Palantir 做的事（第五课的 clife-onto-engine）</li>
+<li><strong>战场边界</strong>：探索/验证/新项目落地 ✅ 不可替代；规模化/组织推动/运维 ❌ 瓶颈在人不在工具——<strong>这就是 C7 和能力半径</strong></li>
+</ol>
+<h3 id="前沿实验室openai-anthropic">前沿实验室：OpenAI / Anthropic</h3>
+<p>大模型来了以后，OpenAI 和 Anthropic 遇到了和 Palantir 一样的问题：<strong>模型放在 API 里客户用不起来，得有人把它落进客户的真实业务</strong>。</p>
+<p><strong>OpenAI</strong>——<strong>【官方明确：岗位存在】</strong> 招聘页设 “Forward Deployed Engineer (FDE)”，有 SF、NYC、Tokyo、Gov 等多个坑。职责概括：把前沿模型 “from a demo into a live, working production system”，own 从 discovery、scoping、system design、build 到 production rollout 全过程。 ⚠️ 检索时官网正文对自动抓取返回 403，这段职责措辞来自搜索引擎索引 + 二手转述，所以标<strong>【官方明确岗位存在 + 二手转述职责】</strong>。 ⚠️ 网传总包 35–55 万美元、资深超 60 万——<strong>标【未获证实】</strong>。唯一给出数字的来源自己写明 “compiled from Levels.fyi and industry comp reports”，<strong>不是官方薪资表</strong>。</p>
+<p><strong>Anthropic</strong>——团队叫 <strong>Applied AI</strong>，岗位全称 “Forward Deployed Engineer, Applied AI”。<strong>【官方明确】</strong> 职责原话：</p>
+<ul>
+<li>Work within customer systems to build production applications with Claude models</li>
+<li>Deliver technical artifacts like <strong>MCP servers, sub-agents, and agent skills</strong></li>
+<li>Provide white glove deployment support in enterprise environments</li>
+<li><strong>Identify and codify repeatable deployment patterns</strong> and contribute insights back</li>
+<li>Travel frequently (25–50%) to customer sites</li>
+</ul>
+<h4 id="一个教科书级的口径打架案例">⭐ 一个教科书级的口径打架案例</h4>
+<p>同一个岗位，两个数字：</p>
+<table>
+<thead>
+<tr class="header">
+<th>数字</th>
+<th>出处</th>
+<th>口径</th>
+<th>正确标注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>$200,000–$300,000</strong></td>
+<td>招聘板转发的官方 JD</td>
+<td><strong>base</strong></td>
+<td>【官方明确（经招聘板转发）】</td>
+</tr>
+<tr class="even">
+<td><strong>$350K–$550K</strong></td>
+<td>分析媒体</td>
+<td><strong>total comp</strong></td>
+<td>【二手 / 未获证实为官方】</td>
+</tr>
+</tbody>
+</table>
+<p><strong>两个数字都存在，但口径不同（base vs total comp），且后者是二手。</strong></p>
+<blockquote>
+<p><strong>如果你只抄一个数字不写口径，你就在制造错误。</strong> 这就是反例 B-5（数据张冠李戴）在外部信息上的样子。</p>
+</blockquote>
+<h3 id="国内为什么交付即研发普遍水土不服">国内：为什么“交付即研发”普遍水土不服</h3>
+<p><strong>结论先给</strong>：国内在“招 FDE”这件事上有真实动作，但在“FDE 模式能否跑通”这件事上，<strong>公开信息普遍悲观，且很多细节查不到</strong>。</p>
+<p><strong>有动作的部分【官方岗位存在 / 二手】</strong>：腾讯云确实在招“前线部署工程师（FDE）”这类岗位，多篇报道与其开发者社区文章提及。 ⚠️ 网传上海 FDE 岗 35–65K×15 薪——<strong>标【未获证实】</strong>，出处是知乎/招聘平台转述，非官方薪酬公告。</p>
+<p><strong>悲观判断的部分【二手报道 · 观点】</strong>（虎嗅《万字解读 FDE 为什么在中国是扯淡的》，作者 AI Humanist）：</p>
+<ul>
+<li><strong>商业模式相反</strong>：标准技术服务项目采用最低评标价法，客户只愿为成品付费——探索/试错成本默认由乙方承担</li>
+<li><strong>人才鄙视链</strong>：文章称应届生交付岗年薪仅 10–15 万，同级别大厂研发 30–55 万</li>
+<li><strong>甲方不真信 AI</strong>：文章引“95% 的企业 AI 试点失败”等数字 ⚠️ <strong>这些具体百分比未能核到原始出处，标【未获证实】</strong>。引用时必须连同“这是文章里的数字、我没核到源”一起说</li>
+</ul>
+<p>还有一类声音直接把中国版 FDE 等同于老概念——“国内从早年的 ERP 实施、驻场顾问到驻场开发，已经做了 30 年 FDE 的核心业务，只是一直把这个工种叫外包”（<strong>【二手报道 · 业界普遍认为】</strong>）。</p>
+<blockquote>
+<p><strong>这一节的检索纪律</strong>：岗位在招是真的（可查到挂牌），但<strong>薪资数字、成败结论、具体百分比大量属于二手甚至未获证实</strong>。 <strong>你越是想用一个数字支撑观点，越要先问“这个数字的一手出处在哪”。</strong></p>
+</blockquote>
+<h3 id="收口三条共性三条差异">收口：三条共性，三条差异</h3>
+<p><strong>共性（可借鉴）</strong>：</p>
+<ol type="1">
+<li><strong>现场嵌入、产品级交付</strong>——都不是“写报告给建议”，而是把东西真正跑进客户生产环境。三家口径一致【均官方明确】</li>
+<li><strong>把现场经验反哺回产品/方法</strong>——Anthropic 的 “codify repeatable patterns”，和康养项目沉淀 BRIEF/SOP 同构</li>
+<li><strong>强调现场取证、不臆造客户环境</strong></li>
+</ol>
+<p><strong>差异（不能照抄）</strong>：</p>
+<ol type="1">
+<li><strong>客户体量</strong>：他们主打 Fortune 500、政府、战略级大客户，钱多、能配双人（Delta+Echo）。我们是 To-G 康养，甲方是地级市国资/民政/医保，<strong>预算受最低价约束，只能一人分饰多角靠平台补</strong></li>
+<li><strong>人 vs 平台的比例</strong>：他们靠堆高薪人才驻场；我们靠 Astra Studio <strong>把 Delta 那半固化</strong>，用更少的人扛更长的链条</li>
+<li><strong>薪资与人才市场</strong>：硅谷 FDE 能和研究岗抢人；国内交付岗在鄙视链底端。这决定了<strong>不能靠“招现成 FDE”，只能靠“选人 + 训练 + 平台”自造</strong></li>
+</ol>
+<blockquote>
+<p><strong>Palantir 教我们 FDE 该有哪两组肌肉（Echo+Delta）；前沿实验室教我们大模型时代 FDE 交付什么（production + 反哺）；国内的水土不服教我们哪条路不能走（堆人驻场）。</strong> <strong>三者合起来，指向唯一可行的路——工程化平台 + 一人多角。</strong></p>
+</blockquote>
+<hr />
+<h2 id="五能力模型你现在在哪一级">五、能力模型：你现在在哪一级</h2>
+<h3 id="先说三类看起来最像-fde的人为什么都不是">先说三类“看起来最像 FDE”的人，为什么都不是</h3>
+<p>你的简历上，很可能正写着这三个词之一。</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>角色</th>
+<th>他从哪儿开始工作</th>
+<th>缺了哪一段</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>解决方案架构师</strong></td>
+<td>从“一个技术方案”开始，交一份架构图</td>
+<td>起点是“系统怎么搭”，不是“客户的模糊话什么意思”。<strong>把一句“帮站长管好老人”拆成 102 个业务事件这一步，他通常直接跳过</strong>——因为他默认需求已经有人整理好了</td>
+</tr>
+<tr class="even">
+<td><strong>交付架构师</strong></td>
+<td>从“一个已经定型的方案”开始，负责落地集成上线</td>
+<td>价值在“把定好的东西做出来”，<strong>而 FDE 的价值恰恰在“定”之前那一段</strong>——从 16 簇收敛到 7 域，那是判断，不是集成</td>
+</tr>
+<tr class="odd">
+<td><strong>需求分析师</strong></td>
+<td>会做访谈、写需求文档</td>
+<td><strong>离 FDE 最近，也最容易自我感觉良好。</strong> 交付物是“一份需求清单”，交给下游就结束了；他不为“这份需求能不能编译成 7 域 / 38 Function / 47 Rule / 54 Action”负责，更不为“哪个 Action 要设闸、按错了谁赔”负责</td>
+</tr>
+</tbody>
+</table>
+<p>三个人都真、都强、都有用。<strong>但他们各自只握住 FDE 这条链的一段。</strong></p>
+<blockquote>
+<p><strong>FDE 不是这三个人里最好的那个，FDE 是这三段本来就不该切开的那条链。</strong></p>
+</blockquote>
+<p>还有一维最见人品——<strong>失败归因</strong>。三类角色出问题，话术都是“别人的锅”；FDE 没有这个话术，因为<strong>全链是他一个人走的，接缝数为零，断层无处推</strong>。 这不是道德要求，是<strong>结构决定的</strong>：你把四段合成一段，就再也找不到“上一棒没交好”这个借口了。</p>
+<h3 id="c1c7-七维">C1–C7 七维</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维</th>
+<th>能力项</th>
+<th>康养项目实践中的对应动作</th>
+<th>在哪一课练</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>C1 认知萃取</strong></td>
+<td>事件风暴 · 画像 · 旅程 · 热点分层</td>
+<td>102 事件 / 7 画像（<strong>368 份问卷校准</strong>）/ 7 旅程 / 5 流程 / 10 热点</td>
+<td>第四课上半场</td>
+</tr>
+<tr class="even">
+<td><strong>C2 结构建模</strong></td>
+<td>DDD 限界上下文 + 五要素</td>
+<td>7 域 D1–D7；Object 76 / Link 75 / Function 38 / Rule 47 / Action 54</td>
+<td>第四课下 + 第五课上</td>
+</tr>
+<tr class="odd">
+<td><strong>C3 风险设闸</strong></td>
+<td>HIL 设点原则</td>
+<td><strong>26 个 HIL 点</strong>；站长置信度闸 + 民政 DP-H 闸</td>
+<td>第五课下半场</td>
+</tr>
+<tr class="even">
+<td><strong>C4 合规治理</strong></td>
+<td>标准取证 · citations · 诚实边界</td>
+<td>18 处挂国标；<strong>11 处占位转取证清单</strong></td>
+<td>第五课下 + 第六课</td>
+</tr>
+<tr class="odd">
+<td><strong>C5 商业建模</strong></td>
+<td>投资 / 收入 / IRR / 单店模型</td>
+<td>一期 1.36 亿（依托条件）+ 二期 3200 万（五块预算）；60 站；约 21 个月回本</td>
+<td>第六课</td>
+</tr>
+<tr class="even">
+<td><strong>C6 交付物工程</strong></td>
+<td>并行写作 · 锚定口径 · 装配质检</td>
+<td>一份 BRIEF 统一口径 → 35 节并行 → 装配 → 质检</td>
+<td>第六课 + 第七课</td>
+</tr>
+<tr class="odd">
+<td><strong>C7 人的部分</strong></td>
+<td>客户关系 · 责任承担 · 价值判断 · 政治敏感度</td>
+<td>脱敏纪律；<strong>“赋能优化”而非“替代”的红线</strong></td>
+<td><strong>无法用实操训练</strong>（第一课讲透 · 第八课回收）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>训练 FDE，不是把某一维练到顶，是把六维的短板逐一补齐。</strong> 三类角色各有一两维起点不低，<strong>但没有一类六维齐全</strong>——这正是“像 FDE 但不是 FDE”的结构原因。</p>
+<h3 id="c7-为什么只能筛不能训">C7 为什么只能筛不能训</h3>
+<p>C7 不是“练一练会变好”的技能，是“<strong>你这个人是不是这种人</strong>”的底色：</p>
+<ul>
+<li><strong>客户关系</strong>——不是会说话，是<strong>客户信不信你敢对他说“这个我不知道”</strong>。一个改不掉“不能在客户面前露怯”这个本能的人，永远做不到留 11 处占位</li>
+<li><strong>责任承担</strong>——“无处甩锅”能不能扛得住，是天性不是培训</li>
+<li><strong>价值判断</strong>——什么时候该踩刹车，是价值观在判断，不是流程在判断</li>
+<li><strong>政治敏感度</strong>——To-G 项目里一句话措辞不当就可能引火烧身。这个雷达，<strong>有的人天生有，有的人怎么教都装不上</strong></li>
+</ul>
+<blockquote>
+<p><strong>选拔 FDE：C1–C6 看能不能补，C7 看是不是这块料。</strong> <strong>C7 不合格，前六维再强也不能让他对客户承诺负责。</strong></p>
+</blockquote>
+<h3 id="三级能力锚">三级能力锚</h3>
+<blockquote>
+<p>⚠️ <strong>注意编号</strong>：能力等级写 <strong>Lv.1 / Lv.2 / Lv.3</strong>，与课程编号（第一课到第八课）<strong>是两回事</strong>。 旧课件里如果看到 “L1 见习”，指的是能力等级。</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>能力等级</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Lv.1 见习</strong></td>
+<td>能在 FDE 指导下承接<strong>单一环节</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Lv.2 胜任</strong></td>
+<td>能独立完成认知侧全链条，<strong>交付物需一次复核</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Lv.3 主理</strong></td>
+<td>能主持项目、设 HIL 闸、<strong>对客户承诺负责</strong>，并能带 Lv.1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>真正的分水岭是 C1 认知萃取的跨行业迁移力</strong>：康养你可能靠行业沉淀蒙对了，<strong>换个你不熟的行业（学前督导、辣椒育种、草原修复），沉淀归零、只剩方法</strong>，你还压得出可归域的结构吗？</p>
+<p><strong>这就是 Lv.2 和 Lv.3 的分界。</strong></p>
+<h3 id="团队编成随交付模式变">团队编成随交付模式变</h3>
+<p>不是“招一堆全能 FDE”——那是幻想。答案是<strong>非对称编队</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>模式一</strong>（Token 计费智能体 SaaS）</th>
+<th><strong>模式二</strong>（大型平台建设 + 运营）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>代表</td>
+<td>教育督导项目</td>
+<td>康养项目 / 草业项目 / 辣椒</td>
+</tr>
+<tr class="even">
+<td>编成</td>
+<td>轻：<strong>1 FDE + 平台组</strong></td>
+<td>重：<strong>1 主理 Lv.3 + N 见习 + 平台组</strong></td>
+</tr>
+<tr class="odd">
+<td>FDE 吃重</td>
+<td>认知萃取要快 + 设闸 + 产品化</td>
+<td>全链，尤重合规 / 可研 / 商业建模</td>
+</tr>
+</tbody>
+</table>
+<p>三个角色的分工本质：</p>
+<ul>
+<li><strong>主理（Lv.3）</strong> 提供<strong>判断和责任</strong>（C7 + 高阶 C1–C6）——是编队的“判断中枢”和“甩锅终点”</li>
+<li><strong>见习（Lv.1）</strong> 提供<strong>手数和成长通道</strong>——承接单一环节，不独立对客户承诺，但在真实项目里练六维</li>
+<li><strong>平台组</strong> 提供<strong>杠杆</strong>——不是 FDE，是让 FDE 不必“更累”的人。维护建模管线，把方法论固化成工具</li>
+</ul>
+<blockquote>
+<p><strong>三者缺一，康养项目都不可复制。没有平台组，Lv.3 也会退化成一个更累的架构师。</strong></p>
+</blockquote>
+<h3 id="难听话现在就说不留到结课">难听话（现在就说，不留到结课）</h3>
+<blockquote>
+<p><strong>多数人第一次会停在 Lv.1，这是正常的。装作 Lv.2 才是危险的。</strong> 结课<strong>不发合格证，发能力等级 + 差距清单</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="六-fde-怎么工作sop-七阶段本课落点">六、⭐ FDE 怎么工作：SOP 七阶段（本课落点）</h2>
+<p>前面五节讲“FDE 是什么”。<strong>这一节讲你接下来五天要按什么流程走。</strong></p>
+<h3 id="七阶段">七阶段</h3>
+<pre><code>S1 认知萃取 → S2 结构收敛 → S3 域切分 → S4 本体建模+设闸
+                  → S5 合规治理 → S6 交付物工程 → S7 HIL 运行留痕（横切）</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>干什么</th>
+<th>收口标准</th>
+<th><strong>对应哪一课</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>立项</strong></td>
+<td>把客户模糊意图变成可接住的输入</td>
+<td>交付模式判定得出来</td>
+<td><strong>第三课 · 采集信息</strong></td>
+</tr>
+<tr class="even">
+<td><strong>S1 认知萃取</strong></td>
+<td>事件 → 画像 → 旅程 → 热点</td>
+<td>画像按行为切、有数据校准</td>
+<td><strong>第四课 上半场</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>S2 结构收敛</strong></td>
+<td>事件归簇</td>
+<td>簇能对应到域</td>
+<td><strong>第四课 下半场</strong></td>
+</tr>
+<tr class="even">
+<td><strong>S3 域切分</strong></td>
+<td>切限界上下文</td>
+<td>零悬空引用、跨域不越界</td>
+<td><strong>第四课 下半场</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>S4 本体建模 + 设闸</strong></td>
+<td>五要素 → 编译 → HIL</td>
+<td>每条规则有 source、闸有判据</td>
+<td><strong>第五课（全课重心）</strong></td>
+</tr>
+<tr class="even">
+<td><strong>S5 合规治理</strong></td>
+<td>挂标准 / 留占位 / 转取证清单</td>
+<td><strong>查不到的一律留占位</strong></td>
+<td><strong>第五课下 + 第六课</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>S6 交付物工程</strong></td>
+<td>并行写作 → 装配 → 导出</td>
+<td>口径一致、编号不撞</td>
+<td><strong>第六课 + 第七课</strong></td>
+</tr>
+<tr class="even">
+<td><strong>S7 HIL 运行留痕</strong></td>
+<td>谁按的、按错什么代价</td>
+<td>可审计</td>
+<td><strong>横切，第五课起贯穿到结课</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>这七个阶段就是你后面五天要走的路。</strong></p>
+<blockquote>
+<p>今天记住一件事就够了：<strong>这条路上每一步都有一个“必须由人做的判断”。找到它，就是你要学的东西。</strong></p>
+</blockquote>
+<h3 id="三条贯穿全程的纪律今天立管五天">三条贯穿全程的纪律（今天立，管五天）</h3>
+<ol type="1">
+<li><strong>每一步都必须真跑工具，产物落盘。</strong> 不许“听懂了就跳过”——<strong>产物没落盘就是没做</strong>。</li>
+<li><strong>案例只做标尺、不做模板。</strong> “康养项目做对了长这样，但你的城市/切口/规模不同，<strong>照结构做、别抄数字</strong>。”</li>
+<li><strong>查不到的一律留占位、不编造。</strong> 这是结课路演的<strong>一票警示</strong>——现在就说清楚。</li>
+</ol>
+<h3 id="一个必须先打的预防针第五课之后是分叉不是流水线">⚠️ 一个必须先打的预防针：第五课之后是分叉，不是流水线</h3>
+<pre><code>第四课 域图 + skill-map ─┬─ 第五课 本体 + 设闸   （要&quot;可执行的规则与闸&quot;）
+                         ├─ 第六课 文书          （要&quot;可评审的文档&quot;）
+                         └─ 第七课 原型          （要&quot;看得见的应用形态&quot;）</code></pre>
+<p><strong>活证据</strong>：学前教育项目<strong>没做本体建模、没有画像和旅程</strong>，照样交出 653KB 可研 + 完整送审报价包。</p>
+<blockquote>
+<p>排课顺序是<strong>教学顺序</strong>（由内到外），<strong>不是依赖顺序</strong>。 真实项目按<strong>交付模式</strong>决定先走哪条：模式二 To-G 大盘 → 第六课那条线优先；模式一 SaaS → 第五、七课优先。</p>
+</blockquote>
+<hr />
+<h2 id="七本课自查含参考答案">七、本课自查（含参考答案）</h2>
+<p>本课没有实操，但有认知验收。<strong>先自己答，再看答案。</strong></p>
+<h3 id="自查表">自查表</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>问题</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>交付断层的三条根因是什么？</td>
+<td>说得出三条，且知道<strong>东西掉在接缝上不是掉在态度上</strong></td>
+<td>认为“写细一点就能补上”</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>举两件必须人扛的事，并说判据</td>
+<td>说得出至少 2 件，<strong>并能用三问判据论证</strong></td>
+<td>认为 AI 什么都能做 / 什么都不能做</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>认知杠杆公式的三个因子？</td>
+<td>说得出三个，<strong>并知道唯一能买的是模型算力</strong></td>
+<td>以为杠杆来自模型</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>三档来源纪律是哪三档？</td>
+<td>能复述，<strong>知道“未获证实”要说出口</strong></td>
+<td>觉得那是免责声明</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>你现在大概在哪一级？差什么？</td>
+<td>说得出等级 + 至少一维具体差距</td>
+<td>自评为 Lv.2 却说不出差距</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>复述 SOP 七阶段 + 对应课次</strong></td>
+<td><strong>完整复述</strong></td>
+<td>记不住——<strong>本课唯一硬指标</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="参考答案">参考答案</h3>
+<p><strong>1. 三条根因</strong> ① 意图无法完全文档化（102 件没说出口的事）；② 每道工序做本位优化（局部最优叠成全局偏离）；③ 返工的账没人认（没有一个人看得见整条链）。 <strong>关键点</strong>：三条都是<strong>结构性</strong>的，不是“某个人不认真”。所以“写细一点”这个方案在根因①面前就失效了——<strong>你不知道的东西，写不细</strong>。</p>
+<p><strong>2. 必须人扛的事 · 参考三例</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>事</th>
+<th>三问判据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>11 处本地文号取件</td>
+<td>需要“能进机关门的身份” → 人扛</td>
+</tr>
+<tr class="even">
+<td>站长 HIL 的 0.75 阈值</td>
+<td>需要“愿为速度担多大错”的立场 → 人扛</td>
+</tr>
+<tr class="odd">
+<td>“赋能优化”而非“替代”的表述红线</td>
+<td>做错了 FDE 签字担责 → 人扛</td>
+</tr>
+</tbody>
+</table>
+<p><strong>答成这样也算达标</strong>：只要你举的例子能用三问中至少一问论证清楚。 <strong>不达标的典型</strong>：“写代码必须人来”——这条恰好在可替侧（不需身份、不需立场、错了能回退）。</p>
+<p><strong>3. 三因子</strong> 结构化能力（人）× 平台固化（工具链）× 模型算力（可买）。 <strong>关键点</strong>：<strong>顺序不能反</strong>。结构化能力是零，模型放大零还是零。</p>
+<p><strong>4. 三档来源</strong> 【官方明确】【二手报道】【未获证实】。 <strong>关键点</strong>：为什么必须说出口——因为<strong>你标注来源的严谨程度，等于你专业的可信程度</strong>。藏进脚注等于没标。 <strong>进阶</strong>：Anthropic 那个 base $200–300K vs total comp $350–550K 的例子，说明<strong>同一个事实的两个数字都对，错的是不写口径</strong>。</p>
+<p><strong>5. 自评</strong> 没有标准答案，但有<strong>达标形状</strong>：能说出“我 C1 大概 Lv.2、C3 是 Lv.1，因为我从来没为’按错谁赔’这件事做过判断”。 <strong>不达标形状</strong>：“我觉得我都还行。”</p>
+<p><strong>6. SOP 七阶段</strong></p>
+<pre><code>立项       → 第三课
+S1 认知萃取 → 第四课上    S5 合规治理   → 第五课下 + 第六课
+S2 结构收敛 → 第四课下    S6 交付物工程 → 第六课 + 第七课
+S3 域切分   → 第四课下    S7 HIL 留痕   → 横切，第五课起贯穿
+S4 本体+设闸 → 第五课</code></pre>
+<hr />
+<h2 id="八带着这三个问题进第二课">八、带着这三个问题进第二课</h2>
+<ol type="1">
+<li><strong>你手上正在做的项目，是模式一还是模式二？</strong>（第二课认领命题时要用）</li>
+<li><strong>那个项目里，有哪一件事是“必须由你扛、不能交给任何工具”的？</strong>（第五课设闸时要用）</li>
+<li><strong>如果现在让你一个人做完它，卡在哪一步？</strong>（这一步大概率就是你最弱的那一维）</li>
+</ol>
+<blockquote>
+<p><strong>下一课起，每一课开场讲师都会回到 SOP 七阶段这张图上，指一下“我们现在在这里”。</strong> <strong>如果哪一课你不知道自己在图上的哪个位置，当场举手问——这是你的权利。</strong></p>
+</blockquote>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="附-本课出现的专有名词">附 · 本课出现的专有名词</h2>
+<table>
+<thead>
+<tr class="header">
+<th>词</th>
+<th>锁定写法</th>
+<th>别写成</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FDE</td>
+<td>前置交付工程师（Forward Deployed Engineer）</td>
+<td>前线工程师 / 交付工程师</td>
+</tr>
+<tr class="even">
+<td>OPC</td>
+<td>一人公司（One-Person Company）</td>
+<td>超级个体 / 全能工程师</td>
+</tr>
+<tr class="odd">
+<td>HIL</td>
+<td>人在环（Human-in-the-Loop）/ 人工闸门</td>
+<td>人工审核</td>
+</tr>
+<tr class="even">
+<td>五要素</td>
+<td>Object / Link / Function / Rule / Action（简称 OAG）</td>
+<td>五元组</td>
+</tr>
+<tr class="odd">
+<td>数智本体</td>
+<td>数智本体（bounded context，限界上下文）</td>
+<td>知识本体 / 领域模型</td>
+</tr>
+<tr class="even">
+<td>能力等级</td>
+<td>Lv.1 见习 / Lv.2 胜任 / Lv.3 主理</td>
+<td>L1/L2/L3（会和课次撞号）</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

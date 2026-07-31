@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>T1  信息获取做到全与准</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">T1 信息获取做到全与准</h1>
+</header>
+<h1 id="t1-信息获取做到全与准">T1 · 信息获取（做到「全」与「准」）</h1>
+<blockquote>
+<p>用途：<strong>把客户脑子里的东西，尽可能完整、尽可能不走样地搬到纸上。</strong> 这是后面所有交付动作的地基——<strong>这一步错了，后面每一步都在错误的地基上精雕细琢。</strong> <strong>两个标准：全（该问的都问了）· 准（客户原话没被你的转译污染）。</strong> 三层输入契约中的位置：原始层（客户口述/纪要/PDF）→ <strong>【本模板 · 采集层】</strong> → 契约层（<code>domain-intake</code> 12 段，见 T5）。 素材：三份真实一手件收录在 <code>_素材/</code>（HR项目 / 辣椒 / 草业项目），原文未改写。 知识（讲什么）：讲 1「FDE 是什么」+ 讲 2「大模型时代 FDE 交付 vs 传统交付」——完整要点在 §六，<strong>讲师原话级口播稿在 §十一</strong>（9 段，照读即可）。 反例主场：<strong>B-11 模板复用的数字迁移污染</strong>（§四）；复调 <strong>B-7 求全式返工</strong>（§六）。</p>
+</blockquote>
+<hr />
+<h2 id="为什么信息获取排在第一课">〇、为什么信息获取排在第一课</h2>
+<p><strong>因为它是唯一一个“错了之后无法在下游补救”的环节。</strong></p>
+<p>环境装错了重装就行；域切错了 T4 能返工；本体建歪了 T5 能改。 <strong>但信息在源头就丢了、歪了，后面每一步都在错误的地基上精雕细琢。</strong></p>
+<p>讲 1 的「交付断层」讲的是信息在工序之间衰减——<strong>而信息获取是第一次、也是保真度最高的一次机会</strong>。你在这里丢掉的东西，后面谁都补不回来，因为<strong>没人知道它曾经存在过</strong>。</p>
+<h3 id="信息衰减链板书全课回收三次">信息衰减链（板书，全课回收三次）</h3>
+<pre><code>客户脑子里的  →  客户说出来的  →  你听到的  →  你记下来的  →  你写进模板的  →  智能体读到的
+     ①              ②             ③            ④              ⑤              ⑥
+   隐含前提       表述能力       注意力       转译损失       结构化损失      理解偏差</code></pre>
+<p><strong>六道衰减，本课的工具在每一道上都设一道保真措施</strong>——这一册讲的就是①→⑤怎么守住。</p>
+<blockquote>
+<p><strong>难听话</strong>：FDE 交付失败，十有八九不是败在建模或写作，是败在<strong>第一次和客户谈完之后，你以为你听懂了</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="一信息获取工具箱怎么做到全和准">一、信息获取工具箱：怎么做到「全」和「准」</h2>
+<p>两个标准，<strong>不是一回事</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>标准</th>
+<th>定义</th>
+<th>靠什么保证</th>
+<th>失败长什么样</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>全</strong></td>
+<td>该问的都问了</td>
+<td><strong>checklist</strong>（覆盖度）</td>
+<td>后面突然冒出一个没人考虑过的约束</td>
+</tr>
+<tr class="even">
+<td><strong>准</strong></td>
+<td>客户的原话没被你的转译污染</td>
+<td><strong>原话留存</strong>（保真度）</td>
+<td>所有推导都建立在你的误解上，<strong>而且看起来很自洽</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>不准比不全更危险</strong>：<strong>漏了会暴露，歪了不会。</strong> 漏掉的东西迟早会撞出来；理解歪了的东西，会一路顺畅地长成一整套自洽的错误方案，直到交付评审那天。</p>
+</blockquote>
+<h3 id="工具①-电梯演讲30-秒把项目说清楚">工具① · 电梯演讲（30 秒把项目说清楚）</h3>
+<p>四句话，缺一不可：</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>问什么</th>
+<th>判据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>为谁</strong></td>
+<td>目标用户是谁——<strong>不是“所有人”</strong>；说不出具体角色就是没想清楚</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>解决什么</strong></td>
+<td>他现在痛在哪——<strong>用他的原话</strong>，不是你的总结</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>凭什么</strong></td>
+<td>为什么是我们做——独特之处</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>结果如何</strong></td>
+<td>做完之后什么变了——<strong>可量化</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>怎么用</strong>（关键在这里）： &gt; 第一次会议结束前，<strong>当场用这四句话复述给客户听</strong>：「我理解您要的是……对吗？」 &gt; 客户点头 = 你抓住了主线；<strong>客户皱眉 = 你当场就发现了偏差，而不是三周后</strong>。</p>
+<p><strong>⭐ 电梯演讲的真正价值不是对外讲，是对内校验。</strong> 30 秒说不清楚，说明你还没听懂——<strong>这时候该做的是回去再问，不是回去开始写方案。</strong></p>
+<h3 id="工具②-5w2h-覆盖-checklist保全">工具② · 5W2H 覆盖 checklist（保「全」）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>在本册模板里落到哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Who</strong> 谁用 / 谁出钱 / 谁验收</td>
+<td>模板 A「角色」段</td>
+</tr>
+<tr class="even">
+<td><strong>What</strong> 做什么</td>
+<td>模板 A「概览」段</td>
+</tr>
+<tr class="odd">
+<td><strong>Why</strong> 为什么现在做</td>
+<td>模板 A「价值」段</td>
+</tr>
+<tr class="even">
+<td><strong>Where</strong> 在什么场景/地域</td>
+<td>模板 A「概览」+ 模板 B「应用场景」</td>
+</tr>
+<tr class="odd">
+<td><strong>When</strong> 什么时候要 / 分几期</td>
+<td>模板 A「未来拓展」段</td>
+</tr>
+<tr class="even">
+<td><strong>How</strong> 怎么做</td>
+<td>模板 B「内容结构」+「智能体矩阵」</td>
+</tr>
+<tr class="odd">
+<td><strong>How much</strong> 花多少 / 赚多少</td>
+<td>模板 A「商业模式」段</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>七项缺一，就是“不全”。</strong> 走完模板不等于走完 checklist——<strong>填完之后拿这张表回头点一遍</strong>。</p>
+</blockquote>
+<h3 id="工具③-利益相关者地图保全里最容易漏的一块">工具③ · 利益相关者地图（保「全」里最容易漏的一块）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>角色</th>
+<th>问什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>谁<strong>出钱</strong></td>
+<td>预算从哪来、谁签字</td>
+</tr>
+<tr class="even">
+<td>谁<strong>使用</strong></td>
+<td>日常操作的人（往往不是出钱的人）</td>
+</tr>
+<tr class="odd">
+<td>谁<strong>验收</strong></td>
+<td>按什么标准判合格</td>
+</tr>
+<tr class="even">
+<td><strong>谁反对</strong></td>
+<td>⚠️ <strong>这一栏最容易漏，也最致命</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>“谁反对”为什么必须问</strong>：一个动了别人权责的平台，反对者不会在需求会上举手，<strong>他会在验收会上举手</strong>。 康养项目的民政 DP-H 闸、教育督导项目的园长材料复核，本质上都是<strong>把“谁反对”提前变成了流程里的一道闸</strong>。</p>
+</blockquote>
+<h3 id="工具④-原话留存保准">工具④ · 原话留存（保「准」）</h3>
+<ul>
+<li><strong>逐字记下客户的原话</strong>，尤其是带情绪、带数字、带“但是”的句子</li>
+<li><strong>物理隔开两栏</strong>：<code>客户说的</code> / <code>我理解的</code> —— 不许混写</li>
+<li>转译时<strong>保留原句</strong>：写“提供土壤检测功能”之前，先留一行“我家没有专业仪器，怎么判断土壤”</li>
+</ul>
+<blockquote>
+<p>⭐ 这正是模板 B 的「细化真实提问」为什么要<strong>用户原话级</strong>——原话里藏着约束（“没有仪器”），你的转译会把约束丢掉。</p>
+</blockquote>
+<h3 id="工具⑤⑥-两类模板-domain-intake-12-段契约">工具⑤⑥ · 两类模板 + <code>domain-intake</code> 12 段契约</h3>
+<p>见下一节与 T5a。<strong>模板是工具箱里的一件，不是全部</strong>——先有 checklist 和原话，模板才有东西可填。</p>
+<h3 id="本册的全准自检实操后逐条过">🔔 本册的「全/准」自检（实操后逐条过）</h3>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+<strong>全</strong>：5W2H 七项都有着落；利益相关者四栏都填了，<strong>含“谁反对”</strong></li>
+<li><input type="checkbox" disabled="" />
+<strong>准</strong>：每条关键约束能指出<strong>客户的哪句原话</strong>；转译句旁边留了原句</li>
+<li><input type="checkbox" disabled="" />
+<strong>电梯演讲</strong>：四句话 30 秒能说完，且<strong>已经复述给客户听过</strong>（没复述过的标“待验证”）</li>
+<li><input type="checkbox" disabled="" />
+<strong>诚实</strong>：拿不准的地方标「待客户确认」，<strong>没有用自己的猜测填空</strong></li>
+</ul>
+<hr />
+<h2 id="二两类模板先判用哪一类">二、两类模板，先判用哪一类</h2>
+<p>三份真实调研件摆在一起，露出了一件事：<strong>它们不是一种东西，是两类。</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>模板 A · 平台立项型</strong></th>
+<th><strong>模板 B · 大模型能力型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>回答的核心问题</td>
+<td><strong>谁出钱、谁用、怎么赚、解决什么错配</strong></td>
+<td><strong>每类用户会问什么、我们答不答得上来</strong></td>
+</tr>
+<tr class="even">
+<td>段落骨架</td>
+<td>概览 / 角色 / 价值 / 商业模式 / 未来拓展 / 名称</td>
+<td>定位 / 用户及场景（×N 类，每类含真实提问）/ 内容结构 / 智能体矩阵 / 特别要求</td>
+</tr>
+<tr class="odd">
+<td>需求的最小单位</td>
+<td><strong>一条价值主张</strong>（可量化）</td>
+<td><strong>一条用户真实提问</strong></td>
+</tr>
+<tr class="even">
+<td>范例</td>
+<td>HR项目（HR项目）</td>
+<td>辣椒大模型 / 草业大模型</td>
+</tr>
+<tr class="odd">
+<td>下游主要喂给</td>
+<td>商业模式画布、财务测算、可研/招投标（T6）</td>
+<td>CQ 能力问题、RAG 知识库、智能体能力边界（T5/T7）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>选用判据（一句话）</strong>： - 交付物是<strong>平台 + 可研 + 运营</strong>（模式二）→ <strong>先 A</strong> - 交付物是<strong>垂类大模型 / 智能体矩阵</strong>（模式一，或模式二里的智能内核）→ <strong>先 B</strong> - <strong>两者不互斥，大多数真实项目要 A+B 都写</strong>：A 说清“这门生意成不成立”，B 说清“这个模型答不答得上来”。康养项目这种大项目两边都吃重。</p>
+<blockquote>
+<p><strong>⚠️ 最常见的判断错误</strong>：只写 B 不写 A —— 智能体矩阵画得很漂亮，但说不清谁付钱、按什么收，到了 T6 商业建模和财务测算直接断链，可研写不下去。</p>
+</blockquote>
+<hr />
+<h2 id="三模板-a-平台立项型">三、模板 A · 平台立项型</h2>
+<h3 id="为什么是这六段">为什么是这六段</h3>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>回答的问题</th>
+<th>下游谁消费</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 概览</td>
+<td>谁给谁做什么？供需双方是谁？数据从哪来？解决什么错配？</td>
+<td>T3 事件风暴起点；T4 域切分边界依据</td>
+</tr>
+<tr class="even">
+<td>② 角色</td>
+<td>谁拥有、谁运营、谁使用？每类使用方拿它干什么？</td>
+<td>T3 <code>persona-insight</code>（<strong>角色写不全，画像就凭空造</strong>）</td>
+</tr>
+<tr class="odd">
+<td>③ 价值</td>
+<td>对<strong>每一类</strong>角色分别值什么？能不能量化？</td>
+<td>T3 <code>opportunity-brief</code> 热点排序；T6 财务测算的原始锚</td>
+</tr>
+<tr class="even">
+<td>④ 商业模式</td>
+<td>钱从哪来？几条收入线？</td>
+<td>T6 商业建模；<strong>决定这是模式一还是模式二</strong></td>
+</tr>
+<tr class="odd">
+<td>⑤ 未来拓展</td>
+<td>三年后长成什么样？</td>
+<td>T6 战略叙事；评审/投资人关心的想象空间</td>
+</tr>
+<tr class="even">
+<td>⑥ 名称与含义</td>
+<td>叫什么？为什么这么叫？</td>
+<td>贯穿全部交付物的叙事主线（To-G 尤其吃这一口）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="空白模板">空白模板</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 概览</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>（一段话说清：为谁开发什么平台、依托什么载体、供方是谁、需方是谁、</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  数据从哪些来源整合、通过什么方式加工、最终解决什么错配/痛点。</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  ——不写技术栈、不写&quot;利用AI赋能&quot;这类空话。）</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># 角色</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 平台的属主和运营方为（……），依托于（……）开展（线上/线下）运营</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 平台的使用方包括：</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>【使用方 A】（——他们用平台做什么，逐条列具体动作）</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>【使用方 B】</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>【使用方 C】</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># 价值</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>对于供方，……（能量化的一律量化：省多少人、多少钱、多少时间）</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>对于需方，……</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>对（政府/监管/生态），……</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># 商业模式</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>（收入线 1：向谁收、收什么）</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>（收入线 2）</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>（收入线 3）</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># 平台未来拓展</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>（拓展方向 1）</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>（拓展方向 2）</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># 平台名称</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>（名称 + 含义拆解：每个字/词代表什么）</span></code></pre></div>
+<h3 id="范例与讲解-HR项目">范例与讲解 · HR项目</h3>
+<blockquote>
+<p>💡 <strong>启发</strong>：全文见 <code>_素材/项目描述A_HR项目_原件.md</code>（教练现场点开）</p>
+</blockquote>
+<p><strong>这份好在哪，逐条讲：</strong></p>
+<ol type="1">
+<li><p><strong>概览一段话就把双边说清了</strong> —— 供方（高职院校）、需方（用人企业）、平台方（人才科技公司）、数据来源（毕业生数据 + 公开招聘网站）、痛点（专业设置与用人需求错配）。<strong>读完这一段，智能体已经能开始做事件风暴了。</strong></p></li>
+<li><p><strong>区分了“属主/运营方”与“使用方”</strong> —— 学员最爱把这两者混为一谈。属主决定商业模式和验收，使用方决定功能和体验。<strong>分不开，persona 就是一锅粥。</strong></p></li>
+<li><p><strong>每类使用方带了“他拿它干什么”</strong> —— 不是“高职院校”四个字了事，而是“指导专业开设规划 / 替代访企拓岗 / 供需洞察决策”三条具体动作。<strong>这三条直接是 journey 的起点。</strong></p></li>
+<li><p><strong>价值按角色分写且量化</strong> —— “岗前培训 3 个月 → 1 个月内，按当地标准每人每月节省 1500 元”。这一句同时是<strong>热点排序依据</strong>（T3）、<strong>财务测算原始锚</strong>（T6）、<strong>投标效益论证</strong>（T6 文书）。 &gt; 对照反例：只写“大大提升效率、显著降低成本”——到财务测算那步，一个数都推不出来。</p></li>
+<li><p><strong>三条收入线清清楚楚</strong> —— 培训费（向学生）、劳务外包（校中厂）、生态入驻服务费（劳务派遣公司）。<strong>有运营盘、投建运一体 → 一眼判定模式二。</strong></p></li>
+<li><p><strong>名称含义拆到了字</strong> —— 龙城（根基）/ 灵犀（解决错配的初心）/ HR项目（AI 摸准产业脉搏）。To-G 评审现场这段会被反复引用。</p></li>
+</ol>
+<hr />
+<h2 id="四模板-b-大模型能力型">四、模板 B · 大模型能力型</h2>
+<h3 id="为什么是这五段">为什么是这五段</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>回答的问题</th>
+<th>下游谁消费</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 定位</td>
+<td>服务哪 N 类核心用户？一句 slogan 说清能力？支撑哪些商业化落地？</td>
+<td>全局定调；智能体矩阵的上位约束</td>
+</tr>
+<tr class="even">
+<td>② 用户及场景（×N 类）</td>
+<td>每类用户：<strong>应用场景 / 核心刚需 / ≥10 条真实提问</strong></td>
+<td><strong>T3 persona + journey</strong>；<strong>T5 的 CQ 能力问题</strong>；RAG 检索测试集</td>
+</tr>
+<tr class="odd">
+<td>③ 内容结构</td>
+<td>一条主线 + 几大方向，把能力串成产业化路径</td>
+<td>T4 域切分；T6 方案正文骨架</td>
+</tr>
+<tr class="even">
+<td>④ 智能体矩阵</td>
+<td>拆成哪几个智能体？各面向谁、给什么能力？</td>
+<td>T4 skill-map；T8 插件切分</td>
+</tr>
+<tr class="odd">
+<td>⑤ 特别要求</td>
+<td>这个模型必须突出的强项/信任要求</td>
+<td>T5 治理段；T7 demo 的可信度设计</td>
+</tr>
+</tbody>
+</table>
+<h3 id="空白模板-1">空白模板</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 名称：XX 大模型建设调研模板</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 一、定位【讲清楚大模型的整体定位】</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>围绕（用户1、用户2……用户N）N 类核心用户，匹配各自真实业务场景和刚需痛点，</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>实现&quot;一问得方案、一问选X、一问做决策&quot;，直接支撑（商业化落地方向逐条列）。</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 二、用户及场景（针对每类用户，明确用户群、核心刚需、10 个以上典型问句，越多越好）</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1、【用户类型一】</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>应用场景：（该类用户日常在什么场景下会用）</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>核心刚需：（他真正在乎什么——用他自己的话，不用行业黑话）</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>细化真实提问：</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>（1）……</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>（2）……</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>…（至少 10 条，越多越好）</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2、【用户类型二】</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>…（同上结构重复 N 类）</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## 三、内容结构（明确核心主线与几大产业化方向）</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>以&quot;（主线：能力1 + 能力2 + 能力3）&quot;为主线，打通（研发/生产/交易/服务）全链路，</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>提升在（方向一、方向二……）N 大方向的产业化能力。</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. 【方向一】：（一句话价值）</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**【能力点】**：（做什么，达到什么效果——效果数字必须标明是目标值还是实测）</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 四、多智能体矩阵（列出具体智能体及能力说明）</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**【智能体名（代号）】**：面向【谁】，提供【能力1、能力2……】功能，【达成什么】。</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 五、特别要求【希望大模型突出的强项】</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>（信任体系/合规/可溯源等硬性要求）</span></code></pre></div>
+<h3 id="范例与讲解-辣椒-草业项目">范例与讲解 · 辣椒 / 草业项目</h3>
+<blockquote>
+<p>💡 <strong>启发</strong>：全文见 <code>_素材/调研模板B_辣椒大模型_原件.md</code>、<code>_素材/调研模板B_草业大模型_原件.md</code></p>
+</blockquote>
+<p><strong>⭐ 这类模板最有价值的发明是「细化真实提问」这一段。</strong></p>
+<p>看辣椒“椒农/散户”那一类的提问长什么样：</p>
+<blockquote>
+<p>（1）我家地块属于砂质土/黏质土，种线椒、螺丝椒还是朝天椒合适？不用专业仪器怎么判断土壤质地与肥力？ （5）我买回来的辣椒种子怎么简单辨别发芽率高低、有没有陈种、有没有掺假？ （7）辣椒种植补贴、防灾补贴申请条件、流程、每年大概能补多少钱？ （10）今年适合储备多少斤辣椒种子明年用？按照我家种植亩数帮我精算一下？</p>
+</blockquote>
+<p><strong>为什么这几条顶得上十页需求文档：</strong></p>
+<ol type="1">
+<li><strong>它是用户的原话，不是我们的转译</strong> —— “不用专业仪器怎么判断”这半句，暴露了真实约束（散户没有检测设备）。写成“提供土壤检测功能”就把这个约束丢了。</li>
+<li><strong>它天然带出数据需求</strong> —— 问补贴，就必须有政策库；问“按我家亩数精算”，就必须能拿到用户的地块数据。<strong>每一条提问背后都挂着一份数据源，这是 T5 第 9 段“数据来源”的原料。</strong></li>
+<li><strong>它就是 CQ（能力问题）的雏形</strong> —— <code>domain-intake</code> 第 10 段要填的“能力问题 = 验收用例”，在这里已经有了 ≥10 条/类。<strong>康养项目的 48 条行为 CQ，就是这么来的。</strong></li>
+<li><strong>它划出了能力边界</strong> —— 答不上来的提问，要么补数据、要么明确告诉客户“这条我们不做”。<strong>不敢列真实提问的项目，多半是心里没底。</strong></li>
+</ol>
+<blockquote>
+<p><strong>给学员的硬指标</strong>：每类用户 <strong>≥10 条真实提问</strong>，且必须是用户会脱口而出的原话。凑不满 10 条，说明你对这类用户的了解还不够，<strong>回去再问</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="五-同模板复用的双面性反例-b-11-主场">五、⚠️ 同模板复用的双面性（<strong>反例 B-11 主场</strong>）</h2>
+<p><strong>事实</strong>：辣椒和草业项目这两份调研件，<strong>是同一份模板换领域填的</strong>——七类用户结构对应、“一问得方案/一问选X/一问做决策”句式相同、“五大方向”骨架相同，<strong>连结尾那段话都逐字相同</strong>：</p>
+<blockquote>
+<p>“过程中注意来源可查、过程可溯、结果可验，再加上专家背书与承诺交付，客户就会认为权威、有效、敢买单。这不是技术问题，是信任体系问题……”</p>
+</blockquote>
+<h3 id="正面这是平台方法论固化物在输入端的活体回收讲-5">正面：这是“平台=方法论固化物”在<strong>输入端</strong>的活体（回收讲 5）</h3>
+<p>讲 5 讲的是工具/插件的固化。这里证明<strong>调研模板本身也是可固化的资产</strong>——第二个项目不必从零想“该问客户什么”，直接换领域填。<strong>FDE 的复用不只发生在代码层，更发生在提问结构层。</strong></p>
+<h3 id="反面模板会把数字一起带过去b-5-的升级版">反面：模板会把<strong>数字</strong>一起带过去（B-5 的升级版）</h3>
+<p>对比这两句：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>原文</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>草业项目</strong></td>
+<td>“把某草业集团 <strong>30 年</strong> 10万+ 生态修复案例、500+ 标准、200+ 专利、专家经验融入大模型”</td>
+</tr>
+<tr class="even">
+<td><strong>辣椒</strong></td>
+<td>“把辣椒种植领域 <strong>10万+种植案例、500+标准、200+专利、300+专家经验</strong> 融入大模型”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>草业项目的 10万+/500+/200+ 挂在“某草业集团 30 年积累”上，是有主的；辣椒这三个数没有主——它是模板带过来的。</strong> 同理，两份里“关系数 40万/200万/500万+”逐字相同。</p>
+<blockquote>
+<p><strong>难听话</strong>：复用模板可以，<strong>复用数字不行</strong>。模板迁移时，<strong>所有数字必须清零重填</strong>，填不出来的就留空、标“待客户提供”。 一个从别处抄来的“200+ 专利”写进可研，是<strong>编造</strong>——比空缺更有害。这和“错文号比空缺更有害”是同一条纪律。</p>
+</blockquote>
+<h3 id="落到操作上的规矩三条">落到操作上的规矩（三条）</h3>
+<ol type="1">
+<li><strong>换项目复用模板：先清空所有数字与专有名词</strong>，再逐项回填，回填不了的标 <code>[待客户提供]</code></li>
+<li><strong>每个量化断言必须能回答“这个数是谁的、从哪来”</strong> —— 答不上来就删</li>
+<li><strong>区分“方案目标值”和“实测值”</strong>，在句子里就标明（案例矩阵已按此纪律分层）</li>
+</ol>
+<hr />
+<h2 id="六a-b-怎么合用">六、A + B 怎么合用</h2>
+<pre><code>客户口述 / 首次会议
+   ↓
+模板 A（这门生意成不成立）——概览/角色/价值/商业模式
+   ↓ 判定交付模式（模式一还是模式二）→ 决定后面所有动作的轻重
+模板 B（这个模型答不答得上来）——逐类用户的真实提问 ≥10 条
+   ↓
+T3 认知萃取（A 的角色段 → persona；B 的提问 → journey 场景）
+   ↓
+T5 domain-intake 12 段（B 的提问 → 第 10 段 CQ；A 的商业模式 → 第 11 段治理与边界）</code></pre>
+<p><strong>顺序建议</strong>：<strong>先 A 后 B</strong>。A 定不下来（谁付钱、什么模式），B 写得再细也可能是在为一个不成立的生意设计智能体。</p>
+<hr />
+<h2 id="七提示词工程从信息到模型能吃的输入20">七、提示词工程：从「信息」到「模型能吃的输入」（20′）</h2>
+<p>信息问全问准了，<strong>组织方式错了，模型照样答偏。</strong></p>
+<p>学员这一步最常见的想法是“把资料丢给它就行”。<strong>不行。</strong> 信息获取的产物是<strong>给人看的结构</strong>，要再加工一次才是<strong>给模型吃的输入</strong>。</p>
+<blockquote>
+<p><strong>这是 FDE 的活，不是“AI 使用技巧”。</strong> 技巧是话术，这里讲的是<strong>把纪律写进输入</strong>。</p>
+</blockquote>
+<h3 id="核心认知给智能体的输入-给人看的文档">7.1 核心认知：给智能体的输入 ≠ 给人看的文档</h3>
+<table>
+<thead>
+<tr class="header">
+<th>给人看的文档</th>
+<th>给智能体吃的输入</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>靠上下文推断，<strong>留白是优雅</strong></td>
+<td><strong>留白是漏洞</strong>——隐含前提必须显式写出来</td>
+</tr>
+<tr class="even">
+<td>段落叙述，逻辑藏在行文里</td>
+<td><strong>结构化</strong>：表格 / 清单 / 字段，逻辑显式</td>
+</tr>
+<tr class="odd">
+<td>术语换着说，避免重复啰嗦</td>
+<td><strong>术语锁定</strong>，同一个概念只用一种写法</td>
+</tr>
+<tr class="even">
+<td>数字散落各章，读者自己会对</td>
+<td><strong>数字锚在单点</strong>，别处一律引用不重算</td>
+</tr>
+<tr class="odd">
+<td>篇幅越长越显充分</td>
+<td>篇幅越长越稀释重点，<strong>约束必须前置</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一句话</strong>：<strong>人读文档会脑补，模型不会。你省下的每一句，它都会自己编一句填上。</strong></p>
+</blockquote>
+<h3 id="六条规范每条都有本课的现成实物可直接看">7.2 六条规范（每条都有本课的现成实物可直接看）</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>规范</th>
+<th>本课实物</th>
+<th>不这么做会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>锚定口径</strong> —— 术语表 + 核心数据 + 禁用词，写在最前面</td>
+<td><code>_WRITING_BRIEF.md</code> §一/§二</td>
+<td>各写各的，装配期打架（B-2 / B-5）</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>结构化契约</strong> —— 每段标注「谁填 + 产出哪个要素」</td>
+<td><code>domain-intake</code> 12 段（§3→Object、§7→Rule…）</td>
+<td>自由发挥的需求文档，下游没法机械消费</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>约束前置</strong> —— 红线与禁用词写在开头，不写附录</td>
+<td>BRIEF 的 ⛔ 禁用词块</td>
+<td>埋在第 8 页的合规要求＝没写</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>单点数字</strong> —— 一个数只在一处定义</td>
+<td>BRIEF §二 核心数据表</td>
+<td>分节作者各算一遍（<strong>B-5</strong>）</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>诚实占位</strong> —— 查不到就写 <code>[待补]</code>，别让它猜</td>
+<td>11 处 <code>[本地待补文号]</code></td>
+<td>模型会“合理推测”一个文号出来（<strong>B-10</strong>）</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>产出格式契约</strong> —— 明确要什么、不要什么</td>
+<td>「<strong>只回摘要不回正文</strong>」</td>
+<td>子智能体把正文全粘回来，上下文爆炸</td>
+</tr>
+</tbody>
+</table>
+<h3 id="活体示范这门课自己就是这么产出的">7.3 ⭐ 活体示范：这门课自己就是这么产出的</h3>
+<blockquote>
+<p><strong>十册手册（4842 行、80 段口播稿）是 5 个子智能体并行写出来的。</strong> 给它们的 prompt 只包含四样东西：</p>
+<ol type="1">
+<li><strong>范围界定</strong>：你只负责哪两册，<strong>不许动别人的</strong></li>
+<li><strong>风格范本</strong>：先读某两册作为范本，模仿其语气与排版</li>
+<li><strong>硬纪律</strong>：数字引用不重算（列出锁定值）· 案例成熟度按现行口径（列出六案例）· 口播稿<strong>原文照搬不改写</strong></li>
+<li><strong>产出格式</strong>：<strong>只回摘要（≤200 字），不要把正文粘回来</strong></li>
+</ol>
+<p><strong>结果</strong>：五组并行、<strong>零口径漂移</strong>、上下文没爆。 <strong>这就是提示词工程的实战样子——它不是话术，是把协作纪律写进输入。</strong></p>
+</blockquote>
+<p><strong>⭐ 顺带一个可讲的细节</strong>：那次并行里有一组回报“讲义 06 把置信度闸写成第五条硬判据，与现行口径冲突”——<strong>因为 prompt 里明确写了口径，它才认得出冲突</strong>。如果 prompt 只说“参考讲义 06 写一下”，它会照抄错的。</p>
+<h3 id="一个具体动作把项目描述改写成输入包">7.4 一个具体动作：把项目描述改写成「输入包」</h3>
+<p>信息获取的产物（模板 A/B）<strong>还不是 prompt</strong>。要再套三层：</p>
+<pre><code>输入包 = ① 事实层  模板 A/B 填好的内容 + 客户原话
+       + ② 口径层  术语表 · 关键数字 · 禁用词 · 成熟度标注
+       + ③ 任务层  要它做什么 / 产出什么格式 / 不许做什么</code></pre>
+<p><strong>学员最常见的错：只给①，然后抱怨“它答得不对”。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>缺了会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>缺 ① 事实</td>
+<td>它开始编业务</td>
+</tr>
+<tr class="even">
+<td>缺 ② 口径</td>
+<td>术语和数字每次都不一样，装配时打架</td>
+</tr>
+<tr class="odd">
+<td>缺 ③ 任务</td>
+<td>它给你一篇散文，而不是你要的表</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>难听话</strong>：<strong>“它理解不了我的需求”，九成是你的输入里没有②和③。</strong> 模型不会读心；<strong>你没写的约束，它没有义务遵守。</strong></p>
+</blockquote>
+<hr />
+<h2 id="八实操25-分三段穿插学一段练一段">八、实操（25′ · 分三段穿插，学一段练一段）</h2>
+<blockquote>
+<p><strong>不要攒到最后一起做。</strong> 每讲完一个工具就练一段，趁热。</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>承接哪一节</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>实操 A · 电梯演讲 + checklist 自查</strong></td>
+<td>8′</td>
+<td>§一 工具箱</td>
+<td>四句话 + 5W2H 缺口清单</td>
+</tr>
+<tr class="even">
+<td><strong>实操 B · 填模板骨架</strong></td>
+<td>7′</td>
+<td>§二~§四 模板 A/B</td>
+<td>填到<strong>能判交付模式</strong>即可，不求填完</td>
+</tr>
+<tr class="odd">
+<td><strong>实操 C · 改写成输入包</strong></td>
+<td>10′</td>
+<td>§七 提示词工程</td>
+<td><strong><code>_INPUT.md</code>（三层齐全）</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="实操-a-电梯演讲-checklist8">实操 A · 电梯演讲 + checklist（8′）</h3>
+<p><strong>🔔 任务</strong>：用四句话说清本组命题，<strong>当场说给邻组听</strong>（模拟说给客户听）。 <strong>🔔 输出</strong>：四句 + 一张 5W2H 缺口清单（哪几项现在答不上来）。</p>
+<blockquote>
+<p><strong>判据不是“说得好听”，是邻组能不能复述回来。</strong> 复述不回来 = 你还没说清楚。 答不上来的 5W2H 项<strong>不要现编</strong>——标「待客户确认」，那就是你回去要问的清单。</p>
+</blockquote>
+<hr />
+<h3 id="实操-b-填模板骨架7">实操 B · 填模板骨架（7′）</h3>
+<p><strong>🔔 任务</strong>：选 A 还是 B（或 A+B），把骨架填到<strong>能判断交付模式</strong>为止。 <strong>🔔 输出</strong>：模板骨架 + <strong>一句话交付模式判定</strong>（模式一 SaaS / 模式二 平台，及理由）。</p>
+<blockquote>
+<p><strong>7 分钟填不完整份模板，也不要求填完。</strong> 这一步只要判出模式——<strong>因为模式决定后面所有动作的轻重</strong>（T6 用哪套财务语言、T7 做几屏 demo，全看它）。</p>
+</blockquote>
+<hr />
+<h3 id="实操-c-改写成输入包10本册的落点">实操 C · ⭐ 改写成输入包（10′，本册的落点）</h3>
+<p><strong>🔔 任务</strong>：把上面两步的产物，改写成一份<strong>可以直接喂给智能体的 <code>_INPUT.md</code></strong>。 <strong>🔔 输出</strong>：三层齐全的输入包。</p>
+<p><strong>骨架（照抄这个结构）</strong>：</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 【本组命题】输入包</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## ① 事实层</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>（模板 A/B 填好的内容）</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### 客户原话摘录</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>&quot;……&quot;        ← 带情绪、带数字、带&quot;但是&quot;的句子优先</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>&quot;……&quot;</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## ② 口径层</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">### 术语表</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>| 锁定写法 | 禁止写法 |</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>|---|---|</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>| （本命题的专有名词） | （容易混用的别名） |</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 关键数字（唯一真相源，下游一律引用不重算）</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>（规模 / 金额 / 周期，每个数注明来源）</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">### 禁用词 / 红线</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>（不能说的话、不能碰的表述）</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### 成熟度标注</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>哪些是**实测**、哪些是**目标值**、哪些**待客户确认**</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## ③ 任务层</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### 要做什么</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>（一句话，动宾结构）</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="fu">### 产出格式</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>（要什么：表 / 清单 / 分节稿；**不要什么**：不要散文、不要&quot;建议&quot;段）</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### 不许做什么</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>不许编造查不到的文号 / 数字</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>不许把目标值写成实测</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>（本命题特有的约束）</span></code></pre></div>
+<p><strong>🔔 难点/注意</strong></p>
+<ul>
+<li><strong>② 口径层是学员最容易跳过的一层</strong>，也是最值钱的一层。跳过它，T3 跑出来的画像每次说法都不一样。</li>
+<li><strong>③ 任务层必须有“不许做什么”</strong>。只写“要什么”，模型会用它擅长的方式填满你没限制的地方。</li>
+<li>口径层的数字<strong>每个都要注明来源</strong>——这一步就是在提前防 <strong>B-5</strong>（分节作者各算一遍）和 <strong>B-11</strong>（把别处的数字带过来）。</li>
+</ul>
+<p><strong>💡 启发 · 从模板 A 到输入包（HR项目节选）</strong></p>
+<details>
+<summary>
+点开看改写前后
+</summary>
+<p><strong>改写前</strong>（模板 A「价值」段，给人看的）： &gt; 对于需方……大大减少了高职人员到企业再进行岗前培训的时间（由平均 3 个月的岗前培训，缩短到 1 个月内，按当地标准每人每月节省 1500 成本）。</p>
+<p><strong>改写后</strong>（进入输入包）：</p>
+<p><code>① 事实层</code> &gt; 需方价值：岗前培训周期 3 个月 → 1 个月内 &gt; <strong>客户原话</strong>：“企业接了人还要自己再培训三个月，这三个月的人力成本是白扔的。”</p>
+<p><code>② 口径层 · 关键数字</code> &gt; | 数字 | 值 | 来源 | &gt; |—|—|—| &gt; | 岗前培训周期（现状） | 3 个月 | 客户口述，<strong>待核实</strong> | &gt; | 岗前培训周期（目标） | ≤1 个月 | <strong>目标值，非实测</strong> | &gt; | 单人月成本 | 1,500 元 | 当地标准，客户提供 |</p>
+<p><code>③ 任务层 · 不许做什么</code> &gt; - 不许把“1 个月内”写成已实现的效果 &gt; - 不许由此外推年度节省总额（样本量未确认）</p>
+<p><strong>看出差别了吗</strong>：同一句话，改写后<strong>每个数字都有了主、有了成熟度标签</strong>。下游任何一个智能体读到它，都不会把目标值当实测写进方案——<strong>这就是口径层的作用。</strong></p>
+</details>
+<hr />
+<h3 id="交付物与下游验证">🔔 交付物与下游验证</h3>
+<p><strong>本册交付物</strong>：<strong>① 项目定义 + 交付模式判定</strong>（进交付包）+ <strong><code>_INPUT.md</code> 输入包</strong>（供 T3 起直接使用）。</p>
+<blockquote>
+<p><strong>⭐ 这份输入包会在 T3 被真的用掉</strong>：跑 <code>/studio-insight:persona-insight</code> 时直接喂给它。 <strong>如果 T3 跑出来的画像很空洞、或者术语每次都不一样——回来看是不是输入包的口径层缺了。</strong> 这是一条能自我验证的闭环，别等到 T6 才发现口径散了。</p>
+</blockquote>
+<hr />
+<h2 id="九知识讲什么-交付断层">九、知识（讲什么）· 交付断层</h2>
+<blockquote>
+<p><strong>建议 25–30′。</strong> 吸收讲 1（FDE 是什么）+ 讲 2（大模型时代 FDE 交付 vs 传统交付）。 <strong>放在这个位置是有讲究的</strong>：学员刚做完信息获取与提示词工程、正准备动笔，心里会冒出一个问题——<strong>“为什么非要我把话写这么细？”</strong> 这一节就是回答它。 <strong>讲师原话级口播稿在 §十四</strong>（4 段，照读即可）。 ⚠️ <strong>「认知杠杆」（讲 2）已移到 T3</strong>，放在实操之后讲——学员刚亲手用工具产出一批东西时才有实感。本册只讲<strong>断层</strong>这一半。</p>
+</blockquote>
+<h3 id="核心命题">核心命题</h3>
+<blockquote>
+<p><strong>客户要的是结果，组织给的是工序。</strong></p>
+</blockquote>
+<p><strong>落到 T1 这一步</strong>：这份项目描述，就是“把客户要的结果第一次落成文字”。<strong>它是整条链上唯一一处还能低成本纠偏的地方</strong>——写糊了，后面每一步放大的都是糊。</p>
+<hr />
+<h3 id="交付断层东西掉在接缝上不是掉在态度上">① 交付断层：东西掉在接缝上，不是掉在态度上</h3>
+<blockquote>
+<p><strong>一句开场提问</strong>：你上一个项目，客户最后拿到手的东西，和他当初嘴里说的那个东西，是同一个东西吗？</p>
+</blockquote>
+<p>大概率不是。中间掉的那部分，不是掉在某个人不认真，是掉在<strong>接缝</strong>上——需求交给设计、设计交给开发、开发交给交付，<strong>每交一次手，都有一部分“只在上一个人脑子里、没写进文档”的东西永久丢失</strong>。这个丢失点，叫<strong>交付断层</strong>。</p>
+<p><strong>断层是工序制的结构性产物，跟态度无关。</strong> 只要把一件事切成四段交给四拨人，断层就一定存在。</p>
+<p><strong>为什么“把文档写细一点”补不上？三条，都很扎心：</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>原因</th>
+<th>扎心在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>①</td>
+<td><strong>意图无法完全文档化</strong></td>
+<td>客户说“我要一个能帮站长管好老人的系统”，这句话背后有 <strong>102 件他没说出口的具体业务事件</strong>。你凭经验补了 60 件，剩下的你没意识到，下游更不可能知道</td>
+</tr>
+<tr class="even">
+<td>②</td>
+<td><strong>每道工序都会做本位优化</strong></td>
+<td>开发为“好实现”悄悄改口径，设计为“好画”裁掉边角。每次都是局部最优，叠起来就偏离了客户那个“结果”</td>
+</tr>
+<tr class="odd">
+<td>③</td>
+<td><strong>返工的账没人认</strong></td>
+<td>断层导致的返工发生在下游，根子在上游的接缝——<strong>组织里没有一个人看得见整条链</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>康养项目证据</strong>：从需求调研到 7 域数智本体建模、到 3835 行可运行插件骨架、到 11 章约 11 万字 26 图的对客可研，<strong>全链条 0 次跨人交接</strong>——从头到尾是 1 名 FDE 带智能体编队。<strong>没有接缝，就没有断层。</strong></p>
+<p><strong>那条必须由同一个大脑走完的推理链</strong>（量级标尺，背下来）：</p>
+<pre><code>102 业务事件 → 16 事件簇 → 7 角色画像（368 份问卷校准）
+    → 7 条用户旅程 → 5 条业务流程 → 10 个热点（P1–P5 分层）→ 7 域限界上下文 D1–D7</code></pre>
+<blockquote>
+<p>每一步都是<strong>判断</strong>，不是搬运。“把 102 件事收敛成 16 簇”，收敛的依据是业务相似度和优先级——<strong>换个人接手第二步，他不知道第一步为什么这么归类，只能重新判断，于是断层产生。</strong></p>
+</blockquote>
+<hr />
+<h3 id="fde-用贯通消除断层智能体是手脚不是接力赛里的另一棒">② FDE 用“贯通”消除断层——智能体是手脚，不是接力赛里的另一棒</h3>
+<p>FDE = Forward Deployed Engineer，前置交付工程师。<strong>不是“前线工程师”，也不是“交付工程师”</strong>——那两个词都太窄，会让人以为他只管交付那一段。<strong>他管的是从客户模糊意图到可执行结构的整条认知链。</strong></p>
+<pre><code>工序制：4 人 × 3 接缝 × N 次返工
+FDE  ：1 人 × 0 接缝 × 智能体扩手脚
+                    ★ 接缝数 = 断层数</code></pre>
+<blockquote>
+<p><strong>关键澄清</strong>：智能体是<strong>这一个人的手脚</strong>，不是接力赛里的另一棒。他用智能体把 102 个事件快速铺开、把 7 个域并行编译、把 35 节报告并行起草——<strong>但判断始终在他一个人这里。</strong></p>
+</blockquote>
+<p><strong>可验证的痕迹</strong>：7 域五要素 <code>Object 76 / Link 75 / Function 38 / Rule 47 / Action 54 / HIL 26</code>，7 个域<strong>同一天并行编译</strong>、结构校验 <strong>7/7 零悬空引用</strong>。跨 7 个域的引用之所以不悬空，正因为<strong>定义方和引用方是同一个大脑</strong>——若分给 7 个人，D3 引用 D1 的对象时对不上口径，就是又一处断层。</p>
+<hr />
+<h3 id="两种交付模式动笔前的第一判断直接决定你选-a-还是-b">④ 两种交付模式：动笔前的第一判断（直接决定你选 A 还是 B）</h3>
+<p>有人会问：你举的全是康养项目，是不是只有康养这类项目才需要 FDE？不是。<strong>而且有一个比“行业”更重要的分类法——FDE 交付分两种模式，第一个判断不是“怎么做”，是“这是哪种模式的活”。</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>模式一 · Token 计费的智能体 SaaS 应用</strong></th>
+<th><strong>模式二 · 大型平台建设 + 生态运营</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>交付物</td>
+<td>一个能用的智能体应用，按调用量计费</td>
+<td>可研 + 平台 + 运营一整套</td>
+</tr>
+<tr class="even">
+<td>特征</td>
+<td>轻、快、产品化</td>
+<td>重、长周期、投建运一体，有运营盘和多元收入</td>
+</tr>
+<tr class="odd">
+<td>代表</td>
+<td><strong>教育督导项目</strong>（某市某城区学前保教质量智慧督导）——和康养项目同一套建模管线，但交付的是督导 agent 应用，不做百页可研、不做运营盘</td>
+<td><strong>康养项目</strong>（1.36 亿平台 + 60 站运营网络，IRR 15.2%）、<strong>HR项目 HR项目</strong>、农业口的<strong>辣椒大模型</strong>、内蒙古草业集团的<strong>草业大模型</strong>（某草业集团）</td>
+</tr>
+<tr class="even">
+<td><strong>→ 本手册选哪类模板</strong></td>
+<td><strong>先 B</strong>（智能体矩阵、每类用户的真实提问）</td>
+<td><strong>先 A</strong>（谁出钱、怎么赚），<strong>大项目 A+B 都要</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>选错模式的代价很实</strong>：用做康养项目的重法去做一个教育督导项目这样的 SaaS 应用，<strong>又慢又贵</strong>；用做 SaaS 的轻法去接康养项目这种大盘，<strong>撑不起可研评审和财务测算，中不了标。</strong></p>
+</blockquote>
+<p><strong>⚠️ 最后立一条规矩：这些案例的成熟度不一样，绝不拉平。</strong>（<strong>以下为现行口径，讲师请以此为准</strong>）</p>
+<table>
+<thead>
+<tr class="header">
+<th>案例</th>
+<th>成熟度</th>
+<th>做到哪一步</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>康养项目</strong></td>
+<td>🟢</td>
+<td><strong>唯一全域编译交付</strong></td>
+</tr>
+<tr class="even">
+<td><strong>教育督导项目</strong></td>
+<td>🟢</td>
+<td>建模 + 方案 + <strong>47 页 demo</strong>（AI 是 Mock，<strong>但数据是 79 园真实 CSV</strong>）</td>
+</tr>
+<tr class="odd">
+<td><strong>HR项目</strong></td>
+<td>🟢</td>
+<td>建模 + 7 类文书（<strong>唯一覆盖招标 ↔︎ 投标 ↔︎ 验收全环</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>学前教育项目</strong></td>
+<td>🟢</td>
+<td>可研满配（653KB + 送审报价包），<strong>但无 persona / journey</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>草业大模型</strong></td>
+<td>🟡</td>
+<td>方案 + <strong>11 页 Mock demo（数据全仿真）</strong> + pilot 本体</td>
+</tr>
+<tr class="even">
+<td><strong>辣椒大模型</strong></td>
+<td>🟡</td>
+<td>方案 + pilot 本体，<strong>无 demo</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这张矩阵最早在教育督导项目、草业项目没素材时，留的是 <code>[待补素材]</code> 占位，没编。</strong> <strong>没素材先留占位，素材到了先读再填</strong>——这就是这门课反复教的东西，也是 §四 B-11 那条纪律的另一个面。 各案例材料里那些“成本降 20%、育种减半”，一律是<strong>方案目标值，不是实测</strong>，讲的时候必须标明。</p>
+</blockquote>
+<hr />
+<h3 id="反例-b-7求全-断层的另一种表现">⚠️ 反例 B-7（求全 = 断层的另一种表现）</h3>
+<p><strong>先掐掉一个危险误读</strong>：‘一个人贯通全链’<strong>不等于</strong>’一个人把每件事都做到最全’。</p>
+<p><strong>失误表征</strong>：康养项目长者用户旅程建模初版，做成了“<strong>夜间急救</strong>”主线——把最重、最低频、最偏离营收的场景当成了旅程骨架。做得很全、很细、很专业，<strong>但方向错了</strong>。</p>
+<p><strong>为什么错</strong>：微康养网络（O2O 嵌入式社区医养）的商业内核是<strong>会员转化复购飞轮</strong>，客户要的“结果”是可持续运营的营收闭环。夜间急救是必要的安全兜底，但不是主线；把它建成主线，是“求全”压倒了“服务业务优先级”。</p>
+<p><strong>返工成本（记在方法论账上）</strong>：旅程初版推翻重做，改为围绕会员飞轮重建主线。<strong>这笔返工不是因为做得不认真——恰恰因为太认真地做错了方向。</strong></p>
+<blockquote>
+<p><strong>贯通 ≠ 求全。求全是“结果没想清”的症状，不是勤奋的勋章。</strong> <strong>B-7 在人月账上的第二个切面</strong>：<strong>FDE 模式下，压缩比再高，也压不掉“方向错了导致的返工”。</strong> 这笔账不是打字慢造成的，是判断偏了造成的——<strong>判断对，压缩比才成立；判断错，智能体只会让你更快地错更多。</strong> <strong>落到本步的动作</strong>：模板 A 的「商业模式」段<strong>必须先写清楚</strong>。那几条收入线定不下来，你后面的旅程、热点、域切分，全都可能在为一个不成立的生意做设计。</p>
+</blockquote>
+<hr />
+<h3 id="现场小练可选10时间不够留课后">🔔 现场小练（可选，10′；时间不够留课后）</h3>
+<blockquote>
+<p>打开你手上或最近一个项目，<strong>画一张你所在项目的交付断层图</strong>——不是理想流程图，是<strong>真实发生过信息衰减的那张图</strong>：哪道接缝掉了东西、掉了什么、返工了几次、这笔账记在谁头上。</p>
+</blockquote>
+<p><strong>画不出断层的人有两种</strong>：一种是项目太小没断层，另一种——<strong>更常见</strong>——是<strong>你根本没看见断层</strong>。</p>
+<p><strong>三个收口问题</strong>（每题 3′）：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>问</th>
+<th>收口口径</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>你图上最深的那道断层，换成“一个人贯通”，真能消除吗？还是只是搬到了这个人的时间压力上？</td>
+<td><strong>能消除的是“交接信息衰减”，消除不了的是“判断本身的难度”。</strong> FDE 不是让判断变简单，是让判断不再被切断</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>你的压缩比里，最大那一块来自“结构化能力”“平台固化”还是“打字快”？</td>
+<td>主要来自打字快 = <strong>还没理解杠杆</strong>。打字快是线性的，最多 2–3 倍；5+ 人到 1 人是量级差别</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>你标注为“压不动”的环节，是真压不动，还是你不敢让智能体碰？</td>
+<td><strong>真压不动 = 涉钱 / 涉合规 / 涉责任承担</strong>（HIL 硬判据）；<strong>不敢碰 = 你还没建立对平台的信任</strong>。前者是纪律，后者是能力缺口，别混为一谈</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="十常见翻车难听话">十、常见翻车（难听话）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>翻车写法</th>
+<th>为什么不行</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“我们要做一个 AI 人力资源平台”</td>
+<td>没有供需双方、没有数据来源、没有痛点——智能体只能瞎猜</td>
+</tr>
+<tr class="even">
+<td>角色只列“用户”“管理员”</td>
+<td>这是软件角色不是业务角色；persona 必然空洞</td>
+</tr>
+<tr class="odd">
+<td>价值写“提升效率、降低成本”</td>
+<td>不可量化 = 不可测算 = 不可论证，财务那步直接断链</td>
+</tr>
+<tr class="even">
+<td>商业模式写“后续探讨”</td>
+<td>判不了模式一还是模式二，后面所有动作的轻重定不了</td>
+</tr>
+<tr class="odd">
+<td>把技术栈写进概览（“大模型+知识图谱+微服务”）</td>
+<td>概览是<strong>业务</strong>描述；技术选型是 T4/T8 的事</td>
+</tr>
+<tr class="even">
+<td>每类用户只写 3–5 条提问</td>
+<td>凑不满 10 条 = 对这类用户还不了解，<strong>回去再问</strong></td>
+</tr>
+<tr class="odd">
+<td>提问写成“用户需要土壤检测功能”</td>
+<td>这是你的转译不是用户的话，原始约束丢了</td>
+</tr>
+<tr class="even">
+<td>复用模板时把上一个项目的数字一起带过来</td>
+<td><strong>B-11：编造。比空缺更有害。</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一句难听话</strong>：你说不清“谁在什么时候因为什么做了什么动作”、也列不出“他会怎么问”，就还没有项目，只有一个愿望。<strong>别把愿望丢给智能体，它会很客气地帮你把愿望写成 100 页。</strong></p>
+</blockquote>
+<hr />
+<h2 id="十一checkout验收对照">十一、checkout（验收对照）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>模板选型</td>
+<td>说得出本组命题该用 A / B / A+B 及理由</td>
+<td>直接开写，没判过模式</td>
+</tr>
+<tr class="even">
+<td>完整性（A）</td>
+<td>六段齐全</td>
+<td>缺“商业模式”或“角色” → <strong>一票警示</strong></td>
+</tr>
+<tr class="odd">
+<td>完整性（B）</td>
+<td>每类用户三件套齐（场景/刚需/≥10 提问）</td>
+<td>提问 &lt;10 条，或提问是转译不是原话</td>
+</tr>
+<tr class="even">
+<td>可量化</td>
+<td>价值段至少 1 处带数字（时间/人力/金额）</td>
+<td>通篇“大大提升”“显著改善”</td>
+</tr>
+<tr class="odd">
+<td>数字有主</td>
+<td>每个量化断言能答“这数是谁的、从哪来”</td>
+<td><strong>从别处模板带来的数字 → 一票警示（B-11）</strong></td>
+</tr>
+<tr class="even">
+<td>边界诚实</td>
+<td>拿不准处标“待客户确认”，不编</td>
+<td>把自己的猜测写成客户需求</td>
+</tr>
+<tr class="odd">
+<td><strong>输入包三层</strong></td>
+<td><code>_INPUT.md</code> 事实 / 口径 / 任务<strong>三层齐全</strong></td>
+<td>只有事实层 → <strong>后面必定抱怨“它答得不对”</strong></td>
+</tr>
+<tr class="even">
+<td><strong>口径层有主</strong></td>
+<td>每个关键数字注明来源 + 成熟度标签（实测 / 目标值 / 待核实）</td>
+<td>数字裸奔，没有来源没有标签</td>
+</tr>
+<tr class="odd">
+<td><strong>任务层有禁令</strong></td>
+<td>写明<strong>不许做什么</strong></td>
+<td>只写“要什么”——<strong>模型会用它擅长的方式填满你没限制的地方</strong></td>
+</tr>
+<tr class="even">
+<td>电梯演讲</td>
+<td>四句话说完，<strong>且邻组能复述回来</strong></td>
+<td>自己觉得说清楚了，别人复述不出</td>
+</tr>
+<tr class="odd">
+<td>5W2H 覆盖</td>
+<td>七项都有着落，答不上的标“待客户确认”</td>
+<td>缺项而不自知</td>
+</tr>
+<tr class="even">
+<td>谁反对</td>
+<td>利益相关者四栏都填了，<strong>含“谁反对”</strong></td>
+<td>只填了出钱/使用/验收三栏</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="十二与下游的衔接">十二、与下游的衔接</h2>
+<pre><code>本模板（采集层）
+  ↓ T3：A 概览+角色 → /studio-insight:persona-insight、journey-map
+  ↓ T3：A 价值段     → /studio-insight:opportunity-brief（热点排序）
+  ↓ T3：B 真实提问   → journey 的场景切分
+  ↓ T4：A 概览痛点   → /studio-planner:plan（事件风暴 → 域切分）
+  ↓ T4：B 智能体矩阵 → skill-map 的初始候选
+  ↓ T5：B 真实提问   → domain-intake 第 10 段 CQ（验收用例）
+  ↓ T5：B 提问背后的数据需求 → domain-intake 第 9 段 数据来源
+  ↓ T6：A 价值+商业模式 → 商业模式画布 + 财务测算 + 招投标效益段</code></pre>
+<p><strong>T1 的边界</strong>：本模板不覆盖 <code>domain-intake</code> 第 3–8 段（业务对象/关系/规则/决策点），那些要在 T3/T4 跑完后回填。<strong>T1 只负责说清“业务是什么、用户会问什么”，不负责说“系统怎么建”。</strong></p>
+<hr />
+<h2 id="十三待确认给课程维护者">十三、待确认（给课程维护者）</h2>
+<ol type="1">
+<li>✅ <strong>已定</strong>：「模板复用的数字迁移污染」正式收编为 <strong>B-11</strong>，<strong>主场在本册 §四</strong>，T2 §六 讲固化正面时点到即止、不抢主场。仍需同步的下游文件：<code>00_课程总纲.md</code> 第五节反例库表、<code>_WRITING_BRIEF.md</code> 第四节反例分配表。</li>
+<li>草业项目原件是 <code>.docx</code>，<strong>python-docx 解析报错</strong>（zip 内有异常项，疑似 WPS 导出），改用 pandoc 转换成功——这条可作 T6 的真实翻车点素材。</li>
+<li>⚠️ <strong>口径漂移提醒</strong>：§十一 口播稿是讲义原文照搬，讲 1 那段「六·补 交付模式」的<strong>成熟度说法是旧版</strong>（当时教育督导项目只到“建模+方案”、草业项目记作“方案+demo”、且没有某工业城市两案）。<strong>现行口径以 §六 ④ 的成熟度表为准</strong>，口播时按该表口述，别照读旧数。</li>
+</ol>
+<hr />
+<h2 id="十四讲师包-口播稿">十四、讲师包 · 口播稿</h2>
+<h3 id="本步用哪几个课件">本步用哪几个课件</h3>
+<blockquote>
+<p>课件在 <code>../slides/</code>，浏览器直接打开。<strong>键盘 ← → 翻页 · S 演讲者模式 · O 总览。</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>课件</th>
+<th>用在哪一段</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>slides/01_FDE是什么.html</code></td>
+<td>§八 知识（交付断层）+ §一 工具箱</td>
+<td><strong>全用（16 屏）</strong>。⚠️ 2026-07-27 补 3 屏信息获取工具箱（全/准 · 电梯演讲 · 5W2H+利益相关者+原话留存），在第 9 屏反例 B-7 之后</td>
+</tr>
+<tr class="even">
+<td><strong><code>slides/01b_提示词工程.html</code></strong></td>
+<td><strong>§七 提示词工程（20′）</strong></td>
+<td><strong>全用（5 屏）</strong>。封面 → 输入≠文档 → 六条规范 → 输入包三层 → 收口难听话。<strong>2026-07-27 从 01 拆出独立成册</strong>——它是信息获取与后续所有工具步骤之间的转换器</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>课件是旧十讲时期做的</strong>，口径以本册为准——课件若与本册冲突（尤其案例成熟度、「合资」旧口径），<strong>以本册为准，当场改口</strong>。</p>
+</blockquote>
+<blockquote>
+<p><strong>这是讲师原话级材料，共 9 段，原文照搬未改写</strong>——前 4 段来自讲 1「FDE 是什么」，后 5 段来自讲 2「大模型时代 FDE 交付 vs 传统交付」。 用法：可以照读，也可以按自己的语感调整——但<strong>先照读一遍再改</strong>，里面每一处数字和转折都是配好的。 每段标题标明它用在 §六 的哪个环节。</p>
+</blockquote>
+<hr />
+<h3 id="口播-什么是交付断层对应-六-①">口播 · 什么是“交付断层”（对应 §六 ①）</h3>
+<p>"我先不讲 FDE。我先问一句话：你上一个项目，客户最后拿到手的东西，和他当初嘴里说的那个东西，是同一个东西吗？</p>
+<p>大概率不是。中间掉了很多。掉在哪儿了？不是掉在某个人不认真，是掉在<strong>接缝</strong>上。需求的人把话交给设计的人，设计的人把图交给开发的人，开发的人把包交给交付的人——每交一次手，都有一部分<strong>只在上一个人脑子里、没写进文档</strong>的东西，永久丢失。这个丢失点，我叫它<strong>交付断层</strong>。</p>
+<p>断层不是 bug，是工序制的<strong>结构性产物</strong>。只要你把一件事切成四段交给四拨人，断层就一定存在，跟态度无关。"</p>
+<h3 id="口播-工序制为什么必然制造信息衰减对应-六-①-的三条原因表">口播 · 工序制为什么必然制造信息衰减（对应 §六 ① 的三条原因表）</h3>
+<p>"有人会说：那我把文档写细一点，接缝不就补上了吗？补不上。原因有三个，都很扎心：</p>
+<p>第一，<strong>意图无法完全文档化</strong>。客户说’我要一个能帮站长管好老人的系统’，这句话背后有 102 件他没说出口的具体业务事件。你写需求文档时凭经验补了 60 件，剩下 42 件你没意识到,下游更不可能知道。</p>
+<p>第二，<strong>每道工序都会做本位优化</strong>。开发拿到设计图，会为了’好实现’悄悄改口径；设计拿到需求，会为了’好画’裁掉边角。每次优化都是局部最优，叠起来就偏离了客户那个’结果’。</p>
+<p>第三，<strong>返工的账没人认</strong>。断层导致的返工，发生在下游，但根子在上游的接缝，组织没有一个人为整条链的保真度负责——因为没有一个人<strong>看得见整条链</strong>。"</p>
+<h3 id="口播-fde-如何用贯通消除断层对应-六-②">口播 · FDE 如何用“贯通”消除断层（对应 §六 ②）</h3>
+<p>"FDE 的英文是 Forward Deployed Engineer，前置交付工程师。注意，不是’前线工程师’，也不是’交付工程师’——那两个词都太窄，会让你以为他只管交付那一段。他管的是<strong>从客户模糊意图到可执行结构的整条认知链</strong>。</p>
+<p>FDE 消除断层的机制只有一句话：<strong>把需要跨四个人接力的判断链，压进一个人的头脑里连续走完</strong>。需求他做、建模他做、方案他做、交付物他做——不是他很能干什么都会，而是这条链<strong>本来就不该切开</strong>。切开的每一刀，都是为了适配’组织按工种分人’这件事，而不是为了把活干好。</p>
+<p>那智能体是什么角色？智能体是<strong>这一个人的手脚，不是接力赛里的另一棒</strong>。他用智能体把 102 个事件快速铺开、把 7 个域并行编译、把 35 节报告并行起草——但<strong>判断始终在他一个人这里</strong>。所以下一讲我会反复讲：FDE 的杠杆不是打字快，是他一个人扛住了整条判断链。"</p>
+<h3 id="口播-贯通不等于求全对应-六-b-7讲反例前的引子">口播 · “贯通”不等于“求全”（对应 §六 B-7，讲反例前的引子）</h3>
+<p>"讲到这儿有个危险的误读，我必须现在就掐掉：‘一个人贯通全链’不等于’一个人把每件事都做到最全’。<strong>求全，本身就是断层的另一种表现</strong>——它是’你没搞清客户真正要的结果’导致的过度建模。</p>
+<p>给你们看康养项目一个真实的失误。"（转反例 B-7，见第六节）</p>
+<hr />
+</body>
+</html>

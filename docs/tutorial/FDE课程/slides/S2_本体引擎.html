@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 专题课 S2 · 本体引擎的工程实现</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:44px 66px}
+  .mt-l{margin-top:17px}.mt-m{margin-top:11px}
+  .lede{font-size:17px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:5px;font-size:15px}
+  .card p,.card-accent p,.card-outline p{font-size:14px;line-height:1.52}
+  h2.title{font-size:35px;line-height:1.14}
+  .quote-big{font-family:var(--font-serif);font-size:25px;line-height:1.34;font-weight:600;color:var(--accent);max-width:30ch}
+  .huge{font-family:var(--font-serif);font-size:31px;line-height:1.24;font-weight:700;color:var(--accent)}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:14px}
+  table.t th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:5px 9px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:5px 9px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  table.t tr.brk td{background:#fff5f5}
+  table.t tr.add td{background:var(--grad-soft)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.55;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:11px 15px;overflow:auto;color:var(--text-1)}
+  .src{font-size:12px;color:var(--text-3);font-style:italic}
+  .fig{max-width:100%;max-height:592px;width:auto;height:auto;border:1px solid var(--border);border-radius:10px;background:#fff;display:block;margin:6px auto 0}
+  /* 图上的块：本课每一屏认领一块 */
+  .blk{border-radius:9px;padding:9px 13px;margin-bottom:6px;font-size:14.5px;border:1px solid var(--border);background:var(--surface-2)}
+  .blk b{color:var(--text-1)}
+  .blk .t{font-weight:700;font-size:15.5px;color:var(--text-1)}
+  .blk .p{font-size:13.5px;color:var(--text-2);margin-top:2px}
+  .blk.read{background:#eef4ff;border-color:#bfd4ff}
+  .blk.tele{background:#eafaf0;border-color:#b6e6c8}
+  .blk.write{background:#fdeeee;border-color:#f5c2c2}
+  .blk.trust{background:#f2eefc;border-color:#d5c8f0}
+  .blk.ui{background:#e9fbfb;border-color:#b3e8e8}
+  .blk.base{background:var(--surface-2)}
+  .blk.hot{box-shadow:0 0 0 2px var(--accent)}
+  .stepline{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-size:14.5px;font-weight:700}
+  .stepline .s{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:6px 10px}
+  .stepline .a{color:var(--accent-2)}
+  .slide.tight .card,.slide.tight .card-accent{padding-top:8px;padding-bottom:8px}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 专题课 S2 · 180′ · 讲解 + 读码</div>
+  <h1 class="title" data-anim="fade-up">本体引擎的工程实现<br>一张图讲完</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">S1 告诉你为什么必须有这层。<br><b>今天告诉你，它长什么样。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">全课 = 一张架构图</span>
+    <span class="pill">每一块都能翻到代码</span>
+    <span class="pill">⭐ 题眼：确定性边界置于模型之外</span>
+  </div>
+  <p class="src mt-m">一档来源：clife-onto-engine 源码 · docs/assets/architecture-overview.svg · docs/01-metamodel-and-plugin-spi.md（内核"宪法"）</p>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="17"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 180′】</b> 开场 + 全图 25′ ｜ 底座（五要素 / GraphStore）25′ ｜ <b>治理写 + 两处断裂 45′</b> ｜ 两条读路径 20′ ｜ 信任基础设施 20′ ｜ 展示 + 交互层 15′ ｜ 生态与建模端 10′ ｜ <b>CI 防腐 12′</b> ｜ 收口 + 自查 10′</p>
+    <p><b>⭐【本课的讲法，开场就交代】</b>"今天这门课只有<b>一张图</b>。<b>第三页我会把它投出来，然后我们从最底下一层往上爬，每一屏认领图上一个块。</b>讲完，这张图你应该能自己默出来。"</p>
+    <p><b>⭐【图的标题就是主梁】</b>"注意看图的标题——<b>『自有本体语义 OS（运行时端）』。OS 不是我给它起的比喻，是这套系统给自己的定位。</b>所以今天你可以用你对操作系统的全部直觉来理解它：内核、应用、用户、系统调用、沙箱、journaling——<b>全都对得上。</b>"</p>
+    <p><b>⭐【但真正的教学点是它在哪断掉】</b>"<b>一个类比的价值不在于覆盖多少，在于断在哪里。</b>这套东西和操作系统<b>只在两个地方不一样——而那两处，正好是它区别于一般执行引擎的全部所在。</b>第 7、8 页讲。"</p>
+    <p><b>【读码准备】</b>提前在投屏机上打开 <span class="mono">~/Codes/onto-fundary-plugins/</span>。<b>图上每个块都标了文件名，讲到哪翻到哪。翻不动这门课掉一半分量。</b></p>
+    <p><b>【为什么这门课重要】</b>"客户的架构师问'你们的规则引擎和我们现有的校验有什么区别'——<b>光有 S1 的判断力答不上来。今天就是为了让你答得上来。</b>"</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="三门课的关系">
+  <div class="kicker">本课在专题课里的位置</div>
+  <h2 class="title">三门课，三块牌子</h2>
+  <table class="t mt-s">
+    <tr><th></th><th>S1 · 本体论</th><th>S2 · 工程实现（本课）</th><th>S3 · 建模端如何支撑引擎</th></tr>
+    <tr><td><b>讲哪一块</b></td><td>为什么必须有这层</td><td><b>整张图的运行时端</b></td><td><b>图右下角那个橙色框</b>：astra-studio 建模端</td></tr>
+    <tr><td><b>教材</b></td><td>方法论文集</td><td><b>clife-onto-engine 源码</b></td><td><b>studio-ontology 仓库</b></td></tr>
+    <tr><td><b>形式</b></td><td>纯讲解</td><td><b>讲解 + 当场读码</b></td><td>讲解 + 管线走查</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>三门课是同一句话说了三遍，一次比一次具体：</b></p>
+  <div class="stepline mt-s" data-anim="fade-up">
+    <span class="s">S1：本体是 <b>LLM OS 的文件系统</b></span><span class="a">→</span>
+    <span class="s"><b>S2：这就是那个 OS</b></span><span class="a">→</span>
+    <span class="s">S3：<b>怎么给它编译应用</b></span><span class="a">→</span>
+    <span class="s"><b>L5：你亲手编译一个</b></span>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">只上 S1 不上 S2：<br><b>你说得出方案好不好，说不出好在哪一行。</b></p>
+  <div class="deck-footer"><span class="ftag">定位</span><span class="slide-number" data-current="2" data-total="17"></span></div>
+  <div class="notes"><p><b>⭐【那条链是三门专题课的主梁，指着念一遍】</b>"S1 第六章讲 Karpathy 的 Software 3.0 时说过<b>『本体是 LLM OS 的文件系统』</b>——那门课把它当比喻用完就过了。<b>今天这门课把它当图纸用。S3 讲怎么给这个 OS 编译应用，第五课让你亲手编译一个。</b>"</p>
+  <p><b>【最后那句要说出口】</b>"只上 S1 不上 S2，你说得出方案好不好，说不出好在哪一行。<b>而客户的技术负责人，只关心哪一行。</b>"</p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="⭐⭐ 全图">
+  <div class="kicker">⭐⭐ 本课地图 · 接下来每一屏认领这上面一个块</div>
+  <img class="fig" src="../figures/fig-S2-引擎全景.svg" alt="clife-onto-engine 自有本体语义 OS 架构全景">
+  <div class="deck-footer"><span class="ftag">全图 · ⭐⭐</span><span class="slide-number" data-current="3" data-total="17"></span></div>
+  <div class="notes">
+    <p><b>⭐⭐【这一页是全课骨架。投出来，先别讲，让他们看 30 秒。】</b></p>
+    <p><b>【然后按这个顺序指一遍，每块 15 秒，不展开】</b><br>
+    ① <b>最底下：元模型五要素</b>——Object/Link/Function/Rule/Action，加 Plugin SPI（grass 草业 / chili 辣椒，<b>换行业零改内核</b>）和 Tenant 租户配置。<b>这是地基。</b><br>
+    ② <b>GraphStore SPI</b>——NebulaGraph，<b>一 ontology 一 space、多租户硬隔离</b>；还有 InMemory 后端，<b>overlay 写即可见</b>。<br>
+    ③ <b>自有展示 · Explorer</b>——离线单文件 + 活端点。<br>
+    ④ <b>自有语义面，四块</b>：<b>语义读 OQL</b> / <b>遥测读 query-plan</b> / <b>治理写 Action 引擎</b> / <b>信任基础设施</b>。<b>今天大半时间在这一层。</b><br>
+    ⑤ <b>最上面：交互层三个 Agent 面</b>——MCP 桥、HTTP、CLI REPL。<br>
+    ⑥ <b>右上：生态互操作</b>——OKF 知识包、外部 pack + 写桥，<b>标着"可关"、"非脊椎"</b>。<br>
+    ⑦ <b>右下：建模端 astra-studio</b>——<b>上游、另仓，S3 整门课讲它。</b></p>
+    <p><b>⭐【三个必须当场点出来的细节】</b><br>
+    ① <b>标题</b>：「<b>自有本体语义 OS</b>」——OS 是这套系统<b>给自己的定位</b>，不是我的比喻。<br>
+    ② <b>那条红线</b>：<span class="mono">guard→回滚→审计</span>，<b>从 Action 引擎穿下去直插存储</b>。<b>全图只有这一条红线——写路径只有一条，而且它必须穿过闸门。</b><br>
+    ③ <b>最底下那句话</b>：「<b>确定性边界置于模型之外：合法但违规的动作在写后规则校验阶段被确定性回滚并留审计。</b>」<b>这是全图的题眼，也是这门课的题眼。今天最后一页会回到它。</b></p>
+    <p><b>【告诉他们讲法】</b>"接下来我们<b>从最底下往上爬</b>。为什么不从上往下？<b>因为上面那些面能做什么，全部由最底下那五个要素决定。</b>"</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="为什么它叫 OS">
+  <div class="kicker">主梁 · 图的标题就是答案</div>
+  <h2 class="title">「自有本体语义 <b>OS</b>」——<br>拿你对操作系统的直觉来读这张图</h2>
+  <table class="t mt-s">
+    <tr><th>操作系统</th><th>这张图上的</th></tr>
+    <tr><td><b>内核 / 应用 / 用户</b></td><td><b>内核 / Plugin SPI（grass·chili）/ Tenant 租户配置</b></td></tr>
+    <tr><td><b>系统调用 syscall</b></td><td><b>治理写 · Action 引擎</b>——全图唯一那条红线</td></tr>
+    <tr><td>errno 是<b>返回值</b>不是 panic</td><td>拒绝是<b>结构化数据</b>　<b style="color:var(--good)">✅</b></td></tr>
+    <tr><td><b>DMA / 旁路</b>，绕过逐次 syscall</td><td><b>遥测读 · query-plan</b>（读侧旁路）· 数据摄取（写侧旁路）　<b style="color:var(--good)">✅</b></td></tr>
+    <tr><td><b>ABI</b>——应用编译一次，内核升级不重编</td><td><b>Plugin SPI</b>——换行业<b>零改内核</b></td></tr>
+    <tr><td><b>沙箱</b>：应用拿不到裸句柄</td><td><b>Capability</b>：ctx 不是数据库连接</td></tr>
+    <tr><td><b>journaling</b>：崩溃后重建一致状态</td><td><b>审计快照</b>：三个月后重建当时的判断</td></tr>
+    <tr><td><b>设备驱动 / VFS</b></td><td><b>GraphStore SPI</b>：Nebula / InMemory 可换后端</td></tr>
+    <tr><td><b>checkpatch / sparse</b>：内核纯度检查</td><td><b>两个 CI 门禁脚本</b>（第 14 页）</td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">这套东西和操作系统<br>只在<b>两个地方</b>不一样——<br>而那两处，正好是它的全部本质。</p>
+  <div class="deck-footer"><span class="ftag">主梁</span><span class="slide-number" data-current="4" data-total="17"></span></div>
+  <div class="notes"><p><b>⭐【这一页的作用是给学员一副眼镜，戴上再看图】</b>"你们对操作系统是有直觉的。<b>这门课的全部策略就是：拿你已经懂的，去够你不懂的。</b>"</p>
+  <p><b>【强调这不是修辞】</b>"我不是在打比方说'有点像'。<b>Plugin SPI 就是 ABI，GraphStore SPI 就是 VFS，Capability 就是文件描述符——每一条都能落到具体设计上。</b>"</p>
+  <p><b>⚠️【一条使用纪律，必须说】</b>"<b>类比是脚手架，不是证明。</b>客户面前可以用它建立直觉，<b>但不能用它替代论证</b>——客户问'你们凭什么保证规则一定被执行'，答案是<b>那六步和 CI 门禁</b>，不是'因为我们像操作系统'。<b>类比赢不了技术负责人，行号才行。</b>"</p>
+  <p><b>【留钩子】</b>"两处不一样在第 7、8 页。<b>先从地基开始。</b>"</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="底座 · 五要素与三层">
+  <div class="kicker">图 · 最底层 1/2 · 元模型五要素</div>
+  <h2 class="title">地基：五个要素，三层切分</h2>
+  <div class="blk base"><span class="t">元模型五要素</span><span class="p"><b>Object · Link · Function · Rule · Action</b>　｜　Plugin SPI：<b>grass 草业 / chili 辣椒（换行业零改内核）</b> + Tenant 租户配置</span></div>
+  <table class="t mt-m">
+    <tr><th></th><th>Kernel 内核</th><th>Plugin 应用</th><th>Tenant 用户</th></tr>
+    <tr><td><b>OS 里是</b></td><td>内核</td><td>一个应用程序</td><td>一个用户的 home 目录</td></tr>
+    <tr><td><b>图上是</b></td><td>Action 引擎 / OQL / trust / GraphStore SPI</td><td><b>grass · chili</b></td><td><b>Tenant 租户配置</b></td></tr>
+    <tr><td><b>行业词汇</b></td><td><b style="color:var(--bad)">否</b></td><td><b style="color:var(--good)">是</b></td><td><b style="color:var(--good)">是</b></td></tr>
+    <tr><td><b>谁改</b></td><td>内核团队</td><td><b>FDE + 领域专家</b></td><td>交付 + 客户</td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">Linux 内核里<br><b>不会有 if app == "photoshop"。</b></p>
+  <div class="card card-accent mt-m"><h4>⭐ 判缝准则：一句话决定代码放哪层</h4>
+    <p><b>「换成医疗大模型，这段逻辑还成立吗？」</b>　成立 → <b>内核</b>　·　不成立 → <b>插件</b>　·　具体数字（阈值 135）→ <b>租户</b><br>
+    <span class="dim">「多条规则违反收集全部」= 内核　·　「收缩压 &gt; 140 算异常」= 插件　·　「这家机构阈值 135」= 租户</span></p></div>
+  <div class="deck-footer"><span class="ftag">底座 1/2</span><span class="slide-number" data-current="5" data-total="17"></span></div>
+  <div class="notes"><p><b>【现场动作：判缝准则要让学员用一次】</b>报三个例子让他们喊内核/插件/租户。<b>这是本章唯一互动，别跳过——判缝准则只有自己用过一次才记得住。</b></p>
+  <p><b>【第三档是陷阱，一定要点破】</b>"阈值 135 <b>连插件都不是，是租户数据</b>。<b>把阈值写死进插件，一样是越界，只是没那么显眼。</b>插件写的是这条规则的<b>存在与形态</b>，租户配的是<b>这家客户的数字</b>。"</p>
+  <p><b>⭐【"换行业零改内核"这句是图上原话，也是最值钱的一句】</b>"grass 是草业、chili 是辣椒，<b>两个完全不同的行业，跑在同一个内核上，内核一行没改。</b>这句话敢说，是因为<b>它可以被机器验证</b>——第 14 页会给你们看那两个脚本。"</p>
+  <p><b>【为什么这条线值得用 CI 守】</b>可以讲那个腐烂故事：周一有人在内核加了一行 <span class="mono">if metric == "blood_pressure"</span>，理由是"就这一处先跑通"；周三另一个模块照抄；三个月后来了第二个行业，内核改不动了。<b>没有人做错决定，每一步都是局部最优——所以 review 守不住，必须让机器守。</b></p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide tight" data-title="Plugin SPI 七槽位">
+  <div class="kicker">图 · 最底层 · Plugin SPI = ABI · ⭐ FDE 的工作说明书</div>
+  <h2 class="title">接一个新行业，要交的七样</h2>
+  <p class="lede mt-s" data-anim="fade-up">图上写的是 <span class="mono">Plugin SPI: grass 草业 / chili 辣椒</span>。<b>那个 SPI 具体是什么？是七个槽位。</b><br>
+  <b>OS 的对照</b>：ABI 是内核与应用之间的稳定契约——应用编译一次<b>内核升级不重编</b>，反过来<b>内核也不需要知道这个应用是干什么的</b>。</p>
+  <table class="t mt-s">
+    <tr><th>#</th><th>槽位</th><th>提供什么</th><th>谁写</th><th>编译能自动到哪一步</th></tr>
+    <tr><td>1</td><td><b>Schema 包</b></td><td>ObjectType / LinkType</td><td>FDE + 专家</td><td><b style="color:var(--good)">✅ 全自动</b></td></tr>
+    <tr><td>2</td><td><b>映射注册表</b></td><td>源字段 → 本体字段</td><td>FDE + 数据方</td><td><b style="color:var(--good)">✅ 全自动</b></td></tr>
+    <tr><td>3</td><td><b>Function / Rule 实现</b></td><td>派生量、复杂判据</td><td>FDE</td><td><b style="color:var(--warn)">⚠️ 只出骨架</b><span class="dim">（declarative 除外）</span></td></tr>
+    <tr><td>4</td><td><b>Action handlers</b></td><td>每个 Action 的变更逻辑</td><td>FDE</td><td><b style="color:var(--warn)">⚠️ 只出骨架</b></td></tr>
+    <tr><td>5</td><td><b>记忆词典 + 提示词骨架</b></td><td>行业术语、Agent 语言底子</td><td>FDE + 专家</td><td><b style="color:var(--bad)">❌ 完全不生成</b></td></tr>
+    <tr><td>6</td><td><b>Agent 角色定义</b></td><td>有哪些角色、能调什么</td><td>FDE + 业务方</td><td><b style="color:var(--bad)">❌ 完全不生成</b></td></tr>
+    <tr><td>7</td><td><b>CQ 验收集</b></td><td>能力问题</td><td><b>领域专家主导</b></td><td><b style="color:var(--warn)">⚠️ 格式不匹配</b></td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">七槽位是<b>验收清单</b>，<br>不是<b>自动化承诺</b>。</p>
+  <div class="deck-footer"><span class="ftag">底座 · SPI</span><span class="slide-number" data-current="6" data-total="17"></span></div>
+  <div class="notes"><p><b>⭐【这张表的真正用法：报价和排期】</b>"被问'接一个新行业要多久'，<b>不要拍脑袋说三个月。按这七格逐个估——哪几格客户能自己出人，哪几格必须我们上。</b>这就是你的 WBS。"</p>
+  <p><b>⚠️【最后一列是第五课实测出来的，和文档不一致，必须讲】</b>"宪法文档说编译产物<b>『正好填满 SPI 七槽位』——实测不是。</b>今天这门课的口径，<b>以跑出来的为准，不以文档为准。</b>"</p>
+  <p><b>【⑤⑥ 那两个 ❌ 先埋着】</b>"为什么这两格完全不生成？<b>S3 会给出结构性原因——简短说：IR 里压根没有这两段。</b>怎么亲手填掉，<b>第五课带你做。</b>"</p>
+  <p><b>【接上一页】</b>上一页说"换行业零改内核"，<b>这一页就是那句承诺的接口清单</b>：内核不用改，是因为<b>新行业要交的东西全在这七格里，一格都不在内核。</b></p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="底座 · GraphStore SPI">
+  <div class="kicker">图 · 最底层 2/2 · GraphStore SPI</div>
+  <h2 class="title">存储是可换的后端（= VFS）</h2>
+  <div class="blk base"><span class="t">GraphStore SPI</span><span class="p"><b>NebulaGraph</b>（一 ontology 一 space · <b>多租户硬隔离</b>）　/　<b>InMemory 后端</b> · <b>overlay 写即可见</b></span></div>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>一 ontology 一 space</h4><p><b>多租户硬隔离</b>——不是靠查询里加 <span class="mono">where tenant_id=</span>，是<b>物理分开</b>。<br><span class="dim">= OS 的地址空间隔离，不是"大家自觉别越界"</span></p></div>
+    <div class="card card-accent"><h4>InMemory 后端</h4><p>同一套 SPI，换一个实现就能<b>脱库跑</b>——<br><b>这就是 38 个 smoke_* 脚本能跑起来的前提</b>，也是你在客户现场没有 Nebula 时的救命稻草</p></div>
+    <div class="card card-accent"><h4>overlay 写即可见</h4><p>变更先进 overlay，<b>后面的规则立刻读得到</b><br><span class="dim">⚠️ 这四个字是第 9 页那处"断裂"的技术前提，先记住</span></p></div>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up"><b>为什么要有 SPI 这一层</b>：因为存储是<b>会换的</b>。客户已经有图库、或者根本不给你上图库——<br>
+  <b>把存储做成可换后端，本体层才不会被某一个数据库绑死。</b>（这也是 S3 会讲的「不迁客户数据」在存储侧的对应。）</p>
+  <p class="quote-big mt-m" data-anim="fade-up">语义层不该绑死在<br>某一个存储实现上。</p>
+  <div class="deck-footer"><span class="ftag">底座 2/2</span><span class="slide-number" data-current="7" data-total="17"></span></div>
+  <div class="notes"><p><b>【"多租户硬隔离"是客户现场的一个高频问题，值得多说十秒】</b>"客户的安全负责人一定会问'不同客户的数据怎么隔离'。<b>答案不是'我们查询里带了租户 ID'——那是软的。是『一个 ontology 一个 space』，物理分开。</b>"</p>
+  <p><b>⭐【overlay 写即可见，先埋后用】</b>这四个字现在只需要记住，<b>第 9 页会兑现：正因为写完立刻可见，规则才能在写之后判断"变更后的世界还合不合法"。</b></p>
+  <p><b>【InMemory 那格有实战价值】</b>"你在客户现场，对方不给你装 Nebula，<b>你照样能把本体跑起来给他看。</b>这不是玩具模式，<b>38 个冒烟脚本全靠它。</b>"</p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="⭐ 治理写 · Action 引擎">
+  <div class="kicker">图 · 自有语义面 1/4 · ⭐⭐ 全课重心 · 图上唯一那条红线</div>
+  <h2 class="title">治理写 · Action 引擎</h2>
+  <div class="blk write hot"><span class="t">治理写 · Action 引擎　<span class="mono" style="font-weight:400;font-size:13px">kernel/action_engine.py</span></span><span class="p"><b>guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</b></span></div>
+  <div class="stepline mt-m" data-anim="fade-up">
+    <span class="s">1 guard 前置校验</span><span class="a">→</span>
+    <span class="s">2 写入 overlay<br><span style="font-weight:400;font-size:12px">写即可见</span></span><span class="a">→</span>
+    <span class="s">3 <b>写后规则校验</b><br><span style="font-weight:400;font-size:12px">收集全部违反</span></span><span class="a">→</span>
+    <span class="s" style="border-color:var(--good)">4a 全过<br><span style="font-weight:400;font-size:12px">flush + 同事务审计</span></span>
+    <span class="s" style="border-color:var(--bad)">4b 有 hard<br><span style="font-weight:400;font-size:12px">确定性回滚 + 结构化拒绝</span></span>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>三件事和 OS 的 syscall 一模一样</b>：① 应用不能直接碰存储，必须走这条路　② 入口先查权限（<span class="mono">_authz_violation</span>）　③ <b>失败返回的是数据，不是异常</b>——<span class="mono">errno</span> 也从来不是 panic</p>
+  <table class="t mt-m">
+    <tr><th></th><th>普通 tool calling</th><th>Action</th></tr>
+    <tr><td><b>谁决定成不成立</b></td><td>模型决定调什么，函数就执行</td><td><b>模型只能「申请」，引擎决定它成不成立</b></td></tr>
+    <tr><td><b>留痕</b></td><td>看实现</td><td><b>强制审计快照（成功和被拒都有）</b></td></tr>
+  </table>
+  <p class="src mt-s">execute():67 · validate():168 · _eval_rules():209 · _atomic_flush():222 · _compensate():239 · _audit():255</p>
+  <div class="deck-footer"><span class="ftag">语义面 1/4 · ⭐⭐</span><span class="slide-number" data-current="8" data-total="17"></span></div>
+  <div class="notes"><p><b>【读码：现在打开 kernel/action_engine.py】</b>对着行号走一遍，指出六个方法的位置即可。<b>学员看到"图上说的和代码里真的对得上"，这门课的可信度就立住了。</b></p>
+  <p><b>【指着全图那条红线说】</b>"回到第 3 页那张图——<b>全图只有一条红线，就是这条。写路径只有一条，而且它必须穿过闸门。</b>"</p>
+  <p><b>【validate 预演别忘了提一句】</b><span class="mono">validate()</span> 跑全套但<b>永不落库</b>，三个消费者：<b>前端</b>（点提交前就看到会被拒）·<b>Agent</b>（先试一次，避免拿真实拒绝当学习信号）·<b>FDE</b>（调规则不用反复清数据）。</p>
+  <p><b>【一句可以拿去用的话术】</b>客户问"你们的 AI 会不会乱改数据"——<b>"Agent 只能申请，引擎决定。而且它申请的每一次，无论成败都有快照。"</b></p>
+  <p><b>【下一页是高潮，这里留个话】</b>"到这里为止，它和操作系统还是一样的。<b>下一页，两处不一样。</b>"</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="⭐⭐ 两处断裂">
+  <div class="kicker">图 · 自有语义面 1/4 续 · ⭐⭐ 全课高潮</div>
+  <h2 class="title">它和操作系统只有两处不一样</h2>
+  <table class="t mt-s">
+    <tr><th></th><th>操作系统</th><th>本体引擎</th></tr>
+    <tr class="brk"><td><b>❌ 一</b></td><td>syscall <b>先校验参数，再执行</b><br><span class="dim">校验的是「这次调用」</span></td><td><b>先写进 overlay，再判断世界还合不合法</b><br><span class="dim">校验的是「变更之后的整个世界」</span></td></tr>
+    <tr class="brk"><td><b>❌ 二</b></td><td>返回<b>一个</b> errno</td><td><b>收集全部违反，不短路</b></td></tr>
+    <tr class="add"><td><b>➕ 多的</b></td><td>没有——<b>调用者是程序，不会"不确定"</b></td><td><b>置信度总线</b>——调用者是 LLM，它会（第 11 页）</td></tr>
+  </table>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>为什么必须先写后判</h4>
+      <p>规则「一个护理员同时负责不超过 8 人」——要判断"<b>这次分配之后</b>会不会超"，<b>必须先算上这一次</b>。<br>
+      写前校验只能写成 <span class="mono">当前数量+1 &gt; 8</span>：<b>把变更语义硬编码进了规则</b>，换成"批量转移 5 人"就得重写。<br>
+      <b>写后校验的规则一个字不改。</b></p></div>
+    <div class="card card-accent"><h4>为什么不能短路</h4>
+      <p><b>因为调用者不同。</b> syscall 的调用者是<b>程序</b>，按固定逻辑重试，一次一个 errno 无所谓。<br>
+      <b>我们的调用者是 LLM 和人。</b>短路会让他们<b>逐条撞墙</b>；对 Agent 尤其致命——<b>每轮只学到一个约束，会在规则空间里做代价高昂的随机游走。</b></p></div>
+  </div>
+  <p class="huge mt-m" data-anim="fade-up">syscall 校验的是<b>调用</b>，<br>本体引擎校验的是<b>世界</b>。</p>
+  <div class="deck-footer"><span class="ftag">⭐⭐ 断裂</span><span class="slide-number" data-current="9" data-total="17"></span></div>
+  <div class="notes"><p><b>⭐⭐【全课最重要的一页。讲慢，讲透。】</b>这一页给学员一个<b>记忆钩子</b>：整套系统和 OS 只有两处不同，而那两处就是最反直觉的两条设计。<b>比让他们背"三条铁律"牢得多。</b></p>
+  <p><b>【左格接 S1】</b>这是"<b>物理引擎 vs 字典</b>"在代码层面的落点。规则描述的是<b>世界的稳态条件</b>，不是某个操作的参数约束。<b>学员在 S1 记住了那个比喻，今天第一次看到它在代码里的样子。</b></p>
+  <p><b>【右格的"因为调用者不同"是关键五个字】</b>它把一条看起来像 UX 优化的设计，<b>还原成了一条架构必然。</b></p>
+  <p><b>【最后那句要板书】</b>"<b>syscall 校验的是调用，本体引擎校验的是世界。</b>"——<b>九个字，比整张表都好记。</b></p>
+  <p><b>【代价要主动说】</b>"写后校验的代价是必须有可靠回滚——所以有 <span class="mono">_compensate()</span>。<b>而且它的注释老老实实写着『尽力而为』</b>：内存补偿不是数据库事务，副作用已经发出去就撤不回来。<b>这类边界要主动说出来——主动说 = 你想过；被客户架构师问出来 = 你没想过。</b>"</p>
+  <p><b>【现场提问】</b>"你们能再想一条'写前校验写不出来'的规则吗？"——<b>凑够两个例子，这条就扎进去了。</b></p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="两条读路径">
+  <div class="kicker">图 · 自有语义面 2/4 · 读侧也是两条路</div>
+  <h2 class="title">语义读 · 遥测读</h2>
+  <div class="blk read"><span class="t">语义读 · OQL　<span class="mono" style="font-weight:400;font-size:13px">query/oql.py</span></span><span class="p">JSON-AST 查对象图　·　关系 / 派生量　·　<b>防注入 · 编译 nGQL</b></span></div>
+  <div class="blk tele"><span class="t">遥测读 · query-plan　<span class="mono" style="font-weight:400;font-size:13px">query/telemetry.py</span></span><span class="p">对象绑定可观测后端　·　生成 PromQL / ES DSL　·　id 代入 · 防注入 · 多方言　·　<b>只产计划，不当 TSDB</b></span></div>
+  <table class="t mt-m">
+    <tr><th></th><th>语义读 OQL</th><th>遥测读 query-plan</th></tr>
+    <tr><td><b>查什么</b></td><td>对象、关系、派生量——<b>世界的结构</b></td><td>时序、指标——<b>世界的读数</b></td></tr>
+    <tr><td><b>怎么落地</b></td><td>编译成 <b>nGQL</b> 打到图库</td><td><b>生成 PromQL / ES DSL 交给别人执行</b></td></tr>
+    <tr><td><b>自己存数据吗</b></td><td>是（图库）</td><td><b>否——只产计划，不当 TSDB</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>「只产计划不当 TSDB」这七个字是一条战略边界</b>：<br>
+  客户已经有 Prometheus、有 ES、有他们的时序库——<b>我们不去替换它，我们生成它听得懂的查询。</b></p>
+  <p class="quote-big mt-m" data-anim="fade-up">读侧两条路，写侧也两条路——<br><b>高吞吐的那条都不走闸门。</b><br><span style="font-size:17px;color:var(--text-2);font-weight:400">= OS 的 DMA / mmap：内核有意让出一条快路</span></p>
+  <div class="deck-footer"><span class="ftag">语义面 2/4</span><span class="slide-number" data-current="10" data-total="17"></span></div>
+  <div class="notes"><p><b>⭐【这一页最容易讲丢的是那个对称，一定要点出来】</b>"读是两条路，<b>写也是两条路</b>：治理写走 Action 闸门，<b>高吞吐的数据摄取不走</b>。判据是——<b>这是『观测』还是『决定』？</b>"</p>
+  <p><b>【顺手做个判断题，30 秒】</b>手环上报心率 = 摄取 ｜ 医生改护理等级 = 治理 ｜ <b>系统按规则自动生成一条预警 = 治理</b>（最容易错）｜ Agent 执行"换护理员" = 治理。<b>判据不是"谁触发的"，是"这是不是一个决定"——Agent 自动做的决定恰恰最需要审计。</b></p>
+  <p><b>【为什么遥测不能过闸，三个理由任意一个都够】</b>① 性能：每条读数跑规则+落快照，成本是业务写入的百倍 ② 语义：读数是"观测"不是"决定"，<b>审计的对象是决定</b> ③ 可用性：拦住传感器数据，<b>你丢的是事实——而事实不该被规则否决</b>。</p>
+  <p><b>【"只产计划不当 TSDB"在客户现场很好用】</b>"我们不动您的监控体系，<b>我们生成您的 Prometheus 听得懂的查询。</b>"——把"要不要换系统"的对话变成"要不要加一层"。</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="信任基础设施">
+  <div class="kicker">图 · 自有语义面 3/4 · ⭐ 其中一半是 OS 没有的</div>
+  <h2 class="title">信任基础设施</h2>
+  <div class="blk trust"><span class="t">信任基础设施　<span class="mono" style="font-weight:400;font-size:13px">trust/</span></span><span class="p"><b>审计快照（存快照）</b>　·　<b>置信度总线 → HIL</b>　（贯穿读写）</span></div>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>审计快照 = journaling　<span style="color:var(--good)">✅ OS 有</span></h4>
+      <p><b>存的不是改了什么，是当时世界是什么样。</b><br>
+      参数 · 涉及对象的<b>状态</b> · 触发了哪些规则及判定 · <b>schema 版本号</b> · 时间戳 · 执行者<br>
+      ① <b>同事务落库</b>　② <b>拒绝也落审计</b>　③ <b>带版本号才能重放</b></p></div>
+    <div class="card card-accent"><h4>置信度总线　<span style="color:var(--accent)">⭐ OS 没有</span></h4>
+      <p><b>程序调 write() 不会"有点不确定"。LLM 会。</b><br>
+      所以每次 Agent 发起的 Action 带一个置信度，<b>与拒绝结果交叉，就得到一张诊断表</b>（见下）</p></div>
+  </div>
+  <table class="t mt-m">
+    <tr><th></th><th>通过</th><th>被拒</th></tr>
+    <tr><td><b>高置信</b></td><td>正常</td><td><b style="color:var(--bad)">⚠️ 查规则 / 查记忆</b>——要么规则写错了，要么记忆里有误导信息　<b>← 金矿</b></td></tr>
+    <tr><td><b>低置信</b></td><td>⚠️ 侥幸，值得抽查</td><td>意图理解错了——<b>正常，说明闸门在起作用</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">"模型很确定，但被拦了"——<b>这是唯一能自动发现"规则写错了"的信号。</b>
+  没有它，你只能等客户投诉「系统老是拦我」，<b>而那时已经晚了。</b></p>
+  <div class="deck-footer"><span class="ftag">语义面 3/4 · ⭐</span><span class="slide-number" data-current="11" data-total="17"></span></div>
+  <div class="notes"><p><b>【"拒绝也落审计"最反直觉，展开讲】</b>"合规审计最常问的不是'你们为什么做了这件事'，而是<b>'当时为什么没做'</b>。"举例：出了事故，监管问"系统当时有没有预警"——<b>只有拒绝也留痕，你才答得出来。</b></p>
+  <p><b>⭐【右格是整张图上唯一"我们比 OS 多"的地方，要讲出分量】</b>"前面十页我们一直拿 OS 当尺子量自己。<b>这一格反过来：这是操作系统里根本没有的东西，因为它的调用者不需要。</b>"</p>
+  <p><b>【回扣 S1】</b>S1 说"<b>误拦截比漏拦截更危险</b>"，但没给检测手段。<b>这一页给了：右上角那一格。</b></p>
+  <p><b>【FDE 的实践，说出口】</b>"上线后第一个月，<b>每周看一次右上角。</b>这是你能拿出来的、<b>最有说服力的运营价值证明</b>。"</p>
+  <p><b>【HIL 在这里只点一句】</b>置信度总线通到 HIL——<b>细节是第五课下半场的主场，今天不展开。</b></p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="展示与交互层">
+  <div class="kicker">图 · 自有展示 + 交互层 · Agent 面</div>
+  <h2 class="title">Explorer · 三个 Agent 面</h2>
+  <div class="blk ui"><span class="t">自有展示 · 对象图 Explorer　<span class="mono" style="font-weight:400;font-size:13px">explorer.py</span></span><span class="p">离线单文件 + 活端点 <span class="mono">/explorer</span>　·　点对象看结构 + 遥测序列 + <b>就地取计划</b>　·　<b>语义读与遥测读在 UI 合体</b></span></div>
+  <p class="lede mt-s" data-anim="fade-up"><b>「离线单文件」这四个字对 FDE 是有分量的</b>：一个 HTML 甩给客户就能看，<b>不用给他装环境、开端口、配账号。</b></p>
+  <table class="t mt-s">
+    <tr><th>端点</th><th>看的是</th><th>图上哪一块</th></tr>
+    <tr><td><span class="mono">/explorer</span></td><td><b>实例层</b>——真实对象与关系</td><td><b>自有展示</b>（自有）</td></tr>
+    <tr><td><span class="mono">/viz/&lt;ont&gt;</span></td><td><b>概念 / schema 层</b>——OKF 知识图谱</td><td>右上<b>生态互操作</b>（<b>可关</b>）</td></tr>
+  </table>
+  <div class="blk read mt-m"><span class="t">交互层 · Agent 面　<span style="font-weight:400;font-size:13px;color:var(--accent)">agent 可达</span></span>
+    <span class="p"><b>MCP 桥</b>：query · plan <b style="color:var(--good)">读默认开</b> / act <b style="color:var(--bad)">写 opt-in</b>　｜　<b>HTTP</b>：<span class="mono">/ask · /plan · /explorer</span>　｜　<b>CLI REPL</b>：一句口语，做 / 查 / 澄清</span></div>
+  <div class="card card-accent mt-m"><h4>⭐ 「读默认开，写 opt-in」——七个字里有一条完整的治理策略</h4>
+    <p>把一个 Agent 接进来，<b>它默认只能读</b>。要让它能写，<b>得有人显式打开。</b><br>
+    <b>这是"最小权限"在产品默认值上的落地</b>——不是文档里写一句"请谨慎授权"，<b>是默认就不给。</b></p></div>
+  <p class="quote-big mt-m" data-anim="fade-up">安全的默认值，<br><b>比安全的文档有用一百倍。</b></p>
+  <div class="deck-footer"><span class="ftag">展示 + 交互层</span><span class="slide-number" data-current="12" data-total="17"></span></div>
+  <div class="notes"><p><b>【Explorer 那句"语义读与遥测读在 UI 合体"要点一下】</b>第 10 页讲了读侧两条路——<b>它们在 Explorer 里重新汇合：点一个对象，既看到它的结构关系，也看到它的遥测序列，还能就地取查询计划。</b></p>
+  <p><b>⭐【"离线单文件"是 FDE 的现场武器】</b>"客户不给你连网、不给你装东西——<b>你甩一个 HTML 给他，他双击就能看。</b>这一条在真实交付里比任何架构优雅都管用。"</p>
+  <p><b>⭐【"读默认开 / 写 opt-in"值得停一下】</b>"这七个字是一条<b>完整的治理策略</b>。很多团队的做法是在文档里写'请谨慎授权'——<b>那是愿望。这个是默认值，是工程。</b>"</p>
+  <p><b>⚠️【/viz 和 /explorer 学员一定会混，这张表必须讲】</b>"<b>它们在架构图上是两个不同的块。</b><span class="mono">/explorer</span> 是<b>实例层</b>，看真实对象和关系，属于『自有展示』；<span class="mono">/viz/&lt;ont&gt;</span> 是 <b>OKF 的概念/schema 层</b>，属于右上角那块<b>标着『可关』的生态互操作</b>。"</p>
+  <p><b>⭐【现场演示（5′）：并排开两个 viz】</b><br>
+  <span class="mono">python scripts/serve.py</span> 之后开两个窗口：<span class="mono">http://127.0.0.1:8000/viz/grass</span> 和 <span class="mono">/viz/chili</span>。<br>
+  <b>一个是草业、一个是辣椒，同一个引擎、同一个进程跑出来的。</b>说这句：<b>"第 5 页我说『换行业零改内核』——这就是它长的样子。"</b><br>
+  <span class="dim">⚠️ 前置：先跑过 <span class="mono">python scripts/export_okf.py</span> 生成 build/okf/&lt;ont&gt;/viz.html，否则端点不上架。<b>课前一定要验一次。</b></span></p>
+  <p><b>【接第五课】</b>"这条思路和第五课设闸是同一套：<b>能自动的先自动，该拦的默认拦住，剩下的才叫人。</b>"</p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="侧边两块 · 可关的与上游的">
+  <div class="kicker">图 · 右侧两块 · 一块可关，一块在上游</div>
+  <h2 class="title">什么是脊椎，什么不是</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>右上 · 生态互操作　<span style="color:var(--text-3)">可关 · 非脊椎</span></h4>
+      <p><b>OKF 知识包</b>：规则出处 · 版本 · 离线知识图谱<br>
+      <b>外部 pack + 写桥</b>：对象图导出 · act 反映已提交<br><br>
+      图上给它标了三个字：<b>「可关」</b>，以及一句<b>「读 / 写 / 展示均已自有」</b>。</p></div>
+    <div class="card card-accent"><h4>右下 · 建模端 astra-studio　<span style="color:var(--accent)">上游 · 另仓</span></h4>
+      <p><b>studio-ontology</b>（FDE 建模上游）<br>
+      ① 业务分析（DDD）：事件风暴 · 限界上下文 · 行为矩阵 / Intake spec<br>
+      ② <b>五要素 IR</b>：Object · Link · Function · Rule · Action<br>
+      ③ <b>编译插件骨架</b>：declarative 规则自动 · function / Action 留 <span class="mono">TODO(FDE)</span><br>
+      <b>产物与手写 plugins/grass 五要素同构</b></p></div>
+  </div>
+  <p class="huge mt-l" data-anim="fade-up">读、写、展示、Agent 面<br><b>全在引擎内自有。</b></p>
+  <p class="lede mt-m" data-anim="fade-up"><b>这句话是一个战略主张，不是一个功能列表</b>：<br>
+  语义核心<b>不外包</b>——外部生态可以接，但<b>接不接都能跑</b>。<b>能关掉的东西，才是真的可选。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">→ 右下那个橙色框，<b>就是 S3 一整门课的内容</b>：我们自己的建模端，怎么给这个 OS 编译应用。</p>
+  <div class="deck-footer"><span class="ftag">侧边两块 · 接 S3</span><span class="slide-number" data-current="13" data-total="17"></span></div>
+  <div class="notes"><p><b>⭐【"可关"这两个字是本页的教学点】</b>"很多平台把生态集成画在架构图正中间，显得很热闹。<b>这张图把它放在侧边，标上'可关'、'非脊椎'。</b>意思是——<b>它是加分项，不是依赖项。</b>"</p>
+  <p><b>【为什么这很重要】</b>"客户问'如果 OKF 那套标准变了/黄了，你们怎么办'——<b>答案是『我们关掉它照样跑，读写展示都是自有的』。这个答案值钱。</b>"</p>
+  <p><b>【交棒 S3，说清楚】</b>"右下角那个框今天<b>只报个到</b>。<b>S3 整门课讲它：我们自己的建模端 studio-ontology，怎么把业务分析编译成能在这个引擎上跑的插件。然后第五课，你们亲手编译一个。</b>"</p>
+  <p><b>【"产物与手写 plugins/grass 五要素同构"这句先埋着】</b>S3 会讲——<b>那是建模端的验收标准：编出来的东西，要和人手写的长得一样。</b></p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide tight" data-title="⭐ CI 防腐">
+  <div class="kicker">图外 · 但它守着整张图 · ⭐ 本课第二重心</div>
+  <h2 class="title">两个脚本，守住"换行业零改内核"</h2>
+  <p class="lede mt-s" data-anim="fade-up">第 5 页那句<b>「换行业零改内核」</b>凭什么敢说？<b>因为它可以被机器验证。</b><br>
+  <b>OS 的对照</b>：Linux 内核有 <span class="mono">checkpatch.pl</span>、<span class="mono">sparse</span>——<b>内核社区不靠"大家都很自觉"维持规范，靠机器。</b></p>
+  <div class="card card-accent mt-m"><h4>反向执法 · <span class="mono">scripts/check_kernel_purity.py</span></h4>
+    <p><b>内核里不许出现行业词汇。</b>实现极简——一个 <span class="mono">FORBIDDEN</span> 词表（第 17 行），扫内核目录，命中即失败。<br>
+    一个 <span class="mono">if metric == "blood_pressure"</span> 混进内核，<b>CI 当场红。</b></p></div>
+  <div class="card card-accent mt-s"><h4>正向执法 · <span class="mono">scripts/check_plugin_capabilities.py</span></h4>
+    <p><b>① 逃逸</b>：<span class="mono">socket / urllib / requests / smtplib</span>（网络）· <span class="mono">subprocess</span>（子进程）· <span class="mono">eval( / exec( / __import__(</span>（动态执行）<br>
+    <b>② 绕过 Capability 直达内核内部</b>：<span class="mono">._base · ._view · .changeset · ._stage( · _set_confidence · _add_effect</span><br>
+    <span class="dim">它拦的是<b>知道内部实现的人</b>——顺手用 <span class="mono">ctx._base</span> 抄近路，功能上没问题，但边界破了，而且 code review 看不出来。</span></p></div>
+  <div class="card mt-s"><h4>⭐ 可以脱离本体引擎复用的一条方法论</h4>
+    <p>任何你认为"<b>重要但会被慢慢磨掉</b>"的架构边界，问一句：<b>它能被一个脚本检查吗？</b><br>
+    不能 → 想办法让它能。　想不出办法 → <b>那它大概率守不住，别把方案建在它上面。</b></p></div>
+  <div class="deck-footer"><span class="ftag">⭐ CI 防腐</span><span class="slide-number" data-current="14" data-total="17"></span></div>
+  <div class="notes"><p><b>【读码：把两个脚本都打开】</b>它们很短，<b>可以真的从头翻到尾</b>。学员看到"守住产品命脉的东西居然这么简单"，冲击力很强。</p>
+  <p><b>【别嫌它简陋】</b>"<b>一个二十行的脚本，守住了整个产品的可复用性。</b>复杂的架构守则如果不能被机器检查，<b>它就不是守则，是愿望。</b>"</p>
+  <p><b>⚠️【一处要诚实承认：OS 比我们强】</b>"脚本注释自己写着：<b>『Capability 在运行时收窄了能力面，但纯进程内无法物理阻止 import socket』</b>。<b>OS 有 MMU 和 ring 级别，硬件替它执法；我们没有硬件，只能靠静态检查。承认这一点，比假装我们的沙箱和它一样硬要专业得多。</b>"</p>
+  <p><b>【最后那格是本课的思想制高点，讲慢一点】</b>前面全是"我们这套引擎怎么造"，<b>只有这一条是学员可以带去任何项目的东西。</b></p></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-title="⭐ 真 Qwen 实证">
+  <div class="kicker">证据 · ⭐ 不是演示，是真 LLM 打过的</div>
+  <h2 class="title">真 Qwen 上跑一遍，六步</h2>
+  <p class="lede mt-s" data-anim="fade-up"><span class="mono">docs/05-e2e-validation.md</span>　·　模型 <b>qwen3.5-plus</b>　·　一段"施工方"会话</p>
+  <table class="t mt-s">
+    <tr><th>#</th><th>口语</th><th>结果</th></tr>
+    <tr><td>1</td><td>巴彦淖尔有哪些地块？</td><td>[查询] 1 行　<span class="dim">意图编译 → OQL 正确</span></td></tr>
+    <tr><td>2</td><td>parcel_001 能用哪些修复方法？</td><td>[查询] <b>真 LLM 走了完整多跳</b> Site→退化→修复方法（<b>比桩还强</b>）</td></tr>
+    <tr><td>3</td><td>用<b>碱茅</b>出一地一方，预算 300</td><td><b style="color:var(--good)">[已执行]</b> 写入 SeedPack/Project · 置信 1.0　<span class="dim">碱茅是当地乡土 → 提交</span></td></tr>
+    <tr><td>4</td><td>用<b>紫花苜蓿</b>出方案</td><td><b style="color:var(--bad)">[本体兜底 · 拒绝]</b> 违反「乡土合规」：非乡土 → <b>确定性回滚</b></td></tr>
+    <tr><td>5</td><td>给 <b>parcel_002</b> 用碱茅出方案</td><td><b style="color:var(--bad)">[本体兜底 · 拒绝]</b> <b>碱茅非锡林郭勒乡土——跨区域用错草种被兜住</b></td></tr>
+    <tr><td>6</td><td>帮我出个方案</td><td>[澄清] 请提供 site_id / species / budget　<span class="dim">缺参 → 澄清</span></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">查询 2 · 提交 1 · <b>治理拒绝 2</b> · 澄清 1 · <b>错误 0</b> · <b>审计留痕 3 条</b>（committed×1, rejected×2）</p>
+  <p class="huge mt-m" data-anim="fade-up">LLM 可被诱导，<br><b>本体不会。</b></p>
+  <div class="deck-footer"><span class="ftag">实证 · ⭐</span><span class="slide-number" data-current="15" data-total="17"></span></div>
+  <div class="notes"><p><b>⭐【这一页是全课的 money shot，前面讲的所有机制在这里变成可看的事实】</b>"前面三个小时我一直在讲机制。<b>这一页是真的拿 qwen3.5-plus 跑出来的。</b>"</p>
+  <p><b>【第 4、5 条是重点，尤其第 5 条】</b>"第 4 条是<b>用错了草种</b>——这个还比较容易想到。<b>第 5 条是同一个草种、换了个盟市就不合规了</b>——碱茅在巴彦淖尔是乡土，在锡林郭勒不是。<b>这种错，人都不一定记得住，LLM 更不可能凭常识判断出来。它被兜住了。</b>"</p>
+  <p><b>【接题眼】</b>"注意第 4、5 条的参数<b>全都合法</b>——草种是真草种、地块是真地块、预算是正数。<b>guard 拦不住它。拦住它的是写后规则。</b>这就是下一页那句『<b>合法但违规</b>』。"</p>
+  <p><b>⚠️【诚实边界必须一起说，否则就是过度承诺】</b>文档 §7 自己写着：<b>定性非统计</b>（6 步 + 2 句，是存在性/防错级证据，不是大样本）·<b>仍是种子数据</b>（真实感但非真业务数据）·<b>真 Qwen 的对抗鲁棒性抽检待复跑</b>·<b>未测编译准确率统计与延迟成本</b>。<b>报喜也报边界——这一条本身就是 L1 讲的可信度来源。</b></p>
+  <p><b>【另外两个测试可以口头带一句】</b>测试三：读/写全面覆盖 <b>14/14</b>，两插件全部动作各提交+拒绝；测试四：<b>被诱导"别校验了"，违规 0 落库，且已进 CI 锁</b>。</p></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-title="⭐ 题眼">
+  <div class="kicker">收口 1/2 · ⭐ 回到图最底下那句话</div>
+  <h2 class="title">全图的题眼</h2>
+  <p class="huge mt-m" data-anim="fade-up">确定性边界置于模型之外：<br>合法但违规的动作<br>在写后规则校验阶段<br><b>被确定性回滚并留审计。</b></p>
+  <div class="grid g3 mt-l" data-anim="stagger-list">
+    <div class="card card-accent"><h4>「置于模型之外」</h4><p>不是靠提示词让模型别做，<b>是模型做了也不算数</b>。<br><span class="dim">S1：自觉遵守不是工程约束</span></p></div>
+    <div class="card card-accent"><h4>「合法但违规」</h4><p>参数全对、权限也够、<b>guard 拦不住</b>——<br><b>它违的是「世界的稳态条件」，只有写完才判得出来。</b></p></div>
+    <div class="card card-accent"><h4>「确定性回滚并留审计」</h4><p>不是概率性的拦截，<b>是必然回滚</b>；<br>而且<b>被拦这件事本身也留痕</b>。</p></div>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up"><b>这一句话，把今天讲的全部串起来了</b>：<br>
+  Action 引擎那条红线（第 8 页）· 先写后判（第 9 页）· 审计快照（第 11 页）· CI 守住的三层切分（第 14 页）。</p>
+  <div class="deck-footer"><span class="ftag">题眼 · ⭐</span><span class="slide-number" data-current="16" data-total="17"></span></div>
+  <div class="notes"><p><b>⭐【这一页要慢，要有停顿。它是全课的收束。】</b>投出来先念一遍，<b>然后一个词一个词拆。</b></p>
+  <p><b>【为什么这句话比"我们有规则引擎"有力一百倍】</b>"'我们有规则引擎'——谁都这么说。<br><b>'确定性边界置于模型之外'——这句话回答了客户真正担心的问题：AI 会不会绕过你们的规则。答案是：它绕不过，因为边界不在它里面。</b>"</p>
+  <p><b>【"合法但违规"这四个字最值钱】</b>"这是本体引擎和普通参数校验的分界线。<b>普通校验能拦住"参数不对"；只有写后规则能拦住"每一项都对，但合起来这个世界不成立"。</b>"</p>
+  <p><b>【让学员自己复述】</b>可以点一个人："用你自己的话说一遍这句话是什么意思。"<b>说不清楚，说明前面白讲。</b></p></div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-title="收口 · 接客户与 S3">
+  <div class="kicker">收口 2/2</div>
+  <h2 class="title">回到那张图，<br>以及客户会问的五个问题</h2>
+  <table class="t mt-s">
+    <tr><th>客户问</th><th>你答（图上哪一块）</th></tr>
+    <tr><td>「你们和我们现有的校验有什么区别」</td><td><b>写后判 + 收集全部违反</b>——它和操作系统只有这两处不一样（第 9 页）</td></tr>
+    <tr><td>「接我们这个行业要多久 / 要改你们内核吗」</td><td><b>Plugin SPI，换行业零改内核</b>；而且这句话<b>有两个 CI 脚本在验</b>（第 5、13 页）</td></tr>
+    <tr><td>「不同客户的数据怎么隔离」</td><td><b>一 ontology 一 space，多租户硬隔离</b>——物理分开，不是查询里带租户 ID（第 7 页）</td></tr>
+    <tr><td>「你们要替换我们的监控 / 数仓吗」</td><td><b>不要。遥测读只产计划不当 TSDB</b>，生成您的 PromQL / ES DSL（第 10 页）</td></tr>
+    <tr><td>「你们的 AI 会不会乱改数据」</td><td>Agent 只能<b>申请</b>；<b>MCP 读默认开、写 opt-in</b>；且成败都有审计快照（第 7、10、11 页）</td></tr>
+  </table>
+  <div class="card badcard mt-m"><h4>⚠️ 两条纪律</h4>
+    <p>① <b>只能说仓库里真有的东西</b>——"计划支持"和"已经支持"之间隔着一次信任崩塌。不确定就说"我回去核实"。<b>（L1 三条一票警示之一）</b><br>
+    ② <b>别用 OS 类比替代论证</b>——它是让对方建立直觉的脚手架；<b>被追问时要拿得出那条红线、那两个脚本、那些行号。</b></p></div>
+  <p class="quote-big mt-m" data-anim="fade-up">下一课：<b>怎么给这个 OS 编译应用。</b></p>
+  <div class="deck-footer"><span class="ftag">收口 · 接 S3</span><span class="slide-number" data-current="17" data-total="17"></span></div>
+  <div class="notes"><p><b>【回到第 3 页那张图】</b>"我们从一张图出发，走了三个小时。<b>现在把它再投一次——你应该能指着它，把每一块讲给客户听。</b>"（可以真的翻回第 3 页停十秒。）</p>
+  <p><b>【这张答问表就是学员的现场底稿】</b>让他们拍照。<b>第六课写技术方案时会再用一次。</b></p>
+  <p><b>【留 5 分钟做自查】</b>手册的自查题，现场做两道：<b>①"先写后判"举一个写前校验写不出来的规则　②"高置信 + 被拒"意味着什么、该去查什么。</b>这两道最能暴露有没有真听懂。</p>
+  <p><b>【接 S3】</b>"今天讲的是<b>运行时端</b>——图的左边和下面。<b>S3 讲右下角那个橙色框：我们自己的建模端 studio-ontology，怎么把业务分析编译成能在这上面跑的插件。然后第五课，你们亲手编译一个，让它在这个引擎里真的跑起来。</b>"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

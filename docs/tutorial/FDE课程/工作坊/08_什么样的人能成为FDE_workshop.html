@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第 8 讲 · 工作坊：照镜子——FDE 能力自我差距诊断 + 团队编成草案</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第 8 讲 · 工作坊：照镜子——FDE 能力自我差距诊断 + 团队编成草案</h1>
+</header>
+<h1 id="第-8-讲-工作坊照镜子fde-能力自我差距诊断-团队编成草案">第 8 讲 · 工作坊：照镜子——FDE 能力自我差距诊断 + 团队编成草案</h1>
+<blockquote>
+<p>⚠️ <strong>本文件为 v0.1（十讲制）时期的学员工作坊材料，已于 2026-07-27 被 v0.3 八课制取代，不再上课使用。</strong> 现行版本：<code>课程/L1–L8_*.md</code>（单文件全案，实操与 checkout 都在里面）。结构定义见 <code>00_八课总纲.md</code>。 保留原因：Exercise 输入材料、评分卡与讲师版参考答案有留痕价值，改课时可作第一手参考。 ⚠️ 内含的“第 N 讲”引用与“L1/L2/L3 定级”是当时的编号（v0.3 定级已改为 <strong>Lv.1/Lv.2/Lv.3</strong>），<strong>刻意未改</strong>——改了会篡改历史记录。换算表见 <code>00_课程总纲.md</code> 第九节。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>⚠️ <strong>本文件为 v1 十环节时期的执行脚本，已被 <code>工具实操/T1–T8_*.md</code> 八份实操手册取代，保留备查、不再上课用。</strong> 新的执行主干见 <code>_legacy/00_工具实操总纲_T1-T8.md</code>；本讲的方法论内容现作为对应 T 步的<strong>知识注入</strong>。 ⚠️ <strong>口径已变</strong>：本文件内的案例成熟度与商业口径是 2026-07-20 之前的版本（如「嘉城数联合资公司」「草业项目 13 页 demo」）。<strong>现行口径以 <code>_WRITING_BRIEF.md</code> 与十册为准</strong>——主体叫<strong>项目联合体</strong>，IRR 主口径叫<strong>运营口径</strong>，草业项目 demo 是 <strong>11 页</strong>。</p>
+</blockquote>
+<blockquote>
+<p>📎 <strong>本文件是《FDE 实战工作坊》第 8 环节的「动手脚本」</strong>（不是独立工作坊）——整个培训是<strong>一个</strong>工作坊，总流程见 <code>_legacy/00_FDE实战工作坊_主持手册.md</code>。本环节各组对<strong>本组命题</strong>动手产出，沉淀进贯穿工作簿。</p>
+</blockquote>
+<blockquote>
+<p>学员用（敏捷引导式）· 演练 42′ + 复盘 18′ · 对应能力 <strong>C1–C7 全维自评 / C7 筛选纪律</strong> 配套讲义 <code>讲义/08_什么样的人能成为FDE.md</code> · 授课形式遵 <code>_工作坊授课规范.md</code> · 口径遵 <code>_WRITING_BRIEF.md</code></p>
+</blockquote>
+<hr />
+<h2 id="开场教练宣读3">〇、开场（教练宣读，3′）</h2>
+<blockquote>
+<p>📌 <strong>本组命题推进（贯穿沙盘）</strong>：本讲请用<strong>本组认领的命题</strong>（见 <code>_贯穿沙盘_分组命题.md</code>）推进一步——产出 本组命题的<strong>团队编成草案</strong>（1 主理 L3 + N 见习 + 平台组），沉淀进本组「贯穿工作簿」。下方的 💡 启发范例是<strong>标尺、不是模板</strong>：康养项目/教育督导项目/辣椒/草业项目做对了长这样，但你的命题城市/切口/规模不同，<strong>照结构做、别抄数字</strong>。</p>
+</blockquote>
+<p><strong>🎯 本坊目标</strong>：每人产出 <strong>① 一份 C1–C7 逐维自评矩阵（每维带真实项目证据 + 补课路线）</strong> + <strong>② 一份“1 主理 L3 + N 见习 L1 + 平台组”团队编成草案（含人头/角色/理由，且你自己诚实站位）</strong>。</p>
+<p><strong>🧭 过程方法论（本坊用的 FDE 方法）</strong>：C1–C7 能力矩阵（L0–L3 分级）· 三型自查（架构师/需求分析/项目经理）· <strong>C7 只筛不训（打“是/否/待观察”不打训练分）</strong> · 团队编成三件套（主理/见习/平台组）。</p>
+<p><strong>📏 工作坊纪律（教练宣读）</strong> 1. <strong>启发-执行</strong>：每步先点开“💡启发”看康养项目范例，再动手；不空想。 2. <strong>时间盒</strong>：铃响即停，个人自评/组内互检都守时。 3. <strong>终止铃</strong>：教练铃响，讨论立即停，进下一步。 4. <strong>停车场</strong>：争不出的挂 parking lot，会后再议，不占时间盒。 5. <strong>checkout</strong>：每阶段末对照输出与验收。</p>
+<p><strong>🙌 工作坊宣言（齐读）</strong>：完成大于完美 · 团队大于个人 · 共识大于对错。</p>
+<hr />
+<h2 id="一工作坊流程时间盒总表">一、工作坊流程（时间盒总表）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序号</th>
+<th>阶段</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>开场导入</td>
+<td>3′</td>
+<td>认领角色型</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>阶段一 · 逐维自评 C1–C7</td>
+<td>19′</td>
+<td>C1–C7 自评矩阵（带证据 + 补课）</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>阶段二 · 起草团队编成草案</td>
+<td>14′</td>
+<td>编成草案（主理/见习/平台组 + 自我站位）</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>阶段三 · 组内互检 checkout</td>
+<td>6′</td>
+<td>互检记录 + 最尖锐质疑 1 条</td>
+</tr>
+<tr class="odd">
+<td>—</td>
+<td>复盘研讨（议段，另计）</td>
+<td>18′</td>
+<td>3 题共识</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="二输入材料可直接发学员">二、输入材料（可直接发学员）</h2>
+<h3 id="材料-afde-能力判据速查康养项目锚定打分时对照">材料 A：FDE 能力判据速查（康养项目锚定，打分时对照）</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维</th>
+<th>L0 无</th>
+<th>L1 见习</th>
+<th>L2 胜任</th>
+<th>L3 主理</th>
+<th>康养项目锚点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C1 认知萃取</td>
+<td>没做过事件风暴</td>
+<td>指导下参与</td>
+<td>独立主持产出可归域事件集</td>
+<td>能校准（如 368 份问卷）并做热点 P1–P5 分层</td>
+<td>102 事件→16 簇→10 热点</td>
+</tr>
+<tr class="even">
+<td>C2 结构建模</td>
+<td>不懂 DDD/OAG</td>
+<td>能读懂一个域</td>
+<td>独立完成 1 个域过结构校验</td>
+<td>主导 7 域协同、零悬空引用</td>
+<td>Object 76/Link 75/Rule 47/Action 54</td>
+</tr>
+<tr class="odd">
+<td>C3 风险设闸</td>
+<td>没有设闸意识</td>
+<td>能说该不该设</td>
+<td>能判“谁按、按错代价”</td>
+<td>设计闸型（站长 HIL/DP-H）定阈值</td>
+<td>26 个 HIL 点</td>
+</tr>
+<tr class="even">
+<td>C4 合规治理</td>
+<td>“像国标就用”</td>
+<td>能核一处是否现行</td>
+<td>独立挂 citations</td>
+<td>产出可交现场取证清单</td>
+<td>18 挂国标 + 11 占位不编造</td>
+</tr>
+<tr class="odd">
+<td>C5 商业建模</td>
+<td>看不懂财务口径</td>
+<td>能读懂</td>
+<td>独立复核内部一致性</td>
+<td>能搭单店/IRR 模型</td>
+<td>1.36 亿；21 个月回本；IRR≈15.2%</td>
+</tr>
+<tr class="even">
+<td>C6 交付物工程</td>
+<td>只会串行手工</td>
+<td>按 BRIEF 写 1 节不跑口径</td>
+<td>组织 ≥10 节并行零冲突</td>
+<td>定 BRIEF、主持装配质检</td>
+<td>35 节并行→装配→质检</td>
+</tr>
+<tr class="odd">
+<td>C7 人的部分</td>
+<td>会露怯/会编/无政治雷达</td>
+<td>有潜质待观察</td>
+<td>稳定表现</td>
+<td>客户压力下仍“留白不编造”</td>
+<td>“错文号比空缺更有害”；11 处占位</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C7 提示：C7 <strong>不打 L1–L3 训练分</strong>，只打“是/否/待观察”——它是筛选项不是训练项。给自己填“是”的人，必须附一个真实例子。</p>
+</blockquote>
+<h3 id="材料-b三型自查提示对号入座帮你定位最可能卡的维">材料 B：三型自查提示（对号入座，帮你定位最可能卡的维）</h3>
+<ul>
+<li><strong>架构师型</strong>（起点=技术方案）：最可能卡 <strong>C1</strong>——习惯跳过“客户到底要什么”。</li>
+<li><strong>需求分析型</strong>（起点=访谈）：最可能卡 <strong>C2 + C3</strong>——能采集不能编译、能记录不能设闸，且最易“停 L1 自以为 L2”。</li>
+<li><strong>项目经理型</strong>（起点=进度/资源）：最可能卡 <strong>C2</strong>——会调度人，压不出可编译结构。</li>
+</ul>
+<h3 id="材料-c团队编成参照康养项目现状-可复制结构">材料 C：团队编成参照（康养项目现状 → 可复制结构）</h3>
+<ul>
+<li>康养项目现状：<strong>1 名 FDE + 智能体编队</strong>跑通单点，但“方法在一个人脑子里，不在组织里”，<strong>不可复制</strong>。</li>
+<li>目标编成：<strong>1 主理 FDE（L3，判断中枢 + 责任终点，C7 过关）+ N 见习 FDE（L1，承接单一环节练六维）+ 平台组（非 FDE，维护 Astra Studio 管线提供杠杆）</strong>。</li>
+</ul>
+<hr />
+<h2 id="三分阶段脚本每步任务-输出-难点-启发范例">三、分阶段脚本（每步：🔔任务 / 🔔输出 / 🔔难点 + 💡启发范例）</h2>
+<h3 id="阶段一-逐维自评-c1c719">阶段一 · 逐维自评 C1–C7（19′）</h3>
+<h4 id="步骤①-认领角色型3">步骤① · 认领角色型（3′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：读材料 B，诚实认领自己最像哪一型（架构师/需求分析/项目经理/其他），并预判自己最可能卡的维。 🔔 <strong>输出</strong>：<em>一句话角色认领 + 预判卡点</em>（如“我是需求分析型，最可能卡 C2/C3”）。 🔔 <strong>难点/注意</strong>：别写“我全维都行”这种自我感觉良好式答案；三型都有明确卡点，逃避认领本身就是信号。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目/三型对照范例
+</summary>
+<p>三型卡点对照（讲义难听话）： - <strong>架构师型</strong> → 卡 <strong>C1</strong>：起点是技术方案，默认“需求已经整理好了”，直接跳过认知萃取。康养项目反面：认知萃取是把 102 个模糊事件压成结构的活，跳过它=在错误地基上盖楼。 - <strong>需求分析型</strong> → 卡 <strong>C2 + C3</strong>：能采集不能编译（记了一堆访谈却压不出 7 域）、能记录不能设闸。<strong>离 FDE 最近，也最容易停 L1 却自以为 L2。</strong> - <strong>项目经理型</strong> → 卡 <strong>C2</strong>：会调度人、排进度，但压不出可编译结构。</p>
+<p>诚实认领的样子：“我是需求分析型。我能做访谈纪要，但从没把访谈压成过结构校验的域——所以 C2 我顶多 L1，别装 L2。”</p>
+</details>
+<h4 id="步骤②-逐维打分-写证据12">步骤② · 逐维打分 + 写证据（12′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：用材料 A，逐维打 L0/L1/L2/L3（C7 打 是/否/待观察）。<strong>每一维必须写一句“证据”</strong>——你凭哪个真实项目动作打的这个分。 🔔 <strong>输出</strong>：<em>C1–C7 自评矩阵</em>，7 维全评，每维一句真实证据；C7 若填“是”附一个“敢说不知道/留白不编造”的真实例子。 🔔 <strong>难点/注意</strong>：<strong>无证据的分一律作废。</strong> C3/C4/C6 是虚高重灾区——“会写文档”不是 C6 的 L2，“看起来像国标就用”是 C4 的 L0。敢给自己打低分才是专业。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看康养项目每维“有量化落点”的证据范例
+</summary>
+<p>康养项目之所以每维站得住，是因为每维都有<strong>可验证的量化动作</strong>，而非“我大概会”： - C1 = <strong>102 事件→16 簇→10 热点</strong>，用 <strong>368 份问卷</strong>校准（不是“我访谈过客户”）。 - C2 = <strong>Object 76/Link 75/Rule 47/Action 54，A 结构 7/7 零悬空引用</strong>（不是“我懂 DDD”）。 - C3 = <strong>26 个 HIL 点</strong>，含站长 HIL 增收闸（阈值占位 0.75）+ 民政 DP-H 发布闸（不是“我知道要设闸”）。 - C4 = <strong>18 处挂已核验国标 + 11 处占位不编造转取证清单</strong>（不是“我引用过标准号”）。 - C5 = <strong>1.36 亿投资、21 个月回本、IRR≈15.2%</strong>（不是“我看得懂财务表”）。 - C6 = <strong>35 节并行→装配→质检零冲突</strong>（不是“我会写 Word”）。</p>
+<p><strong>照镜子的正确姿势</strong>：你打 L2+ 的每一维，都要能对应一个这样“可验证的真实动作”。对不上的，就是 L1 或 L0。</p>
+</details>
+<h4 id="步骤③-圈短板-写补课4">步骤③ · 圈短板 + 写补课（4′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：圈出所有低于 L2 的维，各写一条最小补课动作，对应到具体讲/具体练习。 🔔 <strong>输出</strong>：<em>补课路线</em>，每个短板一条可下周就做的动作。 🔔 <strong>难点/注意</strong>：补课动作要落到“哪一讲/哪个练习”，不能写“多练练”这种笼统话；先分清短板是“没学过”（可训练）还是“没这意识”（近 C7，难训练）。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看补课路线范例
+</summary>
+<ul>
+<li>C3 短板（L1）→ “回去把上个项目里所有’按错会赔钱/违规’的操作列出来，用第 6 讲 HIL 四判据逐个过一遍，补一张 HIL 设点表。”</li>
+<li>C4 短板（L0）→ “把我引用过的每个标准号，用第 4 讲方法核到官方现行版；对标反例 B-6（药食同源目录误标、星评沿用已废止 MZ/T）。”</li>
+<li>C6 短板（L1）→ “参与一次 ≥10 节并行编排，感受 B-1 图目计数漂移 / B-2 编号冲突的真实难度，别再把’会写文档’当 L2。”</li>
+</ul>
+</details>
+<h3 id="阶段二-起草团队编成草案14">阶段二 · 起草团队编成草案（14′）</h3>
+<h4 id="步骤④-填编成三件套-自我站位14">步骤④ · 填编成三件套 + 自我站位（14′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：假设下月接一个康养项目量级项目，用模板 2 填：谁当 L3、配几个 L1 各管哪维、平台组几人做什么、<strong>你自己站哪个位子</strong>并说明理由。 🔔 <strong>输出</strong>：<em>团队编成草案</em>——主理 1 人（含 C7 证据）/ 见习 N 人（各绑单一维）/ 平台组（明确到维护哪条管线）/ 自我诚实站位。 🔔 <strong>难点/注意</strong>：<strong>别全员填 L3</strong>（不懂 L3 稀缺性）；<strong>别漏平台组</strong>（漏了会退化成“更累的架构师”，第 5 讲主张二）；把自己填 L3 却拿不出 C7 例子的，编成即失效。</p>
+</blockquote>
+<details>
+<summary>
+💡 启发 · 点开看编成草案好/差对照
+</summary>
+<p><strong>目标结构（康养项目现状 → 可复制）</strong>：康养项目现在是“1 人 + 编队”跑通但方法在一个人脑子里、不可复制；要复制就得拆成——</p>
+<table>
+<thead>
+<tr class="header">
+<th>角色</th>
+<th>人数</th>
+<th>承接</th>
+<th>判优要点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>主理 FDE（L3）</td>
+<td>1</td>
+<td>全维 + 设闸 + 对客承诺</td>
+<td><strong>必须有真实“留白不编造”的 C7 例子</strong>，不是自封</td>
+</tr>
+<tr class="even">
+<td>见习 FDE（L1）</td>
+<td>2–3 起步</td>
+<td>各绑单一维（如 C1/C6），在真实项目练</td>
+<td>数量合理、单维聚焦，不是每人都全维</td>
+</tr>
+<tr class="odd">
+<td>平台组</td>
+<td>1–2</td>
+<td>维护 planner/domain-model/onto-engine/citations 管线</td>
+<td>明确到具体管线，不是“技术支持”</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>好草案</strong>：明确 1 个 L3 且 C7 有实证；L1 各绑单一维；平台组落到具体管线；学员诚实把自己填 L1。</li>
+<li><strong>差草案</strong>：全员 L3；无平台组；把自己填 L3 却无 C7 证据。</li>
+</ul>
+<p><strong>自我站位诚实的样子</strong>：“我现在 C2 才 L1，我站见习位、绑 C6 环节练，L3 让能拿出 C7 例子的老王当。”——承认自己是 L1 不丢人，康养项目那个 L3 也是从压出第一个域开始的。</p>
+</details>
+<h3 id="阶段三-组内互检-checkout6">阶段三 · 组内互检 checkout（6′）</h3>
+<h4 id="步骤⑤-两人换稿互检6">步骤⑤ · 两人换稿互检（6′）</h4>
+<blockquote>
+<p>🔔 <strong>任务</strong>：两人一组交换自评矩阵 + 编成草案，专挑对方“L2+ 自评的证据”和“L3 站位的 C7 例子”，各记一条最尖锐质疑。 🔔 <strong>输出</strong>：<em>互检记录 + 我要回去补的最大漏洞 1 条</em>。 🔔 <strong>难点/注意</strong>：互检别客气，重点盯“哪个 L2+ 的证据是空话”“填 L3 但 C7 例子经不经得起挑战”。</p>
+</blockquote>
+<hr />
+<h2 id="四checkout验收对照表-原评分卡转达标警示">四、checkout（验收对照表 · 原评分卡转“达标/警示”）</h2>
+<blockquote>
+<p>每阶段末 + 收尾各对照一次。四维，每维看“达标线”与“一票警示”。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>✅ 达标线</th>
+<th>⚠️ 警示（踩了要回炉）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D1 自评诚实度与证据质量</strong></td>
+<td>七维全评、每维配可验证的真实项目证据、敢给自己打低分（尤其 C3/C4）</td>
+<td>无证据、全给自己 L2+、回避短板</td>
+</tr>
+<tr class="even">
+<td><strong>D2 角色定位准确性</strong></td>
+<td>准确认领三型之一，且正确指出最可能卡的维（与材料 B 自洽）</td>
+<td>未定位或“我全维都行”式自我感觉良好</td>
+</tr>
+<tr class="odd">
+<td><strong>D3 补课路线可执行性</strong></td>
+<td>每个短板对应到具体讲/具体动作，下周可做</td>
+<td>无补课或“多练练”式口号</td>
+</tr>
+<tr class="even">
+<td><strong>D4 编成草案合理性</strong></td>
+<td>1 主理 + N 见习 + 平台组结构完整，L3 有 C7 证据，分工对准六维，自我站位诚实</td>
+<td>缺角色/全员 L3/把自己硬填 L3 无证据/无平台组</td>
+</tr>
+</tbody>
+</table>
+<p><strong>评级参照</strong>：四维全达标 = 拿到“能力等级 + 差距清单”（这就是结课评价方式，非合格证）；多数人应诚实停在"我是 L1、卡在 C__"——这是正常结果，装 L2 才危险。 <strong>一票警示</strong>：<strong>把自己填成 L3 却拿不出 C7 真实例子</strong> —— 讲师当众请其举例，举不出者该栏作废重填（这是 C7 筛选项的现场测验）。</p>
+<hr />
+<h2 id="五复盘研讨3-题教练收口18">五、复盘研讨（3 题，教练收口，18′）</h2>
+<ol type="1">
+<li><strong>（可训 vs 难训）</strong> 你给自己 C3、C4 打了几分？低分是“没学过”（可训练）还是“没这个意识”（近 C7，难训练）？这决定了你补课的性质。</li>
+<li><strong>（虚高自查）</strong> 对照三型你最像哪一型？你最可能卡的那一维，是这次自评里你打分最高还是最低的？（很多人卡的维恰恰自评虚高。）</li>
+<li><strong>（L3 资格）</strong> 你编成草案里的 L3 是谁？如果是你自己，你的 C7 例子经得起互检挑战吗？如果不是你，说明你现在定位是 L1——你接受吗？</li>
+</ol>
+<blockquote>
+<p>教练收口锚点：题 1 指向“C1–C6 可训练、C7 只能筛”（总纲主张四），补课性质取决于短板落在哪侧；题 2 回收“停 L1 正常、装 L2 危险”；题 3 回收“L3 稀缺、从压出第一个域开始”，把补课清单和编成草案接到第 10 讲的 90 天启动计划。</p>
+</blockquote>
+<hr />
+<h2 id="六参考答案要点讲师版-标讲师专用勿发学员">六、参考答案要点（讲师版 · 标“讲师专用勿发学员”）</h2>
+<blockquote>
+<p>⚠️ 讲师专用，勿发学员。</p>
+</blockquote>
+<p><strong>Exercise 目的</strong>：让学员从“我大概能做 FDE”落到"我现在是 L1、卡在 C__、补课路线是__“。核心是<strong>打掉自我感觉良好</strong>，而非教新技能。多数人应停在 L1，这是正常结果；讲师现场强化”停 L1 正常、装 L2 危险"（总纲原话）。</p>
+<p><strong>自评常见虚高点（重点核查）</strong>： - C3 风险设闸：几乎所有非 FDE 都会虚高。追问“你上个项目哪个操作按错了会赔钱/违规？你为它设闸了吗？”多数答不出——真实等级应压到 L0/L1。 - C4 合规治理：追问“你引用过的标准号，核到官方现行版了吗？”（引反例 B-6：药食同源目录误标、星评沿用已废止 MZ/T）——“看起来像国标就用”= L0。 - C6 交付物工程：多数人把“会写文档”当 L2，实际没做过 ≥10 节并行零冲突（引 B-1 图目计数漂移、B-2 编号冲突说明并行编排真实难度），应压到 L1。</p>
+<p><strong>三型卡点标准答案</strong>（对应讲义难听话）： - 架构师型 → C1（跳过认知萃取，默认需求已整理好）。 - 需求分析型 → C2 + C3（能采集不能编译、能记录不能设闸；离 FDE 最近最易停 L1 自以为 L2）。 - 项目经理型 → C2（会调度不会压结构）。</p>
+<p><strong>编成草案判优标准</strong>： - 好草案：明确 1 个 L3 且其 C7 有真实“留白不编造”例子；L1 数量合理（2–3 个起步）且各绑定单一维在真实项目练；平台组明确到“维护 planner/domain-model/onto-engine/citations 管线”；学员诚实把自己填 L1 而非硬凑 L3。 - 差草案：全员 L3（不懂稀缺性）；无平台组（会退化成“更累的架构师”，引第 5 讲主张二）；把自己填 L3 却无 C7 证据。</p>
+<p><strong>与康养项目证据的强绑定检查</strong>：凡打 L2+ 的维，学员的“证据”要能对应到一个可验证的真实动作，就像康养项目每一维都有量化落点（102 事件 / 26 HIL 点 / 18 挂国标 / IRR≈15.2% / 35 节并行）。空洞证据按无证据处理（D1 直接降档）。</p>
+<p><strong>收口话术</strong>：“今天没有人拿到’合格证’，你们拿到的是能力等级 + 差距清单。这正是结课的评价方式。停在 L1 不丢人，康养项目那个 L3 也是从压出第一个域开始的。下一讲（第 10 讲）我们把你这张补课清单和这份编成草案，变成 C-Life 90 天启动计划里认领到你名下的具体行动项。”</p>
+</body>
+</html>

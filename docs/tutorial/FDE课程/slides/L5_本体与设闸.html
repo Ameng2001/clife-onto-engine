@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 第五课 · 本体建模 + 设闸</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:56px 80px}
+  .mt-l{margin-top:22px}
+  .mt-m{margin-top:14px}
+  .lede{font-size:19px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:6px}
+  .card p,.card-accent p,.card-outline p{font-size:15px;line-height:1.55}
+  h2.title{font-size:42px;line-height:1.15}
+  .chain{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-weight:700;font-size:17px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:7px 11px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:31px;line-height:1.38;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+  .warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:15px}
+  table.t th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:6px 10px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:6.5px 10px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;line-height:1.6;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:13px 17px;overflow:auto;color:var(--text-1)}
+  .half{display:inline-block;background:var(--accent);color:#fff;border-radius:4px;padding:2px 10px;font-size:13px;font-weight:700;letter-spacing:.06em}
+  .slide.tight .card,.slide.tight .card-accent,.slide.tight .card-outline{padding-top:8px;padding-bottom:8px}
+  .slide.tight table.t td{padding-top:3.4px;padding-bottom:3.4px}
+  .slide.tight pre.code{padding-top:8px;padding-bottom:8px}
+</style>
+<div class="deck">
+
+<!-- 1 封面 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 第五课 · 180′ · SOP【S4 本体建模+设闸 / S5 合规治理】</div>
+  <h1 class="title" data-anim="fade-up">本体建模 + 设闸</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">唯一一堂产出<br><b>"机器会强制执行的东西"</b>的课。</p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">全课重心 · 压缩档绝不砍</span>
+    <span class="pill">上：五要素 + 收尾 6 项</span>
+    <span class="pill">下：HIL 设点表 + 取证清单</span>
+  </div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="26"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 · 上半场 90′】</b> 知识注入 25′ ｜ <b>实操 45′</b> ｜ checkout 20′（讲解与实操穿插）</p>
+    <p><b>【时间盒 · 下半场 90′】</b> 知识注入 40′ ｜ <b>现场演示 15′</b> ｜ <b>实操 30′</b> ｜ checkout 20′（穿插）</p>
+    <p><b>⚠️【绝不拆开跨天，绝不压缩】</b> 上下半场是同一件事的两面：上半场建结构，下半场设闸与治理。中间断开，学员会把两者当成两件事。</p>
+    <p><b>【本课的分界线意义】</b>"下半场是 FDE 与'会用工具的人'的分界线——<b>会跑命令的人能建出结构，只有 FDE 知道哪里必须停下来叫人。</b>"</p>
+    <p><b>⚠️【口径纪律，讲师必须咬死】</b> 是 <b>"四条硬判据 + 一条置信度兜底闸"</b>，<b>不是"五条硬判据"</b>。四判据看动作性质，兜底闸看模型把握。<b>混讲学员就学不会判断。</b></p>
+    <p><b>【开场先在 SOP 图上指位置】</b>"今天进 S4 和 S5。前面四课产的都是文档——<b>文档会被忽略；今天开始产的是规则，规则不会。</b>"</p>
+  </div>
+</section>
+
+<!-- 2 这不是编译器 -->
+<section class="slide" data-title="接专题课 · 今天交什么">
+  <div class="kicker">开场 · 定位</div>
+  <h2 class="title">今天交的不是模型文档，<br>是一个<b>插件包</b></h2>
+  <table class="t mt-s">
+    <tr><th></th><th>讲什么</th><th>给你什么</th></tr>
+    <tr><td><b>S1 本体论</b></td><td>本体是什么、为什么必须有</td><td>判断力</td></tr>
+    <tr><td><b>S2 引擎实现</b></td><td><span class="mono">clife-onto-engine</span> 内核怎么造</td><td><b>运行时端</b>——你今天的产出要在它上面跑</td></tr>
+    <tr><td><b>S3 引擎到平台</b></td><td>平台与交付，以及建模端 <span class="mono">studio-ontology</span></td><td><b>你今天要用的那把工具</b>的定位与边界</td></tr>
+    <tr><td><b>本课 L5</b></td><td><b>亲手用那把工具，产出能在那套引擎上跑的插件</b></td><td><b>一个能跑的东西</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>S2 讲运行时端，S3 讲建模端，本课把两端接起来。</b></p>
+  <pre class="code mt-m">你的产出                        落到哪里                            怎么算数
+ontology-map.md（七段 IR）  →  建模仓 studio/changes/{id}/     →  <b>停点你审过</b>
+编译产物 4 个文件            →  运行时仓 plugins/{ontology_id}/ →  能 import
++ 收尾 6 项（人填）          →  同上                            →  <b>smoke_cq 绿</b>
+HIL 设点表 · 取证清单        →  随交付文档                      →  闸能被自动验证</pre>
+  <div class="deck-footer"><span class="ftag">定位</span><span class="slide-number" data-current="2" data-total="26"></span></div>
+  <div class="notes"><p><b>【没上过专题课的人也要能跟上】</b>需要的前置本课都会重述。<b>但上过 S2/S3 的人，请带着「SPI 七槽位」和「IR 七段→槽位的编译去向」来听第七章</b>——那两张表合起来正好解释今天每一个 NotImplementedError。</p>
+  <p><b>【这一页要立住"今天不是学工具用法"】</b>"这门课不是教你跑四个命令。<b>是把三门专题课的东西，落成一个能跑的插件。</b>"</p>
+  <p><b>⚠️【但别让他们以为课内能跑通】</b>下面第一页马上要打掉"这是编译器"的错觉。<b>课内到哪一步、课后到哪一步，倒数第二页会说清。别在这里承诺。</b></p></div>
+</section>
+
+<section class="slide" data-title="这不是编译器">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · <b>开场第一句</b></div>
+  <h2 class="title">这不是编译器</h2>
+  <p class="lede mt-s" data-anim="fade-up">运行时仓自己的文档写得很直白：<span class="mono">map → compile → validate</span> 三个技能是<br>
+  <b>"LLM-as-compiler" 的 prompt + spec，无确定性编译器、无代码、无测试</b>。产出是<b>插件骨架</b>，内容 finishing 全靠人工。</p>
+  <p class="quote-big mt-l" data-anim="fade-up">机器负责把结构立起来，<br><b>人负责把判断填进去。</b></p>
+  <div class="card card-accent mt-m" data-anim="fade-up">
+    <p class="dim">康养项目留了 <b>121 处 <span class="mono">NotImplementedError</span></b>——<br>
+    <b>这不是没做完，是明确划出"机器到此为止、人从这里接手"的界线。</b></p>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>一个不敢留 NotImplementedError 的 FDE，会让模型把它猜的业务规则写成看起来能跑的代码——那才是灾难。</b></p>
+  <div class="deck-footer"><span class="ftag">不是编译器</span><span class="slide-number" data-current="3" data-total="26"></span></div>
+  <div class="notes"><p><b>【为什么开场就说这句】</b>学员看到 "compile" 会以为有个确定性编译器。<b>本课的全部价值都建立在"没有"这个认知上。</b></p>
+  <p>"你们会看到编译产出一堆 <span class="mono">raise NotImplementedError</span>。第一反应是'这东西没做完'。<b>不是</b>——那 121 处是<b>界线</b>，是有人认真地说'这里机器不该猜，等人来填'。<b>反过来想：如果一个工具把所有地方都填满了，那意味着它在猜你的业务规则，而且猜得看起来很像真的。那才可怕。</b>"</p></div>
+</section>
+
+<!-- 3 四命令 + 权限 -->
+<section class="slide" data-title="四命令与权限教学">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 工具</div>
+  <h2 class="title">四个命令，和一处最好的权限教学</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:30%">命令</th><th style="width:38%">干什么</th><th>强制人审</th></tr>
+    <tr><td><span class="mono">/studio-ontology:map</span></td><td>业务分析 → 七段 IR</td><td>无</td></tr>
+    <tr><td><span class="mono">/studio-ontology:compile</span></td><td>IR → 插件骨架</td><td>无（已存在不覆盖，只告警）</td></tr>
+    <tr><td><span class="mono">/studio-ontology:validate</span></td><td>四段校验</td><td>无（只诊断）</td></tr>
+    <tr><td><b><span class="mono">/studio-ontology:model</span></b></td><td><b>map → ⏸ 你审 IR → compile</b></td><td><b>★唯一有强制停点</b></td></tr>
+  </table>
+  <h3 class="mt-m" data-anim="fade-up">⭐ 工具的权限就是它的职责</h3>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:24%">skill</th><th style="width:34%">allowed-tools</th><th>说明</th></tr>
+    <tr><td><span class="mono">ontology-map</span></td><td>Read, Write, Glob, Grep, <b>Agent</b></td><td><b>有 Agent</b> → 能调专家做头脑风暴与复核</td></tr>
+    <tr><td><span class="mono">ontology-compile</span></td><td>Read, Write, Glob, Grep</td><td><b>无 Agent</b> → 纯机械翻译，<b>不许自由发挥</b></td></tr>
+    <tr><td><span class="mono">ontology-validate</span></td><td>Read, Glob, Grep, <b>Bash</b></td><td><b>无 Write</b> → <b>物理上不可能改你的插件</b></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">校验器无权改代码。</p>
+  <div class="deck-footer"><span class="ftag">四命令</span><span class="slide-number" data-current="4" data-total="26"></span></div>
+  <div class="notes"><p><b>【课堂用 model，不要分开跑】</b>那个停点是本课最重要的教学时刻。<b>审 IR 时审四项</b>：对象边界 / edge_semantics / 规则的 severity·backing·出处 / Action 的 writes·HIL。<b>可以直接改 md 文件再继续。</b></p>
+  <p><b>【权限那张表要讲透】</b>"校验器<b>无权改代码</b>——这是'纪律靠机制不靠自觉'最干净的一个例子。<b>它只能告诉你哪里不合格，不能替你把不合格的地方抹平。</b> 想想看，如果校验器有 Write 权限会怎样？它会'顺手帮你修一下'，然后你永远不知道自己错在哪。"</p></div>
+</section>
+
+<!-- 4 OAG ≠ RAG -->
+<section class="slide" data-title="OAG ≠ RAG">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈③ 本体 OAG 1/4 · <b>技术分水岭</b></div>
+  <h2 class="title">大模型负责理解，<b>本体负责确立边界</b></h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:22%">维度</th><th style="width:32%">RAG</th><th><b>OAG</b></th></tr>
+    <tr><td>增强的对象</td><td>生成内容的<b>依据</b></td><td><b>行动的能力与边界</b></td></tr>
+    <tr><td>LLM 输出</td><td>自然语言答案</td><td><b>结构化操作调用</b></td></tr>
+    <tr><td>对世界的影响</td><td>只读</td><td><b>写操作（受规则约束）</b></td></tr>
+    <tr><td>出错后果</td><td>答案不准</td><td><b>状态被错误改变</b></td></tr>
+    <tr><td>追溯性</td><td>难还原依据</td><td><b>完整决策血统</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>最容易搞混的一点</b>：GraphRAG / 知识图谱增强检索<b>仍属"读"</b>——帮模型理解关系，但<b>不提供受治理的写回路径，挡不住"写错"</b>。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">概率推理在"选择层"，<br><b>确定性约束在"执行层"。</b></p>
+  <div class="deck-footer"><span class="ftag">OAG</span><span class="slide-number" data-current="5" data-total="26"></span></div>
+  <div class="notes"><p><b>【这一栈是 C-Life 真正的护城河】</b>"别的方法论我们借业界经典，<b>本体这一栈我们有自己成体系的方法论</b>——对标 Palantir 本体语义 OS。<b>下面讲的不是教科书概念，是我们自己一行行写出来、CI 强制、跨行业复用的东西。</b>"</p>
+  <p><b>⚠️【诚实标注，课上必须说】</b>"给客户讲草业项目时我们曾用'Graph-RAG 约束求解防幻觉'的话术贴近客户认知，<b>但那把 OAG 的功劳记到了 RAG 头上</b>。<b>对外可以将就，对内必须讲准。</b>"——<b>这一段本身就是诚实边界的示范。</b></p>
+  <p><b>【这个角色原本是谁】</b>知识工程师 / 本体工程师——把领域知识落成<b>机器可推理、可执行、可追溯</b>的本体，<b>而不是给人看的 ER 图</b>。</p></div>
+</section>
+
+<!-- 5 五要素 + 写路径 -->
+<section class="slide tight" data-title="五要素与写路径">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈③ 2/4</div>
+  <h2 class="title">五要素 = 内核↔插件的唯一契约</h2>
+  <table class="t" style="margin-top:6px" data-anim="stagger-list">
+    <tr><th style="width:16%">要素</th><th style="width:38%">定义</th><th>判据（现场问学员）</th></tr>
+    <tr><td><b>Object</b></td><td>业务实体，有独立生命周期</td><td>有独立生命周期 / 独立属性 / 被引用？</td></tr>
+    <tr><td><b>Link</b></td><td>有向关系，带边语义</td><td>有方向吗？能带属性吗？</td></tr>
+    <tr><td><b>Function</b></td><td>只读派生量，<b>无副作用</b></td><td>是<b>算</b>出来的，不是<b>记</b>下来的？</td></tr>
+    <tr><td><b>Rule</b></td><td>全局不变式，违反则回滚</td><td><b>所有入口都要成立、且是操作后校验</b></td></tr>
+    <tr><td><b>Action</b></td><td>受审计业务动作</td><td>有名字吗？要审计吗？带业务意图吗？</td></tr>
+  </table>
+  <pre class="code mt-s" data-anim="fade-up">guard（前置 declarative）
+  → stage_write（内存变更）
+  → <b>post_rules（写后强制，违反即回滚）</b>
+  → 提交 / 确定性回滚
+  → 审计快照 + set_confidence + add_evidence</pre>
+  <div class="card badcard mt-s" data-anim="fade-up">
+    <p class="dim">⚠️ <b>最容易讲漏的一条：Rule 与"前置条件"不是一回事。</b><br>
+    前置条件只判本次调用；<b>Rule 是全局不变式，在所有入口、操作之后都要成立，违反就回滚。</b><br>
+    <b>学员写规则段时经常把前置条件当规则写上去。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">五要素</span><span class="slide-number" data-current="6" data-total="26"></span></div>
+  <div class="notes"><p><b>【写路径是这一栈的灵魂】</b>指着那段代码逐行念。特别是 <span class="mono">post_rules</span> 那一行——<b>"写后强制"是本课最反直觉的设计</b>：先写进内存，再校验，违反就整个回滚。学员会问"为什么不先校验"？答案：<b>有些规则只有在写完之后才能判</b>（比如"该老人的总服务时长不得超过额度"——你得先把这次的加进去才知道超没超）。</p>
+  <p><b>【Rule vs 前置条件，实操时要抓】</b>这是 §7 写规则段最高频的错。巡场时逐条问："这条规则，<b>在别的入口进来也要成立吗</b>？只在这一个动作前判的，那是 guard，不是 Rule。"</p></div>
+</section>
+
+<!-- 6 五条红线 + 三层 -->
+<section class="slide" data-title="五条红线与三层架构">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈③ 3/4</div>
+  <h2 class="title" style="font-size:36px">五条设计红线，与三层架构</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card" style="font-size:14px"><h4>五条红线</h4><p class="dim">① <b>行业概念不进内核</b>——CI 强制。判缝准则：<b>"换成医疗大模型这段还成立吗？"</b><br>
+    ② <b>本体是 enforced kernel，不是 advisory schema</b>——违反就拦截 + 回滚，不是"希望遵守"<br>
+    ③ <b>受治理的写</b>——所有业务动作经 Action 引擎，<b>无旁路</b><br>
+    ④ 开源优先、薄适配——自研只做"接缝"<br>
+    ⑤ <b>多租户硬隔离</b></p></div>
+    <div class="card card-accent" style="font-size:14px"><h4>三层架构</h4><p class="dim">
+    <b>Kernel 内核（机制）</b>　含行业词：<b>否（CI 强制）</b><br>
+    <span style="padding-left:1em">元模型 / Action 内核 / 规则引擎 / 回滚 / 审计 / 置信度</span><br><br>
+    <b>Plugin 行业插件（策略）</b>　每行业一份<br>
+    <span style="padding-left:1em">五要素 Schema / 映射 / 规则函数 / handler / Agent / CQ</span><br><br>
+    <b>Tenant 租户配置（实例）</b>　每客户一份<br>
+    <span style="padding-left:1em">私有物理映射 / 实例数据 / 密级与授权</span></p></div>
+  </div>
+  <p class="lede mt-s" data-anim="fade-up"><b>内核只懂本体怎么运转，不懂任何行业。</b><br><b>两仓分工</b>：<span class="mono">plugins/{ontology_id}/</span>（<b>不是 {tenant}</b>）放本体定义；<span class="mono">tenants/{tenant}/</span> 放实例与名录数据。<b>把名录数据写进 plugins/，违反的不是习惯，是红线。</b></p>
+  <div class="deck-footer"><span class="ftag">红线 · 三层</span><span class="slide-number" data-current="7" data-total="26"></span></div>
+  <div class="notes"><p><b>【判缝准则最好用】</b>"<b>换成医疗大模型这段还成立吗？</b>成立 → 内核，不成立 → 插件。这一句话能解决 90% 的'这段代码该放哪'的争论。"</p>
+  <p><b>【两仓分工必须讲，否则学员会把数据写进插件】</b>grass 与 chili 在<b>同一进程同一 registry 里按 namespace 共存</b>——所以目录是按 ontology_id 分的，不是按租户分的。</p></div>
+</section>
+
+<!-- 7 建模 SOP -->
+<section class="slide" data-title="建模 SOP">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈③ 4/4</div>
+  <h2 class="title">建模 SOP：可照做的四阶段</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>① 起点不是"有哪些数据"</h4><p class="dim">是<b>"现在的做法在哪出了问题"</b>。三类症状：<br><b>信息没法汇聚</b> / <b>规则无法被执行</b>（Agent 走后端接口绕过前端校验——规则没失效，<b>只是从没在这条路径上被执行过</b>）/ <b>决策无法还原</b></p></div>
+    <div class="card"><h4>③ 先建模、再看数据</h4><p class="dim"><b>顺序不能反。</b><br>先看数据会被现有系统结构带偏，建出"<b>系统长什么样</b>"而非"<b>业务是什么样</b>"</p></div>
+    <div class="card"><h4>⑤ 怎么判断建对了</h4><p class="dim">① 信息汇聚实现没有？<br>② 规则真在执行没有？——<b>警惕误拦截 &gt; 漏拦截</b>：持续误拦截会逼业务绕过本体，<b>整套约束就失效</b><br>③ 决策能不能当天说清楚？</p></div>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:26%">④ 四阶段有先后、不并行</th><th>要点</th></tr>
+    <tr><td>① 调研与建模</td><td><b>业务专家必须在场，工程师单独做必跑偏</b>；产出<b>文档 / 原型不是代码</b>，业务逐条确认</td></tr>
+    <tr><td>② 数据盘点与治理</td><td>—</td></tr>
+    <tr><td>③ 引擎搭建与数据接入</td><td><b>这一阶段才开始写代码</b></td></tr>
+    <tr><td>④ 场景验证与调优</td><td><b>Demo 的价值在暴露边界，不是证明对</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">建模 SOP</span><span class="slide-number" data-current="8" data-total="26"></span></div>
+  <div class="notes"><p><b>【金句，可直接板书】</b>"<b>本体建模是把业务知识变成可执行定义的过程，而不是软件开发本身。最难的环节不是选技术栈，而是和业务人员一起把'大家都知道但没有人写下来'的规则，变成能被系统执行的精确描述。</b>"</p>
+  <p><b>【"规则无法被执行"这条症状要展开】</b>"注意措辞——<b>规则没失效，只是从没在这条路径上被执行过</b>。前端有校验，Agent 走后端接口就绕过去了。<b>这就是为什么约束必须下沉到写路径上，而不是留在界面层。</b>"</p>
+  <p><b>【难听话】</b>"建模只是七分之二（栈②DDD + 栈③OAG）。<b>别以为会建模就等于会做 FDE。</b>"</p></div>
+</section>
+
+<!-- 8 规则三问 -->
+<section class="slide" data-title="规则三问">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 输入契约 · <b>本课最该背下来的东西</b></div>
+  <h2 class="title">§7 的「规则三问」</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card card-accent"><h4>① 违反了要不要<br>拦住并回滚？</h4><p class="dim" style="font-size:20px">→ <span class="mono">severity</span><br><b>hard / soft</b></p></div>
+    <div class="card card-accent"><h4>② 只看入参能判，<br>还是要去查别的数据？</h4><p class="dim" style="font-size:20px">→ <span class="mono">backing</span><br><b>declarative / function</b></p></div>
+    <div class="card card-accent"><h4>③ 依据是哪条标准 /<br>方法学 / 谁的经验？</h4><p class="dim" style="font-size:20px">→ <span class="mono">source</span><br><b>没依据就写"待补依据"，不许猜</b></p></div>
+  </div>
+  <h3 class="mt-m" data-anim="fade-up">② 的一句话判据</h3>
+  <p class="lede mt-s" data-anim="fade-up">判定所需的全部信息，是不是都在 <span class="mono">ctx.params + ctx.actor</span> 里？<br>
+  <b>是</b> → <span class="mono">declarative</span>（可从 check <b>全自动生成代码</b>）　<b>否</b> → <span class="mono">function</span>（<b>只能生成骨架，你来填</b>）</p>
+  <p class="quote-big mt-s" data-anim="fade-up">偷偷需要查名录 / 阈值 / 库存的，<b>不是 declarative。</b></p>
+  <div class="deck-footer"><span class="ftag">规则三问</span><span class="slide-number" data-current="9" data-total="26"></span></div>
+  <div class="notes"><p><b>【这三问要学员背下来】</b>让他们当场对着自己 intake 的 §7 逐条问一遍。<b>没答全三问的规则，就是没写完。</b></p>
+  <p><b>【规则工程师 agent 的原话可以直接念】</b>"never mark a rule declarative if it secretly needs to look up a registry/threshold/inventory — that's function." <b>"secretly"这个词用得好</b>——学员标 declarative 时往往没意识到自己脑子里已经默认"去查一下名录"。</p>
+  <p><b>【偏好倾向】</b>合规、安全、方法学类的规则，默认往 <b>hard + post_write + function</b> 三档靠。<b>因为那才是回滚机制的用武之地。</b></p></div>
+</section>
+
+<!-- 9 三组取值域 -->
+<section class="slide" data-title="三组关键取值域">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · 七段 IR</div>
+  <h2 class="title">三组关键取值域</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4><span class="mono">edge_semantics</span> 三值<br><span class="dim">（IR 里最难的一处判断）</span></h4><p class="dim">
+    <b><span class="mono">root_cause</span></b>　命中即<b>终止追溯</b>——找到根因了，别再往上查<br>
+    <b><span class="mono">hypothesis</span></b>　<b>继续查</b>——这条边只是"可能相关"<br>
+    <b><span class="mono">derivation</span></b>　纯结构派生——不参与因果推理</p></div>
+    <div class="card card-accent"><h4><span class="mono">source</span> 三态<br><span class="dim">（治理教学的关键）</span></h4><p class="dim">
+    具体标准号（<span class="mono">GB 38600-2019</span>）→ ✅ 通过<br>
+    <b><span class="mono">通用</span></b> → ✅ <b>通过</b>，自明常识是合法值<br>
+    <span class="mono">TODO(FDE): 补依据</span> → ⚠️ <b>被拦</b>，计入治理缺口</p></div>
+  </div>
+  <div class="card goodcard mt-m" data-anim="fade-up">
+    <p class="dim"><b>"通用"这个值的存在很重要</b>：它让"<b>我知道这是常识、不是我忘了查</b>"能被表达出来。<br>
+    <b>留白和"承认这里是常识"是两件事。</b></p>
+  </div>
+  <h3 class="mt-m" data-anim="fade-up">⚠️ declarative 的取反逻辑（最容易写反的地方）</h3>
+  <pre class="code mt-s" data-anim="fade-up">IR:    check = budget is None or budget &gt;= 0        <b># 写"什么情况下是对的"</b>
+生成:  if not (budget is None or budget &gt;= 0):     <b># 生成时取反</b>
+           return RuleResult.fail(...)</pre>
+  <div class="deck-footer"><span class="ftag">取值域</span><span class="slide-number" data-current="10" data-total="26"></span></div>
+  <div class="notes"><p><b>【取反逻辑必须现场演示一遍】</b>写在白板上：先写 check，再写生成的代码。<b>学员写 check 时最容易写反</b>——记住口诀：<b>写"什么情况下是对的"，不是"什么情况下要拦"。</b></p>
+  <p><b>【source 三态是下半场治理审计的伏笔】</b>现在讲清楚，下半场讲 validate B 段时学员就懂为什么"通用"能放行、<span class="mono">TODO(FDE)</span> 会被拦。</p></div>
+</section>
+
+<!-- 10 收尾6项 + 六处落差 -->
+<section class="slide" data-title="收尾6项与六处落差">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · <b>本课最贵的实测资产</b></div>
+  <h2 class="title">编译完成 ≠ 可用</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>FDE 收尾 6 项（机器帮不了的）</h4><p class="dim">
+    ① 填 function-backed 规则体<br>
+    ② 填 Action handler 回写<br>
+    ③ 填 seed 参考数据<br>
+    <b>④ 把 CQ 翻成 Python</b>——引擎只认 <span class="mono">cq.py</span> 的 <span class="mono">CQ_SUITE</span>，<b>全仓没有代码读 cq/golden.yaml</b><br>
+    <b>⑤ 改 plugin.yaml 成引擎格式</b>——引擎<b>完全不认 provides</b>，还要补 glossary + agents<br>
+    <b>⑥ 补 Evaluation 的 import</b>——编译规则的固定头部<b>漏了它</b>，照抄会 NameError</p></div>
+    <div class="card badcard"><h4>六处「文档 vs 代码」落差</h4><p class="dim">
+    ① README 说 <b>11 段</b> → 实际 <b>12 段</b><br>
+    ② 标题写「<b>五段式</b>」 → 正文 <b>七段</b><br>
+    ③ 说"正好填满 <b>SPI 7 槽位</b>" → <b>槽位 5、6 完全不生成</b>，3、4 只出骨架，7 格式不匹配<br>
+    ④ 产 <span class="mono">cq/golden.yaml</span> → <b>无代码读它</b><br>
+    ⑤ 产 <span class="mono">provides:</span> → <b>引擎不认</b><br>
+    ⑥ 固定 import 头部 → <b>漏了 Evaluation</b></p></div>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">这六条不是吐槽工具，<b>是教学法。</b><br>唯一可靠的动作是<b>去读代码、去跑一遍。</b></p>
+  <div class="deck-footer"><span class="ftag">收尾 · 落差</span><span class="slide-number" data-current="11" data-total="26"></span></div>
+  <div class="notes"><p><b>【第 4、5 两项是硬落差，必须说清】</b>"不做，<b>编译产物根本跑不起来</b>。<b>这不是学员做错了，是工具链的已知缺口。</b>"——不说这句，学员会以为是自己的问题，然后花半小时 debug。</p>
+  <p><b>⭐【顺便回收 B-9】</b>"康养项目当初对 <span class="mono">Evaluation</span> 是否导出存疑，<b>统一留 docstring 挂账没敢往前推</b>——<b>今天证明那个判断是对的</b>。第六项就是它。<b>不确定就挂账，别赌。</b>"</p>
+  <p><b>【六处落差是本课最贵的资产】</b>"FDE 每天面对的就是这种'<b>文档说 A、代码是 B</b>'。你们将来接手任何一个第三方组件，都会撞上这个。<b>唯一可靠的动作是去读代码、去跑一遍。</b>"</p></div>
+</section>
+
+<!-- 11 沉浸 grass vs chili -->
+<section class="slide" data-title="沉浸 · grass vs chili">
+  <div class="kicker"><span class="half">上半场</span> ③ 沉浸</div>
+  <h2 class="title">完整插件 vs 最小插件，并排看</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card goodcard"><h4><span class="mono">plugins/grass/</span> · 四件齐全</h4><p class="dim">
+    <span class="mono">__init__.py</span>（schema + guard + 主 Action + seed）<br>
+    <span class="mono">forage.py</span> 快检评级 · <span class="mono">carbon.py</span> 碳汇核算<br>
+    <span class="mono">breeding.py</span> 杂交推荐 · <span class="mono">machinery.py</span> 作业参数<br>
+    <b><span class="mono">cq.py</span>（25 条 CQ_SUITE）</b><br>
+    <b><span class="mono">plugin.yaml</span>（glossary + agents）</b><br>
+    <span class="mono">mappings/objects.yaml</span><br><br>
+    本体：<b>7 对象 / 3 关系</b></p></div>
+    <div class="card badcard"><h4><span class="mono">plugins/chili/</span> · 最小 + 反面</h4><p class="dim">
+    只有 <span class="mono">__init__.py</span> + <span class="mono">grading.py</span> + <span class="mono">mappings/</span><br>
+    <b>没有 plugin.yaml、没有 cq.py</b><br><br>
+    本体：<b>5 对象 / 0 关系</b>（<b>连 links 目录都没有</b>）<br><br>
+    <b>只建对象不建关系，本体就退化成一张数据字典</b>——Link 缺位，Function 无处派生、Rule 无处横切</p></div>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">把 3 条 Link 和 0 条并排看，<br><b>一眼就明白五要素为什么缺一不可。</b></p>
+  <div class="deck-footer"><span class="ftag">grass / chili</span><span class="slide-number" data-current="12" data-total="26"></span></div>
+  <div class="notes"><p><b>【当场打开两个目录并排】</b>这是本课上半场唯一的沉浸环节，<b>必须真打开看</b>。ls 一下两个目录，差别一目了然。</p>
+  <p><b>【案例成熟度必须报口径，这是全课唯一口径源】</b>康养项目 🟢 唯一全域编译交付（7 域 / 3835 行 / 121 处挂账）；草业项目 🟡 方案 + <b>11 页 Mock demo（AI 是关键词路由，不是真模型）</b> + pilot 本体；辣椒 🟡 方案 + pilot 本体、<b>无 demo</b>；教育督导项目 🟢 建模 + 47 页 demo（<b>数据真</b>）。<br><b>成熟度分层不是谦虚，是不把"有个 pilot 本体"说成"编译交付"。</b></p></div>
+</section>
+
+<!-- 12 上半场实操 + checkout -->
+<section class="slide" data-title="上半场实操与 checkout">
+  <div class="kicker"><span class="half">上半场</span> ④ 实操 45′ + checkout 20′</div>
+  <h2 class="title">上半场要你带走的是<b>结构判断力</b></h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:8%">序</th><th style="width:44%">做什么</th><th style="width:12%">时长</th><th>产出</th></tr>
+    <tr><td>1</td><td>补完 12 段契约的 §3–§9（第三课已填 60%）</td><td>20′</td><td>完整 intake，<b>§7 至少 5 条规则</b></td></tr>
+    <tr><td>2</td><td><span class="mono">/studio-ontology:model</span>，<b>在停点认真审 IR</b></td><td>20′</td><td><span class="mono">ontology-map.md</span> 七段</td></tr>
+    <tr><td>3</td><td>编译 + 数 NotImplementedError + 对照收尾 6 项</td><td>5′</td><td>骨架 + 收尾清单</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>45 分钟填不完 121 处 NotImplementedError，也不该填。</b><br>
+  要带走的是：<b>什么是对象、什么是派生量、什么规则只看入参。</b></p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:20%">checkout</th><th style="width:38%">达标</th><th>警示</th></tr>
+    <tr><td>规则三问</td><td>每条 Rule 都答了 severity / backing / source</td><td>有规则没标 backing</td></tr>
+    <tr><td>declarative 判定</td><td>需要查名录 / 阈值的都标成了 function</td><td>把要查数据的标成 declarative → <b>一票警示</b></td></tr>
+    <tr><td>check 方向</td><td>写的是"<b>什么情况合法</b>"</td><td>写反成"什么情况拦截"</td></tr>
+    <tr><td>source 三态</td><td>标准号 / "通用" / <span class="mono">TODO(FDE)</span> 三选一</td><td><b>编一个像国标的号 → 一票警示（B-6/B-10）</b></td></tr>
+    <tr><td>Link</td><td>有关系、edge_semantics 判过</td><td><b>links 为 0</b>（本体退化成数据字典）</td></tr>
+    <tr><td>收尾诚实</td><td>知道哪 6 项要人做</td><td>以为 compile 完就结束了</td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">上半场实操</span><span class="slide-number" data-current="13" data-total="26"></span></div>
+  <div class="notes"><p><b>【实操第 2 步是关键】</b>停点出现时<b>逐组过去看</b>，别让他们直接回车放过。<b>那个停点是本课最贵的 20 分钟。</b></p>
+  <p><b>【HIL 列先留位】</b>提醒："<span class="mono">hil</span> 列<b>先留位</b>，下半场才填。现在填了也是瞎填——四判据还没讲。"</p></div>
+</section>
+
+<!-- 13 下半场 两道闸 -->
+<section class="slide" data-title="★★ 两道闸">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · <b>本课最容易混、也最值钱的一节</b></div>
+  <h2 class="title">★★ 两道闸</h2>
+  <p class="lede mt-s" data-anim="fade-up">你默认以为"HIL = 拦住不让写"。<b>错的。</b></p>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%"></th><th style="width:40%"><b>写入闸</b></th><th><b>副作用闸（HIL）</b></th></tr>
+    <tr><td>谁触发</td><td><span class="mono">hard</span> 级 post_write 规则被违反</td><td><span class="mono">HilPolicy.predicate</span> 返回 true</td></tr>
+    <tr><td><b>效果</b></td><td><b><span class="mono">overlay.clear()</span> 确定性回滚，数据不落地</b>，返回 StructuredRejection</td><td><b>数据照常写入</b>；decision 标记为 <span class="mono">pending_hil</span></td></tr>
+    <tr><td><b>拦的是</b></td><td><b>错误的状态</b></td><td><b>对外的动作</b></td></tr>
+    <tr><td>具体表现</td><td>写操作被撤销</td><td><b><span class="mono">scheduled</span> 副作用被清空</b>——工单、凭证、通知<b>不派发</b>，等人审</td></tr>
+    <tr><td>谁来兜底</td><td>引擎（确定性，<b>无人参与</b>）</td><td>人（<span class="mono">reviewer_role</span>）</td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">写入闸拦的是"<b>写错了</b>"，<br>HIL 拦的是"<b>这事该不该真的发出去</b>"。</p>
+  <div class="deck-footer"><span class="ftag">两道闸</span><span class="slide-number" data-current="14" data-total="26"></span></div>
+  <div class="notes"><p><b>⚠️【全课最容易混的一节，慢讲，讲两遍】</b>第一遍讲机制表，第二遍用康养项目民政闸举例。</p>
+  <p>"康养项目的民政 DP-H 闸就是典型的<b>副作用闸</b>——<b>数据可以先算出来，但'对外发布'这个动作必须人点头</b>。注意：数据是<b>写进去了</b>的，只是通知、凭证、公告这些<b>对外的副作用被冻结了</b>。"</p>
+  <p><b>【预期提问】</b>"那 HIL 的时候数据已经写了，人不同意怎么办？"——答：<b>数据在库里是 pending 状态，人不同意就走撤销动作（那也是一个 Action，同样受治理）。关键是"对外发出去的东西"从来没发出去过。</b></p></div>
+</section>
+
+<!-- 14 HIL 三个陷阱 -->
+<section class="slide tight" data-title="HIL 三个陷阱">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · HIL 机制</div>
+  <h2 class="title">⚠️ 三个必须知道的 HIL 陷阱</h2>
+  <div class="card badcard mt-s" data-anim="fade-up">
+    <h4>1. 光写 <span class="mono">reviewer_role</span> 等于没设闸</h4>
+    <p class="dim"><span class="mono">HilPolicy.predicate</span> 的<b>默认值是恒 False</b>。<br>
+    <span class="mono">HilPolicy(reviewer_role="合规官")</span> 不给 predicate，<b>永远不会触发</b>。</p>
+  </div>
+  <div class="card badcard mt-s" data-anim="fade-up">
+    <h4>2. 置信度不会自己出现</h4>
+    <p class="dim">编译只生成硬编码的 <span class="mono">ctx.set_confidence(0.8)</span>。真实插件的写法是：<br>
+    <span class="mono">ctx.set_confidence(ctx.params.get("_confidence", 0.82))</span><br>
+    ——<b>上游意图编译器把 LLM 的置信度经 <span class="mono">_confidence</span> 参数注入</b>。<br>
+    <b>插件文档完全没写这一句。不补这一步，你做出来的"置信度闸"是个永远不动的摆设。</b></p>
+  </div>
+  <div class="card warncard mt-s" data-anim="fade-up">
+    <h4>3. <span class="mono">severity_touched==hard</span> 这个 predicate 基本不会触发</h4>
+    <p class="dim">因为 <span class="mono">touched_hard=True</span> 时引擎<b>先回滚 + 拒绝就返回了</b>，走不到 HIL 判定那一行。需要组合条件（"低置信<b>或</b>碰了硬规则"）得<b>手写 lambda——引擎允许，IR 语法没定义</b>。<b>这是表达力上限，也是逃生舱。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">HIL 陷阱</span><span class="slide-number" data-current="15" data-total="26"></span></div>
+  <div class="notes"><p><b>【第 1 条是 checkout 的必查项】</b>"只写角色不写条件——<b>这是最常见的假设闸</b>。学员会觉得'我写了 reviewer_role 就是设了闸'。<b>没有。predicate 默认恒 False，那个闸永远不会触发。</b>"</p>
+  <p><b>【第 2 条文档没写，这是我们实测出来的】</b>强调这一点：<b>插件文档完全没写这一句</b>。不补这一步，学员做出来的置信度闸是个摆设。<b>这又是一处"文档说 A、代码是 B"。</b></p></div>
+</section>
+
+<!-- 15 四判据 -->
+<section class="slide" data-title="⭐ HIL 四判据 + 一兜底">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · <b>本课命门</b></div>
+  <h2 class="title">⭐ 四条硬判据 + 一条置信度兜底闸</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:14%">判据</th><th style="width:24%">含义</th><th style="width:30%">一句话测试</th><th>康养项目实例</th></tr>
+    <tr><td><b>① 不可逆</b></td><td>动作做了收不回来</td><td>"撤销这个动作，<b>代价大到不可接受吗</b>？"</td><td>急救四级联动升级（D4）、监管数据对外发布（D6）</td></tr>
+    <tr><td><b>② 涉钱</b></td><td>直接产生 / 改变金钱流向</td><td>"这一步之后<b>有钱动了吗</b>？"</td><td>增收订单生成、DIP 结算入账、补贴拨付</td></tr>
+    <tr><td><b>③ 涉合规</b></td><td>触发监管 / 法律义务</td><td>"监管来查，<b>这一步要留痕解释吗</b>？"</td><td>数据授权 / 最小必要、DIP 控费入账前阻断</td></tr>
+    <tr><td><b>④ 跨组织</b></td><td>后果落到别的主体身上</td><td>"做错了，<b>是别人替我承担后果吗</b>？"</td><td>AI 方案转订单卖给会员、补贴发布</td></tr>
+  </table>
+  <div class="card card-accent mt-m" data-anim="fade-up">
+    <h4>+ 置信度兜底闸（看模型把握 · 横切）</h4>
+    <p class="dim">四条判据看<b>动作性质</b>；兜底闸看<b>模型有多确定</b>。<br>
+    <b>即便一个动作四条都不命中，只要模型对它的置信度低于阈值，同样落人工。</b><br>
+    康养项目固化为 D1 的置信度闸：<span class="mono">hard · function · pre</span>，<b>阈值占位 0.75</b>，<b>刻意设成 pre——在动作发生前拦，不是发生后补</b>。</p>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">宁可多设几道闸拖慢一点，<br><b>不可漏一道闸出一次事。</b></p>
+  <div class="deck-footer"><span class="ftag">四判据</span><span class="slide-number" data-current="16" data-total="26"></span></div>
+  <div class="notes"><p><b>⚠️【口径纪律，咬死】</b>是 <b>"四条硬判据 + 一条置信度兜底闸"</b>，<b>不是"五条硬判据"</b>。旧讲义里有写成五条的，<b>见到当场改口</b>。四判据看动作性质，兜底闸看模型把握——<b>两者不是同一类东西，混讲学员就学不会判断</b>。</p>
+  <p><b>【为什么是"任一"不是"多数"】</b>"因为这四条<b>每一条单独成立就够伤</b>。<b>涉钱一条就够了</b>——一笔错误增收决策，客户的钱亏了，<b>赖不到模型头上，赖到你头上</b>。所以是<b>或</b>，不是<b>与</b>。"</p>
+  <p><b>⚠️【但顺序不能反】</b>"'任一即插人'必须先过一道筛：<b>这个动作能不能固化成硬规则？</b> <b>先问"能不能自动"，再问"该不该插人"——顺序反了就会闸设满。</b>"</p>
+  <p><b>【现场动作】</b>让学员拿自己 IR 里的 Action 逐个过这四句测试。<b>用问句，不要用名词</b>——"有钱动了吗"比"是否涉钱"好用十倍。</p></div>
+</section>
+
+<!-- 16 闸分两层 -->
+<section class="slide" data-title="闸为什么必须分两层">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · 方法论根据</div>
+  <h2 class="title" style="font-size:36px">闸为什么必须是两层</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:20%">层次</th><th style="width:34%">机制</th><th style="width:14%">强度</th><th>可绕过性</th></tr>
+    <tr><td>提示词层</td><td>靠 LLM 自觉</td><td>最弱</td><td>高（<b>注入即破</b>）</td></tr>
+    <tr><td>API 网关层</td><td>校验请求参数格式</td><td>中</td><td>中（参数可伪造）</td></tr>
+    <tr><td><b>本体层</b></td><td><b>校验业务状态 + 全局不变式</b></td><td><b>最强</b></td><td><b>低（引擎强制，无旁路）</b></td></tr>
+  </table>
+  <p class="lede mt-s" data-anim="fade-up" style="font-family:var(--font-serif);font-size:24px;color:var(--accent);font-weight:600">自觉遵守<b>不是工程约束</b>。</p>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card goodcard" style="font-size:14px"><h4>第一层 · 自动闸</h4><p class="dim">引擎确定性回滚，机器把关。<br>被拒的 Agent 收到<b>结构化拒绝三件套</b>：<span class="mono">triggered_rule</span>（为什么不行）+ <span class="mono">current_state</span>（当时的世界快照）+ <span class="mono">suggestion</span>（可以怎么调整）<br>→ <b>OAG 闭环：发现→调用→被拒→调整→重试</b>，全程在约束内<br><br><b>能固化成硬规则的，就交给自动闸，别浪费人力。</b></p></div>
+    <div class="card card-accent" style="font-size:14px"><h4>第二层 · 人工闸（HIL）</h4><p class="dim">两种情况才上：<br>① <b>机器判不了的价值判断</b>——涉钱/涉合规/跨组织的拍板<br>② <b>机器"没把握"</b>——每个断言都是概率的（<span class="mono">balance_sufficient = (False, confidence=0.78)</span>），<b>置信度太低时基于它的决策不该是最终结论</b><br><br>这就是 <b>0.75 阈值的方法论根据</b>：不是拍脑袋，<b>是"低置信必须转人"的工程共识</b></p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">两层</span><span class="slide-number" data-current="17" data-total="26"></span></div>
+  <div class="notes"><p><b>【不讲这一节，学员会把 HIL 当成唯一的闸，闸设满、人变橡皮图章】</b></p>
+  <p><b>【软约束三个结构性缺陷，逐条念】</b>会被<b>遗忘</b>（多轮对话后早期指令权重下降）、会被<b>稀释</b>（上下文塞满后约束被挤出）、会被<b>绕过</b>（提示词注入让模型"忘记"约束）。</p>
+  <p><b>【HIL 留痕 = 审计快照，不是日志】</b>"留的不是操作日志，是<b>决策快照</b>——记录上下文，而不只是记录结果。康养项目强制留 signer_id / reviewed_at / decision / edits_before_after，就是为了回答那个问题：<b>'三个月后，合规团队问 AI 当时凭什么觉得能下单，你能不能当天答上来。'</b>"</p>
+  <p><b>【收口，可直接板书】</b>"<b>你能把多大的权力交给一个系统，取决于设计时边界定义在哪里，以及越界时——是被它自己拦下，还是被现实拦下。</b>" 自动闸 + HIL 就是"被它自己拦下"；两样都没设，就是等着<b>被现实拦下</b>——<b>那时赔的是钱、是合规、是客户关系。</b></p></div>
+</section>
+
+<!-- 17 validate 四段 -->
+<section class="slide" data-title="validate 四段校验">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · 治理</div>
+  <h2 class="title">validate 四段校验</h2>
+  <table class="t mt-s" style="font-size:14px" data-anim="stagger-list">
+    <tr><th style="width:16%">段</th><th style="width:10%">时机</th><th style="width:48%">查什么</th><th>不过的后果</th></tr>
+    <tr><td><b>A 结构完整性</b></td><td>静态</td><td>guards/post_rules/writes 是否都已声明；Link 的 from/to；<b>五要素无悬空引用</b></td><td><b>BLOCKER</b></td></tr>
+    <tr><td><b>B 治理审计</b></td><td>静态</td><td>① <b>每条 Rule 必须有 source</b>（空或 <span class="mono">TODO(FDE)</span> → 缺口；<span class="mono">通用</span> → 放行）<br>② function / 合规类应有具体 citations<br>③ <b>合规 / 对外凭证 / 定级定价类 Action 应设 hil</b></td><td>① <b>BLOCKER</b><br>②③ 告警</td></tr>
+    <tr><td><b>C 剩余 TODO</b></td><td>静态</td><td>扫仍 <span class="mono">raise NotImplementedError</span> 的规则与 handler</td><td>告警</td></tr>
+    <tr><td><b>D 行为 CQ</b></td><td><b>动态</b></td><td>逐条跑：<span class="mono">query</span> 应能查通；<span class="mono">action(X)</span> 应 committed；<span class="mono">rejected(R)</span> 应被规则 R 回滚</td><td>未填的标 SKIPPED 而非 FAIL</td></tr>
+  </table>
+  <p class="lede mt-s" data-anim="fade-up"><b>交付判据：A、B 必须全过才可交付；D 在填完后全绿才算闭环。</b></p>
+  <p class="quote-big mt-s" data-anim="fade-up">康养项目能守住"18 处挂国标、11 处留占位"，<br><b>不是靠自觉，是有个东西在交付前拦你。</b></p>
+  <div class="deck-footer"><span class="ftag">validate</span><span class="slide-number" data-current="18" data-total="26"></span></div>
+  <div class="notes"><p><b>【B 段的定位是关键】</b>"它等价于运行时的'无引用规则审计'，<b>但在交付前就拦</b>。这就是为什么康养项目能守住那 18 处和 11 处——<b>有个东西在交付前拦你</b>。"</p></div>
+</section>
+
+<!-- 18 反例主场 -->
+<section class="slide" data-title="反例主场四连">
+  <div class="kicker"><span class="half">下半场</span> ② 启发 · <b>反例主场，一次给四个</b></div>
+  <h2 class="title">B-1 / B-2 / B-5 / B-10</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:18%">反例</th><th style="width:40%">怎么发生的</th><th>根因原则</th></tr>
+    <tr><td><b>B-1</b><br>图目计数漂移</td><td>标题写"22 张图"，表体实际 <b>26 行</b>。后补的图追加到表尾，<b>头部计数没人回去改</b></td><td><b>摘要与明细必须有单一真相源；并行/追加式产出必须有显式的"收口回改"动作。</b><br>漂移不是因为谁粗心，<b>是因为没有一步流程负责回改</b></td></tr>
+    <tr><td><b>B-2</b><br>章节编号冲突</td><td>35 个分节<b>并行</b>写作，各自起标题层级，装配期<b>编号重复/跳号</b></td><td><b>编号权归装配阶段，不归写作阶段。</b><br><b>并行的东西，全局唯一性只能在收拢点解决</b></td></tr>
+    <tr><td><b>B-5</b><br>数据张冠李戴</td><td>老龄化率跨节引用错配——<b>60+ 和 65+ 口径混用</b></td><td><b>关键数字必须锚在 BRIEF 单点，一律引用不重算</b></td></tr>
+    <tr><td><b>B-10</b><br>11 处文号<br><span class="dim">全课程价值观支点</span></td><td><b>7 处本地文号 + 4 处企业 SOP 编号</b>，公开渠道查不到。<br><b>诱惑</b>：编一个"看起来对"的，<b>合规件就完整了，交付显得漂亮</b></td><td><b>11 处坚决留占位不编造</b>，每处锚定上位国标，转成<b>逐项取件清单</b>。<b>判定为非 BLOCKER，不阻断交付</b></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">"错文号比空缺更有害。"</p>
+  <div class="deck-footer"><span class="ftag">反例四连</span><span class="slide-number" data-current="19" data-total="26"></span></div>
+  <div class="notes"><p><b>【为什么这里一次给四个】</b>"别的环节一步一个反例，本节是反例主场——因为<b>交付物工程和合规治理是出错高发区</b>，这四个坑我们全踩过。"</p>
+  <p><b>【B-10 展开讲，它是价值观支点】</b>"<b>空缺是诚实的，能被后续补上；错误的文号是有毒的</b>——它会以'看起来完整'的样子骗过审核，<b>在迎检时爆炸</b>。<b>留占位 + 锚上位国标 + 转取证清单</b>——这套动作就是把'我不知道'变成'<b>专业的不知道</b>'。"</p>
+  <p><b>【锚定口径机制顺带讲，它是这门课的元证据】</b>"康养项目靠一份 BRIEF 防口径漂移：术语统一表 + 核心数据表（唯一真相源）+ 协作纪律。<b>口径不靠 35 个作者自觉对齐，靠一份单点文件强制对齐。</b><br>⭐ <b>最元的一句</b>：<b>你们现在读的这门课，就是这么造的。</b> 这套手册拆给多个写作子智能体并行写，共用一份 WRITING_BRIEF，结构和康养项目那份一模一样。<b>教材的生产方式，就是教材的内容。</b>"</p></div>
+</section>
+
+<!-- 19 26个HIL + D2星号 -->
+<section class="slide" data-title="沉浸 · 康养项目 26 个 HIL">
+  <div class="kicker"><span class="half">下半场</span> ③ 沉浸 1/3</div>
+  <h2 class="title">26 个 HIL 点：风险在哪，闸就在哪</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:26%">域</th><th style="width:10%">HIL</th><th>判据实证</th></tr>
+    <tr><td>D1 康养智能体中枢</td><td>2</td><td>站长 HIL（增收，<b>涉钱 + 跨组织</b>）+ 健管师复核</td></tr>
+    <tr><td><b>D2 政策结算枢纽</b></td><td><b>0*</b></td><td>⭐ <b>见下面的星号——这张表最该学的一行</b></td></tr>
+    <tr><td>D3 会员营收飞轮</td><td>1</td><td>涉钱但多为<b>可逆</b>营销动作，只在关键转化点设 1 闸</td></tr>
+    <tr><td>D4 居家健康照护</td><td>6</td><td>含<b>急救四级联动指挥（不可逆！）</b>，多处涉人身安全</td></tr>
+    <tr><td>D5 机构运营</td><td>5</td><td>入住 / 退费 / 医嘱涉钱涉合规涉人身</td></tr>
+    <tr><td><b>D6 民政治理</b></td><td><b>8</b></td><td><b>最多</b>——DP-H 闸（<b>涉合规 + 涉钱 + 跨组织三条全中</b>）</td></tr>
+    <tr><td>D7 知识库</td><td>4</td><td>版本发布被全域引用，<b>发错版本影响全局</b></td></tr>
+  </table>
+  <div class="card card-accent mt-m" data-anim="fade-up">
+    <h4>⭐ D2 那个星号：涉钱最狠，显式 HIL 却是 0</h4>
+    <p class="dim">因为 FDE 做了个更高级的判断：<b>把合规拦截前置到规则层，比事后拉个人来点确认更可靠。</b><br>
+    <b>人工闸是最后手段，不是唯一手段。</b>能用确定性规则挡住的，就别靠人肉点确认——<b>人肉点确认点多了，就变成橡皮图章。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">26 个 HIL</span><span class="slide-number" data-current="20" data-total="26"></span></div>
+  <div class="notes"><p><b>【D2 是本表的教学点，别只念数字】</b>新手看到会觉得矛盾——涉钱怎么不设闸？<b>让他们先困惑 10 秒再揭晓</b>。这个反直觉的例子，比讲十遍"闸不是越多越好"有效。</p>
+  <p><b>【D6 为什么 8 个】</b>"不是因为它复杂，<b>是因为它每个动作都涉合规涉钱跨组织</b>。"</p></div>
+</section>
+
+<!-- 20 两大闸门 + 代价 -->
+<section class="slide" data-title="两大闸门与按错的代价">
+  <div class="kicker"><span class="half">下半场</span> ③ 沉浸 2/3 · <b>本课高潮</b></div>
+  <h2 class="title">两大闸门，与按错的代价</h2>
+  <div class="card card-accent mt-s" data-anim="fade-up">
+    <h4>闸门① · 站长 HIL（增收闸 · 置信度闸 0.75 防橡皮图章）</h4>
+    <p class="dim"><b>判据命中</b>：涉钱 + 跨组织 + 置信度兜底　｜　<b>机制</b>：AI 生成增收方案后，必须站长点确认才能转订单<br>
+    <b>⚠️ 按错的代价</b>：阈值调成 0 或站长养成"一律点同意"的习惯 → <b>闸门在，但等于没有</b>。AI 给一个低置信的、对长者不合适的高价套包，站长机械点过，卖出去了——<b>钱是长者的、口碑是客户的、责任是我们的</b>。微康养做的是熟人生意（<b>熟人获客 77.59%</b>），<b>卖错一单，毁的是整个片区的信任飞轮</b></p>
+  </div>
+  <div class="card badcard mt-m" data-anim="fade-up">
+    <h4>闸门② · 民政 DP-H（监管发布闸）</h4>
+    <p class="dim"><b>判据命中</b>：涉合规 + 涉钱 + 跨组织，<b>三条全中</b>　｜　<b>机制</b>：任何对外发布的监管数据 / 补贴决定，必须民政经办拍板留痕<br>
+    <b>⚠️ 按错的代价</b>：AI 把未经核验的数据、或一笔补贴资格认定直接对外发布——<b>违反数据授权最小必要（个保法）、可能错发/漏发补贴（涉公帑）、政府信用受损</b>。而且<b>不可逆</b>：数据发出去收不回来；<b>补贴发错了，追缴是政治事件</b></p>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">站长闸防的是"<b>钱按错</b>"，<br>民政闸防的是"<b>合规越界</b>"。</p>
+  <div class="deck-footer"><span class="ftag">两大闸门</span><span class="slide-number" data-current="21" data-total="26"></span></div>
+  <div class="notes"><p><b>【本课高潮，讲情绪，别只讲机制】</b>"卖错一单，毁的是整个片区的信任飞轮"——这句话要说得重。<b>微康养是熟人生意，这不是抽象风险。</b></p>
+  <p><b>【两句话收口，让他们记住】</b><b>闸门的价值不在"有没有"，在"会不会真拦"。</b>置信度闸就是防止 HIL 退化成盖章仪式的技术保险。<b>阈值是活的，谁调阈值谁负责。</b><br><b>跨组织 + 涉合规的动作，人工闸是法律义务不是可选项。谁发布谁签字，签字的人为这条数据的真实性背书。</b></p></div>
+</section>
+
+<!-- 21 现场演示 -->
+<section class="slide" data-title="⭐ 现场演示 smoke_cq">
+  <div class="kicker"><span class="half">下半场</span> ③ 沉浸 3/3 · <b>15′ 现场演示</b></div>
+  <h2 class="title">⭐ 让"设闸"变成看得见的东西</h2>
+  <div class="card card-accent mt-s" data-anim="fade-up">
+    <h4><span class="mono">python scripts/smoke_cq.py</span> —— 它做了什么</h4>
+    <p class="dim">造一个<b>删掉「乡土合规」post_rule</b> 的版本，拿<b>同一套 CQ</b> 去跑——<br>
+    「非乡土草种应被拦」这条 CQ <b>立刻从 pass 变 fail</b>。</p>
+  </div>
+  <p class="quote-big mt-s" style="font-size:21px" data-anim="fade-up">闸不是写在文档里的一句承诺，<b>是一条能被自动验证会不会失效的机制。</b></p>
+  <p class="lede mt-s" data-anim="fade-up"><b>给你的问题</b>：你们命题里那些"我们会严格审核"的承诺，<b>有哪一条能像这样被自动验证？验证不了的，就还只是愿望。</b></p>
+  <pre class="code mt-s" data-anim="fade-up">python -c "import plugins.{id}"              <b># 最低验收线：能 import</b>
+python -m pytest tests/test_cq.py -q         <b># CQ 回归</b>
+python scripts/check_kernel_purity.py        <b># 红线门禁 1（反向执法：行业词不进内核）</b>
+python scripts/check_plugin_capabilities.py  <b># 红线门禁 2（正向执法：拦内核私有直达）</b></pre>
+  <div class="deck-footer"><span class="ftag">现场演示</span><span class="slide-number" data-current="22" data-total="26"></span></div>
+  <div class="notes"><p><b>⚠️【必须真跑，不许口头描述】</b>这 15 分钟是全课最有说服力的一段。<b>提前在 <span class="mono">~/Codes/onto-fundary-plugins/</span> 下确认能跑通</b>，别在课上第一次执行（这本身就是第二课教的"上客户现场前先跑冒烟测试"）。</p>
+  <p><b>【跑之前先问，跑之后再答】</b>先问："你们怎么证明一个闸<b>没有失效</b>？"让他们想 30 秒。然后跑给他们看。<b>那个 pass 变 fail 的瞬间，比讲半小时理论有用。</b></p>
+  <p><b>【那个提问是本课留给学员的钉子】</b>"你们命题里那些'我们会严格审核'的承诺，<b>有哪一条能像这样被自动验证</b>？<b>验证不了的，就还只是愿望。</b>"——这一问直接连到 checkout 的最后一项。</p>
+  <p><b>【B-8 的物理对应在这里兑现】</b>跑 <span class="mono">check_plugin_capabilities.py</span> 时说一句："第四课讲的'凌晨三点想抄近路直接摸内核私有方法'——<b>就是这个脚本挂给你看。结构纪律靠校验器，不靠自觉。</b>"</p></div>
+</section>
+
+<!-- 22 判断训练 -->
+<section class="slide" data-title="判断训练三题">
+  <div class="kicker"><span class="half">下半场</span> 实操前 · 分组讨论 10′</div>
+  <h2 class="title">判断训练：三道题</h2>
+  <div class="card mt-s" data-anim="fade-up">
+    <h4>题 1 · 设闸判断</h4>
+    <p class="dim">在你的 HIL 设点表里，有没有一个决策点是"<b>四判据都不太命中，但你还是设了闸</b>"的？为什么？<br>
+    <b>如果一个都没有，是不是你把置信度兜底闸忘了？</b></p>
+  </div>
+  <div class="card mt-m" data-anim="fade-up">
+    <h4>题 2 · 橡皮图章</h4>
+    <p class="dim">假设你表里某个闸，责任人<b>每次都点"同意"</b>。这个闸还有用吗？<br>你怎么<b>从机制上</b>防止它退化成橡皮图章？</p>
+  </div>
+  <div class="card mt-m" data-anim="fade-up">
+    <h4>题 3 · 诚实边界</h4>
+    <p class="dim">你的项目里有没有"查不到、核不实"的文号 / 数据 / 标准？<br>
+    你打算<b>编一个让交付显得完整</b>，还是<b>留占位转取证清单</b>？<b>说出你会怎么跟客户解释这个空缺。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">判断训练</span><span class="slide-number" data-current="23" data-total="26"></span></div>
+  <div class="notes"><p><b>【题 1 收口】</b>好的 FDE 会为"<b>高频低置信</b>"动作设兜底闸，这是四判据之外<b>最容易漏的一类</b>——康养项目的 0.75 置信闸就是干这个的。</p>
+  <p><b>【题 2 收口】</b>闸门的价值不在"有没有"，在"<b>会不会真拦</b>"。答案指向<b>置信度闸 / 抽检 / 留痕追责</b>——康养项目站长闸设 <span class="mono">hard · pre</span> + 0.75 阈值就是防退化的技术保险。</p>
+  <p><b>【题 3 收口，回收 B-10】</b>"<b>能对客户坦然说'这处我留了占位、给你一份取件清单'的 FDE，比交一份'看起来完整'的假件的 FDE 专业得多。</b>"<br><b>题 3 要让每组都说一遍"我会怎么跟客户解释"</b>——这是 C7 在本课唯一能练的地方。</p></div>
+</section>
+
+<!-- 23 下半场实操 -->
+<section class="slide" data-title="下半场实操">
+  <div class="kicker"><span class="half">下半场</span> ④ 实操 · 30′</div>
+  <h2 class="title">交出 HIL 设点表与取证清单</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:8%">序</th><th style="width:44%">做什么</th><th style="width:12%">时长</th><th>产出</th></tr>
+    <tr><td>1</td><td>逐个 Action 判四判据 + 填 IR 的 <span class="mono">hil</span> 列</td><td>15′</td><td><b>HIL 设点表 5–8 行</b>（判据 / 谁按 / 按错代价）</td></tr>
+    <tr><td>2</td><td>逐条 Rule 核 source，查不到的转清单</td><td>10′</td><td><b>citations 取证清单</b></td></tr>
+    <tr><td>3</td><td>跑 <span class="mono">/studio-ontology:validate</span>，看 A/B 段</td><td>5′</td><td>校验报告</td></tr>
+  </table>
+  <div class="grid g2 mt-l" data-anim="stagger-list">
+    <div class="card badcard"><h4>难点 ①</h4><p class="dim">填 <span class="mono">hil</span> 列要写成<b>"角色 / 条件"两段</b>。<br><b>只写角色等于没设闸</b>（predicate 默认恒 False）</p></div>
+    <div class="card badcard"><h4>难点 ②</h4><p class="dim"><b>查不到的文号一律留占位</b>，转成向客户逐项取件的清单——<br><b>这是路演一票警示的直接来源</b></p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">实操</span><span class="slide-number" data-current="24" data-total="26"></span></div>
+  <div class="notes"><p><b>【巡场就抓两件事】</b>①<span class="mono">hil</span> 列只写了角色没写条件的组；②source 里出现"看起来像国标"但学员说不出出处的号——<b>那就是 B-6/B-10 在现场发生</b>。</p>
+  <p><b>【"按错代价"这一列不许空】</b>写不出代价，说明这个闸是拍脑袋设的。<b>逼他们写出具体后果：谁的钱、谁的责任、能不能撤回。</b></p></div>
+</section>
+
+<!-- 24 下半场 checkout -->
+<section class="slide" data-title="⭐ 拉通平台跑起来">
+  <div class="kicker">收口 · ⭐ 然后呢</div>
+  <h2 class="title">从编译产物到"真的跑起来"</h2>
+  <pre class="code mt-s">① <b>落位</b>  编译产物 → clife-onto-engine/<b>plugins/{ontology_id}/</b>
+        ⚠️ 是 {ontology_id} 不是 {tenant}——名录/实例数据走 tenants/
+② <b>补齐</b>  收尾 6 项：function 规则体 / Action 回写 / seed 参考数据
+        / CQ 翻成 cq.py 的 CQ_SUITE / plugin.yaml 改引擎格式 / 补 Evaluation import
+③ <b>验收</b>  python scripts/smoke_cq.py   ← <b>绿了才算跑起来</b></pre>
+  <p class="lede mt-m" data-anim="fade-up"><b>参照物就在仓库里</b>：<span class="mono">plugins/grass/</span>（完整）· <span class="mono">plugins/chili/</span>（最小）。<b>卡住别猜，对照 grass。</b></p>
+  <table class="t mt-m">
+    <tr><th></th><th>到哪一步</th><th>为什么</th></tr>
+    <tr><td><b>上半场 45′</b></td><td>IR + 编译产物 + <b>收尾清单</b></td><td>45 分钟填不完 121 处，<b>也不该填</b></td></tr>
+    <tr><td><b>下半场 45′</b></td><td>HIL 设点表 + 取证清单</td><td>设闸是判断，不是编码</td></tr>
+    <tr><td><b>课后 / 路演前</b></td><td><b>补齐 6 项 → smoke_cq 绿</b></td><td>这是手艺活，要的是时间不是课时</td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">"编译通过"和"跑起来"之间那段距离，<br><b>就是 FDE 的工作。</b></p>
+  <div class="deck-footer"><span class="ftag">拉通 · ⭐</span><span class="slide-number" data-current="25" data-total="26"></span></div>
+  <div class="notes"><p><b>【这一页是全课价值观的落点，别当成"课后作业说明"讲】</b>课上教你认清那段距离有多长、由哪 6 项组成；<b>走完它是学员自己的事。</b></p>
+  <p><b>【路演答问三种分量，念出来】</b>"编译通过了" ❌ 约等于没说 ｜ "还差 function 规则体和 Action 回写，<b>smoke_cq 现在 3/5</b>" ✅ <b>专业——你知道差在哪、差多少</b> ｜ "smoke_cq 全绿，可以现场跑" ✅✅</p>
+  <p><b>⚠️【绝不能说的一种】</b>"跑起来了"但其实只编译过——<b>这就是「把 Mock 说成已实现」，三条一票警示之一。路演现场一句追问就崩，崩的不是这个项目，是你之后所有话的可信度。</b></p></div>
+</section>
+
+<section class="slide" data-title="下半场 checkout">
+  <div class="kicker"><span class="half">下半场</span> checkout · 20′</div>
+  <h2 class="title">七项对照</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:18%">维度</th><th style="width:40%">达标</th><th>警示</th></tr>
+    <tr><td>HIL 四判据</td><td>每个闸能说清<b>命中哪条判据、谁按、按错什么代价</b></td><td>"重要的都加审核"</td></tr>
+    <tr><td><b>HIL 有效性</b></td><td>predicate 写了条件</td><td><b>只写 reviewer_role 没写 predicate（等于没设闸）</b></td></tr>
+    <tr><td>两道闸</td><td>说得出写入闸和副作用闸的区别</td><td>以为 HIL 会阻止写入</td></tr>
+    <tr><td>闸的密度</td><td>该固化成硬规则的走自动闸，人工闸只留判不了的</td><td>闸设满了（<b>审批者变橡皮图章</b>）</td></tr>
+    <tr><td>治理审计</td><td>validate B 段通过；每条规则有 source 三态之一</td><td>有规则 source 为空</td></tr>
+    <tr><td>取证清单</td><td>查不到的留占位 + 锚定上位国标 + 转清单</td><td><b>编造文号 → 一票警示（B-10）</b></td></tr>
+    <tr><td><b>可验证性</b></td><td>说得出本组哪条闸能像 <span class="mono">smoke_cq.py</span> 那样被自动验证</td><td>承诺"我们会严格审核"但<b>验证不了</b></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">FDE 交付不是"手艺好"，<br>是"<b>有 SOP + 会设闸</b>"——<br>SOP 保证你能重复，<b>HIL 保证你不出事</b>。</p>
+  <div class="deck-footer"><span class="ftag">checkout</span><span class="slide-number" data-current="26" data-total="26"></span></div>
+  <div class="notes"><p><b>【互评只看两项】</b><b>HIL 有效性</b>（写没写 predicate）和<b>取证清单</b>（有没有编号）。这两项是路演一票警示的直接来源。</p>
+  <p><b>【收口，接第六课】</b>"今天你们做出了这门课里<b>唯一一件机器会强制执行的东西</b>。明天开始做的是文档——文档不会执法，但它<b>会被评审、会进合同、会被审计</b>。<b>今天守住的纪律，明天要靠另一套机制守。</b>"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

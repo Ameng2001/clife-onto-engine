@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第七课 · 原型开发</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第七课 · 原型开发</h1>
+</header>
+<h1 id="第七课-原型开发">第七课 · 原型开发</h1>
+<blockquote>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 120 分钟 配套课件：<code>slides/L7_原型开发.html</code>（讲师投屏）</p>
+</blockquote>
+<hr />
+<h2 id="先立一条规矩">先立一条规矩</h2>
+<p>你做出能点开的界面会很兴奋，然后就开始拿它当“产品”演示。 <strong>这是本课程唯一一条“路演一票警示”的红线。</strong></p>
+<blockquote>
+<p><strong>demo 跑通的是 UI，不是模型。</strong> <strong>把外壳当成“产品跑通了”去演示，就是骗客户。</strong></p>
+</blockquote>
+<p><strong>所以本课的验收标准有两条，缺一不可</strong>：</p>
+<ol type="1">
+<li>做出 <strong>3–6 屏可点开的原型</strong></li>
+<li><strong>白纸黑字写清哪些是 Mock</strong></li>
+</ol>
+<p><strong>你要交出什么</strong>：3–6 屏可点开原型 + <strong>一句诚实说明</strong> + <strong>Mock 清单</strong></p>
+<hr />
+<h2 id="一三步流水线">一、三步流水线</h2>
+<pre><code>/studio-design:design &lt;截图路径&gt;
+  ① screenshot-to-pencil  → docs/design/screens.pen      ⏸ 你确认
+  ② pencil-to-openspec    → openspec/changes/{id}/       ⏸ 你确认
+  ③ openspec-to-code      → React/Next.js 代码</code></pre>
+<p><strong>可从任意阶段切入</strong>：给 <code>.png/.jpg</code> → 从①开始；给 <code>.pen</code> → 从②；给 change-id → 从③。</p>
+<blockquote>
+<p>⚠️ 判定算法插件文档没写明（是按参数形态推断的）。 <strong>建议显式指定要跑哪一步，别赌它猜对。</strong></p>
+</blockquote>
+<p>三个薄命令 <code>screenshot-to-pencil</code> / <code>pencil-to-openspec</code> / <code>openspec-to-code</code> 也可单独调用。</p>
+<hr />
+<h2 id="二①-截图-.pen">二、① 截图 → .pen</h2>
+<h3 id="pen-到底是什么实测澄清">.pen 到底是什么（实测澄清）</h3>
+<blockquote>
+<p><strong>实测结论</strong>：本地三份真实 <code>.pen</code>（含一份 1.7MB 的）<strong>都是明文 UTF-8 JSON</strong>， 顶层键 <code>children / variables / version</code>，<code>version: 2.10</code>，首节点 <code>type: frame</code>。</p>
+<p>所以 <strong>studio-design 把 .pen 当普通 JSON 直接读写的路子是成立的</strong>。 <strong>插件的 <code>CLAUDE.md</code> 里“需要 Pencil MCP”的说法与本地实际文件不符。</strong></p>
+</blockquote>
+<p><strong>结构四层</strong>：<code>frame</code>（屏）→ 布局区 → 组件组 → <code>text</code> / <code>icon_font</code> / <code>ellipse</code> <strong>节点 ID</strong>：5 位字母数字随机 <strong>尺寸标准</strong>：桌面 1440×900、移动 390×844</p>
+<h3 id="转换四步">转换四步</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>步</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 视觉分解</td>
+<td>整体布局 → 主区块 → 组件（导航/按钮四型/输入/卡片列表表格/模态下拉提示/图标）→ 字号字重层级 → 取色板 → 间距 → 尺寸</td>
+</tr>
+<tr class="even">
+<td>② <strong>令牌抽取</strong></td>
+<td>背景 <code>$bg/$bg-sidebar/$bg-card/$bg-input/$bg-muted</code>；文本 <code>$text-primary/secondary/muted</code>；强调 <code>$accent/$destructive/$green/$blue/$red</code>；边框 <code>$border/$border-light</code></td>
+</tr>
+<tr class="odd">
+<td>③ 结构生成</td>
+<td>四层节点树；<code>layout</code>+<code>gap</code>+<code>padding</code>+<code>alignItems</code>；图标映射到 Lucide 名；<strong>重复出现的模式标 <code>reusable: true</code></strong>，其他帧用 <code>type: "ref"</code> 引用</td>
+</tr>
+<tr class="even">
+<td>④ 输出</td>
+<td>新建写完整 JSON；追加则 push frame 并 merge 令牌</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⏸ “已存在”交互</strong>：若 <code>docs/design/</code> 下已有 <code>.pen</code>，会问你<strong>“向其追加一个新 frame”还是“新建文件”</strong>。 选追加时它会：<strong>复用设计令牌 · 复用 <code>reusable:true</code> 的组件 · 确定下一帧序号 · 避免 ID 冲突</strong>。</p>
+<blockquote>
+<p>⭐ <strong>教学点</strong>：颜色<strong>必须走 <code>$variable</code>，不许写死色值</strong>——这就是为什么追加帧能自动统一风格。</p>
+<p><strong>令牌就是设计层的“口径单点”</strong>，和第六课的 BRIEF 数字单点<strong>是同一个思想</strong>。</p>
+</blockquote>
+<p><strong>它明确不做</strong>：不生成代码 · 不建 OpenSpec · <strong>不需要 Pencil 桌面端</strong> · 不处理动效交互</p>
+<hr />
+<h2 id="三②-.pen-openspec">三、② .pen → OpenSpec</h2>
+<p>产物落在 <code>openspec/changes/{change-id}/</code>：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>proposal.md</code></td>
+<td><code>## Why</code>（从帧名/内容反推设计意图）· <code>## What Changes</code>（每能力一条）· <code>## Impact</code></td>
+</tr>
+<tr class="even">
+<td><code>specs/{capability}/spec.md</code></td>
+<td><strong>每能力一份</strong>，五类需求各写成 <code>### Requirement:</code>（用 SHALL/MUST）+ <code>#### Scenario:</code> + <code>- **WHEN** / **THEN** / **AND**</code></td>
+</tr>
+<tr class="odd">
+<td><code>tasks.md</code></td>
+<td>5 组带编号复选框：1.Setup · 2.Components · 3.Shared Components · 4.Styling · 5.Integration</td>
+</tr>
+<tr class="even">
+<td><code>design.md</code></td>
+<td><strong>条件产出</strong>：仅当涉及多能力 / 有共享架构决策 / 状态管理不显然时才生成</td>
+</tr>
+</tbody>
+</table>
+<p><strong>五类需求</strong>：①Layout 布局（含具体像素）②Component 组件（<strong>占位符文案直接取自 .pen 的 content</strong>）③State 状态 ④Navigation 导航（含 active 高亮）⑤Visual 视觉（深色主题令牌一致性）</p>
+<h3 id="帧-能力的映射规则本步最需要理解的一条">⭐ 帧 → 能力的映射规则（本步最需要理解的一条）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>.pen 里</th>
+<th>→ OpenSpec 里</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>同一页的不同状态帧</strong>（“1. 空状态”、“1a. 下拉展开”、“1b. 已提交”）</td>
+<td><strong>一个能力，多个 Scenario</strong></td>
+</tr>
+<tr class="even">
+<td>不同页</td>
+<td>不同能力</td>
+</tr>
+<tr class="odd">
+<td><code>reusable</code> 组件</td>
+<td>共享能力或横切需求</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>命名一律 kebab-case 动宾式：新增 <code>add-{capability}</code>、改版 <code>update-{capability}</code>。</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>已知不一致</strong>：<code>openspec-guide.md</code> 规定 spec delta 要分 <code>## ADDED / MODIFIED / REMOVED Requirements</code> 三段， 但模板<strong>没写这层包裹</strong>。<strong>按 guide 补上。</strong></p>
+</blockquote>
+<hr />
+<h2 id="四③-openspec-代码">四、③ OpenSpec → 代码</h2>
+<p><strong>读取顺序</strong>：<code>proposal.md</code> → <code>tasks.md</code> → <code>design.md</code> → 全部 <code>specs/</code> → 扫项目（现有路由、已装 shadcn、tailwind 配置、package.json）→ <strong>回读 .pen 取精确尺寸与颜色</strong></p>
+<p><strong>⭐ 它不按 <code>tasks.md</code> 的原序做</strong>，而是重排成固定 6 级实现顺序：</p>
+<pre><code>layouts → shared components → feature components → pages → routes → integration</code></pre>
+<p><strong>逐条 Scenario 心算校验 WHEN/THEN/AND</strong>，不满足就补逻辑。最后<strong>回写 <code>tasks.md</code>，把 <code>- [ ]</code> 改成 <code>- [x]</code></strong>。</p>
+<p><strong>技术栈</strong>：Next.js App Router · TanStack Query · Tailwind CSS 4 · shadcn/ui · Zustand · React 19 · LangGraph SDK <strong>已装 shadcn 组件 14 个</strong>：Button/Input/Textarea/Card/Dialog/DropdownMenu/Sidebar/Tooltip/Tabs/Badge/Separator/ScrollArea/Avatar/Skeleton <strong>样式硬约束</strong>：只用 Tailwind + <code>cn()</code>，<strong>禁内联样式 / CSS Modules / styled-components</strong>；禁 <code>useEffect+fetch</code> 取数；禁超 2 层 prop drilling</p>
+<h3 id="缺信息时的兜底约定这条直接关系诚实边界">⭐ 缺信息时的兜底约定（这条直接关系诚实边界）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>缺什么</th>
+<th>它怎么做</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>缺 API</td>
+<td><strong>mock 数据 + <code>TODO: connect to API</code></strong></td>
+</tr>
+<tr class="even">
+<td>缺状态管理</td>
+<td>本地 useState + <code>TODO: lift state</code></td>
+</tr>
+<tr class="odd">
+<td>缺鉴权</td>
+<td><code>TODO: add auth guard</code></td>
+</tr>
+<tr class="even">
+<td>缺错误态</td>
+<td>基础 error boundary + <code>TODO: improve error handling</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这些 TODO 就是你的 Mock 清单。</strong> 演示前把它们 grep 出来，就是一份现成的“哪些是假的”说明。</p>
+<p><strong>别删掉它们。删了 TODO 不等于实现了功能，只等于你看不见了。</strong></p>
+</blockquote>
+<p><strong>一条硬纪律</strong>：<strong>未经询问不得新增 npm 依赖。</strong></p>
+<blockquote>
+<p>⚠️ <strong>目录前缀坑</strong>：真实结构是 <code>frontend/src/app/...</code>，但生成的路径和扫描都用无前缀的 <code>app/</code>、<code>components/</code>。 <strong>落到你的仓库时要人工对齐前缀，工具不会自动加。</strong></p>
+</blockquote>
+<hr />
+<h2 id="五-demo-可信度分级本课的灵魂">五、⭐⭐ demo 可信度分级（本课的灵魂）</h2>
+<p>你会说“我们的 demo 是 Mock”。<strong>但 Mock 不是一档。</strong></p>
+<p>把这两个真实案例并排放：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>教育督导项目</strong></th>
+<th><strong>草业大模型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>页数</td>
+<td><strong>47 个 <code>page.tsx</code></strong> + 18 张成品截图</td>
+<td><strong>11 页</strong>（README 标题写“13 个页面”，但其自身表格与代码都是 11）</td>
+</tr>
+<tr class="even">
+<td>AI</td>
+<td>Mock（关键词路由）</td>
+<td>Mock（<code>mock-ai.ts</code> 12.6KB，正则分支 + <code>setTimeout(550)</code> <strong>假装思考延时</strong>）</td>
+</tr>
+<tr class="odd">
+<td><strong>数据</strong></td>
+<td><strong>真的</strong> —— <code>lib/data.ts</code> 用 <code>fs.readFileSync</code> 直接读 <strong>79 园真实 CSV</strong>（7 张表），还支持多城市切换</td>
+<td><strong>全仿真</strong> —— <code>lib/data.ts</code> 写死</td>
+</tr>
+<tr class="even">
+<td><strong>分级</strong></td>
+<td><strong>壳假 · 数据真</strong></td>
+<td><strong>壳假 · 数据也假</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>同样一句“这是 Mock demo”，含金量差一个量级。</strong></p>
+</blockquote>
+<h3 id="更值得学的一点">更值得学的一点</h3>
+<p><strong>草业项目的 <code>mock-ai.ts</code> 自己在文件头写着</strong>：</p>
+<blockquote>
+<p>“Mock AI 引擎 — 关键词路由到五大智能体，注入仿真数据 / <strong>真实落地替换为 草业项目本体大模型 + RAG 三通道</strong>”</p>
+</blockquote>
+<p>README 结尾也标了“数据为仿真演示数据”。</p>
+<blockquote>
+<p><strong>它的诚实标注做得很好，可以直接当正面教具。</strong></p>
+</blockquote>
+<h3 id="同时纠正一个常见误引">⚠️ 同时纠正一个常见误引</h3>
+<p><strong>辣椒没有 demo</strong>（<code>demo-app/</code> 只有一个 0 字节 <code>.gitkeep</code>）。 <strong>别顺口说成“三个农业案例都有 demo”。</strong></p>
+<h3 id="你的三档自评">你的三档自评</h3>
+<table>
+<thead>
+<tr class="header">
+<th>档</th>
+<th>你的 demo 是</th>
+<th>演示时必须说</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A</strong></td>
+<td>壳真 + 数据真 + 模型真</td>
+<td>（<strong>还没有人到这一档</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>B</strong></td>
+<td>壳假 + <strong>数据真</strong></td>
+<td>“界面是原型，<strong>数据是客户真实数据</strong>，AI 回答是预设的”</td>
+</tr>
+<tr class="odd">
+<td><strong>C</strong></td>
+<td>壳假 + 数据假</td>
+<td>“这是交互外壳，<strong>数据和 AI 回答都是演示用的</strong>，不是模型跑通”</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>说不出自己在哪一档 → 路演一票警示。</strong></p>
+</blockquote>
+<hr />
+<h2 id="六实操70">六、实操（70′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>做什么</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>准备输入：一张参考截图 / 手绘图 / 或直接描述屏</td>
+<td>10′</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>screenshot-to-pencil</code>，⏸ 确认 .pen</td>
+<td>20′</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>pencil-to-openspec</code>，⏸ <strong>看 spec 的 Scenario 写得对不对</strong></td>
+<td>15′</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>openspec-to-code</code> 出代码</td>
+<td>15′</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>grep 所有 <code>TODO:</code> 写成 Mock 清单</strong></td>
+<td>10′</td>
+</tr>
+</tbody>
+</table>
+<h3 id="按交付模式分形态">按交付模式分形态</h3>
+<ul>
+<li><strong>模式一（SaaS 应用）</strong> → 做<strong>应用主界面几屏</strong>（工作台 / 会员 / 督导 / 证据溯源）</li>
+<li><strong>模式二（大平台）</strong> → 做<strong>关键几屏</strong>（一张图 / 驾驶舱 / 核心闭环）</li>
+</ul>
+<h3 id="强烈建议做的一屏hil-确认界面">🔔 强烈建议做的一屏：HIL 确认界面</h3>
+<p>把第五课设的闸<strong>画出来</strong>——<strong>谁在审、审什么、按错的代价是什么</strong>。</p>
+<blockquote>
+<p>现成参考：<code>Plugins/courses-workshop-plugins/apps/teaching-workshop-ui*/hil-confirm.html</code>， 那个仓有 <strong>v1→v3 四代 UI 原型</strong>，可以做 before/after 对照。</p>
+<p><strong>能把闸画出来的方案，客户才相信你真的想过责任归属。</strong></p>
+</blockquote>
+<hr />
+<h2 id="七把三档来源纪律用到-demo-上">七、把三档来源纪律用到 demo 上</h2>
+<blockquote>
+<p>Palantir / OpenAI / Anthropic 的外部对标<strong>第一课已经完整讲过</strong>，本课不重讲。 这里只做一件事：<strong>把第一课那条「三档来源纪律」，搬到 demo 这个场景上用一次。</strong></p>
+</blockquote>
+<h3 id="同一条纪律第四个场景">同一条纪律，第四个场景</h3>
+<table>
+<thead>
+<tr class="header">
+<th>场景</th>
+<th>纪律</th>
+<th>在哪一课</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>查不到的文号</td>
+<td><strong>留占位，不编造</strong>（B-10）</td>
+<td>第五课</td>
+</tr>
+<tr class="even">
+<td>别处模板的数字</td>
+<td><strong>复用模板可以，复用数字不行</strong>（B-11）</td>
+<td>第三课</td>
+</tr>
+<tr class="odd">
+<td>外部实践的来源</td>
+<td><strong>官方 / 二手 / 未获证实三档，亲口念出档位</strong></td>
+<td>第一课</td>
+</tr>
+<tr class="even">
+<td><strong>⭐ demo 的成色</strong></td>
+<td><strong>Mock 不能说成跑通；说得出自己在哪一档</strong></td>
+<td><strong>本课</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>四个场景是同一句判据的四次出现：空缺可以补，编造无法挽回。</strong></p>
+<p>第一课讲这条纪律时用的是 Palantir 的招聘页，本课用的是<strong>你自己的 demo</strong>—— <strong>对象换了，判据没换。</strong></p>
+</blockquote>
+<h3 id="想一想">想一想</h3>
+<blockquote>
+<p>你今天做了个 demo，它的 AI 是 Mock、数据是假的。 <strong>下周你拿它去见客户，你会怎么说？</strong></p>
+<p>说“我们做了个智能体”——<strong>没错，但客户听到的是另一件事</strong>。</p>
+<p>说“这是交互外壳、AI 是预设回答、数据是演示数据”—— <strong>你会紧张，觉得掉价。但这一句话，就是客户以后愿不愿意信你第二次的分界线。</strong></p>
+</blockquote>
+<hr />
+<h2 id="八-四个翻车点">八、⚠️ 四个翻车点</h2>
+<h3 id="别把外壳当交付一票警示">1. 别把外壳当交付（<strong>一票警示</strong>）</h3>
+<p>demo 跑通的是 UI 不是模型。演示时<strong>必须先说清哪些是 Mock</strong>（哪屏的“AI 回答”是写死的、哪块数据是假的），<strong>再展示交互</strong>。 <strong>顺序不能反。</strong></p>
+<h3 id="目录前缀要人工对齐">2. 目录前缀要人工对齐</h3>
+<p>生成的路径是 <code>app/</code>、<code>components/</code>，而技术栈规定的是 <code>frontend/src/app/</code>。<strong>工具不会自动加前缀。</strong></p>
+<h3 id="spec-delta-缺-addedmodifiedremoved-包裹">3. spec delta 缺 ADDED/MODIFIED/REMOVED 包裹</h3>
+<p>模板没写，按 <code>openspec-guide.md</code> 补。</p>
+<h3 id="端到端尚未实测诚实标注">4. 端到端尚未实测（诚实标注）</h3>
+<blockquote>
+<p>本手册的 <code>.pen</code> 格式结论来自对<strong>现存文件</strong>的实测（明文 JSON、version 2.10、结构吻合规范）。 <strong>但“跑一次 <code>screenshot-to-pencil</code> 然后用 Pencil 编辑器打开产物”这条端到端链路还没实测过。</strong></p>
+<p>—— <strong>把这条写在手册里，本身就是本课要教的东西。</strong></p>
+</blockquote>
+<hr />
+<h2 id="九checkout">九、checkout</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>屏数</td>
+<td>3–6 屏可点开，<strong>能演一条完整用户流</strong></td>
+<td>单屏静态图</td>
+</tr>
+<tr class="even">
+<td>令牌</td>
+<td>颜色全走 <code>$variable</code></td>
+<td>写死色值（<strong>追加帧时风格必崩</strong>）</td>
+</tr>
+<tr class="odd">
+<td>Scenario</td>
+<td>spec 的 WHEN/THEN/AND 与实际交互对得上</td>
+<td>spec 写了但代码没实现</td>
+</tr>
+<tr class="even">
+<td><strong>Mock 清单</strong></td>
+<td><strong>grep 出全部 <code>TODO:</code>，逐条列明</strong></td>
+<td><strong>删掉 TODO 假装实现了 → 一票警示</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>可信度自评</strong></td>
+<td>说得出自己在 <strong>B 档还是 C 档</strong></td>
+<td>笼统说“这是 demo”</td>
+</tr>
+<tr class="even">
+<td>诚实说明</td>
+<td>白纸黑字写明“交互外壳 / AI 为 Mock / 非模型跑通”</td>
+<td>演示时含糊带过</td>
+</tr>
+<tr class="odd">
+<td>HIL 可视化</td>
+<td>有一屏展示闸（<strong>谁审、审什么、按错代价</strong>）</td>
+<td>闸只在文档里</td>
+</tr>
+<tr class="even">
+<td>依赖</td>
+<td>没擅自新增 npm 包</td>
+<td>装了一堆没问过</td>
+</tr>
+<tr class="odd">
+<td><strong>外部引用档位</strong></td>
+<td>引 Palantir/OpenAI/Anthropic 时<strong>逐条标官方/二手/未获证实</strong>，且给数字必带口径（base vs total comp）</td>
+<td>把二手当官方、把网传数字当事实 → <strong>一票警示</strong></td>
+</tr>
+<tr class="even">
+<td><strong>敢说不知道</strong></td>
+<td>主动说得出“这条我没核到一手源”</td>
+<td>只报能撑观点的那半</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="十你的产出去了哪里">十、你的产出去了哪里</h2>
+<pre><code>本课产物
+  ↓ 可点开原型 + Mock 清单 → 结课路演（交付包第 ⑪ 件）
+  ↓ HIL 确认界面           → 佐证第五课设的闸不是纸上谈兵
+  ↓ openspec/changes/      → 真要开发时，这就是需求基线</code></pre>
+<blockquote>
+<p><strong>一句话</strong>：本课让方案<strong>看得见</strong>。 <strong>但看得见的东西最容易被误解成“已经有了”——你越会做原型，越要会划边界。</strong></p>
+</blockquote>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="附-一页纸速查">附 · 一页纸速查</h2>
+<p><strong>验收两条</strong>：3–6 屏可点开 + <strong>白纸黑字写清哪些是 Mock</strong>。缺一不可。</p>
+<p><strong>令牌是设计层的口径单点</strong>：颜色必须走 <code>$variable</code>，不许写死色值。</p>
+<p><strong>帧 → 能力</strong>：同一页的不同状态帧 = <strong>一个能力多个 Scenario</strong>；不同页 = 不同能力。</p>
+<p><strong>TODO 就是你的 Mock 清单。别删——删了不等于实现了，只等于你看不见了。</strong></p>
+<p><strong>三档自评</strong>：A 全真（还没人到）· B 壳假数据真 · C 壳假数据也假。<strong>说不出自己在哪一档 → 一票警示。</strong></p>
+<p><strong>演示顺序不能反</strong>：先说清哪些是 Mock，再展示交互。</p>
+<p><strong>demo 跑通的是 UI，不是模型。</strong></p>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDE课程 全课程交叉质检报告 v2</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">FDE课程 全课程交叉质检报告 v2</h1>
+</header>
+<h1 id="fde-课程-全课程交叉质检报告-v2">FDE 课程 · 全课程交叉质检报告 v2</h1>
+<blockquote>
+<p>核查范围：<code>_WRITING_BRIEF.md</code>、<code>案例矩阵_跨项目对照.md</code>、<code>讲义/01–10*.md</code>（04 为七栈版）、抽查 slides。 方法：语义级一致性核查（术语/核心数据/成熟度/钩子/反例/方法论出处/诚实边界七项）。<strong>只报告问题+建议，未改正文。</strong> 日期：2026-07-27</p>
+</blockquote>
+<hr />
+<h2 id="总评">① 总评</h2>
+<p><strong>结论：通过，需小修（2 处需修，5 处建议）。</strong></p>
+<ul>
+<li><strong>严重问题：2</strong>（术语/定义不一各 1；<strong>数据漂移 0，成熟度标错 0，事实性术语打架 0</strong>）。</li>
+<li><strong>一般问题：5</strong>（钩子/措辞/算术小瑕）。</li>
+<li>核心数据链条（102/16/7/368/76-75-38-47-54/26/3835/121/350万/18-11/1.36亿/3200万/IRR15.2%第9年·8.7%第11年/某工业城市 484-27056-22014-4839/EBITDA5219-营收3.83亿-净利3535）<strong>全课零漂移</strong>，逐讲比对一致。</li>
+<li>案例成熟度分层、效益数字“方案目标值”标注、demo=Mock、该区园数待核、Palantir 三档来源、方法论 06“我们的立场”——<strong>全部守住</strong>。</li>
+<li>本体栈已统一为“C-Life 自有方法论 clife-onto-engine（对标 Palantir）”，<strong>无旧书残留</strong>（未见《Working Ontologist》《商业模式新生代》），<strong>无“Palantir 为核心/唯一权威”表述</strong>，<strong>无“四类项目/行业案例”旧框架残留</strong>。</li>
+</ul>
+<p>课程整体口径纪律优秀。以下问题多为多轮改稿后的<strong>单向悬空钩子</strong>与 BRIEF 级定义歧义的传导，均为一两行可修。</p>
+<hr />
+<h2 id="严重问题需修">② 严重问题（需修）</h2>
+<h3 id="s-1-术语打架旧框架残留讲-3-仍称第-4-讲为五大知识栈与讲-4-现行七栈七角色冲突">S-1 【术语打架·旧框架残留】讲 3 仍称第 4 讲为“五大知识栈”，与讲 4 现行“七栈/七角色”冲突</h3>
+<ul>
+<li><strong>定位</strong>：<code>讲义/03_FDE是企业级OPC一人公司.md:172</code> &gt; “第 4 讲讲 C1–C6 对应的<strong>五大知识栈</strong>——能补的那一半。”</li>
+<li><strong>问题</strong>：讲 4 已重构为“<strong>七个专业角色 / 七栈 / 七经典</strong>”（<code>04:1、04:16、04:56</code> 明确“上一版讲’五维知识栈’，讲浅了”）。讲 3 的前瞻钩子仍停在旧的“五大知识栈”口径，学员听完讲 3 会带着“5 栈”预期进讲 4 看到“7 栈”，直接术语打架。且“C1–C6 对应”也不准——讲 4 实际覆盖 <strong>C1/C2/C4/C5/C6</strong>（C3 风险设闸在讲 6）。</li>
+<li><strong>建议</strong>：改为“第 4 讲讲 <strong>C1／C2／C4／C5／C6 对应的七套角色方法论栈</strong>——能补的那一半”。</li>
+</ul>
+<h3 id="s-2-定义不一hil-设点四条硬判据却列出-5-项置信度闸时而算第-5-条硬判据时而算兜底闸">S-2 【定义不一】“HIL 设点四条硬判据”却列出 5 项，置信度闸时而算“第 5 条硬判据”、时而算“兜底闸”</h3>
+<ul>
+<li><strong>定位</strong>：<code>讲义/03:173</code>、<code>讲义/08:226</code>、并溯源至 <code>_WRITING_BRIEF.md:104</code>（主张 5） &gt; 讲 3：<code>HIL 设点**四条硬判据**（不可逆 / 涉钱 / 涉合规 / 跨组织 / 高置信度不足）</code> ← 标“四条”却列 5 项 &gt; 讲 8：<code>C3 风险设闸的判据（不可逆/涉钱/涉合规/跨组织/高置信度不足）来自第 6 讲</code> ← 5 项并列 &gt; BRIEF 主张 5：<code>HIL 设点四条硬判据：不可逆 / 涉钱 / 涉合规 / 跨组织 / 高置信度不足</code> ← 根源，“四条”下列 5 项</li>
+<li><strong>问题</strong>：讲 6（本讲主场）<strong>已正确拆分</strong>为“<strong>四条硬判据 + 一条置信度兜底闸</strong>”（<code>06:173、06:188「置信度兜底闸（第五条，横切覆盖前四条之外）」</code>）。讲 3、讲 8 与 BRIEF 仍把置信度并进“四条硬判据”里，既是数目自相矛盾（“四条”列 5 项），又与讲 6 的“四判据看动作性质 / 兜底闸看模型确定度”这一区分打架。</li>
+<li><strong>建议</strong>：统一为讲 6 口径——凡处均写“<strong>四条硬判据（不可逆/涉钱/涉合规/跨组织）+ 一条置信度兜底闸</strong>”。<strong>优先改 <code>_WRITING_BRIEF.md:104</code> 单点</strong>，讲 3/讲 8 随之跟改（这本身就是本课“锚定口径单点修改”的示范）。</li>
+</ul>
+<hr />
+<h2 id="一般问题建议">③ 一般问题（建议）</h2>
+<h3 id="g-1-钩子措辞讲-1-板书教育督导项目缺成熟度色标与同板书其余三案例不齐">G-1 【钩子·措辞】讲 1 板书教育督导项目缺成熟度色标，与同板书其余三案例不齐</h3>
+<ul>
+<li><strong>定位</strong>：<code>讲义/01_FDE是什么.md:164</code> &gt; 板书：<code>模式一 Token-SaaS → 教育督导项目；模式二 → 康养项目🟢编译交付 / 辣椒🟡方案 / 草业项目🟡方案+Mock demo</code></li>
+<li><strong>问题</strong>：康养项目/辣椒/草业项目均带🟢🟡色标，唯<strong>教育督导项目无色标</strong>。正文 <code>01:162</code> 已说清“教育督导项目到建模+方案”，但板书漏标，与讲 6/讲 8 板书里“教育督导项目🟢”不齐（<code>06:264、08:168</code> 均标教育督导项目🟢）。</li>
+<li><strong>建议</strong>：板书补“教育督导项目🟢建模+方案（本体未编译）”。</li>
+</ul>
+<h3 id="g-2-措辞讲-4-教育督导项目-p0-只列-2-项brief-为-3-项">G-2 【措辞】讲 4 教育督导项目 P0 只列 2 项，BRIEF 为 3 项</h3>
+<ul>
+<li><strong>定位</strong>：<code>讲义/04:72</code>：“material-qc/standard-decode 为 P0”；BRIEF 案例库 / 矩阵为 <strong>material-qc/standard-decode/gap-diagnose 三项 P0</strong>。</li>
+<li><strong>建议</strong>：补 gap-diagnose，或写“以 material-qc/standard-decode 等为 P0”。非硬冲突，属遗漏。</li>
+</ul>
+<h3 id="g-3-算术小瑕讲-4-展示的功能点换算与锁定值差-4-人天">G-3 【算术小瑕】讲 4 展示的功能点换算与锁定值差 ~4 人天</h3>
+<ul>
+<li><strong>定位</strong>：<code>讲义/04:24</code>、<code>04:199</code>：“约 27,056 功能点 → 约 22,014 人天（FP×0.81375 换算）”。</li>
+<li><strong>问题</strong>：27,056 × 0.81375 ≈ <strong>22,018</strong>，与锁定值 22,014 略不符。锁定值本身全课一致、无需动；只是<strong>把系数写进正文后，读者一乘会对不上</strong>（栈⑤讲的正是“财评每个数要能自洽复核”，此处易被较真学员抓）。</li>
+<li><strong>建议</strong>：删去括注系数只留结果“约 22,014 人天”，或改为“×约 0.814”并注“取整口径”。</li>
+</ul>
+<h3 id="g-4-风格onto-engine-简写与-clife-onto-engine-全称混用">G-4 【风格】<code>onto-engine</code> 简写与 <code>clife-onto-engine</code> 全称混用</h3>
+<ul>
+<li><strong>定位</strong>：<code>讲义/08:74、08:146</code>、<code>讲义/10:62</code> 等用 <code>onto-engine</code>；讲 4/5/6/7 多用全称 <code>clife-onto-engine</code>。</li>
+<li><strong>建议</strong>：术语表未收“onto-engine”简写，建议统一全称（首现后可简写，但需在该讲首现处给全称）。纯风格，不影响理解。</li>
+</ul>
+<h3 id="g-5-钩子可选补强讲-3172-的c1c6范围">G-5 【钩子·可选补强】讲 3:172 的“C1–C6”范围</h3>
+<ul>
+<li>见 S-1 已含（“C1–C6 对应”应为 C1/C2/C4/C5/C6）。若只改“五大→七栈”而不动能力位，仍留半处不准，建议一并修。</li>
+</ul>
+<hr />
+<h2 id="确认无恙的项清单">④ 确认无恙的项（清单）</h2>
+<ol type="1">
+<li><strong>核心数据全链一致</strong>：3835 行、121 处 NotImpl、约 350 万三元组、Object76/Link75/Function38/Rule47/Action54/HIL26、IRR 15.2%（第 9 年）/8.7%（第 11 年）、EBITDA 5219 万/营收 3.83 亿/净利 3535 万、某工业城市 484/27056/22014/4839、1.36 亿/3200 万/60 站/21 月——逐讲比对<strong>零漂移</strong>。</li>
+<li><strong>成熟度分层守住</strong>：全课一致“康养项目🟢编译交付（唯一）/ 教育督导项目🟢建模+方案（本体未编译）/ 辣椒🟡方案 / 草业项目🟡方案+Mock demo”；无一处把 demo 说成产品，无一处把方案目标值说成实测。</li>
+<li><strong>效益数字纪律</strong>：辣椒/草业项目效益（成本降 20%、育种减半、关系数量级、100% 合规率）仅讲 1 出现且明标“方案目标值/非实测/Mock”（<code>01:162</code>）；其余讲不引用，未与康养项目实测混用。</li>
+<li><strong>该区园数待核</strong>：99/124/79 三源，讲 4、讲 6 均标“待核/不替它选一个”（<code>04:273、06:262</code>），B-5 活体一致。</li>
+<li><strong>本体栈统一 + Palantir 定位</strong>：一律“clife-onto-engine 自有方法论，对标/坐标 Palantir，不依赖外部脊椎”；<strong>无旧书</strong>、<strong>无“Palantir 为核心/唯一权威”</strong>。草业项目话术“Graph-RAG 防幻觉”已在 <code>04:105</code> 明确标为<strong>对外贴近认知、对内需纠偏</strong>。</li>
+<li><strong>两套 plugin 体系</strong>：讲 5（<code>05:80-107</code>）与讲 7（<code>07:60-80</code>）完全一致——智能体 plugin=Astra Studio（对 AIP 编排层）/ ontology plugin=clife-onto-engine（对 Ontology 本体层）；讲 4:124 引用亦一致。</li>
+<li><strong>OAG≠RAG / 自动闸·人工闸</strong>：讲 4、讲 6、讲 7 用词一致（防幻觉在执行层不在检索层；闸分两层=引擎确定性回滚[自动闸]+HIL[人工闸]）。</li>
+<li><strong>方法论出处准确</strong>：03(建模 SOP)、05(审计)、06(FDE)、07(OAG≠RAG)、09(回滚)、10(可追溯)、23(置信度总线)——讲 4/6/7/9 引用编号与实际主题<strong>逐条对得上，无张冠李戴</strong>。</li>
+<li><strong>反例 B-1~B-10 全覆盖无重复深讲</strong>：B-1/B-2(讲6)、B-3/B-4(讲7)、B-5(讲4+讲6 双视角)、B-6(讲4)、B-7(讲1+讲6)、B-8/B-9(讲5)、B-10(讲3/6/9 复调)；讲 8/讲 10 为“汇引/放大”非深讲，无跨讲抢主场。</li>
+<li><strong>讲间钩子双向对齐</strong>：fig-5-1 讲 5↔︎讲 7 共用（两讲互相点名）；B-7 讲 1↔︎讲 6 复调双向；B-10 讲 3/6/9 三声部各认领；讲 6 的 4.0“闸分两层”↔︎讲 4 栈③ OAG 双向咬合（<code>06:342 ↔︎ 04:281</code>）；讲 1 管线↔︎讲 4 七管线↔︎讲 5/7 平台固化，链条闭合。<strong>未发现单向悬空引用（除 S-1 的“五大知识栈”）。</strong></li>
+<li><strong>诚实边界一致</strong>：11 处占位不编造、“错文号比空缺更有害”、demo=Mock、教育督导项目计价“定位为按量 SaaS·不编单价”、Palantir 外部事实官方/二手/未获证实三档（讲 9 附来源清单第 5/8/13/14 行明标“必须亲口念未获证实”）、方法论 06 标“我们的立场”而非“行业公认”——<strong>全部守住</strong>。</li>
+</ol>
+</body>
+</html>

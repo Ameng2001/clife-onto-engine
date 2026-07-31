@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>T4  领域建模studio-planner</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">T4 领域建模studio-planner</h1>
+</header>
+<h1 id="t4-领域建模studio-planner">T4 · 领域建模（studio-planner）</h1>
+<blockquote>
+<p>目标：把 T3 的认知产物切成<strong>限界上下文</strong>，并顺手产出 <code>skill-map</code>——它是 T8 的输入。<strong>120′</strong>（知识注入 30′ + 实操 70′ + checkout 20′） 知识（讲什么）：<strong>栈② 领域驱动设计</strong>——统一语言 / 限界上下文 / 上下文映射（讲义已并入本手册第六节，讲师不必另开文件） 主案例：康养项目 7 域 / <strong>HR项目 9 插件切分</strong> 工具：<code>studio-planner</code> v0.2.0，依赖 studio-core + studio-insight</p>
+</blockquote>
+<hr />
+<h2 id="先纠正一个误解plan-不是编排引擎">〇、先纠正一个误解：<code>plan</code> 不是编排引擎</h2>
+<p>学员会以为 <code>/studio-planner:plan</code> 是个自动化流水线。<strong>它不是。</strong></p>
+<blockquote>
+<p><code>commands/plan.md</code> 本身<strong>只是一段串行提示词</strong>——它按顺序点名 5 个 skill，并写明“每步之后暂停、把结果交给用户确认”。 <strong>真正的衔接靠“文件 + <code>status.json</code>”，不靠内存传参。</strong></p>
+</blockquote>
+<p>这个设计事实带来三个直接后果，<strong>必须在开跑前讲</strong>：</p>
+<ol type="1">
+<li><strong>随时可以中断</strong>，下次接着跑——因为状态都在磁盘上</li>
+<li><strong>每一步都能单独跑</strong>，只要前一步的文件在</li>
+<li><strong>可以人工改产物再继续</strong>——比如 <code>domain-map.md</code> 你改完，下一步读的就是你改过的版本</li>
+</ol>
+<blockquote>
+<p>这正是 FDE 与“点一下按钮等结果”的分野：<strong>管线是给你用的，不是替你做主的。</strong></p>
+</blockquote>
+<hr />
+<h2 id="一五步流水线读什么写什么">一、五步流水线：读什么、写什么</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>步</th>
+<th>读（前置）</th>
+<th>写（交棒物）</th>
+<th>确认点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>event-storm</strong></td>
+<td><code>studio/</code>、<code>studio/agents/*.md</code></td>
+<td><code>studio/changes/{domain-slug}/</code>：event-storm.md、changelog.md、status.json、personas/、journeys/、processes/</td>
+<td><strong>≈8</strong>（精细）/ <strong>3</strong>（快速）</td>
+</tr>
+<tr class="even">
+<td><strong>domain-model</strong></td>
+<td><code>event-storm.md</code>（<strong>缺失即拦截</strong>）</td>
+<td><code>domain-map.md</code>；为每个候选插件建 status.json + 空脚手架；回写 domain 的 <code>plugins[]</code></td>
+<td>2–5</td>
+</tr>
+<tr class="odd">
+<td><strong>skill-design</strong></td>
+<td><code>status.json</code> 的 action/domain；父域 <code>domain-map.md</code></td>
+<td><code>skill-map.md</code>；status.json 的 <code>skills{}</code> 全填 <code>draft</code></td>
+<td><strong>2</strong></td>
+</tr>
+<tr class="even">
+<td><strong>spec-generate</strong></td>
+<td><code>skill-map.md</code>（<strong>必需</strong>）</td>
+<td><code>brief.md</code>、<code>plugin.json.draft</code>、<code>{target_dir}/</code> 骨架；phase <code>planning→building</code></td>
+<td><strong>0（纯自动）</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>build-skills</strong></td>
+<td>status.json 且 <strong>phase 必须 == <code>building</code></strong></td>
+<td>就地填充 <code>{target_dir}/skills/*/SKILL.md</code></td>
+<td>1（入口）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>单步续跑口令</strong>（学员卡在哪一步就从哪接）：</p>
+<pre><code>/studio-planner:event-storm   &lt;domain&gt;
+/studio-planner:domain-model  &lt;domain&gt;
+/studio-planner:skill-design  &lt;plugin&gt;
+/studio-planner:spec-generate &lt;plugin&gt;
+/studio-planner:build-skills  &lt;plugin&gt;</code></pre>
+<blockquote>
+<p>⚠️ 这五个是 <strong>skill 触发，没有对应的命令文件</strong>（studio-planner 只有 <code>plan.md</code> 一个命令）。学员环境里 <code>/</code> 补全不出来是正常的，<strong>改用自然语言“use skill: spec-generate for xxx”同样生效</strong>。</p>
+</blockquote>
+<h3 id="phase-状态机贯穿-t4t8">phase 状态机（贯穿 T4→T8）</h3>
+<pre><code>planning ──spec-generate──▶ building ──/studio-quality:validate──▶ approved ──/studio-core:promote──▶ shipped(归档副本)
+                                                                                        └─▶ 活动区重置回 planning, iteration+1</code></pre>
+<blockquote>
+<p>⚠️ <code>studio/config.yaml</code> 的 lifecycle 里列了 <code>testing</code> 一档，但<strong>全链路没有任何 skill 会写入它</strong>——validate 直接从 building 跳到 approved。<strong>别等一个永远不会出现的状态。</strong></p>
+</blockquote>
+<hr />
+<h2 id="二-时间盒的头号杀手确认点">二、⏱️ 时间盒的头号杀手：确认点</h2>
+<p>精细模式下跑完一次完整 <code>plan</code>，用户停顿点 <strong>≈20+ 次</strong>：</p>
+<pre><code>event-storm 8 次 + 每个 persona/journey/process 子技能各 1–2 次
++ domain-model 5 次 + skill-design 2 次 + spec-generate 0 次 + build-skills 1 次</code></pre>
+<p><strong>课堂必须用快速模式，能压到 6–8 次。</strong> 两处开场都会问你：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>技能</th>
+<th>精细（默认）</th>
+<th>快速</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>event-storm</code></td>
+<td>🔍 每步暂停</td>
+<td>⚡ <strong>仅 3 个确认点</strong>：①专家角色+事件清单 ②Persona+Journey+Process 一起看 ③热点排名</td>
+</tr>
+<tr class="even">
+<td><code>domain-model</code></td>
+<td>🔍 完整分析（含 domain-canvas / behavior-matrix / opportunity-brief）</td>
+<td>⚡ <strong>跳过这三个分析</strong>，从事件聚类直达插件提案</td>
+</tr>
+</tbody>
+</table>
+<p><strong>教练口径</strong>： &gt; “选快速模式<strong>不是偷懒</strong>——被跳过的三个分析，你在 T3 已经手动跑过了。这里跳过是<strong>避免重复</strong>，不是省略步骤。”</p>
+<blockquote>
+<p>⚠️ 但要提醒：<code>domain-model</code> 完整模式的判据是“<strong>事件 &gt; 15 个或预期多插件</strong>”。学员命题若真的复杂，该选完整就选完整，只是要预留时间。</p>
+</blockquote>
+<hr />
+<h2 id="三实操70">三、实操（70′）</h2>
+<h3 id="阶段一-event-storm25">阶段一 · event-storm（25′）</h3>
+<pre><code>/studio-planner:event-storm &lt;你的 domain-slug&gt;</code></pre>
+<p><strong>domain-slug 命名规则</strong>：lowercase、kebab-case、<strong>2–3 个词</strong>（<code>children-health</code>、<code>trading-ops</code>、<code>linxi-edutech</code>）。</p>
+<p><strong>🔔 最容易错的一步：什么是“业务事件”</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>❌ 这不是事件（这是功能）</th>
+<th>✅ 这才是事件（过去式的既成事实）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>提供订单查询功能</td>
+<td><strong>订单已提交</strong></td>
+</tr>
+<tr class="even">
+<td>支持材料上传</td>
+<td><strong>材料已上传</strong></td>
+</tr>
+<tr class="odd">
+<td>实现质检模块</td>
+<td><strong>质检已通过</strong> / <strong>质检已驳回</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>判据</strong>：能不能加“已”字、并且它<strong>已经发生过、不可撤销</strong>？能，才是事件。 学员一上来必写功能清单，教练要当场纠偏——<strong>这是整个 T4 最关键的一次纠偏，写错了后面全歪。</strong></p>
+</blockquote>
+<p><strong>产物 <code>event-storm.md</code> 的固定 7 个 H2</strong>： <code>## Domain Context</code> · <code>## Events</code> · <code>## Artifacts Produced</code> · <code>## Hotspots</code> · <code>## Knowledge Base Dependencies</code> · <code>## Expert Scope</code> · <code>## Decision Points</code></p>
+<p>其中 <strong>KB 依赖表</strong>（列：<code>热点 | 需要的领域知识 | 知识类型 | 更新频率</code>）值得单讲：知识类型四选一（参考文档 / 结构化数据 / 历史案例 / 实时数据），<strong>≥3 个知识源且更新频繁 → 建议做一个伴生知识库插件</strong>。康养项目的 D7「康养大模型知识库」就是这么长出来的。</p>
+<p><strong>增量模式</strong>：检测到 <code>event-storm.md</code> 已存在 → 自动走 delta 模式，<strong>原地更新 + 追加 changelog + iteration+1</strong>。 <code>changelog.md</code> 是 append-only，每次一个 <code>## {日期}</code>，下含 <code>**Summary**</code> + <code>### Added</code> / <code>### Revised</code> / <code>### Impact on Plugins</code>。</p>
+<blockquote>
+<p>⚠️ 这里有个取舍要讲明：<strong>修订是就地覆盖的，<code>git diff</code> 就是你的修订历史</strong>。所以 <code>studio/</code> <strong>必须 git-tracked</strong>——T2 里 init 那句 “Consider running <code>git init</code> first” 的告警不是走过场。</p>
+</blockquote>
+<h3 id="阶段二-domain-model25">阶段二 · domain-model（25′）</h3>
+<pre><code>/studio-planner:domain-model &lt;domain-slug&gt;</code></pre>
+<p><strong>产物 <code>domain-map.md</code> 的 5 个 H2</strong>： <code>## Analysis Mode</code> · <code>## Artifacts</code> · <code>## Plugin Candidates</code> · <code>## Generic Capabilities (no custom plugin needed)</code> · <code>## Collection Structure</code></p>
+<p><strong>Plugin Candidates 表 7 列</strong>：<code>Plugin | Domain | Role | Action | Description | Dependencies | Priority</code> - <code>Role</code> = <strong>core / add-on</strong> - <code>Action</code> = <strong>create / modify</strong></p>
+<p><strong><code>## Generic Capabilities</code> 这一段是精华</strong> —— 它列的是“<strong>不需要定制插件</strong>的能力”。 &gt; 学员最容易犯的错是<strong>什么都想自己建</strong>。这一段逼你回答：“这个能力买现成的行不行？” 答案常常是行。 &gt; 康养项目 D7 定位 Generic-Support、草业项目/辣椒共用 <code>smart-agriculture</code> 底座，都是这个判断的产物。</p>
+<p><strong>Collection Structure 三种模式</strong>：1 个插件 = 不建 collection；2–5 个相关 = 一个 collection 且<strong>必须有明确的 core</strong>；不同领域的独立插件 = 分开 collection。</p>
+<p><strong>⚠️ 增量模式下有一个硬确认点</strong>（插件文档明写 “This is a key decision point”）：会给你一张“插件影响评估”表（<code>插件 | 动作 | 原因</code>，动作用 🆕新建 / ✏️修改），<strong>必须显式确认才继续</strong>。 &gt; 这是整条流水线上<strong>唯一被标为“关键决策点”的地方</strong>——因为它决定了要动哪些既有插件。</p>
+<h3 id="阶段三-skill-design20">阶段三 · skill-design（20′）</h3>
+<pre><code>/studio-planner:skill-design &lt;plugin-name&gt;</code></pre>
+<p><strong>产物 <code>skill-map.md</code> 的 H2</strong>：<code>## Skills</code>（每个 skill 一个 H3，含 Description/Inputs/Outputs/Out of scope/Complexity/allowed-tools/Preconditions 七个字段）· <code>## Data Flow</code> · <code>## Complexity Summary</code> · <code>## Plugin Traits</code> · <code>## Pipelines</code>（仅 multi-pipeline）· <code>## Implementation Order</code></p>
+<p><strong>⚠️ Step 1.5 是本步的核心确认点：五个插件特征（traits）</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>trait</th>
+<th>含义</th>
+<th>下游影响（T8 会生成什么）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>stateful</code></td>
+<td>有持久运行时状态</td>
+<td>额外生成 <code>init-workspace</code> skill + 两个 runtime 模板</td>
+</tr>
+<tr class="even">
+<td><code>hil-gated</code></td>
+<td>有人工审批闸</td>
+<td>给相关 skill 插入 <code>## Approval Gate</code> 段（✅确认/✏️修改/❌拒绝 三选一）</td>
+</tr>
+<tr class="odd">
+<td><code>kb-dependent</code></td>
+<td>依赖知识库</td>
+<td>影响 skill 的数据依赖设计</td>
+</tr>
+<tr class="even">
+<td><code>multi-pipeline</code></td>
+<td>有多条编排流水线</td>
+<td>每条流水线一个 <code>commands/{pipeline}.md</code></td>
+</tr>
+<tr class="odd">
+<td><code>expert-scoped</code></td>
+<td>需要领域专家 agent</td>
+<td>生成 <code>agents/</code> 目录</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>traits 是整条流水线的“分叉开关”</strong>——它在这里被确认，到 T8 的 spec-generate 才兑现成不同的骨架。<strong>现在选错，T8 生成的东西就不对。</strong> 特别注意 <code>hil-gated</code>：<strong>它和 T5 本体层的 HIL 是两回事</strong>（一个是 skill 层的审批段，一个是 Action 层的 HilPolicy），T5 会讲清楚。</p>
+</blockquote>
+<p><strong>四档复杂度</strong>：Simple / Moderate / Script-heavy / MCP-dependent —— 决定 <code>allowed-tools</code> 和要不要建 <code>scripts/</code> 目录。</p>
+<h3 id="本步到此为止">本步到此为止</h3>
+<p><strong>跑到 <code>skill-map.md</code> 就停。</strong> <code>spec-generate</code> 和 <code>build-skills</code> 属于 <strong>T8</strong>。</p>
+<blockquote>
+<p>教练必须明说这句话，否则学员会一路跑下去，把 T8 的内容提前消耗掉，而且<strong>在没做 T5 本体的情况下就去建插件骨架</strong>，顺序就乱了。</p>
+</blockquote>
+<hr />
+<h2 id="四-t4-结束时必讲后面是分叉不是流水线">四、⭐ T4 结束时必讲：后面是分叉，不是流水线</h2>
+<p>跑完 <code>domain-map</code> + <code>skill-map</code>，路分成三条：</p>
+<pre><code>                    ┌──▶ T5 本体建模（studio-ontology）  ← 要&quot;可执行的规则与闸&quot;
+T4 domain-map ──────┼──▶ T6 文档工程（studio-docs/platform）← 要&quot;可评审的文书&quot;
+   + skill-map      └──▶ T8 技能插件（planner 续跑 + quality）← 要&quot;可发版的插件&quot;
+                    （T7 界面原型基本独立，随时可插）</code></pre>
+<p><strong>它们并行、不互为前置。</strong></p>
+<p><strong>活证据 · 学前教育项目</strong>：那个项目<strong>没做本体建模、没有 persona/journey</strong>，照样交出了 <strong>653KB 可研 + 完整送审报价包 + 单一来源论证</strong>。</p>
+<blockquote>
+<p><strong>别让学员以为“不编译本体就不能写方案”。</strong> 交付模式决定你走哪条分支： - 模式二 To-G 大盘、赢单靠评审 → <strong>T6 优先</strong> - 模式一 SaaS 应用、赢单靠能用 → <strong>T5 + T7 优先</strong> - 要做可复用能力沉淀 → <strong>T8</strong></p>
+</blockquote>
+<hr />
+<h2 id="五-启发范例">五、💡 启发范例</h2>
+<h3 id="康养项目-7-域模式二标杆量级标尺">康养项目 · 7 域（模式二标杆，量级标尺）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>域</th>
+<th>ontology_id</th>
+<th>角色</th>
+<th>HIL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D1 康养智能体中枢</td>
+<td>kangyang-agent-core</td>
+<td>Core</td>
+<td>2（站长 HIL）</td>
+</tr>
+<tr class="even">
+<td>D2 政策结算枢纽</td>
+<td>policy-settlement-hub</td>
+<td>Core-Support</td>
+<td>0*（4 处经办拍板注释）</td>
+</tr>
+<tr class="odd">
+<td>D3 会员营收飞轮</td>
+<td>member-revenue-flywheel</td>
+<td>Core/Add-on</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D4 居家健康照护</td>
+<td>home-care-health</td>
+<td>Core</td>
+<td>6（含急救指挥）</td>
+</tr>
+<tr class="odd">
+<td>D5 机构运营</td>
+<td>institution-ops</td>
+<td>Add-on</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>D6 民政治理</td>
+<td>civil-affairs-govern</td>
+<td>Core(G)</td>
+<td>8（DP-H 闸）</td>
+</tr>
+<tr class="odd">
+<td>D7 康养大模型知识库</td>
+<td>kangyang-llm-kb</td>
+<td><strong>Generic-Support</strong></td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>看点</strong>：7 个域里只有 <strong>4 个是 Core</strong>，D7 明确定位 Generic-Support。<strong>不是所有域都值得当核心来建。</strong></p>
+<h3 id="某工业城市-hrHR项目-9-插件切分本步最佳教具">HR项目「HR项目」· 9 插件切分（<strong>本步最佳教具</strong>）</h3>
+<p>素材：<code>~/Codes/hr-dlink-plugins/studio/changes/linxi-edutech/</code></p>
+<p>从一份 event-storm 切出 <strong>9 个插件的 skill-map</strong>： <code>linxi-core</code>（核心）· <code>policy-parser</code>（政策解析）· <code>data-harvester</code>（数据采集）· <code>talent-matcher</code>（人才撮合）· <code>training-recommender</code>（培训推荐）· <code>employment-monitor</code>（就业监测）· <code>major-advisor</code>（专业规划顾问）· <code>outreach-optimizer</code>（访企拓岗优化）· <code>insight-report</code>（洞察报告）</p>
+<p><strong>⭐ 为什么这是最好的样本</strong>：切分逻辑<strong>一眼能看懂</strong>，而且<strong>与 T1 的项目描述一一对得上</strong>—— - T1 写“替代访企拓岗” → <code>outreach-optimizer</code> - T1 写“指导专业开设规划” → <code>major-advisor</code> - T1 写“整合公开市场招聘数据” → <code>data-harvester</code></p>
+<blockquote>
+<p><strong>给学员的问题</strong>：把你的 <code>skill-map</code> 和 T1 的项目描述并排放，<strong>每个插件都能在描述里找到出处吗？</strong> 找不到出处的插件，多半是你自己想出来的，不是客户要的。</p>
+</blockquote>
+<hr />
+<h2 id="六知识讲什么-栈②-领域驱动设计领域架构师的方法论30">六、知识（讲什么）· 栈② 领域驱动设计（领域架构师的方法论，30′）</h2>
+<blockquote>
+<p>这一节是讲 4「七角色知识栈」里的 <strong>栈②</strong>，能力位 <strong>C2 结构建模（上半）</strong>。 <strong>【这个角色原本是谁】</strong> 领域架构师——负责把大系统切成边界清晰、各自内聚的域。传统模式里，他拿到产品经理递过来的需求，切完再递给知识工程师；<strong>FDE 是同一个人从事件切到域，中间不换脑子</strong>——这就是为什么 T3 的产物在这里可以直接复用，不必重跑。</p>
+</blockquote>
+<h3 id="核心命题">6.1 核心命题</h3>
+<blockquote>
+<p><strong>限界上下文的边界，不是按功能划的，是按“谁对这件事负责”划的。</strong></p>
+</blockquote>
+<h3 id="前置切域之前先把事件写对">6.2 前置：切域之前，先把“事件”写对</h3>
+<p>栈②的输入是栈①（T3 + 本步 event-storm）的<strong>事件集</strong>。这里必须回扣第三节那条纪律：</p>
+<blockquote>
+<p><strong>事件是过去式的既成事实</strong>——“材料已上传”“质检已通过”，不是“支持材料上传”“实现质检模块”。 为什么它是 DDD 的前置？因为<strong>限界上下文是按“谁推进了这个既成事实”聚出来的</strong>。你写成功能清单，聚出来的就只能是“查询模块”“管理模块”——那是系统的形状，不是业务的形状。<strong>事件写歪，域必然切歪，而且到 T5 才会疼。</strong></p>
+</blockquote>
+<h3 id="方法论内核ddd-三件核心">6.3 方法论内核：DDD 三件核心</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>核心概念</th>
+<th>一句话</th>
+<th>康养项目的物理落点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>统一语言 Ubiquitous Language</strong></td>
+<td>业务方和工程师用同一套词，且这套词直接出现在代码里</td>
+<td>共享根 <code>Elder</code> <strong>单一写入点</strong>——同一个“老人”只有一个真相源</td>
+</tr>
+<tr class="even">
+<td><strong>限界上下文 Bounded Context</strong></td>
+<td>一个词在一个边界内只有一个含义；出了边界就是另一个概念</td>
+<td>102 事件 / 16 簇切成 <strong>7 域 D1–D7</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>上下文映射 Context Mapping（含防腐层 ACL）</strong></td>
+<td>两个域之间是“引用”还是“发布”，必须说得出来；跨语义的地方加防腐层翻译</td>
+<td>两处<strong>防腐层</strong>：<strong>D6↔︎D5</strong>、<strong>D4↔︎D5</strong>；跨域一律 <strong>ref / 发布，不越界写入</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="业界经典要补这一栈就啃这两本">6.4 业界经典（要补这一栈，就啃这两本）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>来源</th>
+<th>补什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>《领域驱动设计》Eric Evans（蓝皮书）</strong></td>
+<td>DDD 开山之作，概念体系的源头</td>
+</tr>
+<tr class="even">
+<td><strong>《实现领域驱动设计》Vaughn Vernon（红皮书）</strong></td>
+<td>落地版，告诉你概念怎么变成代码</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>别通读</strong>。重点啃 <strong>“限界上下文”</strong> 与 <strong>“上下文映射”</strong> 两章——这门课用到的就是这两章，其余章节等你真的要写聚合根再说。</p>
+</blockquote>
+<h3 id="三个判据现场对着学员的域图问">6.5 三个判据（现场对着学员的域图问）</h3>
+<ol type="1">
+<li><strong>同一个词在两个地方含义不同 → 该切开</strong> 康养项目的“老人”在 D4 居家照护里是“被照护对象”，在 D3 会员飞轮里是“消费者”。同一个人，两套属性、两套规则 → <strong>两个域</strong>。（这就是“限界上下文”最朴素的用法。）</li>
+<li><strong>状态机不共享 → 该切开</strong> 一个对象的生命周期如果在两处被不同的人推进，说明它其实是两个对象。</li>
+<li><strong>能独立发布 → 该切开</strong> D6 民政治理有 8 个 HIL 闸、要对监管负责；把它和 D3 会员营收捆在一起，一次发布要同时说服民政局和市场部。</li>
+</ol>
+<h3 id="方法论-工具这一栈也已经被固化了">6.6 方法论 → 工具：这一栈也已经被固化了</h3>
+<p>栈②的管线是 <code>事件簇 → 限界上下文 → 上下文映射</code>，对应的固化工具就是本步在跑的这几个：<strong><code>domain-model</code></strong>（切域、出 <code>domain-map.md</code>）· <strong><code>domain-canvas</code></strong>（域画布，<code>Owns / Does NOT own</code> 就是边界定义）· <strong><code>behavior-matrix</code></strong>（行为矩阵）。</p>
+<blockquote>
+<p><strong>切得对不对不靠自觉，靠校验兜底</strong>：康养项目 7 域最终跑出 <strong>A 结构 7/7、零悬空引用</strong>。这就是“结构纪律靠校验器”在 DDD 层的证据——<strong>T5 会把这条校验真正跑给你看</strong>。</p>
+</blockquote>
+<h3 id="反例-b-8越域写入冲动">6.7 ⚠️ 反例 B-8（越域写入冲动）</h3>
+<p>康养项目编译期<strong>多次想让 Action 直接 <code>stage_write</code> 他域的对象</strong>——因为“就改一个字段，绕一圈太麻烦”。</p>
+<blockquote>
+<p><strong>原则</strong>：跨域一律走 ref / 发布，不越界直写。<strong>这就是上下文映射：两个域之间只能是“引用”或“发布”，没有第三种。</strong> <strong>关键的一句</strong>：<strong>结构纪律靠校验器，不靠自觉。</strong> 你在赶工期的凌晨三点是不会守纪律的，但校验器会。 这条在 T5 有物理对应：clife-onto-engine 的 <code>check_plugin_capabilities.py</code> 会直接拦住摸内核私有方法的代码，CI 挂给你看。</p>
+</blockquote>
+<h3 id="反例-b-9sdk-能力想当然">6.8 ⚠️ 反例 B-9（SDK 能力想当然）</h3>
+<p>编译期不确定 <code>PropertySpec.default</code>、<code>Evaluation</code> 是否导出，<strong>7 个域统一留了 docstring 挂账</strong>，没有靠“应该支持吧”往前推。</p>
+<blockquote>
+<p><strong>这个判断在 T5 被验证是对的</strong>：<code>compile-rules.md</code> 的固定头部<strong>确实漏了 import <code>Evaluation</code></strong>，照着生成会 NameError。<strong>当初挂账的人是对的。</strong> <strong>原则</strong>：不确定就显式挂账，别赌。</p>
+</blockquote>
+<h3 id="自学-自评到能独立交付">6.9 自学 / 自评到“能独立交付”</h3>
+<p><strong>练法</strong>：把 T3 + event-storm 的事件集<strong>按“谁拥有这个决策”切域</strong>；切完自查一遍——<strong>有没有一个对象被两个域同时写？</strong> 有，就是切错了。</p>
+<p><strong>自评三条（够到就是能交付）</strong>： - 能独立完成 1 个域的 <code>ontology-map</code> 并<strong>通过结构校验</strong>（这条要到 T5 才验收，但判断力在本步就要有）； - 能说清任意两个域之间是“<strong>引用</strong>”还是“<strong>发布</strong>”，说不清就是边界没想透； - 每个域都能回答“<strong>谁对它负责</strong>”——答不上来的域，多半是按功能模块切的。</p>
+<hr />
+<h2 id="七checkout20">七、checkout（20′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>事件写法</td>
+<td>全是过去式既成事实（“材料已上传”）</td>
+<td>写成功能清单（“支持材料上传”）→ <strong>一票警示</strong></td>
+</tr>
+<tr class="even">
+<td>域切分理由</td>
+<td>每个域能说清“谁对它负责”+ 至少一条切分判据</td>
+<td>按功能模块切（“查询域”“管理域”）</td>
+</tr>
+<tr class="odd">
+<td>Generic 判断</td>
+<td><code>## Generic Capabilities</code> 非空，能说清什么不用自建</td>
+<td>什么都要自己建</td>
+</tr>
+<tr class="even">
+<td>core 明确</td>
+<td>collection 里有且仅有一个明确的 core</td>
+<td>2–5 个插件平级、无 core</td>
+</tr>
+<tr class="odd">
+<td>skill-map 溯源</td>
+<td>每个插件都能在 T1 项目描述里找到出处</td>
+<td>有凭空想出来的插件</td>
+</tr>
+<tr class="even">
+<td>traits</td>
+<td>五个 traits 逐个判过，说得出为什么选/不选</td>
+<td>直接回车接受默认</td>
+</tr>
+<tr class="odd">
+<td>越域</td>
+<td>无跨域直写设计</td>
+<td>有“就改一个字段”的越界冲动（B-8）</td>
+</tr>
+<tr class="even">
+<td>停在正确的位置</td>
+<td>跑到 <code>skill-map.md</code> 停</td>
+<td>一路跑到 build-skills（抢了 T8）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="八翻车点">八、翻车点</h2>
+<h3 id="spec-generate-找不到模板会在-t8-撞上">⚠️ 1. <code>spec-generate</code> 找不到模板（会在 T8 撞上）</h3>
+<p>它的 Pre-check 让它读 <code>${CLAUDE_SKILL_DIR}/../../templates/brief.md.tmpl</code>，但 <strong>studio-planner 根本没有 <code>templates/</code> 目录</strong>——那两个模板住在 <strong>studio-core</strong> 下。 <strong>后果</strong>：模型找不到模板，会直接按 SKILL.md 内嵌的结构生成（结果可用，但可能与预期不同）。<strong>知道就行，不用修。</strong></p>
+<h3 id="文档里的-studio-insightcreate-expert-是错的">⚠️ 2. 文档里的 <code>/studio-insight:create-expert</code> 是错的</h3>
+<p>event-storm 的 SKILL.md 有两处这么写，<strong>正确的是 <code>/studio-core:create-expert</code></strong>。</p>
+<h3 id="build-skills-的-phase-硬门">⚠️ 3. <code>build-skills</code> 的 phase 硬门</h3>
+<p>phase 不是 <code>building</code> 会直接报错退出（planning→让你先 spec-generate；approved→已校验过；shipped→已 promote）。<strong>这是设计，不是 bug。</strong></p>
+<h3 id="别在-t4-就跑-spec-generate">⚠️ 4. 别在 T4 就跑 spec-generate</h3>
+<p>它是<strong>零确认点的纯自动化</strong>，一跑就把骨架全生成了。<strong>在没做 T5 本体、没想清 traits 的情况下生成的骨架，等于白生成。</strong></p>
+<hr />
+<h2 id="九给讲师的时间盒">九、给讲师的时间盒</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场：plan 不是编排引擎</td>
+<td>5′</td>
+<td>讲“衔接靠文件”的三个后果</td>
+</tr>
+<tr class="even">
+<td>知识 · 栈② DDD</td>
+<td>30′</td>
+<td>三件核心 + 两本经典 + 三判据 + B-8 越域 + B-9 挂账（口播稿见第十一节）</td>
+</tr>
+<tr class="odd">
+<td>启发：康养项目 7 域 + HR项目 9 插件</td>
+<td>10′</td>
+<td>重点讲“每个插件能否溯源到项目描述”</td>
+</tr>
+<tr class="even">
+<td>实操 event-storm</td>
+<td>25′</td>
+<td><strong>务必选快速模式</strong>；事件写法当场纠偏</td>
+</tr>
+<tr class="odd">
+<td>实操 domain-model</td>
+<td>25′</td>
+<td>快速模式；重点看 Generic Capabilities</td>
+</tr>
+<tr class="even">
+<td>实操 skill-design</td>
+<td>20′</td>
+<td>traits 逐个判</td>
+</tr>
+<tr class="odd">
+<td>分叉说明 + checkout</td>
+<td>20′</td>
+<td>讲学前教育项目活证据；八项对照</td>
+</tr>
+</tbody>
+</table>
+<p><strong>主持提示</strong>：事件写法的纠偏<strong>必须在第一轮就做透</strong>。学员写出第一批“事件”时，教练当场逐条问“这个能加’已’字吗？”——纠偏五分钟，省后面两小时。</p>
+<hr />
+<h2 id="十与下游的衔接">十、与下游的衔接</h2>
+<pre><code>T4 产物
+  ↓ domain-map.md 的域边界    → T5 每个域一份 ontology-map（限界上下文 = 一个 namespace）
+  ↓ event-storm.md 的事件     → T5 IR 的 Action 候选
+  ↓ Decision Points 段         → T5 IR 的 Rule 候选（§8 决策点也归 Rule）
+  ↓ KB 依赖表                  → T5 的知识库设计 / T6 平台文档的知识图谱设计
+  ↓ skill-map.md               → **T8 的直接输入**（spec-generate 读它）
+  ↓ traits                     → T8 生成什么骨架的分叉开关
+  ↓ domain-map + skill-map     → T6 的 studio-platform 脑图与技术设计</code></pre>
+<p><strong>一句话</strong>：T4 产出的是<strong>边界</strong>。边界画错，后面每一步都在错误的边界里做正确的事。</p>
+<hr />
+<h2 id="十一讲师包-口播稿">十一、讲师包 · 口播稿</h2>
+<h3 id="本步用哪几个课件">本步用哪几个课件</h3>
+<blockquote>
+<p>课件在 <code>../slides/</code>，浏览器直接打开。<strong>键盘 ← → 翻页 · S 演讲者模式 · O 总览。</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>课件</th>
+<th>用在哪一段</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>slides/04a_知识栈_认知与建模.html</code></td>
+<td>知识节·栈②</td>
+<td><strong>只放栈②那几屏</strong>（从「栈② DDD · 角色与内核」起）。栈① 已在 T3 讲过，别重放</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>课件是旧十讲时期做的</strong>，口径以本册为准——课件若与本册冲突（尤其案例成熟度、「合资」旧口径），<strong>以本册为准，当场改口</strong>。</p>
+</blockquote>
+<blockquote>
+<p>下面几段供讲师<strong>照念</strong>。标「原话稿」的是讲义 04 的原文，<strong>一字未改</strong>；标「讲述要点（非原话稿）」的是从正文里挑出来的可直接口述段落，讲师可按自己的语感调整。 ⚠️ 讲义 04 的“七角色合体”开场原话稿<strong>只在 T3 讲一次</strong>（见 T3 第十节），本步不要重复念。</p>
+</blockquote>
+<h3 id="口播-栈②的角色定位与三件核心">口播 · 栈②的角色定位与三件核心</h3>
+<p><strong>（用在：第六节 6.1–6.3，进入三判据之前。讲述要点（非原话稿），出自讲义 04 §3.2）</strong></p>
+<blockquote>
+<p>“这一栈原本是领域架构师的活——负责把大系统切成边界清晰、各自内聚的域。DDD 就三件核心：<strong>统一语言、限界上下文、上下文映射（含防腐层 ACL）</strong>。业界经典是两本：Eric Evans 的《领域驱动设计》，蓝皮书，DDD 的开山之作；Vaughn Vernon 的《实现领域驱动设计》，红皮书，落地版。别通读，<strong>重点啃’限界上下文’和’上下文映射’这两章</strong>，这门课用到的就是这两章。”</p>
+</blockquote>
+<h3 id="口播-康养项目是怎么切的">口播 · 康养项目是怎么切的</h3>
+<p><strong>（用在：第六节 6.3 表格与 6.6，或第五节康养项目 7 域范例讲完时。讲述要点（非原话稿），出自讲义 04 §3.2 康养项目段）</strong></p>
+<blockquote>
+<p>“康养项目是怎么落的？102 个事件、16 个簇，切成 <strong>7 个域的限界上下文 D1 到 D7</strong>。跨域<strong>一律走 ref、走发布，不越界写入</strong>；有两处<strong>防腐层</strong>——D6 和 D5 之间、D4 和 D5 之间——那就是 DDD 里的 ACL。共享根 <code>Elder</code> 只有一个写入点，那就是’统一语言 + 单一真相’。那么怎么知道切得对不对？<strong>不靠自觉，用结构校验兜底</strong>——康养项目最后跑出来的是 <strong>A 结构 7 比 7，零悬空引用</strong>。”</p>
+</blockquote>
+<h3 id="口播-这一栈的自评标准">口播 · 这一栈的自评标准</h3>
+<p><strong>（用在：第六节 6.9，转入 checkout 之前。讲述要点（非原话稿），出自讲义 04 §3.2 自学自评段）</strong></p>
+<blockquote>
+<p>“怎么练？<strong>把事件集按’谁拥有这个决策’切域，切完自查一遍：有没有一个对象被两个域同时写？</strong> 有，就是切错了。什么叫补到能交付？两条：第一，能独立完成一个域的 ontology-map，并且<strong>通过结构校验</strong>；第二，能说清任意两个域之间到底是’引用’还是’发布’。说不清，就是边界没想透。越域写入的冲动是<strong>真实存在的坑</strong>，不是我吓唬你们——康养项目编译期就反复冒出来过。”</p>
+</blockquote>
+<h3 id="口播-难听话收口用">口播 · 难听话（收口用）</h3>
+<p><strong>（用在：本步最后、第四节“后面是分叉不是流水线”讲完之后，压一句。原话稿，出自讲义 04 §6 难听话）</strong></p>
+<blockquote>
+<p>“你以为 FDE 就是会建模？建模只是七分之二。你能交出 7 域本体、3835 行骨架——很好，那是栈②栈③。客户翻到可研最后一章问你’总投资多少、功能点怎么算的、IRR 几年回本’，你答不出某工业城市那样的’27,056 功能点 / 4,839 万’、答不出’15.2% 第 9 年回本’，你就只是个更贵的建模师，不是 FDE。缺的那五个角色，不会因为你建模漂亮就自动长出来。”</p>
+</blockquote>
+<blockquote>
+<p><strong>讲师提示</strong>：这段是<strong>为第四节那张分叉图服务的</strong>——学员刚学完切域，最容易产生“我已经会 FDE 了”的错觉。念完这段，再指着分叉图说一句“T6 那条线上的账，栈②替你算不出来”，效果最好。</p>
+</blockquote>
+</body>
+</html>

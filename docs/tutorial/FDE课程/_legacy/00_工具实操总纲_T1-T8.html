@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDE 工作坊  工具实操主干总纲T1–T8</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">FDE 工作坊 工具实操主干总纲T1–T8</h1>
+</header>
+<h1 id="fde-工作坊-工具实操主干总纲t1t8">FDE 工作坊 · 工具实操主干总纲（T1–T8）</h1>
+<blockquote>
+<p>版本 <strong>v0.2 · 单轨</strong>（2026-07-27 由双轨合并而来） 定位：本文件是工作坊的<strong>唯一执行主干</strong>。主持形态见 <code>00_FDE实战工作坊_主持手册.md</code>；口径唯一真相源见 <code>_WRITING_BRIEF.md</code>；能力模型与反例库见 <code>00_课程总纲.md</code>。 一句话：<strong>九步十册，一册就是一次课。</strong> 讲师上课只开一份文件。</p>
+</blockquote>
+<hr />
+<h2 id="一为什么是一轨不是两轨">一、为什么是一轨，不是两轨</h2>
+<h3 id="v0.1-的双轨结构已废止">v0.1 的双轨结构（已废止）</h3>
+<p>v0.1 把课程分成两轨：<strong>执行轨</strong>（T1–T8 工具实操）+ <strong>知识注入轨</strong>（旧 10 讲讲义）。</p>
+<p><strong>这个结构不是教学设计的结论，是资产妥协的结果</strong>——旧十讲已经存在（讲义 + 工作坊脚本 + 13 个课件 + 质检报告），双轨让旧资产原地不动就能接上新主干。</p>
+<h3 id="它自己坍缩了">它自己坍缩了</h3>
+<p>写八份手册时，每份都把知识注入的要点复述了一遍（T4 的 DDD 三判据、T5 的 HIL 四判据、T8 的 L1/L2/L3 能力锚）。结果是<strong>同一份知识有了两个副本</strong>：手册里的摘要 + 讲义里的全文。</p>
+<p><strong>这正是本课程自己反对的 B-5（口径不单点，早晚漂移）。</strong></p>
+<p>而且从讲师视角看，代价很具体：上 T5 那一节要同时开三个文件（T5 手册 + 讲 6 讲义 + 讲 4c 分册）。<strong>一次课就该是一份东西。</strong></p>
+<h3 id="v0.2-的合并原则">v0.2 的合并原则</h3>
+<blockquote>
+<p><strong>合并单位是“一次课”，不是“一份文档”。</strong></p>
+</blockquote>
+<p>量化依据：10 份讲义约 2400 行，其中要点/板书/证据/反例手册里大多已有，<strong>真正不可替代的只有 41 段「讲述脚本」（讲师原话级口播稿）</strong>。所以合并动作是： - 讲义的<strong>知识要点</strong> → 并入对应册的「知识（讲什么）」节 - 讲义的<strong>口播稿</strong> → 并入对应册的「讲师包 · 口播稿」节（<strong>原文照搬，不改写</strong>） - 讲义本体 → 归档到 <code>讲义/_legacy/</code> - <strong>13 个 slides 课件保留不动</strong>，在每册“讲师包”里写明本步调用哪几个</p>
+<h3 id="每一册的统一结构">每一册的统一结构</h3>
+<pre><code>一册 = 一次课 = 五段
+ 〇 本步一览      目标 / 前置 / 产出 / 时间盒
+ 一 知识（讲什么）  ← 吸收自旧讲义的要点、板书、康养项目证据、反例
+ 二 案例（看什么）  ← 真实项目&quot;做对了长什么样&quot;
+ 三 实操（做什么）  ← 命令 / 产物路径 / 验收
+ 四 checkout      ← 达标 / 警示对照表
+ 五 讲师包        ← 口播稿（原话级）+ 时间盒 + 用哪几个课件</code></pre>
+<hr />
+<h2 id="二九步十册总表册-旧十讲去向-sop-七阶段-交付包">二、九步十册总表（册 ↔︎ 旧十讲去向 ↔︎ SOP 七阶段 ↔︎ 交付包）</h2>
+<p><strong>九步十册</strong>（T5 因体量拆为上下半场，编号沿用 T5a/T5b 以免打乱既有引用）：</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>册</th>
+<th>主工具</th>
+<th>知识来自（已并入本册）</th>
+<th>SOP 阶段</th>
+<th>交付包件</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>T1 信息获取</strong></td>
+<td>domain-intake 契约 + 模板 A/B</td>
+<td>讲 1 交付断层 + 讲 2 认知杠杆</td>
+<td>立项</td>
+<td>① 项目定义 + 模式判定</td>
+<td>90′</td>
+</tr>
+<tr class="even">
+<td><strong>T2 环境准备</strong></td>
+<td>marketplace / studio-core</td>
+<td>讲 5（平台=固化物）</td>
+<td>—</td>
+<td>—</td>
+<td>60′</td>
+</tr>
+<tr class="odd">
+<td><strong>T3 认知萃取</strong></td>
+<td>studio-insight</td>
+<td>讲 4 栈①（产品设计）</td>
+<td>S1</td>
+<td>② 事件集→画像→旅程→热点</td>
+<td>120′</td>
+</tr>
+<tr class="even">
+<td><strong>T4 领域建模</strong></td>
+<td>studio-planner</td>
+<td>讲 4 栈②（DDD）</td>
+<td>S2/S3</td>
+<td>③ 限界上下文域图</td>
+<td>120′</td>
+</tr>
+<tr class="odd">
+<td><strong>T5a 本体建模</strong></td>
+<td>studio-ontology</td>
+<td>讲 4 栈③（OAG）</td>
+<td>S4</td>
+<td>④ 五要素本体草案</td>
+<td>90′</td>
+</tr>
+<tr class="even">
+<td><strong>T5b 设闸与治理</strong></td>
+<td>studio-ontology + 引擎</td>
+<td><strong>讲 6（SOP + HIL，全课重心）</strong></td>
+<td>S4/S5</td>
+<td>⑥ SOP 七阶段 ⑦ HIL 设点表 ⑧ 取证清单</td>
+<td>90′</td>
+</tr>
+<tr class="odd">
+<td><strong>T6 文档工程</strong></td>
+<td>studio-docs / studio-platform</td>
+<td>讲 4 栈④⑥⑦（商业/交付物/合规）</td>
+<td>S5/S6</td>
+<td>⑤ 商业模式+财务语言 ⑨ 一节方案稿+配图</td>
+<td>150′</td>
+</tr>
+<tr class="even">
+<td><strong>T7 界面原型</strong></td>
+<td>studio-design</td>
+<td>讲 9（外部对标与诚实边界）</td>
+<td>S6 延伸</td>
+<td>⑪ demo 原型 + Mock 清单</td>
+<td>120′</td>
+</tr>
+<tr class="odd">
+<td><strong>T8 技能插件开发</strong></td>
+<td>planner 续跑 + quality + core</td>
+<td>讲 5 回收 + 讲 8（团队编成）</td>
+<td>S7</td>
+<td>⑩a 团队编成；⑫ 可发版插件（加分）</td>
+<td>150′</td>
+</tr>
+<tr class="even">
+<td><strong>T9 结课路演</strong></td>
+<td>—</td>
+<td>讲 3（OPC 边界）+ 讲 10（C-Life 落地）</td>
+<td>全</td>
+<td>⑩b 90 天启动计划；交付包拼合路演</td>
+<td>120′ + 每组 20′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>合计 ≈1020′（17h）</strong> + 每组 20′ 路演。</p>
+<p><strong>旧 10 讲的去向（全部已并入，讲义归档 <code>讲义/_legacy/</code>）：</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>旧讲</th>
+<th>并入哪一册</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>讲 1 / 讲 2</td>
+<td><strong>T1</strong>（为什么值得花力气把话问清楚）</td>
+</tr>
+<tr class="even">
+<td>讲 3</td>
+<td><strong>T9</strong>（一人公司的边界：哪些必须人扛）</td>
+</tr>
+<tr class="odd">
+<td>讲 4（七栈，四分册课件 04a–d）</td>
+<td><strong>拆开并入四册</strong>：栈①→T3、栈②→T4、栈③→T5a、栈④⑥⑦→T6</td>
+</tr>
+<tr class="even">
+<td>讲 5</td>
+<td><strong>T2</strong>（开场：平台=方法论固化物）+ <strong>T8</strong>（回收：三层固化）</td>
+</tr>
+<tr class="odd">
+<td><strong>讲 6</strong></td>
+<td><strong>T5b</strong>（全课重心，SOP 七阶段 + HIL 四判据 + 闸分两层）</td>
+</tr>
+<tr class="even">
+<td><strong>讲 7</strong></td>
+<td><strong>已被 T1–T8 全面吃掉</strong>，原讲义降级为一页「工具全景导览」放 T2</td>
+</tr>
+<tr class="odd">
+<td>讲 8</td>
+<td><strong>T8</strong>（团队编成 + L1/L2/L3 能力锚）</td>
+</tr>
+<tr class="even">
+<td>讲 9</td>
+<td><strong>T7</strong>（外部对标 + 官方/二手/未获证实三档来源纪律）</td>
+</tr>
+<tr class="odd">
+<td>讲 10</td>
+<td><strong>T9</strong>（C-Life 落地：选人→训练→平台→试点→度量→规模化 + 90 天计划）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13 个 slides 课件保留不动</strong>，按上表映射调用；每册“讲师包”里写明本步用哪几个。</p>
+</blockquote>
+<blockquote>
+<p><strong>⚠️ 关键教学点（必须在 T4 结束时讲）</strong>：T5/T6/T7/T8 <strong>不是流水线，是分叉</strong>。真实依赖是 <code>insight → planner</code> 之后分成三条并行分支（ontology / docs / platform），design 基本独立。 <strong>活证据</strong>：学前教育项目<strong>没做本体建模</strong>，照样交出 653KB 可研 + 完整送审报价包。别让学员以为“不编译本体就不能写方案”。</p>
+</blockquote>
+<hr />
+<h2 id="三各册在哪教什么">三、各册在哪、教什么</h2>
+<blockquote>
+<p><strong>总纲不复述各册内容</strong>——那正是 v0.1 双轨留下的“两个副本”问题。 每一步的命令、产物路径、验收表、翻车点、口播稿，<strong>全部只在对应册里，是唯一真相源</strong>。</p>
+</blockquote>
+<p>见上方「十册索引」。每册自带：</p>
+<pre><code>〇 本步一览 → 一 知识（讲什么）→ 二 案例（看什么）
+→ 三 实操（做什么）→ 四 checkout → 五 讲师包（口播稿 + 时间盒 + 课件指引）</code></pre>
+<p><strong>讲师备课只需要读三样</strong>：本册手册 · <code>_WRITING_BRIEF.md</code>（口径）· <code>案例矩阵_跨项目对照.md</code>（成熟度分层）。</p>
+<h2 id="四排期建议集训-5-天">四、排期建议（集训 5 天）</h2>
+<blockquote>
+<p>十册合计 <strong>≈1020′（17h）</strong> + 每组 20′ 路演。<strong>一册 = 一次课</strong>，不要把两册压进同一个时段。</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>天</th>
+<th>上午</th>
+<th>下午</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D1</strong></td>
+<td>开场分组认领命题 + <strong>T2 环境准备</strong>（60′）</td>
+<td><strong>T1 信息获取</strong>（90′）</td>
+</tr>
+<tr class="even">
+<td><strong>D2</strong></td>
+<td><strong>T3 认知萃取</strong>（120′）</td>
+<td><strong>T4 领域建模</strong>（120′）</td>
+</tr>
+<tr class="odd">
+<td><strong>D3</strong></td>
+<td><strong>T5a 本体建模</strong>（90′）</td>
+<td><strong>T5b 设闸与治理</strong>（90′，全课重心）</td>
+</tr>
+<tr class="even">
+<td><strong>D4</strong></td>
+<td><strong>T6 文档工程</strong>（150′）</td>
+<td><strong>T7 界面原型</strong>（120′）</td>
+</tr>
+<tr class="odd">
+<td><strong>D5</strong></td>
+<td><strong>T8 技能插件开发</strong>（150′）</td>
+<td><strong>T9 结课路演</strong>（120′ + 每组 20′）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>压缩档（3 天）</strong>：D1（T2+T1+T3）/ D2（T4+T5a+T5b）/ D3（T6 或 T7 择一 + T9 路演）。<strong>T8 降为演示、不动手。</strong></li>
+<li><strong>分散档（9 周）</strong>：每周一册 + 各组命题线上推进，配合在手真实项目——<strong>T5b/T6/T8 的产出需要真实项目承载，这一档最理想</strong>。</li>
+</ul>
+<blockquote>
+<p><strong>压缩时砍什么</strong>：优先砍 T7（原型可课后做）与 T8（沉淀可延后）。 <strong>T5a+T5b 绝不拆开跨天</strong>，更不能压缩——它是唯一产出“机器会强制执行的东西”的一步。</p>
+</blockquote>
+<hr />
+<h2 id="五冒烟测试结果2026-07-27-实测-三项全通过">五、冒烟测试结果（2026-07-27 实测 · 三项全通过）</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>测什么</th>
+<th>结果</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>studio-ontology 能否装上</td>
+<td>✅ <strong>通过</strong></td>
+<td><code>marketplace update</code> 后快照从 7 个变 9 个（新增 studio-ontology + fund-review）；<code>plugin install</code> 成功，装到 <code>~/.claude/plugins/cache/astra-studio/studio-ontology/0.1.0</code>，含 3 skills（ontology-map/compile/validate）+ 4 commands + 3 templates</td>
+</tr>
+<tr class="even">
+<td>1b</td>
+<td>两个仓库 URL 哪个能用</td>
+<td>✅ <strong>都能用</strong></td>
+<td><code>git ls-remote</code> 两个 URL 均返回同一 commit <code>2abbcd9</code> —— 同一仓库改名重定向，不是两个仓</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>.pen 格式是否与插件假设冲突</td>
+<td>✅ <strong>不冲突</strong></td>
+<td>本地三份真实 .pen 实测均为明文 UTF-8 JSON，<code>version: 2.10</code>，顶层键 <code>children/variables/version</code>，首节点 <code>type: frame</code>，与 <code>pencil-format-spec.md</code> 吻合</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>pandoc 导出链路</td>
+<td>✅ <strong>通过</strong></td>
+<td>pandoc 2.12 + mmdc + python-docx 1.2.0 全在；实测 <code>速查卡.md → docx</code> 成功（13KB，20 段落 2 表格，中文正常）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>环境侧结论</strong>：<code>xelatex</code> 缺失，但 Chrome 存在 → PDF 走 headless Chrome 分支，<strong>不影响 T6</strong>。</p>
+<p><strong>实测新发现的翻车点（比原先预设的更真）</strong>： - <strong>装完插件当前会话看不到新 skill，必须重启 Claude Code</strong> —— 这才是学员真会卡住的地方，T2 收尾要统一重启一次 - <code>marketplace update</code> 时提示 <code>Found stale directory, cleaning up and re-cloning</code> 属正常行为，不是报错</p>
+<p><strong>仍待验（风险已大幅降低，非阻塞）</strong>：端到端实跑一次 <code>screenshot-to-pencil</code> 并用 Pencil 编辑器打开产物。</p>
+<hr />
+<h2 id="六合并改动清单v0.1-双轨-v0.2-单轨">六、合并改动清单（v0.1 双轨 → v0.2 单轨）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>文件</th>
+<th>改动</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>新增 <code>工具实操/T1–T8_*.md</code></td>
+<td>8 份可照做的实操手册（命令/产物/验收/翻车点）</td>
+<td>✅ <strong>已完成</strong></td>
+</tr>
+<tr class="even">
+<td>新增 <code>工具实操/_素材/</code></td>
+<td>三份一手调研件（HR项目 / 辣椒 / 草业项目）</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="odd">
+<td><code>案例矩阵_跨项目对照.md</code></td>
+<td>5 处更正 + 2 个新案例</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="even">
+<td><code>_WRITING_BRIEF.md</code> 第二·补节</td>
+<td>案例库同步更正（单点改，其余讲跟随）</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="odd">
+<td><code>00_课程总纲.md</code> + <code>_WRITING_BRIEF.md</code></td>
+<td>收编反例 <strong>B-11</strong>（模板复用的数字迁移污染）</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="even">
+<td>全课“13 页”→“11 页”</td>
+<td>扫全仓 27 处，改 25 处（2 处修正说明保留）</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="odd">
+<td><code>00_FDE实战工作坊_主持手册.md</code></td>
+<td>总流程表 D0–D7 → <strong>T1–T8</strong>；十环节表重排为双轨</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="even">
+<td><code>工作坊/_动手环节设计_目标反推.md</code></td>
+<td>动手环节集 D1–D7 → T1–T8，重新对齐承载讲</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="odd">
+<td><code>工作坊/_贯穿沙盘_分组命题.md</code></td>
+<td>命题贯穿地图改按 T 步；交付包 11 件映射更新</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="even">
+<td><code>讲义/07_工具体系打通认知到行动.md</code></td>
+<td><strong>降级为「工具全景导览」一页</strong>，内容拆解分发到 T1–T8</td>
+<td>✅ 已完成</td>
+</tr>
+<tr class="odd">
+<td><code>slides/index.html</code></td>
+<td>卡片增加 T 轨入口；顺带修 4 个指向 .md 的死链</td>
+<td>✅ 已完成</td>
+</tr>
+</tbody>
+</table>
+<h3 id="十册索引一册-一次课">十册索引（一册 = 一次课）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>册</th>
+<th>时长</th>
+<th>知识来自</th>
+<th>核心教学点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="工具实操/T2_环境准备.md">T2 环境准备</a></td>
+<td>60′</td>
+<td>讲 5</td>
+<td>九插件安装链路；<strong>装完必须重启</strong>；三层固化（工具层/结构层/<strong>纪律层</strong>）</td>
+</tr>
+<tr class="even">
+<td><a href="工具实操/T1_信息获取.md">T1 信息获取</a></td>
+<td>90′</td>
+<td>讲 1 + 讲 2</td>
+<td><strong>两类模板 A/B</strong>；「细化真实提问」= CQ 雏形；<strong>反例 B-11 主场</strong></td>
+</tr>
+<tr class="odd">
+<td><a href="工具实操/T3_认知萃取.md">T3 认知萃取</a></td>
+<td>120′</td>
+<td>讲 4 栈①</td>
+<td>insight 六件套；专家发现与<strong>静默覆盖</strong>；画像按行为切</td>
+</tr>
+<tr class="even">
+<td><a href="工具实操/T4_领域建模.md">T4 领域建模</a></td>
+<td>120′</td>
+<td>讲 4 栈②</td>
+<td><strong>plan 不是编排引擎</strong>；事件=过去式事实；traits 是分叉开关；<strong>T5 之后是分叉不是流水线</strong></td>
+</tr>
+<tr class="odd">
+<td><a href="工具实操/T5a_本体建模.md">T5a 本体建模</a></td>
+<td>90′</td>
+<td>讲 4 栈③</td>
+<td><strong>这不是编译器</strong>；七段 IR；规则三问；SPI 槽位真相；<strong>FDE 收尾 6 项</strong></td>
+</tr>
+<tr class="even">
+<td><a href="工具实操/T5b_设闸与治理.md">T5b 设闸与治理</a></td>
+<td>90′</td>
+<td><strong>讲 6（重心）</strong></td>
+<td><strong>★两道闸（写入闸 vs 副作用闸）</strong>；HIL 四判据 + 兜底闸；<code>smoke_cq</code> 现场演示</td>
+</tr>
+<tr class="odd">
+<td><a href="工具实操/T6_文档工程.md">T6 文档工程</a></td>
+<td>150′</td>
+<td>讲 4 栈④⑥⑦</td>
+<td>肖作仕写作专家；<strong>编号权归装配期</strong>（B-1/B-2 机制化）；三本招投标蓝图</td>
+</tr>
+<tr class="even">
+<td><a href="工具实操/T7_界面原型.md">T7 界面原型</a></td>
+<td>120′</td>
+<td>讲 9</td>
+<td><strong>demo 可信度分级</strong>（教育督导项目真数据 vs 草业项目全仿真）；Mock 清单</td>
+</tr>
+<tr class="odd">
+<td><a href="工具实操/T8_技能插件开发.md">T8 技能插件开发</a></td>
+<td>150′</td>
+<td>讲 5 回收 + 讲 8</td>
+<td>校验器查什么；promote 的<strong>「不做清单」</strong>；三层固化回收</td>
+</tr>
+<tr class="even">
+<td><a href="工具实操/T9_结课路演.md">T9 结课路演</a></td>
+<td>120′ + 路演</td>
+<td>讲 3 + 讲 10</td>
+<td>OPC 边界（C7 只能筛选）；90 天计划；<strong>三条一票警示</strong>；L1/L2/L3 定级</td>
+</tr>
+</tbody>
+</table>
+<p><strong>合计 ≈ 1020′（17 小时）</strong> + 每组 20′ 路演。</p>
+<p><strong>每册都含</strong>：知识（讲什么）· 案例（看什么）· 实操（做什么）· checkout · <strong>讲师包（口播稿 + 时间盒 + 用哪几个课件）</strong>。</p>
+<p><strong>案例矩阵必改的 5 处 + 2 个新增：</strong> 1. 草业项目 demo <strong>11 页</strong>不是 13 页 2. 草业项目、辣椒<strong>都已有编译本体</strong>（<code>onto-fundary-plugins</code> 的 grass / chili 租户），“本体未编译”是错的 3. 教育督导项目上调：<strong>47 页 demo + 15 张截图 + 真实 79 园 CSV + 48KB PRD</strong>，Mock AI <strong>注入真数据</strong> 4. 辣椒标注 <strong>demo 不存在</strong>（<code>demo-app/</code> 仅 .gitkeep） 5. 康养项目编译行数口径待核（原写 3835 行，按 compiled 下 yaml+py 统计为 4303 行，口径差异未核实） 6. <strong>新增 · HR项目「HR项目」</strong>（<code>~/Codes/hr-dlink-plugins</code>）：完整建模 + 7 类文书全生命周期，<strong>唯一覆盖招标↔︎投标↔︎验收闭环</strong> 7. <strong>新增 · 学前教育项目</strong>（<code>Plugins/liuzhou-preschool-plugins</code>）：S6/S7 最强（653KB 可研 + 送审报价包 + 财评预审 + 单一来源论证）；<strong>但无 persona/journey/ontology-map，不能拿来教 T3/T5</strong></p>
+<blockquote>
+<p>第 1–5 条是对现有课件“成熟度分层”的推翻。课程的价值观支点是“错文号比空缺更有害”——<strong>沿用已知有误的分层，就是课程自己违反自己的纪律</strong>。这一批更正优先级高于新内容。</p>
+</blockquote>
+</body>
+</html>

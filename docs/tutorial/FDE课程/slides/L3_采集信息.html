@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 第三课 · 如何正确采集信息</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:56px 80px}
+  .mt-l{margin-top:22px}
+  .mt-m{margin-top:14px}
+  .lede{font-size:19px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:6px}
+  .card p,.card-accent p,.card-outline p{font-size:15px;line-height:1.55}
+  h2.title{font-size:42px;line-height:1.15}
+  .metric-sm{font-size:36px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:14px;color:var(--text-2);margin-top:8px;line-height:1.4}
+  .chain{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:700;font-size:17px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:7px 12px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:31px;line-height:1.38;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+  .warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:15px}
+  table.t th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:6px 10px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:6.5px 10px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:14px;line-height:1.6;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:14px 18px;overflow:auto;color:var(--text-1)}
+  .decay{display:flex;gap:6px;flex-wrap:wrap;align-items:stretch}
+  .decay div{flex:1;min-width:110px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:9px 10px;text-align:center}
+  .decay div b{display:block;font-size:14px;color:var(--text-1)}
+  .decay div span{font-size:12px;color:var(--text-3)}
+  .slide.tight .card,.slide.tight .card-accent,.slide.tight .card-outline{padding-top:7px;padding-bottom:7px}
+  .slide.tight table.t td{padding-top:3.2px;padding-bottom:3.2px}
+  .slide.tight pre.code{padding-top:8px;padding-bottom:8px}
+  .slide.tight .mt-l{margin-top:12px}.slide.tight .mt-m{margin-top:8px}
+</style>
+<div class="deck">
+
+<!-- 1 封面 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 第三课 · 120′ · SOP【立项】</div>
+  <h1 class="title" data-anim="fade-up">如何正确采集信息</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">唯一一个错了之后<br><b>无法在下游补救</b>的环节。</p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">落点：一份三层齐全的 _INPUT.md</span>
+    <span class="pill">反例 B-11 主场</span>
+  </div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="18"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 120′】</b> 目的 5′ ｜ 工具箱 20′ ｜ <b>实操 A 8′</b> ｜ 两类模板 20′ ｜ <b>实操 B 7′</b> ｜ <b>B-11 沉浸 20′</b> ｜ 提示词工程 20′ ｜ <b>实操 C 10′</b> ｜ checkout 10′</p>
+    <p><b>【开场先在 SOP 图上指位置】</b>"我们现在在【立项】这一格。昨天领了题、装了工具，今天正式上路第一步。"</p>
+    <p><b>【本课节奏纪律】</b> 三段实操<b>穿插在讲解中间，不许攒到最后</b>。讲完工具箱立刻练 A，讲完模板立刻练 B，讲完提示词工程立刻练 C。攒到最后学员会累到只做完 A。</p>
+    <p><b>【本课最重要的一段】</b> §六 B-11。要<b>当场打开两份原件对着念结尾那段</b>——逐字相同的那一段。这个震撼效果口头转述达不到。</p>
+    <p><b>【要砍先砍哪里】</b> 砍模板 A/B 的逐段讲解（学员手册里写全了），<b>不砍 B-11，不砍实操 C</b>。</p>
+  </div>
+</section>
+
+<!-- 2 为什么排最前 -->
+<section class="slide" data-title="为什么排在最前面">
+  <div class="kicker">① 目的</div>
+  <h2 class="title">别的错都能补，这个不能</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:34%">哪一步错了</th><th>能不能补救</th></tr>
+    <tr><td>环境装错了</td><td>重装就行</td></tr>
+    <tr><td>域切错了</td><td>第四课能返工</td></tr>
+    <tr><td>本体建歪了</td><td>第五课能改</td></tr>
+    <tr><td><b>信息在源头就丢了、歪了</b></td><td><b>后面每一步都在错误的地基上精雕细琢</b></td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">你在这里丢掉的东西，后面谁都补不回来，<br><b>因为没人知道它曾经存在过。</b></p>
+  <div class="deck-footer"><span class="ftag">目的</span><span class="slide-number" data-current="2" data-total="18"></span></div>
+  <div class="notes"><p>"第一课讲的交付断层，是信息在工序之间衰减。而<b>信息获取是第一次、也是保真度最高的一次机会</b>。"</p>
+  <p><b>【难听话，开场就甩】</b>"FDE 交付失败，十有八九不是败在建模或写作，是败在<b>第一次和客户谈完之后，你以为你听懂了</b>。"</p></div>
+</section>
+
+<!-- 3 信息衰减链 -->
+<section class="slide" data-title="信息衰减链">
+  <div class="kicker">① 目的 · 板书</div>
+  <h2 class="title">六道衰减</h2>
+  <div class="decay mt-m" data-anim="stagger-list">
+    <div><b>客户脑子里的</b><span>——</span></div>
+    <div><b>说出来的</b><span>① 隐含前提</span></div>
+    <div><b>你听到的</b><span>② 表述能力</span></div>
+    <div><b>你记下来的</b><span>③ 注意力</span></div>
+    <div><b>写进模板的</b><span>④ 转译损失</span></div>
+    <div><b>模型读到的</b><span>⑤ 结构化损失<br>⑥ 理解偏差</span></div>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up">本课的每一个工具，<b>都是在其中某一道上设的保真措施</b>。</p>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>工具箱（§二）</h4><p class="dim">守 ①→④：电梯演讲 · 5W2H · 利益相关者 · 原话留存</p></div>
+    <div class="card"><h4>提示词工程（§八）</h4><p class="dim">守 ⑤→⑥：输入包三层</p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">衰减链</span><span class="slide-number" data-current="3" data-total="18"></span></div>
+  <div class="notes"><p><b>【这张图全课回收三次】</b>①现在，②讲完工具箱回收一次（"刚才那四个工具，各守哪一道"），③课末回收一次（对照第一课交付断层的三条根因）。</p>
+  <p><b>【与第一课的对应，课末要讲】</b>第一课的三条根因在这条链上一一对应：①意图无法全文档化→衰减①②；②工序本位优化→衰减④⑤；③全链保真无人负责→<b>整条链没人守</b>。<b>FDE 守的就是这条链。</b></p></div>
+</section>
+
+<!-- 4 全与准 -->
+<section class="slide" data-title="全与准">
+  <div class="kicker">② 启发 · 工具箱 1/4</div>
+  <h2 class="title">两个标准，不是一回事</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:12%">标准</th><th style="width:26%">定义</th><th style="width:22%">靠什么保证</th><th>失败长什么样</th></tr>
+    <tr><td><b>全</b></td><td>该问的都问了</td><td><b>checklist</b>（覆盖度）</td><td>后面突然冒出一个没人考虑过的约束</td></tr>
+    <tr><td><b>准</b></td><td>客户的原话没被你的转译污染</td><td><b>原话留存</b>（保真度）</td><td>所有推导都建立在你的误解上，<b>而且看起来很自洽</b></td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">不准比不全更危险：<br><b>漏了会暴露，歪了不会。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">漏掉的东西迟早会撞出来；<br>理解歪了的东西，<b>会一路顺畅地长成一整套自洽的错误方案</b>——直到交付评审那天。</p>
+  <div class="deck-footer"><span class="ftag">全 / 准</span><span class="slide-number" data-current="4" data-total="18"></span></div>
+  <div class="notes"><p>"这两个字学员容易当成一回事，其实是两套机制、两种失败。<b>全靠 checklist，准靠原话留存。</b>"</p>
+  <p><b>【这一页的钉子】</b>"<b>漏了会暴露，歪了不会。</b>"——这句话讲慢一点。漏的东西会自己跳出来打你的脸，歪的东西不会，它会陪着你一路走到评审会，然后在所有人面前塌掉。</p></div>
+</section>
+
+<!-- 5 电梯演讲 -->
+<section class="slide" data-title="工具① 电梯演讲">
+  <div class="kicker">② 启发 · 工具箱 2/4</div>
+  <h2 class="title">工具① · 电梯演讲：30 秒说清楚</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:8%">#</th><th style="width:20%">问什么</th><th>判据</th></tr>
+    <tr><td>1</td><td><b>为谁</b></td><td>目标用户是谁——<b>不是"所有人"</b>。说不出具体角色，就是没想清楚</td></tr>
+    <tr><td>2</td><td><b>解决什么</b></td><td>他现在痛在哪——<b>用他的原话</b>，不是你的总结</td></tr>
+    <tr><td>3</td><td><b>凭什么</b></td><td>为什么是我们做——独特之处</td></tr>
+    <tr><td>4</td><td><b>结果如何</b></td><td>做完之后什么变了——<b>可量化</b></td></tr>
+  </table>
+  <div class="card card-accent mt-m" data-anim="fade-up">
+    <h4>怎么用（关键在这里）</h4>
+    <p class="dim">第一次会议结束前，<b>当场用这四句话复述给客户听</b>：「我理解您要的是……对吗？」<br>
+    客户点头 = 你抓住了主线；<b>客户皱眉 = 你当场就发现了偏差，而不是三周后。</b></p>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">真正的价值不是对外讲，<b>是对内校验。</b></p>
+  <div class="deck-footer"><span class="ftag">电梯演讲</span><span class="slide-number" data-current="5" data-total="18"></span></div>
+  <div class="notes"><p>"30 秒说不清楚，说明你还没听懂——<b>这时候该做的是回去再问，不是回去开始写方案</b>。学员最容易犯的错是：没听懂，但觉得再问一次很丢人，于是回去自己补脑补。"</p>
+  <p><b>【讲完这一页立刻进实操 A】</b>不要接着往下讲工具②。趁热让他们练。</p></div>
+</section>
+
+<!-- 6 5W2H + 利益相关者 + 原话 -->
+<section class="slide" data-title="工具②③④">
+  <div class="kicker">② 启发 · 工具箱 3/4</div>
+  <h2 class="title">工具②③④ · 保全，保准</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card"><h4>② 5W2H（保全）</h4><p class="dim">Who 谁用/谁出钱/谁验收<br>What 做什么 · Why 为什么现在<br>Where 什么场景 · When 分几期<br>How 怎么做 · How much 花多少/赚多少<br><br><b>七项缺一，就是"不全"</b></p></div>
+    <div class="card warncard"><h4>③ 利益相关者地图</h4><p class="dim">谁<b>出钱</b> · 谁<b>使用</b>（往往不是出钱的人）· 谁<b>验收</b><br><br>⚠️ <b>谁反对</b><br>——这一栏最容易漏，<b>也最致命</b></p></div>
+    <div class="card"><h4>④ 原话留存（保准）</h4><p class="dim">逐字记<b>带情绪、带数字、带"但是"</b>的句子<br><b>物理隔开两栏</b>：客户说的 / 我理解的<br><b>不许混写</b></p></div>
+  </div>
+  <div class="card badcard mt-l" data-anim="fade-up">
+    <h4>"谁反对"为什么必须问</h4>
+    <p class="dim">一个动了别人权责的平台，反对者<b>不会在需求会上举手，他会在验收会上举手</b>。<br>
+    康养项目的民政 DP-H 闸、教育督导项目的园长材料复核，本质上都是<b>把"谁反对"提前变成了流程里的一道闸</b>。</p>
+  </div>
+  <div class="deck-footer"><span class="ftag">工具②③④</span><span class="slide-number" data-current="6" data-total="18"></span></div>
+  <div class="notes"><p><b>【③ 讲重一点】</b>"谁反对"这一栏，学员一辈子都想不起来填。但它是 To-G 项目最大的雷。<b>你动了谁的权，谁就是你的反对者，而他不会当面说。</b></p>
+  <p><b>【④ 举例要具体】</b>"写'提供土壤检测功能'之前，先留一行客户原话：<b>'我家没有专业仪器，怎么判断土壤？'</b> ——看出来了吗？<b>你的转译把'用户没有仪器'这个致命约束弄丢了。</b>"</p></div>
+</section>
+
+<!-- 7 实操 A -->
+<section class="slide" data-title="实操 A">
+  <div class="kicker">④ 实操 A · 8′</div>
+  <h2 class="title">🔔 说给邻组听</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-accent"><h4>任务</h4><p class="dim">用四句话说清本组命题，<b>当场说给邻组听</b>（模拟说给客户听）</p></div>
+    <div class="card-accent"><h4>输出</h4><p class="dim">四句话 + 一张 <b>5W2H 缺口清单</b>（哪几项现在答不上来）</p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">判据不是"说得好听"，<br><b>是邻组能不能复述回来。</b></p>
+  <div class="card warncard mt-m" data-anim="fade-up">
+    <p class="dim">答不上来的 5W2H 项 <b>不要现编</b>——标「待客户确认」。<br><b>那就是你回去要问的清单。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">实操 A</span><span class="slide-number" data-current="7" data-total="18"></span></div>
+  <div class="notes"><p><b>【组织方式】</b>每组 1 分钟说，邻组 30 秒复述。复述不出来的，说的那组当场重说。<b>不要跳过复述环节</b>——那才是这个练习的全部意义。</p>
+  <p><b>【巡场重点】</b>抓"为谁"答成"所有人"的组、"解决什么"答成自己总结而不是客户原话的组。</p>
+  <p><b>【时间控制】</b>8 分钟很紧。4 组的话每组只有 2 分钟。<b>宁可少做一组也要保证复述环节不省。</b></p></div>
+</section>
+
+<!-- 8 两类模板 -->
+<section class="slide" data-title="两类模板">
+  <div class="kicker">② 启发 · 模板 1/2</div>
+  <h2 class="title">三份真实调研件，露出两类</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:18%"></th><th style="width:40%">A · 平台立项型</th><th>B · 大模型能力型</th></tr>
+    <tr><td><b>核心问题</b></td><td><b>谁出钱、谁用、怎么赚、解决什么错配</b></td><td><b>每类用户会问什么、我们答不答得上来</b></td></tr>
+    <tr><td>段落骨架</td><td>概览 / 角色 / 价值 / 商业模式 / 未来拓展 / 名称</td><td>定位 / 用户及场景（×N 类，含真实提问）/ 内容结构 / 智能体矩阵 / 特别要求</td></tr>
+    <tr><td>最小单位</td><td><b>一条价值主张</b>（可量化）</td><td><b>一条用户真实提问</b></td></tr>
+    <tr><td>范例</td><td>HR项目（HR项目）</td><td>辣椒大模型 / 草业大模型</td></tr>
+    <tr><td>喂给谁</td><td>商业模式画布、财务测算、可研 / 招投标（<b>第六课</b>）</td><td>CQ 能力问题、RAG 知识库、能力边界（<b>第五、七课</b>）</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>先 A 后 B。</b> A 说清"这门生意成不成立"，B 说清"这个模型答不答得上来"。<br>
+  ⚠️ <b>最常见的判断错误：只写 B 不写 A</b>——矩阵画得很漂亮，但说不清谁付钱，<b>第六课财务直接断链</b>。</p>
+  <div class="deck-footer"><span class="ftag">两类模板</span><span class="slide-number" data-current="8" data-total="18"></span></div>
+  <div class="notes"><p><b>【当场点开三份原件】</b><span class="mono">_素材/</span> 下三份，原文未改写。让他们看真东西，不要只看这张表。</p>
+  <p>"A 定不下来（谁付钱、什么模式），<b>B 写得再细也可能是在为一个不成立的生意设计智能体</b>。"</p>
+  <p><b>【模板逐段讲解可以砍】</b>学员手册里六段/五段的作用写全了。这里只讲选型判据和两个范例亮点即可。</p></div>
+</section>
+
+<!-- 9 HR项目好在哪 -->
+<section class="slide" data-title="沉浸 · HR项目">
+  <div class="kicker">③ 沉浸 · 模板 A 范例</div>
+  <h2 class="title">HR项目：好在哪</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:32%">做对了什么</th><th>为什么关键</th></tr>
+    <tr><td><b>概览一段话说清双边</b></td><td>供方/需方/平台方/数据来源/痛点全在。<b>读完这一段，智能体已经能开始做事件风暴了</b></td></tr>
+    <tr><td><b>分开"属主/运营方"与"使用方"</b></td><td>属主决定商业模式和验收，使用方决定功能和体验。<b>分不开，画像就是一锅粥</b></td></tr>
+    <tr><td><b>每类使用方带"他拿它干什么"</b></td><td>不是"高职院校"四个字，而是"指导专业开设规划 / 替代访企拓岗 / 供需洞察决策"三条具体动作——<b>直接是旅程的起点</b></td></tr>
+    <tr><td><b>价值按角色分写且量化</b></td><td>"岗前培训 3 个月 → 1 个月内，每人每月节省 1500 元"<br>这一句同时是<b>热点排序依据 + 财务测算原始锚 + 投标效益论证</b></td></tr>
+    <tr><td><b>三条收入线清清楚楚</b></td><td>培训费 / 劳务外包 / 生态入驻服务费 → <b>有运营盘，一眼判定模式二</b></td></tr>
+    <tr><td><b>名称含义拆到字</b></td><td>龙城（根基）/ 灵犀（解决错配的初心）/ HR项目（摸准产业脉搏）——<b>To-G 评审现场会被反复引用</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>对照反例</b>：只写"大大提升效率、显著降低成本"——到财务测算那步，<b>一个数都推不出来</b>。</p>
+  <div class="deck-footer"><span class="ftag">HR项目</span><span class="slide-number" data-current="9" data-total="18"></span></div>
+  <div class="notes"><p><b>【第 4 条要讲透】</b>"岗前培训 3 个月→1 个月内，每人每月 1500 元"这一句话，<b>在后面三个不同的地方被用到</b>。让学员感受到：<b>一句量化的价值主张，是会一路走到财务模型里的。</b></p>
+  <p><b>【现场点开原件】</b>这一页配合 <span class="mono">_素材/项目描述A_HR项目_原件.md</span> 一起看。</p></div>
+</section>
+
+<!-- 10 真实提问 -->
+<section class="slide tight" data-title="沉浸 · 细化真实提问">
+  <div class="kicker">③ 沉浸 · 模板 B 范例</div>
+  <h2 class="title">⭐ 最有价值的发明：「细化真实提问」</h2>
+  <div class="card mt-s" data-anim="fade-up" style="background:var(--surface-2)">
+    <p class="dim" style="font-size:15.5px;line-height:1.7">
+    （1）我家地块属于砂质土/黏质土，种线椒、螺丝椒还是朝天椒合适？<b>不用专业仪器怎么判断</b>土壤质地与肥力？<br>
+    （5）我买回来的辣椒种子怎么简单辨别发芽率高低、有没有陈种、有没有掺假？<br>
+    （7）辣椒种植补贴、防灾补贴申请条件、流程、每年大概能补多少钱？<br>
+    （10）今年适合储备多少斤辣椒种子明年用？<b>按照我家种植亩数</b>帮我精算一下？</p>
+  </div>
+  <div class="grid g4 mt-m" data-anim="stagger-list">
+    <div class="card"><h4>① 是原话不是转译</h4><p class="dim">"不用专业仪器"暴露真实约束。<br>写成"提供土壤检测功能"<b>就把约束丢了</b></p></div>
+    <div class="card"><h4>② 天然带出数据需求</h4><p class="dim">问补贴→要政策库<br>问"按我家亩数"→要地块数据<br><b>每条提问背后挂着一份数据源</b></p></div>
+    <div class="card"><h4>③ 就是 CQ 的雏形</h4><p class="dim">"能力问题 = 验收用例"<br><b>康养项目 48 条行为 CQ 就是这么来的</b></p></div>
+    <div class="card"><h4>④ 划出能力边界</h4><p class="dim">答不上来的：补数据，或明确说"这条我们不做"<br><b>不敢列真实提问的项目，多半心里没底</b></p></div>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">每类用户 <b>≥10 条</b>真实提问。<br>凑不满，说明你还不了解——<b>回去再问。</b></p>
+  <div class="deck-footer"><span class="ftag">真实提问</span><span class="slide-number" data-current="10" data-total="18"></span></div>
+  <div class="notes"><p><b>【念出来，别只是投屏】</b>那四条提问要用椒农的语气念。学员听到"我家地块""按我家亩数"这种说法，才能体会到什么叫"用户会脱口而出的原话"。</p>
+  <p><b>【≥10 条是硬指标】</b>"凑不满 10 条，说明你对这类用户的了解还不够，<b>回去再问</b>。"——这句话要说死，不然学员会写 5 条交差。</p>
+  <p><b>【讲完这一页立刻进实操 B】</b></p></div>
+</section>
+
+<!-- 11 实操 B -->
+<section class="slide" data-title="实操 B">
+  <div class="kicker">④ 实操 B · 7′</div>
+  <h2 class="title">🔔 填到能判模式为止</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-accent"><h4>任务</h4><p class="dim">选 A 还是 B（或 A+B），把骨架填到<b>能判断交付模式</b>为止</p></div>
+    <div class="card-accent"><h4>输出</h4><p class="dim">模板骨架 + <b>一句话交付模式判定</b>（模式一 / 模式二，及理由）</p></div>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up"><b>7 分钟填不完整份模板，也不要求填完。</b><br>
+  这一步只要判出模式——<b>因为模式决定后面所有动作的轻重</b>：第六课用哪套财务语言、第七课做几屏 demo，全看它。</p>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:32%">问自己</th><th style="width:34%">模式一 Token-SaaS</th><th>模式二 平台建设+运营</th></tr>
+    <tr><td>有没有运营盘？</td><td>❌ 没有</td><td>✅ 有（站点 / 会员 / 政府购买）</td></tr>
+    <tr><td>要不要写可研？</td><td>通常不要</td><td><b>必须</b></td></tr>
+    <tr><td>财务语言</td><td>MRR · LTV:CAC · NRR</td><td><b>IRR · 回本周期 · NPV</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">实操 B</span><span class="slide-number" data-current="11" data-total="18"></span></div>
+  <div class="notes"><p><b>【别让他们填完】</b>到 7 分钟准时喊停。学员会想把模板填完——<b>拦住</b>。这一步的验收物只有"模式判定 + 一句理由"。</p>
+  <p><b>【逐组问一遍模式判定】</b>4–5 组，每组 20 秒说"我们是模式几，因为……"。判反的当场纠正，<b>因为第六课要用</b>。</p></div>
+</section>
+
+<!-- 12 B-11 事实 -->
+<section class="slide" data-title="B-11 · 事实">
+  <div class="kicker">③ 沉浸 · <b>反例 B-11 主场</b> 1/3</div>
+  <h2 class="title">这两份，是同一份模板换领域填的</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-outline"><h4>结构对应</h4><p class="dim">七类用户结构对应<br>"一问得方案 / 一问选X / 一问做决策"句式相同<br>"五大方向"骨架相同</p></div>
+    <div class="card badcard"><h4>结尾那段话<b>逐字相同</b></h4><p class="dim" style="font-size:14px">"过程中注意来源可查、过程可溯、结果可验，再加上专家背书与承诺交付，客户就会认为权威、有效、敢买单。<b>这不是技术问题，是信任体系问题</b>……"</p></div>
+  </div>
+  <div class="card goodcard mt-l" data-anim="fade-up">
+    <h4>✅ 正面：这是"平台 = 方法论固化物"在<b>输入端</b>的活体</h4>
+    <p class="dim">第二课讲的是工具 / 插件的固化。这里证明<b>调研模板本身也是可固化的资产</b>——第二个项目不必从零想"该问客户什么"，直接换领域填。<br>
+    <b>FDE 的复用不只发生在代码层，更发生在提问结构层。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">B-11</span><span class="slide-number" data-current="12" data-total="18"></span></div>
+  <div class="notes"><p><b>【必须当场打开两份原件】</b>不要只投这张幻灯片。把 <span class="mono">_素材/</span> 下两份 md 并排打开，<b>滚到结尾，对着念那一段</b>。念完停两秒。这个震撼效果口头转述达不到。</p>
+  <p><b>【先讲正面，再翻面】</b>顺序不能反。先让他们认同"模板可以复用，这是好事"，下一页再给他们看代价。<b>直接讲反面，学员会得出"不要复用模板"的错误结论。</b></p></div>
+</section>
+
+<!-- 13 B-11 反面 -->
+<section class="slide" data-title="B-11 · 反面">
+  <div class="kicker">③ 沉浸 · <b>反例 B-11 主场</b> 2/3</div>
+  <h2 class="title">⚠️ 但模板会把<b>数字</b>一起带过去</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:12%"></th><th>原文</th></tr>
+    <tr><td><b>草业项目</b></td><td>把<b>某草业集团 30 年</b> 10万+ 生态修复案例、500+ 标准、200+ 专利、专家经验融入大模型</td></tr>
+    <tr><td><b>辣椒</b></td><td>把辣椒种植领域 <b>10万+种植案例、500+标准、200+专利</b>、300+专家经验融入大模型</td></tr>
+  </table>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card goodcard"><h4>草业项目的三个数</h4><p class="dim" style="font-size:17px">挂在"<b>某草业集团 30 年积累</b>"上<br><b>是有主的</b></p></div>
+    <div class="card badcard"><h4>辣椒的同样三个数</h4><p class="dim" style="font-size:17px"><b>没有主</b><br>——它是<b>模板带过来的</b></p></div>
+  </div>
+  <p class="dim mt-m" data-anim="fade-up">同理，两份里"关系数 <b>40万 / 200万 / 500万+</b>"也<b>逐字相同</b>。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">复用模板可以，<b>复用数字不行。</b></p>
+  <div class="deck-footer"><span class="ftag">B-11 反面</span><span class="slide-number" data-current="13" data-total="18"></span></div>
+  <div class="notes"><p><b>【这是全课最重的一页】</b>"一个从别处抄来的'200+ 专利'写进可研，是<b>编造</b>——比空缺更有害。这和第一课那句'错文号比空缺更有害'是<b>同一条纪律</b>。"</p>
+  <p><b>【B-11 与 B-10 是镜像，说清楚】</b>B-10 说<b>查不到就别编</b>（输出端）；B-11 说<b>别人的数字不是你的数字</b>（输入端）。共用一句判据：<b>空缺可以补，编造无法挽回。</b></p>
+  <p><b>【预期反应】</b>会有学员说"可是甲方就爱看这种数字"。回答：<b>爱看是真的，但署名的是你。评审专家问一句"这 200 项专利是哪 200 项"，你答不上来，整份可研的可信度当场归零。</b></p></div>
+</section>
+
+<!-- 14 B-11 三条规矩 -->
+<section class="slide" data-title="B-11 · 三条规矩">
+  <div class="kicker">③ 沉浸 · <b>反例 B-11 主场</b> 3/3</div>
+  <h2 class="title">落到操作上的三条规矩</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card goodcard"><h4>① 先清零，再回填</h4><p class="dim">换项目复用模板：<b>先清空所有数字与专有名词</b>，再逐项回填。<br>回填不了的标 <span class="mono">[待客户提供]</span></p></div>
+    <div class="card goodcard"><h4>② 每个数要有主</h4><p class="dim">每个量化断言必须能回答<br><b>"这个数是谁的、从哪来"</b><br>——答不上来<b>就删</b></p></div>
+    <div class="card goodcard"><h4>③ 分区标注</h4><p class="dim">区分<b>方案目标值</b>和<b>实测值</b><br>在句子里就标明，不放在脚注</p></div>
+  </div>
+  <div class="card-accent mt-l" data-anim="fade-up">
+    <h4>B-11 与 B-10 是一对镜像</h4>
+    <p class="dim"><b>B-10</b>（输出端）：查不到就别编　｜　<b>B-11</b>（输入端）：别人的数字不是你的数字<br>
+    共用一句判据：<b>空缺可以补，编造无法挽回。</b></p>
+  </div>
+  <div class="deck-footer"><span class="ftag">三条规矩</span><span class="slide-number" data-current="14" data-total="18"></span></div>
+  <div class="notes"><p><b>【② 是可执行的自检动作】</b>让学员现在就拿自己命题卡上的数字问一遍："这个数是谁的？"——大部分组会发现自己答不上来。<b>那就是他们回去要问客户的清单。</b></p></div>
+</section>
+
+<!-- 15 输入 ≠ 文档 -->
+<section class="slide" data-title="提示词工程 · 输入≠文档">
+  <div class="kicker">② 启发 · 提示词工程 1/3</div>
+  <h2 class="title">给模型吃的输入，不是给人看的文档</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card-outline"><h4>给人看的文档</h4><p class="dim">靠上下文推断，<b>留白是优雅</b><br>段落叙述，逻辑藏在行文里<br>术语换着说，避免啰嗦<br>数字散落各章，读者自己会对<br>篇幅越长越显充分</p></div>
+    <div class="card-accent"><h4>给智能体吃的输入</h4><p class="dim"><b>留白是漏洞</b>，隐含前提必须显式<br><b>结构化</b>：表格 / 清单 / 字段<br><b>术语锁定</b>，一个概念一种写法<br><b>数字锚在单点</b>，别处引用不重算<br>篇幅越长越稀释重点，<b>约束前置</b></p></div>
+  </div>
+  <p class="quote-big mt-l" data-anim="fade-up">人读文档会脑补，模型不会。<br><b>你省下的每一句，它都会自己编一句填上。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">这是 <b>FDE 的活，不是"AI 使用技巧"</b>。技巧是话术；这里讲的是<b>把纪律写进输入</b>。</p>
+  <div class="deck-footer"><span class="ftag">输入≠文档</span><span class="slide-number" data-current="15" data-total="18"></span></div>
+  <div class="notes"><p>"信息问全问准了，还没完。<b>组织方式错了，模型照样答偏。</b> 这一步学员最常见的想法是把资料丢给它就行——不行。"</p>
+  <p><b>【术语那一行值得多说一句】</b>"写文章我们避免重复会换着说，但对模型来说<b>同一个概念必须只有一种写法，否则它认为你在说两件事</b>。"</p></div>
+</section>
+
+<!-- 16 六条规范 + 活体 -->
+<section class="slide" data-title="提示词工程 · 六条规范">
+  <div class="kicker">② 启发 · 提示词工程 2/3</div>
+  <h2 class="title">六条规范，每条都有现成实物</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:6%">#</th><th style="width:26%">规范</th><th style="width:26%">现成实物</th><th>不这么做会怎样</th></tr>
+    <tr><td>1</td><td><b>锚定口径</b><br><span class="dim">术语表+核心数据+禁用词，写最前面</span></td><td><span class="mono">_WRITING_BRIEF.md</span> §一/§二</td><td>各写各的，装配期打架（B-2 / B-5）</td></tr>
+    <tr><td>2</td><td><b>结构化契约</b><br><span class="dim">每段标注「谁填+产出哪个要素」</span></td><td>12 段契约</td><td>自由发挥的需求文档，下游没法机械消费</td></tr>
+    <tr><td>3</td><td><b>约束前置</b><br><span class="dim">红线写开头，不写附录</span></td><td>BRIEF 的 ⛔ 禁用词块</td><td><b>埋在第 8 页的合规要求＝没写</b></td></tr>
+    <tr><td>4</td><td><b>单点数字</b><br><span class="dim">一个数只在一处定义</span></td><td>BRIEF 核心数据表</td><td>分节作者各算一遍（<b>B-5</b>）</td></tr>
+    <tr><td>5</td><td><b>诚实占位</b><br><span class="dim">查不到写 [待补]，别让它猜</span></td><td>11 处 <span class="mono">[本地待补文号]</span></td><td>模型会"合理推测"一个文号出来（<b>B-10</b>）</td></tr>
+    <tr><td>6</td><td><b>产出格式契约</b><br><span class="dim">明确要什么、不要什么</span></td><td>「<b>只回摘要不回正文</b>」</td><td>子智能体把正文全粘回来，上下文爆炸</td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">六条规范</span><span class="slide-number" data-current="16" data-total="18"></span></div>
+  <div class="notes"><p><b>【活体示范，一定要讲】</b>"这套手册是<b>多个子智能体并行写出来的</b>。给它们的输入只有四样：范围界定（只负责哪两本）、风格范本（先读哪两本模仿）、硬纪律（数字不重算+案例成熟度+口播稿原文照搬）、产出格式（<b>只回摘要 ≤200 字，不要把正文粘回来</b>）。结果：多组并行、<b>零口径漂移</b>、上下文没爆。"</p>
+  <p><b>【一个值得讲的细节】</b>"那次并行里有一组回报——'讲义 06 把置信度闸写成第五条硬判据，与现行口径冲突'。<b>因为输入里明确写了口径，它才认得出冲突。</b> 如果输入只说'参考讲义 06 写一下'，<b>它会照抄错的</b>。"</p></div>
+</section>
+
+<!-- 17 输入包三层 + 实操 C -->
+<section class="slide" data-title="输入包三层 · 实操 C">
+  <div class="kicker">② 启发 3/3 + ④ 实操 C · 10′ · <b>本课落点</b></div>
+  <h2 class="title">模板填完了，还不是 prompt</h2>
+  <div class="chain mt-s" data-anim="fade-up" style="font-size:20px">
+    <span class="step">① 事实层</span><span class="arrow">+</span>
+    <span class="step">② 口径层</span><span class="arrow">+</span>
+    <span class="step">③ 任务层</span><span class="arrow">=</span>
+    <span class="step" style="background:var(--grad-soft);border-color:var(--accent)">_INPUT.md</span>
+  </div>
+  <table class="t mt-m" data-anim="stagger-list">
+    <tr><th style="width:16%">层</th><th style="width:40%">装什么</th><th>缺了会怎样</th></tr>
+    <tr><td><b>① 事实</b></td><td>模板 A/B 内容 + <b>客户原话摘录</b></td><td>它开始<b>编业务</b></td></tr>
+    <tr><td><b>② 口径</b></td><td>术语表 · 关键数字（<b>每个注明来源</b>）· 禁用词 · 成熟度标注</td><td>术语和数字<b>每次都不一样</b>，装配时打架</td></tr>
+    <tr><td><b>③ 任务</b></td><td>要做什么 · 产出格式 · <b>不许做什么</b></td><td>它给你一篇<b>散文</b>，而不是你要的表</td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">"它理解不了我的需求"，<br>九成是你的输入里<b>没有 ② 和 ③</b>。</p>
+  <div class="deck-footer"><span class="ftag">输入包三层</span><span class="slide-number" data-current="17" data-total="18"></span></div>
+  <div class="notes"><p><b>【实操 C 是本课落点，10′ 必须保住】</b>骨架在学员手册里，让他们照抄结构填。</p>
+  <p><b>【巡场三个抓手】</b>①口径层被跳过的组（最常见）；②任务层只写"要什么"没写"不许做什么"的组；③口径层数字没注明来源的组——<b>那正是刚讲完的 B-11</b>。</p>
+  <p><b>【收口，交代下游验证】</b>"这份输入包<b>第四课会被真的用掉</b>——跑画像分析时直接喂给它。如果第四课跑出来的画像很空洞、或者术语每次都不一样，<b>回来看是不是口径层缺了</b>。这是一条能自我验证的闭环，别等到第六课才发现口径散了。"</p>
+  <p><b>【难听话】</b>"模型不会读心；<b>你没写的约束，它没有义务遵守。</b>"</p></div>
+</section>
+
+<!-- 18 checkout -->
+<section class="slide" data-title="checkout">
+  <div class="kicker">checkout · 10′</div>
+  <h2 class="title">十二项对照</h2>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:20%">维度</th><th style="width:40%">达标</th><th>警示</th></tr>
+    <tr><td>模板选型</td><td>说得出该用 A / B / A+B 及理由</td><td>直接开写，没判过模式</td></tr>
+    <tr><td>完整性 A / B</td><td>A 六段齐；B 每类用户三件套齐（场景/刚需/≥10 提问）</td><td>缺"商业模式"或"角色" → <b>一票警示</b>；提问 &lt;10 条或是转译</td></tr>
+    <tr><td>可量化</td><td>价值段至少 1 处带数字</td><td>通篇"大大提升""显著改善"</td></tr>
+    <tr><td><b>数字有主</b></td><td>每个量化断言能答"这数是谁的、从哪来"</td><td><b>从别处模板带来的数字 → 一票警示（B-11）</b></td></tr>
+    <tr><td>边界诚实</td><td>拿不准处标"待客户确认"</td><td>把自己的猜测写成客户需求</td></tr>
+    <tr><td><b>输入包三层</b></td><td><span class="mono">_INPUT.md</span> 事实/口径/任务<b>三层齐全</b></td><td>只有事实层 → <b>后面必定抱怨"它答得不对"</b></td></tr>
+    <tr><td><b>口径层有主</b></td><td>每个关键数字注明来源 + 成熟度标签</td><td>数字裸奔</td></tr>
+    <tr><td><b>任务层有禁令</b></td><td>写明<b>不许做什么</b></td><td>只写"要什么"</td></tr>
+    <tr><td>电梯演讲</td><td>四句话说完，<b>且邻组能复述回来</b></td><td>自己觉得说清楚了，别人复述不出</td></tr>
+    <tr><td>5W2H / 谁反对</td><td>七项都有着落；利益相关者<b>四栏含"谁反对"</b></td><td>缺项而不自知；只填了三栏</td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">checkout</span><span class="slide-number" data-current="18" data-total="18"></span></div>
+  <div class="notes"><p><b>【互评方式】</b>组间交换 <span class="mono">_INPUT.md</span>，用这张表打勾。<b>重点看"数字有主"和"三层齐全"两项</b>——其余可以放松。</p>
+  <p><b>【课末回收信息衰减链】</b>回到第 3 屏那张图，问："刚才那四个工具，各守哪一道衰减？" 然后接第一课：<b>三条根因在这条链上一一对应，FDE 守的就是这条链。</b></p>
+  <p><b>【B-7 一句话复调，不展开】</b>"信息采集也会犯求全的毛病——把客户随口提的边缘场景当核心需求写进去，后面整条链都会为它买单。<b>采集要全，但'全'的边界是业务优先级，不是穷举。</b>"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

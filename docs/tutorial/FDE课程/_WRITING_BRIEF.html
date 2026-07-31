@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDE 课程口径总纲（改任何课程内容前必读）</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">FDE 课程口径总纲（改任何课程内容前必读）</h1>
+</header>
+<h1 id="fde-课程口径总纲改任何课程内容前必读">FDE 课程口径总纲（改任何课程内容前必读）</h1>
+<blockquote>
+<p><strong>本文件是全课程的唯一真相源。</strong> 术语、数字、案例成熟度、商业口径、反例分配，冲突时一律以这里为准。 康养项目蓝本的对应文件是 <code>可研报告/_WRITING_BRIEF.md</code>——<strong>这份 BRIEF 自身就是 L6 的教具</strong>：多智能体一致性靠锚定口径，不靠自觉。</p>
+</blockquote>
+<blockquote>
+<p><strong>版本 v0.3</strong>（2026-07-31 按八课制重写引用体系）。课次编号 <strong>L1–L8</strong>；旧的"第 N 讲"（v0.1 十讲）与"T1–T9"（v0.2 十册）已全部换算，对照表见 <code>00_课程总纲.md</code> 第九节。</p>
+</blockquote>
+<h2 id="〇维护纪律红线">〇、维护纪律（红线）</h2>
+<p><strong>课程内容已产出完毕</strong>（<code>课程/L1–L8_*.md</code>）。以下纪律适用于<strong>任何后续改动</strong>——你自己改、或派子智能体改：</p>
+<ul>
+<li><strong>改哪一课就只改那一课的文件</strong>；不要顺手改别课、不要改总纲、不要动 figures。跨课的口径变更<strong>先改本文件</strong>，再逐课回改。</li>
+<li><strong>每课两件产物</strong>：<code>slides/LN_*.html</code>（<strong>讲师投屏，口播稿在 <code>.notes</code> 演讲者备注</strong>）+ <code>课程/LN_*.md</code>（<strong>学员手册，打印发学员</strong>）。改内容时<strong>两边都要改</strong>，别只改一边。</li>
+<li><code>讲义/</code>、<code>工作坊/NN_*_workshop.md</code>、<code>工具实操/T*.md</code> 都是历史素材，改它们不影响授课。</li>
+<li><strong>派子智能体时只回摘要</strong>：改了哪几节、动了哪些数字、用了哪个反例编号、与哪几课有交叉。<strong>不要把正文粘回来</strong>（防上下文爆炸）。</li>
+<li><strong>每一个论断后面必须跟一个具体证据或数字</strong>（见第二节数据表 / 第二·补 案例库）。空洞概念堆砌一律不合格。</li>
+<li><strong>数字一律引用不重算</strong>（反例 B-5）。第二节的数字与已冻结的成品可研逐字一致，<strong>改它们等于制造第二个真相源</strong>。</li>
+<li>外部事实（<strong>L1「别人怎么做」段</strong>）<strong>必须联网核证</strong>，逐条标来源；查不到写"未获证实"，<strong>绝不虚构</strong>。</li>
+<li>面向内部专业人员，要有观点、敢说难听话。不吹 AI 万能，如实写智能体做不好、必须人接管处。</li>
+</ul>
+<blockquote>
+<p><strong>编号纪律</strong>：<strong>L1–L8 = 课次</strong>。能力定级一律写 <strong>Lv.1 见习 / Lv.2 胜任 / Lv.3 主理</strong>，<strong>不写 L1/L2/L3</strong>——旧讲义与旧课件里的"L1 见习"讲师要当场改口。</p>
+</blockquote>
+<h2 id="一术语统一表首现附英文全课程锁定写法">一、术语统一表（首现附英文，全课程锁定写法）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>术语</th>
+<th>锁定写法</th>
+<th>禁止写法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FDE</td>
+<td>前置交付工程师（Forward Deployed Engineer, FDE）</td>
+<td>前线工程师 / 交付工程师（含义窄）</td>
+</tr>
+<tr class="even">
+<td>OPC</td>
+<td>一人公司（One-Person Company, OPC）</td>
+<td>全能工程师 / 超级个体</td>
+</tr>
+<tr class="odd">
+<td>数智本体</td>
+<td>数智本体（bounded context，限界上下文）</td>
+<td>知识本体 / 领域模型（不精确）</td>
+</tr>
+<tr class="even">
+<td>五要素 OAG</td>
+<td>五要素（Object/Link/Function/Rule/Action，简称 OAG）</td>
+<td>五元组</td>
+</tr>
+<tr class="odd">
+<td>HIL</td>
+<td>人在环（Human-in-the-Loop, HIL）/ 人工闸门</td>
+<td>人工审核（弱化了"闸"的强制性）</td>
+</tr>
+<tr class="even">
+<td>站长置信度闸</td>
+<td>站长 HIL（增收闸）· 置信度闸</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>民政闸</td>
+<td>民政 DP-H 闸（监管发布闸）</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>微康养网络</td>
+<td>微康养网络（O2O 嵌入式社区医养）</td>
+<td>社区养老</td>
+</tr>
+<tr class="odd">
+<td>三元支付</td>
+<td>三元支付（自费 + 长护险 + 政府购买）</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>工程化平台</td>
+<td>Astra Studio（studio-planner/insight/docs/quality/platform 各插件）</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>建模管线</td>
+<td>studio-planner（事件风暴）→ domain-model（限界上下文）→ clife-onto-engine（本体）→ citations 治理 → 可研报告生成</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二核心数据表唯一真相源一律引用不重算--见反例-b-5">二、核心数据表（唯一真相源，一律引用不重算 —— 见反例 B-5）</h2>
+<p><strong>康养项目建模量化链条（背下来）：</strong></p>
+<ul>
+<li>102 业务事件 → 16 事件簇 → 7 角色画像 → 7 条用户旅程 → 5 条业务流程 → 10 个热点（P1–P5 分层）→ <strong>7 域限界上下文 D1–D7</strong></li>
+<li>问卷校准：<strong>368 份</strong>（310 + 58 一手问卷）</li>
+<li>五要素合计：<strong>Object 76 / Link 75 / Function 38 / Rule 47（声明式 18 + function 骨架 29）/ Action 54 / HIL 26</strong></li>
+<li>代码骨架：<strong>3835 行</strong> Python 插件骨架 + 21 个 YAML；7/7 py_compile ✓，只 import sdk 红线 ✓</li>
+<li>结构校验：A 结构 7/7 ✅（零悬空引用）· B source 治理 7/7 ✅（0 空 source）</li>
+<li>知识图谱：14 类知识库 / 8 个知识图谱 / <strong>约 350 万三元组</strong></li>
+<li>FDE 收尾骨架：<strong>121 处 NotImplementedError</strong>（29 function 规则体 + 54 Action 回写 + 38 Function 派生）+ 7 seed</li>
+<li>行为 CQ：48 条黄金问题（含 17 条 rejected 兜底）</li>
+</ul>
+<p><strong>7 域清单（写全称时用）：</strong> | 域 | ontology_id | 中文 | 角色 | HIL | |---|---|---|---|---| | D1 | kangyang-agent-core | 康养智能体中枢 | Core | 2（站长 HIL） | | D2 | policy-settlement-hub | 政策结算枢纽 | Core-Support | 0*（4 处经办拍板注释） | | D3 | member-revenue-flywheel | 会员营收飞轮 | Core/Add-on | 1 | | D4 | home-care-health | 居家健康照护 | Core | 6（含急救指挥） | | D5 | institution-ops | 机构运营 | Add-on | 5 | | D6 | civil-affairs-govern | 民政治理 | Core(G) | 8（DP-H 闸） | | D7 | kangyang-llm-kb | 康养大模型知识库 | Generic-Support | 4 |</p>
+<p><strong>两大闭环 + 两道闸门：</strong></p>
+<ul>
+<li>闭环①：会员转化复购飞轮；闭环②：六智能体主动服务链路（洞察→根因→需求→方案→⭐HIL→执行→评估→回流）</li>
+<li>闸门①：站长 HIL（增收决策，置信度闸防橡皮图章，阈值占位 0.75 待定）；闸门②：民政 DP-H（监管发布）</li>
+</ul>
+<p><strong>citations 治理（价值观支点：L5 下半场主场 · L1「别人怎么做」+ L7 各复调一次）：</strong></p>
+<ul>
+<li>18 处挂<strong>已核验国标/法规</strong>：等保 GB/T 22239-2019、养老机构服务安全 GB 38600-2019、DIP 技术规范 医保办发〔2020〕50号、长护失能等级 医保办发〔2021〕37号、老年人能力评估 GB/T 42195-2022、养老机构等级 GB/T 37276-2018、个保法第 6/15/29/47 条、数据安全法第 21 条、医保基金监管 国务院令第735号、养老机构管理 民政部令第66号 等</li>
+<li><strong>11 处坚决保留占位不编造</strong>：7 处本地文号（<code>[本地待补文号]</code>）+ 4 处企业 SOP 编号（<code>[企业标准,FDE 补编号]</code>），每处已锚定上位国标，转成向某市医保局/民政局/政数局逐项取件的清单</li>
+<li>原话引用（可直引）：<strong>"错文号比空缺更有害。"</strong></li>
+</ul>
+<p><strong>商业口径（内部课程，可用真实值）· ⚠️ 2026-07-20 修订版口径，与已冻结的成品可研一致：</strong></p>
+<blockquote>
+<p><strong>⛔ 全课禁用词</strong>（2026-07-20 起）：<strong>合资公司 / 股权比例 / 持股 / 注册资本 / 股东会 / 董事会 / 实缴 / 两盘隔离 / 盘一 / 盘二</strong>。 讲师若照读旧版讲义或旧 PPT 撞到这些词，<strong>当场改口</strong>。这条本身就是 L5 下半场「锚定口径单点修改」的活例。</p>
+</blockquote>
+<ul>
+<li><strong>主体：项目联合体</strong>（<strong>不是</strong>合资公司）= 广东嘉城集团有限公司（康养项目本地国资，<strong>运营主体</strong>）+ 深圳数联天下智能科技有限公司（技术方，<strong>EPC 承建与技术授权</strong>）</li>
+<li><strong>投—建—运分离（EPCO）</strong>：投 = 业主投资方持平台资产并公开招标；建 = 数联天下经公开招标以市场公允价 EPC 承建二期平台并收技术授权费；运 = 嘉城集团牵头运营（只做 O、不承担 EPC）。<strong>技术方双重身份（EPC 工程款 / 技术授权费）分账清晰、独立定价。</strong></li>
+<li><strong>投资</strong>：一期城市级康养平台资产约 <strong>1.36 亿</strong>（<strong>依托条件，不计入本轮新增投资</strong>）；二期新增软件 <strong>3,200 万</strong>，预算归属<strong>五块</strong>（<strong>不是六块</strong>）= 康养行业大模型 1,580 万(49.4%) / 五端业务系统 800 万(25.0%) / 数据中台与经营驾驶舱 300 万(9.4%) / 与一期系统集成对接 200 万(6.2%) / 实施与运维 320 万(10.0%)。<strong>微康养运营功能不单列预算</strong>，并入五端业务系统</li>
+<li><strong>资金安排</strong>：统一表述为<strong>分账核算</strong>（取代"两盘隔离"）。站点经营以回款滚动自筹</li>
+<li>微康养：约 <strong>60 个站点</strong>，"15 分钟健康服务圈"，单店峰值资金约 73 万、约 <strong>21 个月回本</strong>，单站 1.5–5 人</li>
+<li><strong>效益（基准口径，数字与成品可研逐字一致）</strong>：营收约 <strong>3.83 亿/年</strong>，EBITDA 约 <strong>5,219 万</strong>，净利约 <strong>3,535 万</strong>（长护按运营分润口径入账）；<strong>运营口径 IRR ≈15.2%（第 9 年回本，主口径）</strong>，远期上行 ≈17.9%（第 8 年）；<strong>发改/财评口径 ≈8.7%</strong>（第 11 年回本，高于国企 6% 门槛）；15 年累计净现金流约 <strong>+2.0 亿</strong>、NPV(6%) 约 <strong>+7,770 万</strong>
+<blockquote>
+<p>⚠️ <strong>口径名纠正</strong>：主口径叫<strong>运营口径</strong>，<strong>不叫"合资口径"</strong>（"合资"已禁用）。 ⚠️ <strong>别引内部速查表那个 IRR ≈7%</strong>——那是更早的附件 B「全投资口径」，成品可研已复核并拆成运营口径 / 发改口径两档。<strong>引用一律以成品可研为准。</strong></p>
+</blockquote></li>
+<li>人力对比（<strong>L1 Why · 认知杠杆段</strong>的实证核心）：传统 = 产品经理+架构师+行业顾问+方案经理+美工 <strong>5+ 人 / 数周</strong>；本次 = <strong>1 名 FDE + 智能体编队</strong></li>
+<li>交付物：100+ 页可研（11 章 / ~11 万字 / 26 图）+ 2 份附录 docx，格式对齐客户既有模板</li>
+</ul>
+<h2 id="二补-案例库--fde-两大交付模式主轴详见-案例矩阵_跨项目对照md">二·补 案例库 —— FDE 两大交付模式（主轴，详见 <code>案例矩阵_跨项目对照.md</code>）</h2>
+<blockquote>
+<p><strong>核心框架</strong>：四个真实项目 = <strong>两大 FDE 交付模式</strong>的实例（不按行业分，按交付模式分）。FDE 的第一个判断是"这是哪种模式的活"。任何 callout 引用必须带下表"成熟度状态"标签，不得拉平当等同实证。</p>
+</blockquote>
+<p><strong>模式一 · Token 计费智能体 SaaS 应用</strong>（轻/快/产品化/按量计费/agent 即产品）</p>
+<ul>
+<li>交付物=可跑 agent 应用+本体+HIL；商业=按 token/调用/席位计费、无运营盘；团队轻（1 FDE + 平台组）；HIL 命门在应用内裁定/质检闸。</li>
+<li>代表：<strong>教育督导项目</strong>。注："Token-SaaS"是 C-Life 商业定位；教育督导项目源材料述其"平台赋能/游学并行外挂"、未见计价表，讲"定位为按量 SaaS"不编单价。</li>
+</ul>
+<p><strong>模式二 · 大型平台建设 + 生态运营</strong>（重/长周期/投建运/多元收入）</p>
+<ul>
+<li>交付物=可研+平台建设+运营+财务测算+本体+多端；商业=投建运+运营盘+碳汇/交易/数据要素；团队重（主理 Lv.3 + 见习 + 平台组）；FDE 全链 S1–S7 尤重 S5 合规/S6 可研/商业建模；HIL 命门=增收闸+监管发布闸+凭证闸。</li>
+<li>代表：康养项目（标杆）、草业项目、辣椒。</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>案例（所属模式）</th>
+<th>成熟度状态（引用必带）</th>
+<th>可引用范围</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>🟢 康养项目（模式二·标杆）</td>
+<td><strong>已交付·全域本体已编译</strong>（7 域·唯一）</td>
+<td>全部量化链条（本 BRIEF 第二节），可直引。<strong>3835 行口径 = compiled 下纯 .py 行数</strong>（含 yaml 为 4303 行，别混用）</td>
+</tr>
+<tr class="even">
+<td>🟢 教育督导项目（模式一·saihan-preschool）</td>
+<td><strong>已建模+已出方案+可运行 Mock demo</strong>（本体未编译，<code>status.json</code> phase=planning、无 compiled 目录）</td>
+<td>与康养项目同套 studio 建模（33 事件/3 画像李科长·张园长·王老师/7 热点）、2 插件 13 skill、2 专家、<strong>3 处应用内 HIL 闸（OKR 审核/材料复核/强制提交）</strong>、6×23×59×~150 评估细则、无运营盘。<strong>demo 有 47 个 page.tsx + 18 张成品截图，AI 是 Mock 但数据是真的</strong>（<code>lib/data.ts</code> 用 fs 读 79 园真实 CSV，7 张表）+ 48KB PRD。<strong>⚠️ 园所数源内不一（99/124/79）必标"口径待核"（B-5 活体）</strong></td>
+</tr>
+<tr class="odd">
+<td>🟡 辣椒大模型（模式二·app-pepper）</td>
+<td><strong>方案级 + pilot 级编译本体</strong>（<strong>demo 不存在</strong>，<code>demo-app/</code> 仅 .gitkeep）</td>
+<td>"7类用户/7智能体(椒育椒种椒水椒保椒控椒易椒溯)/3基础模型/25类实体设计"结构；<strong>效益数字（成本降20%、快检1秒、育种6-8→2-4年、关系数40万/200万/500万+、10万+案例）一律标"方案目标值/规划量级/客户口述，非实测"</strong>；README 1950 vs 实测 1513 口径不一。<strong>本体已编译但极小：<code>chili</code> 租户 objects 5 / links 0（无 links 目录）/ actions 2 / rules 7 / functions 1</strong> —— 只建对象不建关系＝本体退化成孤岛，<strong>L5 上半场</strong>反面教具</td>
+</tr>
+<tr class="even">
+<td>🟡 草业大模型（模式二·app-grass·"某草业集团"）</td>
+<td><strong>方案 + Mock demo + pilot 级编译本体</strong>（<strong>demo AI 是 Mock</strong>）</td>
+<td>"7类用户/5智能体(草育草修草易草机草碳)/OAG约束求解/<strong>11 页 demo</strong>"结构；<strong>demo 必标"交互外壳、AI 为 Mock 关键词路由、非真模型"；"100%合规率"标"OAG硬门设计承诺、未验证"；效益数字标"方案目标值"</strong>（关系数与辣椒逐字相同=同模板复用）。<strong>⚠️ 页数按 11 讲</strong>（README 标题写"13 个页面"，但其自身表格与 <code>app/**/page.tsx</code> 实测均为 11 —— 源内不一，取实测）。<strong>本体已编译：<code>grass</code> 租户 objects 7 / links 3 / actions 2 / rules 6 / functions 1 + explorer.html(364KB) + 3 个训练语料 jsonl</strong></td>
+</tr>
+<tr class="odd">
+<td>🟢 HR项目「HR项目」（模式二·<code>~/Codes/hr-dlink-plugins</code>）</td>
+<td><strong>完整建模 + 7 类文书全生命周期</strong>（本体未编译）</td>
+<td>产教融合人力供需智能撮合平台（代号 linxi-edutech，广西人才集团承建）。完整 studio 套件 + <strong>9 个插件的 skill-map</strong>；<strong>7 类政府文书各 md/docx/pdf 三格式：项目建议书/可研/建设方案(227KB)/初步设计/招标文件(61KB)/投标文件(88KB)/验收材料(71KB)</strong> —— <strong>全部案例中唯一覆盖「招标↔︎投标↔︎验收」闭环</strong></td>
+</tr>
+<tr class="even">
+<td>🟢 学前教育项目（模式二·<code>Plugins/liuzhou-preschool-plugins</code>）</td>
+<td><strong>可研满配 + 报价财评包，但建模端半配</strong></td>
+<td>653KB 可研（44 分章 + figures manifest）+ 送审报价包 Z00–Z04 + 内部财评包 N01–N07 + NESMA 功能点估算 + 单一来源论证。<strong>⚠️ 无 studio/ 目录、无 persona/journey/domain-map/ontology-map —— 只能在 L6/L7 教交付物与财评，绝不能拿到 L4 教认知萃取</strong></td>
+</tr>
+<tr class="odd">
+<td>— 通用底座 smart-agriculture</td>
+<td>仅 studio 规划件（无 SKILL/无编译本体）</td>
+<td>辣椒/草业项目共用底座、各自特化（7/5 智能体）=<strong>L2「介绍工具」段</strong>"平台=方法论固化物"活体；<strong>别把"有底座规划"当"已建好"</strong>（底座本身未编译，编译的是 grass/chili 两个垂类租户）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>命名纠正</strong>：所谓"塞罕"=<strong>呼和浩特市某城区</strong>保教督导（非塞罕坝生态）；"某草业集团"=客户<strong>内蒙古草业集团</strong>，产品名 <strong>草业项目</strong>（"一问得方案"的问，非乱码）。</li>
+<li><strong>成熟度梯度（不可拉平）</strong>：方案(辣椒) → 方案+Mock demo(草业项目) → 完整建模+真数据 demo(教育督导项目) → 可研满配·建模半配(学前教育项目) → 完整建模+全套文书(HR项目) → <strong>全域编译本体+可研(康养项目)</strong>。 <strong>"编译了" ≠ "编译到位"</strong>：草业项目(7 对象/3 关系)、辣椒(5 对象/<strong>0 关系</strong>)都有 pilot 级编译本体，但比康养项目(7 域全编译/3835 行)小一个数量级，且<strong>都没有可研与交付</strong>。所以准确说法是"<strong>康养项目是唯一全域编译并交付的</strong>"，不是"只有康养项目编译过"。 效益数字方面：辣椒/草业项目的全是方案目标值、草业项目 demo 智能是 Mock——<strong>绝不说成"已实现"</strong>。</li>
+<li><strong>跨案例数字纪律</strong>：方案目标值（辣椒/草业项目）与交付实测（康养项目）<strong>严格分区</strong>，不得混用同一句；该区园数带"口径待核"；草业项目 demo 带"Mock"。</li>
+<li><strong>平台复用（L2 实证）</strong>：辣椒/草业项目共用 <code>smart-agriculture</code> 通用底座、各自特化（7/5 智能体）——"平台=方法论固化物"活体；但底座本身也仅规划态。</li>
+<li><strong>B-10 全流程已示范</strong>：矩阵按素材成熟度逐轮据实修订（占位→调研级→方案级），拿到多少写多少、绝不外推。</li>
+<li><strong>callout 落点（按八课）</strong>：<strong>L1</strong>（两大交付模式的类型学 + 矩阵分层即 B-10 示范）· <strong>L2</strong>（平台复用：辣椒/草业项目共用底座）· <strong>L4 上</strong>（认知萃取迁移 + 该区园数 B-5 活体）· <strong>L4 下</strong>（HR项目 9 插件切分）· <strong>L5</strong>（SOP 泛化 + HIL 迁移 + grass/chili 正反对照）· <strong>L6</strong>（学前教育项目 653KB 可研 + HR项目 招投标全套）· <strong>L7</strong>（⭐教育督导项目 vs 草业项目 demo 可信度对照组，当场并排打开）· <strong>L8</strong>（能力半径 + fund-review 反向沉淀）。</li>
+</ul>
+<h2 id="三观点主张全课程反复回收措辞对齐">三、观点主张（全课程反复回收，措辞对齐）</h2>
+<ol type="1">
+<li><strong>FDE 的核心资产不是"会用 AI"，是把客户模糊意图压成可执行结构</strong>（证据：102 事件 → 7 域，模型不替你做判断）</li>
+<li><strong>没有工程化平台的 FDE 只是"更累的架构师"</strong>（证据：7 域同日并行编译、7/7 零悬空引用）</li>
+<li><strong>FDE 专业性一半体现在"敢说不知道"</strong>（证据：11 处占位不编造）</li>
+<li><strong>C1–C6 可训练，C7（客户关系/责任承担/价值判断/政治敏感度）只能筛选</strong>（<strong>L1 一人公司 OPC 段</strong>第一次讲透 → <strong>L8 OPC 边界回收段</strong>第二次说；无法用实操训练）</li>
+<li><strong>HIL 设点四条硬判据：不可逆 / 涉钱 / 涉合规 / 跨组织</strong>，命中任一即插人；<strong>另加一条"置信度兜底闸"</strong>（模型置信度低于阈值即转人，康养项目占位 0.75）——四判据看动作性质、兜底闸看模型把握。闸分两层：能固化成硬规则的走自动闸（引擎确定性回滚），判不了/涉钱涉合规的才上人工闸 HIL（<strong>L5 下半场</strong>核心：★两道闸）</li>
+</ol>
+<h2 id="四反例分配表按八课">四、反例分配表（按八课）</h2>
+<blockquote>
+<p>B-1~B-10 取自康养项目真实失误、B-11 取自辣椒/草业项目跨项目模板复用。<strong>编号定义见 <code>00_课程总纲.md</code> 第 5.3 节。</strong> <strong>纪律</strong>：标「<strong>主场</strong>」的那一课深讲（讲透表征 → 原则 → 学员怎么防），其余课<strong>只做一句复调</strong>，不许重复深讲。</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>课</th>
+<th>主场反例（深讲）</th>
+<th>复调（一句带过）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L1</strong> FDE 总论</td>
+<td>—</td>
+<td>B-7（返工成本进认知杠杆的账）· B-10（「别人怎么做」段的官方/二手/未获证实<strong>三档来源纪律</strong>，与不编造文号同源）</td>
+</tr>
+<tr class="even">
+<td><strong>L2</strong> 项目与工具</td>
+<td>—</td>
+<td><strong>B-11 的正面</strong>：调研模板可固化复用——固化发生在<strong>提问结构层</strong>，不只在工具层。<strong>只讲正面，污染那面留给 L3</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>L3</strong> 采集信息</td>
+<td><strong>B-11 模板复用的数字迁移污染</strong></td>
+<td>—（本课是 B-11 唯一深讲处）</td>
+</tr>
+<tr class="even">
+<td><strong>L4</strong> 萃取 + 建模</td>
+<td><strong>B-5 数据张冠李戴</strong>（该区园所数 99/124/79 三源不一是活体）<br><strong>B-7 旅程建模过重</strong>（建模服务于业务优先级，不是求全）</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><strong>L5</strong> 本体 + 设闸</td>
+<td><strong>B-8 越域写入冲动</strong>（上半场）<br><strong>B-9 SDK 能力想当然</strong>（上半场，收尾 6 项清单的由来）<br><strong>B-6 标准号误标</strong>（下半场）<br><strong>B-10 11 处地方文号无解</strong>（下半场，取证清单——<strong>全课价值观支点</strong>）</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><strong>L6</strong> 文档工程</td>
+<td><strong>B-1 图目计数漂移</strong><br><strong>B-2 章节编号冲突</strong>（编号权归装配阶段）<br><strong>B-4 Word 主题色覆盖</strong>（导出翻车：格式与内容是两条独立质检线）</td>
+<td>B-5（分节作者引用不重算）· B-6（引标准核到现行版本）</td>
+</tr>
+<tr class="odd">
+<td><strong>L7</strong> 原型开发</td>
+<td>—</td>
+<td>B-10（demo 诚实边界：说不清就标 Mock）· B-11（<strong>别人的数字不是你的数字</strong>，与"查不到就别编"同性质）</td>
+</tr>
+<tr class="even">
+<td><strong>L8</strong> 总结与沉淀</td>
+<td><strong>B-3 图片路径断裂</strong>（<code>validate</code> 把"引用文件必须存在"判为 failed——<strong>校验器替你抓这类错</strong>，正是"平台=方法论固化物"的收口）</td>
+<td>路演评审时全部反例可作标尺："这些坑谁来兜"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>自查</strong>：11 条反例全部有主场，<strong>无重复深讲、无遗漏</strong>；八课每课至少一条（L1/L2/L7 只有复调，是刻意的——那三课分别是纯讲解、装环境、做原型，塞主场反例会挤掉正课）。</p>
+<p><strong>两条支点关系</strong>（讲师必须讲对）：</p>
+<ul>
+<li><strong>B-10 是全课程的价值观支点</strong>，出现三次不是重复，是<strong>复调</strong>。</li>
+<li><strong>B-11 是 B-10 在「输入端」的镜像</strong>：B-10 说查不到就别编，B-11 说别人的数字不是你的数字。抄来的"200+ 专利"写进可研，与编造文号同一性质。共用一句判据：<strong>空缺可以补，编造无法挽回。</strong></li>
+</ul>
+<h2 id="五配图占位约定与-00_课程总纲md-第七节-figures-表一致">五、配图占位约定（与 <code>00_课程总纲.md</code> 第七节 figures 表一致）</h2>
+<p>需要配图处插占位：<code>![图N-M 图名](../figures/fig-N-M-&lt;slug&gt;.png)</code> 紧接一行 <code>**图 N-M  图名**</code>，再写 2–4 句图说。 <strong>slug 必须先定后画</strong>（反例 B-3），一律用总纲 figures 表已列 slug（含该表末尾<strong>已定 slug、图未画</strong>的三张缺口图——那是挂账不是遗漏），不自造新图名。不自己调 fireworks，只留占位。</p>
+<h2 id="六两件产物的结构模板">六、两件产物的结构模板</h2>
+<p><strong>v0.3（2026-07-31 起）每课两件产物，职责分开</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>产物</th>
+<th>给谁</th>
+<th>装什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><code>slides/LN_*.html</code></strong></td>
+<td><strong>讲师投屏</strong></td>
+<td>每屏正文 + <strong><code>.notes</code> 演讲者备注</strong>（口播稿 / 时间盒 / 卡点提示 / "要砍先砍哪里" / 必须现场做的演示动作）</td>
+</tr>
+<tr class="even">
+<td><strong><code>课程/LN_*.md</code></strong></td>
+<td><strong>学员，打印成册</strong></td>
+<td>学员视角读物 + 实操步骤 + checkout + <strong>参考答案</strong> + 一页纸速查 + 分页符</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>讲师稿不再混在手册里。</strong> 学员手册是纯学员视角的印刷品；讲师要的东西按 <code>S</code> 从课件里调出来。</p>
+</blockquote>
+<p><strong>标准骨架</strong>（<code>L5_本体建模与设闸.md</code> 是<strong>参照实现</strong>，改课时照它的样子写）：</p>
+<pre><code>〇、本课一览        一句话命题 · 能力模型位置（C几）· 产出物 · 用哪几个课件
+一、目的            这一课学完能干什么（≤5′）
+二、启发            原理 · 方法 · 工具；每个论断跟一个具体证据或数字
+三、沉浸            真实案例，**当场点开**（不是口头转述）；带成熟度标签
+四、实操            分步可照做；产物落盘路径写死
+五、checkout        达标项 / 警示项对照表，组间互评
+── 上下半场的课重复 一~五 ──
+N、给讲师的时间盒    逐段分钟数，加总必须等于总纲时长
+N+1、与下游的衔接    本课产物喂给哪一课、缺了会卡住谁
+N+2、讲师包 · 口播稿  讲师原话级；含 1 句难听话 + 1 个反例讲解</code></pre>
+<p><strong>⚠️ 已知偏差（2026-07-31 实测，不要当成"已达标"）</strong>： 八课总纲承诺"L3–L7 统一四段结构"，但<strong>只有 L5 完整实现了 目的/启发/沉浸/实操/checkout 五级标题</strong>。 L1/L2/L3/L6/L7 沿用了 v0.2 时期的自有章节名（内容都在，是<strong>标题没换</strong>）；L4/L8 只有「目的」对上。</p>
+<table>
+<thead>
+<tr class="header">
+<th>手册</th>
+<th>目的</th>
+<th>启发</th>
+<th>沉浸</th>
+<th>实操</th>
+<th>checkout</th>
+<th>时间盒</th>
+<th>口播稿</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>L1</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>L2</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td><strong>✗</strong></td>
+</tr>
+<tr class="odd">
+<td>L3</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td><strong>✗</strong></td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>L4</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td><strong>L5</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✓</strong></td>
+</tr>
+<tr class="even">
+<td>L6</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>L7</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>L8</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这是挂账，不是遗漏</strong>（做法同反例 B-9）。<strong>不影响上课</strong>——讲师照手册顺序讲即可，内容齐全。 影响的是<strong>改课的人</strong>：换讲师、拆课、抽某一段做单课时，标题不齐就找不到对应段落。 <strong>补齐时的纪律</strong>：改标题必然连带改「见第 N 节」的交叉引用（<strong>这正是反例 B-2</strong>）——要么整册一次改完并全文 grep 回改，要么别动。</p>
+</blockquote>
+<h2 id="七配套资产索引">七、配套资产索引</h2>
+<table>
+<thead>
+<tr class="header">
+<th>要查什么</th>
+<th>去哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>课程为什么存在 / 能力模型 / 反例库定义 / 考核</td>
+<td><code>00_课程总纲.md</code></td>
+</tr>
+<tr class="even">
+<td>八课各讲什么 / 四段结构 / 排期</td>
+<td><code>00_八课总纲.md</code></td>
+</tr>
+<tr class="odd">
+<td>D1–D5 逐时段讲师动作</td>
+<td><code>00_授课流程手册.md</code></td>
+</tr>
+<tr class="even">
+<td>5 个分组命题 / 八课贯穿地图 / 八维评审卡</td>
+<td><code>工作坊/_贯穿沙盘_分组命题.md</code></td>
+</tr>
+<tr class="odd">
+<td>案例能引到什么程度（成熟度分级）</td>
+<td><code>案例矩阵_跨项目对照.md</code> + 本文件第二·补节</td>
+</tr>
+<tr class="even">
+<td>工具操作细节（比八课手册更全）</td>
+<td><code>工具实操/T1–T9_*.md</code>（v0.2 素材底稿，不上课）</td>
+</tr>
+<tr class="odd">
+<td><strong>讲师口播稿 / 时间盒 / 卡点</strong></td>
+<td><strong><code>slides/LN_*.html</code> 的 <code>.notes</code></strong>（按 <code>S</code> 或 <code>N</code> 调出）</td>
+</tr>
+<tr class="even">
+<td><strong>发给学员的印刷件</strong></td>
+<td><strong><code>课程/LN_*.md</code></strong>（浏览器打印为 PDF）</td>
+</tr>
+<tr class="odd">
+<td><strong>专题课 S1 · 本体论</strong></td>
+<td><code>slides/S1_本体论.html</code> + <code>课程/S1_本体论.md</code>　⚠️ <strong>走另一套来源，见下</strong></td>
+</tr>
+<tr class="even">
+<td><strong>专题课 S2 · 本体引擎的工程实现</strong></td>
+<td><code>slides/S2_本体引擎.html</code> + <code>课程/S2_本体引擎的工程实现.md</code>　⚠️ <strong>见下</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>专题课 S3 · 建模端如何支撑引擎</strong></td>
+<td><code>slides/S3_建模端与引擎.html</code> + <code>课程/S3_建模端如何支撑引擎.md</code>　⚠️ <strong>见下</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="八️-专题课-s1s3-的口径隔离2026-07-31">八、⚠️ 专题课 S1–S3 的口径隔离（2026-07-31）</h2>
+<p><strong>三门专题课各走各的来源，都不适用本文件第二节的康养项目数据表、也不适用第二·补的六案例成熟度表。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>用哪套口径</th>
+<th>档位</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L1–L8 八课</strong></td>
+<td>本文件（康养项目数字 + 六案例成熟度 + 商业口径）</td>
+<td>一档（自家一手）</td>
+</tr>
+<tr class="even">
+<td><strong>专题课 S1</strong></td>
+<td><strong>《工程师的本体论》方法论文集原文</strong>（露华浓 ERP、采购 Agent / Beta / ACME、认证 30 天、信用额度…）<br>路径 <code>~/Codes/onto-fundary-plugins/reference/methodology/</code></td>
+<td>二档（外部方法论）</td>
+</tr>
+<tr class="odd">
+<td><strong>专题课 S2</strong></td>
+<td><strong><code>clife-onto-engine</code> 仓库本身</strong>——源码、<code>docs/01-metamodel-and-plugin-spi.md</code>、CI 门禁脚本</td>
+<td><strong>一档</strong>（可当场核对行号）</td>
+</tr>
+<tr class="even">
+<td><strong>专题课 S3</strong></td>
+<td><strong>主体 = <code>studio-ontology</code></strong>（<code>Ameng2001/astra-studio-plugins</code>）+ <code>clife-onto-engine</code><br><strong>仅第十三章 + 附录</strong>：信通院 / CCSA TC601 对 Palantir 的公开分析</td>
+<td>主体 = <strong>一档</strong><br>行业参照 = <strong>二档</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="五条纪律">五条纪律</h3>
+<ol type="1">
+<li><strong>讲 S1 时不引康养项目数字</strong>（3835 行、7 域 D1–D7、26 个 HIL 点、IRR 15.2%…）</li>
+<li><strong>讲 L5 时不把露华浓当自己的案例</strong>——那是外部公开案例，我们只是引用</li>
+<li><strong>讲 S2 只说仓库里真有的东西</strong>——每处架构主张要能翻到文件行号，<strong>不确定就说"我回去核实"</strong></li>
+<li><strong>讲 S3 的 Palantir 数字要说明来源与地域</strong>（美国市场），<strong>不得当作我方业绩、不得用来论证我们的报价</strong></li>
+<li><strong>讲 S3 涉及 Palantir 产品名与功能细节时，说"据信通院的公开分析"</strong>， <strong>不要说"Palantir 官方称"</strong>——我们没有核对过官方文档</li>
+</ol>
+<blockquote>
+<p><strong>为什么要隔离</strong>：S1 的教学价值恰恰在于<strong>它是独立于我们实现的方法论</strong>。 掺进自家数字，<strong>这门课就从"方法论"变成"产品宣讲"了</strong>——学员会立刻听出来。</p>
+<p>这条本身也是 <strong>B-11 的同类判据</strong>：<strong>别人的数字不是你的数字，你的数字也别塞进别人的框架里。</strong></p>
+</blockquote>
+<h3 id="️-三处已知的文档-vs-事实落差写材料时必须按右列写">⚠️ 三处已知的"文档 vs 事实"落差（写材料时必须按右列写）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>文档 / 来源怎么说</th>
+<th>事实</th>
+<th>记在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>①</td>
+<td>内核宪法说编译产物"<strong>正好填满 SPI 七槽位</strong>"</td>
+<td><strong>只覆盖五格</strong>：⑤⑥ 完全不生成、③④ 只出骨架、⑦ 格式不匹配</td>
+<td>S2 §6.2 · L5 §7 · S3 §11.6</td>
+</tr>
+<tr class="even">
+<td>②</td>
+<td>信通院分析称该建模工具为「<strong>Ontology Studio</strong>」</td>
+<td><strong>未核对 Palantir 官方文档</strong>；Foundry 长期为人所知的是 <strong>Ontology Manager</strong></td>
+<td>S3 §3.2</td>
+</tr>
+<tr class="odd">
+<td>③</td>
+<td>S3 产品声明把"克制"和"做不到"写成一句话</td>
+<td><strong>设计上的克制 ≠ 能力上的边界</strong>，客户面前要分开讲</td>
+<td>S3 §11.5</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这三条是本课程「元示范」的新增素材</strong>（总纲第八节）： <strong>我们自己的教材也会踩"文档说 A、代码是 B"，所以我们把它标出来，而不是抹掉。</strong></p>
+</blockquote>
+<h3 id="专题课的顺序约束改课时不能破">专题课的顺序约束（改课时不能破）</h3>
+<ol type="1">
+<li><strong>S2 必须在 S3 之前</strong>——S3 的确定性优先、飞轮=SPI 都要回扣 S2</li>
+<li><strong>S3 必须在 L5 之前</strong>——S3 第十一章是 L5 的交棒章</li>
+<li><strong>S1 必须在 L5 之前，且尽量同日或相邻</strong></li>
+</ol>
+</body>
+</html>

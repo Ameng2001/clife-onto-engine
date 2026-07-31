@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>T6  文档工程studio-docs / studio-platform</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">T6 文档工程studio-docs / studio-platform</h1>
+</header>
+<h1 id="t6-文档工程studio-docs-studio-platform">T6 · 文档工程（studio-docs / studio-platform）</h1>
+<blockquote>
+<p>目标：造一个写作专家，让 N 个智能体并行写作而<strong>文风与口径不打架</strong>。<strong>150′</strong>（知识注入 30′ + 实操 90′ + checkout 30′） 知识（讲什么）：讲 4 <strong>栈④商业模式与财务</strong> + <strong>栈⑥交付物工程</strong> + <strong>栈⑦合规治理</strong>（讲义 <code>讲义/04_知识背景栈.md</code> 已并入本册第七节，讲师无需另开文件） 主教具：<strong>肖作仕</strong>（写作专家）· 学前教育项目 653KB 可研 · HR项目 招投标全套 工具：<code>studio-docs</code> v0.1.0（A 线文书）+ <code>studio-platform</code> v0.1.0（B 线平台文档）</p>
+</blockquote>
+<hr />
+<h2 id="这一步真正在教什么">〇、这一步真正在教什么</h2>
+<p>不是“用 AI 写文档”——那个谁都会。<strong>是教“让 10 个作者写出来像一个人写的”。</strong></p>
+<blockquote>
+<p>康养项目可研 <strong>11 章 / 约 11 万字 / 26 图</strong>，是 <strong>35 个分节并行写作</strong>产出的。 学前教育项目可研 <strong>653KB / 44 分章</strong>，同一套打法。 <strong>并行写作的全部难点不在“写”，在“不打架”</strong>：术语要一致、数字要同源、编号不能撞、图文引用不能断。</p>
+</blockquote>
+<p><strong>这门课的答案是三件东西</strong>： 1. <strong>蓝图</strong>（blueprint）—— 定文档骨架，谁都不许自己发挥章节 2. <strong>写作专家</strong>（writer）—— 定文风，让 N 个作者有同一个人设 3. <strong>装配期收口</strong>（assemble）—— <strong>编号权、术语统一权归装配阶段，不归写作阶段</strong></p>
+<blockquote>
+<p>⭐ 第 3 条正是反例 <strong>B-2</strong> 的教训固化成的机制：康养项目 35 节并行写作时各节自行起标题层级，装配期出现编号重复与跳号。<strong>现在这条纪律被写进了工具</strong>——<code>write-section</code> 只管本章内部，跨章编号一律由 <code>assemble-document</code> 重排。 <strong>这就是“平台=方法论固化物”最具体的一次兑现。</strong></p>
+</blockquote>
+<hr />
+<h2 id="一a-线招投标文书studio-docs">一、A 线：招投标文书（studio-docs）</h2>
+<h3 id="四个命令">四个命令</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>命令</th>
+<th>参数</th>
+<th>产物</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/studio-docs:blueprint [类型\|list\|customize X]</code></td>
+<td>文档类型名或 <code>list</code></td>
+<td><code>studio/blueprints/{doc-type}.yaml</code></td>
+</tr>
+<tr class="even">
+<td><code>/studio-docs:writer [名字\|analyze 路径\|list]</code></td>
+<td>专家名 或 参考文档路径</td>
+<td><code>studio/agents/writers/{slug}.md</code></td>
+</tr>
+<tr class="odd">
+<td><code>/studio-docs:generate [文档类型 域名] [export\|docx\|pdf]</code></td>
+<td></td>
+<td>串 plan → write×N（并行）→ assemble →(可选)export</td>
+</tr>
+<tr class="even">
+<td><code>/studio-docs:export [md路径 格式]</code></td>
+<td>格式 ∈ <code>docx</code>/<code>pdf</code>/<code>docx+pdf</code></td>
+<td>同目录的 <code>.docx</code> / <code>.pdf</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>只有这四个命令</strong>。插件文档里出现的 <code>/studio-docs:plan</code>、<code>/studio-docs:write</code>、<code>/studio-docs:export-document</code> <strong>都不存在</strong>，别照着敲。 <code>write-section</code> 是 <code>user-invocable: false</code> 的<strong>内部技能</strong>，由 <code>generate</code> 调度，学员不直接调用。</p>
+</blockquote>
+<h3 id="generate-的四道前置检查"><code>generate</code> 的四道前置检查</h3>
+<p>① <code>studio/</code> 不存在 → 先 init ② 域的规划产物不存在 → 先跑 <code>/studio-planner:plan</code> ③ 无 blueprint → 先跑 <code>blueprint</code> ④ 无 writer → 问你要不要先造一个，或用默认风格</p>
+<h3 id="个内置蓝图">7 个内置蓝图</h3>
+<p><code>project-proposal</code>（项目建议书，8 章）· <code>feasibility-study</code>（可研，12 章+附录）· <code>preliminary-design</code>（初步设计，11 章+附录）· <code>construction-plan</code>（建设方案，9 章+附录）· <strong><code>tender-document</code>（招标文件）</strong> · <strong><code>bid-document</code>（投标文件）</strong> · <strong><code>acceptance-package</code>（验收材料）</strong></p>
+<p><strong>蓝图 YAML 的顶层结构</strong>：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">name / display_name / version / lifecycle_stage / description</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inherits_from</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span><span class="co">          # 继承其他蓝图</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">structure</span><span class="kw">:</span><span class="co">                 # ← 核心：章节列表</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">chapter</span><span class="kw">:</span><span class="at"> 第一章 投标邀请</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">sections</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">...</span><span class="kw">]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">artifact_sources</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">event-storm.md</span><span class="kw">,</span><span class="at"> domain-model.md</span><span class="kw">,</span><span class="at"> ...</span><span class="kw">]</span><span class="co">   # ← 从哪些分析产物取料</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">word_count</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1000-1500&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">guidelines</span><span class="kw">:</span><span class="at"> 一段中文写作指导</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">compliance</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">...</span><span class="kw">]</span><span class="co">          # 硬性检查语句</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">style_rules</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at">numbering</span><span class="kw">,</span><span class="at"> paragraph_length</span><span class="kw">,</span><span class="at"> tone</span><span class="kw">,</span><span class="at"> required_elements[]</span><span class="kw">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at">page_size</span><span class="kw">,</span><span class="at"> margins</span><span class="kw">,</span><span class="at"> fonts</span><span class="kw">,</span><span class="at"> line_spacing</span><span class="kw">,</span><span class="at"> header</span><span class="kw">,</span><span class="at"> footer</span><span class="kw">}</span></span></code></pre></div>
+<p><strong>⭐ <code>artifact_sources</code> 是全链路打通的证据</strong>：全部蓝图里只用了 10 种取料来源，全是 T3/T4 的产物—— <code>process-flow.md</code>(19次) · <code>domain-model.md</code>(18) · <code>skill-design.md</code>(14) · <code>persona-insight.md</code>(11) · <code>opportunity-brief.md</code>(10) · <code>behavior-matrix.md</code>(10) · <code>event-storm.md</code>(9) · <code>journey-map.md</code>(7) · <code>brief.md</code>(7) · <code>domain-canvas.md</code>(5)</p>
+<blockquote>
+<p><strong>T3/T4 做得糙，这里就没料可取。</strong> 学员到这一步才会真正理解为什么前面要认真做。</p>
+</blockquote>
+<h3 id="三个重点蓝图某工业城市-hr-案例覆盖的那三本">三个重点蓝图（HR项目 案例覆盖的那三本）</h3>
+<p><strong><code>tender-document</code> 招标文件</strong>（7 章 + 附件，继承可研 + 初步设计，tone <code>formal-legal</code>） 第四章「技术需求与服务要求」8000–12000 字是核心章。 <strong>compliance 硬指标</strong>：总分 100 分 · 资质无排他条款 · <strong>预付款 ≤30%</strong> · 须含格式模板 · 须声明采购方式及法律依据 · 技术需求逐条编号 · 知识产权归属明确</p>
+<p><strong><code>bid-document</code> 投标文件</strong>（3 大部分共 11 个 chapter，继承招标文件） 第二部分技术文件拆成九条独立章节，其中「三、详细技术方案」<strong>10000–18000 字，全篇最大</strong>。 required_elements 8 项含<strong>需求响应表 / 偏离说明表 / 进度甘特图 / 人员组织架构图</strong>。</p>
+<p><strong><code>acceptance-package</code> 验收材料</strong>（9 部分 + 附件） 含<strong>需求跟踪矩阵</strong>（招标需求→功能模块→测试用例→完成状态）。 <strong>compliance 量化门槛</strong>：跟踪矩阵 100% 覆盖 · <strong>功能测试通过率 ≥98% 且 P1 缺陷归零</strong> · 等保测评通过 · 培训覆盖率 100% · 决算不得超合同额</p>
+<blockquote>
+<p>⭐ <strong>这三本连起来，就是HR项目 那个项目的完整生命周期</strong>——也是全部案例里唯一覆盖「招标 ↔︎ 投标 ↔︎ 验收」的。康养项目和学前教育项目都只到可研，接不到后面两段。</p>
+</blockquote>
+<hr />
+<h2 id="二-写作专家肖作仕本步主教具">二、⭐ 写作专家：肖作仕（本步主教具）</h2>
+<h3 id="它是什么">它是什么</h3>
+<p>「解决方案专家 — 肖作仕」（<code>solution-expert-xiao.md</code>，3.5KB）。领域是<strong>政府信息化项目建设方案 · 产教融合 · 人力资源数字化</strong>。</p>
+<p><strong>它同时是三样东西</strong>： 1. <strong>studio-docs 官方文档里的示例名</strong>（模板、命令、SKILL 三处都拿它举例，还示范了命名规则 <code>解决方案专家-肖作仕</code> → <code>solution-expert-xiao.md</code>） 2. <strong>三个真实项目的作者人设</strong>：康养项目可研、学前教育项目可研（<code>_WRITING_BRIEF.md</code> 第 7 行标题就是「作者人设与文风（肖作仕）」，<strong>44 章 / 653KB 正文按此纲领产出</strong>）、HR项目 全套文书 3. <strong>T6 的现成范本</strong>——学员照着它造自己的写作专家</p>
+<blockquote>
+<p>⚠️ <strong>诚实标注（课上必须说这句）</strong>：<code>_WRITING_BRIEF</code> 以肖作仕为作者人设是<strong>硬证据</strong>；但<strong>“这些 docx 逐字由该 agent 生成”无法证明</strong>（没有生成日志）。准确说法是“<strong>按其文风纲领组织写作</strong>”。 <strong>这本身就是 T6 的第一课</strong>：连自己的案例都要区分“能证明的”和“听起来像的”。</p>
+</blockquote>
+<h3 id="writing-style-四维造专家时要填满的">Writing Style 四维（造专家时要填满的）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>维</th>
+<th>填什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 语言标记</strong></td>
+<td>四字短语密度（高/中/低）· 对仗句式频率 · 递进模式（“从…到…”“由…向…转变”）· 标志性表达</td>
+</tr>
+<tr class="even">
+<td><strong>② 政策引用</strong></td>
+<td>引用格式模板（<code>《政策全称》（发文字号）</code>）· 偏好机关 · 引用密度</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 段落模式</strong></td>
+<td>结构（论点+论据+价值阐述）· 字数区间 · 量化数据要求</td>
+</tr>
+<tr class="even">
+<td><strong>④ 术语偏好</strong></td>
+<td>✅/❌ 成对列举，如 ✅信息化建设 / ❌IT建设、✅总体架构 / ❌系统架构、✅保障措施 / ❌风险应对</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三种造法">三种造法</h3>
+<table>
+<thead>
+<tr class="header">
+<th>方式</th>
+<th>怎么做</th>
+<th>什么时候用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A 分析参考文档</strong>（最佳）</td>
+<td>给 1–3 篇样本 → 抽 6 类特征 → <strong>先给你看 style profile 确认，再生成</strong></td>
+<td>手上有客户既往文书</td>
+</tr>
+<tr class="even">
+<td>B 口述定义</td>
+<td>你描述风格，它翻译成结构化维度</td>
+<td>没样本但清楚要什么</td>
+</tr>
+<tr class="odd">
+<td>C 定制已有</td>
+<td>读已有 writer 改</td>
+<td>微调</td>
+</tr>
+</tbody>
+</table>
+<p><strong>方式 A 的量化启发式表</strong>（这张表值得单独讲，它把“文风”变成了可测量的东西）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>特征</th>
+<th>度量</th>
+<th>分级</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>四字短语密度</td>
+<td>每段计数</td>
+<td>高 ≥5 · 中 2–4 · 低 0–1</td>
+</tr>
+<tr class="even">
+<td>对仗句式</td>
+<td>每页计数</td>
+<td>高 ≥3 · 中 1–2 · 低 &lt;1</td>
+</tr>
+<tr class="odd">
+<td>政策引用密度</td>
+<td>每章计数</td>
+<td>高 ≥4 · 中 2–3 · 低 0–1</td>
+</tr>
+<tr class="even">
+<td>段落长度</td>
+<td>每段平均字符</td>
+<td>短 &lt;150 · 中 150–350 · 长 &gt;350</td>
+</tr>
+<tr class="odd">
+<td>量化数据</td>
+<td>每段数字/百分比计数</td>
+<td>高 ≥2 · 中 1 · 低 &lt;1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>SKILL 里有一条实操提醒，直接念给学员</strong>： 客户说“我要一个像肖总那样的写手”时，<strong>必须索要样稿</strong>——<strong>光有名字抓不到文风</strong>。 这句话可以推广到整个 FDE 工作：<strong>客户给你一个人名/一个标杆，你要的是那个东西本身。</strong></p>
+</blockquote>
+<hr />
+<h2 id="三并行写作三段plan-write-assemble">三、并行写作三段：plan → write → assemble</h2>
+<h3 id="doc-plan-type.yamlplan-document-产出"><code>doc-plan-{type}.yaml</code>（plan-document 产出）</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">document_type / blueprint / domain / writer / target / parts_dir / created_at</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chapters</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> ch1</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">title</span><span class="kw">:</span><span class="at"> ...</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">parallel_group</span><span class="kw">:</span><span class="at"> A</span><span class="co">          # A=无依赖先写  B=依赖A  C=汇总章最后写</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">artifact_refs</span><span class="kw">:</span><span class="at"> </span><span class="kw">[{</span><span class="at">path</span><span class="kw">,</span><span class="at"> usage</span><span class="kw">}]</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">estimated_words</span><span class="kw">:</span><span class="at"> ...</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">split_strategy</span><span class="kw">:</span><span class="at"> single | by-section | by-subsection</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">status</span><span class="kw">:</span><span class="at"> pending | writing | written | failed | manual</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">parallel_groups</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="fu">A</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="fu">max_concurrent</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span><span class="kw">,</span><span class="at"> </span><span class="fu">chapters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">...</span><span class="kw">]},</span><span class="at"> ...</span><span class="kw">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">recovery</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="fu">retry_limit</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span><span class="kw">,</span><span class="at"> </span><span class="fu">checkpoint_interval</span><span class="kw">:</span><span class="at"> </span><span class="dv">2000</span><span class="kw">,</span><span class="at"> </span><span class="fu">fallback</span><span class="kw">:</span><span class="at"> manual|skip|template</span><span class="kw">}</span></span></code></pre></div>
+<p><strong>拆分阈值</strong>：&lt;5,000 字符 → <code>single</code>（1 个任务）；5,000–15,000 → <code>by-section</code>（2–3 个）；&gt;15,000 → <code>by-subsection</code>（4–6 个）</p>
+<p><strong>覆盖度四分类</strong>：✅Full · ⚠️Partial · 📝Auto（模板可生成，如项目管理、质量保证）· ❌Manual（如经费预算）</p>
+<p><strong>⏸ 这里有一个硬性人工确认点</strong>：会给你「章节×产物映射表 + 并行阶段图 + 统计 + Gap 提示」，你可以 approve / 改分组 / 预先标 manual / 调字数 / 排除可选章。</p>
+<blockquote>
+<p><strong>这个确认点是本步最该认真对待的地方</strong>：它在告诉你<strong>哪些章节没有料可写</strong>。标 ❌Manual 的那些，就是你得自己去要数据的地方——<strong>跟 T5 的 citations 取证清单是同一个动作。</strong></p>
+</blockquote>
+<h3 id="parts-与写作"><code>.parts/</code> 与写作</h3>
+<p>每章写成 <code>docs/{domain}/.parts/{chapter_id}.md</code>（如 <code>.parts/ch5a.md</code>），<strong>纯 markdown、无 frontmatter</strong>，子任务为 <code>ch5a-1.md</code>、<code>ch5a-2.md</code>。写完回写 doc-plan 的 <code>status: written</code>。<strong>同 chapter_id 重跑直接覆盖（幂等）。</strong></p>
+<p><strong>write-section 的自检 7 项</strong>：编号约定 · 每大节 ≥1 Mermaid（若蓝图要求）· 数据密集节有表 · 政策引用 · 字数在区间 · 标题不跳级 · <code>[待补充：XXX]</code> <strong>仅用于真缺数据</strong></p>
+<blockquote>
+<p>⭐ <strong>最重要的一条硬约束</strong>：事实内容<strong>一律来自 artifacts，禁止编造统计数字、政策文号、预算</strong>。 这就是 B-10「错文号比空缺更有害」被写进工具的样子——<strong>缺数据就写 <code>[待补充：XXX]</code>，不许圆。</strong></p>
+</blockquote>
+<h3 id="assemble编号权在这里b-1-b-2-的机制化解法">⭐ assemble：编号权在这里（B-1 / B-2 的机制化解法）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>收口动作</th>
+<th>怎么做</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>章级编号</strong></td>
+<td>按蓝图约定校验并<strong>补缺重排</strong>（缺“三”则四→三顺移）</td>
+</tr>
+<tr class="even">
+<td><strong>节级编号</strong></td>
+<td><code>（一）(二)</code> / <code>1. 2.</code> / <code>(1)(2)</code> 在<strong>每章内独立重排</strong>，校验标题不跳级</td>
+</tr>
+<tr class="odd">
+<td><strong>图表编号</strong></td>
+<td><strong>统一在装配期分配</strong>：图 <code>图X-Y</code>（caption 在图<strong>下方</strong>）、表 <code>表X-Y</code>（caption 在表<strong>上方</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>术语统一</strong></td>
+<td>读 writer 的 <code>## Terminology</code> 替换变体；<strong>不替换</strong>代码块、mermaid、<code>「」</code>/<code>《》</code>内直引</td>
+</tr>
+<tr class="odd">
+<td><strong>交叉引用</strong></td>
+<td><strong>只校验不自动修</strong>（章/节/表/图/附录五类）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>前置</strong>：<strong>required 章缺失 → 停止装配</strong>；part 文件 &lt;10 行或不以 <code>#</code> 开头视为缺失。 <strong>部分失败</strong>：装配可用部分，并在缺口处插入 <code>&gt; ⚠️ **本章内容待补充**</code> 占位块 + 失败原因。</p>
+<blockquote>
+<p>⭐ <strong>回收 B-1（图目计数漂移）</strong>：康养项目 <code>_FIG_SPECS.md</code> 标题写“22 张”、表体实际 26 行，后补的图追加到表尾但头部计数没回改。 <strong>现在图表编号由装配期统一分配</strong>——摘要与明细有了单一真相源。<strong>并行产出必须有收口回改动作，这条纪律现在是机器在执行。</strong></p>
+</blockquote>
+<h3 id="quality-report-type.md"><code>.quality-report-{type}.md</code></h3>
+<p>装配时间戳 · 章节清单(present/missing) · <strong>术语替换日志</strong>(含出现次数与行号) · 交叉引用校验 · 图表编号分配 · 合规清单 · 缺失章节建议</p>
+<p><strong>6 条合规检查</strong>：政策引用数 ≥ 蓝图下限 · required 章齐全 · 含投资/预算表 · Mermaid 数量 ≥ 下限 · 字数在区间 · 需要则有甘特</p>
+<hr />
+<h2 id="四导出export-document">四、导出（export-document）</h2>
+<p><strong>依赖</strong>：<code>pandoc</code> <strong>唯一硬依赖，缺则 STOP</strong>；<code>mmdc</code> 缺 → 保留 mermaid 代码块；<code>python-docx</code> 缺 → 只出裸 pandoc DOCX；Chrome 缺 → 跳过 PDF（可退 XeLaTeX）</p>
+<p><strong>DOCX</strong>：<code>pandoc {md} -f markdown -t docx --toc --toc-depth=3 -o {out}.docx</code>，再由 <code>format_docx.py</code> 做中文公文美化—— 六步固定流水线：页面布局 → 标题 → 正文 → 表格 → 页眉 → 页脚。 <strong>关键实现</strong>：东亚字体通过 XML 直写 <code>w:rFonts/@w:eastAsia</code>（python-docx 不原生支持），行距 <code>240×1.5=360</code>，页边距上下 2.54cm / 左右 3.17cm，页眉取首个 Title/Heading 1 并加下边框线，页脚插 <code>PAGE</code> 域。</p>
+<p><strong>PDF</strong>：优先 pandoc → html5 → 注入中文公文 CSS（A4、仿宋 14pt/1.5、方正小标宋标题）→ Chrome headless 打印；兜底 XeLaTeX（<code>-V CJKmainfont="仿宋"</code>）</p>
+<p><strong>Mermaid</strong>：抽块 → <code>.export-temp/mermaid-{i}.mmd</code> → <code>mmdc -b white -s 2</code> → 替换成图片引用（保留原图题）→ 清理临时目录</p>
+<hr />
+<h2 id="五b-线平台文档套件studio-platform">五、B 线：平台文档套件（studio-platform）</h2>
+<pre><code>/studio-platform:platform-docs {domain} [--output dir] [--steps ...] [--reference ref.pen]</code></pre>
+<p><strong><code>--steps</code> 六个可选值</strong>（逗号分隔，默认 all）：<code>brainmap</code> | <code>mapping</code> | <code>tech</code> | <code>plan</code> | <code>visual</code> | <code>speech</code></p>
+<p><strong>前置</strong>：<code>studio/changes/{domain}/</code> 需有 <code>event-storm.md</code> 与 <strong><code>domain-map.md</code></strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>步</th>
+<th>产物</th>
+<th>看点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>brainmap</td>
+<td><code>brainmap-index.md</code> + <code>brainmap-module-1~N.md</code></td>
+<td>每个智能体固定 4 小节（技能清单 / 数据与知识依赖 / 模型与工具依赖 / 典型场景）；<strong>agent 编号全局连续</strong></td>
+</tr>
+<tr class="even">
+<td>mapping</td>
+<td><code>agent-plugin-mapping.md</code></td>
+<td>ASCII 架构图 + 模块-Plugin 矩阵 + <strong>覆盖率分析</strong> + 依赖拓扑 + P0–P3 优先级</td>
+</tr>
+<tr class="odd">
+<td>tech</td>
+<td><strong>5 份技术设计</strong>（数仓 / 数据采集 / 知识图谱 / ML 模型 / RAG）</td>
+<td>数仓走 Kimball 分层；数据采集有 <strong>6 维质量框架</strong>；RAG 有<strong>四路混合检索</strong></td>
+</tr>
+<tr class="even">
+<td>plan</td>
+<td><code>project-plan.md</code></td>
+<td>固定 10 章 + Mermaid 甘特 + 6–10 条并行 track</td>
+</tr>
+<tr class="odd">
+<td>visual</td>
+<td><code>{platform}.pen</code></td>
+<td>4 帧（全景驾驶舱 / 角色智能体 / 知识网络 / 数智场景）</td>
+</tr>
+<tr class="even">
+<td>speech</td>
+<td><code>迎检话术-{platform}.md</code></td>
+<td><strong>与 .pen 四帧一一对齐</strong>，要求朗读 <strong>5–8 分钟</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <code>--steps all</code> 且无交互时<strong>全程不暂停</strong>，会一口气生成 11 类文档。<strong>课堂上先跑 <code>--steps brainmap</code> 看一下再决定。</strong></p>
+<p>⭐ <code>generate-speech</code> 的质量检查里有一条值得念：<strong>“无其他行业项目残留术语”</strong> —— 这正是 <strong>B-11（模板复用的数字迁移污染）</strong>在平台文档侧的同一个坑。工具知道这个风险，学员更要知道。</p>
+</blockquote>
+<hr />
+<h2 id="六实操90">六、实操（90′）</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>做什么</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>/studio-docs:writer analyze &lt;参考文档&gt;</code> 造写作专家</td>
+<td>25′</td>
+<td><code>studio/agents/writers/{slug}.md</code>，四维填满</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>/studio-docs:blueprint list</code> 看内置蓝图，选一本</td>
+<td>10′</td>
+<td>选定文档类型</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>/studio-docs:generate &lt;类型&gt; &lt;域&gt;</code> 跑到 plan 确认点<strong>停下细看</strong></td>
+<td>25′</td>
+<td>doc-plan yaml + <strong>Gap 清单</strong></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>让它写 1–2 章（不用写全本）</td>
+<td>20′</td>
+<td><code>.parts/</code> 下的成稿</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>assemble + 看 quality-report</td>
+<td>10′</td>
+<td>装配稿 + 质量报告</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🔔 本步交付物</strong>：写作专家 1 份 + <strong>一节方案稿</strong> + 一张配图占位 +（可选）导出的 docx</p>
+<p><strong>🔔 难点</strong> - <strong>造专家优先用“分析参考文档”方式</strong>，2–3 页样本即可。没样本就去要——别凭空捏一个文风。 - <strong>plan 确认点要认真看 Gap 清单</strong>：标 ❌Manual 的章节就是你缺数据的地方，<strong>列进取证清单，别指望写作时圆过去</strong>。 - <strong>关键数字一律引用不重算</strong>（B-5）。分节作者各算各的，装配期必然对不上。</p>
+<hr />
+<h2 id="七知识讲什么-商业建模-交付物工程-合规治理">七、知识（讲什么）· 商业建模 + 交付物工程 + 合规治理</h2>
+<blockquote>
+<p>对应讲 4「FDE 七角色知识栈」的<strong>栈④（商业模式与财务）· 栈⑥（交付物工程）· 栈⑦（合规治理）</strong>。 栈①②在 T3/T4 讲、栈③在 T5a 讲、栈⑤（财评功能点）本步只做引用。 <strong>时间盒 30′</strong>：栈④ 12′ · 栈⑥ 9′ · 栈⑦ 9′。要加时，从“三个蓝图快讲”那 10′ 里借。</p>
+</blockquote>
+<h3 id="为什么这三栈捆在-t6-一起讲">〇 为什么这三栈捆在 T6 一起讲</h3>
+<p>讲 4 的原命题是：<strong>FDE 不是“会建模的人”，是七个专业角色的方法论合体；建模只是七分之二。</strong></p>
+<p>这三栈捆在一起，是因为<strong>它们共同决定了客户手里那份文件能不能签字</strong>：</p>
+<pre><code>栈④ 商业模式与财务  → 决定文件里&quot;这生意怎么成立&quot;那几章有没有内容
+栈⑥ 交付物工程      → 决定这些内容能不能被组织成一份能过评审的正式文书
+栈⑦ 合规治理        → 决定这份文书经不经得起一句&quot;这个数据/文号哪来的&quot;</code></pre>
+<blockquote>
+<p><strong>讲义原话</strong>：多数技术出身的人<strong>不是倒在建模，是倒在栈④⑤⑥</strong>——盘不出账、过不了财评、组织不起百页交付物。 T6 就是这三块塌陷的正面战场。</p>
+</blockquote>
+<hr />
+<h3 id="栈④-商业模式与财务12-商业顾问的方法论">栈④ 商业模式与财务（12′）· 商业顾问的方法论</h3>
+<p><strong>【原本是谁】</strong> 商业顾问 / 战略——负责回答“这事怎么挣钱、谁付钱、付多少、几年回本”。 <strong>这是最多技术型 FDE 完全空白的一维</strong>：能出 7 域本体，却搭不出一个能自洽的商业模式，方案在客户那边就是“技术很好，但不知道怎么赚钱”。</p>
+<h4 id="商业模式设计五件套先有工具再看案例">① 商业模式设计五件套（先有工具，再看案例）</h4>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>框架</th>
+<th>内核</th>
+<th>一句话记法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>①</strong></td>
+<td><strong>商业模式画布</strong>（Osterwalder &amp; Pigneur, 2005）</td>
+<td><strong>9 个模块</strong>：右侧价值面＝客户细分/价值主张/渠道/客户关系/<strong>收入来源</strong>；左侧效率面＝关键伙伴/关键活动/关键资源/<strong>成本结构</strong></td>
+<td>画一张就能和客户对齐“这生意怎么转”的通用底图</td>
+</tr>
+<tr class="even">
+<td><strong>②</strong></td>
+<td><strong>免费 / 交叉补贴</strong>（Chris Anderson《Free》）</td>
+<td>四型：<strong>直接交叉补贴</strong>（剃须刀送、刀片赚）· <strong>三方市场</strong>（用户免费、广告主付）· <strong>Freemium</strong> · <strong>非货币市场</strong></td>
+<td><strong>关键是想清楚“谁被补贴、谁来买单”</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>③</strong></td>
+<td><strong>互联网三级火箭</strong>（周鸿祎/360 · 梁宁）</td>
+<td>一级<strong>头部流量</strong>（免费高频入口）→ 二级<strong>沉淀用户</strong>（锁进商业场景）→ 三级<strong>商业闭环</strong>（低频高价变现）</td>
+<td>从高频到低频；<strong>一级不赚钱，要有人扛得住</strong></td>
+</tr>
+<tr class="even">
+<td><strong>④</strong></td>
+<td><strong>SaaS 指标体系</strong></td>
+<td>MRR/ARR · CAC · LTV · <strong>LTV:CAC ≥ 3:1</strong> · Churn · <strong>NRR &gt; 100%</strong> · <strong>Rule of 40</strong>（增长率+利润率&gt;40%）</td>
+<td>订阅制生意的<strong>专用财务语言</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>⑤</strong></td>
+<td><strong>增长思维</strong>（梁宁）</td>
+<td><strong>北极星指标</strong>（全公司只对齐一个）+ 四个增长关卡（机会拿捏→模式取巧→组织扩容→战略借势）</td>
+<td><strong>“增长能力＝持续作出正确决定的能力”</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="本栈最关键的洞察财务语言随交付模式变">② ⭐ 本栈最关键的洞察：<strong>财务语言随“交付模式”变</strong></h4>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>交付模式</th>
+<th>商业模式底色</th>
+<th>该用的财务语言</th>
+<th>别用错</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>模式二 · 大平台建设+运营</strong>（康养项目/草业项目/辣椒）</td>
+<td>重资产、投—建—运、多元收入</td>
+<td><strong>投资估算 / EBITDA / IRR / NPV / 回本周期</strong></td>
+<td><strong>别用 MRR</strong>——一次性建设+运营盘不是订阅</td>
+</tr>
+<tr class="even">
+<td><strong>模式一 · Token 计费 SaaS</strong>（教育督导项目/草业项目 SaaS 层/辣椒 OQL 按量）</td>
+<td>轻资产、订阅/按量、可复制</td>
+<td><strong>MRR/ARR / LTV:CAC / NRR / Churn / Rule of 40</strong></td>
+<td><strong>别用 IRR/回本年</strong>——SaaS 早期没有“回本年”这回事</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一句话记死</strong>：客户问模式二的项目，你答 <strong>IRR 15.2%、第 9 年回本</strong>；客户问模式一的 SaaS，你答 <strong>LTV:CAC 3:1、NRR 120%</strong>。 <strong>答反了，客户当场就知道你没做过这类生意。</strong></p>
+</blockquote>
+<p><strong>这条直接影响 T6 的写作动作</strong>：<code>feasibility-study</code>（可研）蓝图里的效益分析章，用的是模式二语言；如果你的命题其实是模式一 SaaS，<strong>照着可研蓝图硬写 IRR，写出来就是空的</strong>——这也是 checkout 里“蓝图选型说得出为什么”那一条的真实理由。</p>
+<h4 id="范本康养项目-bp-就是交叉补贴-三级火箭的活体">③ 范本：康养项目 BP 就是“交叉补贴 + 三级火箭”的活体</h4>
+<p>康养项目 BP + 财务测算 Excel 模型（<code>嘉城数联医康养生态运营财务测算模型.xlsx</code>），用上面的框架能一层层拆开：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>康养项目的答案</th>
+<th>对应框架</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>顶层逻辑</strong></td>
+<td>门诊医疗引流 → 照护康养创收 → 产品增值补充 → 政企合作加速</td>
+<td><strong>三级火箭</strong>：门诊医疗＝一级（低毛利引流入口）· 会员沉淀复购＝二级（患者锁成会员）· 照护/商城/长护险＝三级（高毛利变现）</td>
+</tr>
+<tr class="even">
+<td><strong>收入结构（谁付钱）</strong></td>
+<td><strong>三元支付</strong> ＝ 老人自费 + 长护险（PICC 康养项目已打通全闭环）+ 政府购买服务</td>
+<td>画布的“收入来源”多渠道；本质是<strong>交叉补贴</strong>——政府/长护险补贴了老人自付不起的那部分</td>
+</tr>
+<tr class="odd">
+<td><strong>最小验证单元</strong></td>
+<td>微康养单店模型：峰值资金约 <strong>73 万</strong>、<strong>约 21 个月回本</strong>、单站 1.5–5 人，<strong>60 站可复制</strong></td>
+<td>BP 的说服力来自“<strong>一个单元跑通、可复制</strong>”，不是“整盘很大”</td>
+</tr>
+<tr class="even">
+<td><strong>增长引擎</strong></td>
+<td>会员转化复购飞轮（中医理疗 + 长者食堂 + 康养商城三线咬合）</td>
+<td>画布的“客户关系”+ 增长思维</td>
+</tr>
+<tr class="odd">
+<td><strong>主体与分账</strong></td>
+<td>投—建—运分离（EPCO）、<strong>项目联合体</strong>、分账核算</td>
+<td>回答“钱怎么进、谁分、独立定价”。⚠️ 2026-07-20 起禁用“合资公司/股权/注册资本”</td>
+</tr>
+</tbody>
+</table>
+<h4 id="一个-excel-财务模型里的基础概念技术人最缺务必讲清">④ 一个 Excel 财务模型里的基础概念（技术人最缺，务必讲清）</h4>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>概念</th>
+<th>是什么</th>
+<th>康养项目的数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>EBITDA</strong>（息税折旧摊销前利润）</td>
+<td>营收减经营成本，但<strong>加回利息、税、折旧、摊销</strong>——衡量<strong>主业本身的现金创造能力</strong>，剔除“怎么融资、怎么折旧”的干扰</td>
+<td>基准口径 <strong>约 5219 万/年</strong>（营收约 <strong>3.83 亿/年</strong>、净利约 <strong>3535 万</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>IRR</strong>（内部收益率）</td>
+<td>使<strong>净现值 NPV = 0</strong> 的那个折现率——通俗说是项目每年的“复合回报率”，<strong>必须跟一条门槛线比</strong></td>
+<td><strong>运营口径 15.2%（第 9 年回本，主口径）</strong> vs <strong>发改口径 8.7%（第 11 年回本，仍高于国企 6% 门槛）</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>NPV</strong>（净现值）</td>
+<td>未来每年净现金流按折现率折回今天再求和，<strong>&gt;0 才值得投</strong></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><strong>回本周期</strong>（Payback）</td>
+<td><strong>累计净现金流由负转正</strong>的那一年</td>
+<td>第 <strong>9</strong> / <strong>11</strong> 年（两套口径）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 一句话串起来（模式二重资产语言）</strong>：</p>
+<pre><code>营收 − 成本 = EBITDA（主业赚钱力）
+  → 扣息税折旧 = 净利
+  → 逐年净现金流折现求和 = NPV
+  → 令 NPV = 0 的折现率 = IRR
+  → 累计转正之年 = 回本</code></pre>
+<p><strong>这五个数，就是 To-G 大平台项目签字前客户和财评专家盯的那几行。</strong></p>
+<blockquote>
+<p>⭐ <strong>两套 IRR 口径并存不是矛盾，是财务常识</strong>——算的钱流范围不同（<strong>运营口径</strong>只看运营主体分到的，<strong>发改口径</strong>看整盘）。 ⚠️ 口径名以成品可研为准：叫<strong>运营口径</strong>，不叫“合资口径”（“合资”2026-07-20 起已禁用）。 <strong>课上必须把这句说出来</strong>，否则学员看到“15.2% 和 8.7%”第一反应是“数据打架”，然后自己去改一个——<strong>那就正好踩中 B-5（关键数字必须锚在单点，一律引用不重算）</strong>。</p>
+</blockquote>
+<h4 id="换成模式一-saas-的语言同一件事另一套数">⑤ 换成模式一 SaaS 的语言（同一件事、另一套数）</h4>
+<p>如果做的是教育督导项目那种订阅/按量的 SaaS，客户不问“几年回本”，问的是： <strong>获客花多少（CAC）· 一个客户一辈子贡献多少（LTV）· 这两个比值健不健康（LTV:CAC ≥ 3:1）· 客户跑不跑（Churn）· 光靠老客户能不能增长（NRR &gt; 100%）· 整盘增长+利润够不够格（Rule of 40）。</strong></p>
+<blockquote>
+<p><strong>FDE 要能在两套语言间自由切换</strong>——这就是本栈“自评到能交付”的标准。</p>
+</blockquote>
+<h4 id="栈④-与栈⑤财评的接口一句话交代">⑥ 栈④ 与栈⑤（财评）的接口：一句话交代</h4>
+<p>商业模式回答“<strong>这生意成不成立</strong>”，财评回答“<strong>这笔钱算得准不准</strong>”。 - 学前教育项目走的是财评这条线：<strong>484 个功能条目 → 约 27,056 功能点（FP）→ 约 22,014 人天 → 总投资 4,839 万</strong>（三重依据交叉校核）。 - 康养项目走的是投资回报这条线：<strong>一期 1.36 亿（依托条件，不计入本轮新增）+ 二期 3200 万（五块预算）→ 运营口径 IRR 15.2% / 发改口径 8.7%</strong>。</p>
+<blockquote>
+<p><strong>两条线在可研里是两章，但共用一条纪律：数字锚在单点，谁都不许在自己那节重算。</strong></p>
+</blockquote>
+<hr />
+<h3 id="栈⑥-交付物工程9-方案标书工程师的方法论">栈⑥ 交付物工程（9′）· 方案/标书工程师的方法论</h3>
+<p><strong>【原本是谁】</strong> 方案经理 / 标书工程师——负责把一堆认知与测算，组织成<strong>一份能中标、能过评审的正式交付物</strong>。</p>
+<p><strong>【内核 + 权威参照】</strong> 发改委《政府投资项目可行性研究报告》编制大纲 / 各地可研编制规范（章节结构、政务文风、依据引用、图表规范）+ 招投标响应文件的组织。 <strong>本课程把它固化成三件东西</strong>：<strong>肖作仕写作规范</strong>（四字对仗 / “依托…构建…实现…”递进 / 标题层级 / 红线表述）+ <strong>锚定口径机制 <code>_WRITING_BRIEF.md</code></strong> + <strong>装配质检</strong>。</p>
+<p><strong>【康养项目/某工业城市怎么用】</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>交付物规模</th>
+<th>组织方式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>康养项目（🟢唯一全域编译交付）</td>
+<td>可研 <strong>11 章 / 约 11 万字 / 26 图</strong> + 2 附录 docx，格式对齐客户既有模板</td>
+<td><strong>35 个分节并行写作</strong>，靠一份 <code>_WRITING_BRIEF.md</code> 统一口径；<strong>编号权归装配阶段</strong>（防 B-2）</td>
+</tr>
+<tr class="even">
+<td>学前教育项目（🟢可研满配·建模半配）</td>
+<td>可研 <strong>653KB / 44 分章</strong> + 送审报价包 + 单一来源论证</td>
+<td>同一套打法；<strong>没做本体建模、没有 persona/journey，照样交付</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这一栈就是把前面几栈的产物“落成客户手里那份文件”的能力——没有它，你脑子里有 7 域本体，客户手里什么都没有。</strong></p>
+</blockquote>
+<h4 id="并行写作的三条铁律本步的操作定义">⭐ 并行写作的三条铁律（本步的操作定义）</h4>
+<ol type="1">
+<li><strong>口径单点</strong> —— 所有数字锚在一份 BRIEF，<strong>分节作者一律引用不重算</strong>（<strong>B-5</strong>） &gt; 反例根因：县区七普老龄化率在跨节引用中<strong>60+ 与 65+ 两个口径被混用</strong>。不是笔误，是<strong>没建立“单一真相源”的纪律</strong>。</li>
+<li><strong>编号权归装配</strong> —— 写作阶段只管本章内部，跨章编号一律由 <code>assemble-document</code> 重排（<strong>B-2</strong>）</li>
+<li><strong>占位符即契约</strong> —— slug 必须先定后画，不可事后改名（<strong>B-3</strong>，T7 会再撞一次；T8 的校验器“引用的脚本必须真实存在”是同一条） &gt; 配套回收 <strong>B-1</strong>：康养项目 <code>_FIG_SPECS.md</code> 标题写“22 张”、表体实际 26 行——<strong>摘要与明细必须有单一真相源</strong>，现在图表编号由装配期统一分配。</li>
+</ol>
+<blockquote>
+<p><strong>三条铁律都不是“建议”，是被工具执行的</strong>——这就是“平台＝方法论固化物”在 T6 的兑现。</p>
+</blockquote>
+<hr />
+<h3 id="栈⑦-合规治理9-合规官的方法论">栈⑦ 合规治理（9′）· 合规官的方法论</h3>
+<p><strong>【原本是谁】</strong> 合规官 / 法务——负责守红线、给每条涉规论断挂<strong>可核验的官方现行依据（citations）</strong>。</p>
+<p><strong>【权威体系】</strong> 等保 2.0（<strong>GB/T 22239-2019</strong>）·《个人信息保护法》·《数据安全法》·《生成式人工智能服务管理暂行办法》，及行业国标/法规。</p>
+<h4 id="三态诚实写作时的三选一">三态诚实（写作时的三选一）</h4>
+<table>
+<thead>
+<tr class="header">
+<th>情况</th>
+<th>怎么写</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>查到了<strong>现行有效</strong>的</td>
+<td>挂标准号 + 发文字号</td>
+</tr>
+<tr class="even">
+<td>是常识</td>
+<td>标“通用”（T5 的 source 三态同理）</td>
+</tr>
+<tr class="odd">
+<td><strong>查不到</strong></td>
+<td><strong>留占位 + 锚定上位国标 + 转取证清单</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>康养项目的实数</strong>：<strong>18 处挂已核验国标/法规</strong>（等保、养老机构服务安全 GB 38600-2019、DIP 医保办发〔2020〕50号、长护 医保办发〔2021〕37号、个保法第 6/15/29/47 条…）；<strong>11 处坚决保留 <code>[本地待补文号]</code></strong>（7 本地文号 + 4 企业 SOP），每处锚定上位国标、转成向医保局/民政局/政数局<strong>逐项取件的清单</strong>。</p>
+<blockquote>
+<p>内部原话：<strong>“错文号比空缺更有害。”</strong>（<strong>B-10</strong>）</p>
+</blockquote>
+<h4 id="反例-b-6标准号误标">⚠️ 反例 B-6（标准号误标）</h4>
+<p>康养项目编制期两处真实误标： - 药食同源目录被误标为 <strong>“GB 药食同源目录”</strong>——它根本不是 GB，是原卫生部/卫健委发布的名单； - 星评标准沿用了<strong>已废止的 MZ/T 标准</strong>——标准还在，版本已废止。</p>
+<blockquote>
+<p><strong>引标准必须核到官方现行版本</strong>：“看起来像国标”不等于是国标，“标准存在”不等于“现行有效”。 <strong>已废止比查不到更危险</strong>，因为它看起来完全合规。 硬动作：用“全国标准信息公共服务平台”核现行/废止，用“国家法律法规数据库”核法规。</p>
+</blockquote>
+<h4 id="复调三个场景同一条判据">⭐ 复调：三个场景，同一条判据</h4>
+<p>栈⑦的“诚实边界”不是 T6 一册的局部纪律，它在全课程出现三次——<strong>这是复调，不是重复</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>场景</th>
+<th>说法</th>
+<th>在哪讲</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>B-10</strong></td>
+<td>查不到的文号<strong>留占位不编造</strong></td>
+<td>T5 / <strong>T6 栈⑦</strong></td>
+</tr>
+<tr class="even">
+<td><strong>B-11</strong></td>
+<td><strong>别人的数字不是你的数字</strong>——模板可复用，数字不可复用</td>
+<td>T1 / T6（<code>generate-speech</code> 的“无其他行业项目残留术语”检查）</td>
+</tr>
+<tr class="odd">
+<td><strong>T7 Mock 边界</strong></td>
+<td><strong>Mock 不能说成跑通</strong></td>
+<td>T7</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>三者是同一句判据的三个场景</strong>：<strong>空缺可以补，编造无法挽回。</strong> T7 会把这条推到第四个场景——<strong>外部事实分官方/二手/未获证实三档，“未获证实”要亲口念出来</strong>。 <strong>课上要把这个复调关系点破</strong>：学员会以为“合规”只是可研最后一章的事，其实它是这门课的价值观支点。八步工具练的是手艺，这一条练的是<strong>能不能把手艺交给你</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="八-翻车点工具链的已知不一致照文档做会撞">八、⚠️ 翻车点（工具链的已知不一致，照文档做会撞）</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>坑</th>
+<th>以什么为准</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>blueprint / writer 存放路径两说：命令文件写 <code>studio/docs/*</code>，SKILL 写 <code>studio/blueprints/</code>、<code>studio/agents/writers/</code></td>
+<td><strong>以 SKILL 为准</strong>（3 处一致 vs 1 处）</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>蓝图 schema：SKILL 文档版用 <code>chapters:</code>+<code>id</code>，<strong>实际内置蓝图用 <code>structure:</code>+<code>chapter:</code></strong></td>
+<td>写新蓝图<strong>按磁盘实际结构</strong>，否则与内置蓝图不同构</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>artifact 名不统一：蓝图写 <code>skill-design.md</code>，plan-document 映射表写 <code>skill-map</code></td>
+<td>知道是同一个东西即可</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>studio-docs 用 <code>domain-model.md</code>，studio-platform 用 <strong><code>domain-map.md</code></strong></td>
+<td>两个插件要的文件名不同，<strong>别以为写错了</strong></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>导出字体<strong>三套口径</strong>：SKILL.md / <code>format_docx.py</code> / <code>gov-doc-style-guide.md</code></td>
+<td><strong>以脚本为准</strong>（脚本与 style-guide 一致，SKILL.md 那份错位一级）</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><code>format_docx.py --blueprint</code> <strong>读了但从不使用</strong></td>
+<td>蓝图的 <code>export.fonts</code> <strong>目前无效</strong>，别指望改蓝图能改字体</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><code>render_mermaid.py</code> 实参是 <code>-b white -s 2</code>，非 SKILL 写的 <code>-w 1200</code>；图题靠 <code>&lt;!-- figure: 图3-1 xxx --&gt;</code> 注释</td>
+<td>以脚本为准</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><code>/studio-docs:plan</code>、<code>:write</code>、<code>:export-document</code> <strong>不存在</strong></td>
+<td>只有 blueprint / writer / generate / export</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>草业项目那份调研 docx <strong>python-docx 解析报错</strong>（WPS 导出的异常 zip）</td>
+<td><strong>改用 pandoc 转</strong>，实测可行</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ 第 9 条是<strong>备课时真撞上的</strong>——正好做 T6 的活教材：<strong>交付物格式与内容是两条独立的质检线，都得 FDE 自己走一遍</strong>（B-4）。</p>
+</blockquote>
+<hr />
+<h2 id="九checkout30">九、checkout（30′）</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>写作专家</td>
+<td>四维填满，且<strong>基于真实样稿</strong>分析得来</td>
+<td>凭空捏一个文风；或只给了个人名</td>
+</tr>
+<tr class="even">
+<td>蓝图选型</td>
+<td>选对文档类型，说得出为什么</td>
+<td>拿可研的蓝图写投标文件</td>
+</tr>
+<tr class="odd">
+<td>Gap 诚实</td>
+<td>❌Manual 章节列进了取证清单</td>
+<td>让模型“先写着，回头再补”</td>
+</tr>
+<tr class="even">
+<td>数字同源</td>
+<td>关键数字引用 BRIEF，不重算</td>
+<td>各章各算一遍（B-5）</td>
+</tr>
+<tr class="odd">
+<td><strong>财务语言选对</strong></td>
+<td>判得出本组命题是模式二（讲 IRR/EBITDA/回本年）还是模式一（讲 LTV:CAC/NRR/Rule of 40），并说得清每个数怎么来</td>
+<td>模式一 SaaS 硬套“几年回本”；或看到 IRR 15.2% vs 8.7% 以为数据打架，自己改一个</td>
+</tr>
+<tr class="even">
+<td>编号</td>
+<td>交给装配期收口</td>
+<td>写作时自己编号（B-2）</td>
+</tr>
+<tr class="odd">
+<td>标准引用</td>
+<td>核到现行有效版本</td>
+<td>引了已废止的 / 编了个像国标的号 → <strong>一票警示（B-6/B-10）</strong></td>
+</tr>
+<tr class="even">
+<td>占位</td>
+<td>缺数据处写 <code>[待补充：XXX]</code></td>
+<td>用模型的猜测填满</td>
+</tr>
+<tr class="odd">
+<td>格式质检</td>
+<td>导出后<strong>自己打开看过</strong></td>
+<td>只看 md 不看 docx（B-4 图文割裂就是这么来的）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="十给讲师的时间盒150">十、给讲师的时间盒（150′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场：并行写作的难点不在写、在不打架</td>
+<td>10′</td>
+</tr>
+<tr class="even">
+<td><strong>知识（讲什么）· 栈④商业建模 12′ + 栈⑥交付物 9′ + 栈⑦合规 9′（含 B-5/B-6/B-10）</strong></td>
+<td>30′</td>
+</tr>
+<tr class="odd">
+<td>肖作仕拆解（四维 + 量化启发式表 + 索要样稿）</td>
+<td>20′</td>
+</tr>
+<tr class="even">
+<td>实操：造专家 → 选蓝图 → plan → 写章 → assemble</td>
+<td>90′ ← 穿插</td>
+</tr>
+<tr class="odd">
+<td>三个蓝图（招标/投标/验收）快讲</td>
+<td>10′</td>
+</tr>
+<tr class="even">
+<td>checkout</td>
+<td>30′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>主持提示</strong>：<code>generate</code> 全本跑下来很久，<strong>课堂只写 1–2 章</strong>。要让学员看到的是<strong>plan 的 Gap 清单</strong>和<strong>assemble 的编号收口</strong>，不是完整文档。 <strong>第二条主持提示</strong>：栈④商业建模那 12′ 是<strong>技术型学员最容易走神的一段</strong>——讲师不要念框架名，要<strong>当场打开康养项目财务测算 Excel 的列</strong>，指着“营收 → 成本 → EBITDA → 净利 → 现金流 → IRR/回本”一列一列走。<strong>看得见列，才记得住语言。</strong></p>
+<hr />
+<h2 id="十一与下游的衔接">十一、与下游的衔接</h2>
+<pre><code>T6 产物
+  ↓ 写作专家 → 后续所有文书复用（跨项目资产）
+  ↓ 方案稿   → T7 界面原型的内容来源（demo 要演的就是方案里承诺的东西）
+  ↓ 取证清单 → 现场向客户逐项取件
+  ↓ 导出的 docx/pdf → 结课路演材料</code></pre>
+<p><strong>一句话</strong>：T6 交出去的东西<strong>会被评审、会进合同、会被审计</strong>。前面几步做错还能改，<strong>这一步做错是要签字的。</strong></p>
+<hr />
+<h2 id="十二讲师包-口播稿">十二、讲师包 · 口播稿</h2>
+<h3 id="本步用哪几个课件">本步用哪几个课件</h3>
+<blockquote>
+<p>课件在 <code>../slides/</code>，浏览器直接打开。<strong>键盘 ← → 翻页 · S 演讲者模式 · O 总览。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>课件</th>
+<th>用在哪一段</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>slides/04c_知识栈_商业与财务.html</code></td>
+<td>知识节·栈④⑤</td>
+<td><strong>全用</strong>。商业模式五件套、EBITDA/IRR/NPV、财务语言随交付模式变</td>
+</tr>
+<tr class="even">
+<td><code>slides/04d_知识栈_交付与合规.html</code></td>
+<td>知识节·栈⑥⑦</td>
+<td><strong>全用</strong>。并行写作三铁律、citations 三态、B-6</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>课件是旧十讲时期做的</strong>，口径以本册为准——课件若与本册冲突（尤其案例成熟度、「合资」旧口径），<strong>以本册为准，当场改口</strong>。</p>
+</blockquote>
+<blockquote>
+<p>以下四段<strong>原文照搬自讲义 <code>讲义/04_知识背景栈.md</code></strong>，是要<strong>照着念</strong>的，不是要点提纲。 讲师可按现场节奏取用；<strong>穿插在第七节讲，不另占时间盒</strong>。</p>
+</blockquote>
+<h3 id="口播-为什么是角色合体不是技能清单开场-3">口播 · 为什么是“角色合体”，不是“技能清单”（开场 3′）</h3>
+<p>“上一版这一讲我讲’五维知识栈’，讲浅了。今天换个讲法，也是更真实的讲法：你要成为 FDE，本质上是要<strong>一个人干完过去七个岗位的活</strong>。传统模式做康养项目这种项目，会议室里坐七种人——产品经理定需求、架构师切系统、知识工程师建图谱、商业顾问搭模式、财评专家算功能点、方案经理写标书、法务把红线。他们各说各的行话，交接处全是信息衰减（这就是第 1 讲的交付断层）。FDE 消除断层的办法，不是协调这七个人，是<strong>把这七套方法论装进自己脑子</strong>，一个人从头跑到尾。所以这一讲不是七个技能点，是<strong>七个角色的方法论体系</strong>，每一个我都给你一本业界压舱的经典——你补哪一栈，就去啃那一本。”</p>
+<h3 id="口播-转入自评你能做几分之几个-fde过渡话术">口播 · 转入自评：你能做几分之几个 FDE（过渡话术）</h3>
+<p>“七栈讲完，别急着觉得’我大概都沾一点’。现在去工作坊做两件残忍的事：第一，<strong>按七个角色给自己逐个定级</strong>（这一栈你到 L1 还是能独立交付的 L3），画出七维雷达——你会看到明显塌下去的一两根轴，多数技术出身的人塌在<strong>栈④商业模式 / 栈⑤财评 / 栈⑥交付物</strong>。第二，为最弱那一栈，<strong>翻开它对应的那本经典的一章，读完写一页’怎么用到康养项目/我的项目’的笔记</strong>——不是读后感，是能用的动作。48 分钟。雷达不是让你自我感觉良好，是让你看清你现在能做<strong>几分之几</strong>个 FDE。”</p>
+<h3 id="口播-难听话建模只是七分之二">口播 · 难听话：建模只是七分之二</h3>
+<p>“你以为 FDE 就是会建模？建模只是七分之二。你能交出 7 域本体、3835 行骨架——很好，那是栈②栈③。客户翻到可研最后一章问你’总投资多少、功能点怎么算的、IRR 几年回本’，你答不出某工业城市那样的’27,056 功能点 / 4,839 万’、答不出’15.2% 第 9 年回本’，你就只是个更贵的建模师，不是 FDE。缺的那五个角色，不会因为你建模漂亮就自动长出来。”</p>
+<h3 id="口播-讲师收口唯一能靠努力补上的部分">口播 · 讲师收口：唯一能靠努力补上的部分</h3>
+<p>“七套方法论是这门课里<strong>唯一能靠努力补上的部分</strong>——上一讲的 C7 补不了，这一讲的七栈全能补，而且我把七本压舱经典都给你了。所以别在这找借口。雷达上那根短轴，就是你和’完整 FDE’之间的距离——它可量化、可补、也<strong>藏不住</strong>。还有一句要记住：<strong>七栈不是让你成为七个专家，是让你样样够用、缝缝对齐、边界自知</strong>。真专家该上场时（比如复杂财评、重大法律风险），你要认得出’这里该请专家了’——这也是能力半径的一部分。”</p>
+</body>
+</html>

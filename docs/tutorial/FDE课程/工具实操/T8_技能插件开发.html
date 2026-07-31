@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>T8  技能插件开发planner 续跑 + quality + core</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">T8 技能插件开发planner 续跑 + quality + core</h1>
+</header>
+<h1 id="t8-技能插件开发planner-续跑-quality-core">T8 · 技能插件开发（planner 续跑 + quality + core）</h1>
+<blockquote>
+<p>目标：把 T4 的 <code>skill-map</code> 实现成<strong>可发版插件</strong>，并用校验器守纪律。<strong>150′</strong>（知识 30′ + 实操 90′ + checkout 30′） 知识（讲什么）：<strong>讲 5 回收（三层固化 / 校验器替你守纪律）</strong> + <strong>讲 8（能力锚 + 团队编成）</strong>——完整要点在 §九，<strong>讲师原话级口播稿在 §十三</strong>（9 段，照读即可） 主案例：<strong>fund-review</strong>（某工业城市项目反向沉淀出插件） 工具：<code>studio-planner</code>（续跑后两步）+ <code>studio-quality</code> + <code>studio-core</code></p>
+</blockquote>
+<hr />
+<h2 id="本步的位置把方法变成下一个项目的起点">〇、本步的位置：把方法变成下一个项目的起点</h2>
+<p>前面七步做的是<strong>这一个项目</strong>。T8 做的是<strong>下一个项目</strong>。</p>
+<blockquote>
+<p>一个真实交付里反复做的动作，被沉淀成可复用插件，下个项目直接调用——<strong>这就是“平台=方法论固化物”从口号变成文件的那一刻。</strong></p>
+</blockquote>
+<hr />
+<h2 id="一四步链路">一、四步链路</h2>
+<pre><code>（承接 T4 的 skill-map.md）
+  ↓
+/studio-planner:spec-generate &lt;plugin&gt;   ← 零确认点，纯自动
+  ↓  phase: planning → building
+/studio-planner:build-skills  &lt;plugin&gt;   ← phase 必须 == building
+  ↓  skill: draft → building → built
+/studio-quality:validate &lt;target_dir&gt;    ← 三组脚本校验
+  ↓  phase: building → approved   (skill: built → tested)
+/studio-core:promote &lt;plugin&gt;            ← 发版 + 归档
+  ↓  归档副本 phase=shipped；活动区重置 planning、iteration+1</code></pre>
+<p><strong>顺带一步</strong>（有 MCP 需求时）：<code>/studio-quality:wire-mcp &lt;target_dir&gt;</code> → 生成 <code>.mcp.json</code></p>
+<hr />
+<h2 id="二spec-generate唯一零确认点的一步">二、spec-generate：唯一零确认点的一步</h2>
+<pre><code>/studio-planner:spec-generate &lt;plugin-name&gt;</code></pre>
+<p><strong>前置</strong>：<code>skill-map.md</code> <strong>必需</strong>（缺则打回 T4）</p>
+<p><strong>产物严格分家</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>落到 <code>studio/changes/{plugin}/</code></th>
+<th>落到 <code>{target_dir}/</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>brief.md</code>（H2：Business Context / Plugin Candidates / Success Criteria / Notes）</td>
+<td><code>skills/{skill}/SKILL.md</code> 骨架</td>
+</tr>
+<tr class="even">
+<td><code>plugin.json.draft</code>（默认 version <code>0.1.0</code>）</td>
+<td><code>commands/{skill}.md</code></td>
+</tr>
+<tr class="odd">
+<td><code>status.json</code>（phase → <code>building</code>）</td>
+<td>Moderate 及以上另建 <code>scripts/.gitkeep</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>SKILL.md 骨架的 6 个 H2</strong>：<code>## Intent</code> · <code>## Expected Inputs</code> · <code>## Expected Outputs</code> · <code>## Preconditions</code> · <code>## Workflow</code> · <code>## Out of Scope</code></p>
+<h3 id="traits-在这里兑现t4-选的开关现在看到结果">⭐ traits 在这里兑现（T4 选的开关，现在看到结果）</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>trait</th>
+<th>生成什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>stateful</code></td>
+<td>额外生成 <code>init-workspace</code> skill + command + <strong>两个 runtime 模板</strong>（生成的运行时工作区形如 <code>.{plugin}/config.yaml</code>、<code>projects/</code>、<code>agents/custom/</code>、<code>archive/</code>）</td>
+</tr>
+<tr class="even">
+<td><code>hil-gated</code></td>
+<td>给标了 HIL 的 skill，在 <code>## Out of Scope</code> <strong>之前</strong>插入 <code>## Approval Gate</code> 段，内含固定三选一：<strong>✅确认 / ✏️修改 / ❌拒绝</strong></td>
+</tr>
+<tr class="odd">
+<td><code>multi-pipeline</code></td>
+<td>每条流水线一个 <code>commands/{pipeline}.md</code></td>
+</tr>
+<tr class="even">
+<td><code>expert-scoped</code></td>
+<td>生成 <code>agents/</code> 目录</td>
+</tr>
+<tr class="odd">
+<td><code>kb-dependent</code></td>
+<td>影响 skill 的数据依赖设计</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>注意区分两个 HIL</strong>： - <strong>T4/T8 的 <code>hil-gated</code></strong> → skill 层的<strong>审批段</strong>（人在对话里点确认） - <strong>T5 的 <code>HilPolicy</code></strong> → Action 层的<strong>副作用闸</strong>（引擎冻结 effects 等人审） 一个在交互层，一个在执行层。<strong>同一件事的两层落点，别混。</strong></p>
+</blockquote>
+<h3 id="失败处理全是不覆盖-打警告">失败处理：全是“不覆盖 + 打警告”</h3>
+<p>SKILL.md 已存在 → 不覆盖；templates 已存在 → 不覆盖；<code>modify</code> 模式下命令一律不覆盖只警告。 <strong>最重要的一条</strong>：本轮 <code>skill-map</code> 未列出的 skill —— <strong>不得创建、不得删除、不得重写</strong>。</p>
+<blockquote>
+<p><strong>这条纪律值得单讲</strong>：工具不会“顺手帮你清理”没在计划里的东西。<strong>边界之外一律不动</strong>，这正是可预测性的来源。</p>
+</blockquote>
+<hr />
+<h2 id="三build-skills初稿不是成品">三、build-skills：初稿不是成品</h2>
+<pre><code>/studio-planner:build-skills &lt;plugin-name&gt;</code></pre>
+<p><strong>硬门</strong>：<code>phase</code> 必须 == <code>building</code>，否则直接报错退出—— <code>planning</code> → 先跑 spec-generate；<code>approved</code> → 已构建校验过；<code>shipped</code> → 活动区已被 promote。</p>
+<p><strong>它做什么</strong>：不新建设计文档，<strong>就地改写</strong> <code>{target_dir}/skills/*/SKILL.md</code>，把骨架填成能跑的初稿。内部委托 <code>skill-creator</code>，<strong>不由学员手动跑</strong>。</p>
+<h3 id="期望管理skill-里有张-initial-fill-not-final-build-对照表">⭐ 期望管理：SKILL 里有张 “Initial Fill, Not Final Build” 对照表</h3>
+<blockquote>
+<p><strong>“scaffolding with substance”——有内容的脚手架，初稿不是成品。</strong> 要用 <strong>2–3 个真实场景</strong>测试后再迭代。<strong>需要迭代不是构建失败。</strong></p>
+</blockquote>
+<p><strong>失败模式</strong>：单个 skill 构建失败 → 该 skill 保持 <code>draft</code> 或标 <code>building-failed</code>；<strong>phase 一律保持 <code>building</code>，绝不自动进入 validation</strong>。</p>
+<blockquote>
+<p><strong>这个设计要点出来</strong>：工具<strong>不会自己给自己发合格证</strong>。从 building 到 approved 必须过校验器那一关。</p>
+</blockquote>
+<hr />
+<h2 id="四-validate校验器到底查什么本步最有教学价值的部分">四、⭐ validate：校验器到底查什么（本步最有教学价值的部分）</h2>
+<pre><code>/studio-quality:validate &lt;插件目录路径&gt;</code></pre>
+<p>三个 Python 脚本，<strong>逐项列出来给学员看</strong>——因为这张清单就是“什么叫做完了”的操作定义：</p>
+<h3 id="a.-结构validate_plugin.py7-类">A. 结构（<code>validate_plugin.py</code>，7 类）</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>检查</th>
+<th>不过的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.claude-plugin/plugin.json</code> 存在（找不到退而找 <code>plugin.json.draft</code>）</td>
+<td>都没有 → <strong>failed</strong> 并提前返回；<strong>用 draft 会产生 warning</strong>：“这是开发工作区，不是最终插件”</td>
+</tr>
+<tr class="even">
+<td>JSON 可解析</td>
+<td>failed</td>
+</tr>
+<tr class="odd">
+<td>必填 <code>name</code> / <code>version</code> / <code>description</code> 非空</td>
+<td>failed</td>
+</tr>
+<tr class="even">
+<td>name 匹配 <code>^[a-z][a-z0-9-]*$</code></td>
+<td><strong>failed</strong></td>
+</tr>
+<tr class="odd">
+<td>name == 目录名</td>
+<td><strong>warning</strong>（不是 failed）</td>
+</tr>
+<tr class="even">
+<td>version 匹配 <code>^\d+\.\d+\.\d+</code></td>
+<td>failed</td>
+</tr>
+<tr class="odd">
+<td>声明的 <code>skills</code>/<code>commands</code>/<code>hooks</code>/<code>mcpServers</code> 路径能 resolve</td>
+<td>failed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b.-技能validate_skills.py逐-skill-9-类">B. 技能（<code>validate_skills.py</code>，逐 skill 9 类）</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>检查</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>skills/</code> 存在、每个子目录有 <code>SKILL.md</code></td>
+<td>failed</td>
+</tr>
+<tr class="even">
+<td><strong>行数 ≤ 500</strong></td>
+<td>超出 = warning（含实际行数）</td>
+</tr>
+<tr class="odd">
+<td>frontmatter 可解析、<code>name</code> 存在</td>
+<td>failed</td>
+</tr>
+<tr class="even">
+<td><strong><code>description</code> ≤ 1024 字符</strong></td>
+<td>超出 = <strong>failed</strong></td>
+</tr>
+<tr class="odd">
+<td>name == 目录名</td>
+<td>warning</td>
+</tr>
+<tr class="even">
+<td><strong>未知 frontmatter key</strong></td>
+<td>warning。<strong>白名单只有 7 个</strong>：<code>name, description, allowed-tools, user-invocable, disabled, trigger, model</code> —— 注意 <code>argument-hint</code> 之类都会被判 unknown</td>
+</tr>
+<tr class="odd">
+<td><strong>正文引用的 <code>scripts/xxx.py</code>、<code>references/xxx.md</code> 必须真实存在</strong></td>
+<td><strong>failed</strong>；例外：引用前 50 字符内出现 <code>${CLAUDE_SKILL_DIR}</code> 则跳过</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>最后这条是 B-3（图片路径断裂）的同类机制</strong>：<strong>占位符即契约</strong>——你在文档里写了要引用的文件，它就必须存在。 康养项目当年是 docx 导出丢图，这里是校验器直接判 failed。<strong>同一条纪律，两个场景。</strong></p>
+</blockquote>
+<h3 id="c.-依赖check_dependencies.py3-组">C. 依赖（<code>check_dependencies.py</code>，3 组）</h3>
+<p><code>.mcp.json</code>（每个 server 必须有 <code>command</code>，重名 failed，env 含 <code>${</code> 给 warning 提醒写文档）· <code>hooks.json</code>（<strong>事件名白名单 6 个</strong>：SessionStart, SessionEnd, PreToolUse, PostToolUse, Notification, Stop）· <code>dependencies[]</code>（找不到 = warning）</p>
+<h3 id="报告">报告</h3>
+<p><strong>终端</strong>：三行汇总 <code>Structure: / Skills: / Dependencies:</code> + <code>Errors:</code> 段（前缀 <code>[structure]</code> / <code>[skill:{name}]</code> / <code>[dependency]</code>）+ <code>Warnings:</code> 段 + 末行 <code>Overall:</code> <strong>文件</strong>：<code>{plugin-dir}/.validation-report.json</code>，<strong>verdict 只有 PASS / FAIL 两值，warning 不影响 verdict</strong>。FAIL 时退出码 1。</p>
+<blockquote>
+<p>⚠️ SKILL.md 的示例用 ✅/⚠️ emoji，<strong>实际脚本输出的是纯文本 <code>PASS</code>/<code>WARN</code>/<code>FAIL</code></strong>。以脚本为准。</p>
+</blockquote>
+<p><strong>⏸ 唯一确认点</strong>：通过后问你要不要更新工作区的 <code>status.json</code>。同意则：skill <code>built → tested</code>、phase → <code>approved</code>。 <strong>规则是“只前进不倒退”</strong>——不会把已 tested 的降级。</p>
+<hr />
+<h2 id="五wire-mcp给你做的插件配-mcp">五、wire-mcp：给你做的插件配 MCP</h2>
+<pre><code>/studio-quality:wire-mcp &lt;插件目录&gt;  [--merge]</code></pre>
+<p><strong>它扫什么</strong>：每个 <code>SKILL.md</code> 的 ① <code>allowed-tools:</code> 行里的 <code>mcp__*</code> ② 正文里的完整工具名 ③ <strong>9 条能力关键词</strong>（database / postgresql / mysql / sqlite / web search / browser / slack / github api / filesystem access）</p>
+<p><strong>匹配</strong>：7 条 server 正则，<strong>首个命中即 break</strong>；没命中的进 <code>unmatched</code> 报给你 <strong>自动补默认 env</strong>：github → <code>GITHUB_PERSONAL_ACCESS_TOKEN</code>、slack → <code>SLACK_BOT_TOKEN</code>、brave-search → <code>BRAVE_API_KEY</code>、postgres → <code>POSTGRES_CONNECTION_STRING</code> <strong><code>--merge</code></strong>：已存在的同名 server <strong>不覆盖</strong> <strong>一个都没匹配</strong> → 打印“不需要 MCP”并<strong>不写文件</strong></p>
+<blockquote>
+<p>⚠️ <strong>它是“给你做的插件配 MCP”，不是“给 studio 自己装 MCP”</strong>。studio-* 自身除 studio-design 存疑外无 MCP 依赖。</p>
+</blockquote>
+<hr />
+<h2 id="六promote发版与归档">六、promote：发版与归档</h2>
+<pre><code>/studio-core:promote &lt;plugin-name&gt;  [v0.2.0]</code></pre>
+<p><strong>6 条硬前置</strong>：① status.json 存在 ② <strong>phase == <code>approved</code></strong> ③ 能拿到 <code>target_dir</code> ④ 目标目录存在且 <code>skills/</code> 下有 SKILL.md ⑤ <strong>所有在范围内的 skill 状态为 <code>tested</code></strong> ⑥ 目标目录非空（空则 abort）</p>
+<p><strong>版本推进规则</strong>： 1. 已有 <code>plugin.json</code> → 读现有 version，<strong>patch +1</strong>（<code>0.1.0 → 0.1.1</code>） 2. 命令行给了显式版本 → 用它（覆盖上一条） 3. 无 manifest → 用 <code>plugin.json.draft</code> 的版本（默认 <code>0.1.0</code>）</p>
+<p><strong>归档规则</strong>：<code>studio/archive/{plugin}/{YYYY-MM-DD}-iteration-{N}/</code>，同名已存在则加后缀 <code>-1</code>、<code>-2</code>。 <strong>是 copy 不是 move</strong> —— 活动工作区保留。 归档副本：<code>phase=shipped</code> + shipped_at/version/to/archive_path。 活动副本：<strong><code>iteration+1</code>、phase 重置为 <code>planning</code></strong> + last_shipped_*。</p>
+<p><strong>⭐ promote 明确不做的事</strong>（这张“不做”清单比“做”更值得讲）： &gt; 不拷贝实现文件 · <strong>不 <code>git add/commit</code></strong> · 不删实现文件 · <strong>不跑校验</strong> · 不删活动工作区 · <strong>不把 promote 当终态</strong></p>
+<blockquote>
+<p><strong>为什么不自动 commit</strong>：因为<strong>提交是人的决定</strong>。工具把状态推进到位，<strong>但“我认可这个版本”这句话必须由人说出口</strong>。 顺带：<code>git diff studio/</code> 是唯一的迭代历史来源——这也是 T2 强调 <code>studio/</code> 必须 git-tracked 的原因。</p>
+</blockquote>
+<hr />
+<h2 id="七实操90">七、实操（90′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>做什么</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>spec-generate</code>，看 traits 兑现成了什么</td>
+<td>20′</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>build-skills</code>，读 1–2 份生成的 SKILL.md</td>
+<td>25′</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>validate</code>，<strong>故意制造一个 failed 再修好</strong></td>
+<td>25′</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>promote</code>，看归档目录与版本号</td>
+<td>10′</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>对照“不做清单”，手动 <code>git add</code> 并写 commit</td>
+<td>10′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🔔 交付物</strong>：一个通过校验、可发版的插件 v0.1</p>
+<p><strong>🔔 强烈建议的一个动作：故意让校验失败一次</strong> 比如把某个 SKILL.md 里引用的 <code>scripts/foo.py</code> 删掉，跑 validate 看它报 failed，再修好。 &gt; <strong>学员亲眼看到校验器抓住自己</strong>，比听十遍“纪律靠机制”都管用。</p>
+<hr />
+<h2 id="八-启发范例-fund-review项目反向沉淀出插件">八、💡 启发范例 · fund-review：项目反向沉淀出插件</h2>
+<p><code>Plugins/fund-review-plugins/</code> —— 政府 IT 采购报价优化 + 财评预审插件。</p>
+<p><strong>它的来历</strong>：<strong>首发案例就是学前教育项目</strong>。某工业城市仓 <code>配置清单/内部包/_原始工作区/*.json</code> 就是它跑出来的会话产物。</p>
+<p><strong>它的形态</strong>：4 个 skill（init-session / quote-optimize / quote-rewrite / quote-review）+ 2 个 agent（quote-optimizer / financial-reviewer）+ 两轮迭代存档（<code>studio/archive/fund-review/2026-05-14-iteration-1</code>、<code>2026-05-15-iteration-2</code>）</p>
+<blockquote>
+<p>⚠️ 诚实标注：该仓 README 明写“<strong>插件实现已迁出本仓库</strong>”，实现源在 marketplace，本仓只留设计文档与客户数据。</p>
+</blockquote>
+<p><strong>⭐ 这就是 T8 的意义</strong>： &gt; 某工业城市项目要做报价优化和财评预审 → 做的过程中发现这套动作<strong>每个 To-G 项目都要来一遍</strong> → 沉淀成插件 → <strong>下一个项目直接 <code>claude plugin install fund-review</code></strong>。 &gt; <strong>从“我做过这件事”到“我们组织有这个能力”，中间隔的就是 T8 这一步。</strong></p>
+<p><strong>给学员的问题</strong>：你本组命题里，<strong>哪一个动作是下个项目还会再做一遍的？</strong> 那个就是该沉淀成插件的。</p>
+<hr />
+<h2 id="九知识讲什么-三层固化回收-团队编成30">九、知识（讲什么）· 三层固化回收 + 团队编成（30′）</h2>
+<blockquote>
+<p>⚠️ <strong>与 T2 的分工，先说清楚</strong>：T2 讲的是<strong>平台是什么、省了什么</strong>（平台=方法论固化物、Palantir 四层对照、三个“同日”）。 <strong>T8 只讲一件事：纪律是怎么被固化的，以及校验器怎么在你想抄近道的时候替你守住。</strong> 别在这里重讲一遍 T2，学员会走神。</p>
+</blockquote>
+<h3 id="讲-5-回收三层固化走完八步才集齐">9.1 讲 5 回收：三层固化，走完八步才集齐</h3>
+<p>T2 讲过三层，那时它还是三个抽象名词。走完八步后回来看，每一层都有了具体落点：</p>
+<table>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>固化了什么</th>
+<th>在哪见到的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>工具层</strong></td>
+<td>做事的步骤顺序</td>
+<td>T4 的 5 步流水线、T6 的 plan→write→assemble</td>
+</tr>
+<tr class="even">
+<td><strong>结构层</strong></td>
+<td>产物的形状</td>
+<td>七段 IR、蓝图 structure、skill-map 的 H2、SKILL.md 的 6 个 H2</td>
+</tr>
+<tr class="odd">
+<td><strong>纪律层</strong></td>
+<td><strong>什么不许做</strong></td>
+<td><strong>T5 的 CI 红线执法、T6 的编号权归装配、T8 的校验器 + “不做清单”</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>第三层最值钱</strong>：工具能省时间，<strong>纪律能防事故</strong>。 而且纪律有个特点：<strong>它在你最想违反的时候生效</strong>——凌晨三点赶工期时，你不会守纪律，但 <code>validate_skills.py</code> 会。</p>
+</blockquote>
+<h3 id="固化三问这一节是学员唯一要带走的心智模型">9.2 ⭐ 固化三问：这一节是学员唯一要带走的心智模型</h3>
+<p>任何一条你反复叮嘱新人的纪律，都问它三个问题：<strong>能不能固化？固化成什么？谁来跑？</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>档</th>
+<th>例子</th>
+<th>固化成什么</th>
+<th>谁来跑</th>
+<th>人力成本</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>全固化</strong></td>
+<td>“跨域不许越界写”</td>
+<td>A 结构校验器</td>
+<td>编译期自动</td>
+<td><strong>零人力，永不疲劳</strong></td>
+</tr>
+<tr class="even">
+<td><strong>全固化</strong></td>
+<td>“SKILL.md 引用的脚本必须存在”</td>
+<td><code>validate_skills.py</code></td>
+<td><code>/studio-quality:validate</code></td>
+<td>零人力</td>
+</tr>
+<tr class="odd">
+<td><strong>半固化</strong></td>
+<td>“关键数字锚在单点、不重算”</td>
+<td>BRIEF 单点 + 装配期一致检查</td>
+<td>docs/quality 跑，人复核</td>
+<td>FDE 走一道人肉闸</td>
+</tr>
+<tr class="even">
+<td><strong>半固化</strong></td>
+<td>“SDK 能力不确定就挂账”</td>
+<td>docstring 显式挂账约定</td>
+<td><strong>人肉跑</strong></td>
+<td>FDE 走一道人肉闸</td>
+</tr>
+<tr class="odd">
+<td><strong>未固化</strong></td>
+<td>只活在你脑子里的那条</td>
+<td>无</td>
+<td>全靠自觉</td>
+<td><strong>请假即崩</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>纪律的固化程度，决定了它需要多少人力持续维护。</strong> <strong>评估一个平台成不成熟，就看它把你多少条纪律固化进了校验器。</strong> 康养项目能做到 <strong>1 名 FDE + 智能体编队</strong>顶掉传统 <strong>5+ 人 / 数周</strong>，不是因为手快，是因为绝大部分一致性纪律被搬进了编译期和装配期。</p>
+</blockquote>
+<p><strong>现场提问（30″，效果比讲十分钟好）</strong>： &gt; “你本组命题里，现在还有哪一条纪律是<strong>全靠你自觉守</strong>的？它能不能往校验器方向推一格？”</p>
+<h3 id="校验器替你守纪律两个真实的想抄近道b-8-b-9">9.3 校验器替你守纪律：两个真实的“想抄近道”（B-8 / B-9）</h3>
+<p>这两条不是设想出来的教学案例，是康养项目编译期真实发生的冲动与存疑。<strong>它们证明的是：训练有素的 FDE 也会想抄近道，靠自觉挡不住。</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>B-8 越域写入冲动</strong></th>
+<th><strong>B-9 SDK 能力想当然</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>冲动是什么</td>
+<td>让一个 Action 直接 <code>stage_write</code> 别的域的对象（一步到位，省事）</td>
+<td><code>PropertySpec.default</code> / <code>Evaluation</code> 到底导没导出，不确定但“应该支持吧”</td>
+</tr>
+<tr class="even">
+<td>谁挡住了它</td>
+<td><strong>A 结构校验器</strong>——越域 <code>stage_write</code> 过不了校验，当场报悬空/越界</td>
+<td><strong>没人挡</strong>——校验器管不到运行时符号导出</td>
+</tr>
+<tr class="odd">
+<td>最终处置</td>
+<td>跨域发布（→D3 Order / →D2 结算 / →D4 画像）<strong>全部写成注释和 ref</strong>，不越界</td>
+<td>7 域统一在 docstring 里<strong>显式挂账</strong>：“此处依赖 X，待引擎仓库内确认”</td>
+</tr>
+<tr class="even">
+<td>结果</td>
+<td><strong>7/7 零悬空引用</strong></td>
+<td>存疑白纸黑字留在代码里，不被遗忘</td>
+</tr>
+<tr class="odd">
+<td>档位</td>
+<td><strong>全固化</strong></td>
+<td><strong>半固化</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>B-8 的教学点</strong>：7/7 零悬空<strong>不是因为我们 7 次都自觉</strong>，是因为校验器不给我们自觉的机会。 ⭐ <strong>B-9 的教学点</strong>：<strong>平台会告诉你它保证什么（py_compile、只 import sdk），也会暴露它不保证什么（运行时符号导出）。</strong> 成熟的 FDE 要能读懂平台校验的<strong>边界</strong>，在校验器覆盖不到的地方，用 docstring 手动补一道“诚实闸”。</p>
+</blockquote>
+<p><strong>接回本步实操</strong>：T8 §七让学员<strong>故意制造一次 failed</strong>，就是让每个人亲身体验一次 B-8——<strong>被校验器抓住一次，胜过听十遍“纪律靠机制”。</strong></p>
+<h3 id="讲-8三级能力锚这是结课定级的口径t9-直接用">9.4 讲 8：三级能力锚（这是结课定级的口径，T9 直接用）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>级</th>
+<th>判据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L1 见习</strong></td>
+<td>能在 FDE 指导下<strong>承接单一环节</strong></td>
+</tr>
+<tr class="even">
+<td><strong>L2 胜任</strong></td>
+<td>能<strong>独立完成认知侧全链条</strong>，交付物<strong>需一次复核</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>L3 主理</strong></td>
+<td>能<strong>主持项目、设 HIL 闸、对客户承诺负责</strong>，并<strong>能带 L1</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>硬口径两条，讲师必须原话说出来</strong>：</p>
+<blockquote>
+<p>① <strong>C1–C6 可训练，C7（客户关系 / 责任承担 / 价值判断 / 政治敏感度）只能筛选。</strong> 这八步教的全是 C1–C6。<strong>C7 教不了——但这八步走一遍，能照出你在 C7 上缺什么。</strong></p>
+</blockquote>
+<blockquote>
+<p>② <strong>多数人第一次会停在 L1，这是正常的，装作 L2 才是危险的。</strong></p>
+</blockquote>
+<p><strong>所以结课不发“合格证”</strong>：发的是<strong>能力等级 + 差距清单</strong>。T9 结课定级用的就是这三级锚，学员在 T8 就该知道自己会被怎么量。</p>
+<p><strong>C7 的锚点，全在这门课里出现过</strong>： - <strong>客户关系 / 政治敏感度</strong> → 康养项目 <strong>11 处地方文号</strong>查不到，<strong>坚决留占位不编造</strong>，转成向机关逐项取件的清单。原话：<strong>“错文号比空缺更有害。”</strong> - <strong>价值判断</strong> → 站长 HIL 的 <strong>0.75 置信度阈值</strong>：不是算出来的，是权衡出来的。 - <strong>责任承担</strong> → 对外一律写“赋能优化”而非“替代”——<strong>因为承担说错话后果的是人。</strong></p>
+<h3 id="讲-8团队编成随交付模式变">9.5 讲 8：团队编成随交付模式变</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>模式一（Token-SaaS）</strong></th>
+<th><strong>模式二（平台建设 + 运营）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>编成</td>
+<td><strong>轻</strong>：1 FDE + 平台/运行时组</td>
+<td><strong>重</strong>：1 主理 FDE(L3) + N 见习(L1) + 平台组</td>
+</tr>
+<tr class="even">
+<td>FDE 吃重</td>
+<td>T3 快 + T5 设闸 + T7 产品化；T6 轻</td>
+<td>全链，尤重 T5 合规 / T6 可研 / 商业建模</td>
+</tr>
+<tr class="odd">
+<td>半径要求</td>
+<td>快跑快迭代</td>
+<td>扛得起可研、财务测算、监管合规——<strong>商业与合规半径宽得多</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>三个角色各自提供什么</strong>（这句是编成的本质）： &gt; <strong>L3 提供判断和责任（C7 + 高阶 C1–C6），L1 提供手数和成长通道，平台组提供杠杆。三者缺一，康养项目都不可复制。</strong></p>
+<p><strong>平台组不是 FDE</strong>，是让 FDE 不必“更累”的人。<strong>没有平台组，L3 就退化成一个更累的架构师。</strong></p>
+<blockquote>
+<p>⚠️ <strong>一句冷水</strong>：能做模式二的大平台，<strong>不代表</strong>你能做模式一的 SaaS 应用，反之更是。 真正的分水岭是 <strong>C1 认知萃取的跨行业迁移力</strong>——换个你不熟的行业，沉淀归零、<strong>只剩方法</strong>，你还压得出可归域的结构吗？<strong>这就是 L2 和 L3 的分界。</strong></p>
+</blockquote>
+<h3 id="交接-t9">9.6 交接 T9</h3>
+<p>T8 的知识注入产出交付包第 <strong>⑩ 件（团队编成 + 90 天计划）</strong>——<strong>别只写“1 主理 + N 见习”六个字</strong>，要写清：谁是 L3、L1 各认领哪个环节、平台组维护什么。 T9 结课路演会当场问：<strong>“你的编成草案里，谁当 L3？如果你把自己填成了 L3，你的 C7 真的过关吗？”</strong></p>
+<hr />
+<h2 id="十checkout30">十、checkout（30′）</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>traits 兑现</td>
+<td>说得出 T4 选的 traits 变成了哪些文件</td>
+<td>不知道 <code>## Approval Gate</code> 段是怎么来的</td>
+</tr>
+<tr class="even">
+<td>初稿认知</td>
+<td>明白 build-skills 出的是初稿，计划用 2–3 个真实场景迭代</td>
+<td>以为生成完就是成品</td>
+</tr>
+<tr class="odd">
+<td>校验通过</td>
+<td>validate 报 PASS，<code>.validation-report.json</code> verdict=PASS</td>
+<td>用 <code>plugin.json.draft</code> 蒙混（会 warning）</td>
+</tr>
+<tr class="even">
+<td><strong>亲历失败</strong></td>
+<td><strong>故意制造过一次 failed 并修好</strong></td>
+<td>一次通过就走了（没见过校验器发威）</td>
+</tr>
+<tr class="odd">
+<td>引用完整</td>
+<td>SKILL.md 里引用的脚本/参考文件都真实存在</td>
+<td>引用了不存在的文件（B-3 同类）</td>
+</tr>
+<tr class="even">
+<td>promote 前置</td>
+<td>六条前置都满足才 promote</td>
+<td>phase 没到 approved 就想发版</td>
+</tr>
+<tr class="odd">
+<td>提交</td>
+<td><strong>手动 git add + commit</strong>，知道工具不代劳</td>
+<td>以为 promote 会自动提交</td>
+</tr>
+<tr class="even">
+<td>沉淀判断</td>
+<td>说得出本组哪个动作值得沉淀成插件</td>
+<td>为做插件而做插件</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="十一给讲师的时间盒150">十一、给讲师的时间盒（150′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场：T8 做的是下一个项目</td>
+<td>5′</td>
+</tr>
+<tr class="even">
+<td>四步链路 + traits 兑现</td>
+<td>20′</td>
+</tr>
+<tr class="odd">
+<td><strong>校验器查什么（逐项过一遍）</strong></td>
+<td>20′</td>
+</tr>
+<tr class="even">
+<td>实操四步 + 故意失败</td>
+<td>90′ ← 穿插</td>
+</tr>
+<tr class="odd">
+<td>fund-review 启发</td>
+<td>10′</td>
+</tr>
+<tr class="even">
+<td><strong>知识（§九）：三层固化回收 + 固化三问 + 能力锚 + 团队编成</strong></td>
+<td>30′ ← 穿插（口播稿见 §十三）</td>
+</tr>
+<tr class="odd">
+<td>checkout</td>
+<td>30′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>主持提示</strong>：本步是全课最后一个动手环节，<strong>要留足时间做“回收”</strong>——把 T2 埋的“三层固化”在这里合上，学员才会有“走完一圈”的完成感。<strong>别让课程停在一个技术动作上。</strong></p>
+<hr />
+<h2 id="十二走完八步之后">十二、走完八步之后</h2>
+<pre><code>T2 环境  → T1 采集 → T3 认知 → T4 建模 ─┬─ T5 本体+设闸
+                                       ├─ T6 文书
+                                       ├─ T7 原型
+                                       └─ T8 插件沉淀 ← 你在这里</code></pre>
+<p><strong>交付包 11 件</strong>至此齐了，<strong>⑫ 可发版插件 v0.1 是加分项</strong>（150′ 内做到通过 <code>/studio-quality:validate</code> 即算达成，做不完不扣分）——进入 <strong>T9 结课路演</strong>。</p>
+<blockquote>
+<p><strong>⑫ 的评审口径要提前说清</strong>：评审看的是“<strong>说得出本组哪个动作值得沉淀成插件</strong>”，<strong>不是插件本身</strong>。为做插件而做插件，拿不到这个加分。</p>
+</blockquote>
+<p><strong>路演的一票警示（三条，全部来自这八步）</strong>： 1. 编造查不到的文号（<strong>B-10</strong>，T5/T6） 2. 把别处模板的数字当自己的（<strong>B-11</strong>，T1） 3. 把方案目标值 / Mock demo 说成已实现（T7）</p>
+<blockquote>
+<p><strong>三条其实是同一条</strong>：<strong>空缺可以补，编造无法挽回。</strong> 八步工具练的是手艺，这一条练的是<strong>能不能把手艺交给你</strong>。</p>
+</blockquote>
+<p><strong>下一册</strong>：<code>T9_结课路演.md</code>（讲 3 OPC 边界 + 讲 10 C-Life 落地 + 八维评审卡 + 结课定级）。</p>
+<hr />
+<h2 id="十三讲师包-口播稿">十三、讲师包 · 口播稿</h2>
+<h3 id="本步用哪几个课件">本步用哪几个课件</h3>
+<blockquote>
+<p>课件在 <code>../slides/</code>，浏览器直接打开。<strong>键盘 ← → 翻页 · S 演讲者模式 · O 总览。</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>课件</th>
+<th>用在哪一段</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>slides/05_为什么FDE依赖成熟工程化平台.html</code></td>
+<td>知识节·三层固化回收</td>
+<td><strong>只回放三层固化那 1–2 屏</strong>（T2 已完整讲过），重点落在「校验器替你守纪律」</td>
+</tr>
+<tr class="even">
+<td><code>slides/08_什么样的人能成为FDE.html</code></td>
+<td>知识节·团队编成</td>
+<td><strong>全用</strong>。六维对照、L1/L2/L3 能力锚、团队编成</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>课件是旧十讲时期做的</strong>，口径以本册为准——课件若与本册冲突（尤其案例成熟度、「合资」旧口径），<strong>以本册为准，当场改口</strong>。</p>
+</blockquote>
+<blockquote>
+<p><strong>用法</strong>：以下 9 段为<strong>讲师原话级脚本，照读即可</strong>，穿插在 §九 的 30′ 知识段里。 顺序建议：口播 1–3（讲 5 回收，接在实操“故意制造 failed”之后）→ 口播 4–9（讲 8，能力锚与编成，放在 checkout 之前）。 <strong>原文照搬自 <code>讲义/05_为什么FDE依赖成熟工程化平台.md</code>（要点页 4、5）与 <code>讲义/08_什么样的人能成为FDE.md</code>（要点页 1–5·补），未改写、未缩写。</strong></p>
+</blockquote>
+<h3 id="口播-b-8-越域写入冲动挡住它的是校验器不是自觉">口播 · B-8 越域写入冲动：挡住它的是校验器不是自觉</h3>
+<p>"讲个我们自己犯的冲动。编译 7 个域的时候，好几次都想让一个 Action <strong>直接</strong> <code>stage_write</code> 别的域的对象——比如 D1 的智能体链路，一个方案审核通过了，最省事的写法是直接去 D3 把销售订单写了、去 D2 把结算记一笔、去 D4 把画像更新了。一步到位，多爽。</p>
+<p>但这是<strong>越域写入</strong>。DDD 的铁律是：跨域一律 ref / 发布，不能越界写别人家的对象。我们最后的处理是——<strong>跨域发布（→D3 Order / →D2 结算 / →D4 画像）全部写成注释和 ref，不越界 stage_write</strong>；整个 7 域’越域一律 ref/发布，不建越域 Link’。</p>
+<p>注意，挡住这个冲动的不是我’觉悟高’。是 <code>clife-onto-engine</code> 的结构校验器：越域 stage_write 过不了 A 结构校验，会当场报悬空/越界。所以最后 7/7 零悬空引用，不是因为我们 7 次都自觉，是因为<strong>校验器不给我们自觉的机会</strong>。这就是平台把’跨域纪律’固化成校验器的实例。没有这个校验器，7 个域里哪怕有 1 处一时手滑越了界，你后面对账、追责、复现就是一场灾难。"</p>
+<h3 id="口播-b-9-sdk-能力想当然读懂校验器的边界">口播 · B-9 SDK 能力想当然：读懂校验器的边界</h3>
+<p>"再讲一个更微妙的坑：<strong>SDK 能力想当然</strong>。编译期我们要用 <code>PropertySpec.default</code>、要用 <code>Evaluation</code> 这些 SDK 能力，但当时<strong>不确定引擎到底导没导出</strong>这些符号。本机没有引擎仓库，只能 py_compile，验证不了运行时。</p>
+<p>两种态度：一种是’应该支持吧’，直接往前写；另一种是我们最后选的——<strong>不确定就显式挂账</strong>。<code>Evaluation</code> 未导出→7 域统一落到 docstring 里，白纸黑字写明’此处依赖 X，待引擎仓库内确认’。这跟第 3 讲主张 3 是同一条脊椎：<strong>敢说不知道</strong>。‘错文号比空缺更有害’，‘错用一个没导出的 SDK 符号，比显式挂账更有害’。</p>
+<p>这里的教训对平台的意义是：<strong>平台会告诉你它保证什么（py_compile、只 import sdk），也会暴露它不保证什么（运行时符号导出）。成熟的 FDE 要能读懂平台校验的边界，在校验器覆盖不到的地方，用 docstring 手动补一道’诚实闸’。</strong>"</p>
+<h3 id="口播-固化三问一个可迁移的心智模型">口播 · 固化三问：一个可迁移的心智模型</h3>
+<p>"我把前面收成一个你能带走的心智模型。任何一条你反复叮嘱新人的纪律，都要问自己三个问题：<strong>能不能固化？固化成什么？谁来跑？</strong></p>
+<ul>
+<li>‘跨域不许越界写’ → 能固化 → 固化成 A 结构校验器 → clife-onto-engine 编译期自动跑（B-8）。</li>
+<li>‘关键数字锚在单点、不重算’ → 能固化 → 固化成 BRIEF 单一真相源 + 装配期一致性检查 → docs/quality 跑（B-5 就是没跑好的反例）。</li>
+<li>‘SDK 能力不确定就挂账’ → 半固化 → 校验器管不到运行时，只能固化成 docstring 挂账约定 → FDE 人肉跑（B-9）。</li>
+</ul>
+<p>看出来了吗：<strong>纪律的固化程度，决定了它需要多少人力持续维护</strong>。全固化的（越域校验），零人力、永不疲劳；半固化的（citations 挂账、SDK 挂账），需要 FDE 走一道人肉闸。你评估一个平台成不成熟，就看它把你多少条纪律固化进了校验器。<strong>Astra Studio 之所以能让 1 个人干 5 个人的活，是因为它把资深 FDE 脑子里那批一致性纪律，绝大部分搬进了编译期和装配期的校验器。</strong></p>
+<p>所以回到那句难听话：平台不是让你更快地打字，是让你<strong>不必再靠意志力维持纪律</strong>。你一个人靠意志力能守 3 天纪律，守不了 3 个月、守不了 7 个域同时。这就是为什么没有平台，你复制的只有加班。"</p>
+<h3 id="口播-三类看起来最像-fde的人为什么都不是">口播 · 三类“看起来最像 FDE”的人，为什么都不是</h3>
+<p>"我们先把三个候选人请上台，因为你们中的大多数，简历上写的正是这三个词之一。</p>
+<p><strong>解决方案架构师</strong>——他从’一个技术方案’开始工作，交给客户一份架构图。他很强，但他的起点是’系统怎么搭’，不是’客户的模糊话到底是什么意思’。康养项目这条链的第一步不是画架构，是把客户一句’帮站长管好老人’拆成 102 个业务事件——这一步架构师通常直接跳过，因为他默认需求已经有人整理好了。</p>
+<p><strong>交付架构师</strong>——他从’一个已经定型的方案’开始，负责把它落地、集成、上线，交付一套跑得起来的系统。他的价值在’把定好的东西做出来’，可 FDE 的价值恰恰在’定’之前那一段——从 16 事件簇收敛到 7 域限界上下文，那是判断，不是集成。</p>
+<p><strong>需求分析师</strong>——他离 FDE 最近，也最容易自我感觉良好。他会做访谈、写需求文档。但他的交付物是’一份需求清单’，交给下游就结束了；他不为’这份需求能不能编译成 7 域、38 个 Function、47 条 Rule、54 个 Action’负责，更不为’哪个 Action 要设 HIL 闸、按错了谁赔’负责。</p>
+<p>三个人都真、都强、都有用。但他们各自只握住 FDE 这条链的一段。<strong>FDE 不是这三个人里最好的那个，FDE 是这三段本来就不该切开的那条链。</strong>"</p>
+<h3 id="口播-六维对照表失败归因是最见人品的一维">口播 · 六维对照表：失败归因是最见人品的一维</h3>
+<p>“现在我把这张对照表逐维讲透。你们招人、内部选拔，就用这六维当尺子。我一维一维过，每一维你都对号入座——你自己现在站在哪一列。”</p>
+<p>“看第 4 维’失败归因’——这是最见人品的一维。三类角色出了问题，话术都是’别人的锅’；FDE 没有这个话术，因为<strong>全链是他一个人走的，接缝数为零，断层无处推</strong>。这不是道德要求，是结构决定的：你把四段合成一段，就再也找不到’上一棒没交好’这个借口了。”</p>
+<h3 id="口播-硬能力矩阵-c1c6可训练的六维">口播 · 硬能力矩阵 C1–C6：可训练的六维</h3>
+<p>“好消息先说：FDE 的六维硬能力，<strong>都能训练</strong>。坏消息随后：训练它们，比你想的贵、慢、且必须在真实项目上磨。我把 C1–C6 逐维给你判定基线——达到哪个程度算过关。这张矩阵你在工作坊里就要拿来给自己打分。”</p>
+<p>“注意最后一列——三类角色<strong>各有一两维起点不低，但没有一类六维齐全</strong>。这正是’像 FDE 但不是 FDE’的结构原因。训练 FDE，不是把某一维练到顶，是<strong>把六维的短板逐一补齐到 L2 以上</strong>。”</p>
+<h3 id="口播-软能力-c7只能筛选不能训练">口播 · 软能力 C7：只能筛选，不能训练</h3>
+<p>"现在讲最扎心的一维——C7，人的部分：客户关系、责任承担、价值判断、政治敏感度。总纲里那句话是全课程的支点：<strong>C1–C6 可训练，C7 只能筛选。</strong></p>
+<p>什么意思？C7 不是’练一练会变好’的技能，是’你这个人是不是这种人’的底色。我给你们四个具体切片：</p>
+<p><strong>客户关系</strong>——不是会说话，是客户信不信你敢对他说’这个我不知道’。康养项目 11 处地方文号查不到，FDE 的处理是坚决保留 <code>[本地待补文号]</code> 占位、锚定上位国标、转成向医保局/民政局逐项取件的清单，而不是编一个像模像样的假文号糊过去。内部原话——<strong>‘错文号比空缺更有害。’</strong> 一个改不掉’不能在客户面前露怯’这个本能的人，永远做不到这一步。</p>
+<p><strong>责任承担</strong>——第 2 维对照里那个’无处甩锅’，能不能扛得住，是天性不是培训。</p>
+<p><strong>价值判断</strong>——康养项目那条红线：表述一律用’赋能优化’而非’替代’，因为涉及民政、就业、政治敏感。什么时候该踩刹车，是价值观在做判断，不是流程在做判断。</p>
+<p><strong>政治敏感度</strong>——To-G 项目里，一句话措辞不当就可能引火烧身。这个雷达，有的人天生有，有的人怎么教都装不上。</p>
+<p>所以选拔 FDE，<strong>C1–C6 看能不能补，C7 看是不是这块料</strong>。C7 不合格，前六维再强也不能给他 L3、不能让他对客户承诺负责。"</p>
+<h3 id="口播-团队编成1-主理-n-见习-平台组">口播 · 团队编成：1 主理 + N 见习 + 平台组</h3>
+<p>"最后一页最实际。你现在知道 FDE 稀缺、C7 筛不出几个，那怎么组队干活？答案不是’招一堆全能 FDE’——那是幻想。答案是<strong>一个非对称编队</strong>：</p>
+<p><strong>1 名主理 FDE（L3）</strong>——C7 过关、C1–C6 齐全，主持项目、设 HIL 闸、对客户承诺负责。康养项目就是这个角色一个人带编队走完的。一个 L3 是整个编队的’判断中枢’和’甩锅终点’。</p>
+<p><strong>N 名见习 FDE（L1）</strong>——C7 有潜质、C1–C6 在补齐中。他们在 L3 指导下承接<strong>单一环节</strong>：比如专攻 C1 主持事件风暴、或专攻 C6 写并行章节。L1 不独立对客户承诺，但在真实项目里练六维。康养项目若要复制，第二个项目就应该配 2–3 个 L1 在 L3 身边过手。</p>
+<p><strong>平台组</strong>——不是 FDE，是让 FDE 不必’更累’的人。他们维护 Astra Studio 建模管线（planner/domain-model/clife-onto-engine/citations/可研生成），把方法论固化成工具，让 7 域能同日并行编译。<strong>没有平台组，L3 就退化成一个更累的架构师</strong>（第 5 讲主张二）。</p>
+<p>记住这个编队的本质：<strong>L3 提供判断和责任（C7 + 高阶 C1–C6），L1 提供手数和成长通道，平台组提供杠杆。三者缺一，康养项目都不可复制。</strong>"</p>
+<h3 id="口播-能力半径-团队编成随交付模式变">口播 · 能力半径 + 团队编成随“交付模式”变</h3>
+<p>"六维里最容易被高估的是 <strong>⑤ 能力半径</strong>，而它跨<strong>交付模式</strong>才见真章。有人在康养项目做完一个康养大平台，就以为自己是 L3 了。我泼盆冷水：<strong>能做模式二的大平台，不代表你能做模式一的 SaaS 应用，反之更是。</strong></p>
+<p>两种模式的团队编成根本不同——<strong>模式一（Token-SaaS，如教育督导项目）编成轻</strong>：1 个 FDE + 平台/运行时组，快跑快迭代；<strong>模式二（大平台建设运营，如康养项目/草业项目/辣椒）编成重</strong>：1 个主理 FDE（L3）+ N 个见习 + 平台组，而且要扛得起可研、财务测算、监管合规——商业和合规的能力半径要宽得多。你擅长哪种模式，直接决定你能主理哪种项目。</p>
+<p>而真正的分水岭是 <strong>C1 认知萃取的跨行业迁移力</strong>：教育督导项目能用和康养项目同一套管线做出来，证明<strong>方法能迁移</strong>；但你能不能在一个<strong>你不熟的行业</strong>（学前督导、辣椒育种、草原修复）里，快速把模糊意图压成可归域的结构？康养你可能靠沉淀蒙对了，换个行业沉淀归零、<strong>只剩方法</strong>——这就是 L2 和 L3 的分界。</p>
+<p>最后一句诚实话：辣椒/草业项目目前只到方案、草业项目 demo 还是 Mock，所以我讲它们只敢讲’定位与结构’，不敢讲交付实测——<strong>知道自己在哪个模式、哪个行业、哪个阶段还没有发言权，本身就是能力半径的一部分。</strong>"</p>
+</body>
+</html>

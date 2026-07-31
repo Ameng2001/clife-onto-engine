@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第8讲 什么样的人能成为 FDE</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:44px 60px;justify-content:flex-start}
+  .slide>.kicker{margin-top:8px}
+  .slide h2.title{font-size:40px;margin:6px 0 14px}
+  .slide h1.title{font-size:60px}
+  .fill-mid{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+  table.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface)}
+  table.tbl th,table.tbl td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top;line-height:1.4}
+  table.tbl thead th{background:var(--surface-2);color:var(--accent);font-weight:700;font-size:13px}
+  table.tbl .fde{background:color-mix(in srgb,var(--accent-2) 9%,transparent)}
+  table.tbl th.dim{font-weight:600;color:var(--text-2);white-space:nowrap}
+  table.tbl.sm{font-size:12.5px}
+  table.tbl.sm th,table.tbl.sm td{padding:6px 9px}
+  .bignum{font-size:58px;font-weight:800;color:var(--accent);line-height:1;letter-spacing:-.03em}
+  .bignum small{font-size:16px;font-weight:600;color:var(--text-2);display:block;margin-top:6px;letter-spacing:0}
+  .statcard{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-2);border-radius:var(--radius);padding:20px 22px}
+  .quote{font-family:var(--font-serif);font-size:30px;line-height:1.4;color:var(--accent);font-weight:600}
+  .redbox{border:2px solid var(--bad);border-radius:var(--radius);padding:16px 20px;background:color-mix(in srgb,var(--bad) 5%,transparent)}
+  .tagC{display:inline-block;font-family:var(--font-mono);font-weight:700;color:var(--accent-2);background:color-mix(in srgb,var(--accent-2) 10%,transparent);padding:1px 8px;border-radius:4px;font-size:13px}
+  .lead{font-size:19px;line-height:1.6;color:var(--text-2);max-width:70ch}
+  ul.clean{margin:0;padding-left:20px}
+  ul.clean li{margin:7px 0;line-height:1.55}
+  figure{margin:0;text-align:center}
+  figcaption{margin-top:12px;font-size:14px;color:var(--text-3)}
+  .cap{font-size:13px;color:var(--text-3);margin-top:8px}
+</style>
+<div class="deck">
+
+  <!-- 1 Cover -->
+  <section class="slide" data-title="封面">
+    <div class="fill-mid">
+      <span class="kicker">C-Life FDE 能力课程 · 第 8 讲</span>
+      <h1 class="title anim-fade-up">什么样的人<br>能成为 FDE</h1>
+      <div class="divider-accent mt-m mb-m"></div>
+      <p class="lead">解决方案架构师、交付架构师、需求分析师——都不是 FDE。<br>本讲把七维能力拉成一张选拔可用的对照表，落到一句话：<b style="color:var(--accent)">C1–C6 可训练，C7 只能筛选。</b></p>
+      <p class="cap mt-l">能力模型总检票口 · 实践蓝本：康养行业大模型平台</p>
+    </div>
+    <div class="deck-footer"><span>C-Life FDE 课程</span><span class="slide-number" data-current="1" data-total="13"></span></div>
+    <div class="notes">这一讲是能力模型 C1 到 C7 的总检票口。前七讲逐维训练，本讲不新增技能，发的是一把照镜子的尺子。开场我先撂一句最扎心的命题：你们简历上写的解决方案架构师、交付架构师、需求分析师，看起来最像 FDE，恰恰因为像才最危险——会以为稍微学点 AI 工具就是 FDE 了。今天的任务是把这层误会当众撕开，不是打击谁，是让每个人看清自己现在的能力结构差在哪一维，然后知道往哪补。记住这句总纲：C1 到 C6 可以训练，C7 只能筛选。这是全课程的支点。</div>
+  </section>
+
+  <!-- 2 命题 三类人 -->
+  <section class="slide" data-title="三类像FDE的人">
+    <span class="kicker">要点 1 · 命题</span>
+    <h2 class="title">三类"看起来最像 FDE"的人，为什么都不是</h2>
+    <div class="fill-mid">
+      <div class="grid g3" style="gap:18px">
+        <div class="statcard"><h4>解决方案架构师</h4><p class="dim" style="font-size:15px">从"一个技术方案"起步，交一份架构图。起点是"系统怎么搭"，默认需求已经有人整理好——直接跳过"把客户模糊话拆成 102 事件"这一刀。</p></div>
+        <div class="statcard"><h4>交付架构师</h4><p class="dim" style="font-size:15px">从"一个已定型的方案"起步，负责落地、集成、上线。价值在"把定好的东西做出来"，可 FDE 的价值恰在"定"之前——16 簇收敛到 7 域，那是判断不是集成。</p></div>
+        <div class="statcard"><h4>需求分析师</h4><p class="dim" style="font-size:15px">离 FDE 最近，也最容易自我感觉良好。交付物是一份需求清单，交给下游就结束——不为"能不能编译成 7 域 47 条 Rule 54 个 Action、哪个要设闸"负责。</p></div>
+      </div>
+      <p class="quote mt-l">FDE 不是这三个人里最好的那个，<br>FDE 是这三段本来就不该切开的那条链。</p>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="2" data-total="13"></span></div>
+    <div class="notes">先把三个候选人请上台，因为你们大多数人简历上写的正是这三个词之一。解决方案架构师很强，但起点是系统怎么搭，不是客户的模糊话到底什么意思；康养项目这条链的第一步不是画架构，是把一句"帮站长管好老人"拆成 102 个业务事件，这一步架构师通常直接跳过。交付架构师的价值在把定好的东西做出来，可 FDE 的价值恰恰在定之前那一段。需求分析师离 FDE 最近也最危险，他做访谈写文档，但交出去就完事，不为这份需求能不能编译、哪个 Action 要设 HIL 闸负责。三个人都真、都强、都有用，但各自只握住这条链的一段。FDE 是这三段本不该切开的那条链。</div>
+  </section>
+
+  <!-- 3 fig-8-1 -->
+  <section class="slide" data-title="角色对照图">
+    <span class="kicker">要点 1 · 板书图</span>
+    <h2 class="title">传统三角色 vs FDE：六维覆盖对照</h2>
+    <div class="fill-mid center">
+      <figure>
+        <img src="../figures/fig-8-1-角色对照.png" alt="传统三角色 vs FDE 六维对照" style="max-width:100%;max-height:60vh">
+        <figcaption>图 8-1　传统三角色 vs FDE 六维对照 — 颜色深浅表示"覆盖了 FDE 这条链的哪一段"</figcaption>
+      </figure>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="3" data-total="13"></span></div>
+    <div class="notes">这张图把六维一次性铺开：左三列是解决方案架构师、交付架构师、需求分析师，右一列是 FDE。六行分别是工作起点、交付物、与客户的关系、失败归因、能力半径、工具依赖。用颜色深浅表示每一列覆盖了这条链的哪一段——你会直观看到，三类角色各自只点亮一段，只有 FDE 那一列是从头贯通到尾的。康养项目这条链，102 事件到 16 簇到 7 画像到 7 域到 3835 行骨架加 26 个 HIL 点到 11 章可研，由一名 FDE 带智能体编队走完；传统模式是产品经理加架构师加行业顾问加方案经理加美工五个人以上、数周。没有任何一段能单独对客户的最终结果负责，这就是这张图要你记住的。</div>
+  </section>
+
+  <!-- 4 六维对照表 -->
+  <section class="slide" data-title="六维对照表">
+    <span class="kicker">要点 2 · 选拔尺子</span>
+    <h2 class="title">六维对照表：逐维拆开三类角色与 FDE 的差</h2>
+    <div class="fill-mid">
+      <table class="tbl sm">
+        <thead><tr><th>维度</th><th>解决方案架构师</th><th>交付架构师</th><th>需求分析师</th><th class="fde">FDE（前置交付工程师）</th></tr></thead>
+        <tbody>
+          <tr><th class="dim">① 工作起点</th><td>一个待搭的技术方案</td><td>一个已定型的方案</td><td>一次访谈 / 原始需求</td><td class="fde">客户一句模糊意图 → 自己拆成 102 事件</td></tr>
+          <tr><th class="dim">② 交付物</th><td>架构图 / 技术选型</td><td>可上线的集成系统</td><td>需求规格文档</td><td class="fde">认知侧全链条：事件集→7域 ontology→HIL 设点表→可研+取证清单</td></tr>
+          <tr><th class="dim">③ 客户关系</th><td>技术顾问（被咨询）</td><td>实施乙方（被验收）</td><td>信息采集者（被回答）</td><td class="fde">结果承诺人：对"拿到的=真正要的"负责</td></tr>
+          <tr><th class="dim">④ 失败归因</th><td>"需求变了/没给清"</td><td>"方案有问题/环境不配合"</td><td>"他们没说清/后面改了"</td><td class="fde">无处甩锅：全链一人走，接缝数=断层数</td></tr>
+          <tr><th class="dim">⑤ 能力半径</th><td>深在技术，窄在业务合规</td><td>深在工程，窄在认知萃取</td><td>宽在沟通，浅在结构化</td><td class="fde">C1–C6 全维 + C7</td></tr>
+          <tr><th class="dim">⑥ 工具依赖</th><td>IDE/架构工具，个人手艺</td><td>CI/CD、集成中间件</td><td>文档模板、访谈提纲</td><td class="fde">Astra Studio 建模管线（planner→onto→可研）</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">第 ④ 维"失败归因"最见人品：三类角色出问题话术都是"别人的锅"；FDE 没有这个话术——四段合成一段，再也找不到"上一棒没交好"的借口。</p>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="4" data-total="13"></span></div>
+    <div class="notes">这张表你们招人、内部选拔就用这六维当尺子。我一维一维过，每一维你都对号入座，看自己现在站哪一列。重点讲第四维失败归因，这是最见人品的一维：三类角色出了问题话术都是别人的锅——需求变了、环境不配合、他们没说清；FDE 没有这个话术，因为全链是他一个人走的，接缝数为零，断层无处推。这不是道德要求，是结构决定的：你把四段合成一段，就再也找不到上一棒没交好这个借口了。康养项目的实证是全链零次跨人交接、7 域引用 7 比 7 零悬空，因为定义方和引用方是同一个大脑，不存在 D3 引 D1 对不上口径这种接缝断层。</div>
+  </section>
+
+  <!-- 5 C1-C6 -->
+  <section class="slide" data-title="C1-C6硬能力">
+    <span class="kicker">要点 3 · 可训练的六维</span>
+    <h2 class="title">硬能力矩阵 C1–C6：都能训练，但贵、慢、必须在真实项目上磨</h2>
+    <div class="fill-mid">
+      <table class="tbl sm">
+        <thead><tr><th>维</th><th>能力项</th><th>康养项目对应动作</th><th>L1 见习判据</th><th>L3 主理判据</th></tr></thead>
+        <tbody>
+          <tr><th class="dim">C1 认知萃取</th><td>事件风暴/画像/旅程/热点分层</td><td>102 事件 / 7 画像 / 10 热点 P1–P5</td><td>指导下参与一场事件风暴</td><td class="fde">独立主持并产出可归域事件集</td></tr>
+          <tr><th class="dim">C2 结构建模</th><td>DDD 限界上下文 + 本体五要素 OAG</td><td>7 域；Obj76/Link75/Fn38/Rule47/Act54</td><td>读懂一个域的 ontology-map</td><td class="fde">独立完成 1 域并零悬空过校验</td></tr>
+          <tr><th class="dim">C3 风险设闸</th><td>HIL 设点；不可逆/涉钱/涉合规判定</td><td>26 个 HIL 点；站长 HIL + 民政 DP-H 闸</td><td>说出某 Action 该不该设闸</td><td class="fde">判"设不设、谁按、按错代价"</td></tr>
+          <tr><th class="dim">C4 合规治理</th><td>标准法规取证、citations、诚实边界</td><td>18 处挂国标；11 处占位不编造</td><td>核对一处标准号是否现行</td><td class="fde">产出可交现场的待补取证清单</td></tr>
+          <tr><th class="dim">C5 商业建模</th><td>投资/收入/IRR/单店模型</td><td>1.36 亿 + 3200 万；21 月回本；IRR≈15.2%</td><td>读懂一份财务口径</td><td class="fde">复核财务口径内部一致性</td></tr>
+          <tr><th class="dim">C6 交付物工程</th><td>多智能体并行写作、锚口径、装配质检</td><td>BRIEF 统一口径→35 节并行→装配→质检</td><td>按 BRIEF 写 1 节不跑口径</td><td class="fde">组织 ≥10 节并行零口径冲突</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">三类角色各有一两维起点不低，<b>但没有一类六维齐全</b>。训练 FDE 不是把某维练到顶，是把短板逐一补齐到 L2 以上。</p>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="5" data-total="13"></span></div>
+    <div class="notes">好消息先说：FDE 的六维硬能力都能训练。坏消息随后：训练它们比你想的贵、慢，而且必须在真实项目上磨。这张矩阵你在工作坊里就要拿来给自己打分，每一维我都给了 L1 见习和 L3 主理两条判据。注意三类角色各有一两维起点不低，但没有一类六维齐全，这正是像 FDE 但不是 FDE 的结构原因。特别看 C3 风险设闸：康养项目 54 个 Action 里筛出 26 个 HIL 点，其中民政域 8 个、居家照护 6 个含急救指挥——设闸判断没有任何模型能替你做，这是 C3 作为护城河维的直接证据。训练 FDE，是把六维短板逐一补齐到 L2 以上，不是单点冒尖。</div>
+  </section>
+
+  <!-- 6 C7 -->
+  <section class="slide" data-title="C7软能力">
+    <span class="kicker">要点 4 · 全课程支点</span>
+    <h2 class="title">软能力 C7：只能筛选，不能训练</h2>
+    <div class="fill-mid">
+      <div class="row" style="align-items:stretch;gap:28px">
+        <div style="flex:1.2">
+          <div class="grid g2" style="gap:14px">
+            <div class="statcard"><h4>客户关系</h4><p class="dim" style="font-size:14px">不是会说话，是敢不敢对客户说"这个我不知道"。康养项目 11 处文号查不到，坚决留占位不编造——"错文号比空缺更有害"。</p></div>
+            <div class="statcard"><h4>责任承担</h4><p class="dim" style="font-size:14px">第 ④ 维那个"无处甩锅"能不能扛住，是天性不是培训。</p></div>
+            <div class="statcard"><h4>价值判断</h4><p class="dim" style="font-size:14px">红线：一律用"赋能优化"而非"替代"。何时踩刹车，是价值观在判断，不是流程。</p></div>
+            <div class="statcard"><h4>政治敏感度</h4><p class="dim" style="font-size:14px">To-G 项目里一句措辞不当就可能引火烧身。这个雷达有人天生有，有人怎么教都装不上。</p></div>
+          </div>
+        </div>
+        <div class="redbox center" style="flex:.8;flex-direction:column">
+          <div class="quote" style="font-size:26px">C7 不是加分项，<br>是一票否决项。</div>
+          <p class="dim mt-m" style="font-size:15px">选拔 FDE：C1–C6 看能不能补，C7 看是不是这块料。C7 不合格，前六维再强也不给 L3、不让他对客户承诺负责。</p>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="6" data-total="13"></span></div>
+    <div class="notes">现在讲最扎心的一维——C7，人的部分：客户关系、责任承担、价值判断、政治敏感度。总纲那句话是全课程的支点：C1 到 C6 可训练，C7 只能筛选。什么意思？C7 不是练一练会变好的技能，是你这个人是不是这种人的底色。客户关系不是会说话，是客户信不信你敢说这个我不知道；康养项目 11 处文号查不到，处理是坚决保留占位、锚定上位国标、转成取件清单，而不是编一个假文号糊过去——错文号比空缺更有害。一个改不掉不能在客户面前露怯这个本能的人，永远做不到这一步。所以选拔 FDE，C1 到 C6 看能不能补，C7 看是不是这块料，不合格前六维再强也不能给 L3。</div>
+  </section>
+
+  <!-- 7 fig-8-2 -->
+  <section class="slide" data-title="团队编成图">
+    <span class="kicker">要点 5 · 板书图</span>
+    <h2 class="title">团队编成：1 主理 + N 见习 + 平台组</h2>
+    <div class="fill-mid center">
+      <figure>
+        <img src="../figures/fig-8-2-团队编成.png" alt="FDE 团队编成：1 主理 + N 见习 + 平台组" style="max-width:100%;max-height:58vh">
+        <figcaption>图 8-2　FDE 团队编成（1 主理 FDE + N 见习 FDE + 平台组）</figcaption>
+      </figure>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="7" data-total="13"></span></div>
+    <div class="notes">最后一页最实际。你现在知道 FDE 稀缺、C7 筛不出几个，那怎么组队干活？答案不是招一堆全能 FDE，那是幻想；答案是一个非对称编队。中心是一名主理 FDE，L3，判断中枢和甩锅终点；环绕 N 名见习 FDE，L1，在 L3 指导下承接单一环节，比如专攻 C1 主持事件风暴或专攻 C6 写并行章节；底座是平台组，他们不是 FDE，是让 FDE 不必更累的人，维护 Astra Studio 建模管线，把方法论固化成工具。没有平台组，L3 就退化成一个更累的架构师。记住本质：L3 提供判断和责任，L1 提供手数和成长通道，平台组提供杠杆，三者缺一康养项目都不可复制。</div>
+  </section>
+
+  <!-- 8 团队编成说明 -->
+  <section class="slide" data-title="编成三角色">
+    <span class="kicker">要点 5 · 非对称编队</span>
+    <h2 class="title">三个角色，各自提供什么</h2>
+    <div class="fill-mid">
+      <div class="grid g3" style="gap:18px">
+        <div class="statcard"><h4>主理 FDE · L3</h4><p class="pill pill-accent">判断 + 责任</p><ul class="clean" style="font-size:14.5px;margin-top:10px"><li>C7 过关、C1–C6 齐全</li><li>主持项目、设 HIL 闸、对客户承诺负责</li><li>康养项目就是这一个角色带编队走完</li></ul></div>
+        <div class="statcard"><h4>见习 FDE · L1</h4><p class="pill pill-accent">手数 + 成长</p><ul class="clean" style="font-size:14.5px;margin-top:10px"><li>C7 有潜质、C1–C6 补齐中</li><li>承接单一环节，不独立承诺</li><li>复制第 2 个项目应配 2–3 个 L1 过手</li></ul></div>
+        <div class="statcard"><h4>平台组 · 非 FDE</h4><p class="pill pill-accent">杠杆</p><ul class="clean" style="font-size:14.5px;margin-top:10px"><li>维护 Astra Studio 建模管线</li><li>把方法论固化成工具</li><li>缺位则 L3 退化成"更累的架构师"</li></ul></div>
+      </div>
+      <p class="quote mt-l" style="font-size:24px">目前不可复制——因为方法在一个人脑子里，不在组织里。</p>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="8" data-total="13"></span></div>
+    <div class="notes">把这三个角色的分工说透。主理 FDE 是 L3，C7 过关、C1 到 C6 齐全，主持项目、设 HIL 闸、对客户承诺负责，是整个编队的判断中枢和甩锅终点，康养项目就是这一个人带编队走完的。见习 FDE 是 L1，C7 有潜质、六维在补齐中，在 L3 指导下承接单一环节，不独立对客户承诺，但在真实项目里练六维；康养项目要复制，第二个项目就该配两到三个 L1 在 L3 身边过手。平台组不是 FDE，是提供杠杆的人，维护建模管线让 7 域能同日并行编译。总纲说得很直白：目前不可复制，因为方法在一个人脑子里不在组织里。这个编成图就是把一个人的方法变成组织能力的最小结构。</div>
+  </section>
+
+  <!-- 9 团队编成随交付模式变（插页） -->
+  <section class="slide" data-title="编成随交付模式变">
+    <span class="kicker">要点 5·补 · 能力半径跨模式才见真章</span>
+    <h2 class="title">团队编成随"交付模式"变</h2>
+    <div class="fill-mid">
+      <div class="grid g2" style="gap:22px">
+        <div class="statcard"><h4>模式一 · 轻编成</h4><p class="pill pill-accent">Token-SaaS 应用</p>
+          <ul class="clean" style="font-size:15px;margin-top:10px">
+            <li><b>1 FDE + 平台 / 运行时组</b>，快跑快迭代</li>
+            <li>交付一个能用的 agent，按调用量计费</li>
+            <li>代表：<b>教育督导项目</b> 🟢</li>
+          </ul></div>
+        <div class="statcard" style="border-top-color:var(--accent)"><h4>模式二 · 重编成</h4><p class="pill pill-accent">大平台建设 + 运营</p>
+          <ul class="clean" style="font-size:15px;margin-top:10px">
+            <li><b>1 主理 FDE（L3）+ N 见习（L1）+ 平台组</b></li>
+            <li>要扛可研、财务测算、监管合规——<b>商业 / 财务 / 合规能力半径要宽得多</b></li>
+            <li>代表：<b>康养项目 🟢 / 草业项目 🟡 / 辣椒 🟡</b></li>
+          </ul></div>
+      </div>
+      <div class="redbox mt-l">
+        <p class="dim" style="font-size:16px;margin:0"><b style="color:var(--accent)">C1 认知萃取的跨行业迁移力 = L2 / L3 分水岭。</b>康养你可能靠沉淀蒙对了；换个不熟的行业（学前督导 / 辣椒育种 / 草原修复）沉淀归零、只剩方法，还能不能把模糊意图压成可归域结构？<b>能做模式二 ≠ 能做模式一，反之亦然。</b></p>
+      </div>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="9" data-total="13"></span></div>
+    <div class="notes">六维里最容易被高估的是能力半径，它跨交付模式才见真章。有人在康养项目做完一个康养大平台，就以为自己是 L3 了，我泼盆冷水：能做模式二的大平台，不代表你能做模式一的 SaaS 应用，反过来更是。两种模式的团队编成根本不同：模式一 Token-SaaS 像教育督导项目，编成轻，1 个 FDE 加平台运行时组，快跑快迭代；模式二大平台像康养项目草业项目辣椒，编成重，1 个主理 FDE 加 N 个见习加平台组，而且要扛可研、财务测算、监管合规，商业和合规的能力半径要宽得多。真正的分水岭是 C1 认知萃取的跨行业迁移力：教育督导项目能用和康养项目同一套管线做出来，证明方法能迁移，但你能不能在一个不熟的行业里快速把模糊意图压成可归域结构？康养你可能靠沉淀蒙对了，换个行业沉淀归零只剩方法，这就是 L2 和 L3 的分界。最后一句诚实话：辣椒草业项目目前只到方案、草业项目 demo 还是 Mock，我讲它们只敢讲定位与结构，不敢讲交付实测。</div>
+  </section>
+
+  <!-- 10 三型卡点难听话 -->
+  <section class="slide" data-title="三型卡点难听话">
+    <span class="kicker">本讲难听话 · 别急着反驳</span>
+    <h2 class="title">你差在哪一维，我能当场说出来</h2>
+    <div class="fill-mid">
+      <div class="grid g3" style="gap:18px">
+        <div class="redbox"><h4>架构师型</h4><p class="tagC">卡 C1 认知萃取</p><p class="dim mt-s" style="font-size:15px">你太急着画架构图，默认需求有人给你整理好了。可这条链第一刀是自己把客户一句模糊话拆成 102 个事件——这一步你从来没做过，你只是接手了别人做完的那一步。</p></div>
+        <div class="redbox"><h4>需求分析型</h4><p class="tagC">卡 C2 + C3</p><p class="dim mt-s" style="font-size:15px">你能采集需求、能写文档，但交出去就完事，不为能不能编译成 7 域 47 Rule 54 Action、哪个要设闸负责。你握着离 FDE 最近的一段，却最容易停在 L1 而自以为 L2。</p></div>
+        <div class="redbox"><h4>项目经理型</h4><p class="tagC">卡 C2 结构建模</p><p class="dim mt-s" style="font-size:15px">你擅长把人和进度管起来，但 FDE 的杠杆不是管人，是一个人头脑里长出可编译的结构。你调度得再好，结构还是得有人压出来——而那个人不是你。</p></div>
+      </div>
+      <p class="cap mt-l">停在 L1 是正常的，装作 L2 才是危险的。先在工作坊里诚实打一次分，你会发现我说得比你想的准。</p>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="10" data-total="13"></span></div>
+    <div class="notes">这是本讲的难听话，我一个个点名。架构师型，你卡在 C1 认知萃取，太急着画架构图，默认需求有人给你整理好了，可这条链的第一刀是自己把客户一句模糊话拆成 102 个事件，这一步你从来没做过，只是接手了别人做完的那一步。需求分析型，你卡在 C2 加 C3，能采集能写文档，但交出去就完事，从不为能不能编译成 7 域 47 条 Rule 54 个 Action、哪个要设闸负责，你握着离 FDE 最近的一段却最容易停在 L1 自以为 L2。项目经理型，你卡在 C2，擅长管人管进度，但 FDE 的杠杆不是管人，是一个人头脑里长出可编译的结构，你调度得再好结构还得有人压出来。别急着反驳，先诚实打一次分。</div>
+  </section>
+
+  <!-- 10 六根承重柱 -->
+  <section class="slide" data-title="六根承重柱">
+    <span class="kicker">反例讲解 · 这些坑谁来兜</span>
+    <h2 class="title">六维不是选修，是编队的六根承重柱</h2>
+    <div class="fill-mid">
+      <table class="tbl">
+        <thead><tr><th>反例</th><th>坑的形态</th><th>缺哪一维就没人兜</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">B-6</td><td>药食同源目录误标"GB"、星评沿用已废止 MZ/T</td><td class="fde">缺 <b>C4 合规治理</b>——"看起来像国标就用"是典型症状</td></tr>
+          <tr><td class="mono">B-3 / B-4</td><td>图片路径断裂 / Word 主题色被覆盖</td><td class="fde">缺 <b>C6 交付物工程</b>——内容都对但交付物散架</td></tr>
+          <tr><td class="mono">B-10</td><td>十一处地方文号无解，会去编一个假文号</td><td class="fde">缺 <b>C7</b>——这不是能力问题，是价值观问题，只能筛不能训</td></tr>
+        </tbody>
+      </table>
+      <p class="lead mt-l">招聘选拔时你可以接受候选人某一维暂缺（L1 补），但你必须<b style="color:var(--accent)">在编队层面凑齐六维</b>——否则总有一类坑没人兜，而客户不会因为"那是别人负责的维度"就原谅你。</p>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="11" data-total="13"></span></div>
+    <div class="notes">本讲不专属某一个反例，而是把全课程反例库当作如果编队少了某一维、这些坑就没人兜的证据链，正面论证六维缺一不可。B-6 标准号误标，缺 C4 合规治理的人兜不住，需求分析师架构师看起来像国标就用正是 C4 缺位。B-3 图片路径断裂、B-4 Word 主题色覆盖，缺 C6 交付物工程的人兜不住，这两个坑发生在内容都对但交付物散架的环节。B-10 十一处地方文号无解，缺 C7 的人兜不住，会去编假文号，这不是能力问题是价值观问题。六维不是选修，是六根承重柱，你可以接受某维暂缺让 L1 补，但必须在编队层面凑齐六维，否则总有一类坑没人兜。</div>
+  </section>
+
+  <!-- 11 康养项目证据大数字 -->
+  <section class="slide" data-title="康养项目证据">
+    <span class="kicker">康养项目证据 · 一个人跑通的全链</span>
+    <h2 class="title">这条链，1 名 FDE 带智能体编队走完</h2>
+    <div class="fill-mid">
+      <div class="grid g4" style="gap:20px">
+        <div class="statcard"><div class="bignum">1<small>名 FDE 对标传统 5+ 人 / 数周</small></div></div>
+        <div class="statcard"><div class="bignum">102→7<small>业务事件收敛到 7 域限界上下文</small></div></div>
+        <div class="statcard"><div class="bignum">3835<small>行插件骨架 · 7/7 py_compile 通过</small></div></div>
+        <div class="statcard"><div class="bignum">26<small>个 HIL 点 / 54 Action（C3 护城河）</small></div></div>
+      </div>
+      <div class="row mt-l" style="gap:20px">
+        <div class="statcard fill"><b>零交接</b><p class="dim" style="font-size:14.5px">全链 0 次跨人交接，7 域引用 7/7 零悬空——定义方与引用方是同一个大脑，没有接缝断层。</p></div>
+        <div class="statcard fill"><b>同日并行</b><p class="dim" style="font-size:14.5px">7 个域同一天并行编译，靠 planner→domain-model→clife-onto-engine 固化管线，不是个人手速。</p></div>
+        <div class="statcard fill"><b>18 挂国标</b><p class="dim" style="font-size:14.5px">18 处挂国标、11 处占位不编造转取证清单——C4 的可验证落点。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="12" data-total="13"></span></div>
+    <div class="notes">把康养项目的量化证据摆出来，证明这条链真是一个人带编队走完的。一名 FDE 对标传统的产品经理加架构师加行业顾问加方案经理加美工五人以上、数周。102 个业务事件收敛到 7 域限界上下文，3835 行插件骨架 7 比 7 py_compile 通过，54 个 Action 里筛出 26 个 HIL 点。关键是零交接：全链零次跨人交接，7 域引用 7 比 7 零悬空，因为定义方和引用方是同一个大脑；7 个域同一天并行编译靠的是固化管线不是手速；18 处挂国标、11 处占位不编造转取证清单，这是 C4 的可验证落点。这些数字连起来，就是六维缺一不可、一人贯通全链的实证。</div>
+  </section>
+
+  <!-- 12 收口 -->
+  <section class="slide" data-title="收口总纲">
+    <span class="kicker">收口 · 照镜子的尺子</span>
+    <h2 class="title">照镜子，然后知道往哪补</h2>
+    <div class="fill-mid">
+      <p class="quote">C1–C6 可训练，C7 只能筛选。<br>停在 L1 是正常的，装作 L2 才是危险的。</p>
+      <div class="grid g2 mt-l" style="gap:18px">
+        <div class="statcard"><h4>第一步 · 给自己打分</h4><p class="dim" style="font-size:15px">用 C1–C7 矩阵逐维评 L0–L3，必须写出证据——凭哪个真实项目动作打的分，不许空评。大概率你会停在 C3、C4。</p></div>
+        <div class="statcard"><h4>第二步 · 起草编成草案</h4><p class="dim" style="font-size:15px">下月给你一个康养项目量级项目，怎么配 1 主理 + N 见习 + 平台组？谁当 L3？你自己站哪个位子？</p></div>
+      </div>
+      <p class="cap mt-l">→ 第 10 讲：本讲的团队编成图是 90 天启动计划"选人"环节的直接输入；自我差距诊断就是每个人的补课清单来源。</p>
+    </div>
+    <div class="deck-footer"><span>第 8 讲 · 什么样的人能成为 FDE</span><span class="slide-number" data-current="13" data-total="13"></span></div>
+    <div class="notes">道理讲完，现在照镜子。接下来分两步走：第一步给自己打分，用刚才那张 C1 到 C7 矩阵逐维评 L0 到 L3，并且必须写出证据，凭哪个真实项目动作打的分，不许空评；这一步会很难受，因为你大概率停在 L1，尤其 C3 风险设闸和 C4 合规治理这两维——但停在 L1 是正常的，装作 L2 才是危险的。第二步起草一份团队编成草案，假设下月给你一个康养项目量级项目，你怎么配 1 主理加 N 见习加平台组，谁当 L3，你自己站哪个位子。这张编成图和你的自我诊断，就是第 10 讲 90 天计划选人和训练环节的直接输入。</div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

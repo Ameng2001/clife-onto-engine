@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>C-Life FDE 课程  全局一致性质检报告</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">C-Life FDE 课程 全局一致性质检报告</h1>
+</header>
+<h1 id="c-life-fde-课程-全局一致性质检报告">C-Life FDE 课程 · 全局一致性质检报告</h1>
+<blockquote>
+<p>质检对象：讲义/×10 + 工作坊/×10 + FDE交付SOP速查卡.md（共 21 份正文） 口径基准：<code>_WRITING_BRIEF.md</code>（术语表 + 核心数据表）+ <code>00_课程总纲.md</code>（figures 表 + 反例分配表） 质检日期：2026-07-25 · 只报告不改正文</p>
+</blockquote>
+<hr />
+<h2 id="总评">① 总评</h2>
+<p><strong>结论：通过（需 1 处小修）。</strong></p>
+<ul>
+<li><strong>严重问题（数据张冠李戴 / 术语违规 / 图占位错误）：0</strong></li>
+<li><strong>需修问题（口径张力）：1</strong>（合资/不再合资 口径张力）</li>
+<li><strong>提示（不扣分，供制图/编排注意）：2</strong></li>
+</ul>
+<p>全课程术语锁定写法零违规、核心数据零漂移、11 张图占位全部落在总纲 figures 表登记的 slug 内、反例 B-1~B-10 全覆盖且无跨讲重复深讲、10 份工作坊评分卡与讲师版参考答案齐全、10 份讲义时间分配表与难听话齐全、第 9 讲外部事实逐条挂档标源。质量基线达标。</p>
+<hr />
+<h2 id="逐项问题清单">② 逐项问题清单</h2>
+<h3 id="需修-m-1口径张力-中-合资-vs-不再合资">需修 M-1（口径张力 · 中）— 合资 vs 不再合资</h3>
+<blockquote>
+<p>✅ <strong>2026-07-27 已按方案 b 解决</strong>：全课跟随可研 2026-07-20 修订版“去合资”口径——<code>_WRITING_BRIEF.md</code> 商业口径段已重写（项目联合体 / EPCO / 五块预算 / 分账核算 / 运营口径 IRR），主力手册同步，讲义原稿归档 <code>讲义/_legacy/</code> 保留原貌，口播稿保留原文并加讲师改口注。<strong>数字未变</strong>（3.83亿/5219万/3535万/15.2%/8.7% 与成品可研逐字一致），变的只是口径名与主体表述。</p>
+</blockquote>
+<ul>
+<li><strong>定位</strong>：<code>讲义/06_..._复盘.md:226</code> 讲师脚本举例：“甚至写明’<strong>2026-07-20 起不再表述为合资公司</strong>’这种口径变更，一处改，全篇跟。”</li>
+<li><strong>冲突面</strong>：
+<ul>
+<li><code>_WRITING_BRIEF.md:64</code> 商业口径仍写“主体：<strong>嘉城数联合资公司</strong> = 广东嘉城集团 × 深圳数联天下”；</li>
+<li><code>讲义/04_知识背景栈.md:70</code>：“<strong>合资口径</strong> IRR ≈15.2%（第 9 年回本）… 主体：嘉城数联合资 …”；</li>
+<li><code>工作坊/04_..._workshop.md:37,108</code>：“IRR 15.2% 与 8.7% 是两套口径…（<strong>合资口径</strong> vs 发改口径）”。</li>
+</ul></li>
+<li><strong>问题</strong>：第 6 讲把“2026-07-20 起不再表述为合资公司”当作康养项目 BRIEF 的口径变更示范，但本课程自身的 BRIEF（同为 2026-07-20 口径）与第 3/4 讲、工作坊 4 仍通篇使用“嘉城数联合资公司 / 合资口径 IRR”。学员会当场抓到矛盾：“既然那天起不再说合资，为什么全课都在引合资口径？”</li>
+<li><strong>建议（三选一，交你拍板）</strong>：
+<ol type="a">
+<li>若课程沿用合资口径（内部课程可用真实值）→ 把第 6 讲那句示范改为一个<strong>不涉及合资</strong>的口径变更例子（如“某数据的 60+/65+ 口径统一”），避免自打脸；</li>
+<li>若跟随可研 2026-07-20 修订版“去合资”→ 需同步改 BRIEF 第二节、第 3/4 讲、工作坊 4 的“合资公司/合资口径”表述，工作量较大；</li>
+<li>最省力：在 BRIEF 商业口径处加一行注明“本课程内部教学沿用合资口径原值，与可研对外修订版’去合资’口径的差异属刻意保留”，把张力显性化。</li>
+</ol></li>
+<li><strong>严重度判断</strong>：IRR 数字本身（15.2%/8.7%）全课一致、无漂移；张力仅在“合资”这一<strong>框架标签</strong>，故列为需修（中），非严重。</li>
+</ul>
+<h3 id="提示-p-1图号顺序-低-第-6-讲图-6-3-出现在-6-2-之前">提示 P-1（图号顺序 · 低）— 第 6 讲图 6-3 出现在 6-2 之前</h3>
+<ul>
+<li><strong>定位</strong>：<code>讲义/06:45</code> 图6-1 → <code>讲义/06:90</code> <strong>图6-3</strong>（SOP 泳道，在§三）→ <code>讲义/06:155</code> <strong>图6-2</strong>（HIL 决策树，在§四）。</li>
+<li><strong>问题</strong>：文档正文顺序为 6-1 → 6-3 → 6-2，读者先遇到 6-3 再遇到 6-2。虽由“章节主题就近配图”造成、可辩护，但与本讲自身主讲的 B-2（编号纪律）气质相冲。</li>
+<li><strong>建议</strong>：不改亦可（图号按主题固化）；若追求零瑕，可将 HIL 决策树与 SOP 泳道的图号对调，使正文顺序升序。<strong>注意</strong>：figures 表 slug 已固化（fig-6-2-HIL决策树 / fig-6-3-交付SOP），若对调图号需连带改 slug 归属，牵涉制图，成本&gt;收益，建议保留现状仅备案。</li>
+</ul>
+<h3 id="提示-p-2工作坊练习-slug-真实配图-制图勿产出">提示 P-2（工作坊练习 slug ≠ 真实配图）— 制图勿产出</h3>
+<ul>
+<li><strong>定位</strong>：<code>工作坊/07:33,70,74,112,116</code> 出现 <code>fig-7-X-&lt;slug&gt;</code> 模板占位与示例 <code>fig-7-1-飞轮转化</code>。</li>
+<li><strong>说明</strong>：这些是第 7 讲<strong>学员动手练习</strong>里“学员自己声明 slug”的教学道具，工作坊明确写“<strong>本演练不实际画图</strong>”。它们<strong>不是</strong>课程真实配图，<strong>不在</strong> figures 表内，属<strong>故意为之</strong>（正是让学员现场规避 B-3 的动作），非违规。</li>
+<li><strong>对制图的要求</strong>：制图时<strong>不要</strong>为 <code>fig-7-X</code> / <code>fig-7-1-飞轮转化</code> 出图；课程真实待制图仅为下方清单的 11 张。</li>
+</ul>
+<hr />
+<h2 id="图占位使用清单制图直接用-11-slug-引用文件">③ 图占位使用清单（★制图直接用 · 11 slug × 引用文件）</h2>
+<blockquote>
+<p>均为规范占位 <code>![图N-M 图名](../figures/fig-N-M-&lt;slug&gt;.png)</code> + 次行 <code>**图 N-M 图名**</code>，格式 100% 合规，无自造 slug、无 B-3 式断裂。</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>slug</th>
+<th>图名</th>
+<th>总纲归属讲</th>
+<th>实际被引用的文件:行</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>fig-1-1-交付断层</td>
+<td>交付断层：工序制交付的信息衰减链</td>
+<td>1</td>
+<td><code>讲义/01:44</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>fig-2-1-传统vsFDE</td>
+<td>传统交付流 vs FDE 交付流对比</td>
+<td>2</td>
+<td><code>讲义/02:48</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>fig-3-1-OPC边界</td>
+<td>一人公司能力边界：可替 / 必须人扛</td>
+<td>3</td>
+<td><code>讲义/03:101</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>fig-4-1-知识栈雷达</td>
+<td>FDE 五维知识栈雷达</td>
+<td>4</td>
+<td><code>讲义/04:92</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>fig-5-1-平台分层</td>
+<td>Astra Studio 工具栈分层与咬合</td>
+<td>5 / 7</td>
+<td><code>讲义/05:65</code>、<code>讲义/07:48</code>（同图复用，两讲共用一张）</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>fig-6-1-康养项目管线</td>
+<td>康养项目建模管线全景（102 事件→7 域→可研）</td>
+<td>6</td>
+<td><code>讲义/06:45</code></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>fig-6-2-HIL决策树</td>
+<td>HIL 闸门设点决策树</td>
+<td>6</td>
+<td><code>讲义/06:155</code></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>fig-6-3-交付SOP</td>
+<td>FDE 交付 SOP 七阶段泳道</td>
+<td>6</td>
+<td><code>讲义/06:90</code></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>fig-8-1-角色对照</td>
+<td>传统三角色 vs FDE 六维对照</td>
+<td>8</td>
+<td><code>讲义/08:48</code></td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>fig-8-2-团队编成</td>
+<td>FDE 团队编成（1 主理+N 见习+平台组）</td>
+<td>8</td>
+<td><code>讲义/08:152</code></td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>fig-10-1-90天甘特</td>
+<td>C-Life 90 天启动甘特</td>
+<td>10</td>
+<td><code>讲义/10:88</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>齐全性</strong>：总纲 figures 表 11 个 slug <strong>全部被引用，无遗漏、无多余、无自造</strong>。</li>
+<li><strong>复用正确</strong>：fig-5-1 按总纲“5/7”归属，被第 5、7 讲各引一次（同一张图两面讲）✓。</li>
+<li><strong>不配图讲</strong>：第 9 讲<strong>主动声明不配图、不自造 slug、不调 fireworks</strong>（<code>讲义/09:198</code>），符合纪律。</li>
+<li><strong>非配图占位（勿产出）</strong>：<code>工作坊/07</code> 的 <code>fig-7-X</code> / <code>fig-7-1-飞轮转化</code> 系练习道具，见 P-2。</li>
+</ul>
+<hr />
+<h2 id="数据-术语漂移专项表">④ 数据 / 术语漂移专项表</h2>
+<h3 id="术语锁定写法brief-第一节-全部合规">4.1 术语锁定写法（BRIEF 第一节）— 全部合规</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>锁定术语</th>
+<th>状态</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>前置交付工程师（FDE）</td>
+<td>✓</td>
+<td><code>讲义/01:81</code> 明确区分“不是前线工程师/交付工程师”，正向教学</td>
+</tr>
+<tr class="even">
+<td>一人公司（OPC）</td>
+<td>✓</td>
+<td><code>讲义/03:35</code> 明确“不说超级个体/全能工程师”，正向教学</td>
+</tr>
+<tr class="odd">
+<td>数智本体（bounded context）</td>
+<td>✓</td>
+<td>首现附英文；<code>讲义/06:224</code> 明确“不许写成知识本体”</td>
+</tr>
+<tr class="even">
+<td>五要素 OAG</td>
+<td>✓</td>
+<td>全课统一，无“五元组”</td>
+</tr>
+<tr class="odd">
+<td>人在环 HIL / 人工闸</td>
+<td>✓</td>
+<td>无“人工审核”弱化写法</td>
+</tr>
+<tr class="even">
+<td>站长 HIL / 民政 DP-H 闸</td>
+<td>✓</td>
+<td>站长置信度闸、民政 DP-H 均按锁定写法</td>
+</tr>
+<tr class="odd">
+<td>微康养网络</td>
+<td>✓</td>
+<td>无“社区养老”</td>
+</tr>
+<tr class="even">
+<td>Astra Studio / 建模管线</td>
+<td>✓</td>
+<td>planner→domain-model→clife-onto-engine→citations→可研，口径一致</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>违禁词 grep（知识本体/超级个体/全能工程师/前线工程师/交付工程师/五元组/人工审核/社区养老）命中项<strong>全部为“正向引用以示禁止”</strong>，零真实违规。</p>
+</blockquote>
+<h3 id="核心数据brief-第二节-全部一致零漂移">4.2 核心数据（BRIEF 第二节）— 全部一致，零漂移</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>数据</th>
+<th>基准值</th>
+<th>抽查结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>建模链条</td>
+<td>102 事件/16 簇/7 画像/7 旅程/5 流程/10 热点</td>
+<td>✓ 全课一致</td>
+</tr>
+<tr class="even">
+<td>问卷</td>
+<td>368 份（310+58）</td>
+<td>✓ 一致</td>
+</tr>
+<tr class="odd">
+<td>五要素</td>
+<td>Obj76/Link75/Fn38/Rule47/Act54/HIL26</td>
+<td>✓ 一致（讲义02/03/04/05/06、工作坊05 均逐项对齐）</td>
+</tr>
+<tr class="even">
+<td>代码</td>
+<td>3835 行 + 21 YAML，7/7 py_compile</td>
+<td>✓ 一致</td>
+</tr>
+<tr class="odd">
+<td>结构校验</td>
+<td>A 结构 7/7 · B source 7/7</td>
+<td>✓ 一致</td>
+</tr>
+<tr class="even">
+<td>知识图谱</td>
+<td>14 库/8 图谱/约 350 万三元组</td>
+<td>✓ 一致</td>
+</tr>
+<tr class="odd">
+<td>收尾骨架</td>
+<td>121 处 NotImplementedError（29+54+38）+7 seed</td>
+<td>✓ 讲义04/SOP 卡一致</td>
+</tr>
+<tr class="even">
+<td>HIL 分布</td>
+<td>D1 2/D2 0*/D3 1/D4 6/D5 5/D6 8/D7 4 = 26</td>
+<td>✓ 讲义06 表合计 26，与 BRIEF 7 域表逐行对齐</td>
+</tr>
+<tr class="odd">
+<td>citations</td>
+<td>18 挂国标 / 11 占位（7 文号+4 SOP）</td>
+<td>✓ 一致</td>
+</tr>
+<tr class="even">
+<td>投资</td>
+<td>1.36 亿 / 3200 万（六块预算）/ 两盘隔离</td>
+<td>✓ 一致（全课统一“六块预算”，无“五大预算”)</td>
+</tr>
+<tr class="odd">
+<td>微康养</td>
+<td>60 站 / 73 万峰值 / 21 个月回本 / 单站 1.5–5 人</td>
+<td>✓ 一致</td>
+</tr>
+<tr class="even">
+<td>效益</td>
+<td>营收 3.83 亿 / EBITDA 5219 万 / 净利 3535 万</td>
+<td>✓ 讲义04一致</td>
+</tr>
+<tr class="odd">
+<td>IRR</td>
+<td>合资 15.2%（第 9 年）/ 发改 8.7%（第 11 年，&gt;6% 门槛）</td>
+<td>✓ 数字全一致；框架标签“合资”见 M-1</td>
+</tr>
+<tr class="even">
+<td>人力对比</td>
+<td>5+ 人/数周 vs 1 FDE+编队</td>
+<td>✓ 一致</td>
+</tr>
+<tr class="odd">
+<td>交付物</td>
+<td>100+ 页 / 11 章 / ~11 万字 / 26 图 + 2 附录</td>
+<td>✓ 一致；“22 张”仅出现在 B-1 反例语境（正确）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>特别核 B-5（张冠李戴反例本身）：全课<strong>未出现</strong>任何 60+/65+ 混用或数字错配的实体错误——B-5 仅作为教学反例被正确讲述（讲义04/06、SOP 卡、工作坊04）。</p>
+</blockquote>
+<h3 id="反例分配brief-第四节-全覆盖无违规重复">4.3 反例分配（BRIEF 第四节）— 全覆盖、无违规重复</h3>
+<table>
+<thead>
+<tr class="header">
+<th>反例</th>
+<th>分配讲</th>
+<th>实际落点</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>B-1 图目计数漂移</td>
+<td>6</td>
+<td>讲义06 主讲；讲义02 点到；SOP 卡</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>B-2 章节编号冲突</td>
+<td>6</td>
+<td>讲义06</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>B-3 图片路径断裂</td>
+<td>7</td>
+<td>讲义07 主讲 + 工作坊07</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>B-4 Word 主题色覆盖</td>
+<td>7</td>
+<td>讲义07</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>B-5 数据张冠李戴</td>
+<td>4 / 6</td>
+<td>讲义04（知识栈根因）+ 讲义06（并行口径），两视角非重复</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>B-6 标准号误标</td>
+<td>4</td>
+<td>讲义04 独占</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>B-7 旅程建模过重</td>
+<td>1 / 6</td>
+<td>讲义01 主讲 + 讲义06 阶段④回收</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>B-8 越域写入</td>
+<td>5</td>
+<td>讲义05</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>B-9 SDK 想当然</td>
+<td>5</td>
+<td>讲义05</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>B-10 地方文号</td>
+<td>3 / 6 / 9</td>
+<td>三讲复调（划边界/HIL 处置/对标 Palantir 取证），刻意为之</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>第 8 讲将 B-3/B-6/B-10 作“这些坑谁来兜”<strong>浅引</strong>论据（BRIEF 允许“可引全部反例”），非深讲，合规。</li>
+<li>B-1~B-10 <strong>全部讲到，无遗漏，无未授权的跨讲重复深讲</strong>。</li>
+</ul>
+<h3 id="结构完整性-齐全">4.4 结构完整性 — 齐全</h3>
+<ul>
+<li><strong>10 份工作坊</strong>：评分卡（4 维×各 25 分=100）✓ 全部存在；讲师版参考答案（标“讲师专用勿发学员”）✓ 全部存在。</li>
+<li><strong>10 份讲义</strong>：时间分配表（4:4:2 落到分钟）✓ 全部存在；难听话（≥1 句）✓ 全部存在。</li>
+<li><strong>第 9 讲来源标注</strong>：三档【官方明确】/【二手报道】/【未获证实】逐条挂签，附“外部来源清单”表，明确标注“未取到全文/未核到一手源”处（如 Palantir 招聘页 403、OpenAI 薪资、腾讯云薪资、虎嗅百分比）；未见“把二手当官方”。特别处理了 Anthropic base $200-300K（官方招聘板转发）vs 总包 $350-550K（二手口径不同）的教科书级打架案例，标注严谨 ✓。</li>
+</ul>
+<hr />
+<h2 id="一句话交办">⑤ 一句话交办</h2>
+<p>课程整体可放行；唯一需你拍板的是 <strong>M-1 合资口径张力</strong>（第 6 讲那句“2026-07-20 起不再表述为合资公司”与全课沿用的“合资口径 IRR”自相矛盾）——建议按 ③M-1 的方案 a（改第 6 讲示例，最省力且不动数据）处理。11 张待制图 slug 清单见 ③，可直接交制图；制图务必<strong>跳过</strong> <code>工作坊/07</code> 的练习道具 slug。</p>
+</body>
+</html>

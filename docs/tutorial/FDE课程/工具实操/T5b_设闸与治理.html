@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>T5b  设闸与治理HIL + validate</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">T5b 设闸与治理HIL + validate</h1>
+</header>
+<h1 id="t5b-设闸与治理hil-validate">T5b · 设闸与治理（HIL + validate）</h1>
+<blockquote>
+<p>目标：给本体<strong>设闸</strong>，并让“闸有没有失效”变成可自动验证的事。<strong>90′</strong>（知识注入 40′ + 实操 30′ + checkout 20′） 知识注入：<strong>讲 6（交付 SOP 七阶段 + HIL 设点）—— 全课重心</strong> 前置：<strong>T5a 产出的 <code>ontology-map.md</code></strong> 主案例：康养项目 26 个 HIL 点 / grass 的 <code>smoke_cq.py</code> 现场演示</p>
+<p>⭐ <strong>本册是 T5a 的下半场</strong>。T5a 教“结构怎么立”，本册教“<strong>哪里必须停下来叫人</strong>”——这是 FDE 与“会用工具的人”的分界线。</p>
+</blockquote>
+<hr />
+<h2 id="一-两道闸本步最容易混也最值钱的一节">一、★★ 两道闸：本步最容易混、也最值钱的一节</h2>
+<p>学员默认以为“HIL = 拦住不让写”。<strong>错的。</strong> 这两道闸完全不同：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>写入闸</strong></th>
+<th><strong>副作用闸（HIL）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>谁触发</td>
+<td><code>hard</code> 级 post_write 规则被违反</td>
+<td><code>HilPolicy.predicate</code> 返回 true</td>
+</tr>
+<tr class="even">
+<td>效果</td>
+<td><strong><code>overlay.clear()</code> 确定性回滚，数据不落地</strong>，返回 StructuredRejection</td>
+<td><strong>数据照常写入</strong>；decision 标记为 <code>pending_hil</code></td>
+</tr>
+<tr class="odd">
+<td>拦的是</td>
+<td><strong>错误的状态</strong></td>
+<td><strong>对外的动作</strong></td>
+</tr>
+<tr class="even">
+<td>具体表现</td>
+<td>写操作被撤销</td>
+<td><strong><code>scheduled</code> 副作用被清空 <code>()</code></strong> —— 工单、凭证、通知<strong>不派发</strong>，等人审</td>
+</tr>
+<tr class="odd">
+<td>谁来兜底</td>
+<td>引擎（确定性，无人参与）</td>
+<td>人（<code>reviewer_role</code>）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一句话</strong>：<strong>写入闸拦的是“写错了”，HIL 拦的是“这事该不该真的发出去”。</strong> 康养项目的民政 DP-H 闸就是典型的副作用闸——数据可以先算出来，但<strong>对外发布这个动作</strong>必须人点头。</p>
+</blockquote>
+<h3 id="hil-在各层怎么表达可直接做一页-slide">HIL 在各层怎么表达（可直接做一页 slide）</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>写法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intake §5「需人工审批？(谁)」</td>
+<td><code>是·乡土草种合规官</code></td>
+</tr>
+<tr class="even">
+<td>IR §5 Action 的 <code>hil</code> 列</td>
+<td><code>乡土草种合规官 / confidence&lt;0.75</code>（<strong>角色 / 条件</strong>，斜杠分隔）</td>
+</tr>
+<tr class="odd">
+<td>编译产物</td>
+<td><code>hil=HilPolicy(reviewer_role="...", predicate=lambda confidence, touched_hard: confidence &lt; 0.75)</code></td>
+</tr>
+<tr class="even">
+<td>运行时置信度</td>
+<td>handler 内 <code>ctx.set_confidence(...)</code></td>
+</tr>
+<tr class="odd">
+<td>判定</td>
+<td><code>ConfidenceBus.should_route_hil</code> → <code>decision="pending_hil"</code> + 冻结 effects + 审计带 reviewer</td>
+</tr>
+<tr class="even">
+<td>声明式（槽位6）</td>
+<td><code>plugin.yaml</code> 的 <code>agents:</code> 段（<code>role / reviews / description</code>）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>只有 Action 有 <code>hil</code> 字段。</strong> Object / Link / Function / <strong>Rule 都没有</strong>。</p>
+<h3 id="三个必须讲的陷阱">⚠️ 三个必须讲的陷阱</h3>
+<p><strong>1. 光写 <code>reviewer_role</code> 等于没设闸。</strong> <code>HilPolicy.predicate</code> 的<strong>默认值是恒 <code>False</code></strong>。<code>HilPolicy(reviewer_role="合规官")</code> 不给 predicate，<strong>永远不会触发</strong>。</p>
+<p><strong>2. 置信度不会自己出现。</strong> 编译只生成硬编码的 <code>ctx.set_confidence(0.8)</code>。真实插件的写法是：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ctx.set_confidence(ctx.params.get(<span class="st">&quot;_confidence&quot;</span>, <span class="fl">0.82</span>))</span></code></pre></div>
+<p>——<strong>上游意图编译器把 LLM 的置信度经 <code>_confidence</code> 参数注入</strong>，handler 拿不到就用插件默认值。 &gt; <strong>插件文档完全没写这一句。不补这一步，学员做出来的“置信度闸”是个永远不动的摆设。</strong></p>
+<p><strong>3. <code>severity_touched==hard</code> 这个 predicate 基本不会触发。</strong> 因为 <code>touched_hard=True</code> 时，引擎<strong>先回滚 + 拒绝就返回了</strong>，根本走不到 HIL 判定那一行。 &gt; 它只在“违反的是 soft 规则、但你想以此要求人审”这种场景下才有意义。<strong>IR 语法只定义了这两种 <code>when</code>，需要组合条件（如“低置信 <strong>或</strong> 碰了硬规则”）得 FDE 手写 lambda——引擎允许，IR 语法没定义。这是表达力上限，也是逃生舱。</strong></p>
+<h3 id="回收讲-6hil-设点四判据-一条兜底闸">⭐ 回收讲 6：HIL 设点四判据 + 一条兜底闸</h3>
+<blockquote>
+<p><strong>四条硬判据</strong>（看<strong>动作性质</strong>）：<strong>不可逆 / 涉钱 / 涉合规 / 跨组织</strong> —— 命中任一即插人 <strong>加一条置信度兜底闸</strong>（看<strong>模型把握</strong>）：置信度低于阈值即转人（康养项目占位 0.75）</p>
+</blockquote>
+<p><strong>闸分两层</strong>（讲 6 的 4.0 核心，现在有了物理对应）： - 能固化成硬规则的 → <strong>自动闸</strong>（引擎确定性回滚 = 写入闸） - 判不了、涉钱涉合规的 → <strong>人工闸</strong>（HIL = 副作用闸）</p>
+<blockquote>
+<p><strong>康养项目 26 个 HIL 点</strong>分布：D6 民政 8 个（DP-H 发布闸）、D4 居家照护 6 个（含急救指挥）、D5 机构运营 5 个、D7 知识库 4 个、D1 中枢 2 个（站长增收闸）、D3 飞轮 1 个、D2 结算 0 个*（有 4 处经办拍板注释）。 <strong>D2 为什么 0 个</strong>：结算全部走硬规则和既定政策口径，<strong>能固化的就不该设人工闸</strong>——人工闸太多会退化成橡皮图章。</p>
+</blockquote>
+<table style="width:6%;">
+<colgroup>
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>## 二、validate 四段校验</td>
+</tr>
+<tr class="even">
+<td><code>/studio-ontology:validate {id}</code></td>
+</tr>
+<tr class="odd">
+<td>| 段 | 时机 | 查什么 | 不过的后果 | |—|—|—|—| | <strong>A 结构完整性</strong> | 静态 | Action 的 guards/post_rules/writes 是否都已声明；Link 的 from/to；Function 的 reads;<strong>五要素无悬空引用</strong> | <strong>BLOCKER</strong> | | <strong>B 治理审计</strong> | 静态 | ① <strong>每条 Rule 必须有 source</strong>（空或 <code>TODO(FDE)</code> → 缺口；<code>通用</code> → 放行）② function/合规类应有具体 citations（缺 = 告警）③ <strong>合规/对外凭证/定级定价类 Action 应设 hil</strong>（未设 = 告警） | ①<strong>BLOCKER</strong>，②③告警 | | <strong>C 剩余 FDE TODO</strong> | 静态 | 扫 <code>__init__.py</code> 里仍 <code>raise NotImplementedError</code> 的规则与 handler；<code>seed</code> 仍为 <code>pass</code> | 告警 | | <strong>D 行为 CQ</strong> | <strong>动态</strong>（填完后） | 逐条跑 CQ：<code>query</code> 应能查通；<code>action(X)</code> 应 committed；<code>rejected(R)</code> 应被规则 R 回滚 | 未填的标 SKIPPED 而非 FAIL |</td>
+</tr>
+<tr class="even">
+<td><strong>交付判据</strong>：<strong>A、B 必须全过才可交付；D 在 FDE 填完后全绿才算闭环。</strong></td>
+</tr>
+<tr class="odd">
+<td>&gt; B 段的定位很关键：它等价于运行时的“无引用规则审计”，<strong>但在交付前就拦</strong>。 &gt; 这就是康养项目“18 处挂已核验国标、11 处坚决保留占位”能守住的机制原因——<strong>不是靠自觉，是有个东西在交付前拦你。</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="三-现场演示让设闸从概念变成看得见的东西15">三、⭐ 现场演示：让“设闸”从概念变成看得见的东西（15′）</h2>
+<p>在 <code>~/Codes/onto-fundary-plugins/</code> 下跑：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/smoke_cq.py</span></code></pre></div>
+<p><strong>它做了什么</strong>：用 <code>snapshot_ontology</code> 造一个<strong>删掉「乡土合规」post_rule</strong> 的版本，然后拿同一套 CQ 去跑—— 「非乡土草种应被拦」这条 CQ <strong>立刻从 pass 变 fail</strong>。</p>
+<blockquote>
+<p><strong>这一下就把“设闸”讲活了</strong>：闸不是写在文档里的一句承诺，是<strong>一条能被自动验证会不会失效的机制</strong>。删掉它，验收门当场抓住。 <strong>给学员的问题</strong>：你们命题里那些“我们会严格审核”的承诺，有哪一条能像这样被自动验证？<strong>验证不了的，就还只是愿望。</strong></p>
+</blockquote>
+<p>其余可跑命令：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">&quot;import plugins.{id}&quot;</span>              <span class="co"># 最低验收线：能 import</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pytest tests/test_cq.py <span class="at">-q</span>         <span class="co"># CQ 回归</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/check_kernel_purity.py        <span class="co"># 红线门禁 1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/check_plugin_capabilities.py  <span class="co"># 红线门禁 2</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/export_okf.py                 <span class="co"># 治理导出（B 段的运行时对应物）</span></span></code></pre></div>
+<hr />
+<hr />
+<h2 id="四知识讲什么-交付-sop-七阶段-hil-设点40全课重心">四、知识（讲什么）· 交付 SOP 七阶段 + HIL 设点（40′，全课重心）</h2>
+<blockquote>
+<p>并入自《第 6 讲 · FDE 交付怎么做——康养项目全流程复盘》（原 180′ 重心讲）。 <strong>一句话命题</strong>：<strong>FDE 交付不是“手艺好”，是“有 SOP + 会设闸”——SOP 保证你能重复，HIL 保证你不出事。</strong></p>
+<p>⚠️ <strong>本节与前三节分工</strong>：第一节讲<strong>两道闸的机制</strong>（写入闸 vs 副作用闸怎么实现）、第二节讲 <strong>validate 怎么查</strong>、第三节讲 <strong><code>smoke_cq.py</code> 怎么演</strong>。 <strong>本节不复述机制，本节讲两件机制讲不了的事：① 这些闸在哪个交付阶段被设上去（SOP）；② 怎么判断“这里该不该设闸”（判据训练）。</strong></p>
+</blockquote>
+<h3 id="从康养项目十阶段抽象到通用七阶段">4.1 从“康养项目十阶段”抽象到“通用七阶段”</h3>
+<p>康养项目那条链的十道工序是<strong>实例</strong>；你回去做的不是康养项目。所以要抽象成<strong>不依赖康养项目、套任何 To-G / To-B 项目都能用的七阶段</strong>。</p>
+<table>
+<thead>
+<tr class="header">
+<th>康养项目十阶段</th>
+<th>→ 通用七阶段</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 事件风暴 ② 事件簇 ③ 角色画像</td>
+<td><strong>S1 认知萃取</strong></td>
+</tr>
+<tr class="even">
+<td>④ 用户旅程 ⑤ 业务流程 ⑥ 热点分层</td>
+<td><strong>S2 结构收敛</strong></td>
+</tr>
+<tr class="odd">
+<td>⑦ 7 域限界上下文</td>
+<td><strong>S3 域切分</strong></td>
+</tr>
+<tr class="even">
+<td>⑧ 五要素 OAG</td>
+<td><strong>S4 本体建模 + 设闸</strong></td>
+</tr>
+<tr class="odd">
+<td>⑨ citations 治理</td>
+<td><strong>S5 合规治理</strong></td>
+</tr>
+<tr class="even">
+<td>⑩ 可研报告生成</td>
+<td><strong>S6 交付物工程</strong></td>
+</tr>
+<tr class="odd">
+<td>贯穿全程</td>
+<td><strong>S7 HIL 运行与留痕</strong>（不是一个阶段，是<strong>横切纪律</strong>）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这门课的 T 序列就是这七阶段的实操化</strong>：T3→S1、T4→S2/S3、<strong>T5a→S4 建结构、T5b→S4 设闸 + S5 治理</strong>、T6→S6、S7 贯穿全程。</p>
+<blockquote>
+<p><strong>记模板，别记实例。</strong> 十格是康养项目具体长什么样，七阶段才是你带得走的东西。</p>
+</blockquote>
+<h3 id="七阶段-checklist学员现场照这个填自己的项目">4.2 七阶段 checklist（学员现场照这个填自己的项目）</h3>
+<blockquote>
+<p>这不是给你看的，是给你<strong>用</strong>的——你回去起一个新项目，就照这七张单子逐条打勾。<strong>打不了勾的，就是你这个项目还没准备好进下一阶段。</strong></p>
+</blockquote>
+<p><strong>S1 认知萃取</strong>（对应康养项目 102 事件 / 7 画像 / 368 问卷） - [ ] 是否至少 3 个角色视角并行做过事件风暴？（康养项目是 6 角色） - [ ] 事件是否经过“合并去重 → 对照增补”两轮以上？（康养项目 58→39→64→102） - [ ] 画像是否有<strong>一手数据校准</strong>，不是拍脑袋？（康养项目 368 份问卷） - [ ] 是否已识别出“营收 / 价值命门事件”？（康养项目 E59） - ⚠️ 收口标准：<strong>事件集可归域</strong>——每个事件都能预判归到哪个域，否则回炉</p>
+<p><strong>S2 结构收敛</strong>（对应康养项目 7 旅程 / 5 流程 / 10 热点） - [ ] 旅程是否服务于业务优先级，而非求全？（B-7 教训：砍掉过重的夜间急救） - [ ] 流程的每个决策点是否已标记为“未来 skill 边界”？ - [ ] 热点是否按 <strong>business value</strong> 分层（P1–P5），而非按实现难度？ - ⚠️ 收口标准：<strong>有一份 P1–P5 优先级表</strong>，且客户认可这个次序</p>
+<p><strong>S3 域切分</strong>（对应康养项目 7 域 D1–D7） - [ ] 每个域的职责能否用 1–2 句说清？说不清就是切错了 - [ ] 共享根实体（如康养项目 Elder）是否<strong>指定唯一 canonical 域</strong>？ - [ ] 是否有“记账 / 结算真相源”这类单点权威域？（康养项目 D2） - [ ] 跨域关系是否只有 ref / 发布，<strong>没有越域直写</strong>？（B-8） - ⚠️ 收口标准：<strong>承重关系图零悬空引用</strong>（康养项目 A 结构 7/7）</p>
+<p><strong>S4 本体建模 + 设闸</strong>（对应康养项目五要素 76/75/38/47/54 + HIL 26）← <strong>T5a + T5b 就在这一阶段</strong> - [ ] 五要素是否齐全（Object / Link / Function / Rule / Action）？ - [ ] <strong>每个 Action 是否都过了一遍 HIL 四判据</strong>（见 4.4）？ - [ ] 高杠杆 / 高风险 Action 是否设了闸并指定“谁按”？（康养项目 26 处） - [ ] 结构是否 py_compile / 校验通过？（康养项目 7/7） - ⚠️ 收口标准：<strong>HIL 设点表成型</strong>，每个闸有判据依据 + 责任人</p>
+<p><strong>S5 合规治理</strong>（对应康养项目 18 处挂已核验国标 / 11 处保留占位） - [ ] 每条硬规则是否挂了 source / citations？（康养项目 0 空 source，B 段治理 7/7） - [ ] 文号是否<strong>核到官方现行版本</strong>？（B-6 教训：别把像国标的当国标） - [ ] 查不到的文号是否<strong>留占位不编造</strong>，并转成取证清单？（B-10） - ⚠️ 收口标准：<strong>一份可交现场的“待补取证清单”</strong>（康养项目 11 处逐项列谁去取）</p>
+<p><strong>S6 交付物工程</strong>（对应康养项目 11 章 / 约 11 万字 / 26 图） - [ ] 是否有单一锚定口径文件（BRIEF）？术语 / 数据 / 口径单点定义？ - [ ] 并行写作是否<strong>只引用不重算</strong>关键数字？（B-5） - [ ] 编号权是否归装配阶段，不归写作阶段？（B-2） - [ ] 图目 / 摘要是否有“收口回改”动作，防计数漂移？（B-1） - ⚠️ 收口标准：<strong>装配后质检零口径冲突、零断链、零计数漂移</strong></p>
+<p><strong>S7 HIL 运行与留痕</strong>（横切，非阶段） - [ ] 每个闸是否“<strong>AI 研判 + 人拍板 + 写后留痕</strong>”三段齐全？ - [ ] 置信度闸阈值是否明确（哪怕是占位，如康养项目 <strong>0.75</strong>）？ - [ ] 责任是否落到具体岗位（站长 / 民政经办），<strong>不是“系统”</strong>？ - ⚠️ 收口标准：<strong>任何一次自动决策都能追溯到“谁在什么置信度下拍的板”</strong></p>
+<blockquote>
+<p><strong>SOP 的价值不在“告诉你做什么”，在“告诉你什么时候还没做完”。</strong>每张单子最后那行加粗的<strong>收口标准</strong>才是灵魂。</p>
+</blockquote>
+<h3 id="设闸之前先立方法论根据闸为什么分两层">4.3 设闸之前先立方法论根据：闸为什么分两层</h3>
+<blockquote>
+<p>第一节讲了两道闸<strong>是什么</strong>；这里讲它<strong>为什么必须是两层</strong>——否则学员会把 HIL 当成唯一的闸，闸设满、人变橡皮图章。 依据：<code>clife-onto-engine · reference/methodology 05 / 09 / 23</code>。四条硬结论。</p>
+</blockquote>
+<p><strong>① 软约束不是工程约束（方法论 09）。</strong> 你在提示词里写“发起采购前必须检查认证有效期”——这是<strong>软约束</strong>，有三个结构性缺陷：<strong>会被遗忘</strong>（多轮对话后早期指令权重下降）、<strong>会被稀释</strong>（上下文塞满后约束被挤出）、<strong>会被绕过</strong>（提示词注入让模型“忘记”约束）。</p>
+<blockquote>
+<p><strong>“自觉遵守不是工程约束。”</strong></p>
+</blockquote>
+<p>三层强度对比记住：</p>
+<table>
+<thead>
+<tr class="header">
+<th>层次</th>
+<th>机制</th>
+<th>强度</th>
+<th>可绕过性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>提示词层</td>
+<td>靠 LLM 自觉</td>
+<td>最弱</td>
+<td>高（注入即破）</td>
+</tr>
+<tr class="even">
+<td>API 网关层</td>
+<td>校验请求参数格式</td>
+<td>中</td>
+<td>中（参数可伪造）</td>
+</tr>
+<tr class="odd">
+<td><strong>本体层</strong></td>
+<td>校验业务状态 + 全局不变式</td>
+<td><strong>最强</strong></td>
+<td><strong>低（引擎强制，无旁路）</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>② 第一层是“自动闸”——引擎确定性回滚，机器把关（方法论 09）。</strong> 被拒的 Agent 收到的不是 500 错误，而是<strong>结构化拒绝三件套</strong>：<code>triggered_rule</code>（为什么不行）+ <code>current_state</code>（当时的世界快照）+ <code>suggestion</code>（可以怎么调整）→ Agent 据 suggestion 改选、重试成功。 这就是 <strong>OAG 闭环：发现 → 调用 → 被拒 → 调整 → 重试</strong>，全程在约束内、没绕过。</p>
+<blockquote>
+<p><strong>能固化成硬规则的，就交给自动闸，别浪费人力。</strong></p>
+</blockquote>
+<p><strong>③ 第二层才是“人工闸”——HIL，人拍板（方法论 23 置信度总线）。</strong> 什么时候才上 HIL？两种： - <strong>机器判不了的价值判断</strong>——涉钱 / 涉合规 / 跨组织的拍板； - <strong>机器“没把握”</strong>——AI 原生系统里每个断言都是概率的（<code>balance_sufficient = (False, confidence=0.78)</code>），<strong>置信度太低（接近随机）时，基于它的决策不该是最终结论，必须触发人工复核</strong>。</p>
+<blockquote>
+<p>这就是康养项目<strong>站长置信度闸 0.75</strong> 的方法论根据：<strong>不是拍脑袋定的阈值，是“低置信必须转人”的工程共识。</strong></p>
+</blockquote>
+<p><strong>④ HIL 留痕 = 审计快照，不是日志（方法论 05 / 10）。</strong> 留的不是“操作日志”，是<strong>决策快照</strong>——“记录上下文，而不只是记录结果”。康养项目 <code>HILReview</code> 强制留 <code>signer_id / reviewed_at / decision / edits_before_after</code>，就是为了回答那个问题：</p>
+<blockquote>
+<p><strong>“三个月后，合规团队问’AI 当时凭什么觉得能下单’，你能不能当天答上来。”</strong></p>
+</blockquote>
+<p><strong>一句话收口（可直接板书）：</strong></p>
+<blockquote>
+<p><strong>“你能把多大的权力交给一个系统，取决于设计时边界定义在哪里，以及越界时——是被它自己拦下，还是被现实拦下。”</strong></p>
+</blockquote>
+<p>自动闸 + HIL，就是“被它自己拦下”；两样都没设，就是等着“<strong>被现实拦下</strong>”——那时赔的是钱、是合规、是客户关系。</p>
+<h3 id="判据训练四条硬判据-一条置信度兜底闸">4.4 ★ 判据训练：四条硬判据 + 一条置信度兜底闸</h3>
+<blockquote>
+<p><strong>口径纪律（讲师必须咬死）</strong>：是 <strong>“四条硬判据 + 一条置信度兜底闸”</strong>，<strong>不是“五条硬判据”</strong>。 <strong>四判据看动作性质，兜底闸看模型把握。</strong> 两者不是同一类东西，混讲学员就学不会判断。</p>
+</blockquote>
+<p><strong>四条硬判据（满足任一即须插人）：</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>判据</th>
+<th>含义</th>
+<th><strong>一句话测试</strong>（现场对着学员的 Action 逐个问）</th>
+<th>康养项目实例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 不可逆</strong></td>
+<td>动作做了收不回来</td>
+<td>“撤销这个动作，代价大到不可接受吗？”</td>
+<td>急救四级联动升级（D4，误升级 / 漏升级都不可逆）、监管数据对外发布（D6）</td>
+</tr>
+<tr class="even">
+<td><strong>② 涉钱</strong></td>
+<td>动作直接产生 / 改变金钱流向</td>
+<td>“这一步之后有钱动了吗？”</td>
+<td>增收订单生成（D1→D3，E59）、DIP 结算入账（D2）、补贴拨付（D6）</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 涉合规</strong></td>
+<td>动作触发监管 / 法律义务</td>
+<td>“监管来查，这一步要留痕解释吗？”</td>
+<td>数据授权 / 最小必要（D6）、DIP 控费入账前阻断（D2）</td>
+</tr>
+<tr class="even">
+<td><strong>④ 跨组织</strong></td>
+<td>动作的后果落到别的主体身上</td>
+<td>“做错了，是别人替我承担后果吗？”</td>
+<td>AI 方案转订单卖给会员（跨到客户）、补贴发布（跨到政府监管）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>置信度兜底闸（横切覆盖前四条之外的情形）：</strong> - 四条判据是“<strong>看动作性质</strong>”；兜底闸是“<strong>看模型有多确定</strong>”。 - <strong>即便一个动作四条都不命中，只要模型对它的置信度低于阈值，同样落人工。</strong> - 康养项目把这条固化为 D1 的<strong>置信度闸</strong>：<code>hard · function · pre</code>，<strong>阈值占位 0.75</strong>（待定口径），<strong>建模时刻意设成 pre（前置）</strong>——<strong>在动作发生前拦，不是发生后补</strong>。 - 这条是防“<strong>高频低置信</strong>”决策悄悄溜过去的最后一道网。</p>
+<blockquote>
+<p><strong>为什么是“满足任一即插人”，不是“满足多数”？</strong> 因为这四条每一条单独成立就够伤。<strong>涉钱一条就够了</strong>——一笔错误增收决策，客户的钱亏了，赖不到模型头上，赖到你头上。 所以是“任一”，是<strong>或</strong>，不是<strong>与</strong>。<strong>宁可多设几道闸拖慢一点，不可漏一道闸出一次事。</strong></p>
+</blockquote>
+<p><strong>⚠️ 但“任一即插人”必须先过 4.3 的第一道筛</strong>：这个动作<strong>能不能固化成硬规则</strong>？能固化的走自动闸，判不了 / 涉钱涉合规的才上人工闸。<strong>先问“能不能自动”，再问“该不该插人”——顺序反了就会闸设满。</strong></p>
+<h3 id="用-26-个-hil-点做实证判据怎么落到具体域">4.5 用 26 个 HIL 点做实证（判据怎么落到具体域）</h3>
+<p>康养项目 7 域的 <strong>26 个 HIL 点</strong>，分布本身就是四判据的实证。<strong>分布数字见第一节（口径同源，不重算）</strong>；这里只讲<strong>为什么这么多 / 这么少</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>域</th>
+<th>HIL</th>
+<th>判据实证</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D1 kangyang-agent-core</td>
+<td>2</td>
+<td>站长 HIL（增收，<strong>涉钱 + 跨组织</strong>）+ 健管师复核；增收链路是营收命门，必须人拍板</td>
+</tr>
+<tr class="even">
+<td>D2 policy-settlement-hub</td>
+<td><strong>0*</strong></td>
+<td>注意这个星号——结算域 <strong>0 个显式 HIL，但有 4 处“经办拍板”注释</strong>。因为 D2 是记账真相源，合规拦截做在<strong>规则前置</strong>（DIP 双拦截、反重复），关口挪到规则层而非人工层；但涉钱涉合规，仍留 4 处人工拍板痕迹</td>
+</tr>
+<tr class="odd">
+<td>D3 member-revenue-flywheel</td>
+<td>1</td>
+<td>营收飞轮，涉钱但多为<strong>可逆</strong>营销动作，只在关键转化点设 1 闸</td>
+</tr>
+<tr class="even">
+<td>D4 home-care-health</td>
+<td>6</td>
+<td>最多之一——含<strong>急救四级联动指挥（不可逆！）</strong>，监测 / 派单 / 评估多处涉人身安全</td>
+</tr>
+<tr class="odd">
+<td>D5 institution-ops</td>
+<td>5</td>
+<td>机构运营，入住 / 退费 / 医嘱涉钱涉合规涉人身</td>
+</tr>
+<tr class="even">
+<td>D6 civil-affairs-govern</td>
+<td><strong>8</strong></td>
+<td><strong>最多</strong>——民政治理，DP-H 闸（监管发布，<strong>涉合规 + 涉钱 + 跨组织三条全中</strong>）、补贴事前拦截、数据授权，几乎每个 Action 都踩判据</td>
+</tr>
+<tr class="odd">
+<td>D7 kangyang-llm-kb</td>
+<td>4</td>
+<td>知识库版本发布，被全域引用，<strong>发错版本影响全局</strong>，故版本发布设闸</td>
+</tr>
+<tr class="even">
+<td><strong>合计</strong></td>
+<td><strong>26</strong></td>
+<td>分布不是均匀的——<strong>风险在哪，闸就在哪</strong>。D6 有 8 个不是因为它复杂，是因为它每个动作都涉合规涉钱跨组织</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这张表最该学的是 D2 那个星号。</strong> 结算域涉钱最狠，显式 HIL 却是 0。新手觉得矛盾——涉钱怎么不设闸？ 因为 FDE 做了个更高级的判断：<strong>把合规拦截前置到规则层，比事后拉个人来点确认更可靠。</strong> <strong>人工闸是最后手段，不是唯一手段。</strong>能用确定性规则挡住的，就别靠人肉点确认——<strong>人肉点确认点多了，就变成橡皮图章。</strong></p>
+</blockquote>
+<h3 id="两大闸门-按错的代价本节高潮判断训练的落点">4.6 两大闸门 + 按错的代价（本节高潮，判断训练的落点）</h3>
+<p><strong>闸门①：站长 HIL（增收闸 · 置信度闸 0.75 防橡皮图章）</strong></p>
+<ul>
+<li><strong>机制</strong>：六智能体链路（洞察→根因→需求→方案→⭐HIL→执行→评估→回流），AI 生成增收方案后，<strong>必须站长在审核台点确认才能转成订单</strong>（E59）。</li>
+<li><strong>判据命中</strong>：涉钱（生成订单）+ 跨组织（卖给会员 / 长者）+ 置信度兜底（0.75 闸）。</li>
+<li><strong>为什么设置信度闸</strong>：不是走个形式让站长点“同意”。建模时设成 <code>hard · function · pre</code>，<strong>目的就是防橡皮图章</strong>——AI 高置信的方案快速过、<strong>低置信的方案强制站长细看</strong>。</li>
+<li><strong>⚠️ 按错的代价 · 场景 A：置信闸形同虚设 → 橡皮图章 → 错误增收决策。</strong> 如果把 0.75 阈值调成 0（或站长养成“一律点同意”的习惯），<strong>闸门在，但等于没有</strong>。AI 给一个低置信的、对长者不合适的高价套包，站长机械点过，卖出去了——<strong>这是涉钱 + 跨组织双命中的动作出错，钱是长者的、口碑是客户的、责任是 C-Life 的。</strong> 微康养做的是熟人生意（康养项目熟人获客 77.59%），<strong>卖错一单，毁的是整个片区的信任飞轮。</strong></li>
+<li><strong>根因原则</strong>：<strong>闸门的价值不在“有没有”，在“会不会真拦”。置信度闸就是防止 HIL 退化成盖章仪式的技术保险。阈值是活的，谁调阈值谁负责。</strong></li>
+</ul>
+<p><strong>闸门②：民政 DP-H（监管发布闸）</strong></p>
+<ul>
+<li><strong>机制</strong>：D6 民政治理域，<code>DPHReview</code> human_gate——<strong>任何对外发布的监管数据 / 补贴决定，必须民政经办拍板留痕</strong>。</li>
+<li><strong>判据命中</strong>：涉合规 + 涉钱（补贴）+ 跨组织（政府对社会发布），<strong>三条全中</strong>，是全项目判据命中最密的闸。</li>
+<li><strong>⚠️ 按错的代价 · 场景 B：DP-H 失守 → 违规发布监管数据。</strong> 如果监管发布不过人工闸，AI 把一份未经核验的床位一张图、或一笔补贴资格认定直接对外发布——<strong>违反数据授权最小必要（个保法）、可能错发 / 漏发补贴（涉公帑）、政府信用受损。</strong> 这是<strong>不可逆的</strong>：数据发出去了收不回来；补贴发错了，<strong>追缴是政治事件</strong>。</li>
+<li><strong>根因原则</strong>：<strong>跨组织 + 涉合规的动作，人工闸是法律义务不是可选项。谁发布谁签字，签字的人为这条数据的真实性背书。</strong></li>
+</ul>
+<blockquote>
+<p><strong>两个闸门，两句话记住：</strong> <strong>站长闸防的是“钱按错”</strong>——闸门在但退化成橡皮图章，等于没有，置信度闸就是防这个的。 <strong>民政闸防的是“合规越界”</strong>——跨组织发布是法律义务，谁签字谁背书。</p>
+</blockquote>
+<h3 id="锚定口径机制s6-的灵魂也是这门课的元证据">4.7 锚定口径机制（S6 的灵魂，也是这门课的元证据）</h3>
+<p>S6 那张单子第一条：<strong>“是否有单一锚定口径文件？”</strong></p>
+<p>康养项目可研 11 章、约 11 万字、<strong>35 个分节拆给多个子智能体并行写</strong>。并行写作最大的风险是<strong>口径漂移</strong>——张三写的老龄化率用 60+ 口径、李四用 65+ 口径，装配起来数字打架（这就是反例 B-5）。</p>
+<p>康养项目怎么防的？一份 <code>可研报告/_WRITING_BRIEF.md</code>，做三件事：</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>做什么</th>
+<th>具体</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>术语统一表</strong></td>
+<td>“数智本体”不许写成“知识本体”，锁死写法</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>核心数据表（唯一真相源）</strong></td>
+<td>76/75/38/47/54、1.36 亿、IRR 15.2%，<strong>所有分节一律引用不重算</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>锚定事实 + 协作纪律</strong></td>
+<td>主体与效益口径钉死在一处；<strong>任何口径要调整，只改这一处、全篇自动跟</strong>，绝不允许分节作者各写各的</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>关键机制：口径不靠 35 个作者自觉对齐，靠一份单点文件强制对齐。作者只写自己那节、只引不算、编号权归装配。</strong></p>
+<p>⭐ <strong>最元的一句话</strong>：<strong>你们现在读的这门课，就是这么造的。</strong> 这十讲讲义拆给多个写作子智能体并行写，共用一份 <code>tutorial/FDE课程/_WRITING_BRIEF.md</code>，结构和康养项目那份一模一样：术语统一表、核心数据表、反例分配表、协作纪律。<strong>这门课本身就是一次 FDE 交付，用的就是本节教你的 SOP。教材的生产方式，就是教材的内容。</strong></p>
+</blockquote>
+<p>板书收口：<strong>“多智能体一致性靠锚定口径，不靠自觉。”</strong></p>
+<h3 id="这套-sop-跨交付模式通用四案例对照">4.8 这套 SOP 跨交付模式通用（四案例对照）</h3>
+<p>七阶段只在康养、只在“大平台”这种模式成立吗？<strong>不是。</strong>阶段一样，变的是内容和轻重。</p>
+<p><strong>① SOP 可以在任意阶段停。</strong> <strong>辣椒大模型</strong>（模式二）现在到 <strong>S3–S4</strong>：出了 1500 行建设方案、画了三层本体设计，已有 pilot 本体（<code>chili</code>：<strong>5 对象 / 0 关系</strong>），<strong>但未做全域编译落地、无 demo</strong>。交付物就是这份方案——<strong>这不是没做完，是这个阶段就该交这个。</strong> &gt; SOP 的价值就是：<strong>你随时知道自己在第几阶段、手里该拿出什么。</strong></p>
+<p><strong>② 同一套管线跨模式、跨行业不变。</strong> <strong>教育督导项目</strong>是模式一的 Token-SaaS 应用，用的是<strong>和康养项目一字不改的建模管线</strong>：event-storm（33 事件）→ 画像（李科长 / 张园长 / 王老师三层）→ domain-map（2 插件 13 skill）→ opportunity，并做出 <strong>47 页 demo（数据真）</strong>。模式变了、行业变了，<strong>方法没变</strong>，变的只是领域知识：医保 DIP 换成 6×23×59×约 150 条评估细则。</p>
+<p><strong>③ HIL 命门随交付模式迁移，但四条判据不变。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>模式</th>
+<th>HIL 命门在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>康养项目</td>
+<td>模式二</td>
+<td><strong>站长增收闸</strong>（涉钱）+ <strong>民政 DP-H 发布闸</strong>（涉合规 + 不可逆）</td>
+</tr>
+<tr class="even">
+<td>教育督导项目</td>
+<td>模式一</td>
+<td><strong>三处应用内裁定闸</strong>：区局 OKR 审核、园长材料复核、警告下强制提交——全涉合规、不可逆，<strong>一个增收闸都没有</strong></td>
+</tr>
+<tr class="odd">
+<td>草业项目 / 辣椒</td>
+<td>农业口</td>
+<td><strong>碳汇 / 溯源凭证发布闸</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>闸门位置从“增收”挪到“应用内质检”再挪到“凭证发布”，但判据永远是那四条。</strong></p>
+</blockquote>
+<p><strong>④ 顺便两个真坑，都是诚实课。</strong> 一，该区园所数源里有三个——<strong>99 所 / 124 园 / 79 样本</strong>，<strong>我不替它选一个，因为口径没核实</strong>（B-5 活体）。 二，草业项目那个能点开的 <strong>11 页 demo，AI 是 Mock 的关键词路由、不是真模型</strong>——演示时一定说“<strong>这是交互外壳、不是模型跑通</strong>”，<strong>把 demo 吹成产品就是骗客户</strong>。</p>
+<p><strong>案例成熟度口径（以本表为准）</strong>：康养项目 🟢 唯一全域编译交付 · 草业项目 🟡 方案 + 11 页 Mock demo + pilot 本体（<code>grass</code>：7 对象 / 3 关系）· 辣椒 🟡 方案 + pilot 本体（<code>chili</code>：5 对象 / 0 关系）· 无 demo · 教育督导项目 🟢 建模 + 47 页 demo（数据真）。</p>
+<h3 id="反例主场b-1-b-2-b-5-b-10">4.9 反例主场：B-1 / B-2 / B-5 / B-10</h3>
+<blockquote>
+<p>别的步骤一步一个反例，本节是<strong>反例主场</strong>，一次给四个。因为<strong>交付物工程和合规治理是出错高发区</strong>，这四个坑我们全踩过。每个反例讲三件事：<strong>怎么发生的、怎么被发现的、根因是什么原则。</strong></p>
+</blockquote>
+<p><strong>B-1 图目计数漂移</strong> - <strong>怎么发生的</strong>：<code>_FIG_SPECS.md</code> 标题写“22 张图”，表体实际列了 <strong>26 行</strong>。后期补的 5-3、5-4、A-1 等图追加到表尾，<strong>头部那个计数没人回去改</strong>。 - <strong>怎么被发现的</strong>：质检阶段核对“标题说 22、表里数出来 26”，对不上。 - <strong>根因原则</strong>：<strong>摘要与明细必须有单一真相源；并行 / 追加式产出必须有一个显式的“收口回改”动作。</strong> 漂移不是因为谁粗心，是因为<strong>没有一步流程负责在追加后回改头部计数</strong>。→ S6 收口标准。</p>
+<p><strong>B-2 章节编号冲突</strong> - <strong>怎么发生的</strong>：35 个分节<strong>并行</strong>写作，各节作者自行起标题层级和编号，装配期出现<strong>编号重复 / 跳号</strong>。 - <strong>根因原则</strong>：<strong>编号权归装配阶段，不归写作阶段。</strong> 写作时只管写内容——<strong>并行的东西，全局唯一性只能在收拢点解决，不能指望各分支自己协调。</strong></p>
+<p><strong>B-5 数据张冠李戴（老龄化率）</strong> - <strong>怎么发生的</strong>：县区七普老龄化率在跨节引用中错配——<strong>60+ 口径和 65+ 口径混用</strong>，同一指标两个节写出两个数。 - <strong>根因原则</strong>：<strong>关键数字必须锚在 BRIEF 单点，分节作者一律引用不重算。</strong> 这正是 4.7 锚定口径机制的<strong>反面</strong>。</p>
+<p><strong>B-10 · 11 处地方文号坚决不编造（全课程价值观支点）</strong> - <strong>怎么发生的</strong>：citations 治理时，<strong>7 处本地文号</strong>（康养项目 DIP 细则、助餐补贴办法、政府购买清单等）+ <strong>4 处企业内部 SOP 编号</strong>，<strong>公开渠道查不到</strong>。 - <strong>诱惑在哪</strong>：编一个“看起来对”的文号，合规件就完整了，交付显得漂亮。 - <strong>FDE 怎么处理的</strong>：<strong>11 处坚决保留 <code>[本地待补文号]</code> / <code>[企业标准，FDE 补编号]</code> 占位不编造</strong>，每处<strong>锚定上位国标</strong>（如康养项目 DIP 细则锚 医保办发〔2020〕50号），转成一份<strong>向某市医保局 / 民政局 / 政数局逐项取件的清单</strong>（<code>FDE-citations-待补清单.md</code>），标注“该找谁、取哪份文件”。<strong>判定为非 BLOCKER，不阻断交付。</strong> - <strong>根因原则（原话直引）</strong>：</p>
+<blockquote>
+<p><strong>“错文号比空缺更有害。”</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>空缺是诚实的，能被后续补上；错误的文号是有毒的</strong>，它会以“看起来完整”的样子骗过审核，<strong>在迎检时爆炸</strong>。 <strong>留占位 + 锚上位国标 + 转取证清单</strong>——这套动作就是把“我不知道”变成“<strong>专业的不知道</strong>”。</p>
+</blockquote>
+<h3 id="判断训练三道研讨题实操前-10-分组讨论">4.10 判断训练：三道研讨题（实操前 10′ 分组讨论）</h3>
+<p><strong>题 1（设闸判断）</strong>：在你的 HIL 设点表里，有没有一个决策点是“<strong>四判据都不太命中，但你还是设了闸</strong>”的？为什么？如果一个都没有，<strong>是不是你把置信度兜底闸忘了？</strong> &gt; 收口：好的 FDE 会为“<strong>高频低置信</strong>”动作设兜底闸，这是四判据之外最容易漏的一类——康养项目的 0.75 置信闸就是干这个的。</p>
+<p><strong>题 2（橡皮图章）</strong>：假设你表里某个闸，责任人<strong>每次都点“同意”</strong>。这个闸还有用吗？你怎么<strong>从机制上</strong>防止它退化成橡皮图章？ &gt; 收口：闸门的价值不在“有没有”，在“会不会真拦”。答案指向<strong>置信度闸 / 抽检 / 留痕追责</strong>——康养项目站长闸设 <code>hard · pre</code> + 0.75 阈值就是防退化的技术保险。</p>
+<p><strong>题 3（诚实边界）</strong>：你的项目里有没有“查不到、核不实”的文号 / 数据 / 标准？你打算<strong>编一个让交付显得完整</strong>，还是<strong>留占位转取证清单</strong>？说出你会怎么跟客户解释这个空缺。 &gt; 收口：回收 B-10。“错文号比空缺更有害”。<strong>能对客户坦然说“这处我留了占位、给你一份取件清单”的 FDE，比交一份“看起来完整”的假件的 FDE 专业得多。</strong></p>
+<hr />
+<hr />
+<h2 id="五实操30">五、实操（30′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>做什么</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>逐个 Action 判四判据 + 填 IR 的 <code>hil</code> 列</td>
+<td>15′</td>
+<td><strong>HIL 设点表 5–8 行</strong>（判据 / 谁按 / 按错代价）</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>逐条 Rule 核 source，查不到的转清单</td>
+<td>10′</td>
+<td><strong>citations 取证清单</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>跑 <code>/studio-ontology:validate</code>，看 A/B 段</td>
+<td>5′</td>
+<td>校验报告</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🔔 本步交付物</strong>：<strong>HIL 设点表</strong> + <strong>citations 取证清单</strong> + validate 的 A/B 段通过。</p>
+<p><strong>🔔 难点</strong> - <strong>填 <code>hil</code> 列要写成“角色 / 条件”两段</strong>，只写角色等于没设闸（predicate 默认恒 False） - <strong>查不到的文号一律留占位</strong>，转成向客户逐项取件的清单——<strong>这是路演一票警示的直接来源</strong></p>
+<hr />
+<h2 id="六checkout20">六、checkout（20′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HIL 四判据</td>
+<td>每个闸能说清命中哪条判据、谁按、按错什么代价</td>
+<td>“重要的都加审核”</td>
+</tr>
+<tr class="even">
+<td>HIL 有效性</td>
+<td>predicate 写了条件</td>
+<td><strong>只写 reviewer_role 没写 predicate（等于没设闸）</strong></td>
+</tr>
+<tr class="odd">
+<td>两道闸</td>
+<td>说得出写入闸和副作用闸的区别</td>
+<td>以为 HIL 会阻止写入</td>
+</tr>
+<tr class="even">
+<td>闸的密度</td>
+<td>该固化成硬规则的走自动闸，人工闸只留判不了的</td>
+<td>闸设满了（审批者变橡皮图章）</td>
+</tr>
+<tr class="odd">
+<td>治理审计</td>
+<td>validate B 段通过；每条规则有 source 三态之一</td>
+<td>有规则 source 为空</td>
+</tr>
+<tr class="even">
+<td>取证清单</td>
+<td>查不到的留占位 + 锚定上位国标 + 转清单</td>
+<td><strong>编造文号 → 一票警示（B-10）</strong></td>
+</tr>
+<tr class="odd">
+<td>可验证性</td>
+<td>说得出本组哪条闸能像 <code>smoke_cq.py</code> 那样被自动验证</td>
+<td>承诺“我们会严格审核”但验证不了</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="七给讲师的时间盒90">七、给讲师的时间盒（90′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>知识注入 · 讲 6（SOP 七阶段 + HIL 四判据 + 闸分两层）</strong></td>
+<td>40′</td>
+</tr>
+<tr class="even">
+<td><strong>两道闸（写入闸 vs 副作用闸）</strong></td>
+<td>20′ ← 含在上面或紧接</td>
+</tr>
+<tr class="odd">
+<td>现场演示 <code>smoke_cq.py</code></td>
+<td>15′</td>
+</tr>
+<tr class="even">
+<td>实操（填 hil 列 + 取证清单 + validate）</td>
+<td>30′ ← 穿插</td>
+</tr>
+<tr class="odd">
+<td>checkout</td>
+<td>20′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>主持提示</strong>：<strong>“两道闸”和 <code>smoke_cq.py</code> 演示是本册的命门，绝不能压缩</strong>——前者是概念分野，后者把“设闸”从承诺变成看得见的机制。要砍就砍 validate 四段的逐段讲解。</p>
+<hr />
+<h2 id="八与下游的衔接">八、与下游的衔接</h2>
+<pre><code>T5b 产物
+  ↓ HIL 设点表      → T6 招投标文书的&quot;质量保证/风险管理&quot;章；T7 demo 要展示的闸
+  ↓ citations 取证清单 → T6 合规章；**现场向客户逐项取件**
+  ↓ 编译产物 + CQ    → T8 的插件校验参照
+  ↓ &quot;哪些必须人扛&quot;的判断 → T9 结课（讲 3 OPC 边界）</code></pre>
+<p><strong>一句话</strong>：T5b 是这门课<strong>唯一一步产出“机器会强制执行的东西”</strong>。前面几步产的是文档，文档会被忽略；<strong>规则不会。</strong></p>
+<hr />
+<h2 id="九讲师包-口播稿">九、讲师包 · 口播稿</h2>
+<h3 id="本步用哪几个课件">本步用哪几个课件</h3>
+<blockquote>
+<p>课件在 <code>../slides/</code>，浏览器直接打开。<strong>键盘 ← → 翻页 · S 演讲者模式 · O 总览。</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>课件</th>
+<th>用在哪一段</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>slides/06_FDE交付怎么做_康养项目全流程复盘.html</code></td>
+<td>知识节·SOP+HIL</td>
+<td><strong>全用</strong>（63KB，全课最大一本，本册是重心）。七阶段 SOP、HIL 四判据、闸分两层、康养项目 26 点分布</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>课件是旧十讲时期做的</strong>，口径以本册为准——课件若与本册冲突（尤其案例成熟度、「合资」旧口径），<strong>以本册为准，当场改口</strong>。</p>
+</blockquote>
+<blockquote>
+<p>以下全部为《第 6 讲 · FDE 交付怎么做——康养项目全流程复盘》的<strong>【讲述脚本】原文</strong>，供讲师直接照念，<strong>不改写、不缩写</strong>。 顺序即建议的开讲顺序：开场 → 管线复盘 → SOP → HIL（本册命门）→ 锚定口径 → 跨模式 → 反例 → 演练导入 → 收口 → 难听话。</p>
+</blockquote>
+<h3 id="口播-开场定调2">口播 · 开场定调（2′）</h3>
+<blockquote>
+<p>"前五讲我们讲了 FDE 是什么、为什么组织需要、边界在哪、要什么知识栈、为什么离不开平台。都是’认识论’。从这一讲开始是’方法论’——<strong>你回去要怎么干</strong>。</p>
+<p>这一讲是全课程最长的一讲，180 分钟，别的讲的两倍。为什么？因为这一讲要交给你两样能带走的东西：一张<strong>七阶段交付 SOP</strong>，套任何 To-G/To-B 项目都能用；一套<strong>HIL 设点原则</strong>，让你知道’在哪必须叫人、谁按、按错了赔什么’。</p>
+<p>我先把最难听的话放在开头，省得你听半天以为我在夸 AI：<strong>你们里面大多数人，现在能把康养项目那条链跑完，但跑不出第二遍。因为你靠的是当时的手感，不是流程。手感不能交接，流程能。这一讲就是把手感拆成流程。</strong>"</p>
+</blockquote>
+<h3 id="口播-管线全景定调">口播 · 管线全景定调</h3>
+<blockquote>
+<p>“我先把整条链摊在桌上。康养项目这条链，<strong>102 个业务事件进去，一份 100+ 页可研出来</strong>，中间十道工序。传统模式这十道工序分给五个岗位——产品经理、架构师、行业顾问、方案经理、美工——康养项目是<strong>1 个 FDE 带智能体编队</strong>一条跑通。 但注意：我不是要你崇拜’一个人干了五个人的活’。我要你看清楚<strong>每一道工序 FDE 到底做了什么判断</strong>——因为那些判断，就是模型替不了、也是你回去要练的东西。模型能把每道工序做快，但<strong>判断这道工序做完没有、做对没有，是你的活</strong>。”</p>
+</blockquote>
+<h3 id="口播-管线复盘收口">口播 · 管线复盘收口</h3>
+<blockquote>
+<p>“看完这十格，记住一句话：<strong>模型帮你把每一格做快了，但每一格里那句加粗的’FDE 判断’，没有一个是模型替你做的。</strong>102 事件聚成 16 簇——聚类模型能做，但’E59 是营收命门’这个判断是人做的。7 域切分——模型能给你候选，但’Elder 根定在 D4’这个宪法级决定是人拍的。<strong>你的核心资产不是会调这些工具，是会在每一格做那个判断。这就是第一讲那句话的实证：FDE 的核心资产是把模糊意图压成可执行结构。</strong>”</p>
+</blockquote>
+<h3 id="口播-从十阶段抽象到七阶段">口播 · 从十阶段抽象到七阶段</h3>
+<blockquote>
+<p>“上面十格是康养项目<strong>具体</strong>长什么样。但你回去做的不是康养项目，是别的项目。所以我把这十格抽象成<strong>不依赖康养项目、套任何 To-G/To-B 项目都能用的七阶段</strong>。十格是实例，七阶段是模板。<strong>记模板，别记实例。</strong>”</p>
+</blockquote>
+<h3 id="口播-checklist-怎么用">口播 · checklist 怎么用</h3>
+<blockquote>
+<p>“下面每个阶段我给一张 checklist。这不是给你看的，是给你<strong>用</strong>的——你回去起一个新项目，就照这七张单子逐条打勾。打不了勾的，就是你这个项目还没准备好进下一阶段。”</p>
+</blockquote>
+<h3 id="口播-sop-收口">口播 · SOP 收口</h3>
+<blockquote>
+<p>“七张单子，最后一句话：<strong>SOP 的价值不在’告诉你做什么’，在’告诉你什么时候还没做完’。</strong>每张单子最后那行加粗的’收口标准’才是灵魂。康养项目能一个人跑通，不是因为那个人聪明，是因为<strong>每一阶段都有明确的收口标准，跑到哪一步、还差什么，是可视的，不是靠感觉的。</strong>这就是第五讲那句话：平台是方法论的固化物，SOP 是方法论的可视化。”</p>
+</blockquote>
+<h3 id="口播-hil-章郑重定调本册命门">口播 · HIL 章郑重定调（本册命门）</h3>
+<blockquote>
+<p>“这一章是全课程的命门。前面讲的都是’怎么把活干出来’，这一章讲’怎么让活别把你干进去’。 一句话：<strong>FDE 交付的专业性，一半在’把结构建出来’，另一半在’知道自己在哪必须叫人’。</strong>建结构建错了，返工；该叫人没叫人，出事。返工赔时间，出事赔的是钱、是合规、是客户关系——<strong>有些是不可逆的。</strong>”</p>
+</blockquote>
+<h3 id="口播-闸分两层务必先讲这一段">口播 · 闸分两层（务必先讲这一段）</h3>
+<blockquote>
+<p>"设 HIL 之前，先搞清一件事——<strong>闸有两层，HIL 只是第二层。</strong> 我们自己的方法论文集（<code>clife-onto-engine · reference/methodology</code>）把这件事讲透了，我给你搬三条硬结论。</p>
+</blockquote>
+<h3 id="口播-为什么是满足任一即插人">口播 · 为什么是“满足任一即插人”</h3>
+<blockquote>
+<p>“为什么是’满足任一即插人’，不是’满足多数’？因为这四条每一条单独成立就够伤。<strong>涉钱一条就够了</strong>——一笔错误增收决策，客户的钱亏了，赖不到模型头上，赖到你头上。所以是’任一’，是<strong>或</strong>，不是<strong>与</strong>。宁可多设几道闸拖慢一点，不可漏一道闸出一次事。”</p>
+</blockquote>
+<h3 id="口播-d2-那个星号26-个-hil-点最该学的一格">口播 · D2 那个星号（26 个 HIL 点最该学的一格）</h3>
+<blockquote>
+<p>“看这张表最该学的是 <strong>D2 那个星号</strong>。D2 是结算域，涉钱最狠，但它显式 HIL 是 0。新手会觉得矛盾——涉钱怎么不设闸？因为 FDE 做了个更高级的判断：<strong>把合规拦截前置到规则层（DIP 双拦截、反重复引擎），比事后拉个人来点确认更可靠。</strong>人工闸是最后手段，不是唯一手段。能用确定性规则挡住的，就别靠人肉点确认——人肉点确认点多了，就变成橡皮图章。这就引出下面最要命的东西。”</p>
+</blockquote>
+<h3 id="口播-两大闸门收口加重">口播 · 两大闸门收口（加重）</h3>
+<blockquote>
+<p>“两个闸门，两句话记住： <strong>站长闸防的是’钱按错’——闸门在但退化成橡皮图章，等于没有，置信度闸就是防这个的。</strong> <strong>民政闸防的是’合规越界’——跨组织发布是法律义务，谁签字谁背书。</strong> 你回去设闸，就问这五个问题：不可逆吗？涉钱吗？涉合规吗？跨组织吗？模型够确定吗？<strong>中一条，插人。别嫌麻烦——嫌麻烦的代价，你赔不起。</strong>”</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>讲师注</strong>：这段的“五个问题”是<strong>提问清单</strong>，不是“五条硬判据”。念完立刻补一句本册口径——<strong>四条硬判据看动作性质，第五问是置信度兜底闸、看模型把握</strong>（见 4.4）。</p>
+</blockquote>
+<h3 id="口播-锚定口径机制元层面故意点破">口播 · 锚定口径机制（元层面，故意点破）</h3>
+<blockquote>
+<p>"最后 6 分钟讲一个你们现在正泡在里面的东西。 S6 阶段那张单子第一条：‘是否有单一锚定口径文件？’康养项目的可研报告，<strong>11 章、11 万字、35 个分节，是拆给多个子智能体并行写的</strong>。并行写作最大的风险是什么？<strong>口径漂移</strong>——张三写的老龄化率用 60+ 口径，李四用 65+ 口径，装配起来数字打架（这就是反例 B-5）。 康养项目怎么防的？一份 <code>可研报告/_WRITING_BRIEF.md</code>。它做三件事： 1. <strong>术语统一表</strong>——’数智本体’不许写成’知识本体’，锁死写法； 2. <strong>核心数据表（唯一真相源）</strong>——76/75/38/47/54、1.36 亿、IRR 15.2%，<strong>所有分节一律引用不重算</strong>； 3. <strong>锚定事实 + 协作纪律</strong>——把’嘉城数联合资公司/合资口径 IRR 15.2%（第 9 年回本）’这类主体与效益口径钉死在一处，任何口径若要调整，只改这一处、全篇自动跟，绝不允许分节作者各写各的。</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>讲师注（口径已变，务必改口）</strong>：这段口播稿是原话存档。<strong>2026-07-20 起主体表述已改为“项目联合体”，IRR 主口径叫“运营口径”</strong>，“合资公司/合资口径”是禁用词。 念到这里请改说“把’项目联合体 / 运营口径 IRR 15.2%’这类口径钉死在一处”。 <strong>⭐ 而且这正好是这段话自己在讲的事</strong>——口径真的变了一次，改的就是 <code>_WRITING_BRIEF.md</code> 那一处，全课跟着改。<strong>现场把这层点破，比讲十遍锚定口径都管用。</strong></p>
+<p><strong>关键机制：口径不靠 35 个作者自觉对齐，靠一份单点文件强制对齐。作者只写自己那节、只引不算、编号权归装配。</strong></p>
+<p>现在最元的一句话——<strong>你们现在读的这门课，就是这么造的。</strong>你手上这份讲义，和另外九讲，是拆给多个写作子智能体并行写的，共用一份 <code>tutorial/FDE课程/_WRITING_BRIEF.md</code>，结构和康养项目那份一模一样：术语统一表、核心数据表、反例分配表、协作纪律。<strong>这门课本身就是一次 FDE 交付，用的就是这一讲教你的 SOP。教材的生产方式，就是教材的内容。</strong>这不是巧合，是刻意示范。"</p>
+</blockquote>
+<h3 id="口播-sop-跨交付模式通用">口播 · SOP 跨交付模式通用</h3>
+<blockquote>
+<p>“最后把这套 SOP 从康养项目里拎出来，问一句：它只在康养、只在’大平台’这种模式成立吗？不是。这七阶段<strong>跨交付模式通用</strong>——不管你做的是模式一的 Token-SaaS 应用，还是模式二的大平台建设，阶段一样，变的是内容和轻重。给你们看四个对照—— <strong>① SOP 可以在任意阶段停。</strong> <strong>辣椒大模型</strong>（模式二）现在到 <strong>S3–S4 纸面</strong>：出了 1500 行建设方案、画了三层本体设计，但<strong>没编译落地</strong>，plugins 和 demo 还是空的。交付物就是这份方案——这不是没做完，是<strong>这个阶段就该交这个</strong>。SOP 的价值就是：你随时知道自己在第几阶段、手里该拿出什么。 <strong>② 同一套管线跨模式、跨行业不变。</strong> <strong>教育督导项目</strong>是模式一的 Token-SaaS 应用，但它用的是<strong>和康养项目一字不改的建模管线</strong>：event-storm（33 事件）→ 画像（李科长/张园长/王老师三层）→ domain-map（2 插件 13 skill）→ opportunity。模式变了、行业变了，方法没变，变的只是领域知识：医保 DIP 换成 6×23×59×约150 条评估细则。 <strong>③ HIL 命门随交付模式迁移，但四条判据不变。</strong> 模式二的康养项目，命门是<strong>站长增收闸</strong>（涉钱）+ <strong>民政 DP-H 发布闸</strong>（涉合规+不可逆）。模式一的教育督导项目，没有增收盘，命门是<strong>三处应用内裁定闸</strong>：区局 OKR 审核、园长材料复核、警告下强制提交——全涉合规、不可逆，一个增收闸都没有。农业口的草业项目/辣椒，命门又迁到<strong>碳汇/溯源凭证发布闸</strong>。<strong>看到没：闸门位置从’增收’挪到’应用内质检’再挪到’凭证发布’，但判据永远是那四条。</strong> <strong>④ 顺便两个真坑，都是诚实课。</strong> 一，该区园所数源里有三个——99 所 / 124 园 / 79 样本，<strong>我不替它选一个，因为口径没核实</strong>（B-5 活体）。二，草业项目那个能点开的 11 页 demo，<strong>AI 是 Mock 的关键词路由、不是真模型</strong>——演示时我一定说’这是交互外壳、不是模型跑通’，把 demo 吹成产品就是骗客户。（四案例详见《FDE 交付模式矩阵》）”</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>讲师注（口径更正，念到 ① 时当场补）</strong>：辣椒<strong>已有 pilot 本体 <code>chili</code>（5 对象 / 0 关系）</strong>，只是未做全域编译落地、<strong>无 demo</strong>；不是“plugins 完全空”。案例成熟度以 4.8 末尾那张表为准。</p>
+</blockquote>
+<h3 id="口播-反例主场定调">口播 · 反例主场定调</h3>
+<blockquote>
+<p>“别的讲一讲一个反例，这一讲是<strong>反例主场</strong>，一次给你四个。因为交付物工程和合规治理是出错高发区，这四个坑我们全踩过。每个反例讲三件事：<strong>怎么发生的、怎么被发现的、根因是什么原则。</strong>”</p>
+</blockquote>
+<h3 id="口播-b-10-收口全课程价值观支点">口播 · B-10 收口（全课程价值观支点）</h3>
+<blockquote>
+<p><strong>“这是全课程的价值观支点，出现三次不是重复，是复调（第 3、6、9 讲各一次）。FDE 的专业性，一半体现在敢说’我不知道’。空缺是诚实的，能被后续补上；错误的文号是有毒的，它会以’看起来完整’的样子骗过审核，在迎检时爆炸。留占位 + 锚上位国标 + 转取证清单，这套动作就是把’不知道’变成’专业的不知道’。”</strong></p>
+</blockquote>
+<h3 id="口播-现场演练导入4">口播 · 现场演练导入（4′）</h3>
+<blockquote>
+<p>"讲完了。现在轮到你。接下来 72 分钟，你要产出<strong>两样东西</strong>，就是你今天能带走的资产： <strong>① 你自己一个项目（自选或我指定）的交付 SOP</strong>——套今天这七阶段，每阶段填你项目的具体内容 + 收口标准； <strong>② 一张 HIL 设点表</strong>——把你项目里所有需要插人的决策点列出来，每个标：命中哪条判据、谁按、按错的代价是什么。</p>
+<p>别贪多。SOP 七阶段每阶段两三句，HIL 表能列出 5–8 个真闸就是合格线。<strong>我评的不是你写得多，是你有没有在’该设闸的地方设了闸、说清了按错的代价’。</strong>具体材料、模板、评分卡在工作坊文件里，翻开开始。"</p>
+</blockquote>
+<h3 id="口播-讲师收口">口播 · 讲师收口</h3>
+<blockquote>
+<p>回到本讲命题——“FDE 交付不是手艺好，是有 SOP + 会设闸。SOP 保证你能重复，HIL 保证你不出事。今天你带走了这两样，就不再是’跑通过一次康养项目’，而是’能跑第二遍、第三遍、别的项目也能跑’的人。”</p>
+</blockquote>
+<h3 id="口播-难听话收课压轴1-句">口播 · 难听话（收课压轴，1 句）</h3>
+<blockquote>
+<p><strong>“你现在能把康养项目那条链跑完，靠的是当时的手感——但手感不能交接，也不能背锅。真正值钱的不是’你会干’,是’你知道在哪必须停下来叫人’,以及’你敢在查不到的地方留个空、而不是编一个’。前者让你跑得快，后者让你活得久。多数人栽,不栽在不会干,栽在该叫人的时候逞能、该说不知道的时候硬编。”</strong></p>
+</blockquote>
+</body>
+</html>

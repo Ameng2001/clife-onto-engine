@@ -1,0 +1,292 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="corporate-clean"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 第4讲 · 知识栈（分册）</title>
+<link rel="stylesheet" href="../assets/fonts.css"><link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css"></head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .metric{font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent-2)}
+  .metric-sm{font-size:38px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:15px;color:var(--text-2);margin-top:10px;line-height:1.4}
+  .bignum{font-size:96px;font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--accent-2)}
+  .chain{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-weight:700;font-size:19px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:9px 14px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:34px;line-height:1.4;font-weight:600;color:var(--accent);max-width:26ch}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .defword{font-size:30px;font-weight:800;color:var(--accent-2);letter-spacing:-.02em}
+  .rtable{width:100%;border-collapse:collapse;font-size:14px}
+  .rtable th,.rtable td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  .rtable th{background:var(--surface-2);color:var(--accent);font-weight:700}
+  .rtable .k{color:var(--accent-2);font-weight:700;white-space:nowrap}
+  .src{font-size:12px;color:var(--text-3)}
+  .chip{display:inline-block;background:var(--surface-2);border:1px solid var(--border);border-radius:5px;padding:4px 9px;font-size:13px;font-weight:600;margin:2px}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="eyebrow" data-anim="fade-down">FDE 课程 · 第 4 讲 · 分册 3/4</div>
+    <h1 class="title" data-anim="fade-up">知识栈 · 商业与财务</h1>
+    <div class="divider-accent mb-m"></div>
+    <p class="quote-big" data-anim="fade-up">技术人最缺的那两维——<br>盘不出账，方案签不了字。</p>
+    <div class="row mt-l" data-anim="fade-up">
+      <span class="pill pill-accent">栈④ 商业模式与财务基础 · C5 上</span>
+      <span class="pill pill-accent">栈⑤ 财务与财评 · C5 下</span>
+      <span class="pill">范本 · 康养项目 BP 财务测算 Excel 模型</span>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="16"></span></div>
+    <div class="notes"><p>这是第 4 讲的第三分册，专门讲两栈——商业模式和财务财评。为什么单独拎出来讲？因为这正是多数技术出身的人塌下去的两根轴：会建模、能编译，但客户翻到可研最后一章问"这事怎么挣钱、几年回本、功能点怎么算的"，就答不出来了。这一册的目标很实：把 EBITDA、IRR、NPV、回本这几个让技术人发怵的词讲清楚，让你以后看到康养项目那几行数字，能说清每个数怎么来的，而不是当黑箱。</p></div>
+  </section>
+
+  <!-- 2 栈④命题 -->
+  <section class="slide" data-title="栈④命题">
+    <div class="kicker">栈④ · 商业模式与财务基础</div>
+    <h2 class="title">这栈的原本角色：商业顾问 / 战略</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <p class="lede">负责回答一件事：<strong>这事怎么挣钱、谁付钱、付多少、几年回本？</strong></p>
+        <div class="card card-soft"><p>这栈最好的教材<strong>不是一本通用商业书</strong>，而是一份真实跑通、经得起 To-G 评审的商业计划——<strong>康养项目 BP + 其财务测算 Excel 模型</strong>（<span class="mono">嘉城数联医康养生态运营财务测算模型.xlsx</span>）。</p></div>
+      </div>
+      <div class="card card-accent center">
+        <div>
+          <p class="metric-label" style="margin:0 0 10px">从这份范本学两件事</p>
+          <div class="metric-sm">① 商业模式怎么搭</div>
+          <div class="metric-sm" style="margin-top:14px">② 财务概念到底是什么</div>
+          <p class="metric-label">一个 Excel 模型里那些让技术人发怵的词——本册核心。</p>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">栈④ 商业模式</span><span class="slide-number" data-current="2" data-total="16"></span></div>
+    <div class="notes"><p>商业顾问这个角色，在传统项目里负责搭商业模式、算收益。它的方法论内核，我不给你一本《商业模式新生代》让你去啃，因为通用书讲不到 To-G 项目的骨头缝里。我给你的范本是康养项目真实的那份财务测算 Excel 模型——它已经过了政府评审，是活的教材。从它身上学两件事：一是商业模式怎么搭结构，二是模型里那些财务概念到底是什么意思。第二件事是这一册的核心，因为它是技术人最缺的。</p></div>
+  </section>
+
+  <!-- 3 商业模式设计五件套 1/2 -->
+  <section class="slide" data-title="商业模式设计五件套·上">
+    <div class="kicker">方法论内核 · 商业模式与增长设计五件套（1/2）· 先有工具再看案例</div>
+    <h2 class="title">商业模式设计不是拍脑袋，有成熟框架</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card card-accent"><h4>① 商业模式画布</h4><p class="dim">9 宫格：右<strong>价值面</strong>（客户细分/价值主张/渠道/客户关系/收入来源）+ 左<strong>效率面</strong>（关键伙伴/活动/资源/成本结构）。画一张就能和客户对齐"这生意怎么转"。</p><p class="src">来源：Osterwalder &amp; Pigneur《Business Model Generation》2005</p></div>
+      <div class="card"><h4>② 免费 · 交叉补贴</h4><p class="dim">"免费"四型：<strong>直接交叉补贴</strong>（剃须刀送/刀片赚）· <strong>三方市场</strong>（用户免费/广告主付费）· <strong>Freemium</strong> · <strong>非货币</strong>。想清楚"谁被补贴、谁来买单"。</p><p class="src">来源：Chris Anderson《Free》2009</p></div>
+      <div class="card"><h4>③ 互联网三级火箭</h4><p class="dim"><strong>一级 头部流量</strong>（免费/高频入口，360 免费杀毒）→ <strong>二级 沉淀用户</strong>（锁进生态）→ <strong>三级 商业闭环</strong>（低频高价变现）。一级不赚钱，需能扛的人。</p><p class="src">来源：周鸿祎/360 · 梁宁《产品思维30讲》创新模式</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">五件套 1/2</span><span class="slide-number" data-current="3" data-total="16"></span></div>
+    <div class="notes"><p>栈四商业模式，很多技术人完全空白——能出七域本体，却搭不出一个能自洽的商业模式。所以我先给工具，再看案例。商业模式设计不是拍脑袋，是有成熟框架的，一共五件套，这页先讲三件。第一件商业模式画布，Osterwalder 二零零五年提出的，把任何生意拆成九个模块，右边是价值面——客户细分、价值主张、渠道、客户关系、收入来源，左边是效率面——关键伙伴、关键活动、关键资源、成本结构。画一张九宫格就能和客户对齐这生意到底怎么转。第二件是免费和交叉补贴，Chris Anderson 的《Free》讲免费其实有四型：直接交叉补贴，像剃须刀免费送刀片赚钱；三方市场，用户免费广告主付费；Freemium，多数人免费少数人买增值；还有非货币的礼物和数据。关键是想清楚谁被补贴、谁来买单。第三件互联网三级火箭，周鸿祎和梁宁都讲过：一级头部流量用免费高频入口打开市场，比如三六零免费杀毒；二级把流量沉淀锁进生态；三级在低频高价处变现。特征是一级不赚钱，得有耐心和融资能力的人扛。</p></div>
+  </section>
+
+  <!-- 4 商业模式设计五件套 2/2 -->
+  <section class="slide" data-title="商业模式设计五件套·下">
+    <div class="kicker">方法论内核 · 商业模式与增长设计五件套（2/2）</div>
+    <h2 class="title">订阅生意的专用语言 + 怎么持续增长</h2>
+    <div class="grid g2 mt-s">
+      <div class="card card-accent"><h4>④ SaaS 商业模式指标体系</h4><p class="dim">订阅制的专用财务语言：<span class="chip">MRR/ARR</span><span class="chip">CAC</span><span class="chip">LTV</span><span class="chip">LTV:CAC ≥ 3:1</span><span class="chip">Churn</span><span class="chip">NRR &gt; 100%</span><span class="chip">Rule of 40</span></p><p class="dim" style="margin-top:4px"><strong>NRR &gt; 100%</strong>=光靠老客户就增长（2026 投资人最看重）；<strong>Rule of 40</strong>=增长率+利润率&gt;40%。</p><p class="src">来源：SaaS metrics benchmarks · beancount.io / thesaaslibrary.com</p></div>
+      <div class="card"><h4>⑤ 增长思维（梁宁）</h4><p class="dim">核心一句：<strong>增长能力 = 持续作出正确决定的能力</strong>。两抓手：<strong>北极星指标</strong>（全公司对齐那<strong>一个</strong>核心指标）+ <strong>四个增长关卡</strong>（机会拿捏→模式取巧→组织扩容→战略借势，卡哪补哪）。</p><p class="src">来源：梁宁《增长思维30讲》· 得到 igetget.com</p></div>
+    </div>
+    <p class="dim tc mt-l">这五件套不是让你成为商业顾问，是让你<strong>能画一张画布、能一句话拆穿一个引流—变现结构</strong>。</p>
+    <div class="deck-footer"><span class="ftag">五件套 2/2</span><span class="slide-number" data-current="4" data-total="16"></span></div>
+    <div class="notes"><p>后两件套。第四件是 SaaS 指标体系，订阅制生意有一套专用的财务语言，你必须认得：MRR、ARR 是月度和年度经常性收入；CAC 是获客成本；LTV 是客户生命周期价值；LTV 比 CAC 健康线是大于等于三比一；Churn 是流失率；NRR 净收入留存要大于百分之百，意思是光靠老客户就能增长，这是二零二六年投资人最看重的一个数；Rule of 40 是增长率加利润率要大于四十。第五件是梁宁的增长思维，把商业模式从"怎么设计"推到"怎么持续增长"，核心一句话——增长能力等于持续作出正确决定的能力。两个能直接用的抓手：一个是北极星指标，全公司对齐的那一个核心增长指标，别拿一堆 KPI 糊弄自己；另一个是四个增长关卡，机会拿捏、模式取巧、组织扩容、战略借势，卡在哪一关就补哪一关。记住这五件套不是让你变成商业顾问，是让你能画一张画布、能一句话拆穿一个生意的引流变现结构。</p></div>
+  </section>
+
+  <!-- 5 财务语言随交付模式变 -->
+  <section class="slide" data-title="财务语言随交付模式变">
+    <div class="kicker">⭐ 本栈最关键的洞察 · 财务语言随"交付模式"变</div>
+    <h2 class="title">不同模式，用完全不同的财务语言</h2>
+    <table class="rtable mt-s">
+      <thead><tr><th>交付模式</th><th>商业模式底色</th><th>该用的财务语言</th><th>别用错</th></tr></thead>
+      <tbody>
+        <tr><td class="k">模式二 · 大平台建设+运营<br><span class="src">康养项目 / 草业项目 / 辣椒</span></td><td>重资产、投—建—运、多元收入</td><td><strong>投资估算 / EBITDA / IRR / NPV / 回本周期</strong></td><td>别用 MRR——一次性建设+运营盘不是订阅</td></tr>
+        <tr><td class="k">模式一 · Token 计费 SaaS<br><span class="src">教育督导项目 / 草业项目 SaaS 层 / 辣椒 OQL 按量</span></td><td>轻资产、订阅/按量、可复制</td><td><strong>MRR/ARR / LTV:CAC / NRR / Churn / Rule of 40</strong></td><td>别用 IRR/回本年——SaaS 早期没有"回本年"这回事</td></tr>
+      </tbody>
+    </table>
+    <div class="card card-accent mt-l"><p style="font-size:18px">客户问<strong>模式二</strong>的项目，你答 <strong>IRR 15.2%、第 9 年回本</strong>；客户问<strong>模式一</strong>的 SaaS，你答 <strong>LTV:CAC 3:1、NRR 120%</strong>。<strong style="color:var(--bad)">答反了，客户就知道你没做过这类生意。</strong></p></div>
+    <p class="src mt-s">⚠️ 诚实标注：草业项目 / 辣椒商业数字为方案目标值（非实测）；教育督导项目计价口径待核。</p>
+    <div class="deck-footer"><span class="ftag">⭐ 财务语言随模式变</span><span class="slide-number" data-current="5" data-total="16"></span></div>
+    <div class="notes"><p>这一页是栈四最关键的洞察，务必记死。把五件套接到第六讲的交付模式上——不同的交付模式，用的是完全不同的财务语言，用错了当场露怯。看这张表。模式二是大平台建设加运营，康养项目、草业项目、辣椒都是，它是重资产、投建运、多元收入，该用的语言是投资估算、EBITDA、IRR、NPV、回本周期，重资产就是看回报率和回本年；这时候你千万别扯 MRR，一次性建设加运营盘根本不是订阅。模式一是 Token 计费的 SaaS 应用，教育督导项目、草业项目的 SaaS 层、辣椒的 OQL 按量都是，它是轻资产、订阅或按量、可复制，该用的语言是 MRR、ARR、LTV 比 CAC、NRR、Churn、Rule of 40，订阅看的是留存和单位经济；这时候别扯 IRR 和回本年，SaaS 早期根本没有回本年这回事。一句话记死：客户问模式二的项目，你答 IRR 十五点二、第九年回本；客户问模式一的 SaaS，你答 LTV 比 CAC 三比一、NRR 百分之一百二十。答反了，客户立刻知道你没做过这类生意。最后诚实标一句：草业项目和辣椒的商业数字都是方案目标值不是实测，教育督导项目的计价口径还要核。</p></div>
+  </section>
+
+  <!-- 6 商业模式五段 part1 -->
+  <section class="slide" data-title="商业模式五段·上">
+    <div class="kicker">从康养项目 BP 学结构 · 商业模式五段（1/2）</div>
+    <h2 class="title">先引流、后变现的价值链 + 三方买单</h2>
+    <div class="grid g2 mt-s">
+      <div class="card"><h4>① 顶层逻辑 = 交叉补贴 + 三级火箭</h4><p class="dim">门诊医疗<strong>引流</strong>（一级火箭·交叉补贴换流量）→ 会员沉淀复购（<strong>二级</strong>·锁成会员）→ 照护/商城/长护险（<strong>三级</strong>·高毛利变现）。用框架一眼看穿，比背 BP 那句话深一层。</p></div>
+      <div class="card card-accent"><h4>② 收入结构 · 三元支付 = 交叉补贴</h4><p class="dim">老人<strong>自费</strong> + <strong>长护险</strong>（PICC 已打通全闭环）+ <strong>政府购买</strong>——本质是<strong>交叉补贴</strong>（政府/长护险补了老人自付不起的那部分）。对应画布"收入来源"多渠道。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:20px;font-weight:700;color:var(--accent)">用"交叉补贴 + 三级火箭"一眼看穿引流—变现结构——这就是五件套框架的用处。</p>
+    <div class="deck-footer"><span class="ftag">商业模式五段</span><span class="slide-number" data-current="6" data-total="16"></span></div>
+    <div class="notes"><p>商业模式我拆成五段，这页先讲两段。第一段是顶层逻辑，一句话说清怎么挣钱：门诊医疗负责引流，把人先引进来；照护康养负责创收；产品增值补充；政企合作加速。这是一条先引流后变现的价值链，顺序不能乱。第二段是收入结构，也就是谁付钱——康养项目是三元支付：老人自费、长护险、政府购买服务。长护险这条 PICC 在康养项目已经打通了全闭环。To-G 项目最忌讳把宝押在一个付款方身上，三方买单、互相补位才稳。</p></div>
+  </section>
+
+  <!-- 4 商业模式五段 part2 -->
+  <section class="slide" data-title="商业模式五段·下">
+    <div class="kicker">从康养项目 BP 学结构 · 商业模式五段（2/2）</div>
+    <h2 class="title">一个单元跑通、可复制 + 会员飞轮 + 分账</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card card-accent center"><div><div class="metric-sm">73 万 / 21 月</div><div class="metric-label">③ 最小验证单元<br>微康养单店：峰值资金约 73 万、约 21 个月回本、单站 1.5–5 人、<strong>60 站可复制</strong></div></div></div>
+      <div class="card"><h4>④ 增长引擎</h4><p class="dim">会员转化复购<strong>飞轮</strong>：把"患者"转"会员"，中医理疗 + 长者食堂 + 康养商城三线咬合。</p></div>
+      <div class="card"><h4>⑤ 主体与分账</h4><p class="dim"><strong>投—建—运分离</strong>、嘉城数联合资、分账核算——回答"钱怎么进、谁分、独立定价"。</p></div>
+    </div>
+    <p class="dim tc mt-l">BP 的说服力来自"<strong>一个单元跑通、可复制</strong>"，不是"整盘很大"。</p>
+    <div class="deck-footer"><span class="ftag">商业模式五段</span><span class="slide-number" data-current="7" data-total="16"></span></div>
+    <div class="notes"><p>后三段。第三段是最小验证单元，这是 BP 说服力的真正来源——微康养单店模型：峰值资金大概 73 万，21 个月左右回本，单站 1 到 5 个人，能复制到 60 站。评审专家信的不是"这个盘子有多大"，而是"你有一个跑得通、能复制的最小单元"。第四段增长引擎是会员飞轮，把患者转成会员，中医理疗、长者食堂、康养商城三条线互相咬合复购。第五段是主体与分账，投建运分离、合资、分账核算，回答钱怎么进、谁来分、能不能独立定价。这五段合起来就是一份能过评审的商业模式。</p></div>
+  </section>
+
+  <!-- 5 财务概念 EBITDA -->
+  <section class="slide" data-title="财务概念·EBITDA">
+    <div class="kicker">本册核心 · 财务概念讲清（1/4）</div>
+    <h2 class="title">EBITDA —— 主业本身的现金创造力</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <p class="defword">息税折旧摊销前利润</p>
+        <p class="dim">Earnings <strong>B</strong>efore <strong>I</strong>nterest, <strong>T</strong>axes, <strong>D</strong>epreciation &amp; <strong>A</strong>mortization</p>
+        <div class="card card-soft"><p>营收减去经营成本，但<strong>加回</strong>利息、税、折旧、摊销。衡量的是<strong>主业本身赚不赚钱</strong>，剔除了"怎么融资、怎么折旧"的干扰。</p></div>
+      </div>
+      <div class="card card-accent center"><div>
+        <div class="metric">≈ 5219 万</div>
+        <div class="metric-label">康养项目基准口径 EBITDA / 年</div>
+        <p class="metric-label" style="margin-top:14px">营收约 <strong>3.83 亿</strong> · 净利约 <strong>3535 万</strong></p>
+      </div></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">财务概念</span><span class="slide-number" data-current="8" data-total="16"></span></div>
+    <div class="notes"><p>现在进本册核心，四个财务概念一个一个讲清。第一个 EBITDA，四个字母就是息税折旧摊销前利润。怎么理解？营收减掉经营成本，但是把利息、税、折旧、摊销这四样加回来。为什么加回来？因为这四样跟"主业本身赚不赚钱"没关系——它们取决于你怎么融资、怎么算折旧。剔掉这些干扰，剩下的就是主业本身的现金创造力。康养项目基准口径 EBITDA 大概 5219 万一年，对应营收约 3.83 亿、净利约 3535 万。你记住这个数是怎么来的：营收减成本、把利息税折旧摊销加回。</p></div>
+  </section>
+
+  <!-- 6 财务概念 IRR -->
+  <section class="slide" data-title="财务概念·IRR">
+    <div class="kicker">本册核心 · 财务概念讲清（2/4）</div>
+    <h2 class="title">IRR —— 项目每年的"复合回报率"</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <p class="defword">内部收益率 · Internal Rate of Return</p>
+        <div class="card card-soft"><p>使项目<strong>净现值 NPV = 0</strong> 的那个折现率。通俗说，就是这个项目每年的复合回报率。它必须跟一条<strong>门槛线</strong>比才有意义。</p></div>
+      </div>
+      <div class="stack">
+        <div class="card card-accent"><h4>合资口径 IRR ≈ 15.2%</h4><p class="dim">第 <strong>9 年</strong>回本 · 只算合资公司分到的那部分钱流</p></div>
+        <div class="card"><h4>发改口径 IRR ≈ 8.7%</h4><p class="dim">第 <strong>11 年</strong>回本 · 看整盘 · 仍高于<strong>国企 6% 门槛</strong></p></div>
+      </div>
+    </div>
+    <p class="tc mt-l" style="font-size:19px;font-weight:700;color:var(--accent)">两套口径并存不是矛盾——算的钱流范围不同（合资只看分到的，发改看整盘），这是财务常识。</p>
+    <div class="deck-footer"><span class="ftag">财务概念</span><span class="slide-number" data-current="9" data-total="16"></span></div>
+    <div class="notes"><p>第二个 IRR，内部收益率，这是最容易被当黑箱的一个。定义上，它是让项目净现值 NPV 等于零的那个折现率；通俗理解，就是这个项目每年的复合回报率。关键一点：IRR 单看没意义，必须跟门槛线比。康养项目有两套口径，很多人一看就慌，以为数字打架。不是的。合资口径 15.2%、第 9 年回本，算的是合资公司分到的那部分钱;发改口径 8.7%、第 11 年回本，看的是整盘,而且仍然高于国企 6% 的门槛。两套并存不矛盾，是因为算的钱流范围不一样。你能把这个差别说清楚，就说明你真懂了。</p></div>
+  </section>
+
+  <!-- 7 财务概念 NPV + 回本 -->
+  <section class="slide" data-title="财务概念·NPV+回本">
+    <div class="kicker">本册核心 · 财务概念讲清（3/4）</div>
+    <h2 class="title">NPV 与回本周期</h2>
+    <div class="grid g2 mt-m">
+      <div class="card card-accent"><h4>NPV · 净现值</h4><p class="defword" style="font-size:24px">Net Present Value</p><p class="dim">把未来每年的净现金流按折现率<strong>折回今天</strong>再求和。<strong>&gt; 0 才值得投</strong>。</p></div>
+      <div class="card"><h4>回本周期 · Payback</h4><p class="dim"><strong>累计净现金流由负转正</strong>的那一年。康养项目：合资第 <strong>9</strong> 年 / 发改第 <strong>11</strong> 年。</p></div>
+    </div>
+    <p class="dim tc mt-l">折现的直觉：明年的一块钱，不值今天的一块钱——所以未来的钱要"打折"折回今天再加总。</p>
+    <div class="deck-footer"><span class="ftag">财务概念</span><span class="slide-number" data-current="10" data-total="16"></span></div>
+    <div class="notes"><p>第三、第四个概念放一页。NPV 净现值，把未来每年的净现金流按折现率折回今天，再全部加起来，大于零这个项目才值得投。折现是什么直觉？明年的一块钱不值今天的一块钱，因为今天这块钱可以拿去投资生息，所以未来的钱要打个折折回今天。回本周期更简单，就是累计净现金流由负转正的那一年——康养项目合资口径第 9 年、发改口径第 11 年。你看，回本年和前面 IRR 那两套口径是对应上的，不是两回事。</p></div>
+  </section>
+
+  <!-- 8 财务概念 串起来 -->
+  <section class="slide" data-title="财务概念·串起来">
+    <div class="kicker">本册核心 · 财务概念讲清（4/4）</div>
+    <h2 class="title">一句话把五个数串起来</h2>
+    <div class="chain mt-m" data-anim="fade-up">
+      <span class="step">营收 − 成本</span><span class="arrow">=</span>
+      <span class="step">EBITDA<br><span style="font-weight:400;font-size:13px;color:var(--text-3)">主业赚钱力</span></span><span class="arrow">→扣息税折旧=</span>
+      <span class="step">净利</span>
+    </div>
+    <div class="chain mt-m" data-anim="fade-up">
+      <span class="step">逐年净现金流折现求和</span><span class="arrow">=</span>
+      <span class="step">NPV</span><span class="arrow">·令NPV=0的折现率=</span>
+      <span class="step">IRR</span><span class="arrow">·累计转正之年=</span>
+      <span class="step">回本</span>
+    </div>
+    <div class="card card-accent mt-l"><p style="font-size:18px">这五个数——<strong>EBITDA 5219 万 · 净利 3535 万 · NPV · IRR 15.2%／8.7% · 回本第 9／11 年</strong>——就是 To-G <strong>模式二</strong>项目<strong>签字前客户和财评专家盯的那几行</strong>。</p></div>
+    <p class="tc mt-s" style="font-size:17px;font-weight:700;color:var(--accent-2)">⚠️ 这套是模式二（大平台）的语言；换成模式一 SaaS，同一件事另一套数——<strong>MRR / LTV:CAC / NRR / Churn / Rule of 40</strong>。</p>
+    <div class="deck-footer"><span class="ftag">财务概念</span><span class="slide-number" data-current="11" data-total="16"></span></div>
+    <div class="notes"><p>把四个概念串成一条链你就通了。营收减成本等于 EBITDA，这是主业赚钱力；EBITDA 再扣掉利息、税、折旧，得到净利；把逐年的净现金流折现求和，就是 NPV；让 NPV 等于零的那个折现率，就是 IRR；累计现金流转正的那年，就是回本。营收、EBITDA、净利、NPV、IRR、回本——这几个数就是 To-G 项目签字前，客户和财评专家一行一行盯着看的。自评到能交付的标准，就是你看到这几个数能说清每个怎么来、两套口径差在哪，而不是当矛盾或黑箱。</p></div>
+  </section>
+
+  <!-- 9 栈⑤ 命题 -->
+  <section class="slide" data-title="栈⑤命题">
+    <div class="kicker">栈⑤ · 财务与财评</div>
+    <h2 class="title">最多技术型 FDE 完全没有的一维</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <p class="lede">财评专家负责把投资<strong>算准、算到能过财政评审</strong>——To-G 项目<strong>最后卡人</strong>的那一维。</p>
+        <div class="card card-soft"><p>方法论两层：<br>① <strong>财务评价</strong>——投资估算、NPV/IRR、回本、敏感性分析；<br>② <strong>财评（财政评审）</strong>——用<strong>功能点法</strong>把定制软件造价算到可复核。</p></div>
+      </div>
+      <div class="card card-accent center"><div>
+        <p class="metric-label" style="margin:0 0 12px">方法论一句话</p>
+        <div class="metric-sm" style="line-height:1.3">功能点规模<br>× 功能点单价<br>= 软件开发费</div>
+        <p class="metric-label" style="margin-top:14px"><strong>量价分离、据实归集、从严预留</strong></p>
+      </div></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">栈⑤ 财评</span><span class="slide-number" data-current="12" data-total="16"></span></div>
+    <div class="notes"><p>进栈⑤，财评。这是最多技术型 FDE 完全没有的一维，也是 To-G 项目最后卡人的地方——前面建模再漂亮，财评过不了，方案签不了字。方法论分两层：第一层财务评价，就是前面讲的投资估算、NPV、IRR、回本、敏感性分析;第二层财评，是财政评审，用功能点法把一个定制软件的造价算到评审能复核。核心就一句话:功能点规模乘以单价等于软件开发费。量价分离、据实归集、从严预留——把"多少工作量"和"每单位多少钱"分开算，谁都别想糊弄。</p></div>
+  </section>
+
+  <!-- 10 栈⑤ 权威标准 -->
+  <section class="slide" data-title="栈⑤权威标准">
+    <div class="kicker">栈⑤ · 真实、可查的权威标准</div>
+    <h2 class="title">功能点法的三块压舱标准</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card"><h4>① 柳财审〔2020〕16号</h4><p class="dim">《某工业城市财政投资评审中心关于印发信息化项目评审有关规定的通知》——确立<strong>定制软件功能点法</strong>。</p></div>
+      <div class="card"><h4>② NESMA 功能点</h4><p class="dim">国际通行估算法，<strong>五类功能</strong>按复杂度加权：<span class="mono">ILF / EIF / EI / EO / EQ</span>。</p></div>
+      <div class="card"><h4>③ GB/T 36964-2018</h4><p class="dim">国家标准《软件研发成本度量规范》——成本度量的国标依据。</p></div>
+    </div>
+    <div class="card card-soft mt-l"><p><strong>NESMA 五类</strong>：ILF 内部逻辑文件 / EIF 外部接口文件 / EI 外部输入 / EO 外部输出 / EQ 外部查询——数据类看存了什么，事务类看进出与查询。</p></div>
+    <div class="deck-footer"><span class="ftag">栈⑤ 财评</span><span class="slide-number" data-current="13" data-total="16"></span></div>
+    <div class="notes"><p>财评不是拍脑袋，有三块真实可查的压舱标准。第一，某工业城市那份柳财审 2020 年 16 号文，确立了定制软件用功能点法评审。第二，NESMA 功能点，这是国际通行的估算方法，把功能分成五类按复杂度加权:ILF 内部逻辑文件、EIF 外部接口文件,这两类是数据看你存了什么;EI 外部输入、EO 外部输出、EQ 外部查询,这三类是事务看进出和查询。第三,国家标准 GB/T 36964-2018 软件研发成本度量规范。这三块合起来,就是把软件造价算到可复核的依据。</p></div>
+  </section>
+
+  <!-- 11 栈⑤ 某工业城市量价分离 -->
+  <section class="slide" data-title="栈⑤某工业城市实证">
+    <div class="kicker">栈⑤ · 学前教育项目可研 · 财评实证</div>
+    <h2 class="title">484 条目 → 27,056 FP → 22,014 人天 → 4,839 万</h2>
+    <div class="chain mt-m" data-anim="fade-up">
+      <span class="step">484 功能条目</span><span class="arrow">→</span>
+      <span class="step">约 27,056 功能点 FP</span><span class="arrow">→ ×0.81375 →</span>
+      <span class="step">约 22,014 人天</span><span class="arrow">→</span>
+      <span class="step">总投资 4,839 万</span>
+    </div>
+    <div class="grid g2 mt-l">
+      <div class="card card-accent"><h4>唯一底账</h4><p class="dim">以《可研功能点估算表》为<strong>唯一底账</strong>——每一分钱都能回溯到一条功能条目。</p></div>
+      <div class="card"><h4>三重依据交叉校核</h4><p class="dim">同类市场价 / 某工业城市信息化规定 / 技术方同类造价——三方对齐，防单方虚高。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">栈⑤ 财评</span><span class="slide-number" data-current="14" data-total="16"></span></div>
+    <div class="notes"><p>来看真实的一条链——学前教育项目可研的财评。以《可研功能点估算表》为唯一底账，484 个功能条目算出约 27056 个功能点,功能点乘以 0.81375 这个换算系数得到约 22014 人天,再算出软件开发费,总投资 4839 万。注意"唯一底账"四个字：每一分钱都能回溯到一条具体功能条目,这就是量价分离的落地。而且不是一家说了算,用三重依据交叉校核——同类市场价、某工业城市信息化规定、技术方同类造价,三方对齐才防得住单方虚高。你看着一份报价能不能判断功能点虚不虚高、单价有没有据,就是这栈的交付标准。</p></div>
+  </section>
+
+  <!-- 12 栈⑤ 自评 + 康养项目两口径 -->
+  <section class="slide" data-title="栈⑤自评">
+    <div class="kicker">栈⑤ · 康养项目侧 + 自评到能交付</div>
+    <h2 class="title">两套 IRR 口径并存，是财评常识</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <div class="card"><h4>康养项目侧盘子</h4><p class="dim">1.36 亿盘一 / 3200 万二期；<strong>IRR 15.2%（合资，第 9 年回本）vs 8.7%（发改，第 11 年，高于国企 6% 门槛）</strong>——并存不是矛盾。</p></div>
+      </div>
+      <div class="stack">
+        <div class="card card-accent"><h4>自评到能交付 · 两条硬标准</h4>
+          <p class="dim">① 能独立复核一份财务口径的<strong>内部一致性</strong>——营收−成本能否推出 EBITDA、IRR 与回本年是否自洽。</p>
+          <p class="dim">② 看着一份定制软件报价，能判断<strong>功能点是否虚高、单价是否有据</strong>。</p>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">栈⑤ 财评</span><span class="slide-number" data-current="15" data-total="16"></span></div>
+    <div class="notes"><p>康养项目侧的盘子：一期 1.36 亿、二期 3200 万,IRR 两套口径——合资 15.2% 第 9 年回本、发改 8.7% 第 11 年回本仍高于国企 6% 门槛。跟前面讲的一样,并存不是矛盾,是财评常识。这栈自评到能交付有两条硬标准:一,能独立复核一份财务口径的内部一致性,营收减成本能不能推出 EBITDA、IRR 和回本年自不自洽;二,拿到一份定制软件报价,能判断它功能点是不是虚高、单价有没有据。做到这两条,你在财评这一维就算能独立交付了。</p></div>
+  </section>
+
+  <!-- 13 过渡 04d -->
+  <section class="slide" data-title="过渡·分册4">
+    <div class="kicker">分册 3/4 收束 · 过渡分册 4/4</div>
+    <h2 class="title">账算清了，接下来是把它落成文件、守住红线</h2>
+    <div class="grid g2 mt-m">
+      <div class="card card-soft"><h4>本册讲完</h4><p class="dim">栈④商业模式（五段 + EBITDA/IRR/NPV/回本讲清）· 栈⑤财评（功能点法 484→27,056FP→4,839 万）。</p></div>
+      <div class="card card-accent"><h4>→ 分册 4/4 · 交付与合规</h4><p class="dim">栈⑥交付物工程（11 章可研 / 锚定口径）· 栈⑦合规治理（18 挂标 / 11 占位）· <strong>七栈收口 + 两个反例</strong>。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:20px;font-weight:700;color:var(--accent)">你脑子里有本体、算得出账，客户手里还是得有那份文件——下一册讲怎么落成它。</p>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="16" data-total="16"></span></div>
+    <div class="notes"><p>这一册收束。我们讲清了两栈:栈④商业模式,五段结构加上 EBITDA、IRR、NPV、回本四个财务概念;栈⑤财评,功能点法从 484 条目到 27056 功能点到 4839 万。账算清了,但还差最后一步——把这些东西落成客户手里那份文件,并且守住合规红线。这就是下一册,分册四交付与合规,讲栈⑥交付物工程、栈⑦合规治理,最后把七栈收口,再讲两个反例。你脑子里有本体、算得出账,客户手里也得有那份文件才行。</p></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script></body></html>

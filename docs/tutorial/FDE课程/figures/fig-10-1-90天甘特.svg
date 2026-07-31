@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560">
+  <defs>
+    <marker id="ar-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+    <marker id="ar-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker>
+    <marker id="ar-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker>
+    <marker id="ar-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9333ea"/></marker>
+    <marker id="ar-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+  </defs>
+  <style>text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}</style>
+  <rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+  <text x="600" y="38" font-size="18" fill="#111827" text-anchor="middle" font-weight="bold">90 天 FDE 团队孵化甘特</text>
+  <rect x="170" y="95" width="330" height="372" rx="0" fill="#eff6ff" stroke="none" stroke-width="0"/>
+  <rect x="500" y="95" width="330" height="372" rx="0" fill="#f0fdfa" stroke="none" stroke-width="0"/>
+  <rect x="830" y="95" width="330" height="372" rx="0" fill="#f0fdf4" stroke="none" stroke-width="0"/>
+  <path d="M170,95 L170,467" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="170" y="83" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">0天</text>
+  <path d="M500,95 L500,467" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="500" y="83" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">30天</text>
+  <path d="M830,95 L830,467" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="830" y="83" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">60天</text>
+  <path d="M1160,95 L1160,467" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="1160" y="83" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">90天</text>
+  <text x="335" y="65" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">0-30</text>
+  <text x="665" y="65" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">31-60</text>
+  <text x="995" y="65" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">61-90</text>
+  <rect x="40" y="95" width="130" height="62" rx="0" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="105" y="131" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">选人</text>
+  <rect x="170" y="95" width="990" height="62" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="170" y="109" width="220" height="34" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.4"/>
+  <rect x="40" y="157" width="130" height="62" rx="0" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="105" y="193" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">训练</text>
+  <rect x="170" y="157" width="990" height="62" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="258" y="171" width="407" height="34" rx="6" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.4"/>
+  <rect x="40" y="219" width="130" height="62" rx="0" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="105" y="255" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">平台</text>
+  <rect x="170" y="219" width="990" height="62" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="225" y="233" width="605" height="34" rx="6" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.4"/>
+  <rect x="40" y="281" width="130" height="62" rx="0" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="105" y="317" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">试点</text>
+  <rect x="170" y="281" width="990" height="62" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="478" y="295" width="517" height="34" rx="6" fill="#fff7ed" stroke="#fdba74" stroke-width="1.4"/>
+  <rect x="40" y="343" width="130" height="62" rx="0" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="105" y="379" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">度量</text>
+  <rect x="170" y="343" width="990" height="62" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="610" y="357" width="550" height="34" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.4"/>
+  <rect x="40" y="405" width="130" height="62" rx="0" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="105" y="441" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">规模化</text>
+  <rect x="170" y="405" width="990" height="62" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="962" y="419" width="198" height="34" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.4"/>
+  <polygon points="500,115 511,126 500,137 489,126" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <rect x="472.13" y="93.2" width="55.74" height="15" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="500" y="105.85" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="normal">M1 编队签字</text>
+  <polygon points="500,239 511,250 500,261 489,250" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <rect x="468.72" y="217.2" width="62.56" height="15" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="500" y="229.85" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="normal">M2 模板包v1</text>
+  <polygon points="830,301 841,312 830,323 819,312" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <rect x="798.72" y="279.2" width="62.56" height="15" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="830" y="291.85" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="normal">M3 1域过校验</text>
+  <polygon points="830,239 841,250 830,261 819,250" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <rect x="802.13" y="217.2" width="55.74" height="15" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="830" y="229.85" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="normal">M4 管线跑通</text>
+  <polygon points="1160,425 1171,436 1160,447 1149,436" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <rect x="1050.26" y="403.2" width="103.48" height="15" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="1102" y="415.85" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="normal">M5 首域 ontology</text>
+  <polygon points="1160,363 1171,374 1160,385 1149,374" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <rect x="1074.13" y="341.2" width="55.74" height="15" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="1102" y="353.85" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="normal">M6 度量看板</text>
+  <rect x="40" y="489" width="560" height="40" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+  <polygon points="62,500 71,509 62,518 53,509" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <text x="80" y="514" font-size="12" fill="#111827" text-anchor="start" font-weight="normal">◆ 里程碑</text>
+  <rect x="210" y="500" width="26" height="18" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="245" y="514" font-size="12" fill="#111827" text-anchor="start" font-weight="normal">六步任务条</text>
+  <text x="370" y="514" font-size="11" fill="#6b7280" text-anchor="start" font-weight="normal">背景色带 = 0-30 / 31-60 / 61-90 三段</text>
+</svg>

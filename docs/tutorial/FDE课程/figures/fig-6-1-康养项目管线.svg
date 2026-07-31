@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560">
+  <defs><marker id="ab" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#16a34a"/></marker></defs>
+  <style>text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}</style>
+  <rect x="0" y="0" width="1200" height="560" fill="#ffffff"/>
+  <text x="600" y="46" font-size="24" font-weight="700" fill="#111827" text-anchor="middle">梅州建模管线全景(自左向右)</text>
+  <rect x="70" y="110" width="200" height="92" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.6"/>
+  <circle cx="92" cy="132" r="13" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4"/>
+  <text x="92" y="136" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="middle">1</text>
+  <text x="170" y="162" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">事件风暴</text>
+  <text x="170" y="186" font-size="13" fill="#1d4ed8" text-anchor="middle">102 事件</text>
+  <rect x="285" y="110" width="200" height="92" rx="8" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.6"/>
+  <circle cx="307" cy="132" r="13" fill="#ffffff" stroke="#5eead4" stroke-width="1.4"/>
+  <text x="307" y="136" font-size="12" font-weight="700" fill="#0f766e" text-anchor="middle">2</text>
+  <text x="385" y="162" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">事件簇</text>
+  <text x="385" y="186" font-size="13" fill="#0f766e" text-anchor="middle">16 簇</text>
+  <rect x="500" y="110" width="200" height="92" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.6"/>
+  <circle cx="522" cy="132" r="13" fill="#ffffff" stroke="#86efac" stroke-width="1.4"/>
+  <text x="522" y="136" font-size="12" font-weight="700" fill="#166534" text-anchor="middle">3</text>
+  <text x="600" y="162" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">角色画像</text>
+  <text x="600" y="186" font-size="13" fill="#166534" text-anchor="middle">7 角色 · 368 问卷</text>
+  <rect x="715" y="110" width="200" height="92" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.6"/>
+  <circle cx="737" cy="132" r="13" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.4"/>
+  <text x="737" y="136" font-size="12" font-weight="700" fill="#5b21b6" text-anchor="middle">4</text>
+  <text x="815" y="162" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">用户旅程</text>
+  <text x="815" y="186" font-size="13" fill="#5b21b6" text-anchor="middle">7 条</text>
+  <rect x="930" y="110" width="200" height="92" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.6"/>
+  <circle cx="952" cy="132" r="13" fill="#ffffff" stroke="#fdba74" stroke-width="1.4"/>
+  <text x="952" y="136" font-size="12" font-weight="700" fill="#9a3412" text-anchor="middle">5</text>
+  <text x="1030" y="162" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">业务流程</text>
+  <text x="1030" y="186" font-size="13" fill="#9a3412" text-anchor="middle">5 条</text>
+  <line x1="272" y1="156" x2="281" y2="156" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <line x1="487" y1="156" x2="496" y2="156" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <line x1="702" y1="156" x2="711" y2="156" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <line x1="917" y1="156" x2="926" y2="156" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <path d="M1030,202 V336" fill="none" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <rect x="1007" y="222" width="46" height="16" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="1030" y="234" font-size="11" fill="#16a34a" text-anchor="middle">续接</text>
+  <rect x="70" y="340" width="200" height="92" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.6"/>
+  <circle cx="92" cy="362" r="13" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.4"/>
+  <text x="92" y="366" font-size="12" font-weight="700" fill="#5b21b6" text-anchor="middle">10</text>
+  <text x="170" y="392" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">可研报告</text>
+  <text x="170" y="416" font-size="13" fill="#5b21b6" text-anchor="middle">11 章 · 26 图</text>
+  <rect x="285" y="340" width="200" height="92" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.6"/>
+  <circle cx="307" cy="362" r="13" fill="#ffffff" stroke="#86efac" stroke-width="1.4"/>
+  <text x="307" y="366" font-size="12" font-weight="700" fill="#166534" text-anchor="middle">9</text>
+  <text x="385" y="392" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">citations 治理</text>
+  <text x="385" y="416" font-size="13" fill="#166534" text-anchor="middle">18 挂标 · 11 占位</text>
+  <rect x="500" y="340" width="200" height="92" rx="8" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.6"/>
+  <circle cx="522" cy="362" r="13" fill="#ffffff" stroke="#5eead4" stroke-width="1.4"/>
+  <text x="522" y="366" font-size="12" font-weight="700" fill="#0f766e" text-anchor="middle">8</text>
+  <text x="600" y="392" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">五要素 OAG</text>
+  <text x="600" y="416" font-size="13" fill="#0f766e" text-anchor="middle">76/75/38/47/54</text>
+  <rect x="715" y="340" width="200" height="92" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.6"/>
+  <circle cx="737" cy="362" r="13" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4"/>
+  <text x="737" y="366" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="middle">7</text>
+  <text x="815" y="392" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">限界上下文</text>
+  <text x="815" y="416" font-size="13" fill="#1d4ed8" text-anchor="middle">7 域 · D1-D7</text>
+  <rect x="930" y="340" width="200" height="92" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.6"/>
+  <circle cx="952" cy="362" r="13" fill="#ffffff" stroke="#d1d5db" stroke-width="1.4"/>
+  <text x="952" y="366" font-size="12" font-weight="700" fill="#374151" text-anchor="middle">6</text>
+  <text x="1030" y="392" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">热点识别</text>
+  <text x="1030" y="416" font-size="13" fill="#374151" text-anchor="middle">10 个 · P1-P5</text>
+  <line x1="283" y1="386" x2="274" y2="386" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <line x1="498" y1="386" x2="489" y2="386" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <line x1="713" y1="386" x2="704" y2="386" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <line x1="928" y1="386" x2="919" y2="386" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ab)"/>
+  <text x="600" y="520" font-size="14" fill="#6b7280" text-anchor="middle">102 事件 → 16 簇 → 7 画像 → 7 旅程 → 5 流程 → 10 热点 → 7 域 → OAG 五要素 → citations 治理 → 11 章可研</text>
+</svg>

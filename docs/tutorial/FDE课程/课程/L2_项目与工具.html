@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>第二课 · 项目与工具</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">第二课 · 项目与工具</h1>
+</header>
+<h1 id="第二课-项目与工具">第二课 · 项目与工具</h1>
+<blockquote>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 120 分钟 配套课件：<code>slides/L2_项目与工具.html</code>（讲师投屏）</p>
+</blockquote>
+<hr />
+<h2 id="这一课你要拿到两样东西">这一课你要拿到两样东西</h2>
+<ol type="1">
+<li><strong>你们组接下来五天要练的那个项目</strong>（认领后不换）</li>
+<li><strong>一台装好工具、能跑起来的机器</strong></li>
+</ol>
+<p><strong>今天不进入 SOP 的任何一个阶段。</strong> 昨天你记住了七阶段那张图——今天做的是上路前的准备：领到车，把油加满。明天才正式从“立项”那一步开始。</p>
+<p><strong>读完这一课，你手上应该有</strong>：</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+一句话项目定义，<strong>已经写下来钉在工作簿首页</strong></li>
+<li><input type="checkbox" disabled="" />
+一个判断：我们组是<strong>模式一</strong>还是<strong>模式二</strong></li>
+<li><input type="checkbox" disabled="" />
+<code>claude plugin list</code> 里有 8 个 <code>studio-*</code></li>
+<li><input type="checkbox" disabled="" />
+技能列表里能看到 <code>/studio-ontology:map</code></li>
+<li><input type="checkbox" disabled="" />
+<code>studio/</code> 工作区已初始化</li>
+<li><input type="checkbox" disabled="" />
+<code>pandoc --version</code> 有输出</li>
+</ul>
+<p>最后一条别跳过。<strong>缺 pandoc，第六课直接停在导出那一步。</strong></p>
+<hr />
+<h2 id="一认领你的命题">一、认领你的命题</h2>
+<h3 id="为什么用真实命题不用玩具题">为什么用真实命题，不用玩具题</h3>
+<blockquote>
+<p><strong>玩具题练不出 FDE。</strong></p>
+</blockquote>
+<p>FDE 的难点从来不是“会不会用工具”，是<strong>在信息不全、口径打架、有人反对的真实环境里做判断</strong>。</p>
+<p>所以每个命题都带了四样东西：</p>
+<table>
+<thead>
+<tr class="header">
+<th>带了什么</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>客户背景</td>
+<td>让你有上下文</td>
+</tr>
+<tr class="even">
+<td><strong>客户原话（模糊意图）</strong></td>
+<td><strong>要你自己压成结构</strong>——这才是 FDE 的活</td>
+</tr>
+<tr class="odd">
+<td>已知约束</td>
+<td>预算、工期、政策边界</td>
+</tr>
+<tr class="even">
+<td><strong>故意埋的“查不到的项”</strong></td>
+<td>逼你在第五课练“留占位不编造”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="五个命题">五个命题</h3>
+<table>
+<thead>
+<tr class="header">
+<th>命题</th>
+<th>行业</th>
+<th>交付模式</th>
+<th>对标启发案例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A · 微康养</strong> 县域“助浴+喘息”服务网络</td>
+<td>康养</td>
+<td>🟦 <strong>模式二</strong> 平台建设+运营</td>
+<td>康养项目（🟢 已交付）</td>
+</tr>
+<tr class="even">
+<td><strong>B · 园本知识库</strong> 区域幼儿园课程知识库+保教助手</td>
+<td>教育</td>
+<td>🟩 <strong>模式一</strong> Token-SaaS</td>
+<td>教育督导项目（🟢 建模+方案）</td>
+</tr>
+<tr class="odd">
+<td><strong>C · 智慧工作台</strong> 连锁美业门店工作台</td>
+<td>美业</td>
+<td>🟩 <strong>模式一</strong> SaaS</td>
+<td>康养项目会员复购飞轮</td>
+</tr>
+<tr class="even">
+<td><strong>D · 标准化种植</strong> 地方特色作物大模型</td>
+<td>农业</td>
+<td>🟦 <strong>模式二</strong> 平台建设</td>
+<td>辣椒 / 草业项目（🟡 方案级）</td>
+</tr>
+<tr class="odd">
+<td><strong>E · 监管督导</strong> 区级养老机构星级评定督导应用</td>
+<td>监管</td>
+<td>🟩 <strong>模式一</strong> SaaS（G 端）</td>
+<td>教育督导项目（换域同构）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>命题刻意跨了两种交付模式</strong>（模式一：B/C/E；模式二：A/D）。</p>
+<blockquote>
+<p>这不是为了公平分配，是为了<strong>逼你们在第六课用对财务语言</strong>： 模式二讲 <strong>IRR / 回本周期</strong>，模式一讲 <strong>MRR / LTV:CAC / NRR</strong>。<strong>答反了当场露怯。</strong></p>
+</blockquote>
+<h3 id="现在就做写下一句话项目定义">🔔 现在就做：写下一句话项目定义</h3>
+<p><strong>认领当场写，钉进你们组贯穿工作簿的首页。</strong></p>
+<blockquote>
+<p><strong>格式</strong>：给【谁】做一个【什么】，解决【什么错配 / 痛点】。</p>
+</blockquote>
+<p><strong>示例（命题 A）</strong>： &gt; 给<strong>县域失能老人家庭</strong>做一个<strong>“助浴+喘息”上门服务调度与结算网络</strong>，解决<strong>“服务供给散在各机构、家属找不到、补贴走不通”的三方错配</strong>。</p>
+<p>这一句在第三课会被打回来重写好几次。<strong>现在写得糙没关系，但必须写下来</strong>——它是后面所有产出的锚。</p>
+<h3 id="一认到底不换">一认到底，不换</h3>
+<p><strong>命题一旦认领就不换。</strong> 中途换题的组，等于把前面所有产出作废。</p>
+<blockquote>
+<p><strong>这本身就是 FDE 的一课</strong>：需求会变，但项目不会因为你觉得难就换一个。</p>
+</blockquote>
+<hr />
+<h2 id="二后面六课怎么走">二、后面六课怎么走</h2>
+<h3 id="一张表看完全程">一张表看完全程</h3>
+<table>
+<thead>
+<tr class="header">
+<th>课</th>
+<th>主题</th>
+<th>你们要交出什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>第三课</strong></td>
+<td>如何正确采集信息</td>
+<td>① 项目定义 + 交付模式判定 + <strong>喂给智能体的输入包</strong></td>
+</tr>
+<tr class="even">
+<td><strong>第四课</strong></td>
+<td>认知萃取 + 领域建模</td>
+<td>② 画像 / 旅程 / 热点 ③ 域图 + skill-map</td>
+</tr>
+<tr class="odd">
+<td><strong>第五课</strong> ⭐重心</td>
+<td>本体建模 + 设闸</td>
+<td>④ 五要素本体 ⑥ SOP ⑦ <strong>HIL 设点表</strong> ⑧ 取证清单</td>
+</tr>
+<tr class="even">
+<td><strong>第六课</strong></td>
+<td>文档工程</td>
+<td>⑤ 商业模式 + 财务语言 ⑨ 方案稿 + 配图</td>
+</tr>
+<tr class="odd">
+<td><strong>第七课</strong></td>
+<td>原型开发</td>
+<td>⑪ demo 原型 + <strong>Mock 清单</strong></td>
+</tr>
+<tr class="even">
+<td><strong>第八课</strong></td>
+<td>总结与能力沉淀</td>
+<td>⑩ 团队编成 + 90 天计划 · ⑫ 插件（加分）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结课交出一份「迷你 FDE 交付包」，共 11 件</strong>（⑫ 为加分项，做不完不扣分）。</p>
+<h3 id="每课的固定节奏">每课的固定节奏</h3>
+<pre><code>① 目的      这一课学完能干什么
+② 启发      原理 · 方法 · 工具
+③ 沉浸      真实案例&quot;做对了长什么样&quot;——当场点开看，不是听说
+④ 实操      在你们自己的命题上真跑，产物落盘
+   └ checkout  达标 / 警示对照，组间互评</code></pre>
+<blockquote>
+<p><strong>从第三课开始，每一课都是这个骨架。</strong> 上到第二次你就熟了——<strong>认知负担只在内容上，不在形式上。</strong></p>
+</blockquote>
+<h3 id="三条纪律第一课立过这里再念一遍">三条纪律（第一课立过，这里再念一遍）</h3>
+<ol type="1">
+<li><strong>每一步都必须真跑工具，产物落盘。产物没落盘就是没做。</strong></li>
+<li><strong>案例只做标尺、不做模板。照结构做、别抄数字。</strong></li>
+<li><strong>查不到的一律留占位、不编造。</strong> —— <strong>结课路演的一票警示。</strong></li>
+</ol>
+<hr />
+<h2 id="三工具全景astra-studio-九个插件">三、工具全景：Astra Studio 九个插件</h2>
+<h3 id="各管一段产物首尾相接">各管一段，产物首尾相接</h3>
+<pre><code>studio-core      工作区管理（init / status / promote / create-expert）    ← 第二课 / 第八课
+studio-insight   业务分析六件套（画像/旅程/流程/画布/行为矩阵/机会）      ← 第四课 上半场
+studio-planner   规划流水线（事件风暴→域模型→技能设计→骨架→填充）        ← 第四课下 / 第八课
+studio-ontology  本体编译（五要素 → 可运行插件）                          ← 第五课
+studio-docs      文档交付（蓝图/写作专家/并行写作/装配/导出）             ← 第六课
+studio-platform  平台文档套件（脑图/技术设计/项目计划/迎检话术）           ← 第六课
+studio-design    设计转代码（截图→.pen→openspec→React）                  ← 第七课
+studio-quality   插件校验 + MCP 接线                                     ← 第八课
+fund-review      政府采购报价优化 + 财评预审                             ← 第八课 选修</code></pre>
+<p><strong>四条依赖关系</strong>： <code>planner → core + insight</code>；<code>docs / platform / ontology → core</code>；<code>insight / quality / design</code> 零依赖。</p>
+<h3 id="两个必须现在建立的认知">两个必须现在建立的认知</h3>
+<h4 id="产物即接口层间契约比工具本身更重要">① 产物即接口：层间契约比工具本身更重要</h4>
+<p>工具之间<strong>不靠内存传参，靠文件</strong>。<code>studio/changes/{domain}/</code> 下每个文件都是上一步的输出、下一步的输入。</p>
+<p>三个直接后果（第四课会展开）：</p>
+<ul>
+<li><strong>随时可中断</strong>——今天跑到域图，明天接着跑</li>
+<li><strong>每步可单独跑</strong>——不用从头再来</li>
+<li><strong>可以人工改产物再继续</strong>——模型给的结构不满意，你直接改文件</li>
+</ul>
+<blockquote>
+<p><strong>占位符即契约</strong>：你在文档里写了要引用的文件，它就必须存在。 这条在第八课有物理落点——<strong>校验器会把“引用了不存在的文件”直接判 failed</strong>。</p>
+</blockquote>
+<h4 id="认知到行动-oag不是-rag">② 认知到行动 = OAG，不是 RAG</h4>
+<blockquote>
+<p><strong>OAG ≠ RAG</strong> RAG 是“<strong>检索得准一点</strong>”；OAG 是“<strong>越权的结果根本生成不出来</strong>”。 防幻觉在<strong>执行层</strong>（本体约束求解），不在检索层。</p>
+<p><strong>LLM proposes, ontology enforces.</strong></p>
+</blockquote>
+<p>第五课会讲透，并给出物理机制：<code>guards</code> / <code>post_rules</code> / <code>HilPolicy</code> 三道关。</p>
+<h3 id="平台-方法论的固化物">⭐ 平台 = 方法论的固化物</h3>
+<p>第一课讲过：<code>产出 = 结构化能力 × 平台固化 × 模型算力</code>。 <strong>这一堆插件就是第二个因子。</strong></p>
+<p>固化发生在三层：</p>
+<table>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>固化了什么</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>工具层</strong></td>
+<td>做事的<strong>步骤顺序</strong></td>
+<td>planner 的 5 步流水线，不用每次想“先干哪个”</td>
+</tr>
+<tr class="even">
+<td><strong>结构层</strong></td>
+<td>产物的<strong>形状</strong></td>
+<td>每个 skill 的产出路径与章节结构固定，下游能直接消费</td>
+</tr>
+<tr class="odd">
+<td><strong>纪律层</strong></td>
+<td><strong>什么不许做</strong></td>
+<td>校验器的治理审计、编译红线</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>第三层最值钱</strong>：工具能省时间，<strong>纪律能防事故</strong>。 而且纪律有个特点——<strong>它在你最想违反的时候生效</strong>。</p>
+</blockquote>
+<h4 id="活证据-fund-review">💡 活证据 · fund-review</h4>
+<p>政府采购报价优化插件，<strong>首发案例就是学前教育项目</strong>。</p>
+<p>一个真实交付里反复做的动作，被沉淀成可复用插件，下个项目直接调用。<strong>第八课会再回收一次。</strong></p>
+<h4 id="但固化也有反面预告">⚠️ 但固化也有反面（预告）</h4>
+<p>模板可以复用，<strong>数字不可以</strong>。</p>
+<p>辣椒和草业项目两份调研件是同一个模板换领域填的——结尾整段逐字相同，连“关系数 40万/200万/500万+”都一样。草业项目那三个数挂在客户 30 年真实积累上、<strong>有主</strong>；辣椒同样这三个数<strong>无主</strong>，是模板带过来的。</p>
+<blockquote>
+<p>这是<strong>反例 B-11</strong>，第三课深讲。今天只需要记住一句： <strong>固化提问结构是对的，固化答案是灾难。</strong></p>
+</blockquote>
+<hr />
+<h2 id="四实操装工具40-分钟">四、实操：装工具（40 分钟）</h2>
+<h3 id="任务">任务</h3>
+<p>每人装好 8 个插件 + 外部依赖，跑通 <code>/studio-core:init</code>。</p>
+<h3 id="完整命令序列照敲">完整命令序列（照敲）</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 注册 marketplace</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin marketplace add github:VanLengs/astra-studio-plugins</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) ★ 刷新快照 —— 跳过这步会装不到 studio-ontology</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin marketplace update astra-studio</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 核心四件套</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install studio-core@astra-studio</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install studio-insight@astra-studio</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install studio-planner@astra-studio</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install studio-quality@astra-studio</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) 交付四件套</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install studio-docs@astra-studio</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install studio-platform@astra-studio</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install studio-design@astra-studio</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install studio-ontology@astra-studio</span></code></pre></div>
+<p><strong>★★ 第 5 步：重启 Claude Code。</strong> <strong>不重启，新装的 skill 在当前会话里看不见。</strong>（原因见下面翻车点 1）</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6) 初始化工作区</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/studio-core:init</span></span></code></pre></div>
+<h3 id="外部依赖">外部依赖</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install pandoc</span></code></pre></div>
+<p><strong>★ 硬依赖</strong>：缺了第六课直接 STOP。</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> i <span class="at">-g</span> @mermaid-js/mermaid-cli</span></code></pre></div>
+<p>软依赖：缺了 Mermaid 图降级为代码块。</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install python-docx</span></code></pre></div>
+<p>软依赖：缺了只输出裸 pandoc DOCX（样式差一点，能用）。</p>
+<h3 id="你应该得到的目录">你应该得到的目录</h3>
+<pre><code>studio/
+├── config.yaml
+├── changes/      ← 第四、五课的所有分析产物落这里
+├── agents/       ← 第六课的写作专家落这里
+└── archive/      ← 第八课 promote 时的里程碑存档</code></pre>
+<hr />
+<h2 id="五-四个翻车点全部是实测踩出来的">五、⚠️ 四个翻车点（全部是实测踩出来的）</h2>
+<h3 id="装完当前会话看不到新-skill-最真实的翻车点">1. 装完当前会话看不到新 skill —— 最真实的翻车点</h3>
+<p><strong>现象</strong>：<code>plugin install</code> 明确回报成功，但技能列表里就是没有 <code>/studio-ontology:*</code>。</p>
+<p><strong>原因</strong>：<strong>插件在会话启动时加载，装完不会热更新。</strong></p>
+<p><strong>后果</strong>：你会判定“装失败了”，然后反复卸载重装，<strong>浪费十分钟还越搞越乱</strong>。</p>
+<p><strong>正确处置</strong>：<strong>重启 Claude Code</strong>，重启后逐个确认命令可见。</p>
+<blockquote>
+<p><strong>别重装。重装解决不了这个问题，因为它根本没装失败。</strong></p>
+</blockquote>
+<h3 id="不跑-marketplace-update-就装不到-studio-ontology">2. 不跑 <code>marketplace update</code> 就装不到 studio-ontology</h3>
+<p>studio-ontology 是<strong>后加进 marketplace</strong> 的，旧快照里根本没有它。</p>
+<p>update 时会打印 <code>Found stale directory, cleaning up and re-cloning…</code>——<strong>这是正常行为，不是报错</strong>，别慌。</p>
+<h3 id="升级不能靠重装">3. 升级不能靠重装</h3>
+<p>改版后必须 <code>marketplace update</code> + <code>plugin update</code>；<strong>再跑一次 <code>install</code> 无效</strong>。</p>
+<p>兜底：</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install <span class="at">--force</span></span></code></pre></div>
+<h3 id="两个仓库-url-都能用曾以为是坑已澄清">4. ✅ 两个仓库 URL 都能用（曾以为是坑，已澄清）</h3>
+<p><code>Ameng2001</code> 与 <code>VanLengs</code> 两个 URL，<code>git ls-remote</code> 指向<strong>同一个 commit</strong>——同一仓库改名后 GitHub 自动重定向。</p>
+<p><strong>手册统一用 <code>VanLengs</code>。看到另一个也别慌，不是两个仓库。</strong></p>
+<hr />
+<h2 id="六checkout含参考答案">六、checkout（含参考答案）</h2>
+<h3 id="自查表">自查表</h3>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>命题</td>
+<td>认领完成 + <strong>一句话项目定义</strong>已钉进工作簿</td>
+<td>还在挑题 / 定义没写下来</td>
+</tr>
+<tr class="even">
+<td>模式判定</td>
+<td>说得出本组是模式一还是模式二</td>
+<td>说不出——<strong>第六课会用错财务语言</strong></td>
+</tr>
+<tr class="odd">
+<td>marketplace</td>
+<td>快照下能看到 <strong>9 个插件目录</strong></td>
+<td>只有 7 个 → <strong>没跑 update</strong>，第五课必翻车</td>
+</tr>
+<tr class="even">
+<td>安装</td>
+<td><code>claude plugin list</code> 见到 8 个 <code>studio-*</code></td>
+<td>缺 studio-ontology</td>
+</tr>
+<tr class="odd">
+<td><strong>skill 可见</strong></td>
+<td>技能列表里能看到 <code>/studio-ontology:map</code></td>
+<td>看不到 → <strong>没重启</strong>（不是装失败，别重装）</td>
+</tr>
+<tr class="even">
+<td>工作区</td>
+<td><code>/studio-core:status</code> 能列出工作区</td>
+<td>报错找不到 <code>studio/</code></td>
+</tr>
+<tr class="odd">
+<td>导出链路</td>
+<td><code>pandoc --version</code> 有输出</td>
+<td>缺 pandoc → 第六课一票警示</td>
+</tr>
+</tbody>
+</table>
+<h3 id="秒冒烟测试">30 秒冒烟测试</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> <span class="op">&lt;(</span><span class="bu">printf</span> <span class="st">&#39;# 测试\n\n| a | b |\n|---|---|\n| 1 | 2 |\n&#39;</span><span class="op">)</span> <span class="at">-o</span> /tmp/smoke.docx <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;导出链路 OK&quot;</span></span></code></pre></div>
+<p>看到 <code>导出链路 OK</code> 就说明 md → docx 这条路通了。</p>
+<h3 id="参考答案-交付模式怎么判">参考答案 · 交付模式怎么判</h3>
+<p>这是本课唯一有“标准答案”的判断题，第六课要用：</p>
+<table>
+<thead>
+<tr class="header">
+<th>问自己</th>
+<th>模式一（Token-SaaS）</th>
+<th>模式二（平台建设 + 运营）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>卖的是什么？</strong></td>
+<td>一个能跑的 agent 应用</td>
+<td>一套平台 + 一门生意</td>
+</tr>
+<tr class="even">
+<td><strong>怎么收钱？</strong></td>
+<td>按 token / 调用 / 席位</td>
+<td>投建运 + 运营盘 + 多元收入</td>
+</tr>
+<tr class="odd">
+<td><strong>有没有运营盘？</strong></td>
+<td>❌ 没有</td>
+<td>✅ 有（站点、会员、政府购买…）</td>
+</tr>
+<tr class="even">
+<td><strong>要不要写可研？</strong></td>
+<td>通常不要</td>
+<td><strong>必须</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>财务语言</strong></td>
+<td>MRR · LTV:CAC · NRR</td>
+<td><strong>IRR · 回本周期 · NPV</strong></td>
+</tr>
+<tr class="even">
+<td><strong>HIL 命门在哪</strong></td>
+<td>应用内的裁定 / 质检闸</td>
+<td>增收闸 + 监管发布闸 + 凭证闸</td>
+</tr>
+</tbody>
+</table>
+<p><strong>判反了的典型后果</strong>：命题 C（美业工作台，模式一）的组，照着可研蓝图硬写 IRR——<strong>写出来就是四不像</strong>，评审一眼看穿。</p>
+<hr />
+<h2 id="七带着这个问题进第三课">七、带着这个问题进第三课</h2>
+<p><strong>你写的那句话项目定义，客户会同意吗？</strong></p>
+<p>第三课第一件事就是把它打回来重写。不是因为你写得差，而是因为：</p>
+<blockquote>
+<p><strong>你现在写的是“你以为客户要什么”，不是“客户说了什么”。</strong> 这两者之间的距离，就是第三课要教的东西。</p>
+</blockquote>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="附-今天的教学彩蛋">附 · 今天的教学彩蛋</h2>
+<p>这四个翻车点本身就是最好的教材：</p>
+<blockquote>
+<p><strong>FDE 上客户现场前，先跑冒烟测试。</strong> <strong>别在客户会议室里第一次执行安装命令。</strong></p>
+</blockquote>
+<p>你今天在教室里踩的坑，比在客户面前踩，便宜得多。</p>
+</body>
+</html>

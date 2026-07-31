@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>专题课 S1 · 本体论：从数据到世界模型</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">专题课 S1 · 本体论：从数据到世界模型</h1>
+</header>
+<h1 id="专题课-s1-本体论从数据到世界模型">专题课 S1 · 本体论：从数据到世界模型</h1>
+<blockquote>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 180 分钟 · 纯讲解，无实操 配套课件：<code>slides/S1_本体论.html</code>（讲师投屏）</p>
+<p><strong>教材来源</strong>：本课<strong>完全基于</strong>《工程师的本体论》系列方法论文集（45 篇 + 番外）。 案例、对照表、金句均出自原文，<strong>不引入任何具体引擎的实现细节</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="这门课和第五课是什么关系">这门课和第五课是什么关系</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>第五课 · 本体建模 + 设闸</strong></th>
+<th><strong>本课 · 本体论</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>讲什么</td>
+<td>一套具体工具怎么跑：命令、IR、编译、校验、收尾清单</td>
+<td><strong>本体是什么、为什么需要、该怎么想</strong></td>
+</tr>
+<tr class="even">
+<td>形式</td>
+<td>讲 + 练，产出交付物</td>
+<td><strong>纯讲解</strong>，产出认知</td>
+</tr>
+<tr class="odd">
+<td>案例</td>
+<td>我们自己的项目</td>
+<td><strong>露华浓 ERP、采购 Agent 被拦的那一刻</strong>（原文案例）</td>
+</tr>
+<tr class="even">
+<td>关系</td>
+<td><strong>实现</strong></td>
+<td><strong>它的方法论前置</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>建议顺序</strong>：本课 → 第五课。 先明白“为什么必须有这层”，再学“我们这套工具怎么把它做出来”。</p>
+<blockquote>
+<p><strong>如果你只上一门</strong>：上这一门。 工具会换，<strong>这套判断不会</strong>。</p>
+</blockquote>
+<p><strong>读完这一课，你应该能做到</strong>：</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+用一句话说清<strong>数据和本体的区别</strong>，并举一个身边的例子</li>
+<li><input type="checkbox" disabled="" />
+说得出<strong>幻觉的真正成因</strong>——为什么不是“模型算错了”</li>
+<li><input type="checkbox" disabled="" />
+复述 <strong>OAG 与 RAG 的分界</strong>，并知道 GraphRAG 属于哪一边</li>
+<li><input type="checkbox" disabled="" />
+说得出 <strong>OAG 三层能力</strong>，以及<strong>缺任意一层会怎样</strong></li>
+<li><input type="checkbox" disabled="" />
+说得出 <strong>Harness 和本体的职责边界</strong>，并解释为什么混在一起排查成本会指数上升</li>
+<li><input type="checkbox" disabled="" />
+复述<strong>建模四阶段的顺序</strong>，并说出<strong>为什么不能并行</strong></li>
+</ul>
+<hr />
+<h1 id="一我们缺少的不是数据而是本体">一、我们缺少的不是数据，而是本体</h1>
+<h2 id="一套承诺消灭数据孤岛的系统把公司送进了深渊">1.1 一套承诺“消灭数据孤岛”的系统，把公司送进了深渊</h2>
+<p>2018 年 2 月，露华浓（Revlon）上线了一套新 ERP。</p>
+<p>彼时的露华浓刚完成并购整合，雄心勃勃地要用新系统统一旗下所有系统——订单、库存、生产排期、财务，全部打通，<strong>终结数据孤岛</strong>。</p>
+<p>然后，北卡罗来纳州牛津工厂的生产线出了问题：</p>
+<ul>
+<li>ERP 无法正确地把<strong>订单信息</strong>传递给<strong>生产排程</strong></li>
+<li>也无法把<strong>库存状态</strong>传递回<strong>客户履约模块</strong></li>
+<li>多个系统之间业务规则不兼容，数据格式对不上，集成层漏洞处处</li>
+</ul>
+<p>当工人需要知道“现在该生产哪个 SKU、备多少料、发给哪个零售商”时，<strong>系统给不出一个可信的答案</strong>。</p>
+<p>最终，露华浓<strong>无法按时向几家大型零售商供货</strong>。</p>
+<table>
+<thead>
+<tr class="header">
+<th>时间</th>
+<th>发生了什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2018 Q4</td>
+<td>净亏损超过 <strong>7000 万美元</strong></td>
+</tr>
+<tr class="even">
+<td>公告后</td>
+<td>股价<strong>单日暴跌超过 6%</strong></td>
+</tr>
+<tr class="odd">
+<td>同期</td>
+<td>因财务数据失真，<strong>无法按时向 SEC 提交年报</strong></td>
+</tr>
+<tr class="even">
+<td>四年后</td>
+<td><strong>申请破产保护</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>讽刺的是，露华浓的数据从来就不少。</strong></p>
+<p>问题在于，那些系统只记录了数据，<strong>却没有记录数据之间真正的业务逻辑</strong>—— <strong>谁依赖谁、谁触发谁、谁约束谁。</strong></p>
+<p>这一层缺失，让再多的数据也无法转化为一个可执行的决策。</p>
+</blockquote>
+<p><strong>这不是露华浓的特殊困境。这是几乎所有完成了“数字化第一阶段”的企业的共同症状。</strong></p>
+<h2 id="数据库里缺少的那样东西">1.2 数据库里缺少的那样东西</h2>
+<p><strong>那些系统里，存的都是切片，而不是“现实”。</strong></p>
+<p>露华浓的 ERP：</p>
+<table>
+<thead>
+<tr class="header">
+<th>它知道</th>
+<th>它不知道</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>有一个 SKU 叫“露华浓超持久唇膏 210#”，库存 12,000 支</td>
+<td>这张订单<strong>是否已经触发了生产排程</strong></td>
+</tr>
+<tr class="even">
+<td>沃尔玛有一张待履约的采购订单，数量 8,000 支</td>
+<td>生产排程<strong>需要哪条产线腾出来</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>如果那条产线正在跑另一个优先级更高的订单，<strong>应该由谁来决策插单还是延期</strong></td>
+</tr>
+</tbody>
+</table>
+<p>这些“知道”，分散在<strong>生产主管、供应链协调员、IT 系统管理员各自的脑子里</strong>，以及一套<strong>没人敢动的 Excel 排班表</strong>中。</p>
+<blockquote>
+<p><strong>系统记录了结果，没有记录“法则”。</strong></p>
+</blockquote>
+<p>这就是我们花了二十年讨论的“数据治理”困境的本质： <strong>不是数据不够多，而是数据里缺少了描述“实体之间如何相互关联、如何相互约束、如何相互触发”的那一层</strong>——哲学家把它叫做<strong>本体（Ontology）</strong>。</p>
+<h2 id="字典-vs-物理引擎本课第一个心智模型">1.3 ⭐ 字典 vs 物理引擎（本课第一个心智模型）</h2>
+<p>“本体”这个词听起来很玄，但有一个工程师友好版的解释。</p>
+<p><strong>想象一本字典。</strong></p>
+<p>字典里有“员工”、“订单”、“设备”、“供应商”，每个词都有定义，精确无误。 <strong>但字典不会告诉你</strong>：</p>
+<ul>
+<li>员工<strong>有权限</strong>操作哪些订单？</li>
+<li>订单的金额超过 10 万时，<strong>必须</strong>经过哪个角色的审批？</li>
+<li>设备故障时，<strong>应该</strong>自动触发哪个维修流程？</li>
+</ul>
+<blockquote>
+<p><strong>字典是死的。它只记录名词，不记录物理定律。</strong></p>
+</blockquote>
+<p><strong>而本体，是整个世界的物理引擎。</strong></p>
+<p>它不仅定义了有哪些“名词”（实体），还定义了<strong>动词</strong>（操作）和<strong>物理约束</strong>（规则）：</p>
+<blockquote>
+<p>“员工（<strong>实体</strong>）<strong>持有</strong>操作权限（<strong>关系</strong>），可以修改订单状态（<strong>行为</strong>）， 但修改金额<strong>不能超过 10 万</strong>（<strong>约束</strong>），超出则<strong>自动触发</strong>审批工作流（<strong>连锁反应</strong>）。”</p>
+</blockquote>
+<p>这一段逻辑，在传统数据库里，<strong>大概分散在五个不同的代码文件里，靠程序员的“约定”维持</strong>—— <strong>任何一个人离职或者某次迭代没跟上，这条规则就悄无声息地断掉了。</strong></p>
+<p>露华浓的系统里，正是这样的“约定”在上线后悄悄断掉，让订单、库存、产线三张表各自成了信息孤岛。</p>
+<blockquote>
+<p><strong>本体的核心价值，是让这些“活的规则”像数据一样被存储、被管理、被查询。</strong></p>
+<h2 id="数据记录了世界是什么本体定义了世界如何运转">数据记录了世界是什么，本体定义了世界如何运转。</h2>
+<p><strong>数据是事实的存档，本体是现实的法则。没有法则，再多的事实也只是一堆彼此不相识的数字。</strong></p>
+</blockquote>
+<h2 id="为什么现在重提本体">1.4 为什么现在重提“本体”</h2>
+<p>你可能会问：这不是个老问题吗？语义网、知识图谱，这些概念已经炒了二十年了。</p>
+<p><strong>因为大语言模型的出现，把这个问题从“技术债”升级成了生死线。</strong></p>
+<p>LLM 能力极强——能读懂需求、写代码、写报告、做分析。 但它的本质，是一个<strong>基于概率的统计机器</strong>：</p>
+<ul>
+<li>它<strong>没有</strong>你公司的私有业务逻辑</li>
+<li>它<strong>没有</strong>现实世界的约束感知</li>
+<li>它唯一会做的事，是根据概率“<strong>猜</strong>”</li>
+</ul>
+<p><strong>现在很多企业在尝试的是</strong>：把扁平的数据表，加上一些人工治理出来的术语表，喂给 LLM 做决策。</p>
+<p>想象一下，如果露华浓把那套割裂的 ERP 数据直接喂给 LLM，让它决策“今天牛津工厂应该优先生产哪个 SKU”——</p>
+<blockquote>
+<p>LLM 会给出一个看起来头头是道的答案，<strong>置信度 92%</strong>。</p>
+<p>但它不知道沃尔玛订单有优先级协议、不知道某条产线今天在换模具、 不知道某个原料供应商上周刚发来一封延期通知还没录入系统。</p>
+<p><strong>商业履约不接受 8% 的错误率，更不接受“我以为”。</strong></p>
+</blockquote>
+<p><strong>AI 需要一个“物理引擎”来兜底。本体，就是那个物理引擎。</strong></p>
+<p>在 LLM 给出任何建议之前，本体层先完成约束校验： <strong>这个操作合法吗？谁有权限做？会触发哪些连锁反应？有没有违反任何业务规则？</strong></p>
+<blockquote>
+<h2 id="大模型负责理解和推理概率本体层负责确立边界和错误拦截确定性">大模型负责理解和推理（概率），本体层负责确立边界和错误拦截（确定性）。</h2>
+</blockquote>
+<hr />
+<h1 id="二本体在架构里的位置">二、本体在架构里的位置</h1>
+<h2 id="幻觉的真正成因">2.1 幻觉的真正成因</h2>
+<p>大模型接入企业系统后，有一类问题最难解决：</p>
+<blockquote>
+<p><strong>模型给的答案，外行读起来头头是道，内行读起来胡说八道。</strong></p>
+</blockquote>
+<p><strong>举个例子</strong>：你让 AI 决策“明天哪批原材料可以优先入库”，它给出一份排序合理、逻辑自洽的清单。 但你的库管主管一眼就看出问题：<strong>清单里第一位的供应商，合同上有一条“季度末不接收入库”的条款，今天恰好是季度末倒数第二天。</strong></p>
+<p><strong>模型没有撒谎。它只是不知道那条合同条款的存在。</strong></p>
+<p>这类错误，工程师通常归结为“幻觉”。但准确地说——</p>
+<blockquote>
+<p><strong>这不是幻觉，是因为大模型不懂业务规则。</strong> <strong>模型的问题不在于它在概率上算错了，而在于它根本没有接触过那条约束它行为的“业务规则”。</strong></p>
+</blockquote>
+<p><strong>所以解决这个问题，需要的不是更大的模型，而是一个不同的架构层。</strong></p>
+<h2 id="数据中台做了什么没做什么">2.2 数据中台做了什么，没做什么</h2>
+<p>过去十年，国内企业数字化最流行的架构选择是<strong>数据中台</strong>。</p>
+<p>它解决了一个真实且重要的问题：把散落在各业务系统里的数据统一起来，建立一致的指标口径。 <strong>这件事做成了</strong>——大多数完成数字化建设的企业，今天都有一张能出实时报表的数据大屏。</p>
+<p><strong>但数据中台有一个根本性的设计边界</strong>：</p>
+<blockquote>
+<p><strong>它只管数据的流动，不管业务的逻辑。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>它能告诉你</th>
+<th>它不知道</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>这个供应商今年交货了 1200 次</td>
+<td>这个供应商的合同<strong>当前是否处于合规状态</strong></td>
+</tr>
+<tr class="even">
+<td>库存余量是 8000 件</td>
+<td>这 8000 件里<strong>哪些已经被预占</strong>、预占的<strong>优先级</strong>是什么、<strong>谁有权调整</strong></td>
+</tr>
+</tbody>
+</table>
+<p>把这张数据表直接喂给大模型，<strong>模型拿到的是一堆精确的数字，但没有数字背后的运转规则</strong>。</p>
+<h2 id="传统数据中台-vs-本体平台七维对照">2.3 传统数据中台 vs 本体平台（七维对照）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>传统数据中台</th>
+<th>本体平台（以 Foundry 为例）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>设计目标</strong></td>
+<td>数据的存储、加工与查询</td>
+<td><strong>业务决策的建模与执行</strong></td>
+</tr>
+<tr class="even">
+<td><strong>核心单元</strong></td>
+<td>表、列、行、指标</td>
+<td><strong>Object（对象）、Link（关系）、Action（操作）</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>业务逻辑的位置</strong></td>
+<td>散落在各种应用代码里</td>
+<td><strong>集中在本体层，可查询、可治理</strong></td>
+</tr>
+<tr class="even">
+<td><strong>AI 接入方式</strong></td>
+<td>直接读表，<strong>只读</strong></td>
+<td>通过本体接口，<strong>可读可写</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>写回能力</strong></td>
+<td>依赖人工或 ETL 流程</td>
+<td><strong>Action 触发原生写回，支持事务</strong></td>
+</tr>
+<tr class="even">
+<td><strong>权限粒度</strong></td>
+<td>表级 / 行级</td>
+<td><strong>属性级 + 操作级</strong>（精确到每个 Action）</td>
+</tr>
+<tr class="odd">
+<td><strong>对 AI 的约束</strong></td>
+<td><strong>无约束，模型可以自由发挥</strong></td>
+<td><strong>前置条件拦截非法操作，后置规则确保操作合理</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这张表里最关键的一行是“对 AI 的约束”。</strong></p>
+<p>传统数据中台的设计假设是：<strong>AI 只负责分析，人负责决策和执行</strong>。 但 Agentic AI 打破了这个假设——<strong>AI 开始执行操作，而不只是给出建议</strong>。</p>
+<p><strong>如果 AI 能直接写入系统，而系统没有业务规则层来约束它，出问题只是时间问题。</strong></p>
+</blockquote>
+<h2 id="四层架构本体在哪一层">2.4 四层架构：本体在哪一层</h2>
+<pre><code>L4 业务消费层     AI Agent · 业务应用 · 决策看板
+                        ↑ 只通过本体接口交互，不直接访问底层数据库
+L3 业务本体平台   Object（对象）· Link（关系）· Action（操作）
+                  ★ 数据层和应用层之间的语义枢纽
+                        ↑ 向下拉取 L2 的清洗数据
+L2 数据仓库/数据湖  ODS → DWD → DWS，结构化事实数据，但没有业务语义
+                        ↑
+L1 源系统          ERP · CRM · 生产控制 · IoT —— 割裂的、异构的</code></pre>
+<p><strong>L3 不重新存储数据</strong>，它在数据之上建立语义模型，向下拉取 L2 的清洗数据，向上为 L4 提供<strong>受约束的操作接口</strong>。</p>
+<blockquote>
+<p><strong>这个架构有一个重要的意义</strong>： <strong>AI 看到的世界，是被本体层“翻译”过的世界。</strong> 它看到的不是原始表，而是<strong>有名字、有关系、有规则的业务对象</strong>。</p>
+</blockquote>
+<h2 id="本体为什么能解决幻觉">2.5 本体为什么能解决“幻觉”</h2>
+<p><strong>本质原因</strong>：</p>
+<blockquote>
+<p><strong>LLM 的结构是基于概率计算的，所以它一定会有幻觉，这和是否微调没什么关系。</strong> 而且<strong>它的边界是自然语言，业务的决策边界是规则空间</strong>。<strong>两者之间没有等价关系。</strong></p>
+</blockquote>
+<p>用开篇那个“优先入库”的例子，看有无本体层的差异：</p>
+<p><strong>没有本体层时</strong>： 用户问 AI → LLM 读取供应商表和库存表 → 基于概率推断给出排序 → 排序里有一个条款异常的供应商 → <strong>执行后违约</strong></p>
+<p><strong>有本体层时</strong>：</p>
+<ol type="1">
+<li>用户的问题被转化为对 <code>Supplier</code> 和 <code>InboundOrder</code> 两个对象的查询</li>
+<li>AI 识别出需要执行 <code>schedule_inbound</code> 这个 Action</li>
+<li>Action 的<strong>前置条件检查</strong>：<code>Supplier.contract_status == 'active'</code> 且 <code>today NOT IN Supplier.restricted_dates</code></li>
+<li>系统发现该供应商的 <code>restricted_dates</code> 包含今日 → <strong>Action 被阻断</strong>，AI 自动转向下一个候选</li>
+<li>最终执行的操作，<strong>已经通过了所有业务规则的校验</strong></li>
+</ol>
+<blockquote>
+<p><strong>这个拦截发生在系统层面，不依赖 prompt 工程，不依赖模型的“理解能力”。</strong> 哪怕你用的是一个刚上线的小模型，<strong>只要它调用的是同一个 Action，就会经历同一套约束校验</strong>。</p>
+</blockquote>
+<p><strong>核心机制</strong>：</p>
+<blockquote>
+<h2 id="把业务规则从模型应该知道的事变成系统强制执行的约束">把业务规则从“模型应该知道的事”变成“系统强制执行的约束”。</h2>
+<p><strong>前者依赖概率，后者是确定性的。</strong></p>
+</blockquote>
+<h2 id="一个完整流程采购场景">2.6 一个完整流程（采购场景）</h2>
+<p><strong>任务</strong>：为 Q3 扩产 15% 补充备料，生成采购建议并提交审批。</p>
+<p><strong>本体里的定义</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>元素</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Object</strong></td>
+<td>Supplier、Material、PurchaseOrder、Contract、ProductionPlan</td>
+</tr>
+<tr class="even">
+<td><strong>Link</strong></td>
+<td>Supplier → Material（<strong>携带属性</strong>：交货周期、最低采购量、合规认证有效期）</td>
+</tr>
+<tr class="odd">
+<td><strong>Action</strong></td>
+<td><code>create_purchase_order</code>，<strong>前置条件</strong>：合同状态有效 + 采购金额未超预算 + 供应商认证未过期（<strong>30 天内视为“即将过期”，需额外审批</strong>）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Agent 的执行过程</strong>：</p>
+<ol type="1">
+<li>读取 ProductionPlan，计算 Q3 扩产所需的物料缺口</li>
+<li>查询 Supplier 列表，通过 <code>supplies</code> Link 找到可供货的供应商</li>
+<li>对每个供应商调用 <code>create_purchase_order</code>：</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>供应商</th>
+<th>状态</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A</strong></td>
+<td>合同正常，金额在预算内</td>
+<td>✅ Action 执行，生成草稿工单</td>
+</tr>
+<tr class="even">
+<td><strong>B</strong></td>
+<td>认证有效期剩余 <strong>18 天</strong></td>
+<td>⚠️ Action 标记“<strong>需额外审批</strong>”，自动通知采购负责人</td>
+</tr>
+<tr class="odd">
+<td><strong>C</strong></td>
+<td>合同状态为“<strong>暂停</strong>”</td>
+<td>❌ <strong>Action 被阻断</strong>，Agent 跳过并记录原因</td>
+</tr>
+</tbody>
+</table>
+<ol start="4" type="1">
+<li>将通过校验的工单汇总，提交至审批工作流</li>
+</ol>
+<blockquote>
+<h2 id="llm-负责理解任务拆解目标选择操作序列本体负责校验每一步操作的合法性">LLM 负责理解任务、拆解目标、选择操作序列；本体负责校验每一步操作的合法性。</h2>
+<p><strong>AI 的聪明，和系统的安全，分别由不同的机制保证，互不干扰。</strong></p>
+</blockquote>
+<h2 id="两条给架构师的原则">2.7 两条给架构师的原则</h2>
+<blockquote>
+<p><strong>第一，业务规则应该是一等公民</strong>——不是散落在代码里的条件判断，而是<strong>可以被查询、被审计、被 AI 读取的结构化资产</strong>。</p>
+<p><strong>第二，AI 与业务系统之间需要一个中间层</strong>——这个中间层<strong>不是 prompt 模板</strong>，而是真实的业务语义模型，<strong>带约束、带权限、带写回能力</strong>。</p>
+</blockquote>
+<blockquote>
+<p><strong>本体不是 Palantir 的专利，它是一种工程方法论。</strong> <strong>理解它，才能真正评估什么时候用它、用多深、用在哪里。</strong></p>
+</blockquote>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h1 id="三五要素世界的结构与动力">三、五要素：世界的结构与动力</h1>
+<h2 id="一个纠偏本体不是知识库">3.1 一个纠偏：本体不是知识库</h2>
+<p>工程师或架构师在理解本体时，<strong>容易被“知识图谱”“语义模型”这些词带偏</strong>。</p>
+<p>这些词没有错，但<strong>不够准确</strong>。对一个要支撑 Agent 执行的系统来说，本体首先要回答的是：</p>
+<blockquote>
+<p><strong>什么对象可以存在，怎么命名，怎么连接，怎么被读取，怎么被写入，怎么过期，怎么追溯。</strong></p>
+</blockquote>
+<p><strong>这更像文件系统。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>本体元素</th>
+<th>文件系统类比</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>ObjectType</strong></td>
+<td>文件类型和 <strong>inode schema</strong>——定义系统里允许存在什么东西：约束、模式、决策记录、业务流程、反模式</td>
+</tr>
+<tr class="even">
+<td><strong>LinkType</strong></td>
+<td>文件系统里的<strong>链接关系</strong>，但语义更强——<strong>不是“参见某某”的文本提示，而是可遍历、可审计、可治理的关系</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>LinkType 的语义举例</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>链接</th>
+<th>表示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>derived_from</code></td>
+<td>决策<strong>血缘</strong></td>
+</tr>
+<tr class="even">
+<td><code>about_concepts</code></td>
+<td>概念<strong>索引</strong></td>
+</tr>
+<tr class="odd">
+<td><code>cites_files</code></td>
+<td>代码<strong>锚定</strong></td>
+</tr>
+<tr class="even">
+<td><code>contradicts</code></td>
+<td><strong>矛盾</strong></td>
+</tr>
+<tr class="odd">
+<td><code>supersedes</code></td>
+<td><strong>替代</strong></td>
+</tr>
+<tr class="even">
+<td><code>impacts</code></td>
+<td><strong>影响传播</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>文件系统思维和知识库思维的区别</strong>： 文件系统关心“<strong>这个对象是什么类型，和谁连接，谁能读，谁能写，何时失效，出了问题怎么修</strong>”。</p>
+<h2 id="objecttype-和-linktype-不是知识库字段而是-ai-内存系统的-inode-和-link">ObjectType 和 LinkType 不是知识库字段，而是 AI 内存系统的 inode 和 link。</h2>
+</blockquote>
+<h2 id="记忆层objecttype-与-linktype">3.2 记忆层：ObjectType 与 LinkType</h2>
+<p><strong>如果只有 ObjectType 和 LinkType，本体仍然只是一个结构化存储系统。</strong></p>
+<p>它负责：保存企业世界的<strong>结构化状态</strong>，记录<strong>决策血缘</strong>，支持<strong>检索和注入</strong>，管理<strong>记忆生命周期</strong>。</p>
+<h2 id="动力层action-function-rule">3.3 动力层：Action / Function / Rule</h2>
+<p><strong>真正让它运行起来的，是 Action、Function 和 Rule。</strong></p>
+<h3 id="action-是受治理的写操作它不是普通-tool-calling">Action 是受治理的写操作——<strong>它不是普通 tool calling</strong></h3>
+<blockquote>
+<p>普通工具调用只描述<strong>函数签名</strong>，比如“更新供应商状态”。 它<strong>没有说明</strong>这个操作在业务世界里是否合法、是否需要审计、会影响哪些对象、失败时如何解释。</p>
+<p>本体里的 Action 不只是函数入口，而是<strong>带前置条件、规则、写回和血缘的受控操作</strong>。</p>
+<p><strong>关键不是格式，而是语义：Action 改变的是一个受约束的企业世界。</strong></p>
+</blockquote>
+<h3 id="function-负责可计算的读路径">Function 负责可计算的读路径</h3>
+<p>可以基于对象和链接做<strong>聚合、推导、影响分析、风险计算</strong>。 它<strong>不一定改变状态</strong>，但它定义了“<strong>系统如何理解当前世界</strong>”。</p>
+<h3 id="rule-是边界">Rule 是边界</h3>
+<p>它决定：<strong>什么操作能执行，什么写回能晋升，什么记忆必须保护，什么节点应该降级。</strong></p>
+<blockquote>
+<p><strong>所以，动态本体不是静态图。</strong></p>
+<h2 id="objecttype-linktype-让世界有结构action-function-rule-让世界会运动">ObjectType / LinkType 让世界有结构；Action / Function / Rule 让世界会运动。</h2>
+<p>动力层回答的不是“<strong>世界是什么</strong>”，而是“<strong>世界如何合法地变化</strong>”。</p>
+</blockquote>
+<h2 id="五要素的判据建模时逐个问">3.4 五要素的判据（建模时逐个问）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>要素</th>
+<th>判据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Object</strong></td>
+<td>有没有自己的<strong>生命周期</strong>？有没有<strong>独立的属性集</strong>？<strong>是否被其他对象引用</strong>？</td>
+</tr>
+<tr class="even">
+<td><strong>Link</strong></td>
+<td>有<strong>方向</strong>吗（依据“从哪边查更自然”来选）？能<strong>带属性</strong>吗？</td>
+</tr>
+<tr class="odd">
+<td><strong>Function</strong></td>
+<td>是<strong>算出来的</strong>，不是记下来的？<strong>只读</strong>、无副作用？</td>
+</tr>
+<tr class="even">
+<td><strong>Rule</strong></td>
+<td>是<strong>必须始终成立</strong>的约束吗？</td>
+</tr>
+<tr class="odd">
+<td><strong>Action</strong></td>
+<td>是<strong>需要被明确记录</strong>的操作吗？</td>
+</tr>
+</tbody>
+</table>
+<p><strong>采购场景的对象判定（原文示例）</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>业务概念</th>
+<th>是否独立对象</th>
+<th>判断依据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>供应商</td>
+<td>✅</td>
+<td>有<strong>注册→合作→停用</strong>的生命周期，被采购订单引用</td>
+</tr>
+<tr class="even">
+<td>原材料</td>
+<td>✅</td>
+<td>有规格、单位等独立属性，被订单引用</td>
+</tr>
+<tr class="odd">
+<td>采购订单</td>
+<td>✅</td>
+<td>有<strong>草稿→审批→执行→完成</strong>的状态流转</td>
+</tr>
+<tr class="even">
+<td>合同</td>
+<td>✅</td>
+<td>有独立有效期，<strong>与采购订单是不同维度的关联</strong></td>
+</tr>
+<tr class="odd">
+<td>认证证书</td>
+<td>✅</td>
+<td>有过期日期和认证类型，<strong>独立于供应商主档</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>关联的方向与属性</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>关系描述</th>
+<th>方向</th>
+<th>关联属性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>供应商供应某种原材料</td>
+<td>供应商 → 原材料</td>
+<td><strong>交货周期、最小起订量</strong></td>
+</tr>
+<tr class="even">
+<td>认证证书属于供应商</td>
+<td>认证证书 → 供应商</td>
+<td>认证类型、发证机构</td>
+</tr>
+<tr class="odd">
+<td>采购订单面向某供应商</td>
+<td>采购订单 → 供应商</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>采购订单包含某原材料</td>
+<td>采购订单 → 原材料</td>
+<td><strong>数量、单价</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="四oag-rag从会查到会做">四、OAG ≠ RAG：从“会查”到“会做”</h1>
+<h2 id="一个客服场景暴露的分界">4.1 一个客服场景暴露的分界</h2>
+<p>你接入大模型做采购助手。</p>
+<p><strong>用户问</strong>：“我的订单 PO-2026-001 到哪了？” → <strong>RAG 能答</strong>。检索订单文档，拼进提示词，生成一段流畅的回复——<strong>全程只读，世界状态没有任何改变。</strong></p>
+<p><strong>用户接着问</strong>：“帮我把这笔订单取消，改从 ACME 重新下单。” → <strong>RAG 就卡住了</strong>。它可以生成一段“取消步骤说明”，甚至写出一段看起来像 API 调用的伪代码—— <strong>但它不能真正执行写操作</strong>，更无法保证执行后的状态仍然符合业务规则。</p>
+<blockquote>
+<p><strong>差的不是模型能力，是架构层</strong>： ## RAG 增强的是“生成内容的依据”，OAG 增强的是“行动的能力与边界”。</p>
+</blockquote>
+<h2 id="rag-的结构性边界">4.2 RAG 的结构性边界</h2>
+<p>RAG 的链路：① 文档切块做 Embedding → ② 检索相关片段 → ③ 拼进提示词 → ④ LLM 生成答案</p>
+<p>这条链路解决的是<strong>知识不足</strong>。但它有一个结构性边界：</p>
+<ul>
+<li><strong>Embedding 是基于切片的，切片之间很难构建语义关系</strong></li>
+<li><strong>检索和生成都发生在 LLM 的上下文里，不触及业务系统的写路径</strong></li>
+</ul>
+<blockquote>
+<p>你可以把它理解成“<strong>开卷考试</strong>”——<strong>书翻得再快，考生也不能改教科书里的内容。</strong></p>
+</blockquote>
+<p><strong>对问答、总结、分析类任务，这够了。对“帮我把这笔采购批了”这类任务，不够。</strong></p>
+<h2 id="oag-的链路">4.3 OAG 的链路</h2>
+<ol type="1">
+<li>Agent 从本体层<strong>发现可用操作</strong>（不是翻文档，是读<strong>结构化的 Action 定义</strong>）</li>
+<li>LLM 根据业务对象状态<strong>选择操作并填入参数</strong></li>
+<li>操作提交给引擎执行——<strong>前置条件校验 → 内存变更 → 全局规则校验 → 提交或回滚</strong></li>
+<li>每次执行留下<strong>决策血统</strong>（<strong>完整快照，不是日志</strong>）</li>
+</ol>
+<blockquote>
+<p>LLM 在这里不是“猜一个答案”，而是“<strong>选一个受治理的操作</strong>”。</p>
+<h2 id="概率推理发生在选择层确定性约束发生在执行层">概率推理发生在选择层，确定性约束发生在执行层。</h2>
+</blockquote>
+<h2 id="六维对照">4.4 六维对照</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>RAG</th>
+<th><strong>OAG</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>增强的对象</td>
+<td>生成内容的<strong>依据</strong></td>
+<td><strong>行动的能力与边界</strong></td>
+</tr>
+<tr class="even">
+<td>LLM 输入</td>
+<td>检索到的文档片段</td>
+<td><strong>业务对象 + 可用操作</strong></td>
+</tr>
+<tr class="odd">
+<td>LLM 输出</td>
+<td>自然语言答案</td>
+<td><strong>结构化操作调用</strong></td>
+</tr>
+<tr class="even">
+<td>对世界的影响</td>
+<td><strong>只读</strong></td>
+<td><strong>写操作（受规则约束）</strong></td>
+</tr>
+<tr class="odd">
+<td>出错后果</td>
+<td>答案不准</td>
+<td><strong>状态被错误改变</strong></td>
+</tr>
+<tr class="even">
+<td>追溯性</td>
+<td>难以还原决策依据</td>
+<td><strong>完整决策血统</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>⚠️ 一个容易混淆的点</strong>： <strong>GraphRAG、知识图谱增强检索，仍然属于“读”的范畴</strong>—— 它们帮模型更好地理解实体关系，<strong>但不提供受治理的写回路径</strong>。</p>
+<p><strong>OAG 解决的是另一个问题：Agent 被授权写操作时，如何保证写得对、写得可追溯。</strong></p>
+</blockquote>
+<h2 id="oag-落地的三层能力缺一不可">4.5 ⭐ OAG 落地的三层能力（缺一不可）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>能力</th>
+<th>回答的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>操作发现</strong></td>
+<td>Agent 怎么知道<strong>能做什么</strong>、参数是什么</td>
+</tr>
+<tr class="even">
+<td><strong>执行约束</strong></td>
+<td>违规操作怎么被<strong>实时拦截</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>决策追溯</strong></td>
+<td>三个月后怎么回答“<strong>为什么这样做</strong>”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>缺任意一层的后果</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>缺什么</th>
+<th>会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>只有发现、没有约束</td>
+<td>Agent 能调用但<strong>不受治理，和直连数据库一样危险</strong></td>
+</tr>
+<tr class="even">
+<td>只有约束、没有追溯</td>
+<td><strong>出了事无法审计，合规团队不会签字</strong></td>
+</tr>
+<tr class="odd">
+<td>只有追溯、没有发现和约束</td>
+<td><strong>事后能看到问题，但事前拦不住</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h2 id="oag-不是-rag-的升级版是-agent-进入写操作时代的必要基础设施">OAG 不是 RAG 的升级版，是 Agent 进入写操作时代的必要基础设施。</h2>
+</blockquote>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h1 id="五三层能力逐层拆开">五、三层能力，逐层拆开</h1>
+<h2 id="操作发现schema-即能力清单">5.1 操作发现：Schema 即能力清单</h2>
+<p>Agent 在调用任何操作之前，需要回答四个问题：</p>
+<ol type="1">
+<li>系统里有哪些<strong>可执行的操作</strong>？</li>
+<li>每个操作需要哪些<strong>参数</strong>？（<code>supplier_pk</code> 还是 <code>vendor_name</code>？）</li>
+<li>有什么<strong>前置条件</strong>？</li>
+<li>执行后会触发什么<strong>规则</strong>？</li>
+</ol>
+<p><strong>这四个问题，如果靠 Agent “自己猜”，猜错一次就是一次无效调用</strong>——或者被引擎拦下，浪费一轮交互。</p>
+<h3 id="三种错误做法">三种错误做法</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>错误做法</th>
+<th>为什么错</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td><strong>硬编码进 prompt</strong></td>
+<td>本体一变，prompt 就得重写。操作一多，prompt 膨胀到 LLM 读不完。<strong>定义和 prompt 两份维护，迟早不同步</strong></td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td><strong>让 LLM 读 API 文档</strong></td>
+<td>文档是<strong>给人读的叙述性文字</strong>，不是 LLM 工具框架需要的结构化 schema。<strong>理解不稳定，token 开销大</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td><strong>让 LLM 读源码</strong></td>
+<td>LLM 读不懂执行细节，<strong>也不该让它读</strong>——<strong>Agent 只需要知道“能调用什么”，不需要知道“怎么实现的”</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="正确做法同一份定义三个消费者">正确做法：同一份定义，三个消费者</h3>
+<p>Action 的定义文件里已经写清了操作的全部语义（描述、参数、前置条件、触发规则）。 只需要一个小模块，<strong>自动把它转成 LLM 的 Function Calling 格式</strong>。</p>
+<table>
+<thead>
+<tr class="header">
+<th>消费者</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>业务人员</strong></td>
+<td>打开文件<strong>审查规则对不对</strong></td>
+</tr>
+<tr class="even">
+<td><strong>执行引擎</strong></td>
+<td>加载定义，<strong>执行操作</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Agent</strong></td>
+<td>通过能力清单<strong>发现可调用的操作</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>当定义文件同时服务人和机器，“文档和代码不同步”的问题又少了一种来源。</strong></p>
+<h2 id="好的本体层不需要-agent-去猜它能做什么定义本身就是说明书一份文件同时讲给人和机器听">好的本体层不需要 Agent 去猜它能做什么——定义本身就是说明书，一份文件同时讲给人和机器听。</h2>
+</blockquote>
+<h2 id="执行约束为什么提示词工程不够">5.2 执行约束：为什么提示词工程不够</h2>
+<h3 id="先看反面假设-agent-能直连数据库">先看反面：假设 Agent 能直连数据库</h3>
+<p>假设采购 Agent 有权限直接 <code>INSERT INTO purchase_orders</code>。它接到任务“补充 50 万备料”，选中一家<strong>认证还有 13 天到期</strong>的供应商，写入成功。</p>
+<blockquote>
+<p>数据库里多了一行记录。<strong>审批流没触发。信用额度没检查。业务规则全部绕过了</strong>—— <strong>不是 Agent “有意为之”，是它根本不知道这些规则的存在。</strong></p>
+</blockquote>
+<h3 id="软约束的三个结构性缺陷">软约束的三个结构性缺陷</h3>
+<p>最常见的“软约束”写法：</p>
+<pre><code>你在发起采购前，必须检查供应商认证有效期是否大于 30 天。</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>缺陷</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>会被遗忘</strong></td>
+<td>多轮对话后，<strong>早期指令权重下降</strong></td>
+</tr>
+<tr class="even">
+<td><strong>会被稀释</strong></td>
+<td>上下文窗口塞满其他信息后，<strong>约束被挤出去</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>会被绕过</strong></td>
+<td><strong>提示词注入攻击</strong>可以让 Agent“忘记”所有约束</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h2 id="自觉遵守不是工程约束">自觉遵守不是工程约束。</h2>
+</blockquote>
+<h3 id="三层强度对比">三层强度对比</h3>
+<table>
+<thead>
+<tr class="header">
+<th>层次</th>
+<th>机制</th>
+<th>强度</th>
+<th>可绕过性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>提示词层</strong></td>
+<td>靠 LLM 自觉</td>
+<td>最弱</td>
+<td><strong>高（注入即破）</strong></td>
+</tr>
+<tr class="even">
+<td><strong>API 网关层</strong></td>
+<td>校验 HTTP 请求参数</td>
+<td>中</td>
+<td>中（参数可伪造）</td>
+</tr>
+<tr class="odd">
+<td><strong>本体层</strong></td>
+<td><strong>校验业务状态 + 全局不变式</strong></td>
+<td><strong>最强</strong></td>
+<td><strong>低（引擎强制，无旁路）</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>API 网关能检查“参数格式对不对”，但检查不了“这笔采购加上去之后，未结金额会不会超过信用额度”</strong>—— <strong>这需要看到写入后的新状态。只有本体层的全局规则能做到。</strong></p>
+</blockquote>
+<h3 id="结构化拒绝三件套">⭐ 结构化拒绝三件套</h3>
+<p><strong>第 1 轮</strong>：Agent 选择向 Beta 采购 8 万元。 引擎内部：前置条件通过 → 内存中创建订单 → 全局规则命中（<strong>剩余 13 天 &lt; 30 天</strong>）→ <strong>回滚，文件从未被写。</strong></p>
+<p><strong>Agent 收到的不是 <code>500 Internal Server Error</code>，而是结构化拒绝</strong>：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;rejected&quot;</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;action_id&quot;</span><span class="fu">:</span> <span class="st">&quot;create_purchase_order&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;triggered_rule&quot;</span><span class="fu">:</span> <span class="st">&quot;certification_validity&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;供应商认证有效期不足 30 天，订单已阻断&quot;</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;current_state&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Supplier/S-BETA-002&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;active&quot;</span><span class="fu">,</span> <span class="dt">&quot;outstanding_amount&quot;</span><span class="fu">:</span> <span class="dv">120000</span> <span class="fu">},</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Certification/CERT-002&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;days_remaining&quot;</span><span class="fu">:</span> <span class="dv">13</span> <span class="fu">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;suggestion&quot;</span><span class="fu">:</span> <span class="st">&quot;建议选择认证有效的备选供应商 S-ACME-001（ACME）&quot;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th>字段</th>
+<th>作用</th>
+<th>Agent 能做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>triggered_rule</code></td>
+<td>定位违反的规则</td>
+<td><strong>理解失败原因</strong></td>
+</tr>
+<tr class="even">
+<td><code>current_state</code></td>
+<td>当时的业务快照</td>
+<td><strong>判断是临时状态还是结构性问题</strong></td>
+</tr>
+<tr class="odd">
+<td><code>suggestion</code></td>
+<td>可选的替代策略</td>
+<td><strong>直接调整参数重试</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>第 2 轮</strong>：Agent 改选 ACME → 认证有效、信用额度充足 → <strong>成功。</strong></p>
+<blockquote>
+<p><strong>这就是 OAG 闭环：发现 → 调用 → 被拒 → 调整 → 重试成功。</strong> <strong>全程在本体层约束内完成，没有绕过。</strong></p>
+</blockquote>
+<p><strong>对比一下很多系统的拒绝长什么样</strong>：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;error&quot;</span><span class="fu">:</span> <span class="st">&quot;操作失败&quot;</span> <span class="fu">}</span></span></code></pre></div>
+<blockquote>
+<p><strong>Agent 收到这个，只能盲试。</strong></p>
+<p>好的拒绝响应和“日志存快照”是同一哲学：<strong>记录上下文，而不只是记录结果。</strong> 区别是：<strong>日志给审计人员看，拒绝响应给 Agent 看</strong>——受众不同，但都需要完整的决策上下文。</p>
+</blockquote>
+<h2 id="决策追溯三个月后你能回答吗">5.3 决策追溯：三个月后你能回答吗</h2>
+<p><strong>快进到三个月后。合规团队发来一个问题</strong>：</p>
+<blockquote>
+<p><strong>“5 月 30 号那笔 28 万的采购，AI 为什么觉得能下单？当时供应商的认证状态是什么？”</strong></p>
+</blockquote>
+<p><strong>这不是技术排查，是业务审计。</strong></p>
+<h3 id="三种传统日志都回答不了">三种传统日志都回答不了</h3>
+<table>
+<thead>
+<tr class="header">
+<th>日志类型</th>
+<th>典型内容</th>
+<th>能回答什么</th>
+<th><strong>不能回答什么</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>数据库日志</td>
+<td><code>INSERT INTO purchase_orders ...</code></td>
+<td>写了什么</td>
+<td><strong>为什么写</strong></td>
+</tr>
+<tr class="even">
+<td>应用日志</td>
+<td><code>POST /actions 200 OK</code></td>
+<td>调用成功没</td>
+<td><strong>当时业务状态是什么</strong></td>
+</tr>
+<tr class="odd">
+<td>监控指标</td>
+<td><code>CPU 85%, latency 120ms</code></td>
+<td>系统健不健康</td>
+<td><strong>Agent 看到了什么</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>本体层决策记录的本质区别</strong>： ## 它存的不是“改了什么”，而是“当时世界是什么样”。</p>
+</blockquote>
+<h3 id="一条记录回答合规问题">一条记录回答合规问题</h3>
+<p>一条决策记录里有：<code>action_id</code> · <code>caller</code> · <code>params</code> · <strong><code>snapshot</code>（当时所有相关对象的完整状态）</strong> · <code>passed_rules</code> · <code>outcome</code> · <code>executed_at</code>。</p>
+<p>用这一条，完整回答合规团队：</p>
+<ul>
+<li><strong>为什么选 ACME</strong>：认证剩余 365 天，合同有效</li>
+<li><strong>为什么金额没问题</strong>：未结 18 万 + 新单 8 万 = 26 万 &lt; 信用额度 50 万</li>
+<li><strong>谁发起的</strong>：<code>procurement-agent-v2</code></li>
+<li><strong>通过了哪些规则</strong>：<code>certification_validity</code>、<code>credit_limit_check</code></li>
+</ul>
+<blockquote>
+<p><strong>不需要猜，不需要拼凑多个系统的日志。一行 JSON，一个完整的决策上下文。</strong></p>
+</blockquote>
+<h3 id="三个审计查询场景">三个审计查询场景</h3>
+<table>
+<thead>
+<tr class="header">
+<th>场景</th>
+<th>查什么</th>
+<th>洞察</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 某供应商被 AI 频繁选中，为什么？</strong></td>
+<td>该供应商的决策次数、成功/拒绝分布、常见通过规则</td>
+<td><strong>不是 AI“偏好”某家供应商，是规则筛选的结果</strong></td>
+</tr>
+<tr class="even">
+<td><strong>② 某条规则上线后拦截了多少次？</strong></td>
+<td>拦截次数、主要触发者</td>
+<td>评估<strong>规则是否过严</strong>、是否需要调整阈值（30 天改 45 天）</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 某个 Agent 的决策质量如何？</strong></td>
+<td>成功率、高频违规规则</td>
+<td><strong>成功率低不一定是 Agent 的问题</strong>——可能是它在探索边界</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>场景 ② 背后有一条重要判断</strong>： ## 误拦截比漏拦截更危险。 <strong>持续误拦截会逼业务绕过本体，整套约束就失效了。</strong></p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>场景 ③ 的价值</strong>：<strong>审计的价值是区分“Agent 犯错”和“Agent 在规则内试错”。</strong></p>
+</blockquote>
+<h3 id="决策血缘的三个价值">决策血缘的三个价值</h3>
+<table>
+<thead>
+<tr class="header">
+<th>价值</th>
+<th>谁受益</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>合规追溯</strong></td>
+<td>合规团队、审计方</td>
+<td>按 <code>event_id</code> 还原<strong>任意一次</strong>决策</td>
+</tr>
+<tr class="even">
+<td><strong>模型优化</strong></td>
+<td>AI 工程师</td>
+<td>分析 Agent 高频违规，调整提示词或策略</td>
+</tr>
+<tr class="odd">
+<td><strong>规则迭代</strong></td>
+<td>业务人员</td>
+<td>评估规则拦截率，决定阈值松紧</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这三个价值指向同一件事</strong>： ## 信任不是一次性的授权，是持续可验证的。</p>
+</blockquote>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h1 id="六software-3.0本体是-llm-os-的文件系统">六、Software 3.0：本体是 LLM OS 的文件系统</h1>
+<h2 id="karpathy-的三代划分少了一层">6.1 Karpathy 的三代划分，少了一层</h2>
+<p>2026 年 4 月，Andrej Karpathy 在 Sequoia Ascent 上说：<strong>他从未像现在这样“落后”于编程</strong>。 不是不会写代码，是工作流变了——<strong>从逐行敲代码，变成向 Agent 委派整块任务</strong>。</p>
+<p>他给出的 Software 三代划分：</p>
+<table>
+<thead>
+<tr class="header">
+<th>代</th>
+<th>人做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1.0</strong></td>
+<td>人写<strong>显式代码</strong></td>
+</tr>
+<tr class="even">
+<td><strong>2.0</strong></td>
+<td>人造<strong>数据集</strong>，程序学进权重矩阵</td>
+</tr>
+<tr class="odd">
+<td><strong>3.0</strong></td>
+<td>人写 <strong>prompt、上下文、工具、记忆</strong>——<strong>上下文窗口就是程序，LLM 是解释器</strong></td>
+</tr>
+</tbody>
+</table>
+<p>这个框架很像一个 OS 的内核：<strong>CPU 是 LLM，RAM 是 Context Window，外设是 MCP、API、CLI。</strong></p>
+<blockquote>
+<p><strong>不过这里有一个问题：文件系统在哪里？</strong></p>
+<p>Agent 可以在上下文里推理，但企业系统<strong>还需要一块持久、可验证、可写回的世界模型</strong>。 没有它，<strong>Software 3.0 就没有持久化层，没有能托付业务的对象宇宙</strong>。</p>
+</blockquote>
+<h2 id="仅有上下文不够">6.2 仅有上下文，不够</h2>
+<p>企业场景会多一层硬要求：</p>
+<ul>
+<li>跨部门对象要<strong>同名同义</strong>——“那个供应商”不能每轮对话重新猜</li>
+<li>操作要<strong>可授权、可审计、可写回</strong>——不是生成一段看起来对的文字</li>
+<li>失败要<strong>可复现、可定位</strong>——<strong>违反的是哪条规则，而不是“模型觉得不对”</strong></li>
+</ul>
+<blockquote>
+<p>Wiki 和 RAG 解决的是“<strong>让 LLM 读到信息</strong>”。 Software 3.0 的企业级形态还需要“<strong>让 LLM 在受治理的对象宇宙里行动</strong>”。</p>
+<h2 id="rag-是翻字典本体是物理引擎前者给名词解释后者给碰撞体边界条件和受力规则">RAG 是翻字典；本体是物理引擎——前者给名词解释，后者给碰撞体、边界条件和受力规则。</h2>
+</blockquote>
+<h2 id="架构定位四层">6.3 架构定位：四层</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>是什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>交互层</strong></td>
+<td>自然语言或 API 接入意图。此时的输入<strong>尚未绑定对象</strong>，只是原始信号</td>
+</tr>
+<tr class="even">
+<td><strong>逻辑内核（LLM OS Kernel）</strong></td>
+<td>工作记忆与推理引擎。<strong>128k–2M 的上下文适合“当前这轮”推理，不适合承载企业世界的完整约束与血缘</strong>。<strong>内核处理概率，不拥有业务真理</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>本体（Business Ontology）</strong></td>
+<td><strong>持久的世界模型</strong>。实体与关系、业务规则、历史快照、不可违反的硬约束——<strong>Agent 的寻址空间</strong></td>
+</tr>
+<tr class="even">
+<td><strong>MCP 外设</strong></td>
+<td>数据库、向量库、外部 API 的标准化 I/O</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三条边界最容易搞错的三件事">⚠️ 三条边界（最容易搞错的三件事）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>边界</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td><strong>上下文不是存储</strong></td>
+<td>RAM <strong>易失、有长度上限</strong>；本体承担<strong>跨会话、跨 Agent、跨任务</strong>的一致性</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td><strong>MCP 不是语义层</strong></td>
+<td>它是<strong>驱动</strong>；本体是 <strong>syscall 表</strong>——定义签名、前置条件、写回路径</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td><strong>内核与外设必须经本体解耦</strong></td>
+<td>否则<strong>每个 Agent 都要重新“理解”一遍业务</strong>，锯齿状智能会在集成边界上放大</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>暴露什么能力、以什么参数调用，应由本体里的 Object / Action 语义决定，而不是 raw table、raw endpoint。</strong></p>
+</blockquote>
+<h2 id="本体的三个架构职能">6.4 本体的三个架构职能</h2>
+<h3 id="语义锚点把开放域意图压进闭域对象">① 语义锚点：把开放域意图压进闭域对象</h3>
+<p>Karpathy 讲“<strong>锯齿状智能</strong>”：模型在代码、数学等<strong>可验证域</strong>很强，在业务域容易出现幻觉。</p>
+<p>本体的第一项职责，是在意图触达 LLM 内核<strong>之前</strong>，完成<strong>语义锚定</strong>：</p>
+<ul>
+<li>“处理一下供应商认证” → 绑定到 <code>Supplier:Beta</code></li>
+<li>“那个订单” → 沿 Link 解析到具体 <code>PurchaseOrder</code></li>
+<li>提供<strong>企业词汇表</strong>，消解指代歧义</li>
+</ul>
+<blockquote>
+<p><strong>没有锚点，Agent 在全库上做开放推理——每轮对话都是一次重新猜谜。</strong></p>
+</blockquote>
+<h3 id="约束源验证器的规格说明书">② 约束源：验证器的规格说明书</h3>
+<p>本体存储<strong>业务规则</strong>（有效期、金额上限、状态机转移条件）、<strong>硬约束</strong>（不可静默绕过的不变量）、<strong>安全策略</strong>（哪些属性只读、哪些 Action 需要审批）。</p>
+<blockquote>
+<p>这些<strong>不是写在 Prompt 里的“建议”</strong>，而是 <strong>Software 1.0 验证器对照的 spec</strong>—— 编译器、单测、规则引擎、权限检查器<strong>都读同一份定义</strong>。</p>
+<p><strong>Karpathy 说：“自动化的是你能验证的东西。”</strong> <strong>本体回答的是：验证的标准是什么。</strong></p>
+</blockquote>
+<h3 id="generatevalidate-枢纽生成可以错提交不能错">③ Generate–Validate 枢纽：生成可以错，提交不能错</h3>
+<blockquote>
+<p><strong>Agentic Engineering 与 Vibe Coding 的分野，不在模型强弱，而在有没有生成—验证环。</strong></p>
+</blockquote>
+<h2 id="一个关键分歧llm-是-cpu-还是协处理器">6.5 ⭐ 一个关键分歧：LLM 是 CPU 还是协处理器</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>Karpathy</th>
+<th>AIOS</th>
+<th>行业共识</th>
+<th><strong>本体论视角</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>内核是什么</td>
+<td>LLM</td>
+<td>资源管理器</td>
+<td>语义内核</td>
+<td><strong>规则执法者</strong></td>
+</tr>
+<tr class="even">
+<td>LLM 的角色</td>
+<td><strong>CPU（可信）</strong></td>
+<td>被管理资源</td>
+<td>大脑</td>
+<td><strong>协处理器（不可信）</strong></td>
+</tr>
+<tr class="odd">
+<td>核心关切</td>
+<td>能力扩展</td>
+<td>调度效率</td>
+<td>用户体验</td>
+<td><strong>决策正确性</strong></td>
+</tr>
+<tr class="even">
+<td>信任模型</td>
+<td><strong>LLM 可信</strong></td>
+<td>LLM 被管理</td>
+<td>LLM 是核心</td>
+<td><strong>LLM 不可信</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h2 id="karpathy-回答的是如何让-llm-更强大aios-回答的是如何让多-agent-更高效本体论回答的是如何让-llm-的输出更可信">Karpathy 回答的是“如何让 LLM 更强大”。AIOS 回答的是“如何让多 Agent 更高效”。本体论回答的是“如何让 LLM 的输出更可信”。</h2>
+</blockquote>
+<h3 id="传统-os-与-ai-原生-os-的问题对照">传统 OS 与 AI 原生 OS 的问题对照</h3>
+<table>
+<thead>
+<tr class="header">
+<th>工程问题</th>
+<th>传统 OS 的解法</th>
+<th><strong>AI Native OS 的解法</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>不可信的计算单元需要受管控</td>
+<td>用户程序不能直接操作硬件 → <strong>syscall</strong></td>
+<td><strong>LLM 不能直接改状态 → Action</strong></td>
+</tr>
+<tr class="even">
+<td>有限资源需要调度分配</td>
+<td>CPU 时间片调度</td>
+<td><strong>Token 预算分级</strong></td>
+</tr>
+<tr class="odd">
+<td>状态变更需要保护</td>
+<td>内存保护（MMU）</td>
+<td><strong>规则校验</strong></td>
+</tr>
+<tr class="even">
+<td>历史操作需要可追溯</td>
+<td>审计日志（auditd）</td>
+<td><strong>决策血统</strong></td>
+</tr>
+<tr class="odd">
+<td>频繁访问的数据需要分级缓存</td>
+<td>L1/L2/L3/RAM</td>
+<td><strong>CRITICAL/RULE/CONTEXT/BACKGROUND</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>传统 OS 解决的是确定性计算的资源管理问题。</strong> <strong>当计算引擎从确定性变成概率性，传统 OS 没有任何机制能处理新出现的“语义正确性”问题。</strong></p>
+</blockquote>
+<hr />
+<h1 id="七harness-管循环本体管世界">七、Harness 管循环，本体管世界</h1>
+<h2 id="harness-越多越说明缺了一层">7.1 Harness 越多，越说明缺了一层</h2>
+<p>这两年围绕“让智能体在企业落地”的项目越来越多：有的叫 Harness，有的叫 Loop，有的叫 Agent 运行时，有的强调 Workflow、Memory 或 Multi-Agent。</p>
+<p><strong>名字不同，工程问题很接近</strong>：让模型不要只回答问题，而是能规划、执行、观察、验证、重试。</p>
+<p><strong>但它们最后都会撞到同一个边界</strong>：</p>
+<blockquote>
+<h2 id="智能体到底运行在一个什么样的世界里">智能体到底运行在一个什么样的世界里？</h2>
+</blockquote>
+<p>如果这个世界只是<strong>提示词、聊天历史、向量库、工具 schema 和临时 JSON 的拼接</strong>，系统很快会出现几个熟悉的问题：</p>
+<ul>
+<li>规则<strong>没有强制性</strong></li>
+<li>记忆<strong>没有生命周期</strong></li>
+<li>写回<strong>没有血缘</strong></li>
+<li>多 Agent 之间<strong>没有共享语义</strong></li>
+<li>企业业务逻辑<strong>散落在提示词和工具代码里</strong></li>
+</ul>
+<blockquote>
+<p><strong>Harness 框架是一套脚手架，它用来控制大模型怎么跑。</strong> <strong>本体相当于一个业务世界的数字孪生，它决定了大模型跑在哪个世界里。</strong></p>
+</blockquote>
+<h2 id="职责边界">7.2 职责边界</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Harness / Loop（运行层）</strong></th>
+<th><strong>本体（世界层）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>管什么</td>
+<td><strong>控制流</strong>：谁先跑，谁后跑，失败回哪一步，重试几次，什么时候中止，什么时候升级</td>
+<td><strong>世界</strong>：有哪些对象，哪些规则算数，哪些记忆能读，哪些结果能写回，什么经验能跨任务复用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么这条边界重要</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>放错地方</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>规则放在 <strong>prompt</strong> 里</td>
+<td>失败只能得到“<strong>模型觉得不对</strong>”</td>
+</tr>
+<tr class="even">
+<td>规则存在<strong>结构化约束</strong>里</td>
+<td>失败<strong>带规则 ID</strong>，系统知道<strong>是哪条约束被违反</strong></td>
+</tr>
+<tr class="odd">
+<td>成功经验只在 <strong>chat log</strong> 里</td>
+<td><strong>下轮很难稳定复用</strong></td>
+</tr>
+<tr class="even">
+<td>成功经验经<strong>晋升机制</strong>沉淀为结构化记录</td>
+<td>下一轮<strong>可以被读到</strong></td>
+</tr>
+<tr class="odd">
+<td>retry 细节混进<strong>共享记忆</strong></td>
+<td><strong>长期内存会被噪声污染</strong></td>
+</tr>
+<tr class="even">
+<td>清掉临时态、<strong>只保留结构化结论</strong></td>
+<td><strong>记忆层才不会越跑越脏</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一个复杂 Agent 系统出了问题，你必须能判断</strong>： 是 <strong>Harness 路由错了</strong>，是<strong>本体规则错了</strong>，是<strong>上下文拼错了</strong>，还是 <strong>Agent 输出错了</strong>？</p>
+<h2 id="层次混在一起排查成本会指数级上升导致多智能体系统无法落地">层次混在一起，排查成本会指数级上升，导致多智能体系统无法落地。</h2>
+</blockquote>
+<h2 id="多智能体是应用层不是架构中心">7.3 多智能体是应用层，不是架构中心</h2>
+<p>企业里的多智能体可以有很多角色：采购、风控、财务、销售、运维、代码、测试。</p>
+<p><strong>分工很重要，但它们不应该各自维护一套私有的世界模型。</strong></p>
+<blockquote>
+<h2 id="稳定的多智能体协作不来自大家聊得更好而来自共享的对象共享的规则共享的动作">稳定的多智能体协作，不来自“大家聊得更好”，而来自共享的对象、共享的规则、共享的动作。</h2>
+</blockquote>
+<p>它们可以有<strong>不同的上下文清单、权限和 token 预算</strong>，<strong>但底层世界应该是一套</strong>。</p>
+<blockquote>
+<p><strong>这也是为什么不能把 Memory 简化成“给每个 Agent 配一段长期记忆”</strong>—— 长期记忆如果只属于某个 Agent，<strong>就会变成角色私有笔记</strong>。 企业系统需要的是<strong>共享内存：对象一致、血缘一致、规则一致、写回一致</strong>。</p>
+<h2 id="多智能体之间当然需要协议但协议不是根根是共享本体">多智能体之间当然需要协议，但协议不是根，根是共享本体。</h2>
+</blockquote>
+<h2 id="本体自己也需要一套多智能体">7.4 ⭐ 本体自己也需要一套多智能体</h2>
+<p>我们说“多智能体运行在本体之上”，指的是<strong>业务多智能体</strong>。 <strong>但本体本身的建设，也需要一套高度定制化的多智能体。</strong></p>
+<p><strong>这类 Agent 的任务不是处理某张订单或修某个 bug，而是生产和维护本体本身</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>Agent</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Object Modeling Agent</td>
+<td>设计 ObjectType</td>
+</tr>
+<tr class="even">
+<td>Link Modeling Agent</td>
+<td>设计 LinkType</td>
+</tr>
+<tr class="odd">
+<td>Action Designer Agent</td>
+<td>定义 Action</td>
+</tr>
+<tr class="even">
+<td>Function Engineer Agent</td>
+<td>实现可计算读路径</td>
+</tr>
+<tr class="odd">
+<td>Rule Engineer Agent</td>
+<td>编写约束</td>
+</tr>
+<tr class="even">
+<td>Memory Curator Agent</td>
+<td>清理记忆</td>
+</tr>
+<tr class="odd">
+<td>Migration Agent</td>
+<td>处理 schema 演进</td>
+</tr>
+<tr class="even">
+<td>Verifier Agent</td>
+<td><strong>检查本体变更是否破坏已有流程</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>它们的产物不只是代码</strong>，还包括 schema、link spec、action spec、function implementation、rule set、migration plan、demo 和 verification report。</p>
+<blockquote>
+<p><strong>企业本体不会一次建完。</strong> 对象类型会拆分，链接类型会增加，Action 会调整，规则会迁移，旧记忆会失效。 <strong>靠人手工维护全部变化，不现实；靠通用聊天 Agent 自动乱改，也不可靠。</strong></p>
+<p>更合理的方式：<strong>让一组本体工程 Agent 在 Harness 约束下工作——提出变更，生成迁移，跑验证，经过晋升闸后再生效。</strong></p>
+</blockquote>
+<blockquote>
+<h2 id="一条是应用线agent-使用本体一条是生产线agent-建设本体">一条是应用线：Agent 使用本体。一条是生产线：Agent 建设本体。</h2>
+</blockquote>
+<h2 id="三层系统">7.5 三层系统</h2>
+<table>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>由什么构成</th>
+<th>负责什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 记忆层</strong></td>
+<td>ObjectType、LinkType 和对象实例</td>
+<td>保存企业世界的<strong>结构化状态</strong>，记录<strong>决策血缘</strong>，支持检索和注入，管理<strong>记忆生命周期</strong></td>
+</tr>
+<tr class="even">
+<td><strong>② 动力层</strong></td>
+<td>Action、Function、Rule</td>
+<td><strong>受控写入</strong>、规则验证、状态迁移、影响传播、晋升、GC 和健康度</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 智能体层</strong></td>
+<td>业务多智能体</td>
+<td><strong>应用</strong>——在前两层之上工作</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h1 id="八建模-sop动手之前先把本体建对">八、建模 SOP：动手之前先把本体建对</h1>
+<h2 id="场景比你想的复杂">8.1 场景比你想的复杂</h2>
+<p>课上举的采购场景是<strong>简化过</strong>的：AI 发起操作，本体层检查条件，触发审批。</p>
+<p><strong>但真实的采购协作是一条链</strong>——需求提报、供应商评估、询价比价、合同审批、发起订单、入库验收，<strong>背后是四套各自独立的系统</strong>。</p>
+<p>Agent 要回答的问题也不只是“能不能下单”，还包括： <strong>从哪家采综合最优、这张订单走哪条审批路径、入库量和订单量不符时该怎么处理。</strong></p>
+<p><strong>这才是本体层真实要面对的环境。</strong></p>
+<h2 id="第一步先界定问题再确定范围">8.2 第一步：先界定问题，再确定范围</h2>
+<blockquote>
+<p><strong>建模不能从“有哪些数据”开始。</strong> <strong>正确的起点是：现在的做法在哪里出了问题，这些问题集中在哪个业务范围内。</strong></p>
+</blockquote>
+<p><strong>三类反复出现的症状</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>症状</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>信息没法汇聚</strong></td>
+<td>供应商信息分散在四个系统，各有各的同步时间，<strong>Agent 做决策时拿到的是不同时间点的拼凑结果</strong>，不一致是常态</td>
+</tr>
+<tr class="even">
+<td><strong>规则无法被执行</strong></td>
+<td>“认证有效期不足 30 天须升级审批”写在 SRM 前端校验和 ERP 审批流里。<strong>Agent 走后端接口时绕过了所有前端校验</strong>——<strong>规则没有失效，只是从来没有在这条路径上被执行</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>决策无法还原</strong></td>
+<td>系统日志记录的是接口调用，但业务上发生的事是“<strong>Agent 代理采购经理发起了一笔 28 万元的备料采购</strong>”。事后如果有争议，<strong>从接口日志里看不出为什么做这个决定</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>确定范围</strong>：清楚问题之后，还需要划定 <strong>MVP 边界</strong>。 以上述三个问题为边界，先覆盖“<strong>供应商评估到发起采购订单</strong>”这段链路，<strong>暂不处理入库验收</strong>。</p>
+<blockquote>
+<p><strong>这个判断决定了后续需要建哪些对象、连接哪些系统。</strong></p>
+</blockquote>
+<h2 id="第二步基于业务语义建模">8.3 第二步：基于业务语义建模</h2>
+<p><strong>范围确定后才开始建模。起点是业务语言，而不是系统字段。</strong></p>
+<p><strong>要回答五个问题</strong>：</p>
+<ol type="1">
+<li>业务里有哪些<strong>独立存在的实体</strong>？</li>
+<li>它们之间有哪些<strong>有意义的关联</strong>？</li>
+<li>哪些指标<strong>需要计算</strong>才能得出？</li>
+<li>哪些约束<strong>必须始终成立</strong>？</li>
+<li>哪些操作<strong>需要被明确记录</strong>？</li>
+</ol>
+<p>（判据见本手册第三章 3.4 节。）</p>
+<h2 id="第三步先建模再看数据顺序不能反">8.4 第三步：先建模、再看数据——顺序不能反</h2>
+<blockquote>
+<p><strong>先看数据会被现有系统结构带偏</strong>，建出“<strong>系统长什么样</strong>”而非“<strong>业务是什么样</strong>”。</p>
+</blockquote>
+<p>建完模型再对照文档，<strong>逐个属性找来源系统</strong>，评估同步方式和数据质量，<strong>优先处理阻塞系统运行的质量问题</strong>。</p>
+<h2 id="四个阶段有先后依赖不建议并行启动">8.5 ⭐ 四个阶段有先后依赖，不建议并行启动</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>要点</th>
+<th>完成标志</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 调研与建模</strong></td>
+<td><strong>最需要业务专家参与，工程师单独做往往跑偏</strong>。与业务、合规团队开工作坊，逐一梳理核心实体、关联、约束和需记录的操作。<strong>结果用文档呈现（不是代码），请业务人员逐条确认</strong></td>
+<td>一份<strong>经业务确认</strong>的本体定义文档或原型</td>
+</tr>
+<tr class="even">
+<td><strong>② 数据盘点与治理</strong></td>
+<td><strong>模型建完后再确认数据来源</strong></td>
+<td><strong>每个属性有明确来源和同步方式</strong>，主键统一有可行方案，关键函数的数据可被正确计算</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 引擎搭建与数据接入</strong></td>
+<td><strong>前两个阶段产出文档或原型，这个阶段才开始写代码</strong></td>
+<td>本体层 API 可被 Agent 调用，<strong>每次操作后留下可追溯的决策记录</strong></td>
+</tr>
+<tr class="even">
+<td><strong>④ 场景验证与调优</strong></td>
+<td><strong>贯穿全程</strong>，上线后做系统性回测。与业务人员<strong>走查规则边界</strong></td>
+<td>业务团队确认：<strong>知道它会在什么情况下拦截，被拦截时能看到清晰原因，每个决策事后都可以被完整还原</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="怎么判断建对了三问">8.6 怎么判断建对了——三问</h2>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>问题</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>①</strong></td>
+<td><strong>信息汇聚实现了没有？</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>②</strong></td>
+<td><strong>规则真在执行没有？</strong></td>
+<td>⚠️ <strong>警惕误拦截 &gt; 漏拦截</strong>：<strong>持续误拦截会逼业务绕过本体，整套约束就失效</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>③</strong></td>
+<td><strong>决策能不能当天说清楚？</strong></td>
+<td>三个月后合规团队问起来，<strong>能不能当天答上</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这三个问题在建模阶段就应该想好如何收集答案，不要等系统上线后再补。</strong></p>
+</blockquote>
+<h2 id="本章的金句">8.7 本章的金句</h2>
+<blockquote>
+<h2 id="本体建模是把业务知识变成可执行定义的过程而不是软件开发本身">本体建模是把业务知识变成可执行定义的过程，而不是软件开发本身。</h2>
+<p><strong>最难的环节不是选技术栈，而是和业务人员一起把那些“大家都知道但没有人写下来”的规则，变成能被系统执行的精确描述。</strong></p>
+</blockquote>
+<hr />
+<h1 id="九进阶规则会变域会有两个">九、进阶：规则会变，域会有两个</h1>
+<h2 id="动态-schema规则不停改变">9.1 动态 Schema：规则不停改变</h2>
+<p><strong>问题</strong>：认证有效期阈值从 30 天改成 15 天。<strong>正在跑的任务怎么办？</strong></p>
+<p><strong>两种策略</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>策略</th>
+<th>效果</th>
+<th>优势</th>
+<th>劣势</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>快照隔离</strong></td>
+<td>任务在 T1 开始就<strong>锁定 Schema 快照</strong>（阈值 30 天），即使 T2 变更，<strong>该任务仍用旧版本校验</strong></td>
+<td><strong>保证任务内部一致性</strong></td>
+<td>长事务可能使用“过时”的规则</td>
+</tr>
+<tr class="even">
+<td><strong>最新优先</strong></td>
+<td>任务在 T3 校验时<strong>使用最新 Schema</strong>（阈值 15 天）</td>
+<td><strong>新规则立即生效</strong></td>
+<td>可能导致任务中途“规则变了”</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>本体系统的选择：快照隔离 + 版本标记。</strong> 审计日志里同时记录<strong>用的是哪个 Schema 版本</strong>。</p>
+</blockquote>
+<p><strong>为什么这件事比数据版本更麻烦</strong>：</p>
+<blockquote>
+<p><strong>数据版本只影响读写，语义版本影响整个决策逻辑。</strong></p>
+</blockquote>
+<p><strong>记忆级联</strong>：规则变更后，还要判断<strong>已有记忆是否与新规则矛盾</strong>—— 矛盾的降低置信度或作废，无矛盾的保持不变。</p>
+<blockquote>
+<p><strong>关键点</strong>：Schema 变更<strong>不需要重启系统，也不需要停止正在运行的任务</strong>——通过版本隔离和记忆级联实现<strong>不停机更新</strong>。</p>
+</blockquote>
+<p><strong>时点查询</strong>：变更之后仍能回答“<strong>在 2026-06-05 那天，Beta 供应商的认证状态是什么</strong>”—— 答案会带上“<strong>使用的 Schema 版本：v1（阈值 30 天）</strong>”和“<strong>判断依据：认证剩余 13 天 &lt; 30 天</strong>”。</p>
+<h2 id="双本体联邦两个语义域共存">9.2 双本体联邦：两个语义域共存</h2>
+<p><strong>场景</strong>：修复某个服务里“消息重复触发采购订单”的问题，<strong>需要同时满足两类约束</strong>：</p>
+<ul>
+<li><strong>代码架构约束</strong>（<code>code-arch</code> 域）</li>
+<li><strong>业务规则约束</strong>（<code>purchasing</code> 域）</li>
+</ul>
+<p><strong>在同一次任务里，它们需要同时注入到 LLM 的上下文中，并且分别校验生成的代码。</strong></p>
+<h3 id="为什么是联邦而不是合并">⚠️ 为什么是“联邦”而不是“合并”</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>合并的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td><strong>命名空间污染</strong>——两个域的记忆会混在同一个检索结果里，<strong>相关性排名会被跨域记忆干扰</strong></td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td><strong>Schema 演进不独立</strong>——业务规则的阈值调整会<strong>触发代码域记忆的重新加载</strong>，污染架构域的迁移记录</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td><strong>预算分配不对称</strong>——代码任务需要更多架构约束 token，业务任务需要更多业务规则 token，<strong>合并之后无法分别分配</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>联邦方案的核心</strong>：<strong>两个域各自独立加载，统一接口查询，注入时按域分配预算，校验时按域独立执行。</strong></p>
+</blockquote>
+<p><strong>一个重要细节</strong>：两个域<strong>共享同一套 ObjectType 定义</strong>，只有<strong>实例目录是分开的</strong>。</p>
+<blockquote>
+<p><strong>这意味着：记忆的类型语言相同，但内容范围不同。</strong></p>
+</blockquote>
+<hr />
+<h1 id="十收口ai-fde-为什么能-work">十、收口：AI FDE 为什么能 work</h1>
+<h2 id="两种常见误解">10.1 两种常见误解</h2>
+<table>
+<thead>
+<tr class="header">
+<th>误解</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>第一种</td>
+<td>FDE 是前线部署工程师，类似于<strong>具备全栈能力的交付工程师</strong></td>
+</tr>
+<tr class="even">
+<td>第二种</td>
+<td>FDE 是<strong>会用 AI 编程写代码</strong>，解决落地最后一公里的开发人员</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这两种观点都挺自然的，但都不是重点。</strong></p>
+<blockquote>
+<p><strong>AI FDE 的抽象</strong>： ## 用大模型、多智能体式的任务分工、记忆系统和非结构化上下文，以本体论的方法论，持续构建和修改企业本体模型，并以这个本体模型作为新一代企业应用系统提供世界模型的过程。</p>
+<p><strong>这里的关键词不是 AI，而是 Engineer。</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>它之所以能 work，不是因为模型突然懂了企业，而是因为它运行在一个已经把企业世界结构化的模型上。</strong></p>
+</blockquote>
+<h2 id="fde-真正做的是世界建模">10.2 FDE 真正做的是世界建模</h2>
+<p>Forward Deployed Engineer 这个角色，<strong>表面上是工程师，实际上经常在做四件事</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>①</strong></td>
+<td><strong>理解业务对象</strong>——订单、供应商、合同、设备、任务、风险、指标，<strong>哪些是核心对象，哪些只是字段</strong></td>
+</tr>
+<tr class="even">
+<td><strong>②</strong></td>
+<td><strong>理解对象关系</strong>——订单属于哪个客户，设备影响哪条产线，<strong>合同约束哪些操作</strong>，风险来自哪个流程</td>
+</tr>
+<tr class="odd">
+<td><strong>③</strong></td>
+<td><strong>理解操作</strong>——什么动作可以被执行，<strong>谁有权限执行，执行前要检查什么，执行后要写回哪里</strong></td>
+</tr>
+<tr class="even">
+<td><strong>④</strong></td>
+<td><strong>构建应用</strong>——不是通用页面，而是<strong>让某个角色可以在当前业务世界里做决策的界面</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h2 id="这四件事合起来就是本体建模">这四件事合起来，就是本体建模。</h2>
+</blockquote>
+<p><strong>所以 AI FDE 的本质，不是“帮 FDE 写代码”，而是把 FDE 的工作流拆成一组可被 AI 参与的工程任务</strong>：</p>
+<ul>
+<li>从<strong>非结构化材料</strong>里抽取对象候选</li>
+<li>根据数据表和业务语言生成 <strong>ObjectType</strong></li>
+<li>根据流程和依赖生成 <strong>LinkType</strong></li>
+<li>把业务操作整理成 <strong>Action</strong></li>
+<li>把计算逻辑沉淀成 <strong>Function</strong></li>
+<li>把约束和权限转成 <strong>Rule</strong></li>
+<li>把本体能力<strong>暴露给应用</strong></li>
+</ul>
+<blockquote>
+<p><strong>FDE 在企业现场做的事情，是把散落的现实压进这套内存系统。</strong> <strong>AI FDE 只是把这个过程自动化、并行化、可追溯化。</strong></p>
+</blockquote>
+<h2 id="大模型负责生成候选本体负责收敛候选">10.3 ⭐ 大模型负责生成候选，本体负责收敛候选</h2>
+<p><strong>大模型最擅长什么？不是保证正确，而是快速生成候选结构。</strong></p>
+<p>给它一堆业务说明、字段名、流程描述、旧代码和用户反馈，它可以生成对象草案、链接草案、函数草案、页面草案。 <strong>这个能力很重要</strong>——如果没有它，传统 FDE 要花大量时间访谈、整理、比对、试错。</p>
+<blockquote>
+<p><strong>但候选不是系统。如果没有收敛机制，AI 生成得越快，污染也越快。</strong></p>
+</blockquote>
+<p><strong>本体提供收敛机制</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>机制</th>
+<th>收敛什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>schema 校验</strong></td>
+<td>候选对象是否<strong>合法</strong></td>
+</tr>
+<tr class="even">
+<td><strong>link 约束检查</strong></td>
+<td>关系是否<strong>成立</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>rule 检查</strong></td>
+<td>动作是否<strong>可执行</strong></td>
+</tr>
+<tr class="even">
+<td><strong>permission 检查</strong></td>
+<td>是否<strong>越权</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>lineage 记录</strong></td>
+<td>这个变更<strong>从哪里来</strong></td>
+</tr>
+<tr class="even">
+<td><strong>记忆治理</strong></td>
+<td>处理<strong>过期和低质量</strong>上下文</td>
+</tr>
+<tr class="odd">
+<td><strong>分支 / 提案 / 评审</strong></td>
+<td>让变更<strong>先在隔离环境验证</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>AI FDE 的工作方式不是“一次生成正确答案”，而是</strong> ## 生成候选 → 放进本体和执行循环里验证 → 然后晋升。</p>
+</blockquote>
+<h2 id="一句话记住四层分工">10.4 一句话记住四层分工</h2>
+<pre><code>Harness            管循环
+Ontology           管世界
+Promotion Gate     管写回
+Memory Pipeline    管下轮怎么读</code></pre>
+<blockquote>
+<p><strong>这和 RAG 很不一样。</strong> <strong>RAG 解决“从材料中找相关信息”。AI FDE 要解决的是“基于这些信息修改企业系统”。</strong> ## 前者是读材料，后者是改世界。</p>
+</blockquote>
+<hr />
+<h1 id="十一本课自查含参考答案">十一、本课自查（含参考答案）</h1>
+<p>本课无实操，但有认知验收。<strong>先自己答，再看答案。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>问题</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>用一句话说清数据和本体的区别</td>
+<td>说得出“<strong>数据记录世界是什么，本体定义世界如何运转</strong>”，<strong>并能举一个自己身边的例子</strong></td>
+<td>只会复述定义，举不出例子</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>幻觉的真正成因是什么？</td>
+<td><strong>不是概率算错，是模型根本没接触过那条约束它行为的业务规则</strong></td>
+<td>答“模型不够大”“需要微调”</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>GraphRAG 属于 OAG 还是 RAG？</td>
+<td><strong>仍属“读”</strong>——帮模型理解关系，<strong>但不提供受治理的写回路径</strong></td>
+<td>答“属于 OAG，因为它有图”</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>OAG 三层能力是什么？缺一层会怎样？</td>
+<td>说得出<strong>操作发现 / 执行约束 / 决策追溯</strong>，<strong>并说得出三种缺失各自的后果</strong></td>
+<td>只记得三个名词</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>为什么提示词工程不够？</td>
+<td>说得出<strong>三个结构性缺陷</strong>（会被遗忘 / 会被稀释 / 会被绕过）+ <strong>三层强度对比</strong></td>
+<td>答“提示词也能约束，写清楚就行”</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Harness 和本体的边界在哪？</td>
+<td><strong>Harness 管控制流，本体管世界</strong>；<strong>混在一起排查成本指数上升</strong></td>
+<td>认为 Harness 里可以放规则</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>建模四阶段的顺序？为什么不能并行？</td>
+<td>调研建模 → 数据盘点 → 引擎搭建 → 场景验证；<strong>先看数据会被现有系统结构带偏</strong></td>
+<td>从“有哪些数据”开始建模</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考答案要点">参考答案要点</h2>
+<p><strong>1. 数据 vs 本体</strong> &gt; <strong>数据是事实的存档，本体是现实的法则。</strong> &gt; 字典只记录名词，本体是<strong>物理引擎</strong>——还定义动词（操作）和物理约束（规则）。 &gt; <strong>达标形状</strong>：能说出自己项目里某条“分散在五个代码文件里、靠约定维持”的规则。</p>
+<p><strong>2. 幻觉的成因</strong> &gt; <strong>模型没有撒谎，它只是不知道那条合同条款的存在。</strong> &gt; 关键判断：<strong>LLM 的边界是自然语言，业务的决策边界是规则空间，两者没有等价关系。</strong> &gt; 所以解法<strong>不是更大的模型，是一个不同的架构层</strong>。</p>
+<p><strong>3. GraphRAG</strong> &gt; <strong>属于“读”。</strong> 它帮模型更好地理解实体关系，<strong>但不提供受治理的写回路径，挡不住“写错”</strong>。 &gt; 判据一句话：<strong>有没有受治理的写路径。</strong></p>
+<p><strong>4. 三层能力</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>缺什么</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>只有发现、没有约束</td>
+<td><strong>和直连数据库一样危险</strong></td>
+</tr>
+<tr class="even">
+<td>只有约束、没有追溯</td>
+<td><strong>合规团队不会签字</strong></td>
+</tr>
+<tr class="odd">
+<td>只有追溯、没有发现和约束</td>
+<td><strong>事后能看到问题，但事前拦不住</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. 提示词不够</strong> &gt; 三个结构性缺陷：<strong>会被遗忘</strong>（多轮后权重下降）、<strong>会被稀释</strong>（上下文塞满被挤出）、<strong>会被绕过</strong>（注入攻击）。 &gt; 一句话：<strong>自觉遵守不是工程约束。</strong> &gt; 补充判据：<strong>API 网关能查“参数格式对不对”，但查不了“这笔加上去之后会不会超额度”——那需要看到写入后的新状态。</strong></p>
+<p><strong>6. Harness vs 本体</strong> &gt; <strong>Harness 管控制流</strong>（谁先跑、失败回哪步、重试几次）；<strong>本体管世界</strong>（有哪些对象、哪些规则算数、哪些能写回）。 &gt; <strong>为什么重要</strong>：出问题时你必须能判断是<strong>路由错了</strong>、<strong>规则错了</strong>、<strong>上下文拼错了</strong>还是 <strong>Agent 输出错了</strong>。 &gt; <strong>层次混在一起，排查成本指数级上升。</strong></p>
+<p><strong>7. 四阶段</strong> &gt; ① 调研与建模（<strong>业务专家必须在场，产出文档不是代码</strong>）→ ② 数据盘点与治理 → ③ 引擎搭建（<strong>这一阶段才开始写代码</strong>）→ ④ 场景验证与调优（<strong>贯穿全程</strong>）。 &gt; <strong>为什么不能反</strong>：<strong>先看数据会被现有系统结构带偏，建出“系统长什么样”而非“业务是什么样”。</strong></p>
+<hr />
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="附-一页纸速查">附 · 一页纸速查</h2>
+<p><strong>数据记录了世界是什么，本体定义了世界如何运转。</strong></p>
+<p><strong>字典 vs 物理引擎</strong>：字典只记名词，物理引擎给碰撞体、边界条件和受力规则。</p>
+<p><strong>幻觉不是算错，是没接触过那条规则。</strong> 解法不是更大的模型，是一个不同的架构层。</p>
+<p><strong>把业务规则从“模型应该知道的事”变成“系统强制执行的约束”。</strong></p>
+<p><strong>ObjectType / LinkType 让世界有结构；Action / Function / Rule 让世界会运动。</strong></p>
+<p><strong>ObjectType 和 LinkType 不是知识库字段，是 AI 内存系统的 inode 和 link。</strong></p>
+<p><strong>RAG 增强“生成内容的依据”，OAG 增强“行动的能力与边界”。GraphRAG 仍属“读”。</strong></p>
+<p><strong>OAG 三层：操作发现 / 执行约束 / 决策追溯。缺一不可。</strong></p>
+<p><strong>自觉遵守不是工程约束。</strong> 提示词层 &lt; API 网关层 &lt; 本体层。</p>
+<p><strong>结构化拒绝三件套</strong>：triggered_rule（为什么不行）+ current_state（当时的世界）+ suggestion（怎么调整）。</p>
+<p><strong>日志存的不是“改了什么”，是“当时世界是什么样”。</strong></p>
+<p><strong>误拦截比漏拦截更危险</strong>——持续误拦截会逼业务绕过本体。</p>
+<p><strong>Harness 管循环，Ontology 管世界，Promotion Gate 管写回。</strong></p>
+<p><strong>多智能体的稳定性不来自对话协议，来自共享本体。</strong></p>
+<p><strong>建模不能从“有哪些数据”开始，要从“现在的做法在哪出了问题”开始。</strong></p>
+<p><strong>先建模、再看数据——顺序不能反。</strong></p>
+<p><strong>本体建模是把业务知识变成可执行定义的过程，而不是软件开发本身。</strong></p>
+<p><strong>大模型生成候选，本体收敛候选。</strong></p>
+<p><strong>RAG 是读材料，AI FDE 是改世界。</strong></p>
+</body>
+</html>

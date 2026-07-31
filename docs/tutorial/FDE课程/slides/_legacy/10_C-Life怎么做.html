@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第10讲 C-Life 怎么做</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:44px 60px;justify-content:flex-start}
+  .slide>.kicker{margin-top:8px}
+  .slide h2.title{font-size:40px;margin:6px 0 14px}
+  .slide h1.title{font-size:60px}
+  .fill-mid{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+  table.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface)}
+  table.tbl th,table.tbl td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top;line-height:1.4}
+  table.tbl thead th{background:var(--surface-2);color:var(--accent);font-weight:700;font-size:13px}
+  table.tbl .fde{background:color-mix(in srgb,var(--accent-2) 9%,transparent)}
+  table.tbl th.dim{font-weight:600;color:var(--text-2);white-space:nowrap}
+  table.tbl.sm{font-size:12.5px}
+  table.tbl.sm th,table.tbl.sm td{padding:6px 9px}
+  .bignum{font-size:54px;font-weight:800;color:var(--accent);line-height:1;letter-spacing:-.03em}
+  .bignum small{font-size:15px;font-weight:600;color:var(--text-2);display:block;margin-top:6px;letter-spacing:0}
+  .statcard{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-2);border-radius:var(--radius);padding:20px 22px}
+  .quote{font-family:var(--font-serif);font-size:30px;line-height:1.4;color:var(--accent);font-weight:600}
+  .redbox{border:2px solid var(--bad);border-radius:var(--radius);padding:16px 20px;background:color-mix(in srgb,var(--bad) 5%,transparent)}
+  .lead{font-size:19px;line-height:1.6;color:var(--text-2);max-width:70ch}
+  ul.clean{margin:0;padding-left:20px}
+  ul.clean li{margin:7px 0;line-height:1.55}
+  figure{margin:0;text-align:center}
+  figcaption{margin-top:12px;font-size:14px;color:var(--text-3)}
+  .cap{font-size:13px;color:var(--text-3);margin-top:8px}
+  .step{display:flex;align-items:center;gap:10px}
+  .stepnum{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .arrow{color:var(--text-3);font-weight:800;font-size:18px;text-align:center}
+  code.mono{font-family:var(--font-mono);font-size:13px;background:var(--surface-2);padding:1px 6px;border-radius:4px}
+</style>
+<div class="deck">
+
+  <!-- 1 Cover -->
+  <section class="slide" data-title="封面">
+    <div class="fill-mid">
+      <span class="kicker">C-Life FDE 能力课程 · 第 10 讲（终点）</span>
+      <h1 class="title anim-fade-up">C-Life<br>怎么做</h1>
+      <div class="divider-accent mt-m mb-m"></div>
+      <p class="lead">前 9 讲讲"FDE 是什么、怎么做、什么人能做、别人怎么做"。<br>这一讲只回答一个问题：<b style="color:var(--accent)">下周一，谁做什么。</b><br>不给愿景，给认领到人头的 90 天计划。</p>
+      <p class="cap mt-l">全课程收口 · 把"一个人脑子里的方法"转成"组织能力" · 实践蓝本：康养行业大模型平台</p>
+    </div>
+    <div class="deck-footer"><span>C-Life FDE 课程</span><span class="slide-number" data-current="1" data-total="15"></span></div>
+    <div class="notes">这是十讲的终点。前 9 讲讲的是 FDE 是什么、怎么做、什么人能做、别人怎么做，这一讲只回答一个问题：下周一谁做什么。我不给愿景，给一份认领到人头的 90 天计划。本讲在能力模型里的位置很特殊——它是 C1 到 C7 的组织化落点，把一个人脑子里的方法转成组织能力，这正是全课程总纲开宗明义的唯一目的。本讲不训练个人技能，训练的是把个人能力制度化的路线图设计能力，直接承接第 8 讲的团队编成图。命题一句话：C-Life 落地 FDE 不是从零开始，是把康养项目这个已经发生的样本做成可复制模板，然后沿选人、训练、平台、试点、度量、规模化六步长出组织能力。今天讲完，你们分组把这 90 天变成谁做什么。不浪漫，但下周一就能开工。</div>
+  </section>
+
+  <!-- 2 康养项目=已验证样本 -->
+  <section class="slide" data-title="康养项目已验证样本">
+    <span class="kicker">要点 1 · 第一步不是从零</span>
+    <h2 class="title">别人落地先造样本，我们先抄自己的样本</h2>
+    <div class="fill-mid">
+      <div class="row" style="gap:24px;align-items:stretch">
+        <div class="redbox" style="flex:1"><h4>常规路径</h4><p class="lead" style="font-size:16px">设想 → 找试点 → 跑一年 → 才有样本</p><p class="dim mt-s" style="font-size:14px">最贵的就是这一年。</p></div>
+        <div class="statcard center" style="flex:none;flex-direction:column;justify-content:center;padding:0 6px;border:none;background:none"><span class="arrow">VS</span></div>
+        <div class="statcard" style="flex:1;border-top-color:var(--accent)"><h4>C-Life 路径</h4><p class="lead" style="font-size:16px">样本已在手（康养项目）→ 抽模板 → 直接复制到第 2 个项目</p><p class="dim mt-s" style="font-size:14px"><b style="color:var(--accent)">我们省掉的是最贵的一年。</b></p></div>
+      </div>
+      <div class="grid g4 mt-l" style="gap:16px">
+        <div class="statcard"><div class="bignum">102→7<small>业务事件 → 域限界上下文</small></div></div>
+        <div class="statcard"><div class="bignum">3835<small>行插件骨架 · 7/7 py_compile</small></div></div>
+        <div class="statcard"><div class="bignum">1<small>名 FDE 对标传统 5+ 人/数周</small></div></div>
+        <div class="statcard"><div class="bignum">11万<small>字 26 图对客可研已交付</small></div></div>
+      </div>
+      <p class="cap mt-l">SOP、BRIEF 骨架、7 域本体范式、HIL 设点判据、citations 治理清单——全是现成产物，就在 <code class="mono">tutorial/</code> 和 <code class="mono">可研报告/</code> 目录里。<b>这是 C-Life 最大的先发优势，浪费了就是犯罪。</b></p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="2" data-total="15"></span></div>
+    <div class="notes">很多落地方案第一句都是我们先找个试点。我们不用——试点已经跑完了，就是康养项目。康养项目不是 PPT 里的设想，是一条已经发生可验证的完整交付链：102 业务事件到 16 事件簇到 7 域限界上下文，到 Object 76、Link 75、Function 38、Rule 47、Action 54、HIL 26，到 3835 行插件骨架加 21 个 YAML 全部 py_compile 通过，到结构校验 7 比 7 零悬空，到 11 章约 11 万字 26 图的对客可研加两份附录，由 1 名 FDE 带智能体编队完成，对标传统 5 人以上数周。所以 C-Life 落地第一步不是再找客户练手，是把康养项目这次已经发生的交付逆向拆成可复制模板——SOP、BRIEF 骨架、7 域本体范式、HIL 判据、citations 清单全是现成产物就摆在目录里。一句话：别人落地要先造样本，我们落地是先抄自己的样本，这是最大先发优势，浪费了就是犯罪。省掉的是最贵的一年。</div>
+  </section>
+
+  <!-- 3 新型FDE定义 + 战场边界 -->
+  <section class="slide" data-title="新型FDE定义与战场边界">
+    <div class="kicker">要点 1·补 · 我们在造什么样的人、该抢什么战场（方法论 06）</div>
+    <h2 class="title">新型 FDE = 第一性原理建模 + 判断力 + AI 执行力</h2>
+    <div class="grid g3 mt-s">
+      <div class="statcard"><b>第一性原理建模</b><p class="cap" style="margin-top:6px">把"不知道"变成"精确定义"</p></div>
+      <div class="statcard"><b>判断力</b><p class="cap" style="margin-top:6px">知道该做什么</p></div>
+      <div class="statcard"><b>AI 执行力</b><p class="cap" style="margin-top:6px">用 AI 把定义变成可运行系统</p></div>
+    </div>
+    <table class="tbl mt-m">
+      <thead><tr><th class="dim">战场</th><th>FDE 的价值</th></tr></thead>
+      <tbody>
+        <tr class="fde"><th class="dim">探索 / 概念验证 / 新项目落地</th><td><b style="color:#1a7f4b">✅ 压倒性优势、不可替代</b>——第一天对话、第二天出 Demo（很多正是模式一 Token-SaaS 应用）</td></tr>
+        <tr><th class="dim">规模化 / 组织推动 / 运维</th><td><b style="color:var(--bad)">❌ 瓶颈在人、在组织，不是工具</b>——数据治理和组织推动的时间，AI 压不了（靠团队编成 + 平台固化，非再买工具）</td></tr>
+      </tbody>
+    </table>
+    <div class="statcard fill-mid mt-m"><p class="quote" style="font-size:22px">平台越来越便宜，本体模型越来越值钱；会建模的人不被替代，<b>而是被放大</b>。<span style="display:block;font-size:15px;color:var(--text-2);font-family:var(--font-sans);font-weight:600;margin-top:8px">→ C-Life 该押的注：押"会建模、能判断"的人，把他们放大。</span></p></div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="3" data-total="15"></span></div>
+    <div class="notes">落地之前先对齐一件事：C-Life 要批量造的到底是什么样的人？我们方法论文集《AI 时代的 FDE》给了最准的定义——新型 FDE 等于从第一性原理建领域模型加判断力加 AI 执行力。三样叠加：把不知道变成精确定义，这是建模；知道该做什么，这是判断；用 AI 把定义变成可运行系统，这是执行。这跟第三、四、八讲的能力模型是同一套，这里只是把它落成招人和训人的靶子。更关键的是它给了战场边界，直接决定 C-Life 该接什么单。看这张表：探索、概念验证、新项目落地，FDE 有压倒性优势、不可替代，第一天对话第二天就出 Demo，别人还在写方案，这些很多正是第六讲讲的模式一 Token-SaaS 应用；而规模化、组织推动、运维，瓶颈在人、在组织，不是工具，数据治理和组织推动的时间 AI 压不了，靠的是这一讲后面讲的团队编成加平台固化，不是再买个工具。所以 C-Life 的打法很清楚：用 FDE 去抢探索期的仗。一句战略判断收口：平台越来越便宜，本体模型越来越值钱，会建模的人不会被替代，而是被放大。所以 C-Life 该押的注很清楚——押会建模、能判断的人，把他们放大。</div>
+  </section>
+
+  <!-- 4 康养项目双面性 -->
+  <section class="slide" data-title="康养项目双面性">
+    <span class="kicker">要点 1 · 定义全部任务</span>
+    <h2 class="title">"能做成"已证，"能复制"要靠这 90 天造</h2>
+    <div class="fill-mid">
+      <div class="row" style="gap:28px;align-items:stretch">
+        <div class="statcard" style="flex:1;border-top-color:var(--accent)"><h4>正面：能做成</h4><ul class="clean" style="font-size:15px;margin-top:8px"><li>完整链条已跑通</li><li>量化产物齐全（7/7 零悬空、18 挂国标、26 HIL 点）</li><li>对客可研已交付</li></ul></div>
+        <div class="redbox" style="flex:1"><h4>反面：不可复制</h4><p class="lead" style="font-size:16px">"这不是一次侥幸，但它目前<b>不可复制</b>——因为方法在<b>一个人脑子里</b>，不在组织里。"</p><p class="dim mt-s" style="font-size:14px">——总纲原话</p></div>
+      </div>
+      <p class="quote mt-l">C-Life 落地的全部任务，就一句：<br>把"一个人脑子里"搬到"组织里"。</p>
+      <p class="cap mt-l">康养项目提供的是"能做成"的证据，不是"能复制"的证据——后者要靠这 90 天造出来。</p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="4" data-total="15"></span></div>
+    <div class="notes">康养项目现状有双面性，必须两面都说。正面：完整链条已跑通、量化产物齐全，7 比 7 零悬空、18 处挂国标、26 个 HIL 点，对客可研已经交付。反面是总纲原话——这不是一次侥幸，但它目前不可复制，因为方法在一个人脑子里，不在组织里。这句话定义了 C-Life 落地的全部任务：把一个人脑子里搬到组织里。请你们记住这个分寸感：康养项目提供的是能做成的证据，不是能复制的证据，后者要靠接下来这 90 天造出来。很多人容易把一次做成误当成具备能力，这是本讲最想矫正的认知偏差——你手里有一个能做成的实证，但组织能不能复制它，现在还是零。这 90 天要造的，就是能复制这个证据。别把已经做成的兴奋，当成已经能规模化的把握。</div>
+  </section>
+
+  <!-- 4 六步路线图 -->
+  <section class="slide" data-title="六步路线图">
+    <span class="kicker">要点 2 · 全景</span>
+    <h2 class="title">六步路线图：有依赖顺序，不能跳</h2>
+    <div class="fill-mid">
+      <table class="tbl">
+        <thead><tr><th>步</th><th>动作</th><th>过关判据</th><th>窗口</th></tr></thead>
+        <tbody>
+          <tr><td><b>① 选人</b></td><td>按第 8 讲判据筛：1 主理(L3)+2–3 见习(L1)+1–2 平台组</td><td>编队到位；C7 只能筛不能训，选错后面全白搭</td><td>90 天内</td></tr>
+          <tr><td><b>② 训练</b></td><td>让 L1 在康养项目模板上过手：挑 1 域重走 事件集→ontology-map→HIL 表</td><td>各 L1 独立走完 1 个康养项目域并过校验</td><td>90 天内</td></tr>
+          <tr><td><b>③ 平台</b></td><td>Astra Studio 管线从"康养项目能用"固化到"换项目也能用"</td><td>管线换项目可复用，隐性配置显性化</td><td>90 天内</td></tr>
+          <tr class="fde"><td><b>④ 试点</b></td><td>拿一个新的中等复杂度 To-G/To-B 项目，L3 带 L1 用模板+平台走</td><td>第 2 项目启动——这一步才真正验证"可复制"</td><td>90 天末启动</td></tr>
+          <tr><td><b>⑤ 度量</b></td><td>用三个硬指标量"我们到底行不行"</td><td>三指标达康养项目基线</td><td>90 天后</td></tr>
+          <tr><td><b>⑥ 规模化</b></td><td>指标达标 + L1 有人升 L2，才并联第 3、4 项目</td><td>前提是度量达标，不是老板拍脑袋</td><td>90 天后</td></tr>
+        </tbody>
+      </table>
+      <p class="cap mt-l">每一步都有康养项目产物做支架：训练有 7 域已交付版做标准答案；平台有 planner→domain-model→clife-onto-engine 已跑通管线；度量有康养项目基线做标尺。<b>康养项目把最难的"从 0 到 1"替我们做完了，我们做的是"从 1 到 N"。</b></p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="5" data-total="15"></span></div>
+    <div class="notes">路线图六步，先看全景再钻 90 天。记住这六步有依赖顺序不能跳。选人，按第 8 讲判据筛，先定 1 个主理 FDE、2 到 3 个见习、1 到 2 个平台组；选人错了后面全白搭，因为 C7 筛不出来的话你训练的是一个永远不敢对客户说不知道的人。训练，不是上课，是在康养项目模板上过手，让 L1 挑 7 域里 1 个域重走一遍，有标准答案可对照，这是最好的训练场。平台，把 Astra Studio 管线从康养项目能用固化到换项目也能用，把隐性配置显性化。试点是第 2 个真实项目，不是再做康养项目，这一步才真正验证可复制。度量，用三个硬指标量我们到底行不行，没有度量我们在推进 FDE 就是自我安慰。规模化，当第 2 项目指标达康养项目基线且 L1 有人升 L2 才并联新项目，前提是度量达标不是拍脑袋。前三步是 90 天要干的，第四步 90 天末启动，五六步在之后。</div>
+  </section>
+
+  <!-- 5 六步链 图形 -->
+  <section class="slide" data-title="六步依赖链">
+    <span class="kicker">要点 2 · 依赖不可跳</span>
+    <h2 class="title">六步依赖链：每步一句过关判据</h2>
+    <div class="fill-mid center">
+      <div style="width:100%;max-width:900px">
+        <div class="step" style="margin:10px 0"><span class="stepnum">1</span><div class="statcard fill" style="padding:12px 16px"><b>选人</b> — 1 L3 + 2–3 L1 + 平台组到位</div></div>
+        <div class="arrow">↓ 依赖不可跳</div>
+        <div class="step" style="margin:10px 0"><span class="stepnum">2</span><div class="statcard fill" style="padding:12px 16px"><b>训练</b> — L1 各独立走完 1 个康养项目域</div></div>
+        <div class="arrow">↓</div>
+        <div class="step" style="margin:10px 0"><span class="stepnum">3</span><div class="statcard fill" style="padding:12px 16px"><b>平台</b> — 管线换项目可复用</div></div>
+        <div class="arrow">↓</div>
+        <div class="step" style="margin:10px 0"><span class="stepnum">4</span><div class="statcard fill" style="padding:12px 16px;border-top-color:var(--accent)"><b>试点</b> — 第 2 项目启动（真正验证"可复制"）</div></div>
+        <div class="arrow">↓</div>
+        <div class="row" style="gap:14px">
+          <div class="step" style="flex:1"><span class="stepnum">5</span><div class="statcard fill" style="padding:12px 16px"><b>度量</b> — 三指标达康养项目基线</div></div>
+          <div class="step" style="flex:1"><span class="stepnum">6</span><div class="statcard fill" style="padding:12px 16px"><b>规模化</b> — 并联新项目</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="6" data-total="15"></span></div>
+    <div class="notes">这一页把六步链画成一条竖着的依赖链，让你们直观看到不能跳。选人在最上，判据是 1 个 L3 加 2 到 3 个 L1 加平台组到位；箭头旁边我特意标了依赖不可跳。往下训练，判据是每个 L1 各自独立走完 1 个康养项目域；再往下平台，判据是管线换项目可复用；到第四步试点，我用重点色标出来，判据是第 2 项目启动，因为这一步才真正验证可复制，前三步都只是准备。最后度量和规模化并排放在底部，度量判据三指标达康养项目基线，规模化判据并联新项目。你们分组认领时对着这张链看清楚：你认领的阶段上游没交付，你就启动不了，比如阶段二 L1 训练没达标，阶段三试点就不能启动，这个依赖不能断。六步不是六个可选动作，是一条承重链，抽掉任何一环后面全塌。</div>
+  </section>
+
+  <!-- 6 90天甘特 配图 -->
+  <section class="slide" data-title="90天甘特">
+    <span class="kicker">要点 3 · 本讲核心 · 板书图</span>
+    <h2 class="title">90 天启动甘特：三阶段、认领到人</h2>
+    <div class="fill-mid center">
+      <figure>
+        <img src="../figures/fig-10-1-90天甘特.png" alt="C-Life 90 天启动甘特：选人抽模板 / 训练固化平台 / 试点启动度量" style="max-width:100%;max-height:60vh">
+        <figcaption>图 10-1　C-Life 90 天启动甘特 — 三泳道对应三阶段，菱形为里程碑 M，底部"HIL 闸"每阶段末交管理层确认</figcaption>
+      </figure>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="7" data-total="15"></span></div>
+    <div class="notes">现在是本讲的核心。90 天分三个 30 天，每阶段有里程碑、有度量、认领到人。先看这张甘特：横轴 0 到 90 天，三个泳道对应三阶段。阶段一是选人加抽模板，阶段二是训练加固化平台，阶段三是第 2 项目试点启动加度量。每阶段标了里程碑菱形和度量指标，关键依赖用箭头连接，比如 L1 训练达标这个菱形连到试点可启动。底部有一条 HIL 闸，标注每阶段末都要交管理层确认，这是把第 6 讲的 HIL 设点原则做组织化应用——阶段之间不是自动流转，是过闸放行。我先把甘特整体讲一遍，下一页给你们看认领到角色的三阶段明细表，工作坊你们分组认领其中一个阶段做实。看这张图时抓三个东西：三条泳道的先后、菱形里程碑的位置、还有底部那条把每阶段末卡住的 HIL 闸。</div>
+  </section>
+
+  <!-- 7 90天三阶段明细 -->
+  <section class="slide" data-title="三阶段明细">
+    <span class="kicker">要点 3 · 认领到角色</span>
+    <h2 class="title">90 天三阶段明细：动作 · 里程碑 · 度量 · 认领</h2>
+    <div class="fill-mid">
+      <table class="tbl sm">
+        <thead><tr><th>阶段</th><th>天数</th><th>主要动作</th><th>里程碑 M</th><th>度量</th><th>认领</th></tr></thead>
+        <tbody>
+          <tr><td><b>一<br>选人+抽模板</b></td><td>0–30</td><td>①按第 8 讲判据筛 1 L3+2–3 L1+1–2 平台组；②康养项目交付逆向拆模板（SOP/BRIEF/7域范式/HIL判据/citations）</td><td>M1 编队到位（<b>人头签字</b>）<br>M2 康养项目模板包 v1 出仓</td><td>C7 筛选通过率；模板覆盖 7 域比例（目标 7/7）</td><td>L3 候选 + HR + 平台组</td></tr>
+          <tr class="fde"><td><b>二<br>训练+固化平台</b></td><td>31–60</td><td>①每名 L1 在模板上独立重走 1 域，对标已交付版；②平台组把管线固化到换项目可复用</td><td>M3 每 L1 交付 1 域并过校验（零悬空）<br>M4 管线跑通非康养项目 mini 样例</td><td><b>首个 L1 独立交付一域周期 ≤ 10 工作日</b>；一次通过率</td><td>L3 带 L1 + 平台组</td></tr>
+          <tr><td><b>三<br>试点启动+度量</b></td><td>61–90</td><td>①选定第 2 个真实 To-G/To-B 项目，L3 带 L1 启动前端认知萃取；②建三指标度量看板</td><td>M5 第 2 项目事件集+首域 ontology-map 出仓<br>M6 度量看板上线</td><td>三大硬指标全部有基线读数</td><td>L3+L1 全员+平台组</td></tr>
+        </tbody>
+      </table>
+      <p class="cap mt-l"><b>三条硬约束</b>：① M1 到<b>人头签字</b>——不是"物色中"，是"谁，确定了"；② 阶段二训练<b>必须对标康养项目已交付版</b>——有标准答案才叫训练；③ 阶段三<b>只启动不完成</b>——目标是"跑起来且有度量"，别把周期吹破。</p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="8" data-total="15"></span></div>
+    <div class="notes">这是认领到角色的三阶段明细表。阶段一 0 到 30 天选人加抽模板，动作是按第 8 讲判据筛出 1 个 L3 加 2 到 3 个 L1 加 1 到 2 个平台组，同时把康养项目交付逆向拆成模板包；里程碑 M1 编队到位要人头签字，M2 模板包 v1 出仓；度量是 C7 筛选通过率和模板覆盖 7 域比例目标 7 比 7；认领给 L3 候选加 HR 加平台组。阶段二 31 到 60 天训练加固化平台，每名 L1 在模板上独立重走 1 个域对标已交付版，平台组把管线固化到换项目可复用；里程碑 M3 每个 L1 交付 1 域过校验零悬空，M4 管线跑通一个非康养项目 mini 样例；度量是首个 L1 独立交付一域周期小于等于 10 个工作日加一次通过率。阶段三 61 到 90 天试点启动加度量。注意三条硬约束：M1 到人头签字不是物色中，阶段二训练必须对标康养项目已交付版有标准答案才叫训练，阶段三只启动不完成别把周期吹破。</div>
+  </section>
+
+  <!-- 8 三大度量指标 -->
+  <section class="slide" data-title="三大度量指标">
+    <span class="kicker">要点 4 · 规模化闸卡在这三个数</span>
+    <h2 class="title">三个硬指标：效率 / 质量 / 风控</h2>
+    <div class="fill-mid">
+      <div class="grid g3" style="gap:18px">
+        <div class="statcard"><p class="pill pill-accent">① 效率</p><h4 style="margin-top:8px">独立交付一域周期</h4><div class="bignum" style="font-size:40px;margin:6px 0">≤10<small>工作日 · 且逐期缩短</small></div><p class="dim" style="font-size:14px">从拿到事件集到交出过校验的 ontology-map。量"训练有没有效、模板好不好用"。对标康养项目"7 域同日并行"效率上限。</p></div>
+        <div class="statcard"><p class="pill pill-accent">② 质量</p><h4 style="margin-top:8px">交付物一次通过率</h4><div class="bignum" style="font-size:40px;margin:6px 0">↑<small>逐期上升 · 规模化前稳定达标</small></div><p class="dim" style="font-size:14px">第一次提交就过复核的比例。反面教材 B-1 图目漂移 / B-2 编号冲突 / B-6 标准号误标。上不去=C4/C6 没练到位。</p></div>
+        <div class="statcard"><p class="pill pill-accent">③ 风控</p><h4 style="margin-top:8px">HIL 设点覆盖率</h4><div class="bignum" style="font-size:40px;margin:6px 0">全覆盖<small>涉钱/涉合规/不可逆/跨组织</small></div><p class="dim" style="font-size:14px">该设闸的 Action 里被正确设闸的比例。康养项目 54 Action 设 26 HIL。漏一个涉钱闸=一次赔付或违规。</p></div>
+      </div>
+      <div class="redbox center mt-l"><p class="quote" style="font-size:24px;margin:0">规模化闸 = 三指标全达康养项目基线，才允许开第 3 个项目。</p></div>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="9" data-total="15"></span></div>
+    <div class="notes">我们在推进 FDE 这句话一文不值，除非你能拿出数。三个硬指标，规模化的闸就卡在这三个数上。指标一效率——首个 FDE 独立交付一个域的周期，从拿到事件集到交出过结构校验的 ontology-map 要多少工作日，目标小于等于 10 天。康养项目那个 L3 能同日并行编译 7 域，但一个新 L1 第一次独立走 1 域 10 天不算慢，关键是这个数要一期比一期短。指标二质量——交付物一次通过率，第一次提交就过复核的比例，反面教材就是 B-1 图目计数漂移、B-2 章节编号冲突、B-6 标准号误标，上不去说明 C4、C6 没练到位。指标三风控——HIL 设点覆盖率，所有涉钱、涉合规、不可逆、跨组织的 Action 里被正确设闸的比例，康养项目 54 个 Action 设了 26 个，漏一个涉钱 Action 的闸可能就是一次赔付或违规。第一个量效率、第二个量质量、第三个量风控，三个都达康养项目基线才允许开第 3 个项目。</div>
+  </section>
+
+  <!-- 9 规模化前提与红线 -->
+  <section class="slide" data-title="规模化红线">
+    <span class="kicker">要点 5 · 前提与红线</span>
+    <h2 class="title">规模化的前提，和两条红线</h2>
+    <div class="fill-mid">
+      <div class="statcard mb-m" style="border-top-color:var(--accent)"><h4>前提</h4><p class="lead" style="font-size:17px">不是"招更多人"，是<b>第 2 项目三指标达康养项目基线 + L1 里有人升到 L2</b>。人可以多招，但<b style="color:var(--accent)">每个新项目必须有一个 C7 过关的 L3 压阵</b>——因为 C7 只能筛不能训。</p></div>
+      <div class="row" style="gap:24px;align-items:stretch">
+        <div class="redbox" style="flex:1"><h4 style="color:var(--bad)">红线一</h4><p style="font-size:15px">不许跳过度量直接铺量。老板说"康养项目都成了，赶紧复制十个"——顶住。指标没达基线的复制，是把一次侥幸当成能力。</p></div>
+        <div class="redbox" style="flex:1"><h4 style="color:var(--bad)">红线二</h4><p style="font-size:15px">不许让平台组缺位去省成本。没有平台组，L3 会退化成"更累的架构师"（第 5 讲），单点或许能扛，规模化必崩——杠杆没了。</p></div>
+      </div>
+      <p class="quote mt-l" style="font-size:24px">规模化的前提是度量达标 + 有第二个 C7 过关的 L3，<br>不是老板拍脑袋。</p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="10" data-total="15"></span></div>
+    <div class="notes">最后讲规模化的前提和两条红线，讲完就去动手。前提：规模化不是招更多人，是第 2 项目三指标达康养项目基线加 L1 里有人升到 L2。人可以多招，但每个新项目必须有一个 C7 过关的 L3 压阵，因为 C7 只能筛不能训，你没有第二个 L3 就不能开第二条并行线，否则就是让一个不敢说不知道的人对客户承诺，迟早出 B-10 那种事——编个假文号糊过去。红线一：不许跳过度量直接铺量，老板说康养项目都成了赶紧复制十个，这时候你要顶住，指标没达基线的复制是把一次侥幸当成能力。红线二：不许让平台组缺位去省成本，没有平台组 L3 会退化成更累的架构师，单点或许能扛规模化必崩，因为杠杆没了。这就是 C-Life 怎么做：先抄自己的样本，选对人、在模板上练、把平台固化、用三个数卡闸、达标才铺量。不浪漫，但下周一就能开工。</div>
+  </section>
+
+  <!-- 10 两条商业化路径 -->
+  <section class="slide" data-title="两条商业化路径">
+    <span class="kicker">要点 6 · 落地要分模式，不能一套打天下</span>
+    <h2 class="title">两条商业化路径（按交付模式）</h2>
+    <div class="fill-mid">
+      <table class="tbl">
+        <thead><tr><th class="dim">维度</th><th>模式一 · Token-SaaS 应用</th><th>模式二 · 大型平台建设 + 运营</th></tr></thead>
+        <tbody>
+          <tr><th class="dim">代表</th><td>教育督导项目</td><td class="fde">康养项目 / 草业项目 / 辣椒</td></tr>
+          <tr><th class="dim">团队</th><td><b>轻团队</b></td><td class="fde"><b>重团队</b>（L3 压阵 + 平台组 + 域专家）</td></tr>
+          <tr><th class="dim">收费</th><td>按量计费（Token / 调用）</td><td class="fde">投建运一体 + 多元收入：运营盘 / 碳汇 / 交易 / 数据要素</td></tr>
+          <tr><th class="dim">节奏</th><td>快跑起量、迭代快</td><td class="fde">长周期赢单、慢工重投</td></tr>
+          <tr><th class="dim">适合</th><td>快速铺规模、验证付费</td><td class="fde">承接政企大盘</td></tr>
+        </tbody>
+      </table>
+      <p class="quote mt-l" style="font-size:23px">两模式 = 两条商业化路径 + 两种团队配置：<br>分模式<b>选人、定价、编队</b>，不能一套打天下。</p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="11" data-total="15"></span></div>
+    <div class="notes">前面讲的九十天路线图是建能力，这一页补一个战略分叉：C-Life 的商业化不是一条路，是两条腿走路，而且两条腿的编队方式完全不同。模式一是 Token-SaaS 应用，代表是教育督导项目，特点是轻团队、按量计费、快跑起量、迭代快，适合快速铺规模、验证付费——它要的是能快速交付一个个应用的敏捷小队。模式二是大型平台建设加运营，康养项目、草业项目、辣椒都是这一类，特点是重团队，要 L3 压阵加平台组加域专家，收入不是按量，而是投建运一体加多元收入——运营盘、碳汇、交易、数据要素，节奏是长周期赢单、慢工重投，适合承接政企大盘。你现在就能看出来，这两条路对人的要求、对定价的算法、对编队的结构都不一样。所以回到九十天计划的选人和编队：你先得判断这个项目是模式一还是模式二，再决定招什么人、怎么编队、怎么报价。别拿做 SaaS 的轻队去啃政企平台大盘，也别拿重平台的编制去做一个按量计费的小应用，那都是错配。C-Life 落地要分模式选人、定价、编队，不能一套打天下。</div>
+  </section>
+
+  <!-- 11 反例 B-10 规模化放大 -->
+  <section class="slide" data-title="反例B-10放大">
+    <span class="kicker">反例讲解 · 规模化时坑被放大几倍</span>
+    <h2 class="title">B-10 + B-1/B-2：规模化把这些坑放大几倍</h2>
+    <div class="fill-mid">
+      <div class="row" style="gap:24px;align-items:stretch">
+        <div class="redbox" style="flex:1"><h4>B-10 · 11 处地方文号无解</h4><p style="font-size:14.5px">单项目里 L3 靠 C7 顶住——留 <code class="mono">[本地待补文号]</code>、锚上位国标、转取证清单，"错文号比空缺更有害"。但规模化后<b>每个项目都有自己的 B-10，你只有一个 C7 过关的人</b>——没有第二个敢留白的人，第二个项目的 B-10 就会被 L1 用假文号填上。</p><p class="dim mt-s" style="font-size:13px">对应红线一 + "每项目须有 C7 过关 L3"</p></div>
+        <div class="redbox" style="flex:1"><h4>B-1 图目漂移 + B-2 编号冲突</h4><p style="font-size:14.5px">"并行产出没收口"的坑，直接对应度量指标二一次通过率。<b>规模化 = 更多并行 = 这类坑指数级增多</b>。阶段二训练必须把"并行必有收口回改、编号权归装配阶段"练进 L1 肌肉，否则规模化时一次通过率会崩。</p><p class="dim mt-s" style="font-size:13px">对应度量指标二 + 阶段二训练清单</p></div>
+      </div>
+      <p class="quote mt-l" style="font-size:23px">落地本质：把 L3 脑子里"靠人品和经验兜住的东西"，<br>变成组织层面的红线、度量和平台约束。</p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="12" data-total="15"></span></div>
+    <div class="notes">本讲引反例的角度是规模化时这些坑会被放大几倍。B-10 十一处地方文号无解，单个项目里 L3 靠 C7 顶住了，坚决留占位、锚上位国标、转取证清单，错文号比空缺更有害。但规模化后每个项目都有它自己的 B-10，而你只有一个 C7 过关的人，这就是红线一和每个项目必须有 C7 过关 L3 的现实依据——没有第二个敢留白的人，第二个项目的 B-10 就会被一个 L1 用假文号填上。B-10 是全课程价值观支点，本讲是它的落地回收：把敢说不知道从一个人的品质，变成一条组织红线。B-1 图目计数漂移加 B-2 章节编号冲突，这两个是并行产出没收口的坑，直接对应度量指标二一次通过率，规模化等于更多并行等于这类坑指数级增多，所以阶段二训练必须把并行必有收口回改、编号权归装配阶段练进 L1 的肌肉。落地本质就是把 L3 脑子里靠人品和经验兜住的东西，变成组织层面的红线、度量和平台约束。</div>
+  </section>
+
+  <!-- 11 演练 + 难听话 -->
+  <section class="slide" data-title="演练与难听话">
+    <span class="kicker">现场演练 · 认领到人</span>
+    <h2 class="title">把 90 天变成"谁做什么"</h2>
+    <div class="fill-mid">
+      <div class="row" style="gap:26px;align-items:stretch">
+        <div class="statcard" style="flex:1.05"><h4>任务：分组认领一个阶段</h4><p style="font-size:15px;margin-top:6px">每条行动项必须有：动作 · <b>负责人（认领到角色，不许"待定"）</b> · 交付物 · 度量 · 依赖前置。</p><p class="dim mt-s" style="font-size:14px">不许写口号——"加强培训"不算；<br><code class="mono">L1-张三在康养项目 D4 域重走 事件集→ontology-map，10 工作日内过校验</code> 才算。</p><p class="cap mt-m">各组拼成一条完整 90 天计划，检查阶段间依赖对不对得上。</p></div>
+        <div class="redbox center" style="flex:.95;flex-direction:column;justify-content:center"><h4 style="color:var(--bad)">本讲难听话</h4><p class="lead" style="font-size:15.5px">"你最大的风险不是做不出康养项目——康养项目已经做出来了。你最大的风险是把'一次做成'误当'具备能力'，用一堆停在 L1 的人去对十个客户承诺——<b>那不是规模化，是把一次侥幸摊薄成十次事故。</b>下周一开工前先回答：<b style="color:var(--bad)">你的第二个 L3 在哪？</b>"</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="13" data-total="15"></span></div>
+    <div class="notes">讲完了，现在你们分组把这 90 天变成谁做什么。我把三个阶段分给三组或按人数拆，每组认领一个阶段，产出可落地的行动项清单——每一条必须有动作、负责人认领到具体角色不许写待定、交付物、度量指标、依赖前置。不许写口号，加强培训不算行动项，L1 张三在康养项目 D4 域上重走事件集到 ontology-map 10 个工作日内过结构校验才算。最后各组把三段拼成一条完整 90 天计划，检查阶段间依赖对不对得上，阶段二 L1 训练没达标阶段三试点就不能启动，这个依赖不能断。本讲难听话我撂重一点：你最大的风险不是做不出康养项目，康养项目已经做出来了；你最大的风险是把一次做成误当具备能力，在没有第二个 C7 过关 L3、没固化平台、没度量看板的情况下被赶紧复制十个的兴奋冲下场，用一堆停在 L1 的人去对十个客户承诺，那不是规模化是把一次侥幸摊薄成十次事故。下周一开工前先回答：你的第二个 L3 在哪，你没有就别谈规模化。</div>
+  </section>
+
+  <!-- 12 下周一谁做什么 -->
+  <section class="slide" data-title="下周一谁做什么">
+    <span class="kicker">落地 · 下周一开工清单</span>
+    <h2 class="title">下周一，谁做什么</h2>
+    <div class="fill-mid">
+      <table class="tbl">
+        <thead><tr><th>角色</th><th>下周一第一件事</th><th>本周内交付</th></tr></thead>
+        <tbody>
+          <tr><td><b>L3 候选</b></td><td>启动阶段一选人：对着第 8 讲 C1–C7 判据，列出 L1/平台组候选名单</td><td>M1 编队草案（含 C7 筛选记录）</td></tr>
+          <tr><td><b>平台组</b></td><td>盘点康养项目管线隐性配置，列"从康养项目能用→换项目可用"待固化清单</td><td>管线固化 backlog v0</td></tr>
+          <tr><td><b>HR</b></td><td>配合 C7 筛选，把"到人头签字"排进阶段一 30 天</td><td>M1 人头签字时间表</td></tr>
+          <tr class="fde"><td><b>候选 L1</b></td><td>领 1 个康养项目域，读已交付 ontology-map 做训练基线自评</td><td>选定受训域 + 差距自评</td></tr>
+          <tr><td><b>管理层</b></td><td>确认三条硬约束与两条红线，设阶段末 HIL 闸的确认人</td><td>规模化闸责任人 + 度量看板需求</td></tr>
+        </tbody>
+      </table>
+      <p class="quote mt-l" style="font-size:24px">先抄自己的样本，选对人、在模板上练、<br>把平台固化、用三个数卡闸、达标才铺量。</p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="14" data-total="15"></span></div>
+    <div class="notes">这一页把 90 天计划收到最实的落点：下周一每个角色第一件事是什么、本周内交什么。L3 候选下周一就启动阶段一选人，对着第 8 讲 C1 到 C7 判据列出 L1 和平台组候选名单，本周内交 M1 编队草案含 C7 筛选记录。平台组盘点康养项目管线的隐性配置，列一份从康养项目能用到换项目可用的待固化清单，本周交管线固化 backlog v0。HR 配合 C7 筛选，把到人头签字排进阶段一 30 天，本周交 M1 人头签字时间表。候选 L1 下周一领 1 个康养项目域，读已交付的 ontology-map 做训练基线自评，本周交选定受训域加差距自评。管理层确认三条硬约束和两条红线，设阶段末 HIL 闸的确认人，本周交规模化闸责任人和度量看板需求。这张表就是把整讲的路线图钉死到下周一——没有待定、没有物色中，每个角色都有一件具体的事。收口那句：先抄自己的样本，选对人、在模板上练、把平台固化、用三个数卡闸、达标才铺量。</div>
+  </section>
+
+  <!-- 13 全课程收口 -->
+  <section class="slide" data-title="全课程收口">
+    <span class="kicker">收口 · 十讲终点</span>
+    <h2 class="title">把方法从一个人脑子里，变成组织能力</h2>
+    <div class="fill-mid">
+      <p class="quote">康养项目提供"能做成"的证据；<br>这 90 天，负责造出"能复制"的证据。</p>
+      <div class="grid g4 mt-l" style="gap:14px">
+        <div class="statcard"><h4 style="font-size:15px">← 第 8 讲</h4><p class="dim" style="font-size:13.5px">选人用 C1–C7 判据 + 编成图；"C7 只能筛"作规模化红线</p></div>
+        <div class="statcard"><h4 style="font-size:15px">← 第 5 讲</h4><p class="dim" style="font-size:13.5px">平台步骤 + 红线二：无平台则 L3 退化成"更累的架构师"</p></div>
+        <div class="statcard"><h4 style="font-size:15px">← 第 6 讲</h4><p class="dim" style="font-size:13.5px">度量指标三 + 甘特底部"HIL 闸"，来自 SOP+HIL 设点原则</p></div>
+        <div class="statcard"><h4 style="font-size:15px">← 第 9 讲</h4><p class="dim" style="font-size:13.5px">Palantir 现场取证文化，落成 C-Life 的组织红线</p></div>
+      </div>
+      <p class="cap mt-l">回收总纲唯一目的——让第 N 个项目不必再靠"又碰到一个好 L3"的运气。<b style="color:var(--accent)">不给愿景，给认领到人头的 90 天。下周一开工。</b></p>
+    </div>
+    <div class="deck-footer"><span>第 10 讲 · C-Life 怎么做</span><span class="slide-number" data-current="15" data-total="15"></span></div>
+    <div class="notes">这是十讲的终点，收口回收全课程总纲的唯一目的：把方法从一个人脑子里变成组织能力。康养项目提供的是能做成的证据，这 90 天负责造出能复制的证据。四个钩子串起前面的讲：第 8 讲，本讲选人步骤直接用 C1 到 C7 判据和 1 主理加 N 见习加平台组编成图，两讲共用 C7 只能筛不能训作规模化红线。第 5 讲，本讲平台步骤和红线二实证了没有工程化平台的 FDE 只是更累的架构师，平台组缺位则规模化必崩。第 6 讲，本讲度量指标三 HIL 设点覆盖率和甘特底部的 HIL 闸，都来自第 6 讲的 SOP 加 HIL 设点原则。第 9 讲，对标 Palantir 的现场取证文化，本讲把它落成 C-Life 自己的组织红线。整门课到这里闭环：让第 N 个项目不必再靠又碰到一个好 L3 的运气。不给愿景，给认领到人头的 90 天，下周一开工。</div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

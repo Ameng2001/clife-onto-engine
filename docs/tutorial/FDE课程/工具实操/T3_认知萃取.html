@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>T3  认知萃取studio-insight</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">T3 认知萃取studio-insight</h1>
+</header>
+<h1 id="t3-认知萃取studio-insight">T3 · 认知萃取（studio-insight）</h1>
+<blockquote>
+<p>目标：把 T1 的项目描述，压成<strong>人、路径、机会</strong>三类结构化产物。<strong>120′</strong>（知识注入 30′ + 实操 70′ + checkout 20′） 知识（讲什么）：<strong>栈① 产品设计</strong>——Persona / 用户旅程 / 机会矩阵（讲义已并入本手册第六节，讲师不必另开文件） 主案例：<strong>教育督导项目</strong>（全部项目里 personas / journeys / processes <strong>三件唯一齐全</strong>的） 工具：<code>studio-insight</code> v0.2.0，<strong>6 个 skill 各自独立可跑</strong>，零插件依赖</p>
+</blockquote>
+<hr />
+<h2 id="先说清楚一件事t3-和-t4-会做两遍吗">〇、先说清楚一件事：T3 和 T4 会“做两遍”吗</h2>
+<p>不会重复，但<strong>确实会碰同一批产物</strong>，先讲明白，否则学员到 T4 必困惑：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>T3（本步）</th>
+<th>T4（下一步）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>怎么跑</td>
+<td><strong>手动单跑</strong> 6 个 insight skill</td>
+<td><code>/studio-planner:plan</code> 一条命令串 5 步</td>
+</tr>
+<tr class="even">
+<td>目的</td>
+<td><strong>看清每个产物长什么样、为什么这么长</strong></td>
+<td>体会<strong>流水线</strong>：事件风暴自动调用 persona/journey/process</td>
+</tr>
+<tr class="odd">
+<td>关系</td>
+<td>学“零件”</td>
+<td>学“装配线”</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>/studio-planner:plan</code> 的 event-storm 步骤内部会调用 <code>studio-insight</code> 的 persona-insight / journey-map / process-flow。<strong>T3 先手动跑一遍，是为了让学员知道 T4 那条流水线里到底发生了什么</strong>——否则 plan 跑完，学员只会说“它自己生成了一堆文件”。</p>
+</blockquote>
+<hr />
+<h2 id="一六件套命令产物确认点">一、六件套：命令、产物、确认点</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>命令</th>
+<th>参数提示</th>
+<th>产物路径</th>
+<th>用户确认点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/studio-insight:persona-insight</code></td>
+<td><code>[用户描述 或 工作区路径]</code></td>
+<td><code>studio/changes/{name}/personas/{slug}.md</code>（多个时另出 <code>personas/README.md</code> 索引）</td>
+<td><strong>2</strong></td>
+</tr>
+<tr class="even">
+<td><code>/studio-insight:journey-map</code></td>
+<td><code>[persona + 场景描述]</code></td>
+<td><code>journeys/{persona-slug}-{scenario-slug}.md</code></td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><code>/studio-insight:process-flow</code></td>
+<td><code>[流程描述]</code></td>
+<td><code>processes/{process-slug}.md</code></td>
+<td><strong>2</strong></td>
+</tr>
+<tr class="even">
+<td><code>/studio-insight:domain-canvas</code></td>
+<td><code>[领域描述 或 工作区路径]</code></td>
+<td><code>domain-canvas.md</code></td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><code>/studio-insight:behavior-matrix</code></td>
+<td><code>[领域描述 或 工作区路径]</code></td>
+<td><code>behavior-matrix.md</code></td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><code>/studio-insight:opportunity-brief</code></td>
+<td><code>[领域描述 或 工作区路径]</code></td>
+<td><code>opportunity-brief.md</code></td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>六个 skill 内部结构完全同构，都是三段</strong>：</p>
+<pre><code>① Expert Discovery（专家发现，五步）
+    ↓
+② 主体分析（各自不同）
+    ↓
+③ Expert Review（专家评审：派子代理逐个评审草稿）
+    ↓
+④ Validate（向你提 3–4 个问题）
+    ↓
+⑤ Write Output（这时才落盘）</code></pre>
+<p><strong>关键</strong>：<strong>先评审、再问你、最后才写文件</strong>。学员看到“它在反复确认”不是卡住了，是设计如此。</p>
+<hr />
+<h2 id="二专家发现机制这一节讲透学员才不会被静默覆盖坑">二、专家发现机制（这一节讲透，学员才不会被“静默覆盖”坑）</h2>
+<h3 id="五步查找顺序">五步查找顺序</h3>
+<ol type="1">
+<li><strong>固定加载主角色</strong> —— persona / journey / opportunity 三个用 <code>product-manager.md</code>；process / canvas / matrix 三个用 <code>architect.md</code></li>
+<li><code>Glob studio/agents/*.md</code> —— <strong>项目级自定义专家，先扫</strong></li>
+<li><code>Glob {插件内置}/agents/*.md</code> —— 内置专家，<strong>“skip any already loaded from project”</strong></li>
+<li>按相关性匹配：拿专家的 <code>## Your Domain</code> 段与你的主题比对，<strong>选 1–3 个</strong></li>
+<li><strong>跳过 <code>_domain-expert-template.md</code></strong>（它是模板不是专家）</li>
+</ol>
+<p><strong>第 3 步那句 skip 就是覆盖生效点</strong>：<code>studio/agents/product-manager.md</code> 存在时，内置那份<strong>根本不会被加载</strong>。</p>
+<h3 id="内置的-11-个专家">内置的 11 个专家</h3>
+<table>
+<thead>
+<tr class="header">
+<th>通用 6 个</th>
+<th>领域 5 个</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>product-manager</code> 用户视角，是否解决真问题</td>
+<td><code>child-nutrition-expert</code> 0–12 岁营养</td>
+</tr>
+<tr class="even">
+<td><code>architect</code> 结构、边界、可持续性</td>
+<td><code>child-exercise-expert</code> 0–12 岁运动发育</td>
+</tr>
+<tr class="odd">
+<td><code>ux-researcher</code> 人<strong>实际</strong>怎么做，而非嘴上怎么说</td>
+<td><code>elderly-nutrition-expert</code> 60+ 慢病膳食</td>
+</tr>
+<tr class="even">
+<td><code>data-analyst</code> 可度量性、指标与基线</td>
+<td><code>elderly-rehab-exercise-expert</code> 60+ 康复与防跌倒</td>
+</tr>
+<tr class="odd">
+<td><code>compliance-officer</code> 规则、风险与问责</td>
+<td><code>skincare-expert</code> 护肤</td>
+</tr>
+<tr class="even">
+<td><code>operations-manager</code> 日常怎么落地、能否规模化</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>老年营养 + 老年康复运动这两个内置专家，<strong>正是康养项目沉淀下来的</strong>。这就是讲 5「平台=固化物」在<strong>专家层</strong>的体现——上一个项目的领域知识，变成了下一个项目开箱可用的评审视角。</p>
+</blockquote>
+<h3 id="翻车点-1同名专家静默覆盖">⚠️ 翻车点 1：同名专家静默覆盖</h3>
+<p>学员在 <code>studio/agents/</code> 放了个自己写的 <code>product-manager.md</code>，内置那份就不加载了。<strong>产出的画像会走味，而且没有任何报错。</strong> <strong>处置</strong>：跑之前先 <code>ls studio/agents/</code>，心里有数。要定制就用 <code>/studio-core:create-expert customize product-manager</code>，别手搓同名文件。</p>
+<blockquote>
+<p>⚠️ 另注：插件文档里有处写 <code>/studio-insight:create-expert</code> —— <strong>这个命令不存在</strong>，正确的是 <strong><code>/studio-core:create-expert</code></strong>。</p>
+</blockquote>
+<hr />
+<h2 id="三六个产物长什么样手册要给学员看样子">三、六个产物长什么样（手册要给学员看样子）</h2>
+<h3 id="persona-卡">persona 卡</h3>
+<p>ASCII 卡片：Role / Age range / Tech level / Context / <strong>Goals(1–3)</strong> / <strong>Pain points(1–3，带 高·中·低 severity)</strong> / Current tools / Success looks like + 共情图四象限：<strong>Thinks / Sees / Hears / Does</strong> + 结尾两行 <code>Pain:</code> / <code>Gain:</code></p>
+<h3 id="journey">journey</h3>
+<p>元数据（persona、scenario、trigger、end state） + 逐阶段表，行标签固定：<code>Stage / Actions / Touchpoints / Thoughts / Emotion(带 emoji) / Pain points</code>，<strong>4–7 个阶段列</strong> + 情绪曲线文字图 + <strong>痛点机会表 5 列</strong>：<code># | Stage | Pain Point | Severity | Opportunity</code> + Key insights</p>
+<h3 id="process">process</h3>
+<p>元数据（name / trigger / end states / frequency） + 文字流程图，<strong>五种符号</strong>：<code>[事件]</code> <code>◇ 问题？</code> <code>→</code> <code>├─</code> <code>(Actor)</code> + <strong>决策点表 5 列</strong>：<code>ID | Decision | Condition | True path | False path</code> + 并行说明 + 泳道图 + Key observations</p>
+<h3 id="domain-canvas">domain-canvas</h3>
+<p>每域一张卡：<strong>Owns / Does NOT own / Key actors / Key events</strong> + <strong>分类表</strong>：<code>Domain | Type | Rationale</code>（Type = Core / Support / Generic） + 关系表（<code>──▶ 喂入</code> / <code>◀──▶ 共享</code> / <code>· · · 独立</code> / <code>══▶ 编排</code>） + 整张 canvas ASCII 图 + build strategy 建议</p>
+<blockquote>
+<p><strong><code>Does NOT own</code> 这一行是精华</strong>：定义一个域最有效的方式是说清它<strong>不管什么</strong>。这条直接喂给 T4 的域切分。</p>
+</blockquote>
+<h3 id="behavior-matrix">behavior-matrix</h3>
+<p>Actor 清单（Type = User / AI Agent / System / External） + 动作表 / 事件表 / 数据表 + <strong>主矩阵 5 列</strong>：<code>Actor | Action | Event | Data In | Data Out</code> + 数据实体表 + <strong>Gaps</strong> + <strong>Automation opportunities</strong> + Skill mapping hints</p>
+<blockquote>
+<p>主矩阵是 <strong>T5 五要素的直接前身</strong>：Actor→Action 的 actor，Action→Action，Data In/Out→Object 与 Link。T5 会回来用它。</p>
+</blockquote>
+<h3 id="opportunity-brief">opportunity-brief</h3>
+<p>证据来源表 + 候选表（ID 形如 <code>OP-1</code>） + <strong>Impact × Feasibility 5×5 星阵</strong>：★★★ Build first / ★★ Build next / ★ Consider / 空 Defer + 工作量表 + 排名块（<strong>Score = 两轴相乘</strong>）+ Recommendation</p>
+<blockquote>
+<p>⚠️ 它<strong>明确拒绝给工期估算</strong>（“Do NOT give time estimates”）。学员问“那什么时候能做完”——<strong>这不是这个工具该回答的</strong>，工期要等 T4 域切分和 T8 技能拆解之后才谈得上。</p>
+</blockquote>
+<hr />
+<h2 id="四实操70">四、实操（70′）</h2>
+<h3 id="先做一件事把-t1-的输入包喂进去">🔔 先做一件事：把 T1 的输入包喂进去</h3>
+<blockquote>
+<p>六件套的第一个输入，就是 <strong>T1 产出的 <code>_INPUT.md</code></strong>——不是让学员现场再口述一遍命题。 <strong>⭐ 这是对 T1 的一次真实验收</strong>：如果跑出来的画像很空洞、或者术语每次都不一样，<strong>回 T1 看输入包的②口径层缺了什么</strong>，别怪工具。</p>
+</blockquote>
+<h3 id="任务">🔔 任务</h3>
+<p>用本组命题跑完六件套，产出：<strong>画像 ≥3、旅程 ≥2、流程 ≥2、热点分层一份</strong>。</p>
+<h3 id="建议顺序与时间盒">建议顺序与时间盒</h3>
+<table>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>命令</th>
+<th>时长</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>persona-insight</code></td>
+<td>20′</td>
+<td>≥3 张画像卡 + README 索引</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>journey-map</code> ×2</td>
+<td>20′</td>
+<td>2 条旅程（选<strong>最能暴露痛点</strong>的场景，不是最典型的）</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>process-flow</code> ×2</td>
+<td>15′</td>
+<td>2 个流程（含决策点表）</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>opportunity-brief</code></td>
+<td>15′</td>
+<td>热点排名（可当场推翻评分，见下）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>domain-canvas 与 behavior-matrix 本步不强制跑</strong> —— 它们在 T4 的 <code>/studio-planner:plan</code> 完整模式里会自动带出来。时间充裕的组可以跑 <code>behavior-matrix</code> 提前感受一下 T5 的五要素雏形。</p>
+<h3 id="难点注意">🔔 难点/注意</h3>
+<p><strong>① 画像必须按「行为」切，不能按「人口属性」切。</strong></p>
+<blockquote>
+<p>康养项目基线：7 个画像不是“60 岁以上老人”“空巢老人”这种切法，而是 <strong>“熟人获客接受度 77.59%”</strong>、<strong>“智能监护接受但要简单式 84.48%”</strong> ——按行为倾向切，且每条都有 368 份问卷校准。 <strong>判据</strong>：两个画像如果目标、痛点、使用频率没有显著差异，就<strong>不该拆成两个</strong>。建议 2–3 个起步，超过 4 个说明你的范围划大了。</p>
+</blockquote>
+<p><strong>② <code>opportunity-brief</code> 的评分可以推翻。</strong> skill 明确允许你<strong>以业务理由否决它的排序</strong>。这正是 C7「价值判断」不可外包的具体落点——模型能算 Impact×Feasibility，但“这个季度必须先啃硬骨头给客户看到东西”这种判断，只能人做。</p>
+<p><strong>③ 没有工作区时产物会散落。</strong> 六个 skill 都能脱离 <code>studio/</code> 独立跑，此时会写到<strong>当前目录</strong>或让你选路径。<strong>先确认 <code>/studio-core:init</code> 跑过</strong>，否则文件会撒得到处都是。</p>
+<hr />
+<h2 id="五-启发范例-教育督导项目点开看做对了长什么样">五、💡 启发范例 · 教育督导项目（点开看“做对了长什么样”）</h2>
+<blockquote>
+<p>素材：<code>Plugins/kindergarten-bench-plugins/studio/changes/saihan-preschool/</code> <strong>成熟度诚实标注</strong>：教育督导项目已完成建模 + 方案 + 47 页 Mock demo（数据是真的、AI 是 Mock），<strong>本体未编译</strong>（<code>status.json</code> phase=planning）。</p>
+</blockquote>
+<p><strong>它的三件套长这样：</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>类型</th>
+<th>文件</th>
+<th>看点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>personas</td>
+<td><code>p1-li-keke</code>（区教育局科长）/ <code>p2-zhang-yuanchang</code>（园长）/ <code>p3-wang-laoshi</code>（教师）</td>
+<td><strong>三层视角</strong>：监管者 / 管理者 / 执行者。同一件事在三个人眼里完全不同</td>
+</tr>
+<tr class="even">
+<td>journeys</td>
+<td><code>j1-li-gap-to-okr</code>（从差距到 OKR）/ <code>j2-zhang-task-to-class</code>（从任务到班级）/ <code>j3-wang-upload-qc</code>（上传到质检）</td>
+<td><strong>三条旅程首尾相接</strong>：李科长的产出是张园长的输入，张园长的产出是王老师的输入</td>
+</tr>
+<tr class="odd">
+<td>processes</td>
+<td><code>pf1-district-gap-okr</code> / <code>pf2-park-task-decompose</code> / <code>pf3-upload-qc-loop</code></td>
+<td>与旅程一一对应，把“人的体验”翻译成“系统的流程”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⭐ 最值得学的一点</strong>：三个画像不是并列的三类用户，而是<strong>一条责任链上的三环</strong>。旅程也因此能首尾相接。 <strong>给学员的问题</strong>：你的命题里，那几个角色是并列的，还是有责任传递关系的？<strong>如果是链，就按链来做旅程。</strong></p>
+<p><strong>⚠️ 同时带一个 B-5 活体</strong>：教育督导项目的园所数在源材料里<strong>不一致</strong>——event-storm 写 99 所、热点评估写 124 园、数据样本是 79 园。 <strong>正确处置是三个数都标“待区教育局核实”，不替它选一个。</strong> 学员最爱的动作是“挑一个看起来最靠谱的写上去”——那就是编造的开始。</p>
+<p><strong>⚠️ 反面对照 · 学前教育项目</strong>：那个项目交出了 653KB 可研和完整送审报价包，<strong>但它没有 persona、没有 journey</strong>，只做到 event-storm + 本体总纲。 <strong>说明什么</strong>：可研写得出来，不等于认知萃取做过了。<strong>跳过 T3 也能交付，但交付的是“我们理解的业务”，不是“客户实际在做的业务”。</strong></p>
+<hr />
+<h2 id="六知识讲什么-栈①-产品设计产品经理的方法论30">六、知识（讲什么）· 栈① 产品设计（产品经理的方法论，30′）</h2>
+<blockquote>
+<p>这一节是讲 4「七角色知识栈」里的 <strong>栈①</strong>，能力位 <strong>C1 认知萃取</strong>。 <strong>【这个角色原本是谁】</strong> 产品经理 / 产品设计师——负责把模糊的客户意图变成“要做什么”。传统模式里他一个人占着这个位置，交接给架构师时信息就衰减一次。<strong>FDE 把这套方法论装进自己脑子</strong>，从事件一路跑到机会矩阵，中间不换人。</p>
+</blockquote>
+<h3 id="核心命题">6.1 核心命题</h3>
+<blockquote>
+<p><strong>FDE 的核心资产不是“会用 AI”，是把客户的模糊意图压成可执行的结构。</strong> 证据：康养项目 <strong>102 个业务事件 → 16 事件簇 → 7 域限界上下文</strong>。这一步没有任何模型能替你做判断，模型只能加速你做完。</p>
+</blockquote>
+<p>产品设计<strong>不是“画原型”</strong>。它在这门课里的定义只有一句：<strong>一条把“客户想要点什么”逼成可归域结构的方法论管线</strong>——<code>事件 → 画像 → 旅程 → 机会矩阵</code>。管线的出口直接插进 T4 的限界上下文。</p>
+<h3 id="方法论内核五个把模糊意图变结构的具体方法">6.2 方法论内核：五个把模糊意图变结构的具体方法</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>要点</th>
+<th>本步对应的 skill</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Persona 用户画像</strong></td>
+<td>按<strong>行为 / 目标 / 动机 / 痛点</strong>定义真实用户，<strong>不是人口属性堆砌</strong>。画像是整条旅程的地基——Figma 的说法是 persona 让旅程“反映真实用户视角”</td>
+<td><code>persona-insight</code></td>
+</tr>
+<tr class="even">
+<td><strong>User Journey Map 用户旅程图</strong></td>
+<td>Figma 五要素框架：① 用户（persona）② 场景与目标 ③ <strong>旅程阶段</strong>（通用 awareness→consideration→decision→purchase→retention，可按业务定制）④ <strong>行为·态度·情绪</strong>（每阶段的正负情绪）⑤ <strong>机会点</strong>（从摩擦/痛点里长出来）。五步做法：研究数据定 persona 与目标 → 找触点 → 可视化阶段 → 逐阶段记录行为与情绪 → 用真实反馈校验迭代</td>
+<td><code>journey-map</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Opportunity Matrix 机会矩阵</strong></td>
+<td>把旅程里暴露的痛点<strong>排优先级</strong>——按影响 × 可行性 × 频率打分、ROI 排序，决定先做哪个</td>
+<td><code>opportunity-brief</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>方法论与工具实现有一处差异，要当场说明</strong>：机会矩阵在方法论上是<strong>三因子</strong>（影响 × 可行性 × 频率），但 <code>opportunity-brief</code> 这个 skill <strong>只算两轴</strong>——<code>Score = Impact × Feasibility</code>，5×5 星阵，<strong>频率不进公式</strong>。 <strong>不是工具做错了</strong>：频率信息在旅程里（“每天都遇到” vs “一年一次”），工具把它留给你做最后判断。所以工具给的排序<strong>本来就该被你以业务理由推翻</strong>——这正是下面第三条要讲的。 <strong>别让学员对着两个数字发懵</strong>，也别自己动手改工具的算法。 | <strong>Event Storming 事件风暴</strong> | 把业务事件全量铺开、再归簇，<strong>喂给后面的限界上下文（栈②/T4）</strong> | T4 <code>event-storm</code> | | <strong>产品思维（梁宁）</strong> | 给上面这些方法补一层“人和情绪”：① <strong>同理心</strong>——看懂用户情绪、把需求分成<strong>痛点/痒点/爽点</strong>（画像和旅程里的“痛点”就从这来）② <strong>机会判断·点线面体</strong>——别做一个没有势能的孤点 ③ <strong>用户体验五层</strong>（战略存在/能力圈/资源结构/角色框架/感知层）——产品不止“感知层好看”，底下四层才决定成败 | 贯穿全部六件套 |</p>
+</blockquote>
+<blockquote>
+<p><strong>画像 → 旅程 → 机会矩阵是有先后的</strong>：画像不真，旅程就是编的；旅程不暴露痛点，机会矩阵就没有原料。<strong>这条顺序不能倒</strong>，也是本步实操时间盒的排法依据。</p>
+</blockquote>
+<h3 id="业界经典要补这一栈就啃这几本">6.3 业界经典（要补这一栈，就啃这几本）</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>来源</th>
+<th>补什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>《设计冲刺 Sprint》</strong>（Jake Knapp，Google Ventures）</td>
+<td>五天从问题到可测原型；HMW（How Might We）、用户测试是骨架</td>
+</tr>
+<tr class="even">
+<td><strong>Figma User Journey Map 资源库</strong></td>
+<td>旅程图五要素与五步做法的权威框架（本步 <code>journey-map</code> 产物结构的出处）</td>
+</tr>
+<tr class="odd">
+<td><strong>梁宁《产品思维 30 讲》</strong>（得到）</td>
+<td>同理心 / 点线面体 / 用户体验五层，补足“情绪与势能”维度</td>
+</tr>
+<tr class="even">
+<td><strong>内部《场景化产品设计》</strong>（刘亚蒙，2018）</td>
+<td>它的“建立共同的认知约定：名词/概念/流程/节奏”<strong>就是本课程锚定口径机制的原型</strong>；“场景七要素”<strong>就是后面 T5 五要素里 Action 的前身</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ 最后一条要当场点破：<strong>产品栈和本体栈本是一条血脉。</strong> 学员到 T5 会以为五要素是凭空长出来的本体概念——不是，它在产品栈的“场景七要素”里就有雏形。这也是为什么 T3 做得糙，T5 一定难受。</p>
+</blockquote>
+<h3 id="方法论-工具这一栈已经被固化了">6.4 方法论 → 工具：这一栈已经被固化了</h3>
+<p>这些方法在 C-Life <strong>不是靠手画白板，是固化成 studio 技能</strong>：<code>persona-insight</code> · <code>journey-map</code> · <code>process-flow</code> · <code>opportunity-brief</code> · <code>behavior-matrix</code> · <code>domain-canvas</code>，加上 T4 的 <code>event-storm</code>。</p>
+<blockquote>
+<p>这跟 T5 本体锚到 <code>clife-onto-engine</code> 是<strong>对称的</strong>：产品栈锚到 Astra Studio planner/insight 工具链——<strong>方法论被平台固化</strong>（呼应 T2 讲的“平台 = 方法论的固化物”）。 记住因果方向：<strong>工具是果，管线是因</strong>。不是因为有了这六个 skill 才这么做事，是因为先有这条管线，工具才长成这个样子。</p>
+</blockquote>
+<h3 id="康养项目完整链条背下来这是量级标尺">6.5 康养项目完整链条（背下来，这是量级标尺）</h3>
+<pre><code>102 业务事件 → 16 事件簇 → 7 角色画像（368 份问卷校准）
+    → 7 条用户旅程 → 5 条业务流程 → 10 个热点（P1–P5 分层）→ 7 域限界上下文</code></pre>
+<p><strong>每一段都有一个 skill 对应</strong>：<code>event-storm</code> 出 102 事件 / 16 簇 → <code>persona-insight</code> 定 7 画像 → <code>journey-map</code> 画 7 旅程 → <code>process-flow</code> 出 5 流程 → <code>opportunity-brief</code> 排 10 热点 P1–P5。<strong>这条链就是本步实操要复刻的东西</strong>，只是规模小一号。</p>
+<h3 id="三件事讲透">6.6 三件事讲透</h3>
+<ol type="1">
+<li><strong>画像的真假之分（本步唯一的核心教学点）</strong> —— 假画像是人口统计（“60 岁以上、退休、有慢病”），真画像是<strong>行为倾向 + 证据</strong>（“熟人获客接受度 77.59%”“智能监护接受但要简单式 84.48%”）。前者从常识就能编，<strong>后者必须去问</strong>——康养项目那 7 个画像背后是 <strong>368 份问卷校准</strong>，每条特征都能指回一份数据来源。 &gt; <strong>判据</strong>：两个画像如果目标、痛点、使用频率没有显著差异，就不该拆成两个。</li>
+<li><strong>旅程要选“最暴露痛点”的场景，不是最典型的场景</strong> —— 典型场景大家都顺，看不出机会在哪。</li>
+<li><strong>热点分层是给决策者看的，不是给自己看的</strong> —— Impact × Feasibility 打分的意义不在于分数本身，在于<strong>逼你说清“凭什么这个先做”</strong>。</li>
+</ol>
+<h3 id="同一套方法跨行业成立-教育督导项目的印证">6.7 同一套方法跨行业成立 · 教育督导项目的印证</h3>
+<p>教育督导项目用的是<strong>完全同一套 planner/insight 方法</strong>：3 画像（李科长 / 张园长 / 王老师）+ journey + <code>opportunity-brief</code> ROI 排序（material-qc / standard-decode / gap-diagnose 排 P0）。</p>
+<blockquote>
+<p><strong>康养和幼教，行业不同、交付模式不同，认知萃取这一栈的做法一模一样。</strong> 这就是 C1 认知萃取<strong>迁移力</strong>的底座——也是为什么这一栈值得单独花 30 分钟：它是你换一个行业还带得走的东西。</p>
+</blockquote>
+<h3 id="反例-b-7旅程建模过重">6.8 ⚠️ 反例 B-7（旅程建模过重）</h3>
+<p>康养项目长者旅程的初版做的是<strong>“夜间急救”</strong>——场景很戏剧、很打动人，但<strong>过重且偏离营收主线</strong>，最后返工改成会员飞轮。</p>
+<blockquote>
+<p><strong>原则</strong>：建模要服务于业务优先级，不是求全。<strong>返工成本要记在方法论账上</strong>，不能假装没发生过。 <strong>落到本步</strong>：选旅程场景之前，先回头看 T1 写的商业模式——<strong>那三条收入线在哪条旅程上？</strong> 就做那条。</p>
+</blockquote>
+<h3 id="自学-自评到能独立交付">6.9 自学 / 自评到“能独立交付”</h3>
+<p><strong>练法</strong>：对一个熟悉业务，限时做一张<strong>含五要素（persona / 阶段 / 情绪 / 痛点 / 机会）的旅程图</strong>，再从痛点排一张机会矩阵。</p>
+<p><strong>自评三条（够到就是能交付）</strong>： - 能独立主持一场事件风暴，产出<strong>可归域</strong>（不是流水账）的事件集； - 能做一张<strong>情绪与机会点齐全</strong>的 journey map； - <strong>每个画像特征都能指到一份数据来源</strong>——康养项目 368 份问卷就是这条纪律的样板，指不出来源的特征就是编的（这正是 B-5「数据张冠李戴」的上游防线）。</p>
+<hr />
+<h2 id="七知识讲什么-认知杠杆为什么工具能顶几个人15">七、知识（讲什么）· 认知杠杆：为什么工具能顶几个人（15′）</h2>
+<blockquote>
+<p><strong>讲这一节的时机很关键：放在实操之后。</strong> 学员刚亲手用六件套在 55 分钟里产出了传统要几天的东西——<strong>这时候讲「认知杠杆」他有实感；开课就讲，他只当是口号。</strong> 本节吸收讲义「第 2 讲 · 大模型时代 FDE 交付 vs 传统交付」。<strong>口播稿在末节讲师包，5 段可照读。</strong></p>
+</blockquote>
+<h3 id="认知杠杆-结构化能力-平台固化这一页是钉子钉不进去前面白讲">认知杠杆 = 结构化能力 × 平台固化（这一页是钉子，钉不进去前面白讲）</h3>
+<pre><code>认知杠杆 = 结构化能力（决定能不能做对） × 平台固化（决定能不能做快做稳）
+                    ★ 打字快 ∉ 这个公式</code></pre>
+<ul>
+<li><strong>结构化能力</strong>：把 102 个乱糟糟的业务事件收敛成 16 簇、压成 7 个域，<strong>没有任何模型能替你做判断</strong>。模型能帮你把 102 件事列出来、写候选归类，但“该归成 16 簇还是 20 簇、边界划在哪”是 FDE 的判断。<strong>模型只能加速你做完，不能替你做对。</strong> 你结构化能力越强，模型放大的倍数越大；<strong>你结构化能力是零，模型放大零还是零。</strong></li>
+<li><strong>平台固化</strong>：7 域同日并行编译、7/7 零悬空，靠的是 <code>studio-planner → domain-model → clife-onto-engine → citations 治理 → 可研生成</code> 这条固化管线（详见 T2 §六）。<strong>没有工程化平台的 FDE，只是“更累的架构师”</strong>——能做对，但做不快、做不稳、复制不了。</li>
+</ul>
+<p><strong>顺带把“交付物形态”讲了</strong>（学员以为 AI 只是让你写得快，交付物还是老三样，错）：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>传统</th>
+<th>FDE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>方案与系统</td>
+<td>Word 方案 ⟂ 系统（<strong>两张皮</strong>）</td>
+<td>11 章可研 ‖ 3835 行骨架（<strong>同源</strong>，7/7 py_compile）</td>
+</tr>
+<tr class="even">
+<td>一致性</td>
+<td><strong>不可校验</strong>（你怎么校验一份 Word 的内部一致性？）</td>
+<td>A 结构 7/7 零悬空、B source 治理 7/7 零空 source</td>
+</tr>
+<tr class="odd">
+<td>规模与深度</td>
+<td>5 人数周产不出，产出来也无法保证内部一致</td>
+<td>14 类知识库 / 8 个知识图谱 / 约 350 万三元组</td>
+</tr>
+</tbody>
+</table>
+<p><strong>节奏也变了</strong>：传统是<strong>串行接力</strong>（总时长 = 各段之和），FDE 是<strong>并行铺开</strong>（35 个分节并行写作、26 图与写作同步、7 域同日编译）。</p>
+<blockquote>
+<p>⚠️ <strong>并行有代价，要诚实说</strong>：各写各的，<strong>口径会散</strong>。康养项目的处置是先立一份 <code>_WRITING_BRIEF.md</code>（术语表 + 核心数据表 + 观点主张 + 协作纪律）当<strong>唯一真相源</strong>，<strong>35 节全部引用不重算</strong>，再用结构校验器兜底。 <strong>这条纪律就是本手册 §四 B-11 的上位规则</strong>——“数字锚在单点、引用不重算”，在写作期叫 BRIEF，在调研期就叫“<strong>换模板必须清空所有数字</strong>”。</p>
+</blockquote>
+<p><strong>🎯 Vibe Coding 的真相（一句话记死）</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>AI 能干</th>
+<th>AI 不能干</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>给了明确规格后</strong>，把伪代码变 Python、处理文件读写、生成测试、格式化输出——10 分钟搞定</td>
+<td><strong>工程判断</strong>：规则写入前还是后执行？日志存快照还是只存改变？Schema 用 YAML 还是 Python？多规则违反时短路还是收集？</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>“AI 能把’想清楚的事’快速变成代码，但不能代替’想清楚’这件事本身。”</strong> <strong>AI 把“实现”变便宜了，但没把“判断”变容易。</strong> 没有蓝图的 Vibe Coding 会失控，一处改动带出三处 bug。 <strong>落到 T1</strong>：这份项目描述，就是那份“蓝图”。<strong>你在这一步偷的懒，AI 会在后面七步替你放大。</strong></p>
+</blockquote>
+<hr />
+<hr />
+<h2 id="八checkout验收对照-20">八、checkout（验收对照 · 20′）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>画像切法</td>
+<td>按<strong>行为倾向</strong>切，每个画像的目标/痛点/频率有显著差异</td>
+<td>按年龄、职业等人口属性切 → <strong>一票警示</strong></td>
+</tr>
+<tr class="even">
+<td>画像数量</td>
+<td>2–4 个，多出来的能说清“为什么必须单独建”</td>
+<td>≥5 个且说不清差异（范围划大了）</td>
+</tr>
+<tr class="odd">
+<td>旅程选题</td>
+<td>选的是<strong>最暴露痛点</strong>的场景，且与 T1 的收入线对得上</td>
+<td>选了最典型/最戏剧的场景（B-7）</td>
+</tr>
+<tr class="even">
+<td>旅程完整性</td>
+<td>4–7 个阶段，情绪曲线有起伏，痛点表 Severity 分级</td>
+<td>全程平顺无痛点（说明没问到真实的）</td>
+</tr>
+<tr class="odd">
+<td>流程</td>
+<td>决策点表填满（含 True path / False path）</td>
+<td>只有主干、没有分支</td>
+</tr>
+<tr class="even">
+<td>热点</td>
+<td>有排名 + 排名理由，且<strong>敢于推翻工具的评分并说明业务理由</strong></td>
+<td>全盘接受工具打分</td>
+</tr>
+<tr class="odd">
+<td>数据诚实</td>
+<td>源材料矛盾处标“待核实”，不替客户选一个</td>
+<td>挑一个“看起来靠谱的”写死 → <strong>一票警示（B-5）</strong></td>
+</tr>
+<tr class="even">
+<td>专家</td>
+<td>知道本次加载了哪几个专家</td>
+<td>不知道 <code>studio/agents/</code> 里有什么</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="九给讲师的时间盒">九、给讲师的时间盒</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>时长</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开场：T3 与 T4 的关系</td>
+<td>5′</td>
+<td>讲清“零件 vs 装配线”，避免 T4 困惑</td>
+</tr>
+<tr class="even">
+<td>知识 · 栈① 产品设计</td>
+<td>30′</td>
+<td>五方法 + 经典 + 康养项目链条 + 画像真假之分 + 教育督导项目迁移 + B-7 反例（口播稿见第十节）</td>
+</tr>
+<tr class="odd">
+<td>启发：教育督导项目三件套</td>
+<td>10′</td>
+<td>责任链三环 + 园所数 B-5 活体</td>
+</tr>
+<tr class="even">
+<td>实操六件套</td>
+<td>55′</td>
+<td>按上面的顺序与时间盒</td>
+</tr>
+<tr class="odd">
+<td>checkout</td>
+<td>20′</td>
+<td>八项对照，重点查“画像切法”和“数据诚实”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>主持提示</strong>：insight 六件套每个都有 1–2 处确认停顿，<strong>加起来能停十几次</strong>。教练要提前说：“它停下来问你，是在等你做判断，不是卡住了——<strong>这些判断恰恰是不能外包给模型的部分</strong>。”</p>
+<hr />
+<h2 id="十与下游的衔接">十、与下游的衔接</h2>
+<pre><code>T3 产物
+  ↓ personas/ journeys/ processes/  → T4 event-storm 复用（不必重跑）
+  ↓ opportunity-brief 热点排名      → T4 域切分的优先级依据
+  ↓ behavior-matrix 主矩阵           → T5 五要素的直接前身（Actor/Action/Data In/Out）
+  ↓ domain-canvas 的 &quot;Does NOT own&quot;  → T4 限界上下文的边界定义
+  ↓ 画像 + 旅程                      → T6 方案稿的&quot;需求分析&quot;章、投标文件的&quot;项目理解&quot;部分</code></pre>
+<p><strong>一句话</strong>：T3 的产物<strong>不是文档，是后面每一步的原料</strong>。写得糙，后面每一步都在替你圆谎。</p>
+<hr />
+<h2 id="十一讲师包-口播稿">十一、讲师包 · 口播稿</h2>
+<h3 id="本步用哪几个课件">本步用哪几个课件</h3>
+<blockquote>
+<p>课件在 <code>../slides/</code>，浏览器直接打开。<strong>键盘 ← → 翻页 · S 演讲者模式 · O 总览。</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>课件</th>
+<th>用在哪一段</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>slides/04a_知识栈_认知与建模.html</code></td>
+<td>知识节·栈①</td>
+<td><strong>只放栈①那几屏</strong>（产品设计四方法 / User Journey Map 详解 / 经典来源 / 落成 planner / 康养项目教育督导项目自评）。栈② 留给 T4</td>
+</tr>
+<tr class="even">
+<td><code>slides/02_大模型时代FDE交付vs传统交付.html</code></td>
+<td><strong>§七 认知杠杆（实操之后讲）</strong></td>
+<td><strong>全用</strong>。人力对比 / 交付物形态 / 节奏与质量 / 杠杆来自哪里 / Vibe Coding 真相。⚠️ 本课件 2026-07-27 由 T1 划归本册——<strong>放在实操之后讲，学员才有实感</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>课件是旧十讲时期做的</strong>，口径以本册为准——课件若与本册冲突（尤其案例成熟度、「合资」旧口径），<strong>以本册为准，当场改口</strong>。</p>
+</blockquote>
+<blockquote>
+<p>下面几段供讲师<strong>照念</strong>。标「原话稿」的是讲义 04 的原文，<strong>一字未改</strong>；标「讲述要点（非原话稿）」的是从正文里挑出来的可直接口述段落，讲师可按自己的语感调整。 用法：每段前面已标明用在哪个环节，按第八节的时间盒顺序取用即可。</p>
+</blockquote>
+<h3 id="口播-开场为什么是角色合体不是技能清单">口播 · 开场：为什么是“角色合体”，不是“技能清单”</h3>
+<p><strong>（用在：全课第一次讲“知识栈”时——本步是七栈的第一站，这段开场只在 T3 讲一次，T4/T5a/T6 不再重复。原话稿，出自讲义 04 §3.0）</strong></p>
+<blockquote>
+<p>“上一版这一讲我讲’五维知识栈’，讲浅了。今天换个讲法，也是更真实的讲法：你要成为 FDE，本质上是要<strong>一个人干完过去七个岗位的活</strong>。传统模式做康养项目这种项目，会议室里坐七种人——产品经理定需求、架构师切系统、知识工程师建图谱、商业顾问搭模式、财评专家算功能点、方案经理写标书、法务把红线。他们各说各的行话，交接处全是信息衰减（这就是第 1 讲的交付断层）。FDE 消除断层的办法，不是协调这七个人，是<strong>把这七套方法论装进自己脑子</strong>，一个人从头跑到尾。所以这一讲不是七个技能点，是<strong>七个角色的方法论体系</strong>，每一个我都给你一本业界压舱的经典——你补哪一栈，就去啃那一本。”</p>
+</blockquote>
+<h3 id="口播-栈①的角色定位与内核">口播 · 栈①的角色定位与内核</h3>
+<p><strong>（用在：第六节 6.1–6.2，进入方法表之前。讲述要点（非原话稿），出自讲义 04 §3.1）</strong></p>
+<blockquote>
+<p>“这一栈原本是谁的活？产品经理、产品设计师——负责把模糊的客户意图变成’要做什么’。但产品设计不是’画原型’，它的核心是四件<strong>可照做的方法</strong>，一步步把’客户想要点什么’逼成可归域的结构：Persona 按行为、目标、动机、痛点定义真实用户，<strong>不是人口属性堆砌</strong>；User Journey Map 有五要素——用户、场景与目标、旅程阶段、行为态度情绪、机会点，机会点是从摩擦和痛点里长出来的；机会矩阵把痛点按影响乘可行性乘频率排出优先级；事件风暴把业务事件全量铺开再归簇，喂给后面的限界上下文。再加梁宁那套产品思维，补上’人和情绪’这一层——痛点、痒点、爽点，点线面体，用户体验五层。这五样合起来，才是这一栈。”</p>
+</blockquote>
+<h3 id="口播-画像必须按行为切本步唯一的核心教学点">口播 · 画像必须按行为切（本步唯一的核心教学点）</h3>
+<p><strong>（用在：第六节 6.6 第 1 条 + 实操第①个难点，学员开始跑 <code>persona-insight</code> 之前。讲述要点（非原话稿），出自讲义 04 §3.1 康养项目段）</strong></p>
+<blockquote>
+<p>“康养项目 <code>persona-insight</code> 定出 7 个画像，是 368 份问卷校准过的，而且<strong>是按行为聚类的</strong>——不是按’60 岁以上老人’这种人口属性切，是按’熟人获客接受度 77.59%’’智能监护接受但要简单式 84.48%’这种<strong>行为倾向</strong>切。差别在哪？人口属性那种画像，你坐在办公室里凭常识就能编出来，编出来还看不出错；行为倾向这种，<strong>你必须去问</strong>，问完还得留下数据来源。所以我给你们的验收标准只有一条：<strong>每个画像特征，都要能指到一份数据来源。</strong> 指不出来的，就是你编的。”</p>
+</blockquote>
+<h3 id="口播-同一套方法跨行业成立">口播 · 同一套方法跨行业成立</h3>
+<p><strong>（用在：第六节 6.7 或第五节教育督导项目范例讲完时。讲述要点（非原话稿），出自讲义 04 §3.1 教育督导项目段）</strong></p>
+<blockquote>
+<p>“教育督导项目用的是同一套——3 个画像：李科长、张园长、王老师，加 journey，加 <code>opportunity-brief</code> 的 ROI 排序，material-qc、standard-decode、gap-diagnose 排 P0。康养和幼教，行业不同、交付模式也不同，但<strong>认知萃取这一栈的做法一模一样</strong>。这就是为什么这一栈值得单独花三十分钟：它是你换一个行业还带得走的东西。”</p>
+</blockquote>
+<h3 id="口播-人力对比一次真实的实证对应-六-③-开场">口播 · 人力对比，一次真实的实证（对应 §六 ③ 开场）</h3>
+<p>"上一讲我说’一个人贯通消除断层’，肯定有人心里嘀咕：一个人扛得动吗？还是嘴上好听、实际累死？今天我用康养项目的账，一笔一笔算给你看。</p>
+<p>同一条交付链——从需求调研到 7 域数智本体建模、到 3835 行可运行插件骨架、到 100+ 页对客可研——两种模式的投入是这样：</p>
+<p><strong>传统模式</strong>：产品经理 + 架构师 + 行业顾问 + 方案经理 + 美工，<strong>5 人以上，数周</strong>。而且这 5 个人之间有至少 4 道接缝，每道接缝都在漏（第 1 讲讲过）。</p>
+<p><strong>FDE 模式</strong>：<strong>1 名 FDE + 智能体编队</strong>。0 接缝。</p>
+<p>这不是’省了 4 个人’这么简单。是<strong>交付的组织形态变了</strong>——从’按工种分人、靠流程串起来’，变成’按认知链分给一个人、靠智能体扩手脚’。"</p>
+<h3 id="口播-交付物形态的根本变化对应-六-③-的对照表">口播 · 交付物形态的根本变化（对应 §六 ③ 的对照表）</h3>
+<p>"再看<strong>交出去的东西</strong>变了没有。很多人以为 AI 只是让你’写得快’,交付物还是老三样。错。康养项目的交付物形态是传统模式<strong>根本产不出</strong>的：</p>
+<p>第一，<strong>方案与代码同源</strong>。传统模式里，可研报告是方案经理写的 PPT/Word，跟真正的系统是两张皮。康养项目不是——11 章可研背后，是 3835 行可运行的 Python 插件骨架 + 21 个 YAML，<strong>7/7 py_compile 通过</strong>。方案里写的每个域，都有能编译的结构撑着。方案不再是“说说而已”，是“已经建好了骨架的说明书”。</p>
+<p>第二，<strong>结构可校验</strong>。7 域五要素 OAG：Object 76 / Link 75 / Function 38 / Rule 47 / Action 54，A 结构校验 7/7 零悬空引用，B source 治理 7/7 零空 source。传统方案没有“校验”这个概念——你怎么校验一份 Word 的内部一致性？</p>
+<p>第三，<strong>规模与深度</strong>同时在线：14 类知识库 / 8 个知识图谱 / 约 350 万三元组。这个体量,传统 5 人团队数周产不出，产出来也无法保证内部一致。"</p>
+<h3 id="口播-节奏与质量控制的根本变化对应-六-③-节奏也变了">口播 · 节奏与质量控制的根本变化（对应 §六 ③ “节奏也变了”）</h3>
+<p>"节奏也变了。传统模式是<strong>串行接力</strong>：需求做完交设计，设计做完交开发，一棒接一棒，总时长是各段之和。FDE 模式是<strong>并行铺开</strong>：一个人在同一时间，指挥智能体编队并行跑多条支线。</p>
+<p>康养项目可研的写作阶段就是活样本：<strong>35 个分节并行写作</strong>，不是一节一节写。制图 26 张与写作<strong>同步跑</strong>。7 个域<strong>同一天并行编译</strong>。这不是把串行加速，是把串行<strong>改成了并行</strong>——这是节奏上质的差别。</p>
+<p>但并行有个致命风险：<strong>各写各的，口径会散</strong>。所以质量控制的方式也跟着变了。传统靠’评审会’事后抓错；FDE 靠<strong>锚定口径 + 结构校验</strong>事前防错。康养项目的做法是先立一份 <code>_WRITING_BRIEF.md</code>（术语表 + 核心数据表 + 观点主张 + 协作纪律）当<strong>唯一真相源</strong>，35 节全部引用不重算,再用结构校验器兜底。</p>
+<p>我要诚实说一句：<strong>并行不是没代价的</strong>。散了口径就要收口。下一讲会讲到康养项目栽过的跟头——图目计数漂移、章节编号冲突——那都是并行的账。但账是可控的，靠的是纪律，不是靠不并行。"</p>
+<h3 id="口播-杠杆到底来自哪里对应-六-③-公式全讲的钉子别讲偏">口播 · 杠杆到底来自哪里（对应 §六 ③ 公式，<strong>全讲的钉子，别讲偏</strong>）</h3>
+<p>"最后这页是全讲的钉子，钉不进去前面白讲。<strong>FDE 的杠杆，不来自打字快，来自两样东西：结构化能力 + 平台固化。</strong></p>
+<p>先说<strong>结构化能力</strong>。康养项目最难的一步是把 102 个乱糟糟的业务事件，收敛成 16 簇、压成 7 个域。这一步<strong>没有任何模型能替你做判断</strong>——模型可以帮你把 102 件事列出来、可以帮你写候选归类，但’该归成 16 簇还是 20 簇、这个域的边界划在哪’，是 FDE 的结构化判断。模型只能<strong>加速你做完</strong>，不能<strong>替你做对</strong>。这是杠杆的支点：你结构化能力越强，模型放大的倍数越大；你结构化能力是零，模型放大零还是零。</p>
+<p>再说<strong>平台固化</strong>。7 个域能在同一天并行编译、7/7 零悬空引用，靠的不是个人手速，是 studio-planner（事件风暴）→ domain-model（限界上下文）→ clife-onto-engine（本体）→ citations 治理 → 可研报告生成 这一条<strong>固化管线</strong>（Astra Studio）。方法论一旦固化进平台，就不再依赖’这个人今天状态好不好’。<strong>没有工程化平台的 FDE，只是“更累的架构师”</strong>——他能做对，但做不快、做不稳、复制不了。</p>
+<p>所以杠杆 = 结构化能力（决定能不能做对）× 平台固化（决定能不能做快做稳）。打字快，在这个乘式里连一项都不是。"</p>
+<h3 id="口播-vibe-coding-的真相对应-六-③-末尾的-段">口播 · Vibe Coding 的真相（对应 §六 ③ 末尾的 🎯 段）</h3>
+<p>"上一页那句’模型只能加速你做完、不能替你做对’，不是我编的口号，是我们方法论文集里一篇《AI 时代的 FDE》的第一手结论。作者用 AI 辅助，<strong>3 小时</strong>手搓了一个本体引擎原型；他复盘’这 3 小时里 AI 到底干了多少活’，得出一张清单——</p>
+<ul>
+<li><strong>AI 能干的</strong>：给了明确规格后，把伪代码变 Python、处理文件读写、生成测试、格式化输出——10 分钟搞定。共同特征：<strong>给明确规格，AI 快速生成代码。</strong></li>
+<li><strong>AI 不能干的</strong>：规则写入前还是后执行？日志存快照还是只存改变？Schema 用 YAML 还是 Python？多规则违反时短路还是收集？——这些是<strong>工程判断，不是编码问题</strong>。AI 只会给’常见做法’，不一定符合你的设计原则。</li>
+</ul>
+<p>一句话结论，请记死——<strong>‘AI 能把“想清楚的事”快速变成代码，但不能代替“想清楚”这件事本身。’</strong> ’想清楚’指的就是：数据规模 vs 决策治理、规则 vs 前置条件、可追溯性要什么、业务人员要审查什么、边界条件怎么处理——<strong>这些判断都发生在写代码之前。</strong></p>
+<p>所以’认知杠杆’的真相是：<strong>AI 把“实现”变便宜了，但没把“判断”变容易。</strong> 谁的判断力强，谁的杠杆就大；没有判断，AI 放大的是一堆能跑但错的代码（方法论 06 原话：没有蓝图的 Vibe Coding 会失控，一处改动带出三处 bug）。再补一句同篇的判断——<strong>‘平台越来越便宜，本体模型越来越值钱；会建模型的人，不会被替代，而是被放大。’</strong>"</p>
+<hr />
+<p><strong>两句难听话（收口用，各甩一句）</strong>：</p>
+<blockquote>
+<p><strong>讲 1</strong>：“你以为你在’对接需求’，其实你只是在’转述需求’——把上一道工序的话原样递给下一道，中间那些没写进文档的判断，从你手上又蒸发了一层。<strong>你不是断层的受害者，你就是断层本身。</strong>”</p>
+</blockquote>
+<blockquote>
+<p><strong>讲 2</strong>：“你之所以觉得 AI 就是’帮你写得快一点’，是因为你自己的活里，就没有多少需要结构化判断的成分——你一直在做搬运，所以你只能想象一个’搬得更快’的 AI。<strong>杠杆放大的是判断力，你没有判断力，AI 放大的就是你的空白。</strong>”</p>
+</blockquote>
+</body>
+</html>

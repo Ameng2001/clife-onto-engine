@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第5讲 为什么 FDE 依赖成熟工程化平台</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:64px 88px}
+  .big-num{font-family:var(--font-display);font-weight:800;line-height:1;color:var(--accent-2);letter-spacing:-.03em}
+  .stat-grid{display:grid;gap:18px}
+  .stat .n{font-size:44px;font-weight:800;color:var(--accent-2);line-height:1}
+  .stat .l{font-size:14px;color:var(--text-2);margin-top:6px}
+  .quote-hard{font-family:var(--font-serif);font-size:34px;line-height:1.35;font-weight:600;color:var(--accent);
+    border-left:5px solid var(--accent-2);padding:6px 0 6px 26px;margin:0}
+  .badcase{border-top:3px solid var(--bad)}
+  .badcase .tag{display:inline-block;font-weight:700;color:var(--bad);font-size:13px;letter-spacing:.08em}
+  .lbl{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+  table.t{border-collapse:collapse;width:100%;font-size:15px}
+  table.t th,table.t td{border:1px solid var(--border);padding:9px 12px;text-align:left;vertical-align:top}
+  table.t th{background:var(--surface-2);font-weight:600;color:var(--accent)}
+  .chip{display:inline-block;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:600;
+    background:color-mix(in srgb,var(--accent-2) 12%,transparent);color:var(--accent-2);margin:2px}
+  .flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px}
+  .flow .step{background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:6px 12px;font-weight:600}
+  .flow .arr{color:var(--text-3);font-weight:700}
+  h2.title{font-size:46px}
+  .lede{font-size:20px}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="kicker">C-Life FDE 课程 · 第 5 讲</div>
+    <h1 class="title">为什么 FDE 依赖<br>成熟工程化平台</h1>
+    <p class="lede">平台 = 方法论的固化物。它把资深 FDE 脑子里的纪律，变成新人也绕不过去的校验器。</p>
+    <div class="row mt-l" style="gap:14px">
+      <span class="pill pill-accent">能力靶：C2 结构建模 · C6 交付物工程</span>
+      <span class="pill">实践蓝本：康养行业大模型平台</span>
+    </div>
+    <div class="notes">前五讲讲 FDE 是什么、边界在哪、要什么知识栈。这一讲回答一个更硬的问题：为什么一个人能干五个人的活。很多人第一反应是"AI 聪明"或者"这人手快"。这堂课就是要把这个功劳掰回到平台上。我先撂一句难听话在这儿，整堂课都在证它：没有平台，你复制不了康养项目，你只能复制加班。今天的靶子不是让你崇拜工具，是让你看清楚——那省下来的四个人、那几周时间，到底是被什么省掉的。听完你要能回答老板：为什么我们非上平台不可。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="1" data-total="16"></span></div>
+  </section>
+
+  <!-- 2 命题 / 难听话 -->
+  <section class="slide" data-title="一句话命题">
+    <div class="lbl mb-m">本讲命题</div>
+    <p class="quote-hard">没有平台的 FDE，<br>只是一个更累的架构师。</p>
+    <div class="card badcase mt-l" style="border-top-color:var(--accent-2)">
+      <div class="lbl" style="color:var(--accent-2)">难听话 · 整堂课都在证它</div>
+      <p style="font-size:26px;font-weight:700;color:var(--accent);margin:8px 0 0">"没有平台，你复制不了康养项目，你只能复制加班。"</p>
+    </div>
+    <p class="lede mt-l">你以为康养项目是靠某个人手快？手快的人扛 7 个域，第 3 个域就开始出悬空引用了。</p>
+    <div class="notes">这一页只有一句话，但它是整堂课的题眼。平台不是让你更快地打字，是让你不必再靠意志力维持纪律。你一个人靠意志力能守三天纪律，守不了三个月，更守不了七个域同时开工。那句加粗的推论——你以为康养项目靠某个人手快？不。手快的人扛七个域，第三个域就开始出悬空引用了。你复制不了他的手快，只能复制他的加班。今天我要用康养项目的真实数字和两个我们自己犯的错，把这句话钉死。你要是听完还觉得是天赋，那你回去真的只能复制加班。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="2" data-total="16"></span></div>
+  </section>
+
+  <!-- 3 先算一笔账 -->
+  <section class="slide" data-title="先算一笔账">
+    <h2 class="title">先算一笔账：这条链，人到底省在哪</h2>
+    <div class="grid g4 stat-grid mt-m">
+      <div class="stat card"><div class="n">100+</div><div class="l">页可研（11 章 / ~11 万字 / 26 图）</div></div>
+      <div class="stat card"><div class="n">7</div><div class="l">域数智本体 · 3835 行可运行骨架</div></div>
+      <div class="stat card"><div class="n">~350万</div><div class="l">条三元组知识图谱</div></div>
+      <div class="stat card"><div class="n">2</div><div class="l">份附录 docx（对齐客户模板）</div></div>
+    </div>
+    <div class="grid g2 mt-l">
+      <div class="card card-soft"><div class="lbl">传统模式</div><p style="font-size:19px;margin:8px 0 0"><b>PM + 架构师 + 行业顾问 + 方案经理 + 美工</b><br><span class="dim">5+ 人 · 数周</span></p></div>
+      <div class="card card-accent"><div class="lbl">康养项目</div><p style="font-size:19px;margin:8px 0 0"><b>1 名 FDE + 智能体编队 · 平台管线</b><br><span class="dim">数日</span></p></div>
+    </div>
+    <p class="lede mt-m" style="color:var(--accent)"><b>省掉的那 4 个人、那几周，不是"AI 聪明"省的，是【固化管线】省的。</b></p>
+    <div class="notes">我先不讲平台，先给你们一个数字，你们自己判断这数字靠谁堆出来。康养项目最终交付一百多页可研，十一章十一万字二十六图，加两份附录 docx；底下压着七个数智本体、三千八百三十五行可运行骨架、约三百五十万条三元组。传统模式，这活儿是产品经理、架构师、行业顾问、方案经理、美工五个人以上干数周，这次是一名 FDE 加智能体编队干数日。关键问题：省下的那四个人、那几周，是被 AI 很聪明省掉的吗？不是，是被平台省掉的。这堂课就论证这一句话。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="3" data-total="16"></span></div>
+  </section>
+
+  <!-- 4 平台定义 -->
+  <section class="slide" data-title="平台=方法论的固化物">
+    <div class="lbl mb-s">本讲题眼</div>
+    <h2 class="title">平台不是工具箱，是纪律的容器</h2>
+    <p class="lede">平台是<b style="color:var(--accent)">方法论被代码固化以后的样子</b>——它把"资深 FDE 脑子里的纪律"，变成"新人也绕不过去的校验器"。</p>
+    <div class="card mt-l" style="border-left:4px solid var(--accent-2)">
+      <div class="lbl" style="color:var(--accent-2)">最硬的例子：一句方法论 → 一条校验器规则</div>
+      <div class="row mt-s" style="align-items:stretch;gap:16px">
+        <div class="fill card-soft card" style="box-shadow:none"><div class="lbl">DDD 方法论（写在书上，靠人自觉）</div><p style="margin:6px 0 0;font-size:17px">"限界上下文之间不能越界写对象。"</p></div>
+        <div class="center" style="font-size:28px;color:var(--text-3)">→</div>
+        <div class="fill card-soft card" style="box-shadow:none"><div class="lbl">clife-onto-engine 结构校验器</div><p style="margin:6px 0 0;font-size:17px">越域 <span class="mono">stage_write</span> → 编译期直接拦下。方法论从"你应该"变成"你做不到"。</p></div>
+      </div>
+    </div>
+    <div class="notes">很多人对平台的理解停在"一堆好用的工具"。错。平台是方法论被代码固化以后的样子。举个最硬的例子：DDD 说限界上下文之间不能越界写对象，这是一句方法论，写在书上靠人自觉。但在康养项目，这句话不靠自觉——它变成 clife-onto-engine 的一条结构校验器规则：任何 Action 想 stage_write 一个不属于本域的对象，编译期直接拦下来。方法论从"你应该"变成"你做不到"，这就叫固化。所以我给平台下的定义是：平台把资深 FDE 脑子里的纪律，变成新人也绕不过去的校验器。这句话是本讲题眼，你没有平台时那些纪律只活在你一个人脑子里，你请假纪律就崩了。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="4" data-total="16"></span></div>
+  </section>
+
+  <!-- 5 平台复用实证 -->
+  <section class="slide" data-title="平台复用实证">
+    <div class="lbl mb-s">本讲题眼 · 延伸</div>
+    <h2 class="title">平台复用实证：通用底座 → 垂类特化</h2>
+    <p class="lede">辣椒和草业项目<b>不是各造一套</b>——它们<b style="color:var(--accent)">共用同一套通用智慧农业底座</b> <span class="mono">smart-agriculture</span>（12 域：agri-knowledge-base / field-sensing / soil-care / crop-growth / pest-disease / remote-sensing …），各自 fork 出垂类特化。</p>
+    <div class="grid g2 mt-m">
+      <div class="card card-accent"><div class="lbl" style="color:var(--accent-2)">辣椒 · fork 特化 → 7 智能体</div>
+        <div class="mt-s"><span class="chip">椒育</span><span class="chip">椒种</span><span class="chip">椒水</span><span class="chip">椒保</span><span class="chip">椒控</span><span class="chip">椒易</span><span class="chip">椒溯</span></div>
+      </div>
+      <div class="card card-accent"><div class="lbl" style="color:var(--accent-2)">草业项目 · fork 特化 → 5 智能体</div>
+        <div class="mt-s"><span class="chip">草育</span><span class="chip">草修</span><span class="chip">草易</span><span class="chip">草机</span><span class="chip">草碳</span></div>
+      </div>
+    </div>
+    <p class="lede mt-m" style="color:var(--accent)"><b>这就是"平台=方法论的固化物"：一次固化、多垂类复用。FDE 不必每个项目从零起。</b></p>
+    <div class="card badcase mt-m"><span class="tag">诚实补注 · 别把"有底座规划"说成"底座已建好"</span>
+      <p style="font-size:15px;margin:8px 0 0">这套通用底座本身也<b>仅有 studio 规划件、无 SKILL 实现、无编译本体</b>——它是"规划态母版"，不是已交付平台。全课程里<b>只有康养项目</b>是 🟢 编译交付的实证。</p>
+    </div>
+    <div class="notes">前面说平台是方法论的固化物，这一页给你看它怎么省 FDE 的重复劳动。辣椒和草业项目看着是两个农业项目，其实不是各造一套——它们共用同一套通用智慧农业底座 smart-agriculture，十二个域，农业知识库、田间感知、土壤养护、作物生长、病虫害、遥感等等，这是母版。辣椒从母版 fork 出七个智能体：椒育椒种椒水椒保椒控椒易椒溯；草业项目 fork 出五个：草育草修草易草机草碳。母版一次固化，两个垂类各取所需再特化，FDE 就不必每个项目从零起，这就是平台复用的实证，也就是通用底座作母、垂类特化作子的省力逻辑。但我必须诚实补一句，别被"有底座"三个字骗了：这套通用底座本身也只有 studio 规划件，没有 SKILL 实现、没有编译本体，它是规划态的母版，不是已经建好的平台。整门课里真正编译交付的实证只有康养项目一个。有底座规划，不等于底座已建好，这条线你们要分清。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="5" data-total="16"></span></div>
+  </section>
+
+  <!-- 6 分层图 -->
+  <section class="slide" data-title="Astra Studio 工具栈分层">
+    <h2 class="title">Astra Studio 工具栈：四层固化</h2>
+    <div class="center" style="flex:1;flex-direction:column">
+      <img src="../figures/fig-5-1-平台分层.png" alt="图5-1 Astra Studio 工具栈分层与咬合" style="max-width:100%;max-height:60vh">
+      <p class="dim2 mt-s" style="font-size:14px"><b>图 5-1</b> · planner 认知萃取 → insight 画像/旅程/流程 → ontology 本体运行时 → docs/quality 生成与校验；方法论在每层被固化成"产物契约 + 校验器"，数据沿层单向流转不倒灌。</p>
+    </div>
+    <div class="notes">这张图四层自上而下：planner 认知萃取、insight 画像旅程流程、ontology 本体运行时 clife-onto-engine、docs 加 quality 生成与校验。它们不是并列的四个工具箱，是一条流水线上的四道工位。方法论在每一层都被固化成两样东西：产物契约和校验器。本讲只讲"固化"这一面——每层怎么把纪律钉进代码；这张图第七讲还会复用，那时候讲层与层之间数据怎么咬合、怎么交接不掉链。现在你先记住：数据沿层单向往下流，不倒灌，这本身就是一条被固化的纪律。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="6" data-total="16"></span></div>
+  </section>
+
+  <!-- 7 对照 Palantir 四层 -->
+  <section class="slide" data-title="对照 Palantir 四层">
+    <div class="lbl mb-s">业界坐标 · 要点页 2·补</div>
+    <h2 class="title">对照 Palantir 四层：以本体为核心的企业智能操作系统</h2>
+    <div class="row mt-m" style="gap:24px;align-items:stretch">
+      <div class="fill">
+        <div class="stack">
+          <div class="card card-soft"><div class="lbl">应用层</div><p style="margin:4px 0 0;font-size:15px">面向行业的智能应用（价值输出：决策 / 优化 / 风控）</p></div>
+          <div class="card card-accent"><div class="lbl" style="color:var(--accent-2)">AIP 编排层</div><p style="margin:4px 0 0;font-size:15px">多智能体协同 · 自然语言交互 · 确定性运行时 · 安全治理 —— 运行时 <b>Agents · Skills · Tools · Workflows</b></p></div>
+          <div class="card card-accent"><div class="lbl" style="color:var(--accent-2)">Ontology 本体层</div><p style="margin:4px 0 0;font-size:15px"><b>业务语义中枢</b>：实体 / 关系 / 权限与边界建模 —— 统一语义 · 业务规则 · 逻辑一致 · 权限边界</p></div>
+          <div class="card card-soft"><div class="lbl">Foundry 数据底座层</div><p style="margin:4px 0 0;font-size:15px">接入任何数据源 · 语义化数据服务</p></div>
+        </div>
+        <div class="mt-s"><span class="chip">跨层治理与安全</span><span class="chip">统一身份/权限</span><span class="chip">审计追溯</span><span class="chip">数据安全</span><span class="chip">合规标准</span></div>
+      </div>
+      <div class="fill center" style="flex-direction:column">
+        <img src="../figures/fig-5-2-plugin体系.png" alt="图5-2 Palantir 四层 ↔ C-Life 两套 plugin 体系" style="max-width:100%;max-height:60vh">
+        <p class="dim2 mt-s" style="font-size:13px"><b>图 5-2</b> · Palantir 四层 ↔ C-Life 两套 plugin 体系（层层对应）</p>
+      </div>
+    </div>
+    <div class="notes">给你们一个业界坐标，你就明白 Astra Studio 不是我们拍脑袋造的玩具。看 Palantir 的平台架构，一共四层：最底 Foundry 数据底座层，接入任何数据源、做语义化数据服务；往上 Ontology 本体层，这是业务语义中枢，管实体、关系、权限和边界，保证统一语义、业务规则、逻辑一致、权限边界；再往上 AIP 编排层，多智能体协同、自然语言交互、确定性运行时加安全治理，它的运行时就是 Agents、Skills、Tools、Workflows；最顶应用层，面向行业的智能应用。右边还横着一条跨层治理与安全，统一身份、权限、审计追溯、数据安全、合规。一句话：Palantir 就是以本体为核心的企业智能操作系统。记住这四层，下一页你会看到 C-Life 的平台本质上就是这套结构。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="7" data-total="16"></span></div>
+  </section>
+
+  <!-- 8 C-Life 两套 plugin 体系 -->
+  <section class="slide" data-title="C-Life 两套 plugin 体系">
+    <div class="lbl mb-s">要点页 2·补 · 规范 = 平台的灵魂</div>
+    <h2 class="title">C-Life 两套 plugin 体系 + 工程化规范</h2>
+    <p class="lede">同一套结构，C-Life 落成两套<b>可安装、可校验</b>的 plugin 体系——<b style="color:var(--accent)">规范 + 校验器，就是"平台把方法论固化成纪律"的物理形态</b>。</p>
+    <table class="t mt-m">
+      <tr><th>维度</th><th>① 智能体 plugin 体系（Astra Studio）</th><th>② ontology plugin 体系（clife-onto-engine）</th></tr>
+      <tr><td><b>对标 Palantir</b></td><td>AIP 编排层（Agents/Skills/Tools/Workflows）</td><td>Ontology 本体层（业务语义中枢）</td></tr>
+      <tr><td><b>一个插件长啥样</b></td><td>一组 Skill（<span class="mono">SKILL.md</span>）+ <span class="mono">plugin.json</span> manifest</td><td>一域一插件，四文件：<span class="mono">__init__.py</span>（五要素）+ <span class="mono">mappings/objects.yaml</span> + <span class="mono">cq/golden.yaml</span> + <span class="mono">plugin.yaml</span></td></tr>
+      <tr><td><b>规范 / 红线</b></td><td>SKILL.md 结构规范 · manifest 契约 · 命令与依赖声明</td><td><b>只 import <span class="mono">clife_onto_engine.sdk</span></b> · plugin.yaml（plugin/ontology_id/version/engine_compat/provides）· 跨域一律 ref、发布不越界</td></tr>
+      <tr><td><b>校验器</b></td><td><span class="mono">studio-quality:validate</span>（结构 / 合规 / 技能质量）</td><td><span class="mono">py_compile</span> + <span class="mono">ontology-validate</span> 四段：<b>A 结构零悬空 / B 治理 citations / C 剩余 TODO / D 行为 CQ</b></td></tr>
+      <tr><td><b>康养项目实证</b></td><td>8 active plugins 在跑 · 管线一键串联</td><td>7 域 7/7 py_compile · A 结构 7/7 零悬空 · 48 golden CQ（含 17 rejected）</td></tr>
+    </table>
+    <p class="lede mt-m" style="color:var(--accent)"><b>Palantir 用四层架构做成一个操作系统；C-Life 用两套 plugin 体系，做成你能安装、能校验、能复制的东西。</b></p>
+    <div class="notes">现在关键——C-Life 的工程化平台，本质上也是这套结构，而且它落成了两套可安装、可校验的 plugin 体系。第一套是智能体 plugin 体系，对标 AIP 编排层，就是 Astra Studio，每个插件是一组 Skill，把事件风暴到限界上下文到文档装配到质检这套方法论固化成可被编排调用的技能，本会话启动那句八个 active plugin 就是它在跑。第二套是 ontology plugin 体系，对标 Ontology 本体层，就是 clife-onto-engine 的本体插件，康养项目七个域每个域编译成一个本体插件装进引擎。为什么强调这个？因为这两套各自都有一套硬规范——规范才是平台的灵魂。看懂这张表你就懂了题眼：规范加校验器，就是平台把方法论固化成纪律的物理形态。Palantir 用四层做成操作系统，C-Life 用两套 plugin 做成你能安装、能校验、能复制的东西。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="8" data-total="16"></span></div>
+  </section>
+
+  <!-- 9 三个同日 -->
+  <section class="slide" data-title="三个同日">
+    <h2 class="title">三个"同日"：平台省的不是打字，是一致性维护</h2>
+    <div class="grid g3 mt-m">
+      <div class="card card-accent"><div class="big-num" style="font-size:40px">7 域</div><h4 class="mt-s">同日并行编译</h4><p class="dim" style="font-size:15px">D1 建完，D2–D7 照范本并行建，当天成型；共 <b>3835 行</b>，py_compile 全过、每域 3 YAML 全过、"只 import sdk"红线全过。</p></div>
+      <div class="card card-accent"><div class="big-num" style="font-size:40px">7 / 7</div><h4 class="mt-s">结构校验零悬空引用</h4><p class="dim" style="font-size:15px">7 个本体全部零悬空引用，跨域纪律守住；B source 治理 7/7，0 空 source。76 Object / 75 Link 交叉引用人眼查一遍要多久、错几处？</p></div>
+      <div class="card card-accent"><div class="big-num" style="font-size:40px">3835</div><h4 class="mt-s">行骨架机械生成</h4><p class="dim" style="font-size:15px">不是有人手写，是本体 IR 经编译器机械展开 + 21 YAML。人手维护 76 对象 / 54 Action 命名一致性 → B-5 就是翻车活证据。</p></div>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>平台的价值密度，集中在"跨对象一致性维护"——这件人类最不擅长、最容易疲劳出错的事上。</b></p>
+    <div class="notes">平台到底省了什么？不是省你打字，是省你维护一致性。三个"同日"。第一，七个域同一天并行编译，D1 建完 D2 到 D7 照范本机械编译，当天七个骨架成型，统一校验七比七通过，共三千八百三十五行。第二，七比七结构校验零悬空引用，七个本体、七十六个对象、七十五个链接交叉引用，谁引谁、有没有引到不存在的对象——你想手工查一遍要多久、错几处？第三，三千八百三十五行不是手写的，是本体 IR 经编译器机械展开的。人手写光是把七十六个对象、五十四个 Action 命名保持一致就够呛，B-5 数据张冠李戴就是人手维护一致性翻车的活证据。结论：平台的价值密度集中在跨对象一致性维护这件人类最容易疲劳出错的事上。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="9" data-total="16"></span></div>
+  </section>
+
+  <!-- 7 反例 B-8 -->
+  <section class="slide" data-title="反例 B-8 越域写入冲动">
+    <div class="card badcase">
+      <span class="tag">反例 B-8 · 越域写入冲动</span>
+      <h3 class="mt-s">"想让一个 Action 直接 stage_write 别的域的对象"</h3>
+    </div>
+    <div class="grid g2 mt-l">
+      <div class="card card-soft"><div class="lbl">冲动怎么来的</div><p style="font-size:16px;margin:8px 0 0">编译 7 个域时，好几次想让 D1 的智能体链路：方案审核通过后<b>直接</b>去 D3 写销售订单、去 D2 记结算、去 D4 更新画像。一步到位，多爽。</p></div>
+      <div class="card card-accent"><div class="lbl">谁挡住了它</div><p style="font-size:16px;margin:8px 0 0">不是"我觉悟高"，是 <b>clife-onto-engine 结构校验器</b>：越域 stage_write 过不了 A 结构校验，当场报悬空/越界。跨域发布（→D3 Order / →D2 结算 / →D4 画像）<b>全部写成注释和 ref</b>，不越界直写。</p></div>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>7/7 零悬空引用，不是因为我们 7 次都自觉，是因为校验器不给我们自觉的机会。</b></p>
+    <div class="notes">讲个我们自己犯的冲动。编译七个域的时候，好几次都想让一个 Action 直接 stage_write 别的域的对象——比如 D1 一个方案审核通过了，最省事的写法是直接去 D3 把销售订单写了、去 D2 结算记一笔、去 D4 画像更新了，一步到位多爽。但这是越域写入。DDD 铁律：跨域一律 ref 或发布，不能越界写别人家的对象。我们最后把跨域发布全部写成注释和 ref，不越界 stage_write。注意，挡住这个冲动的不是我觉悟高，是结构校验器：越域 stage_write 过不了 A 结构校验，会当场报悬空越界。所以最后七比七零悬空，不是我们七次都自觉，是校验器根本不给我们自觉的机会。这就是平台把跨域纪律固化成校验器的实例。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="10" data-total="16"></span></div>
+  </section>
+
+  <!-- 8 反例 B-9 -->
+  <section class="slide" data-title="反例 B-9 SDK 能力想当然">
+    <div class="card badcase">
+      <span class="tag">反例 B-9 · SDK 能力想当然</span>
+      <h3 class="mt-s"><span class="mono">PropertySpec.default</span> / <span class="mono">Evaluation</span> 到底导没导出？</h3>
+    </div>
+    <div class="grid g2 mt-l">
+      <div class="card card-soft"><div class="lbl">两种态度</div>
+        <p style="font-size:16px;margin:8px 0 0"><span style="color:var(--bad)">✗</span> "应该支持吧" → 直接往前写。</p>
+        <p style="font-size:16px;margin:6px 0 0"><span style="color:var(--good)">✓</span> 不确定就<b>显式挂账</b>：<span class="mono">Evaluation</span> 未导出 → 7 域统一落 docstring，白纸黑字写"此处依赖 X，待引擎仓库内确认"。</p>
+      </div>
+      <div class="card card-accent"><div class="lbl">对平台的教训</div><p style="font-size:16px;margin:8px 0 0">平台会告诉你它<b>保证什么</b>（py_compile、只 import sdk），也会暴露它<b>不保证什么</b>（运行时符号导出）。校验器覆盖不到的地方，FDE 要用 docstring 手动补一道"诚实闸"。</p></div>
+    </div>
+    <p class="lede mt-l" style="color:var(--accent)"><b>与第 3 讲同一条脊椎：敢说不知道。"错用一个没导出的 SDK 符号，比显式挂账更有害。"</b></p>
+    <div class="notes">再讲一个更微妙的坑：SDK 能力想当然。编译期我们要用 PropertySpec.default、Evaluation 这些 SDK 能力，但当时不确定引擎到底导没导出这些符号，本机没有引擎仓库，只能 py_compile，验证不了运行时。两种态度：一种是"应该支持吧"直接往前写；另一种是我们最后选的——不确定就显式挂账，Evaluation 未导出就七域统一落到 docstring，白纸黑字写明此处依赖某某、待引擎仓库内确认。这跟第三讲主张三同一条脊椎：敢说不知道。错文号比空缺更有害，错用一个没导出的 SDK 符号，也比显式挂账更有害。教训是：成熟的 FDE 要读懂平台校验的边界，在校验器覆盖不到的地方，用 docstring 手动补一道诚实闸。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="11" data-total="16"></span></div>
+  </section>
+
+  <!-- 9 固化三问 -->
+  <section class="slide" data-title="固化三问">
+    <h2 class="title">把纪律固化成校验器：一个可迁移心智模型</h2>
+    <p class="lede">任何一条你反复叮嘱新人的纪律，都问三个问题：<b>能不能固化？固化成什么？谁来跑？</b></p>
+    <table class="t mt-m">
+      <tr><th>固化程度</th><th>固化成什么</th><th>谁来跑</th><th>康养项目实例</th></tr>
+      <tr><td><b style="color:var(--good)">全固化</b></td><td>结构校验器</td><td>clife-onto-engine 编译期自动跑 · 零人力</td><td>越域校验（B-8）、结构 7/7、只 import sdk 红线</td></tr>
+      <tr><td><b style="color:var(--warn)">半固化</b></td><td>挂账约定</td><td>FDE 人肉走一道闸</td><td>citations 30 待补 → 已挂 18 国标、余 11 占位；SDK 挂账（B-9）</td></tr>
+      <tr><td><b style="color:var(--bad)">未固化</b></td><td>全靠自觉</td><td>请假即崩</td><td>"更累的架构师"的默认状态</td></tr>
+    </table>
+    <p class="lede mt-m" style="color:var(--accent)"><b>纪律的固化程度，决定它需要多少人力持续维护。平台成熟度 = 你多少条纪律进了校验器。</b></p>
+    <div class="notes">我把前面收成一个你能带走的心智模型。任何一条你反复叮嘱新人的纪律，都要问三个问题：能不能固化、固化成什么、谁来跑。跨域不许越界写，能固化，固化成 A 结构校验器，编译期自动跑，零人力永不疲劳。关键数字锚单点不重算，能固化，固化成 BRIEF 单一真相源加装配期检查。SDK 不确定就挂账，只能半固化，校验器管不到运行时，固化成 docstring 挂账约定，FDE 人肉跑。看出来了吗：纪律的固化程度，决定它需要多少人力维护。全固化的零人力，半固化的要 FDE 走一道人肉闸，未固化的全靠自觉、请假即崩。你评估一个平台成不成熟，就看它把你多少条纪律固化进了校验器。Astra Studio 之所以让一个人干五个人的活，就是因为它把资深 FDE 那批一致性纪律绝大部分搬进了编译期和装配期。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="12" data-total="16"></span></div>
+  </section>
+
+  <!-- 10 演练导入 -->
+  <section class="slide" data-title="现场演练导入">
+    <div class="lbl mb-s">现场演练 · 无平台重做康养项目</div>
+    <h2 class="title">一个残忍的问题</h2>
+    <p class="lede">如果<b>没有平台</b>，你自己手工重做康养项目这 7 个域的一致性校验，<b style="color:var(--accent)">要多久？会错几处？</b></p>
+    <div class="card card-soft mt-l"><p style="font-size:18px;margin:0">别拍脑袋说"挺快的"。分组用真实的 7 域规模清单（76 Object / 75 Link / 54 Action / 47 Rule）推演工时与错误率，最后把这个数字，和平台"当天 7/7 通过"摆在一起看。</p></div>
+    <p class="lede mt-l">这个演练不是让你崇拜平台，是让你<b>量化</b>平台替你承担的那部分风险——因为将来你要向客户和老板解释：为什么这个平台值得投入。</p>
+    <div class="notes">讲了一路平台省了多少，现在反过来问你们一个残忍的问题：如果没有平台，你自己手工重做康养项目这七个域的一致性校验，要多久、会错几处？别拍脑袋说挺快的。我给你们一份真实的七域规模清单，你们分组推演工时和错误率，最后把这个数字和平台的当天七比七通过摆一起看。这个演练不是让你崇拜平台，是让你量化平台替你承担的那部分风险——因为将来你要向客户和自己老板解释：为什么这个平台值得投入。翻到工作坊。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="13" data-total="16"></span></div>
+  </section>
+
+  <!-- 11 研讨 -->
+  <section class="slide" data-title="复盘研讨">
+    <h2 class="title">复盘研讨</h2>
+    <div class="stack mt-m">
+      <div class="card"><span class="chip">题 1</span> 你手上项目里，哪一条纪律现在是"全靠你自觉守"？它属于固化三问哪一档？能不能往"校验器"方向推一格？</div>
+      <div class="card"><span class="chip">题 2</span> B-8 里挡住越域写入的是校验器不是自觉。如果你的平台<b>没有</b>这道校验器，你用什么低成本手段替代？（code review 清单 / 命名约定 / pre-commit 钩子 = 半固化）</div>
+      <div class="card"><span class="chip">题 3</span> 老板问："为什么不直接让工程师用 ChatGPT 手撸，非要上 Astra Studio？"用三个"同日"和固化三问，给一个 90 秒回答。</div>
+    </div>
+    <div class="notes">三个研讨题。第一题逼你把抽象的"我很小心"翻译成"我应该固化成什么"——找出你项目里那条全靠自觉守的纪律，判断它在固化三问的哪一档，能不能往校验器推一格。第二题让你理解，没有成熟平台不等于没救，而是你要自己搭半固化的替代闸，成本记在你头上——code review 清单、命名约定、pre-commit 钩子都是半固化。第三题是本讲的实战出口：FDE 必须能为平台投资做商业辩护。老板问为什么不用 ChatGPT 手撸，你要用三个同日和固化三问，九十秒把账算清楚。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="14" data-total="16"></span></div>
+  </section>
+
+  <!-- 12 收口 -->
+  <section class="slide" data-title="收口">
+    <div class="lbl mb-m">讲师收口 · 一句话</div>
+    <p class="quote-hard">平台是方法论的固化物，<br>它把纪律从你的意志力里，搬进校验器里。</p>
+    <p class="lede mt-l">你现在觉得自己不需要平台，是因为你还没同时扛过 7 个域。等你扛过，你会怀念那个当天报给你 7/7 的校验器。</p>
+    <div class="card mt-l" style="border-top:3px solid var(--accent-2)"><p style="font-size:24px;font-weight:700;color:var(--accent);margin:0">记住——没有平台，你复制不了康养项目，你只能复制加班。</p></div>
+    <div class="notes">今天就一句话：平台是方法论的固化物，它把纪律从你的意志力里搬进校验器里。你现在觉得自己不需要平台，是因为你还没同时扛过七个域。等你扛过，你会怀念那个当天报给你七比七的校验器。回收两个反例：B-8 越域写入，靠校验器而非自觉挡住，结构纪律靠校验器；B-9 SDK 想当然，不确定就显式挂账，读懂校验器保证什么、不保证什么。最后记住那句难听话——没有平台，你复制不了康养项目，你只能复制加班。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="15" data-total="16"></span></div>
+  </section>
+
+  <!-- 13 钩子 -->
+  <section class="slide" data-title="与其他讲的钩子">
+    <h2 class="title">与其他讲的钩子</h2>
+    <table class="t mt-m">
+      <tr><th>方向</th><th>关联</th></tr>
+      <tr><td>← 第 3 讲</td><td>B-9 的"敢说不知道"与主张 3、"错文号比空缺更有害"同脊椎；平台能固化 C1–C6，固化不了 C7</td></tr>
+      <tr><td>← 第 4 讲</td><td>本讲"结构校验"落在 C2（DDD + OAG）；B-5 作为"未固化一致性纪律翻车"引证复用</td></tr>
+      <tr><td>→ 第 6 讲</td><td>本讲讲"平台固化结构纪律"，第 6 讲讲"HIL 固化风险纪律"——闸门也是一种固化</td></tr>
+      <tr><td>→ 第 7 讲</td><td><b>共用 fig-5-1</b>：本讲讲"固化"面（纪律→校验器），第 7 讲讲"咬合"面（数据层间流转）</td></tr>
+      <tr><td>→ 第 8 讲</td><td>难听话"手快扛不住 7 个域"是"架构师 ≠ FDE"的前置论据</td></tr>
+    </table>
+    <div class="notes">这一讲往前接第三讲、第四讲，往后埋第六、七、八讲的钩子。重点记两条：第六讲讲 HIL 固化风险纪律，闸门也是一种固化，是把"这步必须人拍板"固化成 human_gate；第七讲和本讲共用同一张 fig-5-1，本讲讲这张图的固化面，第七讲讲它的咬合面——数据如何在 planner、insight、docs、quality 之间流转。两讲合起来是同一个平台的两个横截面。</div>
+    <div class="deck-footer"><span>FDE 交付方法论</span><span class="slide-number" data-current="16" data-total="16"></span></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

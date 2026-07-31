@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
+  <defs>
+    <marker id="ar-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+    <marker id="ar-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker>
+    <marker id="ar-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker>
+    <marker id="ar-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9333ea"/></marker>
+    <marker id="ar-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+  </defs>
+  <style>text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}</style>
+  <rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+  <text x="430" y="40" font-size="18" fill="#111827" text-anchor="middle" font-weight="bold">C-Life 交付团队编成</text>
+  <rect x="280" y="70" width="300" height="96" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.8"/>
+  <text x="430" y="102" font-size="16" fill="#111827" text-anchor="middle" font-weight="bold">1 主理 FDE（L3）</text>
+  <text x="430" y="128" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">对客户承诺负责 · 设 HIL 闸</text>
+  <text x="430" y="148" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">主持项目</text>
+  <rect x="45" y="320" width="180" height="100" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.6"/>
+  <text x="135" y="360" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">见习 FDE（L1）#1</text>
+  <text x="135" y="388" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">各领单一环节</text>
+  <path d="M430,166 L135,320" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <rect x="245" y="320" width="180" height="100" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.6"/>
+  <text x="335" y="360" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">见习 FDE（L1）#2</text>
+  <text x="335" y="388" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">各领单一环节</text>
+  <path d="M430,166 L335,320" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <rect x="445" y="320" width="180" height="100" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.6"/>
+  <text x="535" y="360" font-size="14" fill="#111827" text-anchor="middle" font-weight="bold">见习 FDE（L1）#3</text>
+  <text x="535" y="388" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">各领单一环节</text>
+  <path d="M430,166 L535,320" fill="none" stroke="#2563eb" stroke-width="1.6" marker-end="url(#ar-m)"/>
+  <rect x="200" y="540" width="350" height="90" rx="8" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.6"/>
+  <text x="375" y="576" font-size="15" fill="#111827" text-anchor="middle" font-weight="bold">平台组</text>
+  <text x="375" y="602" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal">维护 Astra Studio 管线 / 校验器</text>
+  <path d="M135,420 L375,540" fill="none" stroke="#16a34a" stroke-width="1.3" stroke-dasharray="5,4" marker-end="url(#ar-d)"/>
+  <path d="M335,420 L375,540" fill="none" stroke="#16a34a" stroke-width="1.3" stroke-dasharray="5,4" marker-end="url(#ar-d)"/>
+  <path d="M535,420 L375,540" fill="none" stroke="#16a34a" stroke-width="1.3" stroke-dasharray="5,4" marker-end="url(#ar-d)"/>
+  <rect x="680" y="200" width="240" height="250" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="696" y="228" font-size="13" fill="#6b7280" text-anchor="start" font-weight="bold">能力等级</text>
+  <text x="696" y="258" font-size="14" fill="#111827" text-anchor="start" font-weight="bold">L1 见习</text>
+  <text x="696" y="282" font-size="12" fill="#6b7280" text-anchor="start" font-weight="normal">胜任单一环节，需监督</text>
+  <text x="696" y="324" font-size="14" fill="#111827" text-anchor="start" font-weight="bold">L2 熟手</text>
+  <text x="696" y="348" font-size="12" fill="#6b7280" text-anchor="start" font-weight="normal">独立交付完整域</text>
+  <text x="696" y="390" font-size="14" fill="#111827" text-anchor="start" font-weight="bold">L3 主理</text>
+  <text x="696" y="414" font-size="12" fill="#6b7280" text-anchor="start" font-weight="normal">对承诺负责、设闸</text>
+  <rect x="40" y="650" width="500" height="44" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="56" y="677" font-size="12" fill="#2563eb" text-anchor="start" font-weight="normal">→ 项目领导</text>
+  <text x="200" y="677" font-size="12" fill="#16a34a" text-anchor="start" font-weight="normal">┄ 平台协作支撑</text>
+</svg>

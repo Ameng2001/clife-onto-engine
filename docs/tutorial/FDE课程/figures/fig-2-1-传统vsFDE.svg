@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560">
+  <defs>
+    <marker id="ab" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2563eb"/></marker>
+    <marker id="ap" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#9333ea"/></marker>
+  </defs>
+  <style>text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}</style>
+  <rect x="0" y="0" width="1200" height="560" fill="#ffffff"/>
+  <text x="600" y="44" font-size="24" font-weight="700" fill="#111827" text-anchor="middle">传统交付 vs FDE 交付</text>
+  <line x1="600" y1="70" x2="600" y2="470" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="310" y="94" font-size="17" font-weight="600" fill="#6b7280" text-anchor="middle">传统交付 · 串行接力</text>
+  <rect x="180" y="112" width="260" height="50" rx="8" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="310" y="143" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">产品经理</text>
+  <rect x="180" y="184" width="260" height="50" rx="8" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="310" y="215" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">架构师</text>
+  <line x1="310" y1="162" x2="310" y2="182" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+  <rect x="180" y="256" width="260" height="50" rx="8" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="310" y="287" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">行业顾问</text>
+  <line x1="310" y1="234" x2="310" y2="254" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+  <rect x="180" y="328" width="260" height="50" rx="8" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="310" y="359" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">方案经理</text>
+  <line x1="310" y1="306" x2="310" y2="326" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+  <rect x="180" y="400" width="260" height="50" rx="8" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="310" y="431" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">美工</text>
+  <line x1="310" y1="378" x2="310" y2="398" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+  <rect x="245" y="456" width="130" height="30" rx="8" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="310" y="476" font-size="15" font-weight="700" fill="#dc2626" text-anchor="middle">耗时:数周</text>
+  <text x="890" y="94" font-size="17" font-weight="600" fill="#6b7280" text-anchor="middle">FDE 交付 · 一人并行编队</text>
+  <rect x="760" y="112" width="260" height="60" rx="8" fill="#ede9fe" stroke="#a78bfa" stroke-width="2"/>
+  <text x="890" y="140" font-size="17" font-weight="700" fill="#5b21b6" text-anchor="middle">FDE(一人)</text>
+  <text x="890" y="160" font-size="11" fill="#7c3aed" text-anchor="middle">编排智能体 · 贯通全链</text>
+  <rect x="688" y="262" width="196" height="58" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="786" y="296" font-size="14" font-weight="600" fill="#5b21b6" text-anchor="middle">认知萃取智能体</text>
+  <rect x="896" y="262" width="196" height="58" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="994" y="296" font-size="14" font-weight="600" fill="#5b21b6" text-anchor="middle">建模智能体</text>
+  <rect x="688" y="342" width="196" height="58" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="786" y="376" font-size="14" font-weight="600" fill="#5b21b6" text-anchor="middle">并行写作智能体</text>
+  <rect x="896" y="342" width="196" height="58" rx="8" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="994" y="376" font-size="14" font-weight="600" fill="#5b21b6" text-anchor="middle">装配校验智能体</text>
+  <line x1="890" y1="172" x2="786" y2="260" stroke="#9333ea" stroke-width="1.8" marker-end="url(#ap)"/>
+  <line x1="890" y1="172" x2="994" y2="260" stroke="#9333ea" stroke-width="1.8" marker-end="url(#ap)"/>
+  <line x1="890" y1="172" x2="786" y2="340" stroke="#9333ea" stroke-width="1.8" marker-end="url(#ap)"/>
+  <line x1="890" y1="172" x2="994" y2="340" stroke="#9333ea" stroke-width="1.8" marker-end="url(#ap)"/>
+  <rect x="810" y="422" width="160" height="30" rx="8" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="890" y="442" font-size="15" font-weight="700" fill="#166534" text-anchor="middle">耗时:1 人 / 数日</text>
+  <rect x="40" y="500" width="1120" height="46" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="600" y="529" font-size="15" font-weight="600" fill="#111827" text-anchor="middle">同等交付物:100+ 页可研  ·  3835 行建模骨架  ·  26 张技术图</text>
+  <rect x="470" y="82" width="14" height="14" rx="3" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="490" y="94" font-size="12" fill="#6b7280">浅蓝=人</text>
+  <rect x="1050" y="82" width="14" height="14" rx="3" fill="#faf5ff" stroke="#c4b5fd"/>
+  <text x="1070" y="94" font-size="12" fill="#6b7280">浅紫=智能体</text>
+</svg>

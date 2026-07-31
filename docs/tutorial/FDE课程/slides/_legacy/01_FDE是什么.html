@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 课程 · 第1讲 FDE 是什么</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .metric{font-size:60px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent-2)}
+  .metric-sm{font-size:40px;font-weight:800;line-height:1;color:var(--accent-2)}
+  .metric-label{font-size:15px;color:var(--text-2);margin-top:10px;line-height:1.4}
+  .bignum{font-size:104px;font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--accent-2)}
+  .chain{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-weight:700;font-size:22px;color:var(--text-1)}
+  .chain .step{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+  .chain .arrow{color:var(--accent-2);font-weight:700}
+  .quote-big{font-family:var(--font-serif);font-size:38px;line-height:1.4;font-weight:600;color:var(--accent);max-width:24ch}
+  .num-strip{display:flex;gap:40px;flex-wrap:wrap}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}
+  .goodcard{border-left:4px solid var(--good)}
+</style>
+<div class="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide" data-title="封面">
+    <div class="eyebrow" data-anim="fade-down">FDE 课程 · 第 1 讲</div>
+    <h1 class="title" data-anim="fade-up">FDE 是什么<br>为什么需要 FDE</h1>
+    <div class="divider-accent mb-m"></div>
+    <p class="quote-big" data-anim="fade-up">客户要的是结果，<br>组织给的是工序。</p>
+    <div class="row mt-l" data-anim="fade-up">
+      <span class="pill pill-accent">本讲在能力模型：C7 价值判断 · 指向 C1 认知萃取</span>
+      <span class="pill">实践蓝本 · 康养行业大模型平台</span>
+    </div>
+    <p class="mt-l" data-anim="fade-up" style="font-size:14.5px;color:var(--text-2);line-height:1.6;max-width:60ch;border-left:3px solid var(--accent-2);padding-left:14px">
+      <b>贯穿全课的暗线（方法论 06）：</b>AI 时代缺的不是数据、不是工具、也不是 AI，而是<b>把混乱现实建模成可执行定义的判断力</b>。FDE 的核心资产从头到尾就是这个判断力——AI 只是放大它的杠杆（第 2/4/8 讲展开）。</p>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="13"></span></div>
+    <div class="notes"><p>开场不急着讲 FDE。先把命题钉住：<strong>客户要的是结果，组织给的是工序。</strong>这一讲是全课程的"为什么"，不训练具体技能，发的是认知框架。它直接指向 C7（价值判断——你得先信"断层是真问题"）和 C1（认知萃取，下一讲起训练）。本讲不发能力，发认知。这里再埋一条贯穿全课的暗线，来自我们方法论文集 06《AI 时代的 FDE》：在 AI 时代，缺的不是数据、不是工具、也不是 AI，而是把混乱现实建模成可执行定义的判断力。这句话是整门课的暗线——FDE 的核心资产从头到尾就是这个判断力，AI 只是放大它的杠杆。第 2 讲讲杠杆、第 4 讲讲判断力怎么落成本体、第 8 讲讲判断力为什么筛不出几个。请学员先把"我上一个项目哪里掉了东西"这个问题揣在心里，后面每一页都在回答它。</p></div>
+  </section>
+
+  <!-- 2 议程 -->
+  <section class="slide" data-title="本讲议程">
+    <div class="kicker">AGENDA</div>
+    <h2 class="title">本讲议程 · 4 : 4 : 2</h2>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card card-accent"><h4>认知输入 · 36′</h4><p class="dim">①什么是交付断层 ②工序制为何制造信息衰减 ③FDE 如何贯通消除断层 ④贯通≠求全（B-7）</p></div>
+      <div class="card card-accent"><h4>现场演练 · 36′</h4><p class="dim">画本人所在项目的"交付断层图"，标出每道衰减接缝、掉了什么、返工记在谁头上。</p></div>
+      <div class="card card-accent"><h4>复盘研讨 · 18′</h4><p class="dim">3 个研讨题 + 收口：断层能否被"一个人贯通"真正消除。</p></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="2" data-total="13"></span></div>
+    <div class="notes"><p>时间分配是 4:4:2，落到分钟。认知输入 36 分钟四个要点页，页①8′、页②10′、页③10′、页④8′。演练 36 分钟画自己项目的断层图。复盘 18 分钟三个研讨题。跟学员讲清楚：今天讲得少、练得多，因为"断层"这东西你不亲手画一遍，永远觉得是别人家的问题。</p></div>
+  </section>
+
+  <!-- 3 要点1 交付断层 -->
+  <section class="slide" data-title="要点1 · 什么是交付断层">
+    <div class="kicker">认知输入 · 要点 1</div>
+    <h2 class="title">什么是"交付断层"</h2>
+    <div class="grid g2 mt-s">
+      <div class="stack">
+        <p class="lede">客户最后拿到手的东西，和他当初嘴里说的那个东西，<strong>是同一个东西吗？</strong></p>
+        <div class="card card-soft"><p>每交一次手，都有一部分<strong>只在上一个人脑子里、没写进文档</strong>的东西永久丢失。这个丢失点，就是<strong>交付断层</strong>。</p></div>
+      </div>
+      <div class="card card-outline center">
+        <div>
+          <p class="metric-label" style="margin:0 0 10px">断层不是 bug，是工序制的</p>
+          <div class="metric-sm">结构性产物</div>
+          <p class="metric-label">只要把一件事切成四段交给四拨人，断层就一定存在——跟态度无关。</p>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">交付断层</span><span class="slide-number" data-current="3" data-total="13"></span></div>
+    <div class="notes"><p>我先不讲 FDE。我先问一句：你上一个项目，客户最后拿到手的东西，和他当初嘴里说的那个东西，是同一个吗？大概率不是，中间掉了很多。掉在哪儿了？不是掉在某个人不认真，是掉在接缝上。需求的人把话交给设计的人，设计的人把图交给开发的人，开发的人把包交给交付的人——每交一次手，都有一部分只在上一个人脑子里、没写进文档的东西，永久丢失。这个丢失点，我叫它交付断层。断层不是 bug，是工序制的结构性产物。只要你把一件事切成四段交给四拨人，断层就一定存在，跟态度无关。</p></div>
+  </section>
+
+  <!-- 4 配图 fig-1-1 -->
+  <section class="slide" data-title="图1-1 交付断层">
+    <div class="kicker">图 1-1</div>
+    <h3>交付断层：工序制交付的信息衰减链</h3>
+    <div class="center" data-anim="fade-up"><img src="../figures/fig-1-1-交付断层.png" alt="交付断层信息衰减链" style="max-width:100%;max-height:60vh"></div>
+    <p class="dim tc mt-s">需求 → 设计 → 开发 → 交付：每道接缝一个衰减缺口，客户原始意图保真度从 100% 逐段跌落；右侧 FDE 贯通直线，无接缝、无跌落。</p>
+    <div class="deck-footer"><span class="ftag">交付断层</span><span class="slide-number" data-current="4" data-total="13"></span></div>
+    <div class="notes"><p>看这张图。横轴四道工序，纵轴是"客户原始意图保真度"，从需求端 100% 一路跌。每道接缝都画了一个衰减缺口，缺口标注"未落文档的意图、口径、约束在此丢失"。右边那条直线是 FDE：一个人贯通，没有接缝，就没有跌落。康养项目从需求调研到 7 域本体建模、到 3835 行插件骨架、到 11 万字可研，全链条 0 次跨人交接——1 名 FDE 带智能体编队走完。没有接缝，就没有断层。这是"消除断层"最直接的一次实证。</p></div>
+  </section>
+
+  <!-- 5 要点2 三原因 -->
+  <section class="slide" data-title="要点2 · 工序制为何制造信息衰减">
+    <div class="kicker">认知输入 · 要点 2</div>
+    <h2 class="title">写细一点就能补上接缝？补不上</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card"><h4>① 意图无法全文档化</h4><p class="dim">"帮站长管好老人"背后有 102 件没说出口的业务事件；隐性知识在交接处蒸发。</p></div>
+      <div class="card"><h4>② 工序本位优化</h4><p class="dim">开发为"好实现"改口径、设计为"好画"裁边角；局部最优叠成全局偏离。</p></div>
+      <div class="card"><h4>③ 全链保真无人负责</h4><p class="dim">返工发生在下游、根子在上游接缝；没有一个人看得见整条链。</p></div>
+    </div>
+    <div class="chain mt-l" data-anim="fade-up">
+      <span class="step">102 事件</span><span class="arrow">→</span>
+      <span class="step">16 簇</span><span class="arrow">→</span>
+      <span class="step">7 画像</span><span class="arrow">→</span>
+      <span class="step">7 旅程</span><span class="arrow">→</span>
+      <span class="step">5 流程</span><span class="arrow">→</span>
+      <span class="step">10 热点</span><span class="arrow">→</span>
+      <span class="step">7 域 D1–D7</span>
+    </div>
+    <p class="dim mt-s">这是一条必须由同一个大脑走完的推理链——每一步都是判断，不是搬运。</p>
+    <div class="deck-footer"><span class="ftag">信息衰减</span><span class="slide-number" data-current="5" data-total="13"></span></div>
+    <div class="notes"><p>有人说：文档写细一点，接缝不就补上了吗？补不上，三个原因都很扎心。第一，意图无法完全文档化。客户说"我要一个能帮站长管好老人的系统"，这句话背后有 102 件他没说出口的业务事件，你凭经验补了 60 件，剩下 42 件你没意识到，下游更不可能知道。第二，每道工序都会做本位优化，局部最优叠起来就偏离了那个结果。第三，返工的账没人认，因为没有一个人看得见整条链。康养项目这条链——102 事件到 16 簇到 7 画像到 7 旅程到 5 流程到 10 热点到 7 域——每一步都是判断。换个人接手第二步，他不知道第一步为什么这么归类，只能重新判断，断层就产生了。</p></div>
+  </section>
+
+  <!-- 6 要点3 贯通 -->
+  <section class="slide" data-title="要点3 · FDE 如何用贯通消除断层">
+    <div class="kicker">认知输入 · 要点 3</div>
+    <h2 class="title">FDE 用"贯通"消除断层</h2>
+    <p class="lede">把需要跨四个人接力的判断链，<strong>压进一个人的头脑里连续走完</strong>。</p>
+    <div class="grid g2 mt-m">
+      <div class="card badcard"><h4>工序制</h4><div class="metric-sm">4 人 × 3 接缝 × N 次返工</div><p class="metric-label">切开的每一刀，都是为了适配"按工种分人"，不是为了把活干好。</p></div>
+      <div class="card goodcard"><h4>FDE</h4><div class="metric-sm">1 人 × 0 接缝 × 智能体扩手脚</div><p class="metric-label">智能体是这一个人的手脚，不是接力赛里的另一棒——判断始终在他一个人这里。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:24px;font-weight:700;color:var(--accent)">接缝数 = 断层数</p>
+    <div class="deck-footer"><span class="ftag">贯通消除断层</span><span class="slide-number" data-current="6" data-total="13"></span></div>
+    <div class="notes"><p>FDE 是 Forward Deployed Engineer，前置交付工程师。注意不是"前线工程师"也不是"交付工程师"，那两个词太窄，会让你以为他只管交付那一段。他管的是从客户模糊意图到可执行结构的整条认知链。消除断层的机制只有一句话：把需要跨四个人接力的判断链，压进一个人的头脑里连续走完。不是他很能干什么都会，而是这条链本来就不该切开。那智能体是什么？智能体是这一个人的手脚，不是接力赛里的另一棒。他用智能体把 102 个事件快速铺开、7 个域并行编译、35 节报告并行起草——但判断始终在他一个人这里。所以 FDE 的杠杆不是打字快，是他一个人扛住了整条判断链。</p></div>
+  </section>
+
+  <!-- 7 数字页 7域五要素 -->
+  <section class="slide" data-title="康养项目证据 · 7 域零悬空">
+    <div class="kicker">康养项目证据 · 一个人扛住整条链</div>
+    <h2 class="title">7 个域 · 同一天并行编译 · 结构校验 7/7</h2>
+    <div class="grid g4 mt-m" data-anim="stagger-list">
+      <div class="card center"><div><div class="metric">76</div><div class="metric-label">Object 对象</div></div></div>
+      <div class="card center"><div><div class="metric">75</div><div class="metric-label">Link 关系</div></div></div>
+      <div class="card center"><div><div class="metric">38</div><div class="metric-label">Function 派生</div></div></div>
+      <div class="card center"><div><div class="metric">47</div><div class="metric-label">Rule 规则</div></div></div>
+    </div>
+    <div class="row mt-l center" data-anim="fade-up">
+      <div class="card card-accent center" style="flex:1"><div><div class="metric-sm">54</div><div class="metric-label">Action 动作</div></div></div>
+      <div class="card card-accent center" style="flex:1"><div><div class="metric-sm">7 / 7</div><div class="metric-label">零悬空引用</div></div></div>
+      <div class="card card-accent center" style="flex:1"><div><div class="metric-sm">0</div><div class="metric-label">跨人交接</div></div></div>
+    </div>
+    <div class="deck-footer"><span class="ftag">康养项目证据</span><span class="slide-number" data-current="7" data-total="13"></span></div>
+    <div class="notes"><p>一个人扛住整条链的可验证痕迹在这里：7 域五要素合计 Object 76、Link 75、Function 38、Rule 47、Action 54，7 个域能在同一天并行编译，结构校验 7/7 零悬空引用。跨 7 个域的引用之所以不悬空，正因为定义方和引用方是同一个大脑——D3 引用 D1 的对象，口径对得上。若分给 7 个人，D3 引用 D1 时对不上口径，就是又一处断层。这就是"消除断层"不是口号，是能被结构校验器验证的事实。</p></div>
+  </section>
+
+  <!-- 8 要点4 贯通≠求全 -->
+  <section class="slide" data-title="要点4 · 贯通≠求全">
+    <div class="kicker">认知输入 · 要点 4</div>
+    <h2 class="title">"贯通"不等于"求全"</h2>
+    <div class="center" style="flex:1">
+      <p class="quote-big" data-anim="fade-up">贯通 ≠ 求全。<br>求全是"结果没想清"的症状，<br>不是勤奋的勋章。</p>
+    </div>
+    <p class="dim tc">求全，本身就是断层的另一种表现——它是"你没搞清客户真正要的结果"导致的过度建模。</p>
+    <div class="deck-footer"><span class="ftag">贯通≠求全 · B-7</span><span class="slide-number" data-current="8" data-total="13"></span></div>
+    <div class="notes"><p>讲到这儿有个危险的误读，我必须现在就掐掉：一个人贯通全链，不等于一个人把每件事都做到最全。求全，本身就是断层的另一种表现——它是"你没搞清客户真正要的结果"导致的过度建模。给你们看康养项目一个真实的失误，就是下一页的 B-7。记住这句板书：求全是"结果没想清"的症状，不是勤奋的勋章。</p></div>
+  </section>
+
+  <!-- 9 反例 B-7 -->
+  <section class="slide" data-title="反例 B-7 · 旅程建模过重">
+    <div class="row"><span class="pill" style="background:var(--bad);color:#fff;border:none">反例 B-7</span><h3 style="margin:0">旅程建模过重返工</h3></div>
+    <div class="grid g2 mt-m">
+      <div class="stack">
+        <div class="card badcard"><h4>失误表征</h4><p class="dim">长者用户旅程初版做成"夜间急救"主线——把最重、最低频、最偏离营收的场景当成了旅程骨架。做得很全、很细、很专业，但方向错了。</p></div>
+        <div class="card"><h4>为什么错</h4><p class="dim">微康养的商业内核是会员转化复购飞轮；夜间急救是必要兜底，不是主线。"求全"压倒了"服务业务优先级"。</p></div>
+      </div>
+      <div class="stack">
+        <div class="card goodcard"><h4>返工与原则</h4><p class="dim">旅程初版推翻重做，围绕会员飞轮重建主线。返工的根子，是一开始没把"客户要的结果"想清楚，就急着把某一段做全。</p></div>
+        <div class="card card-soft"><p><strong>贯通全链，是为了对准结果；求全，反而是断层没消除的证据。</strong>B-7 将在第 6 讲以"SOP 为何先做热点分层"复现。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="ftag">反例 B-7</span><span class="slide-number" data-current="9" data-total="13"></span></div>
+    <div class="notes"><p>康养项目长者旅程建模初版，做成了"夜间急救"主线，把最重、最低频、最偏离营收的场景当成了旅程骨架。做得很全很细很专业，但方向错了。为什么错？微康养网络的商业内核是会员转化复购飞轮，客户要的结果是可持续运营的营收闭环。夜间急救是必要的安全兜底，不是主线。把它建成主线，是求全压倒了服务业务优先级。返工不是因为做得不认真，恰恰因为太认真地做错了方向。引出的原则：建模要服务于业务优先级，不是求全。如果先做了 P1–P5 热点分层，急救就会被正确地放到兜底位而非主线位——这一点第 6 讲还会讲。</p></div>
+  </section>
+
+  <section class="slide" data-title="信息获取 · 全与准">
+    <div class="kicker">方法 · 信息获取 1</div>
+    <h2 class="title">把信息问全，还要问不走样</h2>
+    <div class="grid g2 mt-s" data-anim="stagger-list">
+      <div class="goodcard"><h4>全 · 该问的都问了</h4><p class="dim">靠 <b>checklist</b> 保证覆盖度。<br>失败长这样：后面突然冒出一个没人考虑过的约束。</p></div>
+      <div class="goodcard"><h4>准 · 客户原话没被转译污染</h4><p class="dim">靠 <b>原话留存</b> 保证保真度。<br>失败长这样：所有推导建立在你的误解上，<b>而且看起来很自洽</b>。</p></div>
+    </div>
+    <div class="chain mt-l" data-anim="fade-up">
+      <span class="step">客户脑子里的</span><span class="arrow">→</span>
+      <span class="step">说出来的</span><span class="arrow">→</span>
+      <span class="step">你听到的</span><span class="arrow">→</span>
+      <span class="step">你记下的</span><span class="arrow">→</span>
+      <span class="step">写进模板的</span><span class="arrow">→</span>
+      <span class="step">模型读到的</span>
+    </div>
+    <p class="quote-big mt-m" data-anim="fade-up">不准比不全更危险——<br><b>漏了会暴露，歪了不会。</b></p>
+    <div class="deck-footer"><span class="ftag">全 · 准</span><span class="slide-number" data-current="0" data-total="19"></span></div>
+    <div class="notes"><p>信息获取有两个标准，不是一回事。全，是该问的都问了，靠 checklist；准，是客户的原话没有被你的转译污染，靠原话留存。这两个是不同的失败模式：漏掉的东西迟早会撞出来，你会知道；但理解歪了的东西，会一路顺畅地长成一整套自洽的错误方案，直到交付评审那天才炸。所以我说，不准比不全更危险。上面这条链是信息衰减链，六道关口，每一道都在丢东西。我们这一讲要教的工具，就是在每一道上设一道保真措施。</p></div>
+  </section>
+
+  <section class="slide" data-title="工具① 电梯演讲">
+    <div class="kicker">方法 · 信息获取 2</div>
+    <h2 class="title">30 秒说不清楚，说明你还没听懂</h2>
+    <div class="grid g4 mt-s" data-anim="stagger-list">
+      <div class="card"><h4>① 为谁</h4><p class="dim">目标用户是谁——<b>不是"所有人"</b>。说不出具体角色就是没想清楚。</p></div>
+      <div class="card"><h4>② 解决什么</h4><p class="dim">他现在痛在哪——<b>用他的原话</b>，不是你的总结。</p></div>
+      <div class="card"><h4>③ 凭什么</h4><p class="dim">为什么是我们做——独特之处。</p></div>
+      <div class="card"><h4>④ 结果如何</h4><p class="dim">做完之后什么变了——<b>可量化</b>。</p></div>
+    </div>
+    <div class="card-accent mt-l" data-anim="fade-up">
+      <h4>真正的用法：不是对外讲，是对内校验</h4>
+      <p>第一次会议结束前，<b>当场用这四句复述给客户听</b>：「我理解您要的是……对吗？」<br>
+      客户点头 = 你抓住了主线；<b>客户皱眉 = 你当场就发现了偏差，而不是三周后。</b></p>
+    </div>
+    <div class="deck-footer"><span class="ftag">电梯演讲</span><span class="slide-number" data-current="0" data-total="19"></span></div>
+    <div class="notes"><p>电梯演讲大家都听过，但多数人以为它是对外讲的话术。不是。它真正的价值是对内校验——四句话你如果 30 秒说不清楚，说明你还没听懂客户要什么。这时候该做的是回去再问，不是回去开始写方案。更关键的用法在下面这个框：第一次会议结束之前，当场用这四句话复述给客户听，我理解您要的是这样对吗。客户点头，你抓住主线了；客户皱眉，恭喜你，你在会议室里就发现了偏差，而不是三周后带着一份做偏的方案回来。这一来一回花不到两分钟，省下来的是三周。</p></div>
+  </section>
+
+  <section class="slide" data-title="工具②③④ · 保全与保准">
+    <div class="kicker">方法 · 信息获取 3</div>
+    <h2 class="title">三件工具，堵住三个最常见的漏</h2>
+    <div class="grid g3 mt-s" data-anim="stagger-list">
+      <div class="card"><h4>② 5W2H checklist</h4><p class="dim">Who / What / Why / Where / When / How / How much——<b>七项缺一就是不全</b>。走完模板不等于走完 checklist，填完回头拿这张表点一遍。</p></div>
+      <div class="card"><h4>③ 利益相关者地图</h4><p class="dim">谁出钱 · 谁使用 · 谁验收 · <b>谁反对</b><br><b>"谁反对"最容易漏，也最致命。</b></p></div>
+      <div class="card"><h4>④ 原话留存</h4><p class="dim">物理隔开两栏：<span class="mono">客户说的</span> / <span class="mono">我理解的</span>，不许混写。转译时保留原句。</p></div>
+    </div>
+    <div class="badcard mt-l" data-anim="fade-up">
+      <h4>为什么"谁反对"必须问</h4>
+      <p>一个动了别人权责的平台，<b>反对者不会在需求会上举手，他会在验收会上举手。</b><br>
+      康养项目的民政 DP-H 闸、教育督导项目的园长材料复核——本质上都是<b>把"谁反对"提前变成了流程里的一道闸</b>。</p>
+    </div>
+    <div class="deck-footer"><span class="ftag">全 · 准 · 工具</span><span class="slide-number" data-current="0" data-total="19"></span></div>
+    <div class="notes"><p>三件工具。5W2H 保全，七项缺一就是不全；注意，走完模板不等于走完 checklist，填完之后要拿这张表回头点一遍。利益相关者地图，四栏里前三栏大家都会问，第四栏谁反对最容易漏，也最致命——因为一个动了别人权责的平台，反对的人不会在需求会上举手，他会在验收会上举手。康养项目那个民政发布闸、教育督导项目那个园长材料复核，本质上就是把谁反对这件事，提前变成了流程里的一道闸。第三件，原话留存，客户说的和我理解的必须物理隔开两栏。你写提供土壤检测功能之前，先留一行客户的原话：我家没有专业仪器，怎么判断土壤。约束就藏在原话里，你的转译会把它丢掉。</p></div>
+  </section>
+
+  <!-- 10 Exercise 预告 -->
+  <section class="slide" data-title="Exercise 预告">
+    <div class="kicker">现场演练 · 36′</div>
+    <h2 class="title">画你自己的"交付断层图"</h2>
+    <p class="lede">不谈别人家的康养项目，谈你自己的断层。不是理想流程图，是<strong>真实发生过信息衰减的那张图</strong>。</p>
+    <div class="grid g4 mt-m" data-anim="stagger-list">
+      <div class="card center"><div><div class="metric-sm">哪道</div><div class="metric-label">接缝掉了东西</div></div></div>
+      <div class="card center"><div><div class="metric-sm">掉了</div><div class="metric-label">什么内容</div></div></div>
+      <div class="card center"><div><div class="metric-sm">几次</div><div class="metric-label">返工</div></div></div>
+      <div class="card center"><div><div class="metric-sm">记在</div><div class="metric-label">谁头上</div></div></div>
+    </div>
+    <p class="dim mt-l">画不出断层的两种人：项目太小没断层；或者——更常见——你根本没看见断层。对照样例与评分卡见 <span class="mono">01_FDE是什么_workshop.md</span>。</p>
+    <div class="deck-footer"><span class="ftag">Exercise</span><span class="slide-number" data-current="10" data-total="13"></span></div>
+    <div class="notes"><p>道理讲完了，现在轮到你们自己流血。打开你手上或最近一个项目，接下来 36 分钟画一张你所在项目的交付断层图——不是理想流程图，是真实发生过信息衰减的那张图。哪道接缝掉了东西、掉了什么、返工了几次、这笔账记在谁头上。画不出断层的人有两种：一种是项目太小没断层，另一种更常见，是你根本没看见断层。工作坊材料里有康养项目的对照样例和评分卡。</p></div>
+  </section>
+
+  <!-- 11 难听话 -->
+  <section class="slide" data-title="本讲难听话">
+    <div class="kicker">本讲难听话</div>
+    <div class="center" style="flex:1">
+      <p class="quote-big" data-anim="fade-up" style="max-width:30ch">你以为你在"对接需求"，其实你只是在"转述需求"——把上一道工序的话原样递给下一道，中间那些没写进文档的判断，从你手上又蒸发了一层。<br><br>你不是断层的受害者，<span class="gradient-text">你就是断层本身。</span></p>
+    </div>
+    <div class="deck-footer"><span class="ftag">难听话 · 内部专业培训</span><span class="slide-number" data-current="11" data-total="13"></span></div>
+    <div class="notes"><p>这页是难听话，读的时候慢一点、重一点。你以为你在"对接需求"，其实你只是在"转述需求"——把上一道工序的话原样递给下一道，中间那些没写进文档的判断，从你手上又蒸发了一层。你不是断层的受害者，你就是断层本身。停顿两秒，让这句话砸下去，再进收口。</p></div>
+  </section>
+
+  <!-- 12 交付两大模式（插页） -->
+  <section class="slide" data-title="FDE 交付两大模式">
+    <div class="kicker">认知补充 · 举康养项目之外</div>
+    <h2 class="title">FDE 的第一判断 —— 这是哪种交付模式？</h2>
+    <p class="lede">第一个判断不是"怎么做"，是<strong>"这是哪种模式的活"</strong>。选错模式，做法全错。</p>
+    <div class="grid g2 mt-s">
+      <div class="card card-outline">
+        <h4>模式一 · Token 计费智能体 SaaS 应用</h4>
+        <p class="dim">交付物是一个能用的智能体应用，卖给客户按调用量计费。<strong>轻 / 快 / 产品化 / 无运营盘 / 团队轻</strong>。</p>
+        <p class="metric-label" style="margin-top:8px">代表：<strong>教育督导项目</strong> — 学前保教质量智慧督导 agent，和康养项目同一套建模管线，但不做百页可研、不做运营盘。</p>
+      </div>
+      <div class="card card-accent">
+        <h4>模式二 · 大型平台建设 + 生态运营</h4>
+        <p class="dim">交付物是可研 + 平台 + 运营一整套。<strong>重 / 长周期 / 投建运一体 / 运营盘 + 碳汇交易·数据要素 / 团队重</strong>。</p>
+        <p class="metric-label" style="margin-top:8px">代表：<strong>康养项目🟢 / 草业项目🟡 / 辣椒🟡</strong>（康养 1.36 亿平台 + 农业口大模型）。</p>
+      </div>
+    </div>
+    <p class="tc mt-l" style="font-size:19px;font-weight:700;color:var(--accent)">选错模式的代价：用做大平台的重法做 SaaS 应用 → 又慢又贵；用做 SaaS 的轻法接大盘 → 撑不起可研评审、中不了标。</p>
+    <div class="chain mt-s" data-anim="fade-up">
+      <span class="step">康养项目🟢 编译交付</span>
+      <span class="step">教育督导项目🟢 建模+方案</span>
+      <span class="step">辣椒🟡 方案</span>
+      <span class="step">草业项目🟡 方案+Mock demo</span>
+    </div>
+    <p class="dim mt-s">这四个成熟度不一样，绝不拉平：只有康养项目编译交付了；草业项目 11 页 demo 的 AI 是 <strong>Mock 关键词路由、非真模型</strong>；辣椒/草业项目的效益数字是<strong>方案目标值、非实测</strong>。</p>
+    <div class="deck-footer"><span class="ftag">交付两大模式</span><span class="slide-number" data-current="12" data-total="13"></span></div>
+    <div class="notes"><p>有人问：你举的全是康养项目，是不是只有康养才需要 FDE？不是。给你们一个比"行业"更重要的分类法：FDE 交付分两种模式，第一个判断不是"怎么做"，是"这是哪种模式的活"。模式一是 Token 计费的智能体 SaaS 应用，交付一个能用的 agent 按调用量计费，轻、快、产品化，代表是教育督导项目，和康养项目同一套建模管线，但不做百页可研、不做运营盘。模式二是大型平台建设加生态运营，交付可研加平台加运营一整套，重、长周期、投建运一体，代表是康养项目，还有农业口的辣椒、该草业集团的草业项目。选错模式代价很实：用做康养项目的重法做教育督导项目这种 SaaS，又慢又贵；反过来用轻法接康养项目这种大盘，撑不起可研评审、中不了标。最后立条规矩，这四个成熟度我绝不拉平：只有康养项目编译交付了，教育督导项目到建模加方案，辣椒到方案，草业项目到方案加 demo，而且那个 11 页 demo 的 AI 是 Mock 关键词路由、不是真模型；它们那些成本降 20%、育种减半是方案目标值、不是实测。</p></div>
+  </section>
+
+  <!-- 13 收口/钩子 -->
+  <section class="slide" data-title="收口与钩子">
+    <div class="kicker">收口 · 与其他讲的钩子</div>
+    <h2 class="title">断层是真问题，下一讲讲"一个人怎么扛得动"</h2>
+    <div class="grid g3 mt-m" data-anim="stagger-list">
+      <div class="card card-accent"><h4>→ 第 2 讲</h4><p class="dim">人月对比实证"一个人怎么扛得动"：杠杆来自结构化能力 + 平台固化，不是打字快。</p></div>
+      <div class="card card-accent"><h4>→ 第 3 讲</h4><p class="dim">画 OPC 边界：哪些能贯通（C1–C6），哪些永远要人扛（C7）。B-7 的"该不该求全"属于 C7。</p></div>
+      <div class="card card-accent"><h4>→ 第 6 讲</h4><p class="dim">B-7 复现：SOP 里"热点分层"就是为了防求全式断层；本讲的断层图是 SOP 泳道图的问题版前身。</p></div>
+    </div>
+    <p class="tc mt-l" style="font-size:22px;font-weight:700;color:var(--accent)">需要 FDE，不是多一个能干的人，是补上那个"对结果负责"的空位。</p>
+    <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="13" data-total="13"></span></div>
+    <div class="notes"><p>收口。能消除的是"交接信息衰减"，消除不了的是"判断本身的难度"。FDE 不是让判断变简单，是让判断不再被切断。你们组织现在为"全链保真"负责的是谁？如果答案是"没有这个人"，说明你们靠流程和文档补断层，而不是靠一个看得见全链的人。这正是为什么需要 FDE——不是多一个能干的人，是补上那个对结果负责的空位。下一讲用康养项目人力对比证明"一个人扛得动"，并讲清杠杆来自哪里。</p></div>
+  </section>
+
+</div>
+<script src="../assets/runtime.js"></script>
+</body>
+</html>

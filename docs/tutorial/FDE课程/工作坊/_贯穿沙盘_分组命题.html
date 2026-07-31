@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDE 课程 · 贯穿式分组沙盘（Capstone）与命题库</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">FDE 课程 · 贯穿式分组沙盘（Capstone）与命题库</h1>
+</header>
+<h1 id="fde-课程-贯穿式分组沙盘capstone与命题库">FDE 课程 · 贯穿式分组沙盘（Capstone）与命题库</h1>
+<blockquote>
+<p>用途：把工作坊从“孤立练习”升级为“<strong>一条命题贯穿全程</strong>”。4–5 个小组，每组领 <strong>一个命题</strong>（模拟真实业务），用六个真实案例（康养项目/教育督导项目/HR项目/学前教育项目/辣椒/草业项目）<strong>启发</strong>，按 FDE 流程边学边做；<strong>全部课程结束时，每组同时完成该命题的 FDE 全流程与对应产出——一份“迷你 FDE 交付包”。</strong> 授课形式遵 <code>_工作坊授课规范.md</code>（敏捷引导式：启发→执行）。口径遵 <code>_WRITING_BRIEF.md</code>。</p>
+</blockquote>
+<hr />
+<h2 id="一沙盘机制怎么玩">一、沙盘机制（怎么玩）</h2>
+<ol type="1">
+<li><strong>分组</strong>：4–5 组，每组 4–6 人。开课第一天各组<strong>认领一个命题</strong>（见第四节命题库），一认到底、不换。</li>
+<li><strong>一命题贯穿</strong>：<strong>L1–L8 每一课</strong>，各组都<strong>用自己那个命题</strong>跑真实工具——不是每步换一个练习题，是<strong>同一个项目往前推一段</strong>。</li>
+<li><strong>启发来自真实案例</strong>：每步的 <code>💡 启发</code> 范例，用康养项目/教育督导项目/HR项目/学前教育项目/辣椒/草业项目的真实产物做标尺；各组照着“做对了长什么样”，对<strong>自己的命题</strong>产出同类物。</li>
+<li><strong>增量沉淀</strong>：每组维护一个<strong>贯穿工作簿</strong>，八课的产出逐页累加，最后拼成交付包。<strong>工具产物落在各组自己的 <code>studio/changes/{命题-slug}/</code> 下</strong>，工作簿只记判断与结论。</li>
+<li><strong>结课路演</strong>：最后一讲后，各组用 20 分钟路演本组命题的<strong>迷你 FDE 交付包</strong>，按第五节评审卡互评 + 讲师评。</li>
+</ol>
+<blockquote>
+<p><strong>元示范</strong>：这套“一命题贯穿、增量沉淀、单点口径”本身就是 <strong>L5 下半场</strong>教的“锚定口径 + SOP 复用”——各组的贯穿工作簿，就是他们自己项目的 <code>_WRITING_BRIEF</code>。</p>
+</blockquote>
+<hr />
+<h2 id="二命题贯穿地图l1l8-八课-交付包-11-件">二、命题贯穿地图（L1–L8 八课 → 交付包 11 件）</h2>
+<blockquote>
+<p><strong>2026-07-27 体系化重排（v0.3）</strong>：<strong>L1 纯讲解建立认知</strong>（不产交付物）→ L2 领项目装工具 → <strong>L3–L7 每课一个工作环节</strong> → L8 收口。详见 <code>00_八课总纲.md</code>。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>课</th>
+<th>各组现场产出（进交付包）</th>
+<th>主工具</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L1 FDE 总论</strong></td>
+<td>—（纯讲解：建立认知 + <strong>记住 SOP 七阶段对应哪一课</strong>）</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><strong>L2 项目与工具</strong></td>
+<td><strong>认领命题 + 一句话项目定义</strong>；装好工具</td>
+<td>marketplace / studio-core</td>
+</tr>
+<tr class="odd">
+<td><strong>L3 如何正确采集信息</strong></td>
+<td><strong>① 项目定义 + 交付模式判定</strong> + <strong><code>_INPUT.md</code> 输入包</strong></td>
+<td>模板 A/B + domain-intake</td>
+</tr>
+<tr class="even">
+<td><strong>L4 上 · 认知萃取</strong></td>
+<td><strong>② 事件集→画像→旅程→10 热点</strong></td>
+<td>studio-insight 六件套</td>
+</tr>
+<tr class="odd">
+<td><strong>L4 下 · 领域建模</strong></td>
+<td><strong>③ 限界上下文域图</strong>（+ skill-map，喂 L8）</td>
+<td>studio-planner</td>
+</tr>
+<tr class="even">
+<td><strong>L5 上 · 本体建模</strong></td>
+<td><strong>④ 五要素本体草案</strong></td>
+<td>studio-ontology</td>
+</tr>
+<tr class="odd">
+<td><strong>L5 下 · 设闸与治理</strong></td>
+<td><strong>⑥ SOP 七阶段 ⑦ HIL 设点表 ⑧ citations 取证清单</strong></td>
+<td>studio-ontology + 引擎</td>
+</tr>
+<tr class="even">
+<td><strong>L6 文档工程</strong></td>
+<td><strong>⑤ 商业模式画布+财务语言 ⑨ 一节方案稿+一张图占位</strong></td>
+<td>studio-docs / studio-platform</td>
+</tr>
+<tr class="odd">
+<td><strong>L7 原型开发</strong></td>
+<td><strong>⑪ 产品 demo 原型（3–6 屏）·标 Mock + Mock 清单</strong></td>
+<td>studio-design</td>
+</tr>
+<tr class="even">
+<td><strong>L8 总结与能力沉淀</strong></td>
+<td><strong>⑩ 团队编成 + 90 天计划</strong>；<strong>⑫ 可发版插件（加分项）</strong>；拼合 11 件路演</td>
+<td>planner 续跑 + quality + core</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结课交付包（每组应交 11 件）</strong> = ① 项目定义 + 交付模式判定 ② 事件集→画像→旅程→10 热点 ③ 限界上下文域图 ④ 五要素本体草案 ⑤ 商业模式画布 + 财务语言 ⑥ 交付 SOP 七阶段 ⑦ HIL 设点表 ⑧ citations 取证清单（含留占位）⑨ 一节方案稿 + 一张图占位 ⑩ 团队编成 + 90 天计划 ⑪ <strong>产品 demo 原型（可点开外壳·诚实标 Mock、非模型跑通）</strong>。 <strong>⑫ 可发版插件 v0.1 —— 加分项</strong>（L8 产出）：做到通过 <code>/studio-quality:validate</code> 即算达成，做不完不扣分。<strong>评审看的是“说得出本组哪个动作值得沉淀成插件”。</strong></p>
+<blockquote>
+<p>⑥ 交付 SOP 七阶段：<strong>总览在 L1 讲</strong>（含每阶段对应哪一课），<strong>S4/S5 深入与成文在 L5 下半场</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="三命题设计原则为什么是这几个">三、命题设计原则（为什么是这几个）</h2>
+<ul>
+<li><strong>模拟真实业务</strong>：每个命题都有客户背景、<strong>客户原话（模糊意图，需组自己压成结构）</strong>、已知约束、<strong>故意埋的“查不到的项”</strong>（练 B-10 诚实边界）。</li>
+<li><strong>各对标一个课程真实案例</strong>做启发标尺，但<strong>不是抄</strong>：命题的城市/切口/规模都与蓝本不同。</li>
+<li><strong>刻意分布在不同交付模式上</strong>（L3 判模式）：有模式二大平台、有模式一 Token-SaaS 应用，逼各组用对财务语言（IRR/回本 vs MRR/LTV:CAC/NRR）。</li>
+<li><strong>难度相当、切口不同</strong>：四个命题跨康养/教育/美业/农业四个行业，验证“FDE 方法跨行业可迁移”（L1 讲 C1 迁移力）。</li>
+</ul>
+<hr />
+<h2 id="四命题库5-个命题45-组各认领一个">四、命题库（5 个命题，4–5 组各认领一个）</h2>
+<blockquote>
+<p>覆盖康养/教育/美业/农业/监管五行业；刻意分布在<strong>两种交付模式</strong>（模式一 SaaS：B/C/E；模式二 平台：A/D），逼各组用对财务语言。</p>
+</blockquote>
+<h3 id="命题-a-微康养-县域助浴喘息微康养服务网络康养">命题 A · 微康养 ｜「县域’助浴+喘息’微康养服务网络」（康养）</h3>
+<ul>
+<li><strong>对标启发案例</strong>：康养项目微康养（🟢 已交付）——但<strong>康养项目是地级市大平台，本命题收窄到县域单切口</strong>，不许照抄。</li>
+<li><strong>交付模式定位</strong>：🟦 <strong>模式二 · 大平台建设+运营</strong>（有站点、有运营盘）→ 财务语言用 <strong>投资/EBITDA/IRR/回本</strong>。</li>
+<li><strong>客户背景</strong>：某县民政局 + 县属国资平台公司，想在全县建一张<strong>“助浴 + 喘息服务”</strong>为切口的微康养站点网，服务全县约 3.2 万失能/半失能老人，一期铺 15 个乡镇/社区站点。</li>
+<li><strong>客户原话（模糊意图，组自己压结构）</strong>：
+<ol type="1">
+<li>“很多失能老人一年洗不上几次澡，我们想让’上门助浴’能约、能追踪、能核销补贴。”</li>
+<li>“长期照护老人的家属太累了，想有个’喘息服务’——家属能临时把老人托管几天。”</li>
+<li>“县里想知道钱花在哪、服务到没到位，别站点报个假数。”</li>
+<li>“能不能顺便帮家属推荐点付费的康复辅具租赁，增加点收入？”</li>
+<li>“老人身体状况变了（比如评估等级变了），补贴和服务额度要跟着变。”</li>
+</ol></li>
+<li><strong>已知约束</strong>：助浴/喘息挂长护险与政府购买；服务真实性要留痕核验（防刷单）；老人能力评估等级驱动服务额度；县域预算紧、单站要能自负盈亏。</li>
+<li><strong>故意埋的“查不到项”（B-10）</strong>：该县“居家养老助浴补贴标准”文号、“喘息服务政府购买单价”文号、平台内部“服务真实性核验 SOP”编号——查不到。</li>
+<li><strong>该组要点透的</strong>：助浴/喘息=服务履约闭环（约→派→做→核销留痕）；辅具租赁=交叉补贴增收；评估等级=资格动态调整（对标康养项目 Elder 画像单写入 + 资格降级）。</li>
+</ul>
+<h3 id="命题-b-园本知识库-区域幼儿园园本课程知识库-保教助手教育">命题 B · 园本知识库 ｜「区域幼儿园’园本课程知识库 + 保教助手’」（教育）</h3>
+<ul>
+<li><strong>对标启发案例</strong>：教育督导项目（🟢 已建模+方案）——教育督导项目是“督导评价”，本命题偏“<strong>园本课程知识沉淀 + 一线保教助手</strong>”，切口不同。</li>
+<li><strong>交付模式定位</strong>：🟩 <strong>模式一 · Token 计费智能体 SaaS 应用</strong>（卖给区教育局/园所的应用）→ 财务语言用 <strong>MRR/ARR/LTV:CAC/NRR/Churn</strong>。</li>
+<li><strong>客户背景</strong>：某区教育局 + 一家幼教服务商，想做一个<strong>“园本课程知识库 + 保教助手”</strong> SaaS：把各园零散的优质教案/观察记录/主题活动沉淀成可检索、可复用的知识库，并给一线教师一个“一问得方案”的保教助手。区内约 60 所园、900 名教师。</li>
+<li><strong>客户原话</strong>：
+<ol type="1">
+<li>“好教案都在老教师脑子里和各自电脑里，人一走就没了，想沉淀下来。”</li>
+<li>“新教师写观察记录、设计主题活动没抓手，想有个能一问得建议的助手。”</li>
+<li>“各园水平差距大，想把优质园的做法’可复制’到薄弱园。”</li>
+<li>“教育局想看到全区教研活跃度、知识复用率。”</li>
+<li>“AI 给的建议不能出格——不能违反《3-6 岁儿童学习与发展指南》，也不能瞎编。”</li>
+</ol></li>
+<li><strong>已知约束</strong>：内容要合规（挂《指南》等教育标准）；AI 建议要可溯源、不能幻觉（本体约束）；教师数据与儿童信息受个保法约束；SaaS 要按园/按席位计费、看留存。</li>
+<li><strong>故意埋的“查不到项”（B-10）</strong>：该区“园本课程评审细则”本地文号、“保教质量结果应用办法”文号、服务商内部“AI 内容安全审核 SOP”编号——查不到。</li>
+<li><strong>该组要点透的</strong>：知识库=D7 式版本化知识地基 + RAG 取证；保教助手的“不出格”=OAG 约束求解（合规候选集内生成、越权 reject，对标草业项目）；SaaS 指标（NRR=老师用不用得下去）。</li>
+</ul>
+<h3 id="命题-c-智慧工作台-连锁美业门店智慧工作台美业">命题 C · 智慧工作台 ｜「连锁美业’门店智慧工作台’」（美业）</h3>
+<ul>
+<li><strong>对标启发案例</strong>：康养项目会员复购飞轮（🟢）+ SaaS 指标——美业是<strong>会员/复购/顾问</strong>生意，飞轮机制高度可迁移。</li>
+<li><strong>交付模式定位</strong>：🟩 <strong>模式一 · SaaS 应用</strong>（卖给连锁美业总部/门店）→ 财务语言用 <strong>MRR/LTV:CAC/NRR/客单价/复购率</strong>。</li>
+<li><strong>客户背景</strong>：一家有 80 家门店的连锁美业（美容+轻医美），想做一个<strong>“门店智慧工作台”</strong>：整合会员、项目、顾问、库存/耗材、预约，并用 AI 帮顾问做“千人千面”的项目推荐与复购提醒，提升连带率与复购。</li>
+<li><strong>客户原话</strong>：
+<ol type="1">
+<li>“顾问全靠经验推项目，好顾问一走业绩就掉，想把’怎么推’沉淀成系统能力。”</li>
+<li>“会员做完一次就不来了，想有个’该回访、该复购’的智能提醒。”</li>
+<li>“耗材（针剂/护理品）经常压货或断货，想让消耗和预约挂上钩。”</li>
+<li>“医美项目涉及资质和合规，推荐不能乱推、不能夸疗效。”</li>
+<li>“总部想看每店的坪效、顾问人效、会员复购率。”</li>
+</ol></li>
+<li><strong>已知约束</strong>：医美项目推荐涉《医疗广告》《医疗美容服务》合规红线（不得夸大疗效、需资质）；会员敏感信息受个保法；连带/复购推荐涉钱涉信任（推错毁口碑）；SaaS 按门店/席位订阅。</li>
+<li><strong>故意埋的“查不到项”（B-10）</strong>：该连锁内部“医美项目话术合规清单”编号、“顾问提成与推荐分离风控 SOP”编号、某地“生活美容与医疗美容边界”地方监管口径文号——查不到。</li>
+<li><strong>该组要点透的</strong>：会员复购飞轮（对标康养项目“患者→会员”三线咬合）；医美推荐的“不能夸疗效”=HIL 涉合规闸 + 本体规则拦截；顾问推荐转单=涉钱+置信兜底闸（防橡皮图章式硬推）。</li>
+</ul>
+<h3 id="命题-d-标准化种植大模型-地方特色作物标准化种植-产销大模型农业">命题 D · 标准化种植大模型 ｜「地方特色作物’标准化种植 + 产销’大模型」（农业）</h3>
+<ul>
+<li><strong>对标启发案例</strong>：辣椒（🟡 方案级）/ 草业项目（🟡 方案+Mock demo）——同为农业产业链，<strong>成熟度诚实：本命题也只到方案/调研级，产出标“目标值非实测”</strong>。</li>
+<li><strong>交付模式定位</strong>：🟦 <strong>模式二 · 大平台建设</strong>（全产业链平台，早期）→ 财务语言用 <strong>投资估算/功能点（若含平台建设）</strong>，兼谈产品化收入。</li>
+<li><strong>客户背景</strong>：某县农业农村局 + 龙头合作社，想为本县<strong>一种地理标志特色作物</strong>（如某地道地中药材/水果，脱敏为“××作物”）做一个<strong>“标准化种植 + 品质分级 + 产销对接”</strong>大模型，服务散户/合作社/加工/收购/监管五类用户。</li>
+<li><strong>客户原话</strong>：
+<ol type="1">
+<li>“散户种得五花八门，品质不稳，想有个’一地一方’的标准化种植方案。”</li>
+<li>“收购时靠眼看手摸定价，想有个客观的品质快检分级。”</li>
+<li>“想做地理标志的产地溯源，卖出溢价。”</li>
+<li>“农业局想监测种植面积、品质趋势，做产业决策。”</li>
+<li>“最好能对接销路，别丰产不丰收。”</li>
+</ol></li>
+<li><strong>已知约束</strong>：种植方案挂农业标准/地方品种审定；品质分级需客观指标（不能主观）；溯源凭证涉信任与合规；数据来源“空-天-地”多源；<strong>效益数字（降本/提质/溢价）此阶段是目标值、非实测</strong>。</li>
+<li><strong>故意埋的“查不到项”（B-10）</strong>：该县“××作物地方种植技术规程”文号、“地理标志产品保护管理办法”本地实施细则文号、合作社内部“品质分级标准”编号——查不到。</li>
+<li><strong>该组要点透的</strong>：一地一方=场景化方案生成；品质快检分级=本体规则+置信度；产地溯源=版本化知识+凭证（对标辣椒椒溯/草业项目草碳）；<strong>全程用“方案目标值”口径，不吹成实测</strong>。</li>
+</ul>
+<h3 id="命题-e-监管督导型-区级养老机构星级评定智慧督导应用监管">命题 E · 监管督导型 ｜「区级’养老机构星级评定’智慧督导应用」（监管）</h3>
+<ul>
+<li><strong>对标启发案例</strong>：教育督导项目（🟢 已建模+方案）——教育督导项目是“幼教保教质量督导”，本命题换域到<strong>养老机构星级评定督导</strong>，切口不同、机制同构。</li>
+<li><strong>交付模式定位</strong>：🟩 <strong>模式一 · Token 计费智能体 SaaS 应用</strong>（卖给区民政局的督导应用，G 端为主、<strong>无运营盘</strong>）→ 财务语言用 <strong>MRR/ARR/席位</strong>，且要说清“政府项目按用量/按席位而非回本年”。</li>
+<li><strong>客户背景</strong>：某区民政局，想做一个<strong>“养老机构星级评定 + 日常监察”</strong>的智慧督导 SaaS：把星级评定标准结构化，帮机构自评自查、帮民政做全区 Gap 诊断与整改跟踪，服务全区约 40 家养老机构。</li>
+<li><strong>客户原话（模糊意图，组自己压结构）</strong>：
+<ol type="1">
+<li>“星级评定标准又厚又专业，机构看不懂、也不知道自己缺什么，想有个’一问就懂、一查就知差在哪’的东西。”</li>
+<li>“评定材料反复报、反复退，想让机构上传前就能实时自检。”</li>
+<li>“民政想看到全区机构的短板分布、整改进度，做个’一张图’。”</li>
+<li>“评定结果要能追溯——为什么给这个机构三星不是四星，得说得清、经得起复查。”</li>
+<li>“有些机构材料造假，想有办法交叉核验。”</li>
+</ol></li>
+<li><strong>已知约束</strong>：星级评定挂《养老机构等级划分与评定》GB/T 37276-2018 等标准；评定结论<strong>一经发布不可逆、涉合规追责</strong>；机构与老人数据受个保法约束；G 端项目无运营盘、按用量/席位计费。</li>
+<li><strong>故意埋的“查不到项”（B-10）</strong>：该区“养老机构星级评定实施细则”本地文号、“评定结果与补贴挂钩办法”文号、服务商内部“评定结论复核 SOP”编号——查不到。</li>
+<li><strong>该组要点透的</strong>：标准解码=知识库+RAG；材料实时自检=质检前置（对标教育督导项目 material-qc）；<strong>评定结论发布=命门 HIL 闸（涉合规+不可逆，非增收）</strong>；结论可追溯=决策血统（方法论 10）；这是<strong>模式一里“命门在裁定/发布闸而非增收闸”的最好实证</strong>（对标教育督导项目三闸）。</li>
+</ul>
+<hr />
+<h2 id="五结课路演评审卡各组互评-讲师评">五、结课路演评审卡（各组互评 + 讲师评）</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>✅ 达标线</th>
+<th>⚠️ 警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 认知萃取到位</strong></td>
+<td>客户模糊原话被压成可归域的事件/画像/旅程/热点，画像有“数据校准”意识</td>
+<td>停在复述客户原话、画像拍脑袋</td>
+</tr>
+<tr class="even">
+<td><strong>② 结构与本体</strong></td>
+<td>切出限界上下文、一个核心域的五要素本体草案自洽、跨域 ref 不越界</td>
+<td>域切错/对象被两域直写/五要素混乱</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 交付模式与财务语言用对</strong></td>
+<td>判对模式一/二、用对财务语言（IRR/回本 vs MRR/LTV:CAC/NRR）、能用交叉补贴/三级火箭拆商业模式</td>
+<td>模式二讲 MRR 或模式一讲回本年（答反露怯）</td>
+</tr>
+<tr class="even">
+<td><strong>④ HIL 设点</strong></td>
+<td>5–8 个真闸、判据准、按错代价具体、分得清自动闸/人工闸</td>
+<td>漏涉钱/涉合规闸，或滥设闸</td>
+</tr>
+<tr class="odd">
+<td><strong>⑤ 诚实边界</strong></td>
+<td>查不到的项<strong>留占位转取证清单</strong>、方案级数字标“非实测”</td>
+<td><strong>编造文号/把目标值当实测</strong> = 一票警示</td>
+</tr>
+<tr class="even">
+<td><strong>⑥ 交付物成形</strong></td>
+<td>一节方案稿+一张图占位+90 天计划，口径一致无漂移</td>
+<td>拼凑、口径打架、无落地计划</td>
+</tr>
+<tr class="odd">
+<td><strong>⑦ 产品 demo（延伸）</strong></td>
+<td>有可点开的交互原型（3–6 屏）+ <strong>诚实说明“交互外壳、AI 为 Mock、非模型跑通”</strong> + <strong>Mock 清单</strong>（grep 出的 TODO）</td>
+<td><strong>把 demo 外壳吹成“跑通的产品”</strong> = 一票警示；或说不出自己在“数据真”还是“数据也假”那一档</td>
+</tr>
+<tr class="even">
+<td><strong>⑧ 工具链走通（加分项）</strong></td>
+<td>L1–L8 八课都在本组命题上真跑过，产物在 <code>studio/changes/</code> 里可查；说得出本组哪个动作值得沉淀成插件</td>
+<td>只在 PPT 上走完流程、工具没真跑（不扣分，但拿不到加分）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一票警示（三条）</strong>： ① <strong>编造查不到的文号</strong>（B-10）——留占位、转取证清单才是对的； ② <strong>把别处模板的数字当自己的</strong>（<strong>B-11</strong>）——复用模板可以，复用数字不行； ③ <strong>把方案目标值 / Mock demo 说成已实现</strong>——包括说不出自己的 demo 是「数据真」还是「数据也假」。 无论其他维多好，命中任一条<strong>路演不通过</strong>。 <strong>三条其实是同一条</strong>：<strong>空缺可以补，编造无法挽回。</strong> 这是全课程价值观的最终检验（demo 能做出可点开外壳是本事，吹成产品是骗客户——L7/L8）。</p>
+</blockquote>
+<hr />
+<h2 id="六给讲师的运行提示">六、给讲师的运行提示</h2>
+<ul>
+<li><strong>认领即固化</strong>：第一天各组认领命题后，发一张“命题卡”（第四节对应条），并要求各组当场写下“一句话项目定义”，钉进本组贯穿工作簿首页。</li>
+<li><strong>每一步都必须真跑工具</strong>：不许“听懂了就跳过”。L1–L8 每课末尾做 checkout（各课手册有对照表），产物没落盘就是没做。</li>
+<li><strong>L2 会卡住人</strong>：装环境必然有人因网络/权限/Node 版本卡住。<strong>别让全班等</strong>——装好的先读命题卡、想一句话项目定义，教练单独捞人。</li>
+<li><strong>启发范例只做标尺、不做模板</strong>：反复强调“康养项目做对了长这样，但你的县域/园所/门店/作物不一样，照着结构做、别抄数字”。</li>
+<li><strong>诚实边界贯穿到底</strong>：四个命题都埋了“查不到项”，讲师要盯各组<strong>留占位不编造</strong>——这是结课路演的一票警示，从第一讲就要立规矩。 </content></li>
+</ul>
+</body>
+</html>
