@@ -154,7 +154,7 @@
 </header>
 <h1 id="c-life-fde-实战工作坊--课程总纲">C-Life FDE 实战工作坊 · 课程总纲</h1>
 <blockquote>
-<p>版本 <strong>v0.3</strong>（2026-07-31 按八课制重写）· 编制：首席交付方法论架构师 形式：工作坊（Workshop）· 对象：C-Life 内部专业人员 · 实践蓝本：康养行业大模型及微康养生态运营平台</p>
+<p>版本 <strong>v0.3</strong>（2026-07-31 按八课制重写 · 2026-08-01 新增 A 系列工具链专题）· 编制：首席交付方法论架构师 形式：工作坊（Workshop）· 对象：C-Life 内部专业人员 · 实践蓝本：康养行业大模型及微康养生态运营平台</p>
 </blockquote>
 <p><strong>本文件是课程的元定义</strong>——为什么办、主张什么、练哪些能力、拿什么验收、反例库怎么分配、资产放在哪。 <strong>不是上课用的。</strong> 三份总纲各管一段，别混：</p>
 <table>
@@ -204,6 +204,21 @@
 <tr class="even">
 <td><code>slides/S3_建模端与引擎.html</code> + <code>课程/S3_建模端如何支撑引擎.md</code></td>
 <td><strong>专题课 S3</strong>：建模端如何支撑引擎 studio-ontology（<strong>交棒 L5</strong>）</td>
+<td>同上</td>
+</tr>
+<tr class="odd">
+<td><code>slides/A1_自定义智能体.html</code> + <code>课程/A1_自定义智能体.md</code></td>
+<td><strong>专题课 A1</strong>：自定义智能体（让工具懂你的行业）</td>
+<td>详见 <code>00_八课总纲.md</code> <strong>第九节</strong></td>
+</tr>
+<tr class="even">
+<td><code>slides/A2_扩展插件.html</code> + <code>课程/A2_扩展插件.md</code></td>
+<td><strong>专题课 A2</strong>：扩展插件（解剖一个真实垂类插件）</td>
+<td>同上</td>
+</tr>
+<tr class="odd">
+<td><code>slides/A3_回贡上游.html</code> + <code>课程/A3_回贡上游.md</code></td>
+<td><strong>专题课 A3</strong>：回贡上游（<strong>当场真提一个 PR</strong>）</td>
 <td>同上</td>
 </tr>
 </tbody>
@@ -297,6 +312,7 @@
 <p><strong>C1–C6 可训练，C7 只能筛选。</strong> 这句话在 <strong>L1「一人公司 OPC」段</strong>第一次讲透（学员还没动手，先建立边界意识），在 <strong>L8「OPC 边界回收」段</strong>第二次说——那时候学员已经被智能体坑过一轮，才真听得进去。</p>
 <blockquote>
 <p><strong>C0（隐含前置）· 信息采集</strong> 不在原七维里，但 v0.3 把它单列成 <strong>L3</strong> 一整课。 理由：C1–C6 全部建立在"输入是对的"之上。<strong>输入错了，下游六维做得越漂亮，错得越远</strong>——这是唯一一个错了无法在下游补救的环节。</p>
+<p>⚠️ <strong>A 系列（A1–A3）练的东西不在 C1–C7 里，这是刻意的。</strong> C1–C7 描述的是<strong>用这套工具交付一个项目</strong>需要的能力；A 系列练的是<strong>把工具本身变成自己的工具</strong>—— 自定义专家、写扩展插件、向上游提 PR。<strong>它不是第八维能力，是另一个方向的延伸。</strong> 所以 <strong>A 系列不进结课定级判据</strong>（见第六节），学员不上 A 系列照样能评到 Lv.3。</p>
 </blockquote>
 <hr />
 <h2 id="四八课地图详细定义见-00_八课总纲md-第四节">四、八课地图（详细定义见 <code>00_八课总纲.md</code> 第四节）</h2>
@@ -387,6 +403,49 @@
 </ul>
 <blockquote>
 <p><strong>L1 不产交付物，是刻意的。</strong> v0.2 的病就是把"FDE 是什么"拆碎塞进各操作册（能力模型躲在插件开发册第九节），学员要搞清楚自己在学什么得翻四本。v0.3 把认知层整块提到第一课，末尾 40′ 用 SOP 七阶段点名后面每一课——<strong>那 40′ 是认知层与操作层的唯一接口，不许压缩。</strong></p>
+</blockquote>
+<h3 id="41-专题课两条线都是选修都不占八课课时">4.1 专题课：两条线，都是选修，都不占八课课时</h3>
+<p><strong>八课是主干。专题课是两条挂在主干上的支线，方向相反——一条排在 L5 之前，一条排在八课之后。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>线</th>
+<th>课</th>
+<th>讲什么</th>
+<th>排在哪</th>
+<th>终点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>S 系列 · 本体线</strong></td>
+<td><strong>S1</strong> 本体论（180′）<br><strong>S2</strong> 本体引擎的工程实现（180′）<br><strong>S3</strong> 建模端如何支撑引擎（180′）</td>
+<td>本体<strong>是什么</strong> → 引擎<strong>怎么造</strong> → <strong>怎么给它编译应用</strong></td>
+<td><strong>L5 之前</strong>（是 L5 的前置）</td>
+<td><strong>交棒 L5</strong></td>
+</tr>
+<tr class="even">
+<td><strong>A 系列 · 工具链线</strong></td>
+<td><strong>A1</strong> 自定义智能体（180′）<br><strong>A2</strong> 扩展插件（180′）<br><strong>A3</strong> 回贡上游（120′）</td>
+<td>让工具<strong>懂我的行业</strong> → 一个真实插件<strong>长什么样</strong> → 把我的东西<strong>提回去</strong></td>
+<td><strong>八课之后</strong>（是八课的进阶）</td>
+<td><strong>学员从工具的使用者变成贡献者</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>A 系列的四级台阶</strong>（主梁）：</p>
+<pre><code>零级   用内置的                    ← 八课全程停在这一级
+二级   自定义专家（A1）            ← 让工具懂你的行业
+三级   写自己的插件（A2）          ← 把工具变成你的工具
+四级   回贡上游（A3）              ← 让别人也用上你的东西</code></pre>
+<blockquote>
+<p>⚠️ <strong>A 系列必须排在 L5 之后，不能提前。</strong> A3 的实操素材直接来自<strong>第五课发现的那六处「文档说 A、代码是 B」</strong>—— 没上过 L5 的学员到了 A3 会答不出"我手上有什么可提的"，那一课就空转了。</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>A3 的实操走两段式</strong>：<strong>学员提到内部 fork，讲师课后复核 + 脱敏检查后统一转提公开上游。</strong> 上游是<strong>公开仓库</strong>，客户名 / 商务数字推上去删掉也还在 git 历史里——<strong>脱敏不可逆</strong>。 这条是<strong>硬约束，不是建议</strong>。详见 <code>00_八课总纲.md</code> 第九节。</p>
+</blockquote>
+<blockquote>
+<p><strong>两条线都是选修，砍掉不影响八课完整性</strong>——但各有一个代价： <strong>砍 S1</strong>，"我们已经有数据中台了，为什么还要这个"这个疑问会在 L5 中途冒出来，那时更难回答； <strong>砍 A 系列</strong>，学员会一直停在"会用工具"这一级，<strong>下一个项目里遇到工具不趁手时只会绕过去，不会改它</strong>。</p>
 </blockquote>
 <hr />
 <h2 id="五教学设计规范每课强制满足">五、教学设计规范（每课强制满足）</h2>
@@ -566,7 +625,10 @@
 </tbody>
 </table>
 <blockquote>
-<p>⚠️ <strong>编号纪律（v0.3 起）</strong>：定级一律写 <strong>Lv.1/Lv.2/Lv.3</strong>，<strong>不再写 L1/L2/L3</strong>——那三个编号现在归课次（L1–L8）。旧讲义与旧课件里的"L1 见习"要当场改口。 <strong>L1「能力模型」段</strong>第一次讲定级标准，<strong>L8「定级」段</strong>执行。多数人第一次会停在 Lv.1，这是正常的，<strong>装作 Lv.2 才是危险的</strong>。</p>
+<p>⚠️ <strong>专题课不计入上述考核。</strong> S1–S3 与 A1–A3 都是选修，<strong>不进 40% / 45% / 15% 任何一项，也不进定级判据</strong>。 A 系列有自己的硬产出（A1 一个专家 <code>.md</code> · A2 一张插件解剖图 · <strong>A3 一个内部 fork 上的 PR / issue 链接</strong>）， <strong>但那是课内 checkout，不折算成分数</strong>——把它算进定级，会变相逼着所有人上选修课。</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>编号纪律（v0.3 起）</strong>：定级一律写 <strong>Lv.1/Lv.2/Lv.3</strong>，<strong>不再写 L1/L2/L3</strong>——那三个编号现在归课次（L1–L8）。旧讲义与旧课件里的"L1 见习"要当场改口。 <strong>专题课有两套编号且都不是课次</strong>：<strong>S1–S3 = 本体线</strong>、<strong>A1–A3 = 工具链线</strong>。 ⚠️ 另有 <strong>SOP 七阶段也叫 S1–S7</strong>，那是<strong>第三套编号</strong>——<code>S1 认知萃取</code> 与 <code>专题课 S1 本体论</code> 完全无关，<strong>写材料时最容易混的就是这两个</strong>。 <strong>L1「能力模型」段</strong>第一次讲定级标准，<strong>L8「定级」段</strong>执行。多数人第一次会停在 Lv.1，这是正常的，<strong>装作 Lv.2 才是危险的</strong>。</p>
 </blockquote>
 <hr />
 <h2 id="七资产结构与目录约定">七、资产结构与目录约定</h2>
@@ -581,13 +643,16 @@
 ├── 课程/S1_本体论.md                ← 专题课 S1（L5 的方法论前置，可独立开）
 ├── 课程/S2_本体引擎的工程实现.md    ← 专题课 S2（clife-onto-engine 内核怎么造）
 ├── 课程/S3_建模端如何支撑引擎.md          ← 专题课 S3（studio-ontology 建模端，交棒 L5）
+├── 课程/A1_自定义智能体.md          ← 专题课 A1（工具链线：让工具懂你的行业）
+├── 课程/A2_扩展插件.md              ← 专题课 A2（工具链线：解剖 fund-review）
+├── 课程/A3_回贡上游.md              ← 专题课 A3（工具链线：⚠️ 当场真提 PR，走内部 fork）
 ├── 工作坊/
 │   ├── _贯穿沙盘_分组命题.md    ← 5 个真实命题 + 八课贯穿地图 + 八维评审卡
 │   └── _动手环节设计_目标反推.md ← 设计推导记录（归档，见第九节）
 ├── 案例矩阵_跨项目对照.md    ← 六案例成熟度分级（引用案例前必查）
 ├── slides/LN_*.html        ← ★★ 讲师课件：每课一份，**口播稿/时间盒/卡点在 .notes 演讲者备注**
 │                              （S 开演讲者窗口 · N 拉备注抽屉 · O 总览 · 投屏侧看不到备注）
-├── slides/index.html       ← 首页：8 课 × 每课两件产物
+├── slides/index.html       ← 首页：8 课 × 每课两件产物 + 两条专题线（S1–S3 / A1–A3）
 ├── slides/_legacy/         ← v0.2 时期按十讲切分的 14 份旧课件
 ├── figures/fig-N-M-&lt;slug&gt;.svg/.png
 │
@@ -780,7 +845,7 @@
 <ol type="1">
 <li><strong>改内容先读 <code>_WRITING_BRIEF.md</code></strong>，数字与案例成熟度一律引用不重算（B-5）。</li>
 <li><strong>改结构先改 <code>00_八课总纲.md</code></strong>，再改课程手册，最后回改本文件与 <code>00_授课流程手册.md</code>——<strong>顺序反了必然漏</strong>（v0.3 重排就是反着来的，代价是 42 处残留）。</li>
-<li><strong>动了课次编号，必须全库 grep</strong>：<code>L[1-8]</code>、<code>第 [0-9]+ 讲</code>、<code>T[1-9]</code>。三套历史编号并存，只改肉眼看到的那几处一定漏。</li>
+<li><strong>动了课次编号，必须全库 grep</strong>：<code>L[1-8]</code>、<code>第 [0-9]+ 讲</code>、<code>T[1-9]</code>。三套历史编号并存，只改肉眼看到的那几处一定漏。 ⚠️ <strong>专题课同理</strong>：<code>S[1-3]</code>（本体线）与 <code>A[1-3]</code>（工具链线）——<strong>grep <code>S[1-7]</code> 会同时命中 SOP 七阶段</strong>，逐条看，别批量替换。</li>
 <li><strong>新增反例走 B-N 编号，必须在 5.3 表里指定主场课</strong>，无主场的反例等于没收编。</li>
 </ol>
 </body>
