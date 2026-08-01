@@ -57,6 +57,11 @@ jobs:
 
       - name: 提交并推送
         working-directory: .publish
+        env:
+          # 经环境变量传入，不要直接插进 shell 字符串——提交信息可能含引号/反引号；
+          # workflow_dispatch 触发时 head_commit 为空，下面用 :- 兜底。
+          UPSTREAM_SHA: ${{ github.sha }}
+          UPSTREAM_MSG: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           git config user.name  "github-actions[bot]"
@@ -66,11 +71,9 @@ jobs:
             echo "教材无变化，跳过。"
             exit 0
           fi
-          git commit -m "sync: 来自 clife-onto-engine@${GITHUB_SHA::7}
-
-上游提交：${{ github.event.head_commit.message }}
-
-由 .github/workflows/publish-tutorial.yml 自动同步。
-请勿直接在本仓库提交——下次同步会被覆盖。"
+          git commit \
+            -m "sync: 来自 clife-onto-engine@${UPSTREAM_SHA:0:7}" \
+            -m "上游提交：${UPSTREAM_MSG:-（手动触发）}" \
+            -m "由 .github/workflows/publish-tutorial.yml 自动同步。请勿直接在本仓库提交——下次同步会被覆盖。"
           git push
           echo "已发布 → https://ameng2001.github.io/fde-workshop/"
