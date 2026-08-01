@@ -1,23 +1,17 @@
-/* html-ppt :: shared webfonts
+/* html-ppt :: shared webfonts —— 全部自托管，不依赖网络
  *
- * 中文（Noto Sans SC / Noto Serif SC）已自托管为子集，见文件末尾的 @font-face。
- * 拉丁与等宽字体仍走 Google Fonts —— 断网时它们回退到系统字体，
- * 但中文字形不受影响（中文没有等价的系统回退，字面与字重差异最明显）。
+ * 课件要在教室投屏，断网或 Google Fonts 不可达时字体不能失效。
+ * 所有字体均为按教材实际用字生成的 woff2 子集，见 fonts/rebuild.py。
  *
- * ⚠️ @import 必须排在所有其它规则之前，故 @font-face 写在下方。
+ * ⚠️ 教材增删字符后需重跑 fonts/rebuild.py，否则新字符回退到系统字体
+ *    （只影响那几个字的字形，不报错、不破版）。
+ *
+ * 可变字体用 font-weight 区间声明，单文件覆盖全字重 —— 课件用到
+ * font-weight:750，静态字重会被舍入。IBM Plex Mono 与 Archivo Black
+ * 在 google/fonts 只有静态版，按字重分别声明。
  */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
-/* ── 自托管中文子集 ──────────────────────────────────────────────
- * 可变字体，单文件覆盖全字重（课件用到 font-weight:750，静态字重会被舍入）。
- * 子集由 fonts/rebuild.py 按教材实际用字生成 —— 内容增删汉字后需重跑，
- * 否则新字回退到系统字体（只影响那几个字的字形，不报错、不破版）。
- */
+/* ── 中文 ────────────────────────────────────────────────────── */
 @font-face {
   font-family: 'Noto Sans SC';
   src: url('./fonts/NotoSansSC-subset.woff2') format('woff2');
@@ -25,11 +19,84 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Noto Serif SC';
   src: url('./fonts/NotoSerifSC-subset.woff2') format('woff2');
   font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── 拉丁 / 等宽（可变） ──────────────────────────────────────── */
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/Inter-subset.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./fonts/JetBrainsMono-subset.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./fonts/PlayfairDisplay-subset.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./fonts/PlayfairDisplay-Italic-subset.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('./fonts/SpaceGrotesk-subset.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── 拉丁 / 等宽（静态，按字重分别声明） ──────────────────────── */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('./fonts/IBMPlexMono-300-subset.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('./fonts/IBMPlexMono-400-subset.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('./fonts/IBMPlexMono-500-subset.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('./fonts/IBMPlexMono-700-subset.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo Black';
+  src: url('./fonts/ArchivoBlack-subset.woff2') format('woff2');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
