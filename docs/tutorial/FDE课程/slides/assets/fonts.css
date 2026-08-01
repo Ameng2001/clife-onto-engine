@@ -1,9 +1,35 @@
-/* html-ppt :: shared webfonts */
+/* html-ppt :: shared webfonts
+ *
+ * 中文（Noto Sans SC / Noto Serif SC）已自托管为子集，见文件末尾的 @font-face。
+ * 拉丁与等宽字体仍走 Google Fonts —— 断网时它们回退到系统字体，
+ * 但中文字形不受影响（中文没有等价的系统回退，字面与字重差异最明显）。
+ *
+ * ⚠️ @import 必须排在所有其它规则之前，故 @font-face 写在下方。
+ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200;300;400;500;600;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+/* ── 自托管中文子集 ──────────────────────────────────────────────
+ * 可变字体，单文件覆盖全字重（课件用到 font-weight:750，静态字重会被舍入）。
+ * 子集由 fonts/rebuild.py 按教材实际用字生成 —— 内容增删汉字后需重跑，
+ * 否则新字回退到系统字体（只影响那几个字的字形，不报错、不破版）。
+ */
+@font-face {
+  font-family: 'Noto Sans SC';
+  src: url('./fonts/NotoSansSC-subset.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif SC';
+  src: url('./fonts/NotoSerifSC-subset.woff2') format('woff2');
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
