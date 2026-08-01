@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 专题课 S4 · Astra Studio 高级用法</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:44px 66px}
+  .mt-l{margin-top:17px}.mt-m{margin-top:11px}
+  .lede{font-size:17px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:5px;font-size:15px}
+  .card p,.card-accent p,.card-outline p{font-size:14px;line-height:1.52}
+  h2.title{font-size:35px;line-height:1.14}
+  .quote-big{font-family:var(--font-serif);font-size:25px;line-height:1.34;font-weight:600;color:var(--accent);max-width:30ch}
+  .huge{font-family:var(--font-serif);font-size:31px;line-height:1.24;font-weight:700;color:var(--accent)}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:14px}
+  table.t th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:5px 9px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:5px 9px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  table.t tr.hot td{background:var(--grad-soft)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:12.8px;line-height:1.52;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:11px 15px;overflow:auto;color:var(--text-1)}
+  .src{font-size:12px;color:var(--text-3);font-style:italic}
+  .stepline{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-size:14.5px;font-weight:700}
+  .stepline .s{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:6px 10px}
+  .stepline .a{color:var(--accent-2)}
+  .tier{border-radius:9px;padding:9px 13px;margin-bottom:6px;font-size:14.5px;border:1px solid var(--border);background:var(--surface-2);display:flex;gap:12px;align-items:baseline}
+  .tier .n{font-family:ui-monospace,monospace;font-weight:700;color:var(--accent);min-width:38px}
+  .tier.hot{background:var(--grad-soft);border-color:var(--accent)}
+  .red{background:#fdeeee;border-color:#f5c2c2}
+  .blue{background:#eef4ff;border-color:#bfd4ff}
+  .slide.tight .card,.slide.tight .card-accent{padding-top:8px;padding-bottom:8px}
+  .slide.tight table.t td{padding-top:3.6px;padding-bottom:3.6px}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 专题课 S4 · 180′ · 讲解 + 读码</div>
+  <h1 class="title" data-anim="fade-up">Astra Studio 高级用法<br>从用工具到改工具</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">前面几课教你<b>用</b>这套工具。<br><b>这一课教你改它、扩它、回贡它。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">自定义智能体</span>
+    <span class="pill">红蓝对抗插件</span>
+    <span class="pill">Traits 与两级工作区</span>
+    <span class="pill">回贡上游</span>
+  </div>
+  <p class="src mt-m">一档来源：<span class="mono">github.com/Ameng2001/astra-studio-plugins</span> —— CLAUDE.md / AGENTS.md、studio-core:create-expert、studio-insight 的 11 个内置专家、fund-review 全仓 54 文件</p>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="14"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 180′】</b> 开场 + 四级台阶 15′ ｜ <b>① 自定义专家 45′</b> ｜ <b>② fund-review 红蓝对抗 50′</b> ｜ ③ Traits 与工作区模型 35′ ｜ ④ 回贡上游 20′ ｜ 收口 + 自查 15′</p>
+    <p><b>⭐【本课定位，开场就说清】</b>"S1–S3 讲的是<b>本体</b>那条线。这一课换一条线：<b>Astra Studio 这套工具本身。</b>L3 你们用过内置的认知萃取专家，L5 用过 studio-ontology——<b>那都是『用内置的』。今天讲后面三级台阶。</b>"</p>
+    <p><b>【前置】</b>建议上过 L3（用过 insight 专家）+ L5（用过 studio-ontology）。<b>没上过也能听，但会少很多"原来如此"的时刻。</b></p>
+    <p><b>【本课两个重心】</b>第 3–5 页<b>自定义专家</b>（人人用得上）· 第 7–8 页 <b>fund-review 的红蓝对抗与确定性打底</b>（最能迁移的架构思路）。</p>
+    <p><b>【读码准备】</b>投屏机上 clone 好 astra-studio-plugins。<b>第 4、7、8 页要真的翻文件。</b></p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="四级台阶">
+  <div class="kicker">定位 · 本课在讲哪条线</div>
+  <h2 class="title">从"用工具"到"改工具"，四级台阶</h2>
+  <div class="tier"><span class="n">一级</span><span><b>用内置的</b>　—— 跑 <span class="mono">/studio-insight:persona-insight</span>，用它自带的产品经理、架构师……<br><span class="dim">L3 / L4 / L5 都停在这一级。绝大多数人也停在这一级。</span></span></div>
+  <div class="tier hot"><span class="n">二级</span><span><b>自定义专家</b>　—— <b>不改一行代码，加一个 .md 文件</b>，让它带上你这个行业的判断<br><span class="dim">今天第 3–5 页。<b>投入最小、回报最直接的一级。</b></span></span></div>
+  <div class="tier hot"><span class="n">三级</span><span><b>写自己的插件</b>　—— 像 <span class="mono">fund-review</span> 那样：40 个脚本 + 4 个 skill + <b>2 个对抗 agent</b><br><span class="dim">今天第 6–11 页。</span></span></div>
+  <div class="tier"><span class="n">四级</span><span><b>回贡上游</b>　—— 把你的插件 / 专家 / 修复提 PR 进 astra-studio-plugins<br><span class="dim">今天第 12 页。</span></span></div>
+  <p class="lede mt-l" data-anim="fade-up"><b>S1–S3 讲的是「本体」那条线</b>（是什么 → 怎么造 → 怎么编译应用）。<br>
+  <b>这一课换一条线：这套工具本身，怎么被你改造。</b></p>
+  <p class="quote-big mt-m" data-anim="fade-up">工具不改造，<br><b>你就只能做它预设的那类项目。</b></p>
+  <div class="deck-footer"><span class="ftag">四级台阶</span><span class="slide-number" data-current="2" data-total="14"></span></div>
+  <div class="notes"><p><b>⭐【这一页是全课地图，先给】</b>让学员知道自己现在在第几级、今天要爬到第几级。<b>大多数人只知道有一级。</b></p>
+  <p><b>【二级的性价比要强调】</b>"<b>加一个 .md 文件，不改代码，不发版</b>——这一级的投入产出比高得离谱，而且是团队共享的（git 跟踪）。<b>今天如果只能记住一件事，记这个。</b>"</p>
+  <p><b>【最后那句可以留给他们自己体会】</b>"工具不改造，你就只能做它预设的那类项目。"——<b>这门课的全部动机就在这一句。</b></p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="⭐ 自定义专家 · 查找顺序">
+  <div class="kicker">① 自定义智能体 1/3 · ⭐ 二级台阶</div>
+  <h2 class="title">查找顺序就是设计</h2>
+  <pre class="code mt-s">1. 项目级   studio/agents/{name}.md      ← 你团队的定制专家（<b>git 跟踪</b>）
+2. 内置     插件自带 agents/{name}.md    ← studio-insight 出厂的 11 个
+
+<b>同名覆盖：项目级赢。</b></pre>
+  <p class="lede mt-m" data-anim="fade-up">这一条规则给了你三种改法，<b>都不用碰插件源码</b>：</p>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card card-accent"><h4>① 加一个新专家</h4><p>行业里有个角色内置没有——<b>写一个新 .md</b></p></div>
+    <div class="card card-accent"><h4>② 覆盖一个内置的</h4><p>内置的产品经理说的话不像你们公司——<b>同名写一份，换成你们的术语与流程</b></p></div>
+    <div class="card card-accent"><h4>③ 从模板起手</h4><p><span class="mono">_domain-expert-template.md</span> 抄一份改</p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>出厂 11 个专家 + 1 个模板</b>：<br>
+  通用 6 个（产品经理 / 架构师 / UX 研究 / 数据分析 / 合规官 / 运营经理）· 健康域 4 个（儿童营养 / 儿童运动 / 老年营养 / 老年康复运动）· 美护域 1 个</p>
+  <p class="huge mt-m" data-anim="fade-up"><span class="mono" style="font-size:26px">/studio-core:create-expert</span></p>
+  <div class="deck-footer"><span class="ftag">① 1/3 · ⭐</span><span class="slide-number" data-current="3" data-total="14"></span></div>
+  <div class="notes"><p><b>⭐【"查找顺序就是设计"要讲透】</b>"这不是一个查找细节，<b>这是一条产品决策</b>：他们把定制点放在了<b>用户项目的 git 仓库里</b>，而不是插件配置里。意味着——<b>你的专家跟着项目走、跟着团队走，换台机器 clone 下来就在。</b>"</p>
+  <p><b>【②覆盖内置的最容易被忽略】</b>"很多人以为只能加新的。<b>其实你可以同名覆盖内置的产品经理——把它换成你们公司的术语、流程、评审口径。</b>内置那个是通用的，你们的是对的。"</p>
+  <p><b>【健康域那 4 个专家是个信号】</b>"注意出厂专家里有<b>儿童营养、老年康复运动</b>这种——<b>这说明它本来就预期你按行业往里加。</b>你的行业专家没在里面，不是遗漏，是等你写。"</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="动态专家发现">
+  <div class="kicker">① 自定义智能体 2/3 · 真实机制，可翻码核对</div>
+  <h2 class="title">专家是怎么被找到并用上的</h2>
+  <p class="lede mt-s" data-anim="fade-up"><span class="mono">studio-insight</span> 的 <b>6 个 skill 全部使用动态专家发现</b>。以 <span class="mono">persona-insight</span> 为例，每次运行做五步：</p>
+  <table class="t mt-s">
+    <tr><th style="width:5%">#</th><th>做什么</th></tr>
+    <tr><td>1</td><td><b>主角色必载</b> —— <span class="mono">product-manager.md</span>（由它主导画像产出）</td></tr>
+    <tr><td>2</td><td><b>扫项目级</b> —— <span class="mono">Glob studio/agents/*.md</span>，把团队自定义的全部载入</td></tr>
+    <tr><td>3</td><td><b>扫内置</b> —— <b>跳过已从项目级载入的同名</b>（覆盖就发生在这一步）</td></tr>
+    <tr><td>4</td><td><b>按相关性选 1–3 个</b> —— 拿专家的 <span class="mono">## Your Domain</span> 段与本次主题比对</td></tr>
+    <tr><td>5</td><td><b>跳过模板</b> —— <span class="mono">_domain-expert-template.md</span> 只用于造专家，不参与咨询</td></tr>
+  </table>
+  <div class="card card-accent mt-m"><h4>⭐ 关键：专家不是"生成者"，是"复核者"</h4>
+    <p><b>主角色先产出初稿，专家在 Expert Review 步骤逐个复核纠错</b>——给每个专家的指令是：<br>
+    <span class="dim">"从你的领域专长审这份画像。标出<b>不正确、过度简化、遗漏</b>的地方；注意我们漏掉的领域痛点、影响这个画像的现实约束、以及<b>从业者实际会用的术语</b>。"</span></p></div>
+  <p class="quote-big mt-m" data-anim="fade-up">一个专家的价值，<br><b>在于它能挑出你没想到的错，<br>而不是替你写。</b></p>
+  <div class="deck-footer"><span class="ftag">① 2/3</span><span class="slide-number" data-current="4" data-total="14"></span></div>
+  <div class="notes"><p><b>【读码：打开 studio-insight/skills/persona-insight/SKILL.md 的 Expert Discovery 段】</b>五步就写在那儿，<b>翻给他们看比讲更有说服力。</b></p>
+  <p><b>⭐【"复核者不是生成者"是本页的钉子】</b>"这个设计决定了你写专家时该写什么——<b>不是写它会说什么，是写它会挑什么错。</b>下一页的判据就从这儿来。"</p>
+  <p><b>【第 4 步的相关性匹配靠 ## Your Domain 段】</b>提醒学员：<b>这一段写得含糊，你的专家就永远不会被选中。</b>这是自定义专家最常见的失效原因。</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="什么时候该造一个专家">
+  <div class="kicker">① 自定义智能体 3/3 · 判据</div>
+  <h2 class="title">什么时候值得造一个专家</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card goodcard"><h4>✅ 该造</h4><p>
+      · 这个行业有<b>只有从业者才知道的坑</b>，通用角色挑不出来<br>
+      · 有<b>成文的标准 / 规程 / 禁忌</b>可以写进它的判断<br>
+      · 同一类错<b>在多个项目里反复出现</b><br>
+      · 内置角色的<b>术语和你们不一样</b>（→ 同名覆盖）</p></div>
+    <div class="card badcard"><h4>❌ 不该造</h4><p>
+      · 只是想让输出"更专业一点"——<b>那是提示词问题，不是专家问题</b><br>
+      · 一次性项目、下次用不到<br>
+      · 你自己也说不清它该挑什么错——<b>说不清就写不出 ## Your Domain</b><br>
+      · 已有专家改两句就够用（→ 覆盖，别新建）</p></div>
+  </div>
+  <p class="lede mt-l" data-anim="fade-up"><b>写专家的核心不是写它"懂什么"，是写它<b>"会挑什么错"</b></b>——<br>
+  第 4 页那条复核指令就是它的工作方式：<b>标出不正确、过度简化、遗漏的地方。</b></p>
+  <p class="quote-big mt-m" data-anim="fade-up">⚠️ <span class="mono" style="font-size:20px">## Your Domain</span> 写得含糊，<br><b>你的专家永远不会被选中。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">因为第 4 步的相关性匹配就靠这一段——<b>这是自定义专家最常见的失效原因，而且失效得悄无声息。</b></p>
+  <div class="deck-footer"><span class="ftag">① 3/3</span><span class="slide-number" data-current="5" data-total="14"></span></div>
+  <div class="notes"><p><b>【右边"不该造"那栏更重要】</b>学员听完前两页容易上头，回去给每个角色都造一个专家。<b>专家多了会互相稀释——第 4 步只选 1–3 个。</b></p>
+  <p><b>⭐【最后那条失效模式要说重】</b>"<b>它不会报错，它只是永远不被选中。</b>你以为专家在起作用，其实它从来没被载入过。"——<b>这和 S2 讲的『记忆塞满不报错，只是慢慢变笨』是同一类故障：静默失效。</b></p>
+  <p><b>【接第四课】</b>"L4 认知萃取那一课你们用的就是内置专家。<b>回去把你们行业那个专家写出来，再跑一遍 persona-insight，对比一下它挑出了什么新东西。</b>"</p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="fund-review · 工具链产出的插件">
+  <div class="kicker">② fund-review 1/5 · 三级台阶</div>
+  <h2 class="title">一个"被工具链造出来"的领域插件</h2>
+  <table class="t mt-s">
+    <tr><th></th><th>fund-review</th></tr>
+    <tr><td><b>干什么</b></td><td>政府 IT 采购的<b>报价优化 + 财评预审</b>——按地方预算标准出优化建议、重写报价表、产带引用的评分报告</td></tr>
+    <tr><td><b>规模</b></td><td><b>54 个文件</b>：40 个脚本 · 4 个 skill · <b>2 个 agent</b> · 4 个命令 · references/ 映射包</td></tr>
+    <tr><td><b>身份</b></td><td>⭐ <b>不是 studio 工具链的一部分，是工具链<b>产出</b>的领域插件</b>——只是搭同一个 marketplace 发布</td></tr>
+    <tr><td><b>trait</b></td><td><span class="mono">stateful</span> → 会话落在用户项目的 <span class="mono">.fund-review/{session-id}/</span>，<b>不在 studio/ 下</b></td></tr>
+    <tr><td><b>依赖</b></td><td>唯一需要第三方包的插件（<span class="mono">openpyxl</span> / <span class="mono">python-docx</span>）——<b>所有 studio-* 都不需要</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>它的设计文档不在这个仓</b>，在单独的 <span class="mono">fund-review-plugins</span> 仓的 <span class="mono">studio/changes/fund-review/</span> ——
+  <b>这正是"设计与实现分离"的实例</b>（第 10 页）。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">它证明的不是"这个插件多厉害"，<br><b>是"这套工具链能造出这种量级的东西"。</b></p>
+  <div class="deck-footer"><span class="ftag">② 1/5</span><span class="slide-number" data-current="6" data-total="14"></span></div>
+  <div class="notes"><p><b>⭐【"工具链产出的"这个身份要点破】</b>"CLAUDE.md 里专门有一节叫 Vertical Plugins，说得很清楚：<b>fund-review 不是工具链的一部分，是工具链的产物。</b>放在同一个仓只是为了搭同一个 marketplace 发布。"</p>
+  <p><b>【为什么这对学员重要】</b>"你们第五课产出的本体插件、以后要做的行业插件——<b>都是这个身份。fund-review 就是你们的未来样本。</b>"</p>
+  <p><b>【40 个脚本这个数字先埋着】</b>第 8 页会讲为什么脚本这么多、agent 这么少。<b>这是本课最值得迁移的架构判断。</b></p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="⭐⭐ 红蓝对抗">
+  <div class="kicker">② fund-review 2/5 · ⭐⭐ 本课重心之一</div>
+  <h2 class="title">两个 agent，站在对立面</h2>
+  <div class="tier blue"><span class="n">蓝方</span><span><b>quote-optimizer</b>　<span class="mono" style="font-size:12.5px">agents/quote-optimizer.md</span><br>
+    <span class="dim">"资深售前方案架构师，深谙政府 IT 采购报价"——<b>站投标方，想让报价过审</b>。拿扫描器发现 + 定价指引 + 标准条款索引，做<b>筛选、排序、解释</b></span></span></div>
+  <div class="tier red"><span class="n">红方</span><span><b>financial-reviewer</b>　<span class="mono" style="font-size:12.5px">agents/financial-reviewer.md</span><br>
+    <span class="dim">"政府财评专家"——<b>站评审方，逐条质询</b>。原话：<b>"绝不批准一个你无法在标准公式里追溯出来的数字"</b></span></span></div>
+  <div class="card card-accent mt-m"><h4>⭐ 最见功力的一处：<b>两个 agent 都没有 Write 权限</b></h4>
+    <p><span class="mono">allowed-tools: Read, Bash, Glob</span>　·　<span class="mono">scope: runtime</span><br>
+    <b>它们只能查证与质询，不能改报价表。</b>真正改表的是确定性脚本，改什么由人批准的方案决定。</p></div>
+  <p class="huge mt-m" data-anim="fade-up">让两个 agent 对立，<br>不是为了热闹，<br><b>是因为一方的盲区正好是另一方的主场。</b></p>
+  <div class="deck-footer"><span class="ftag">② 2/5 · ⭐⭐</span><span class="slide-number" data-current="7" data-total="14"></span></div>
+  <div class="notes"><p><b>【读码：把两个 .md 的 frontmatter 并排投出来】</b>让学员自己看出 <span class="mono">allowed-tools</span> 那一行是一样的——<b>都没有 Write。</b></p>
+  <p><b>⭐⭐【"都没有 Write"是本页的钉子，务必点破】</b>"这是<b>『权限即职责』</b>的又一次出现——第五课讲过 <span class="mono">ontology-validate</span> 没有 Write，所以它<b>物理上不可能</b>替你抹平不合格的地方。这里同理：<b>评审方要是能改报价，它就不是评审方了。</b>"</p>
+  <p><b>【红方那句原话值得念出来】</b>"<b>never approve a number you can't trace through the standard's formulas</b>——绝不批准一个你无法在标准公式里追溯出来的数字。<b>这就是把『可追溯』写进了角色人格。</b>"</p>
+  <p><b>【可迁移的判断】</b>"什么时候值得设红蓝？<b>当一件事有明确的对立立场，而且两边都有专业性的时候。</b>报价 vs 财评、开发 vs 安全、业务 vs 合规——<b>不是所有任务都需要，别滥用。</b>"</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="⭐⭐ 对抗不是重点">
+  <div class="kicker">② fund-review 3/5 · ⭐⭐ 本课最该带走的架构判断</div>
+  <h2 class="title">但红蓝对抗<b>不是</b>这个插件的重点</h2>
+  <div class="stepline mt-s" data-anim="fade-up">
+    <span class="s">14 个确定性扫描器<br><span style="font-weight:400;font-size:12px">scan_*.py</span></span><span class="a">→</span>
+    <span class="s"><b>findings.json</b></span><span class="a">→</span>
+    <span class="s">agent <b>筛选 · 排序 · 解释</b></span><span class="a">→</span>
+    <span class="s">人批准方案</span><span class="a">→</span>
+    <span class="s">确定性脚本<b>改表</b></span>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>数一下这个插件的构成</b>：40 个脚本 · 4 个 skill · <b>2 个 agent</b>。<br>
+  <b>能确定性算的，全写成了脚本；agent 只处理"需要判断"的那一段。</b></p>
+  <table class="t mt-m">
+    <tr><th>交给确定性脚本</th><th>才交给 agent</th></tr>
+    <tr><td>科目对齐 · 语义重叠 · 人工定价 · 工作日 · 冗余 · 品牌型号 · 完整性 · 证据 · 商务条款…（14 个扫描器）</td><td>从一堆发现里<b>挑出真正值得提的</b>、<b>排优先级</b>、<b>用标准条款解释为什么</b></td></tr>
+    <tr><td>解析报价表 · 解析标准 · 公式引擎 · 重写表格 · 生成报告与交付件</td><td>逐条质询、要求引用页码</td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">这就是 S2/S3 讲的<b>确定性优先</b>，<br>在插件层的活体。</p>
+  <div class="deck-footer"><span class="ftag">② 3/5 · ⭐⭐</span><span class="slide-number" data-current="8" data-total="14"></span></div>
+  <div class="notes"><p><b>⭐⭐【这一页比红蓝对抗更重要，别被上一页抢了风头】</b>"上一页那个红蓝设计很吸引眼球。<b>但真正让这个插件能用的，是这一页——40 个脚本对 2 个 agent。</b>"</p>
+  <p><b>【回扣 S3】</b>"S3 讲 Deterministic Agent Runtime 时说：<b>交易、库存、调度交确定性逻辑，只有意图识别和异常研判调大模型。</b>fund-review 就是这条原则在一个真实插件里的样子——<b>扫描是确定的，判断才是模型的。</b>"</p>
+  <p><b>⭐【给学员的可迁移判据】</b>"你写自己的插件时，问一句：<b>这一步能不能写成脚本？能，就别交给模型。</b>模型是用来处理『规则说不清但人能判断』那一段的，<b>不是用来做你懒得写的计算。</b>"</p>
+  <p><b>【顺带说一句成本】</b>确定性脚本跑一万次成本不变，<b>agent 跑一万次要付一万次的钱</b>。这也是为什么扫描器要写成脚本。</p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide tight" data-title="Plugin Traits">
+  <div class="kicker">③ 进阶模型 1/3 · Traits</div>
+  <h2 class="title">Traits：观察，不是配置</h2>
+  <p class="lede mt-s" data-anim="fade-up"><b>skill-design 阶段会从规划产物里"看出"插件的横切特征</b>，这些特征驱动 spec-generate 生成不同的脚手架：</p>
+  <table class="t mt-s">
+    <tr><th style="width:18%">Trait</th><th style="width:38%">意思</th><th>会自动生成什么</th></tr>
+    <tr><td><span class="mono">stateful</span></td><td>跨会话管理项目数据</td><td><b>init-workspace skill + 运行时配置/状态模板</b>（fund-review 就是靠它有 <span class="mono">.fund-review/</span>）</td></tr>
+    <tr><td><span class="mono">hil-gated</span></td><td>流程里有人工审批关口</td><td>相关 SKILL.md 里的 <span class="mono">## Approval Gate</span> 段</td></tr>
+    <tr><td><span class="mono">kb-dependent</span></td><td>需要 LLM 之外的领域知识</td><td>KB 集成说明；可能配一个知识库插件</td></tr>
+    <tr><td><span class="mono">multi-pipeline</span></td><td>2 个以上独立业务流</td><td>按管线分别生成编排命令</td></tr>
+    <tr><td><span class="mono">expert-scoped</span></td><td>运行时需要与规划期不同的专家</td><td><b>agents/ 里的运行时 agent 定义</b>（fund-review 那两个红蓝 agent 就是这么来的）</td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">Traits are observations,<br>not configuration.</p>
+  <p class="lede mt-m" data-anim="fade-up"><b>你不"配置" trait，是工具从你的规划产物里<b>看出来</b>的。</b>没检测到 trait 的插件，走标准生成路径，<b>不多不少</b>。</p>
+  <div class="deck-footer"><span class="ftag">③ 1/3</span><span class="slide-number" data-current="9" data-total="14"></span></div>
+  <div class="notes"><p><b>⭐【那句英文原话值得留原文】</b>"<b>Traits are observations, not configuration.</b> 这句话背后是一个设计立场：<b>不给你一堆开关让你勾，而是从你已经写下的东西里推断。</b>——少一层配置，就少一层『配错了但没人发现』。"</p>
+  <p><b>【把 fund-review 串回来】</b>它同时命中 <span class="mono">stateful</span>（<span class="mono">.fund-review/{session-id}/</span>）和 <span class="mono">expert-scoped</span>（那两个 runtime agent）。<b>第 6、7 页看到的两个特征，在这里找到了出处。</b></p>
+  <p><b>⚠️【压缩点】</b>时间紧这一页可以只讲 stateful 和 expert-scoped 两行 + 那句英文，其余手册里有。</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="两级工作区与设计实现分离">
+  <div class="kicker">③ 进阶模型 2/3 · 工作区模型</div>
+  <h2 class="title">设计与实现，物理分开</h2>
+  <pre class="code mt-s">studio/changes/{plugin}/     ← <b>只放设计文档</b>：brief.md · skill-map.md · status.json · plugin.json.draft
+{target_dir}/                ← <b>只放实现</b>：SKILL.md · commands/ · scripts/ · agents/
+
+status.json 里的 target_dir 字段，是这两边唯一的连线。</pre>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>域工作区　<span class="mono" style="font-size:12px">type: "domain"</span></h4><p>event-storm.md · domain-map.md · personas/ journeys/ processes/<br><b>可被多个插件共享</b></p></div>
+    <div class="card card-accent"><h4>插件工作区　<span class="mono" style="font-size:12px">type: "plugin"</span></h4><p>只有设计文档。<b>不含 SKILL.md 与 commands</b>——那些在 target_dir<br>靠 <span class="mono">domain</span> 字段指回父域</p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>为什么要这样切</b>：<b>单一真相源，不重复。</b><br>
+  如果设计目录里也放一份 SKILL.md，<b>它和实现里那份迟早不一致</b>——而且你不知道该信哪份。</p>
+  <p class="quote-big mt-m" data-anim="fade-up">同一件东西<b>只存在于一个地方</b>——<br>这是这门课程反复讲的 B-5，<br><b>在工具设计上的同一条判断。</b></p>
+  <div class="deck-footer"><span class="ftag">③ 2/3</span><span class="slide-number" data-current="10" data-total="14"></span></div>
+  <div class="notes"><p><b>【回扣 fund-review】</b>"第 6 页说过 fund-review 的<b>设计文档在另一个仓</b>——就是这条原则的实例：设计和实现可以分在不同仓库，靠 target_dir 连起来。"</p>
+  <p><b>⭐【接课程自身的 B-5】</b>"<b>单一真相源</b>——这门课从第一课讲到第八课的那条纪律，在这里是一条工具设计原则。<b>好的工具会替你守住纪律，而不是靠你自觉。</b>"</p>
+  <p><b>【域工作区可共享这一点有实际价值】</b>一次事件风暴，产出的域图和画像可以喂给多个插件。<b>别每个插件重做一次业务分析。</b></p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="迭代模型">
+  <div class="kicker">③ 进阶模型 3/3 · 迭代与发版</div>
+  <h2 class="title">初稿不是成品</h2>
+  <div class="stepline mt-s" data-anim="fade-up">
+    <span class="s">plan</span><span class="a">→</span>
+    <span class="s">build-skills<br><span style="font-weight:400;font-size:12px">产可跑的初稿</span></span><span class="a">→</span>
+    <span class="s"><b>skill-creator 反复打磨</b><br><span style="font-weight:400;font-size:12px">拿真实输入测</span></span><span class="a">→</span>
+    <span class="s">validate</span><span class="a">→</span>
+    <span class="s">promote<br><span style="font-weight:400;font-size:12px">v0.1 → v0.2</span></span>
+  </div>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>「Initial fill, not final build」</h4><p><span class="mono">build-skills</span> 产的是<b>能跑的初稿</b>，不是成品。<b>指望它一次生成对，是用错了工具。</b></p></div>
+    <div class="card card-accent"><h4>外循环 / 内循环分工</h4><p>Astra Studio 管<b>外循环</b>（业务分析、领域建模、校验、发布）；<br>单个 skill 的编写打磨交给官方 <span class="mono">skill-creator</span></p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>promote 是版本化里程碑</b>：v0.1 → v0.2，<b>设计文档快照进归档但仍保持活跃</b>——下一轮迭代接着用，不是归档就冻结。</p>
+  <p class="huge mt-m" data-anim="fade-up">改 SKILL.md 立刻生效。<br><span class="mono" style="font-size:20px">claude --plugin-dir ./your-plugin</span></p>
+  <div class="deck-footer"><span class="ftag">③ 3/3</span><span class="slide-number" data-current="11" data-total="14"></span></div>
+  <div class="notes"><p><b>⭐【"Initial fill, not final build" 要说重】</b>"这是设计原则第 10 条的原话。<b>很多人跑完 build-skills 发现产物不完美就说『这工具不行』——它本来就没打算一次给你成品。</b>和第五课那 121 处 NotImplementedError 是同一个态度：<b>机器立结构，人填判断。</b>"</p>
+  <p><b>【本地开发那条命令是学员回去就能用的】</b><span class="mono">claude --plugin-dir ./studio-core --plugin-dir ./你的插件</span>——<b>改 SKILL.md 立刻生效，不用发版、不用装。</b>这是三级台阶的入门动作。</p>
+  <p><b>【promote 的"快照但不冻结"值得一提】</b>设计文档归档了还能继续改，<b>因为插件是持续迭代的，不是一次交付完就结束。</b>这和 S3 讲的"持续运营"是一个意思。</p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="④ 回贡上游">
+  <div class="kicker">④ 四级台阶 · 回贡上游</div>
+  <h2 class="title">把你的东西提回去</h2>
+  <p class="lede mt-s" data-anim="fade-up"><b>能提什么</b>（按门槛从低到高）：</p>
+  <table class="t mt-s">
+    <tr><th style="width:22%">提什么</th><th>说明</th></tr>
+    <tr><td><b>一个行业专家</b></td><td>你写的 <span class="mono">agents/xxx-expert.md</span>——出厂那 11 个里有儿童营养、老年康复，<b>说明它本来就预期按行业扩充</b></td></tr>
+    <tr><td><b>一个 bug 修复 / 文档更正</b></td><td>比如你在第五课发现的那几处「文档说 A、代码是 B」</td></tr>
+    <tr><td><b>一个映射包</b></td><td>fund-review 只带了一个地方的预算标准映射包，<b>换个地方就要一份新的</b></td></tr>
+    <tr><td><b>一个完整插件</b></td><td>像 fund-review 那样的垂直插件</td></tr>
+  </table>
+  <div class="card badcard mt-m"><h4>⚠️ 一个诚实的现状：这个仓<b>没有 CONTRIBUTING.md，也没有 .github/</b></h4>
+    <p>贡献规范只能从 <span class="mono">CLAUDE.md</span> / <span class="mono">AGENTS.md</span> 反推：<b>照 Plugin Structure 摆文件</b>（<span class="mono">.claude-plugin/plugin.json</span> · <span class="mono">commands/</span> · <span class="mono">skills/</span> · <span class="mono">agents/</span> · <span class="mono">references/</span> · <span class="mono">templates/</span>）· <b>遵守 11 条 Design Principles</b> · <b>本地用 <span class="mono">--plugin-dir</span> 测通</b>。<br>
+    <b>⭐ 而"补一份 CONTRIBUTING.md"，本身就是你能提的第一个 PR。</b></p></div>
+  <p class="quote-big mt-m" data-anim="fade-up">你在项目里踩过的坑，<br><b>提回去就成了别人的护栏。</b></p>
+  <div class="deck-footer"><span class="ftag">④ 回贡</span><span class="slide-number" data-current="12" data-total="14"></span></div>
+  <div class="notes"><p><b>⭐【那个"没有 CONTRIBUTING.md"要坦率讲】</b>"我查过了，<b>这个仓目前没有 CONTRIBUTING.md、没有 .github/ 目录。</b>所以上面那些规范是我从 CLAUDE.md 里反推的。<b>这不是缺点——这是一个机会：补一份 CONTRIBUTING，就是最容易被接受的第一个 PR。</b>"</p>
+  <p><b>【降低心理门槛】</b>"提 PR 不一定要提一整个插件。<b>一个专家 .md、一处文档更正，都是贡献。</b>第五课你们发现的那六处『文档说 A、代码是 B』——<b>那本身就是六个可以提的 issue。</b>"</p>
+  <p><b>【本地测通是提 PR 前的最低门槛】</b><span class="mono">claude --plugin-dir ./你改的插件</span> 跑一遍，<b>别提没跑过的东西。</b></p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-title="收口 · 四级台阶回看">
+  <div class="kicker">收口 1/2</div>
+  <h2 class="title">回到那四级台阶</h2>
+  <table class="t mt-s">
+    <tr><th style="width:12%">级</th><th style="width:30%">动作</th><th>今天给了你什么</th></tr>
+    <tr><td><b>一级</b></td><td>用内置的</td><td><span class="dim">L3 / L4 / L5 已经做过</span></td></tr>
+    <tr class="hot"><td><b>二级</b></td><td><b>自定义专家</b></td><td>查找顺序（项目级覆盖内置）· 动态发现五步 · <b>专家是复核者不是生成者</b> · 该造/不该造判据 · <b>## Your Domain 写含糊就永远不被选中</b></td></tr>
+    <tr class="hot"><td><b>三级</b></td><td><b>写自己的插件</b></td><td>红蓝对抗（<b>两边都没有 Write</b>）· <b>确定性打底：40 脚本 vs 2 agent</b> · Traits 是观察不是配置 · 设计与实现物理分开 · 初稿不是成品</td></tr>
+    <tr><td><b>四级</b></td><td>回贡上游</td><td>能提什么 · 从 CLAUDE.md 反推的规范 · <b>补 CONTRIBUTING 就是第一个 PR</b></td></tr>
+  </table>
+  <p class="lede mt-l" data-anim="fade-up"><b>如果今天只带走一条</b>，带走第 8 页那条——</p>
+  <p class="huge mt-m" data-anim="fade-up">这一步能不能写成脚本？<br><b>能，就别交给模型。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">模型是用来处理"<b>规则说不清但人能判断</b>"那一段的，<b>不是用来做你懒得写的计算。</b></p>
+  <div class="deck-footer"><span class="ftag">收口 1/2</span><span class="slide-number" data-current="13" data-total="14"></span></div>
+  <div class="notes"><p><b>【回到第 2 页那张台阶图，让他们自评现在在第几级】</b></p>
+  <p><b>⭐【那条"能写成脚本就别交给模型"是全课最可迁移的一句】</b>它不依赖 Astra Studio，<b>做任何 AI 应用都成立</b>。板书。</p>
+  <p><b>【给一个回去就能做的动作】</b>"今晚回去做一件事：<b>把你们行业那个专家写出来，放进 studio/agents/，再跑一遍 L4 的 persona-insight，对比它挑出了什么新东西。</b>一个 .md 文件，半小时。"</p></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-title="自查">
+  <div class="kicker">收口 2/2 · 自查</div>
+  <h2 class="title">六问</h2>
+  <table class="t mt-s">
+    <tr><th style="width:4%">#</th><th style="width:46%">问题</th><th>警示（答成这样就是没听懂）</th></tr>
+    <tr><td>1</td><td>自定义专家放哪、和内置的<b>冲突时谁赢</b>？为什么这么设计？</td><td>答"放插件目录里"</td></tr>
+    <tr><td>2</td><td>专家在流程里是<b>生成者还是复核者</b>？这决定你写它时该写什么？</td><td>把专家写成"它懂什么"而不是"它会挑什么错"</td></tr>
+    <tr><td>3</td><td>自定义专家<b>不报错但完全不起作用</b>，最可能是什么原因？</td><td>想不到<span class="mono">## Your Domain</span>那一层</td></tr>
+    <tr><td>4</td><td>fund-review 两个 agent 都<b>没有 Write 权限</b>，为什么？</td><td>答"怕它改坏了"——<b>没说到"评审方能改报价就不是评审方"</b></td></tr>
+    <tr><td>5</td><td>40 个脚本对 2 个 agent，<b>这个比例说明什么</b>？</td><td>答"脚本多说明工作量大"</td></tr>
+    <tr><td>6</td><td>为什么设计文档和 SKILL.md <b>要物理分在两处</b>？</td><td>答"目录整齐"——<b>没说到单一真相源</b></td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">工具不改造，<br><b>你就只能做它预设的那类项目。</b></p>
+  <p class="lede mt-m" data-anim="fade-up"><b>下一步</b>：第 2、5 题现场答；其余回去对手册。<br>
+  <b>回去第一个动作</b>：写一个你们行业的专家 <span class="mono">.md</span>，丢进 <span class="mono">studio/agents/</span>，重跑 L4 的画像。</p>
+  <div class="deck-footer"><span class="ftag">自查</span><span class="slide-number" data-current="14" data-total="14"></span></div>
+  <div class="notes"><p><b>【现场做第 2、5 题，各 2′】</b>第 2 题考的是<b>写专家时的心智模型</b>（复核者），第 5 题考的是<b>确定性优先</b>——这两条最能迁移，也最容易听成"知道了"其实没懂。</p>
+  <p><b>【右列是"警示"不是"错误答案"】</b>都是<b>听起来对但没抓住要害</b>的答法。</p>
+  <p><b>【收口】</b>"这门课不产交付物，产的是<b>你对这套工具的处置权</b>——从只会用，到能改、能扩、能回贡。"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

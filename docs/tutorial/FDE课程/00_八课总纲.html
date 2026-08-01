@@ -828,6 +828,12 @@ S4 本体建模+设闸 → L5</code></pre>
 <td><strong>15</strong></td>
 <td><code>课程/S3_建模端如何支撑引擎.md</code></td>
 </tr>
+<tr class="even">
+<td><strong>S4</strong></td>
+<td><code>slides/S4_高级用法.html</code></td>
+<td><strong>14</strong></td>
+<td><code>课程/S4_AstraStudio高级用法.md</code></td>
+</tr>
 </tbody>
 </table>
 <p><strong>首页</strong>：<code>slides/index.html</code>（8 课 × 每课两件产物）。 <strong>旧课件</strong>：v0.2 时期按十讲切分的 14 份已移入 <code>slides/_legacy/</code>，<strong>不上课</strong>。</p>
@@ -835,8 +841,13 @@ S4 本体建模+设闸 → L5</code></pre>
 <p>⚠️ <strong>改内容时两边都要改。</strong> 只改手册不改课件，讲师投屏的内容就与学员手上的对不上—— <strong>这正是本课程自己教的 B-5（单一真相源）。</strong></p>
 </blockquote>
 <hr />
-<h2 id="八专题课-s1s32026-07-31-新增s2s3-同日扩充">八、专题课 S1–S3（2026-07-31 新增，S2/S3 同日扩充）</h2>
-<p><strong>专题课是一条线，三门课回答三个连续的问题，终点是第五课。</strong></p>
+<h2 id="八专题课-s1s42026-07-31-新增s4-为工具链线2026-08-01-增设">八、专题课 S1–S4（2026-07-31 新增；S4 为工具链线，2026-08-01 增设）</h2>
+<p><strong>专题课有两条线</strong>：</p>
+<ul>
+<li><strong>S1–S3 · 本体线</strong>（一条线，三门课回答三个连续的问题，<strong>终点是第五课</strong>）</li>
+<li><strong>S4 · 工具链线</strong>（独立一门，讲 Astra Studio 这套工具本身怎么改、扩、回贡）</li>
+</ul>
+<h3 id="s1s3--本体线">S1–S3 · 本体线</h3>
 <table>
 <thead>
 <tr class="header">
@@ -899,7 +910,40 @@ S3  平台与交付 + 建模端 studio-ontology → 商业全貌 + 你要用的�
 ──────────────────────────────────────────────────────────────
 L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插件</code></pre>
 <p><strong>S3 的最后一章（第十一章）就是交棒章</strong>——它讲 <code>studio-ontology</code> 的两端分工、四命令与强制停点、 IR 七段 → SPI 七槽位的编译去向，然后把学员直接送进第五课。</p>
-<h3 id="️-排期三门课-540塞不进-5-天集训档">⚠️ 排期：三门课 540′，塞不进 5 天集训档</h3>
+<h3 id="s4--工具链线独立不属于本体线">S4 · 工具链线（独立，不属于本体线）</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>讲什么</strong></td>
+<td><strong>从"用工具"到"改工具"的四级台阶</strong>：用内置的 → 自定义专家 → 写自己的插件 → 回贡上游</td>
+</tr>
+<tr class="even">
+<td><strong>教材</strong></td>
+<td><strong>一档</strong>：<code>astra-studio-plugins</code> 全仓（CLAUDE.md / AGENTS.md · create-expert · 11 个内置专家与动态发现 · fund-review 54 文件）</td>
+</tr>
+<tr class="odd">
+<td><strong>形式</strong></td>
+<td>讲解 + 当场读码 180′</td>
+</tr>
+<tr class="even">
+<td><strong>前置</strong></td>
+<td>建议 <strong>L3</strong>（用过 insight 内置专家）+ <strong>L5</strong>（用过 studio-ontology）。<strong>没上过也能听，但会少很多"原来如此"</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>两个重心</strong></td>
+<td>① <strong>自定义专家</strong>（人人用得上，一个 .md 文件的事）② <strong>fund-review 的确定性打底</strong>（40 脚本 vs 2 agent，最能迁移的架构判断）</td>
+</tr>
+<tr class="even">
+<td><strong>课件 / 手册</strong></td>
+<td><code>slides/S4_高级用法.html</code> 14 屏 · <code>课程/S4_AstraStudio高级用法.md</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>S4 和本体线没有先后依赖</strong>，可以单独开，也可以放在八课之后当"进阶班"。 <strong>它唯一的强前置是 L3/L4——学员得先用过内置专家，才知道自定义专家在解决什么问题。</strong></p>
+</blockquote>
+<p>⚠️ <strong>S4 的口径纪律</strong>：全课一档来源，<strong>每条结论都要能翻到仓库里的文件</strong>。 特别是第六章「回贡上游」——<strong>必须说明该仓目前没有 <code>CONTRIBUTING.md</code> 与 <code>.github/</code></strong>， 那几条规范是<strong>从 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 反推的</strong>，不是官方明文。 <strong>（顺带：这也正是学员能提的第一个 PR。）</strong></p>
+<h3 id="️-排期本体线三门-540塞不进-5-天集训档">⚠️ 排期：本体线三门 540′，塞不进 5 天集训档</h3>
 <p><strong>这是必须先说清楚的约束</strong>：8 课已占满 5 天，专题课再加 540′（9 小时）<strong>放不下</strong>。 不要试图压缩八课去腾位置——<strong>这三门是选修，八课是主干。</strong></p>
 <table>
 <thead>
@@ -911,7 +955,7 @@ L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插�
 <tbody>
 <tr class="odd">
 <td><strong>集训档（5 天）</strong></td>
-<td><strong>只插 S1</strong>（⭐ D3 上午，L5 之前；L4 下半场前移到 D2——见第五节变体排期）。<br><strong>S2 / S3 不进 5 天</strong>。想上就在集训<strong>之前</strong>加 D0 / D-1。</td>
+<td><strong>只插 S1</strong>；<strong>S4 不进集训档</strong>（它是进阶内容，不影响八课完整性）<br>（⭐ D3 上午，L5 之前；L4 下半场前移到 D2——见第五节变体排期）。<br><strong>S2 / S3 不进 5 天</strong>。想上就在集训<strong>之前</strong>加 D0 / D-1。</td>
 </tr>
 <tr class="even">
 <td><strong>⭐ 本体专题日（推荐，独立 1.5 天）</strong></td>
