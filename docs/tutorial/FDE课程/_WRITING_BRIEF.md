@@ -210,6 +210,7 @@ L1/L2/L3/L6/L7 沿用了 v0.2 时期的自有章节名（内容都在，是**标
 | **专题课 S1 · 本体论** | `slides/S1_本体论.html` + `课程/S1_本体论.md`　⚠️ **走另一套来源，见下** |
 | **专题课 S2 · 本体引擎的工程实现** | `slides/S2_本体引擎.html` + `课程/S2_本体引擎的工程实现.md`　⚠️ **见下** |
 | **专题课 S3 · 建模端如何支撑引擎** | `slides/S3_建模端与引擎.html` + `课程/S3_建模端如何支撑引擎.md`　⚠️ **见下** |
+| **专题课 S4 · Astra Studio 高级用法** | `slides/S4_高级用法.html` + `课程/S4_AstraStudio高级用法.md`　⚠️ **见下** |
 
 ---
 
@@ -222,6 +223,7 @@ L1/L2/L3/L6/L7 沿用了 v0.2 时期的自有章节名（内容都在，是**标
 | **L1–L8 八课** | 本文件（康养项目数字 + 六案例成熟度 + 商业口径） | 一档（自家一手） |
 | **专题课 S1** | **《工程师的本体论》方法论文集原文**（露华浓 ERP、采购 Agent / Beta / ACME、认证 30 天、信用额度…）<br>路径 `~/Codes/onto-fundary-plugins/reference/methodology/` | 二档（外部方法论） |
 | **专题课 S2** | **`clife-onto-engine` 仓库本身**——源码、`docs/01-metamodel-and-plugin-spi.md`、CI 门禁脚本 | **一档**（可当场核对行号） |
+| **专题课 S4** | **`astra-studio-plugins` 全仓**——CLAUDE.md / AGENTS.md、create-expert、11 个内置专家、fund-review 54 文件 | **一档**（可当场核对） |
 | **专题课 S3** | **主体 = `studio-ontology`**（`Ameng2001/astra-studio-plugins`）+ `clife-onto-engine`<br>**仅第十三章 + 附录**：信通院 / CCSA TC601 对 Palantir 的公开分析 | 主体 = **一档**<br>行业参照 = **二档** |
 
 ### 五条纪律
