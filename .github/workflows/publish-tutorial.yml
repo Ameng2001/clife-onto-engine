@@ -7,18 +7,16 @@ name: publish-tutorial
 #   —— 一个对 Ameng2001/fde-workshop 有 Contents: write 权限的 PAT
 #   （Fine-grained token 选该仓库 + Repository permissions → Contents: Read and write）
 
-# ⚠️ 目前只能手动触发（Actions → publish-tutorial → Run workflow）。
+# 触发：改了教材（合并进 main）就自动发布；也可在 Actions 里手动跑。
 #
-# 配好 FDE_WORKSHOP_TOKEN 并手动跑通一次之后，把下面 push: 那一段的注释去掉，
-# 即可恢复"改了教材就自动发布"：
-#
-#   push:
-#     branches: [main]
-#     paths:
-#       - 'docs/tutorial/**'
-#       - '.github/workflows/publish-tutorial.yml'
-#
+# 若 token 过期导致本 workflow 持续失败，可临时注释掉 push: 一段改回手动触发，
+# 换好 secret 后再放开。
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/tutorial/**'
+      - '.github/workflows/publish-tutorial.yml'
   workflow_dispatch:
 
 concurrency:
