@@ -950,6 +950,110 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 </blockquote>
 <p>置信度总线通到 <strong>HIL</strong>——<strong>细节是第五课下半场的主场，本课不展开。</strong></p>
 <hr />
+<h1 id="八补图上没画的一块记忆内核四层">八·补、图上没画的一块：记忆内核四层</h1>
+<p><strong>这一节讲的东西，架构图上找不到。</strong></p>
+<p>前面每一章都在认领图上的一个块。<strong>这一块没有对应的方框</strong>—— 它在代码里是 <code>memory/</code>，既不属于 <code>trust/</code>，也不在自有语义面那四格里。</p>
+<p><strong>那为什么还要讲？</strong> 因为第二章那张 OS 映射表里有一行指向它：</p>
+<table>
+<thead>
+<tr class="header">
+<th>操作系统</th>
+<th>本体引擎</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>工作集 / 分页</strong></td>
+<td><strong>记忆内核四层 token 预算</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>图画的是运行时端的骨架，不是代码的全集。</strong> 遇到"图上没有但代码里有"的东西，<strong>说清楚它为什么没上图</strong>，比假装图是完备的要诚实。</p>
+</blockquote>
+<h2 id="补1-四层各有-token-预算">补.1 四层，各有 token 预算</h2>
+<p>Agent 的记忆不是一个大 blob，是<strong>分层的</strong>，每层有明确预算：</p>
+<table>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>token 预算</th>
+<th>装什么</th>
+<th>什么时候进</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>CRITICAL</strong></td>
+<td><strong>150–200</strong></td>
+<td>绝不能忘的（当前任务的硬约束）</td>
+<td><strong>每轮必带</strong></td>
+</tr>
+<tr class="even">
+<td><strong>RULE</strong></td>
+<td><strong>300–500</strong></td>
+<td>相关的业务规则</td>
+<td>与当前意图相关时</td>
+</tr>
+<tr class="odd">
+<td><strong>CONTEXT</strong></td>
+<td><strong>200–400</strong></td>
+<td>当前会话的上下文</td>
+<td>会话内</td>
+</tr>
+<tr class="even">
+<td><strong>BACKGROUND</strong></td>
+<td><strong>100–300</strong></td>
+<td>背景知识、术语</td>
+<td><strong>有余量时</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>OS 的对照</strong>：这就是<strong>工作集</strong>——上下文窗口是有限的物理内存， 四层预算是<strong>页面置换策略</strong>，决定什么常驻、什么可以换出。</p>
+<h2 id="补2-为什么必须设预算">补.2 为什么必须设预算</h2>
+<p>不设预算的记忆系统，<strong>三周之后会塞满而不自知</strong>—— 新的重要信息挤不进去，模型开始"忘记"刚说过的话， ⚠️ <strong>而日志里看不出任何异常</strong>。</p>
+<blockquote>
+<p>这是这类系统最阴的一种故障：<strong>它不报错，只是慢慢变笨。</strong></p>
+</blockquote>
+<p>对应模块：<code>memory/{classify, item, retrieval, store}.py</code>。</p>
+<p>⭐ <strong><code>classify.py</code> 决定一条信息进哪一层——而这是行业相关的</strong>， 所以它在 **SPI 槽位 ⑤（记忆词典 + 提示词骨架）**里有对应配置。</p>
+<blockquote>
+<p>又一次闭环：<strong>classify 是行业相关的 → 所以它归插件层 → 所以它出现在七槽位的第 5 格。</strong> <strong>三层切分不是抽象原则，它决定了每一个模块的物理位置。</strong></p>
+</blockquote>
+<h2 id="补3--和第三课是同一个问题的两端">补.3 ⭐ 和第三课是同一个问题的两端</h2>
+<p>第三课「采集信息」讲过<strong>渐进式披露</strong>：组织 <code>_INPUT.md</code> 时， 参考资料要分<strong>常驻 / 索引 / 备查</strong>三档，别一次全塞给智能体。</p>
+<p><strong>那是生产侧的分层投喂。这一节是消费侧的分层驻留。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>第三课 · 渐进式披露</th>
+<th>本节 · 记忆四层</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>在哪一侧</td>
+<td><strong>你写输入的时候</strong></td>
+<td><strong>Agent 用记忆的时候</strong></td>
+</tr>
+<tr class="even">
+<td>分几档</td>
+<td>常驻 / 索引 / 备查</td>
+<td>CRITICAL / RULE / CONTEXT / BACKGROUND</td>
+</tr>
+<tr class="odd">
+<td>判据</td>
+<td>每次都要看，还是可能要看</td>
+<td>每轮必带，还是有余量才带</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="同一条约束的两端上下文是有限的物理内存不是无限的收纳箱"><strong>同一条约束的两端：上下文是有限的物理内存，不是无限的收纳箱。</strong></h3>
+<p>你在第三课学的是<strong>别把不该常驻的东西塞进去</strong>； 这一节讲的是<strong>引擎自己怎么执行同一条纪律</strong>。 <strong>两边都做到了，Agent 才不会在第三周开始变笨。</strong></p>
+</blockquote>
+<hr />
 <h1 id="九展示与交互层">九、展示与交互层</h1>
 <h2 id="91-自有展示--对象图-explorer">9.1 自有展示 · 对象图 Explorer</h2>
 <pre><code>explorer.py
