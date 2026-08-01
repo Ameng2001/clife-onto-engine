@@ -1253,7 +1253,7 @@
 </tr>
 <tr class="even">
 <td><strong>A3</strong></td>
-<td><strong>确认学员有 GitHub 账号且能 fork</strong>（这是最常见的现场卡点，提前一天通知）；自己先提一个 PR 走一遍流程</td>
+<td>⚠️ <strong>建好内部 fork 并把地址写进 T-1 天通知</strong>（学员提到这里，不直提公开上游）；<br><strong>确认学员有 GitHub 账号、且已被加进内部 fork 的协作者</strong>（这是最常见的现场卡点）；<br>自己先走一遍完整流程：内部 fork 开 PR → 转提上游</td>
 </tr>
 </tbody>
 </table>
@@ -1364,23 +1364,28 @@
 </tr>
 <tr class="even">
 <td>55–70′</td>
-<td>PR 描述四段</td>
-<td>⭐ <strong>"为什么"那段决定命运</strong>——念一遍反例、再念一遍正例</td>
+<td>⚠️ <strong>两段式</strong> + PR 描述四段</td>
+<td><strong>先讲两段式</strong>（提到内部 fork，你课后统一转提），再讲四段。⭐ <strong>"为什么"那段决定命运</strong>——念一遍反例、再念一遍正例</td>
 </tr>
 <tr class="odd">
 <td><strong>70–110′</strong></td>
-<td><strong>实操：真的提一个</strong></td>
-<td>巡场三个抓手：<strong>还在纠结"配不配"的 → 直接让他提 issue</strong>；<strong>"为什么"只写一句的 → 当场重写</strong>；<strong>没跑就想提的 → 按住</strong></td>
+<td><strong>实操：真的提一个</strong>（<strong>提到内部 fork</strong>）</td>
+<td>巡场四个抓手：<strong>还在纠结"配不配"的 → 直接让他提 issue</strong>；<strong>"为什么"只写一句的 → 当场重写</strong>；<strong>没跑就想提的 → 按住</strong>；<strong>⚠️ 把项目原文整段粘进 PR 描述的 → 当场删客户名和商务数字</strong></td>
 </tr>
 <tr class="even">
 <td>110–120′</td>
 <td>被拒了怎么办 + 收链接</td>
-<td><strong>每人念一遍自己的 PR / issue 链接。没有链接 = 没完成</strong></td>
+<td><strong>每人念一遍自己在内部 fork 上的 PR / issue 链接。没有链接 = 没完成</strong>。<br><strong>当场给出你的复核与转提时间点</strong>（例如"本周内转提，上游链接回传"）——<strong>别让它悬着</strong></td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p><strong>降级方案要提前说</strong>：素材不成熟的，<strong>提一个 issue 也算完成</strong>——第五课那六处落差随便挑一处，十分钟。 <strong>⚠️ 提交内容按脱敏口径走：不带客户名、不带商务数字。</strong>（这是向<strong>公开仓库</strong>提交）</p>
+<p><strong>降级方案要提前说</strong>：素材不成熟的，<strong>在内部 fork 提一个 issue 也算完成</strong>——第五课那六处落差随便挑一处，十分钟。</p>
+<h3 id="️-两段式学员提到内部-fork讲师课后统一转提公开上游">⚠️ <strong>两段式：学员提到内部 fork，讲师课后统一转提公开上游</strong></h3>
+<pre><code>学员（课上）  内部 fork → 分支 → 改 → 本地测通 → 向内部 fork 的 main 开 PR
+讲师（课后）  复核 + 脱敏检查 → 从内部 fork 向公开上游统一转提 → 上游链接回传</code></pre>
+<p><strong>开场就要交代，别等到第 55 分钟</strong>——把内部 fork 地址写在白板上。 <strong>⭐ 必须补一句"转提时写明原作者、上游链接回传给你"</strong>，否则会有人觉得自己的活被截胡了。</p>
+<p><strong>脱敏是两道关</strong>：<strong>学员自己先过一遍</strong>（不带客户名、不带商务数字），<strong>你转提前再查一次</strong>。 <strong>上游是公开仓库——推上去之后，删掉也还在 git 历史和各种镜像里。</strong></p>
 </blockquote>
 <hr />
 <h2 id="九应急预案">九、应急预案</h2>

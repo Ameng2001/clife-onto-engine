@@ -748,7 +748,7 @@ N+2、讲师包 · 口播稿  讲师原话级；含 1 句难听话 + 1 个反例
 <li><strong>A1 / A2 的数字必须与源码对得上</strong>：<strong>11 个专家 + 1 模板</strong>； <strong>fund-review 54 文件 = 38 脚本（含 12 个 <code>scan_*.py</code>）+ 4 skill + 2 agent + 4 命令 + 5 reference</strong>。 ⚠️ <strong>曾经写错过"14 个扫描器 / 40 个脚本"——引用前先 <code>ls</code> 一遍。</strong></li>
 <li><strong>讲红蓝对抗必须补一句</strong>：<code>quote-optimizer</code> 与 <code>financial-reviewer</code> <strong>都是 <code>allowed-tools: Read, Bash, Glob</code>——都没有 Write</strong>。 只讲"对抗"不讲"都没有写权限"，学员会以为这是两个智能体互相改文件。</li>
 <li><strong>⚠️ 讲 A3 的贡献规范时说"我从 <code>CLAUDE.md</code> 反推的"，不要说"项目规定"</strong>—— <strong>该仓没有 <code>CONTRIBUTING.md</code>。</strong> 这与 S3 的「Ontology Studio」是同一类事，<strong>又一次 L1 三档来源纪律的元示范</strong>。</li>
-<li><strong>A3 的实操是真的向公开仓库提 PR / issue</strong>——提交内容按脱敏口径走：<strong>不带客户名、不带商务数字</strong>。</li>
+<li><strong>⚠️ A3 的实操走两段式，不让学员直提公开上游</strong>： <strong>学员 → 内部 fork</strong>（讲师开课前建好、地址写进 T-1 天通知）→ <strong>讲师复核 + 脱敏检查 → 统一转提公开上游 → 上游链接回传学员</strong>。 <strong>理由</strong>：上游是公开仓库，<strong>客户名 / 商务数字推上去，删掉也还在 git 历史和各种镜像里——脱敏不可逆</strong>。 脱敏是<strong>两道关</strong>：学员自己先过一遍，讲师转提前再查一次。 ⚠️ <strong>转提时必须在上游 PR 描述里写明原作者</strong>，否则学员会觉得自己的活被截胡了。</li>
 </ol>
 <h3 id="️-第-④-处文档-vs-事实落差补进上表">⚠️ 第 ④ 处"文档 vs 事实"落差（补进上表）</h3>
 <table>
