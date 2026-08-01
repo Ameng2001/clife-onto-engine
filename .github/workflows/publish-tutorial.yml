@@ -43,15 +43,19 @@ jobs:
           SRC="docs/tutorial/FDE课程"
           DST=".publish"
 
-          # 站点专属、不来自上游的文件：同步时保留
-          #   index.html  站点首页（落地页，上游没有）
-          #   README.md   发布仓库说明
-          #   .nojekyll   否则 Jekyll 会忽略 _legacy/ 等下划线开头的目录
+          # 站点专属、不来自上游的三个文件：同步时保留
+          #   /index.html  站点落地页（上游没有这个文件）
+          #   /README.md   发布仓库说明
+          #   /.nojekyll   否则 Jekyll 会忽略 _legacy/ 等下划线开头的目录
+          #
+          # ⚠️ 前导斜杠不能省：rsync 的 exclude 模式不带 '/' 会匹配**任意层级**的同名文件。
+          #    写成 'index.html' 会连 slides/index.html（课程总览）一起排除掉，
+          #    导致新增课程在站点首页上没有入口。
           rsync -a --delete \
-            --exclude='.git/' \
-            --exclude='index.html' \
-            --exclude='README.md' \
-            --exclude='.nojekyll' \
+            --exclude='/.git/' \
+            --exclude='/index.html' \
+            --exclude='/README.md' \
+            --exclude='/.nojekyll' \
             "$SRC"/ "$DST"/
 
           # .nojekyll 兜底：万一发布仓库里被删了，补回来
