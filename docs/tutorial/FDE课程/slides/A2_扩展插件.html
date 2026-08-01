@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 专题课 A2 · 扩展插件</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:44px 66px}
+  .mt-l{margin-top:17px}.mt-m{margin-top:11px}
+  .lede{font-size:17px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:5px;font-size:15px}
+  .card p,.card-accent p,.card-outline p{font-size:14px;line-height:1.52}
+  h2.title{font-size:35px;line-height:1.14}
+  .quote-big{font-family:var(--font-serif);font-size:25px;line-height:1.34;font-weight:600;color:var(--accent);max-width:30ch}
+  .huge{font-family:var(--font-serif);font-size:31px;line-height:1.24;font-weight:700;color:var(--accent)}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:14px}
+  table.t th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:5px 9px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:5px 9px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  table.t tr.hot td{background:var(--grad-soft)}
+  table.t.dense{font-size:13.2px} table.t.dense td{padding:3.6px 9px}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:12.8px;line-height:1.52;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:11px 15px;overflow:auto;color:var(--text-1)}
+  .src{font-size:12px;color:var(--text-3);font-style:italic}
+  .stepline{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-size:14px;font-weight:700}
+  .stepline .s{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:6px 10px}
+  .stepline .a{color:var(--accent-2)}
+  .tier{border-radius:9px;padding:9px 13px;margin-bottom:6px;font-size:14.5px;border:1px solid var(--border);background:var(--surface-2);display:flex;gap:12px;align-items:baseline}
+  .tier .n{font-family:ui-monospace,monospace;font-weight:700;color:var(--accent);min-width:38px}
+  .red{background:#fdeeee;border-color:#f5c2c2}
+  .blue{background:#eef4ff;border-color:#bfd4ff}
+  .slide.tight .card,.slide.tight .card-accent{padding-top:8px;padding-bottom:8px}
+  .slide.tight table.t td{padding-top:3.4px;padding-bottom:3.4px}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 专题课 A2 · 180′ · 讲解 + 当场读码</div>
+  <h1 class="title" data-anim="fade-up">扩展插件<br>拆透 fund-review</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">A1 你写了一个 .md。<br><b>今天看一个真实插件的 54 个文件<br>是怎么组织的。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">A 系列第二门 · 三级台阶</span>
+    <span class="pill">红蓝对抗</span>
+    <span class="pill">⭐ 38 脚本 : 2 agent</span>
+  </div>
+  <p class="src mt-m">一档来源：astra-studio-plugins/fund-review 全仓 54 文件 + CLAUDE.md / AGENTS.md。<b>本课所有数字都数过，可当场 ls 核对。</b></p>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="13"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 180′】</b> 定位 + 身份 20′ ｜ <b>红蓝对抗 35′</b> ｜ <b>⭐ 确定性打底 45′</b> ｜ Traits 25′ ｜ 两级工作区 20′ ｜ 从零起插件 + 本地调试 25′ ｜ 自查 10′</p>
+    <p><b>⭐【本课重心是第 6–8 页，不是红蓝那两页】</b>红蓝对抗吸引眼球，<b>但真正能带走的是"38 脚本对 2 agent"。讲的时候别让第 4–5 页抢了风头。</b></p>
+    <p><b>【数字纪律】</b>课上所有数字都可当场 <span class="mono">ls</span> 核对：<b>38 个脚本、12 个 scan_*.py、4 skill、2 agent、54 文件。</b>学员问就现场敲。<b>这门课自己教"查不到别编"。</b></p>
+    <p><b>【读码准备】</b>投屏机 clone 好 astra-studio-plugins，<b>第 4、6、7 页要真的翻文件</b>（两个 agent 的 frontmatter、scripts/ 目录、CLAUDE.md 的 Traits 表）。</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="定位与身份">
+  <div class="kicker">① fund-review 是什么</div>
+  <h2 class="title">一个"被工具链造出来"的插件</h2>
+  <div class="tier"><span class="n">A1</span><span>自定义智能体　<span class="dim">二级台阶：不改代码，加一个 .md</span></span></div>
+  <div class="tier" style="background:var(--grad-soft);border-color:var(--accent)"><span class="n">A2</span><span><b>扩展插件</b>　<span class="dim">三级台阶：<b>← 今天</b></span></span></div>
+  <div class="tier"><span class="n">A3</span><span>回贡上游　<span class="dim">四级台阶</span></span></div>
+  <table class="t mt-m">
+    <tr><th></th><th>fund-review</th></tr>
+    <tr><td><b>干什么</b></td><td>政府 IT 采购的<b>报价优化 + 财评预审</b>——按地方预算标准出优化建议、重写报价表、产带引用的评分报告</td></tr>
+    <tr><td><b>规模</b></td><td><b>54 个文件</b>：<b>38 脚本</b>（其中 <b>12 个 scan_*.py</b>）· 4 skill · <b>2 agent</b> · 4 命令 · 5 reference</td></tr>
+    <tr class="hot"><td><b>身份</b></td><td>⭐ <b>不是 studio 工具链的一部分，是工具链<b>产出</b>的领域插件</b>——只是搭同一个 marketplace 发布</td></tr>
+  </table>
+  <table class="t mt-m">
+    <tr><th></th><th>fund-review</th><th>所有 studio-*</th></tr>
+    <tr><td><b>运行时工作区</b></td><td><span class="mono">stateful</span> → <span class="mono">.fund-review/{session-id}/</span>　<b>不在 studio/ 下</b></td><td>用 <span class="mono">studio/</span></td></tr>
+    <tr><td><b>外部依赖</b></td><td>需要 <span class="mono">openpyxl</span> / <span class="mono">python-docx</span></td><td><b>一个都不需要第三方包</b></td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">它证明的不是"这插件多厉害"，<br><b>是"这套工具链能造出这种量级的东西"。</b></p>
+  <div class="deck-footer"><span class="ftag">① 身份</span><span class="slide-number" data-current="2" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐【"工具链产出的"这个身份要点破】</b>"CLAUDE.md 里专门有一节叫 <b>Vertical Plugins</b>，说得很清楚。放在同一个仓只是为了搭同一个 marketplace 发布。"</p>
+  <p><b>【为什么这对学员重要】</b>"<b>你第五课产出的本体插件、以后要做的行业插件——都是这个身份。fund-review 就是你们的未来样本。</b>"</p>
+  <p><b>【38 个脚本先埋着】</b>第 6 页才揭。<b>这是本课最值得迁移的架构判断，别提前讲掉。</b></p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="四个 skill 是一条流水线">
+  <div class="kicker">① fund-review 是什么 · 续</div>
+  <h2 class="title">四个 skill，一条流水线</h2>
+  <div class="stepline mt-s" data-anim="fade-up">
+    <span class="s">init-session<br><span style="font-weight:400;font-size:12px">初始化会话工作区</span></span><span class="a">→</span>
+    <span class="s">quote-optimize<br><span style="font-weight:400;font-size:12px">出优化建议</span></span><span class="a">→</span>
+    <span class="s" style="background:var(--grad-soft);border-color:var(--accent)"><b>人批准方案</b></span><span class="a">→</span>
+    <span class="s">quote-rewrite<br><span style="font-weight:400;font-size:12px">按已批准的方案改表</span></span>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up">另有 <span class="mono">quote-review</span>：对着标准<b>打分，产带引用的评审报告</b>。</p>
+  <div class="card card-accent mt-m"><h4>⚠️ 注意 quote-rewrite 的措辞：「<b>按已批准的方案</b>」</h4>
+    <p><b>改表这一步在人批准之后，不在 agent 手里。</b><br>
+    这是下一页那条设计的伏笔——<b>agent 提意见，人做决定，脚本执行。</b></p></div>
+  <p class="quote-big mt-l" data-anim="fade-up">四个 skill 里，<br><b>只有最后一个真的改东西——<br>而它不听 agent 的。</b></p>
+  <div class="deck-footer"><span class="ftag">① 流水线</span><span class="slide-number" data-current="3" data-total="13"></span></div>
+  <div class="notes"><p><b>【这一页是第 4–5 页的引子，别讲长】</b>重点就一句：<b>改表在人批准之后。</b></p>
+  <p><b>【可以问一句】</b>"如果让 agent 直接改表，会省一步。<b>为什么不这么做？</b>"——留 10 秒，下一页回答。</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="⭐ 红蓝对抗">
+  <div class="kicker">② 红蓝对抗 1/2 · ⭐</div>
+  <h2 class="title">两个 agent，站在对立面</h2>
+  <div class="tier blue"><span class="n">蓝方</span><span><b>quote-optimizer</b>　<span class="mono" style="font-size:12.5px">agents/quote-optimizer.md</span><br>
+    <span class="dim">"资深售前方案架构师，深谙政府 IT 采购报价"——<b>站投标方，想让报价过审</b>。拿扫描器发现 + 定价指引 + 标准条款索引，做<b>筛选、排序、解释</b><br>原话：「同时说 <b>投标商务</b> 和 <b>财评专家</b> 两种语言」</span></span></div>
+  <div class="tier red"><span class="n">红方</span><span><b>financial-reviewer</b>　<span class="mono" style="font-size:12.5px">agents/financial-reviewer.md</span><br>
+    <span class="dim">"政府财评专家"——<b>站评审方，对每条 warn/fail 逐条挑战，要求页码引用</b><br>原话：<b>「绝不批准一个你无法在标准公式里追溯出来的数字」</b></span></span></div>
+  <p class="lede mt-l" data-anim="fade-up"><b>什么时候值得设红蓝</b>：<b>当一件事有明确的对立立场，而且两边都有专业性的时候。</b></p>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card goodcard"><h4>✅ 适合</h4><p>报价 vs 财评 · 开发 vs 安全 · 业务 vs 合规——<b>两边都需要专业判断，盲区互补</b></p></div>
+    <div class="card badcard"><h4>❌ 不适合</h4><p>只有一个正确答案的任务 · 只是想"多一个人看看"——<b>那用一个复核专家就够（A1）</b><br>⚠️ <b>对抗的成本是双倍的推理</b></p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">② 1/2 · ⭐</span><span class="slide-number" data-current="4" data-total="13"></span></div>
+  <div class="notes"><p><b>【读码：把两个 .md 的开头并排投出来】</b>让学员自己读那两句原话。<b>红方那句"绝不批准一个你无法在标准公式里追溯出来的数字"——把"可追溯"写进了角色人格。</b></p>
+  <p><b>【下一页才是这一节的重点】</b>别在这里停太久。</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="⭐⭐ 两边都没有 Write">
+  <div class="kicker">② 红蓝对抗 2/2 · ⭐⭐ 最见功力的一处</div>
+  <h2 class="title">两个 agent 都没有 Write 权限</h2>
+  <pre class="code mt-s">allowed-tools: Read, Bash, Glob
+scope: runtime</pre>
+  <p class="lede mt-m" data-anim="fade-up"><b>两份 agent 定义的 frontmatter 一模一样——都没有 Write。</b><br>
+  它们只能<b>查证与质询</b>，不能改报价表。真正改表的是 <span class="mono">quote-rewrite</span> 里的确定性脚本，<b>改什么由人批准的方案决定</b>。</p>
+  <p class="huge mt-m" data-anim="fade-up">评审方要是能改报价，<br><b>它就不是评审方了。</b></p>
+  <table class="t mt-m">
+    <tr><th>课</th><th>例子</th><th>同一条判断</th></tr>
+    <tr><td><b>第五课</b></td><td><span class="mono">ontology-validate</span> <b>没有 Write</b></td><td>校验器<b>物理上不可能</b>替你抹平不合格的地方</td></tr>
+    <tr class="hot"><td><b>本课</b></td><td>两个红蓝 agent <b>都没有 Write</b></td><td>评审与优化<b>只能提意见，不能自己动手</b></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">好的角色设计不是靠嘱咐<br>"你别乱改"，<br><b>是让它想改也改不了。</b></p>
+  <div class="deck-footer"><span class="ftag">② 2/2 · ⭐⭐</span><span class="slide-number" data-current="5" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐⭐【回答第 3 页留的问题】</b>"为什么不让 agent 直接改表？<b>因为那样它就同时是运动员和裁判。</b>"</p>
+  <p><b>【「权限即职责」这条已经是第三次出现了】</b>第五课 <span class="mono">ontology-validate</span> 无 Write、<span class="mono">ontology-compile</span> 无 Agent（纯机械翻译不许自由发挥）、今天这两个。<b>这是 astra-studio 一以贯之的设计手法，值得学员带走。</b></p>
+  <p><b>【最后那句是本页落点】</b>"<b>好的角色设计不是靠嘱咐『你别乱改』，是让它想改也改不了。</b>"——这也是第五课"纪律靠机制不靠自觉"的同一句话。</p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="⭐⭐ 对抗不是重点">
+  <div class="kicker">③ 确定性打底 1/3 · ⭐⭐ <b>本课重心</b></div>
+  <h2 class="title">但红蓝对抗<b>不是</b>这个插件的重点</h2>
+  <div class="stepline mt-s" data-anim="fade-up">
+    <span class="s"><b>12 个确定性扫描器</b><br><span style="font-weight:400;font-size:12px">scan_*.py</span></span><span class="a">→</span>
+    <span class="s"><b>findings.json</b></span><span class="a">→</span>
+    <span class="s">agent <b>筛选·排序·解释</b></span><span class="a">→</span>
+    <span class="s">人批准方案</span><span class="a">→</span>
+    <span class="s">确定性脚本<b>改表</b></span>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>数一下这个插件的构成：</b></p>
+  <table class="t mt-s">
+    <tr><th></th><th>数量</th></tr>
+    <tr class="hot"><td><b>脚本</b></td><td><b style="font-size:20px">38 个</b>（其中 <b>12 个 scan_*.py</b> 扫描器）</td></tr>
+    <tr><td>skill</td><td>4 个</td></tr>
+    <tr class="hot"><td><b>agent</b></td><td><b style="font-size:20px">2 个</b></td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">能确定性算的，全写成了脚本；<br><b>agent 只处理"需要判断"的那一段。</b></p>
+  <div class="deck-footer"><span class="ftag">③ 1/3 · ⭐⭐</span><span class="slide-number" data-current="6" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐⭐【这一页比红蓝对抗重要，语气要转过来】</b>"上两页那个红蓝设计很吸引眼球。<b>但真正让这个插件能用的，是这一页——38 个脚本对 2 个 agent。</b>"</p>
+  <p><b>【现场敲一下】</b><span class="mono">ls scripts/*.py | wc -l</span> 和 <span class="mono">ls scripts/scan_*.py | wc -l</span>——<b>38 和 12，当场数给他们看。</b></p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide tight" data-title="12 个扫描器扫什么">
+  <div class="kicker">③ 确定性打底 2/3 · 为什么它们该是脚本</div>
+  <h2 class="title">12 个扫描器都在扫什么</h2>
+  <table class="t dense mt-s">
+    <tr><th style="width:26%">扫描器</th><th>扫什么</th></tr>
+    <tr><td><span class="mono">scan_subject</span></td><td>科目对齐</td></tr>
+    <tr><td><span class="mono">scan_semantic</span></td><td>平台 vs 大模型的<b>语义重叠</b></td></tr>
+    <tr><td><span class="mono">scan_redundancy</span></td><td><b>跨工作簿 / sheet 的重复内容</b></td></tr>
+    <tr><td><span class="mono">scan_labor</span> · <span class="mono">scan_workdays</span></td><td>人工定价 · <b>人天极值</b></td></tr>
+    <tr><td><span class="mono">scan_caps</span></td><td><b>比例守恒</b>（标准里的硬上限）</td></tr>
+    <tr><td><span class="mono">scan_completeness</span> · <span class="mono">scan_summary_sheets</span></td><td><b>9 大费用科目缺失</b> · 汇总 sheet 缺失</td></tr>
+    <tr><td><span class="mono">scan_brand_models</span></td><td><b>设备品牌型号 ≥3</b>（标准表 7 注 3 的硬要求）</td></tr>
+    <tr><td><span class="mono">scan_commercial</span></td><td>商业组件识别（填补"软件产品购置费 = ¥0"缺口）</td></tr>
+    <tr><td><span class="mono">scan_evidence</span> · <span class="mono">scan_ops</span></td><td><b>取值依据</b> · 大模型运维/运营行合规</td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">⭐ <b>每一条都是"照规则一查就知道"的事</b>——品牌型号够不够 3 个、比例有没有超上限、9 大科目缺了哪个、有没有跨表重复。</p>
+  <p class="huge mt-m" data-anim="fade-up">它们不需要判断，<br><b>所以它们该是脚本。</b></p>
+  <div class="deck-footer"><span class="ftag">③ 2/3</span><span class="slide-number" data-current="7" data-total="13"></span></div>
+  <div class="notes"><p><b>【别逐个念完，挑三个最直观的】</b><b>品牌型号 ≥3</b>（标准白纸黑字写的）· <b>比例守恒</b>（算术）· <b>9 大科目缺失</b>（对照清单）。<b>三个一说，学员就明白"这类事凭什么不该交给模型"。</b></p>
+  <p><b>【那 agent 干什么？】</b>从一堆发现里<b>挑出真正值得提的</b>、<b>排优先级</b>、<b>用标准条款解释为什么</b>。<b>——扫描是确定的，判断才是模型的。</b></p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="⭐⭐ 可迁移的判据">
+  <div class="kicker">③ 确定性打底 3/3 · ⭐⭐ <b>本课最该带走的一条</b></div>
+  <h2 class="title">给你的判据</h2>
+  <p class="huge mt-s" data-anim="fade-up">这一步能不能写成脚本？<br><b>能，就别交给模型。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">模型是用来处理"<b>规则说不清但人能判断</b>"那一段的，<br><b>不是用来做你懒得写的计算。</b></p>
+  <div class="grid g3 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>① 确定性</h4><p>脚本每次结果一样，<b>模型不保证</b></p></div>
+    <div class="card card-accent"><h4>② 可测</h4><p>脚本能写单测，<b>提示词不能</b></p></div>
+    <div class="card card-accent"><h4>③ 成本</h4><p><b>确定性脚本跑一万次成本不变，<br>agent 跑一万次要付一万次的钱</b></p></div>
+  </div>
+  <div class="card mt-m"><h4>⭐ 这就是 S2/S3 讲的「确定性优先」，在插件层的活体</h4>
+    <p>S3 讲 Deterministic Agent Runtime 时说：<b>交易、库存、调度交确定性逻辑，只有意图识别和异常研判调大模型。</b><br>
+    <b>fund-review 就是这条原则在一个真实插件里的样子。</b></p></div>
+  <p class="quote-big mt-m" data-anim="fade-up">这一条不依赖 Astra Studio。<br><b>做任何 AI 应用都成立。</b></p>
+  <div class="deck-footer"><span class="ftag">③ 3/3 · ⭐⭐</span><span class="slide-number" data-current="8" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐⭐【全课最该板书的一句】</b>"<b>这一步能不能写成脚本？能，就别交给模型。</b>"</p>
+  <p><b>【三个理由里第三个最容易被忽略】</b>"很多人只想到准确率，<b>没算成本账。一个每天跑几百次的扫描，写成脚本是一次性投入；交给 agent 是每天付费。</b>"</p>
+  <p><b>【回扣 S2/S3】</b>上过的人这里会有"原来如此"的反应——<b>那条原则他们在引擎层听过，今天在插件层又见到一次。同一条判断，两个层次。</b></p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="Plugin Structure 与 Traits">
+  <div class="kicker">④ 插件骨架 1/2</div>
+  <h2 class="title">一个插件长什么样 · Traits 是观察</h2>
+  <pre class="code mt-s">plugin-name/
+├── .claude-plugin/plugin.json   # 清单
+├── commands/  skills/{name}/SKILL.md  agents/  hooks/  scripts/
+├── <b>references/</b>                  # <b>按需加载 ← 就是第三课的渐进式披露</b>
+└── templates/</pre>
+  <table class="t mt-m">
+    <tr><th style="width:20%">Trait</th><th style="width:32%">意思</th><th>会自动生成什么</th></tr>
+    <tr class="hot"><td><span class="mono">stateful</span></td><td>跨会话管理项目数据</td><td><b>init-workspace skill + 运行时配置/状态模板</b></td></tr>
+    <tr><td><span class="mono">hil-gated</span></td><td>流程里有人工审批关口</td><td>SKILL.md 里的 <span class="mono">## Approval Gate</span> 段</td></tr>
+    <tr><td><span class="mono">kb-dependent</span></td><td>需要 LLM 之外的领域知识</td><td>KB 集成说明</td></tr>
+    <tr><td><span class="mono">multi-pipeline</span></td><td>2 个以上独立业务流</td><td>按管线分别生成编排命令</td></tr>
+    <tr class="hot"><td><span class="mono">expert-scoped</span></td><td><b>运行时需要与规划期不同的专家</b></td><td><b>agents/ 里的运行时 agent 定义</b></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">Traits are observations,<br>not configuration.</p>
+  <p class="lede mt-m" data-anim="fade-up"><b>你不"配置" trait，是工具从你已经写下的规划产物里<b>看出来</b>的。</b>没检测到的插件走标准路径，<b>不多不少</b>。</p>
+  <div class="deck-footer"><span class="ftag">④ 1/2</span><span class="slide-number" data-current="9" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐【那句英文留原文】</b>"背后是一个设计立场：<b>不给你一堆开关让你勾，而是从你已经写下的东西里推断。少一层配置，就少一层『配错了但没人发现』。</b>"</p>
+  <p><b>⭐【fund-review 同时命中两个，把前面串回来】</b><span class="mono">stateful</span> → 第 2 页那个 <span class="mono">.fund-review/{session-id}/</span>；<span class="mono">expert-scoped</span> → 第 4 页那两个红蓝 agent。<b>前面看到的两个特征，在这里找到了出处。</b></p>
+  <p><b>⭐【expert-scoped 是 A1 与 A2 的分界，一定要讲】</b>"<b>A1 你写的是规划期专家</b>（做画像、域图时被叫，放 studio/agents/）；<b>这两个红蓝是运行时专家</b>（跟着插件跑在真实业务里，放插件自己的 agents/）。<b>expert-scoped 这个 trait，就是这两者的分界。</b>"</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="两级工作区">
+  <div class="kicker">④ 插件骨架 2/2 · 设计与实现物理分开</div>
+  <h2 class="title">同一件东西只存在于一个地方</h2>
+  <pre class="code mt-s">studio/changes/{plugin}/   ← <b>只放设计文档</b>：brief.md · skill-map.md · status.json · plugin.json.draft
+{target_dir}/              ← <b>只放实现</b>：SKILL.md · commands/ · scripts/ · agents/
+
+status.json 里的 <b>target_dir</b> 字段，是这两边唯一的连线。</pre>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>域工作区　<span class="mono" style="font-size:12px">type: "domain"</span></h4><p>event-storm.md · domain-map.md · personas/ journeys/ processes/<br>⭐ <b>可被多个插件共享</b></p></div>
+    <div class="card card-accent"><h4>插件工作区　<span class="mono" style="font-size:12px">type: "plugin"</span></h4><p><b>只有设计文档。</b>不含 SKILL.md 与 commands——那些在 <span class="mono">target_dir</span>；靠 <span class="mono">domain</span> 字段指回父域</p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>为什么这样切</b>：如果设计目录里也放一份 SKILL.md，<b>它和实现里那份迟早不一致</b>——<b>而且你不知道该信哪份。</b></p>
+  <p class="huge mt-m" data-anim="fade-up">这是课程反复讲的 B-5，<br><b>写进了工具设计里。</b></p>
+  <p class="lede mt-m" data-anim="fade-up">⭐ <b>好的工具会替你守住纪律，而不是靠你自觉。</b></p>
+  <div class="deck-footer"><span class="ftag">④ 2/2</span><span class="slide-number" data-current="10" data-total="13"></span></div>
+  <div class="notes"><p><b>【回扣第 2 页】</b>"fund-review 的<b>设计文档在另一个仓</b>（fund-review-plugins）——就是这条原则的实例：<b>设计和实现可以分在不同仓库，靠 target_dir 连起来。</b>"</p>
+  <p><b>⭐【域工作区可共享，有实际价值】</b>"一次事件风暴产出的域图和画像，<b>可以喂给多个插件。别每个插件重做一次业务分析。</b>"</p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="从零起一个插件">
+  <div class="kicker">⑤ 从零起一个插件</div>
+  <h2 class="title">路径，与本地怎么调</h2>
+  <div class="stepline mt-s" data-anim="fade-up">
+    <span class="s">plan</span><span class="a">→</span>
+    <span class="s">build-skills<br><span style="font-weight:400;font-size:12px">产可跑的初稿</span></span><span class="a">→</span>
+    <span class="s"><b>skill-creator 反复打磨</b><br><span style="font-weight:400;font-size:12px">拿真实输入测</span></span><span class="a">→</span>
+    <span class="s">validate</span><span class="a">→</span>
+    <span class="s">promote<br><span style="font-weight:400;font-size:12px">v0.1 → v0.2</span></span>
+  </div>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>「Initial fill, not final build」</h4><p><span class="mono">build-skills</span> 产的是<b>能跑的初稿</b>，不是成品。<br><b>指望它一次生成对，是用错了工具。</b></p></div>
+    <div class="card card-accent"><h4>外循环 / 内循环</h4><p>Astra Studio 管<b>外循环</b>（业务分析、领域建模、校验、发布）；<br>单个 skill 的编写打磨交给官方 <span class="mono">skill-creator</span></p></div>
+  </div>
+  <p class="lede mt-m" data-anim="fade-up"><b>promote 是版本化里程碑</b>：v0.1 → v0.2，<b>设计文档快照进归档但仍保持活跃</b>——下一轮接着用，<b>不是归档就冻结</b>。</p>
+  <pre class="code mt-m">claude --plugin-dir ./studio-core --plugin-dir ./你的插件</pre>
+  <p class="huge mt-s" data-anim="fade-up">改 SKILL.md 立刻生效。<br><b>不用发版，不用装。</b></p>
+  <div class="deck-footer"><span class="ftag">⑤ 起插件</span><span class="slide-number" data-current="11" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐【"Initial fill, not final build" 要说重】</b>"设计原则第 10 条的原话。<b>很多人跑完 build-skills 发现产物不完美就说『这工具不行』——它本来就没打算一次给你成品。</b>和第五课那 121 处 NotImplementedError 是同一个态度：<b>机器立结构，人填判断。</b>"</p>
+  <p><b>⭐【最后那条命令是学员回去就能用的】</b>"<b>你不需要先想清楚整个插件。先跑起来一个能改的东西，比先设计完美强。</b>这是三级台阶的入门动作。"</p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="收口">
+  <div class="kicker">收口 1/2</div>
+  <h2 class="title">三级台阶，走完了</h2>
+  <table class="t mt-s">
+    <tr><th style="width:26%">你学到的</th><th>一句话</th></tr>
+    <tr><td><b>它是什么身份</b></td><td><b>工具链产出的领域插件</b>——你以后做的行业插件都是这个身份</td></tr>
+    <tr><td><b>红蓝对抗</b></td><td>对立立场 + 两边都有专业性时才用；⭐ <b>两个 agent 都没有 Write——想改也改不了</b></td></tr>
+    <tr class="hot"><td><b>⭐⭐ 真正的重点</b></td><td><b>38 脚本 : 2 agent</b>——能确定性算的全是脚本，agent 只处理判断</td></tr>
+    <tr><td><b>Traits</b></td><td><b>观察，不是配置</b>；<span class="mono">expert-scoped</span> 是<b>规划期专家与运行时专家的分界</b></td></tr>
+    <tr><td><b>工作区</b></td><td>设计与实现<b>物理分开</b>，靠 <span class="mono">target_dir</span> 连——<b>就是 B-5</b></td></tr>
+    <tr><td><b>怎么起步</b></td><td><b>初稿不是成品</b>；<span class="mono">--plugin-dir</span> 改完立刻生效</td></tr>
+  </table>
+  <p class="huge mt-l" data-anim="fade-up">这一步能不能写成脚本？<br><b>能，就别交给模型。</b></p>
+  <p class="lede mt-m" data-anim="fade-up"><b>下一步 · A3 回贡上游</b>：你现在知道一个合格插件长什么样了——<b>A3 讲怎么把你的东西提回去，以及一个 PR 要守哪些规范。</b></p>
+  <div class="deck-footer"><span class="ftag">收口 1/2</span><span class="slide-number" data-current="12" data-total="13"></span></div>
+  <div class="notes"><p><b>【回到第 2 页的台阶图】</b>"三级走完了。<b>你现在知道一个真实插件是怎么组织的——而且知道哪些该写成脚本、哪些才交给模型。</b>"</p>
+  <p><b>【接 A3 的钩子】</b>"A3 只有 120′，但有实操：<b>我们会真的提一个 PR。</b>"</p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-title="自查">
+  <div class="kicker">收口 2/2 · 自查</div>
+  <h2 class="title">七问</h2>
+  <table class="t dense mt-s">
+    <tr><th style="width:4%">#</th><th style="width:48%">问题</th><th>警示</th></tr>
+    <tr><td>1</td><td>fund-review 和 studio-* 有哪<b>两点</b>区别？身份是什么？</td><td>只说"它是个业务插件"</td></tr>
+    <tr><td>2</td><td>两个红蓝 agent 都<b>没有 Write</b>，为什么？和第五课哪个设计同源？</td><td>答"怕它改坏了"</td></tr>
+    <tr><td>3</td><td><b>38 脚本对 2 agent</b>说明什么？</td><td>答"脚本多说明工作量大"</td></tr>
+    <tr><td>4</td><td>12 个扫描器扫的是什么<b>性质</b>的事？为什么该是脚本？</td><td>只说"为了准确"，<b>没说成本与可测</b></td></tr>
+    <tr><td>5</td><td>"Traits are observations, not configuration" 什么意思？fund-review 命中哪两个？</td><td>以为 trait 是配置项</td></tr>
+    <tr><td>6</td><td>设计文档与 SKILL.md 为什么<b>物理分两处</b>？</td><td>答"目录整齐"</td></tr>
+    <tr><td>7</td><td>A1 写的专家和这两个红蓝 agent <b>差别在哪</b>？哪个 trait 标识了它？</td><td>说不出规划期 / 运行时的分别</td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">模型是用来处理<br>"规则说不清但人能判断"那一段的，<br><b>不是用来做你懒得写的计算。</b></p>
+  <p class="lede mt-m" data-anim="fade-up"><b>现场答第 3、7 题</b>（一条考架构判断，一条考 A1↔A2 的衔接）；其余对手册。</p>
+  <div class="deck-footer"><span class="ftag">自查 · 接 A3</span><span class="slide-number" data-current="13" data-total="13"></span></div>
+  <div class="notes"><p><b>【第 3、7 题现场答，各 2′】</b>第 3 题考的是<b>最可迁移的架构判断</b>；第 7 题考的是<b>A1 和 A2 有没有串起来</b>——答不出来说明两门课在他脑子里还是散的。</p>
+  <p><b>【收口】</b>"这门课不产交付物，产的是<b>一张真实插件的解剖图</b>——你下次写自己的，照着它摆就行。"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>专题课 A1 · 自定义智能体：让工具懂你这一行</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">专题课 A1 · 自定义智能体：让工具懂你这一行</h1>
+</header>
+<h1 id="专题课-a1--自定义智能体让工具懂你这一行">专题课 A1 · 自定义智能体：让工具懂你这一行</h1>
+<blockquote>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 180 分钟 · 讲解 + <strong>实操（写一个专家并跑通）</strong> 配套课件：<code>slides/A1_自定义智能体.html</code>（讲师投屏）</p>
+<p><strong>教材来源（一档）</strong>：<code>github.com/Ameng2001/astra-studio-plugins</code>—— <code>studio-core/skills/create-expert/SKILL.md</code> · <code>studio-insight/agents/</code>（11 个内置专家 + 1 模板）· <code>studio-insight/skills/*/SKILL.md</code> 的 Expert Discovery 段 · <code>CLAUDE.md</code>。 <strong>所有结论可以在仓库里当场核对。</strong></p>
+</blockquote>
+<hr />
+<h2 id="a-系列是什么和-s-系列什么关系">A 系列是什么，和 S 系列什么关系</h2>
+<p><strong>这是两条完全不同的线。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>S 系列（S1–S3）· 本体线</strong></th>
+<th><strong>A 系列（A1–A3）· 工具链线</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>讲什么</td>
+<td>本体<strong>是什么</strong> → 引擎<strong>怎么造</strong> → 建模端<strong>怎么编译应用</strong></td>
+<td><strong>Astra Studio 这套工具本身</strong>，怎么改、怎么扩、怎么回贡</td>
+</tr>
+<tr class="even">
+<td>终点</td>
+<td><strong>L5</strong>：亲手交一个能跑的本体插件</td>
+<td><strong>一个你自己的插件 / 一个被合并的 PR</strong></td>
+</tr>
+<tr class="odd">
+<td>前置</td>
+<td>无（S1 反而是 L5 的前置）</td>
+<td><strong>L3 / L4</strong>（用过内置专家）+ <strong>L5</strong>（交过插件）</td>
+</tr>
+<tr class="even">
+<td>排在哪</td>
+<td>主课程<strong>之前</strong></td>
+<td>主课程<strong>之后</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>A 系列三门课</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>讲什么</th>
+<th>时长</th>
+<th>台阶</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A1</strong>（本课）</td>
+<td><strong>自定义智能体</strong>——让工具懂你这一行</td>
+<td>180′ 讲 + 实操</td>
+<td>二级</td>
+</tr>
+<tr class="even">
+<td><strong>A2</strong></td>
+<td><strong>扩展插件</strong>——拆透 fund-review，学会写自己的</td>
+<td>180′ 讲 + 读码</td>
+<td>三级</td>
+</tr>
+<tr class="odd">
+<td><strong>A3</strong></td>
+<td><strong>回贡上游</strong>——把你的东西提回去</td>
+<td>120′ 讲 + 实操</td>
+<td>四级</td>
+</tr>
+</tbody>
+</table>
+<h2 id="四级台阶你现在在哪一级">四级台阶：你现在在哪一级</h2>
+<table>
+<thead>
+<tr class="header">
+<th>级</th>
+<th>动作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>一级</strong></td>
+<td><strong>用内置的</strong></td>
+<td>跑 <code>/studio-insight:persona-insight</code>，用它自带的产品经理、架构师……<br><strong>L3 / L4 / L5 都停在这一级。绝大多数人也停在这一级。</strong></td>
+</tr>
+<tr class="even">
+<td><strong>二级</strong></td>
+<td><strong>自定义专家</strong></td>
+<td><strong>不改一行代码，加一个 <code>.md</code> 文件</strong>　← <strong>本课</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>三级</strong></td>
+<td><strong>写自己的插件</strong></td>
+<td>A2</td>
+</tr>
+<tr class="even">
+<td><strong>四级</strong></td>
+<td><strong>回贡上游</strong></td>
+<td>A3</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>二级的性价比高得离谱</strong>：一个 <code>.md</code> 文件，不改代码、不发版，而且<strong>跟着 git 走、全团队共享</strong>。</p>
+<h3 id="工具不改造你就只能做它预设的那类项目"><strong>工具不改造，你就只能做它预设的那类项目。</strong></h3>
+</blockquote>
+<p><strong>读完这一课，你应该能做到</strong>：</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+说出自定义专家<strong>放哪、和内置的冲突时谁赢</strong>，以及为什么这么设计</li>
+<li><input type="checkbox" disabled="" />
+复述<strong>动态专家发现五步</strong>，并指出覆盖发生在哪一步</li>
+<li><input type="checkbox" disabled="" />
+解释专家是<strong>复核者不是生成者</strong>，以及这决定了你写它时该写什么</li>
+<li><input type="checkbox" disabled="" />
+拆得开一个专家文件的<strong>四个部分</strong>，说得出哪一段决定它会不会被选中</li>
+<li><input type="checkbox" disabled="" />
+说出<strong>该造 / 不该造</strong>的判据</li>
+<li><input type="checkbox" disabled="" />
+⭐ <strong>现场写出一个你们行业的专家，并跑通一次</strong></li>
+</ul>
+<hr />
+<h1 id="一二级台阶查找顺序就是设计">一、二级台阶：查找顺序就是设计</h1>
+<h2 id="11-两级查找同名覆盖">1.1 两级查找，同名覆盖</h2>
+<pre><code>1. 项目级   studio/agents/{name}.md      ← 你团队的定制专家（git 跟踪）
+2. 内置     插件自带 agents/{name}.md    ← studio-insight 出厂的 11 个
+
+同名覆盖：项目级赢。</code></pre>
+<p><strong>这不是一个查找细节，是一条产品决策。</strong></p>
+<p>定制点被放在<strong>用户项目的 git 仓库里</strong>，而不是插件配置里、也不是某个人的本地设置里。</p>
+<table>
+<thead>
+<tr class="header">
+<th>如果放在……</th>
+<th>会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>插件目录里</td>
+<td><strong>下次更新插件，你的定制被覆盖掉</strong></td>
+</tr>
+<tr class="even">
+<td>本地配置里</td>
+<td><strong>只有你有，同事没有；换台机器就没了</strong></td>
+</tr>
+<tr class="odd">
+<td><strong><code>studio/agents/</code>（现在的选择）</strong></td>
+<td><strong>跟着项目走、跟着 git 走、全团队共享</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>你的专家跟着项目走。换台机器 clone 下来，它就在。</strong></p>
+</blockquote>
+<h2 id="12-这一条规则给了你三种改法">1.2 这一条规则给了你三种改法</h2>
+<p><strong>都不用碰插件源码</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>改法</th>
+<th>什么时候用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 加一个新专家</strong></td>
+<td>行业里有个角色内置没有 → 写一个新 <code>.md</code></td>
+</tr>
+<tr class="even">
+<td><strong>② 覆盖一个内置的</strong></td>
+<td>内置的产品经理说的话不像你们公司 → <strong>同名写一份</strong>，换成你们的术语与流程</td>
+</tr>
+<tr class="odd">
+<td><strong>③ 从模板起手</strong></td>
+<td>抄 <code>_domain-expert-template.md</code> 改</td>
+</tr>
+</tbody>
+</table>
+<p>⭐ <strong>第 ② 种最容易被忽略。</strong> 很多人以为只能加新的——</p>
+<blockquote>
+<p><strong>其实你可以同名覆盖内置的 <code>product-manager</code>。</strong> <strong>内置那个是通用的，你们的是对的。</strong></p>
+</blockquote>
+<h2 id="13-出厂带了什么">1.3 出厂带了什么</h2>
+<table>
+<thead>
+<tr class="header">
+<th>类别</th>
+<th>专家</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>通用 6 个</strong></td>
+<td>产品经理 · 架构师 · UX 研究 · 数据分析 · 合规官 · 运营经理</td>
+</tr>
+<tr class="even">
+<td><strong>健康域 4 个</strong></td>
+<td>儿童营养 · 儿童运动 · 老年营养 · 老年康复运动</td>
+</tr>
+<tr class="odd">
+<td><strong>美护域 1 个</strong></td>
+<td>女性护肤</td>
+</tr>
+<tr class="even">
+<td><strong>模板 1 个</strong></td>
+<td><code>_domain-expert-template.md</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>注意出厂专家里有"儿童营养""老年康复运动"这种细分角色。</strong> <strong>这说明它本来就预期你按行业往里加——你的行业专家没在里面，不是遗漏，是等你写。</strong></p>
+</blockquote>
+<p><strong>创建命令</strong>：<code>/studio-core:create-expert</code></p>
+<hr />
+<h1 id="二它是怎么被找到并用上的">二、它是怎么被找到并用上的</h1>
+<h2 id="21-动态专家发现五步">2.1 动态专家发现：五步</h2>
+<p><code>studio-insight</code> 的 <strong>6 个 skill 全部使用动态专家发现</strong>。以 <code>persona-insight</code> 为例，<strong>每次运行</strong>做五步：</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>主角色必载</strong>——<code>product-manager.md</code>（由它主导画像产出）</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>扫项目级</strong>——<code>Glob studio/agents/*.md</code>，把团队自定义的全部载入</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>扫内置</strong>——<code>Glob .../agents/*.md</code>，<strong>跳过已从项目级载入的同名</strong> ← <strong>覆盖就发生在这一步</strong></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>按相关性选 1–3 个</strong>——拿专家的 <code>## Your Domain</code> 段与本次主题比对</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>跳过模板</strong>——<code>_domain-expert-template.md</code> 只用于造专家，不参与咨询</td>
+</tr>
+</tbody>
+</table>
+<p><strong>两个要记住的点</strong>：</p>
+<ul>
+<li><strong>第 3 步</strong>是覆盖的实现位置——不是配置里写"覆盖"，是<strong>扫描时跳过同名</strong></li>
+<li><strong>第 4 步只选 1–3 个</strong>——⚠️ <strong>专家造多了会互相稀释</strong>，不是越多越好</li>
+</ul>
+<h2 id="22--专家是复核者不是生成者">2.2 ⭐ 专家是复核者，不是生成者</h2>
+<p><strong>主角色先产出初稿，专家在 Expert Review 步骤逐个复核纠错。</strong></p>
+<p>给每个专家的指令原文：</p>
+<blockquote>
+<p>"从你的领域专长审这份画像。标出<strong>不正确、过度简化、遗漏</strong>的地方； 注意我们漏掉的领域痛点、影响这个画像的现实约束、以及<strong>从业者实际会用的术语</strong>。"</p>
+</blockquote>
+<blockquote>
+<h3 id="一个专家的价值在于它能挑出你没想到的错而不是替你写"><strong>一个专家的价值，在于它能挑出你没想到的错，而不是替你写。</strong></h3>
+</blockquote>
+<p>⭐ <strong>这一条决定了你写专家时该写什么</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>写错的方向</th>
+<th>写对的方向</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>写它<strong>懂什么</strong>——把一堆领域知识倒进去</td>
+<td>写它<strong>会挑什么错</strong>——列出这一行的典型误判</td>
+</tr>
+<tr class="even">
+<td>结果：一份读起来很专业的简介，但<strong>挑不出错</strong></td>
+<td>结果：<strong>它能指着你的画像说"这条不对，因为……"</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="三-一个专家文件的解剖">三、⭐ 一个专家文件的解剖</h1>
+<h2 id="31-四个部分">3.1 四个部分</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> &#39;xxx-expert&#39;                    ← ① 文件名/标识（同名即覆盖内置）</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> &quot;……当需要审查 X 时调用&quot;   ← ② 一句话：这是谁、什么时候叫它</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Role: {角色名}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Your Domain                        ← ③ ⭐ 决定它会不会被选中</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>{这个领域是什么、覆盖哪些场景}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Your Perspective</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>{你从什么角度看问题}</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## What You Contribute                ← ④ 它到底能贡献什么（三块）</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### Domain Knowledge</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">### Real-world Constraints</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Quality Criteria</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## How You Behave in Brainstorming</span></span></code></pre></div>
+<h2 id="32---your-domain-是最关键的一段">3.2 ⭐ <code>## Your Domain</code> 是最关键的一段</h2>
+<p><strong>因为第 4 步的相关性匹配就靠它。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>写法</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"本领域相关知识"</td>
+<td>❌ <strong>永远匹配不上，专家从不被载入</strong></td>
+</tr>
+<tr class="even">
+<td>"养老机构照护服务：日常照护、膳食、康复训练、风险预警、家属沟通、民政监管对接"</td>
+<td>✅ 主题一沾边就会被选中</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>写得具体到"从业者会搜的词"，而不是"部门介绍里的话"。</strong></p>
+</blockquote>
+<h2 id="33--what-you-contribute-的三块第三块最见功力">3.3 ⭐⭐ <code>What You Contribute</code> 的三块，第三块最见功力</h2>
+<p>模板给的三块提问，逐块看：</p>
+<p><strong>① Domain Knowledge —— 领域里有什么</strong></p>
+<blockquote>
+<p>· 这个领域的关键概念、实体、关系是什么？ · <strong>从业者实际用的术语是什么？（避开只有外行才用的黑话）</strong> · 常见工作流是什么，不同场景下有哪些变体？</p>
+</blockquote>
+<p>⚠️ 第二问是关键：<strong>"从业者实际用的术语"</strong>—— 你的画像里如果出现了行业里没人这么说的词，专家应该能挑出来。</p>
+<p><strong>② Real-world Constraints —— 现实里卡在哪</strong></p>
+<blockquote>
+<p>· 适用哪些法规、标准、合规要求？ · <strong>通用方案会漏掉哪些常见边界情况？</strong> · <strong>现有工具在哪里失败，因为它们不理解领域细微差别？</strong></p>
+</blockquote>
+<p><strong>③ Quality Criteria —— ⭐ 什么叫"对"</strong></p>
+<blockquote>
+<p>· <strong>"正确"在这个领域意味着什么？哪些错误是危险的，哪些只是难看？</strong> · 哪些数据源权威？哪些不可靠？ · <strong>哪些决策必须人判断，哪些可以安全自动化？</strong></p>
+</blockquote>
+<blockquote>
+<h3 id="第三块是专家真正的价值所在"><strong>第三块是专家真正的价值所在。</strong></h3>
+<p>前两块回答"这一行是什么样"，<strong>第三块回答"怎么算错、错得多严重"</strong>—— 而这正是一个<strong>复核者</strong>需要的东西。</p>
+<p><strong>写不出第三块，你写的就不是专家，是一份行业简介。</strong></p>
+</blockquote>
+<h2 id="34-参照一个真实内置专家怎么写的">3.4 参照：一个真实内置专家怎么写的</h2>
+<p><code>compliance-officer.md</code>（出厂件，可当场打开）：</p>
+<ul>
+<li><strong>Perspective</strong> 一句话：「你思考<strong>规则、风险与问责</strong>。核心关切是：这会不会让我们暴露在监管、法律或伦理风险中？」</li>
+<li><strong>Contribute</strong> 分三块：Regulatory Awareness（适用哪些法规、数据保护要求）· Risk Assessment（<strong>最坏情况是什么？自动化在哪里制造了问责真空？哪些决策必须有人监督？</strong>）· Audit and Transparency（<strong>能不能解释决策是怎么做出的，尤其是 AI 生成的？</strong>）</li>
+</ul>
+<p>⭐ 注意它<strong>通篇都是问句</strong>——<strong>因为它的工作是审，不是答。</strong></p>
+<hr />
+<h1 id="四什么时候值得造一个专家">四、什么时候值得造一个专家</h1>
+<table>
+<thead>
+<tr class="header">
+<th>✅ 该造</th>
+<th>❌ 不该造</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>这个行业有<strong>只有从业者才知道的坑</strong>，通用角色挑不出来</td>
+<td>只是想让输出"更专业一点"——<strong>那是提示词问题，不是专家问题</strong></td>
+</tr>
+<tr class="even">
+<td>有<strong>成文的标准 / 规程 / 禁忌</strong>可以写进它的判断</td>
+<td>一次性项目，下次用不到</td>
+</tr>
+<tr class="odd">
+<td>同一类错<strong>在多个项目里反复出现</strong></td>
+<td><strong>你自己也说不清它该挑什么错</strong>——说不清就写不出第三块</td>
+</tr>
+<tr class="even">
+<td>内置角色的<strong>术语和你们不一样</strong> → <strong>同名覆盖</strong>，别新建</td>
+<td>已有专家改两句就够用 → 覆盖</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <strong>别给每个角色都造一个专家。</strong> 第 4 步只选 1–3 个——<strong>造多了互相稀释</strong>。</p>
+<hr />
+<h1 id="五️-最常见的失效模式静默失效">五、⚠️ 最常见的失效模式：静默失效</h1>
+<blockquote>
+<h3 id="-your-domain-写得含糊你的专家永远不会被选中"><code>## Your Domain</code> 写得含糊，你的专家永远不会被选中。</h3>
+</blockquote>
+<p><strong>而且它失效得悄无声息</strong>：</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>会报错吗</td>
+<td><strong>不会</strong></td>
+</tr>
+<tr class="even">
+<td>会警告吗</td>
+<td><strong>不会</strong></td>
+</tr>
+<tr class="odd">
+<td>你会看到什么</td>
+<td><strong>一切正常的输出</strong>——只是那个专家从来没被载入过</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>你以为专家在起作用，其实它一次都没跑。</strong></p>
+</blockquote>
+<p><strong>怎么自查</strong>：</p>
+<ol type="1">
+<li>跑一次 <code>persona-insight</code>，看它在 Expert Discovery 阶段<strong>报出了哪些专家</strong></li>
+<li>没有你的 → 回去把 <code>## Your Domain</code> 写具体</li>
+<li>有你的但没挑出什么 → 回去补 <strong>Quality Criteria</strong> 那一块</li>
+</ol>
+<blockquote>
+<p>这和 S2 讲的**"记忆塞满不报错，只是慢慢变笨"**是同一类故障：<strong>静默失效</strong>。 <strong>这类故障最贵——因为你不会去查一个"看起来正常"的东西。</strong></p>
+</blockquote>
+<hr />
+<h1 id="六实操45">六、实操（45′）</h1>
+<table>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>做什么</th>
+<th>时长</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>选一个角色：<strong>你们行业里，通用专家挑不出错的那个</strong></td>
+<td>5′</td>
+<td>一句话说清它是谁</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>跑 <code>/studio-core:create-expert</code>，或直接抄模板</td>
+<td>5′</td>
+<td><code>studio/agents/xxx-expert.md</code> 骨架</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>写 <code>## Your Domain</code></strong>——具体到从业者会搜的词</td>
+<td>10′</td>
+<td>能被匹配上的一段</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>⭐ <strong>写 Quality Criteria</strong>——这一行<strong>哪些错危险、哪些只是难看</strong></td>
+<td>15′</td>
+<td>至少 5 条</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>跑一次</strong> <code>persona-insight</code>，确认它被载入并挑出了东西</td>
+<td>10′</td>
+<td>一份被专家复核过的画像</td>
+</tr>
+</tbody>
+</table>
+<p><strong>checkout 硬指标</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>被载入</strong></td>
+<td>Expert Discovery 阶段<strong>报出了你的专家</strong></td>
+<td>没报出来 → <code>## Your Domain</code> 太含糊</td>
+</tr>
+<tr class="even">
+<td><strong>挑得出错</strong></td>
+<td>它至少指出了<strong>一条通用角色没提的东西</strong></td>
+<td>只会附和 → Quality Criteria 没写</td>
+</tr>
+<tr class="odd">
+<td>术语</td>
+<td>写的是<strong>从业者实际用的词</strong></td>
+<td>用了行业外的黑话</td>
+</tr>
+<tr class="even">
+<td>定位</td>
+<td>通篇在<strong>问和审</strong>，不是在<strong>答和写</strong></td>
+<td>写成了一份行业简介</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="七自查">七、自查</h1>
+<p><strong>1.</strong> 自定义专家放哪？和内置的冲突时谁赢？<strong>为什么不放插件目录里</strong>？</p>
+<p><strong>2.</strong> 动态发现五步里，<strong>覆盖发生在哪一步</strong>？</p>
+<p><strong>3.</strong> 专家是<strong>生成者还是复核者</strong>？这决定你写它时该写什么？</p>
+<p><strong>4.</strong> 一个专家文件里，<strong>哪一段决定它会不会被选中</strong>？写砸了会怎样？</p>
+<p><strong>5.</strong> <code>What You Contribute</code> 三块里，<strong>哪一块最见功力</strong>？为什么？</p>
+<p><strong>6.</strong> 什么情况下应该<strong>覆盖内置专家</strong>而不是新建一个？</p>
+<hr />
+<h2 id="参考答案">参考答案</h2>
+<p><strong>1.</strong> 放 <strong><code>studio/agents/{name}.md</code></strong>（用户项目里，<strong>git 跟踪</strong>）；<strong>同名时项目级赢</strong>。 不放插件目录是因为——<strong>下次更新插件，你的定制会被覆盖掉</strong>； 放本地配置则是<strong>只有你有、换台机器就没了</strong>。 <strong>现在这个位置让专家跟着项目走、跟着 git 走、全团队共享。</strong></p>
+<p><strong>2.</strong> <strong>第 3 步</strong>——扫内置时<strong>跳过已从项目级载入的同名</strong>。 覆盖不是配置项，<strong>是扫描顺序的自然结果</strong>。</p>
+<p><strong>3.</strong> <strong>复核者。</strong> 主角色先出初稿，专家在 Expert Review 步骤挑「<strong>不正确、过度简化、遗漏</strong>」。 所以写专家要写**"它会挑什么错"<strong>，不是</strong>"它懂什么"<strong>—— 写成后者会得到一份读着很专业、但</strong>挑不出任何错**的简介。</p>
+<p><strong>4.</strong> <strong><code>## Your Domain</code></strong>——第 4 步的相关性匹配就靠它。 写成"本领域相关知识"这种，<strong>永远匹配不上</strong>； 而且<strong>不报错、不警告，它只是从来没被载入过</strong>。<strong>静默失效。</strong></p>
+<p><strong>5.</strong> <strong>Quality Criteria</strong>。前两块回答"这一行是什么样"， <strong>第三块回答"怎么算错、错得多严重"</strong>（哪些错危险、哪些只是难看；哪些数据源权威；哪些决策必须人判断）—— <strong>而这正是一个复核者需要的东西。写不出第三块，你写的就不是专家，是行业简介。</strong></p>
+<p><strong>6.</strong> 当<strong>内置角色的术语 / 流程 / 评审口径和你们不一样</strong>时—— 比如内置的 <code>product-manager</code> 说的话不像你们公司。 <strong>同名写一份覆盖掉即可，别新建</strong>——新建会让第 4 步在两个相似角色间摇摆，<strong>互相稀释</strong>。</p>
+<hr />
+<h2 id="你的产出去了哪里">你的产出去了哪里</h2>
+<table>
+<thead>
+<tr class="header">
+<th>后续</th>
+<th>本课给你的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>回到 L4 认知萃取</strong></td>
+<td>带上你的专家重跑 <code>persona-insight</code>，对比它挑出了什么新东西</td>
+</tr>
+<tr class="even">
+<td><strong>A2 · 扩展插件</strong></td>
+<td>fund-review 的两个红蓝 agent 就是"运行时专家"——<strong>你今天写的是规划期专家，A2 讲运行时的</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>A3 · 回贡上游</strong></td>
+<td><strong>一个写得好的行业专家，是最容易被合并的 PR</strong></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+
+<hr />
+<h1 id="附--一页纸速查">附 · 一页纸速查</h1>
+<p><strong>查找顺序</strong></p>
+<pre><code>studio/agents/{name}.md   ← 项目级，git 跟踪，同名覆盖内置
+插件自带 agents/           ← 出厂 11 个 + 1 模板</code></pre>
+<p><code>/studio-core:create-expert</code></p>
+<p><strong>动态发现五步</strong>：主角色必载 → 扫项目级 → <strong>扫内置跳过同名（← 覆盖在这一步）</strong> → <strong>按 <code>## Your Domain</code> 选 1–3 个</strong> → 跳过模板</p>
+<hr />
+<p><strong>⭐ 专家是复核者，不是生成者</strong></p>
+<blockquote>
+<p>写它**"会挑什么错"<strong>，不是写它</strong>"懂什么"**。</p>
+</blockquote>
+<p><strong>专家文件四部分</strong>：<code>name</code> / <code>description</code> / <strong><code>## Your Domain</code>（决定被不被选中）</strong> / <code>What You Contribute</code></p>
+<p><strong>Contribute 三块</strong>： ① Domain Knowledge —— <strong>从业者实际用的术语</strong> ② Real-world Constraints —— <strong>通用方案漏掉的边界情况</strong> ③ ⭐ <strong>Quality Criteria —— 哪些错危险、哪些只是难看</strong>（<strong>写不出这块就是行业简介</strong>）</p>
+<hr />
+<p><strong>该造</strong>：只有从业者知道的坑 · 有成文标准可写 · 同类错反复出现 · 术语不一样（→<strong>覆盖</strong>） <strong>不该造</strong>：只想"更专业" · 一次性 · <strong>说不清它该挑什么错</strong> · 改两句就够（→覆盖）</p>
+<p>⚠️ <strong>别造多</strong>——第 4 步只选 1–3 个，多了互相稀释</p>
+<hr />
+<p><strong>⚠️ 静默失效</strong>：<code>## Your Domain</code> 含糊 → <strong>永远不被选中，不报错、不警告</strong> 自查：跑一次看 Expert Discovery <strong>有没有报出你的专家</strong>；报出了但挑不出东西 → 补 Quality Criteria</p>
+</body>
+</html>

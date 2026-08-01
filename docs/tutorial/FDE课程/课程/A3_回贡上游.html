@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>专题课 A3 · 回贡上游：把你踩过的坑变成别人的护栏</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">专题课 A3 · 回贡上游：把你踩过的坑变成别人的护栏</h1>
+</header>
+<h1 id="专题课-a3--回贡上游把你踩过的坑变成别人的护栏">专题课 A3 · 回贡上游：把你踩过的坑变成别人的护栏</h1>
+<blockquote>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 120 分钟 · 讲解 + <strong>实操（真的提一个 PR）</strong> 配套课件：<code>slides/A3_回贡上游.html</code>（讲师投屏）</p>
+<p><strong>教材来源（一档）</strong>：<code>astra-studio-plugins</code> 的 <code>CLAUDE.md</code> / <code>AGENTS.md</code> / <code>README.md</code>。 ⚠️ <strong>本课有一个诚实前提</strong>：<strong>该仓目前没有 <code>CONTRIBUTING.md</code>，也没有 <code>.github/</code></strong>。 下面的规范是<strong>从代码约定反推的</strong>，不是官方明文——<strong>而这本身就是你能提的第一个 PR。</strong></p>
+</blockquote>
+<hr />
+<h2 id="本课在-a-系列的位置">本课在 A 系列的位置</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th>台阶</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td>自定义智能体</td>
+<td>二级</td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td>扩展插件</td>
+<td>三级</td>
+</tr>
+<tr class="odd">
+<td><strong>A3</strong>（本课）</td>
+<td><strong>回贡上游</strong></td>
+<td><strong>四级</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>A1 你写了一个专家。A2 你知道了插件长什么样。今天把它们提回去。</strong></p>
+<p><strong>读完这一课，你应该能做到</strong>：</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+说出<strong>能提什么</strong>，以及四档门槛各自的成本</li>
+<li><input type="checkbox" disabled="" />
+知道<strong>该仓没有 CONTRIBUTING.md</strong>，以及规范该从哪里反推</li>
+<li><input type="checkbox" disabled="" />
+说出提 PR 前<strong>必须自查的三件事</strong></li>
+<li><input type="checkbox" disabled="" />
+⭐ <strong>现场提出一个 PR</strong>（或至少一个 issue）</li>
+</ul>
+<hr />
+<h1 id="一为什么要回贡">一、为什么要回贡</h1>
+<p><strong>不是为了做好人。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>理由</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 你的定制不再是孤儿</strong></td>
+<td>留在自己项目里的专家，下次工具大改可能就不兼容了。<strong>进了上游，它跟着工具一起演进</strong></td>
+</tr>
+<tr class="even">
+<td><strong>② 别人替你维护</strong></td>
+<td>合并之后，工具作者会在重构时顺手改它。<strong>你不合并，每次升级都得自己适配</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>③ 你踩的坑别人不用再踩</strong></td>
+<td>你在第五课发现的那六处「文档说 A、代码是 B」——<strong>提回去，后面所有人少踩六次</strong></td>
+</tr>
+<tr class="even">
+<td><strong>④ 这是 FDE 的信用</strong></td>
+<td>一个被合并的 PR，比简历上写十行"精通 XX"有说服力</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="你在项目里踩过的坑提回去就成了别人的护栏"><strong>你在项目里踩过的坑，提回去就成了别人的护栏。</strong></h3>
+</blockquote>
+<hr />
+<h1 id="二能提什么四档门槛">二、能提什么：四档门槛</h1>
+<table>
+<thead>
+<tr class="header">
+<th>档</th>
+<th>提什么</th>
+<th>成本</th>
+<th>被接受的可能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>①</strong></td>
+<td><strong>一处文档更正 / 一个 issue</strong></td>
+<td>十分钟</td>
+<td><strong>最高</strong>——事实清楚，无争议</td>
+</tr>
+<tr class="even">
+<td><strong>②</strong></td>
+<td><strong>一个行业专家</strong> <code>agents/xxx-expert.md</code></td>
+<td>半小时</td>
+<td><strong>高</strong>——出厂就有儿童营养、老年康复，<strong>它本来就预期按行业扩充</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>③</strong></td>
+<td><strong>一个映射包 / 参考数据</strong></td>
+<td>半天</td>
+<td>中——如 fund-review 只带了一个地方的预算标准映射包，<strong>换个地方就要一份新的</strong></td>
+</tr>
+<tr class="even">
+<td><strong>④</strong></td>
+<td><strong>一个完整插件</strong></td>
+<td>数天起</td>
+<td>看质量——像 fund-review 那样的垂直插件</td>
+</tr>
+</tbody>
+</table>
+<p>⭐ <strong>从第 ① 档开始。</strong> 提 PR 不一定要提一整个插件—— <strong>一处文档更正、一个专家 <code>.md</code>，都是贡献。</strong></p>
+<h2 id="21-你手上已经有的素材">2.1 你手上已经有的素材</h2>
+<p><strong>别去想"我能贡献什么"，先盘一下你已经有的</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>你已经有</th>
+<th>对应哪一档</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>第五课发现的六处「文档说 A、代码是 B」</strong></td>
+<td>① —— <strong>那本身就是六个可以提的 issue</strong></td>
+</tr>
+<tr class="even">
+<td><strong>A1 写的那个行业专家</strong></td>
+<td>②</td>
+</tr>
+<tr class="odd">
+<td>你项目里那份本地标准 / 名录映射</td>
+<td>③</td>
+</tr>
+<tr class="even">
+<td>第五课产出的本体插件</td>
+<td>④</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="三️-一个诚实的现状">三、⚠️ 一个诚实的现状</h1>
+<p><strong>这个仓目前没有 <code>CONTRIBUTING.md</code>，也没有 <code>.github/</code> 目录。</strong></p>
+<p><strong>所以没有官方明文告诉你怎么提。</strong> 规范只能从 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 反推。</p>
+<blockquote>
+<p>⭐ <strong>而"补一份 <code>CONTRIBUTING.md</code>"，正好就是你能提的第一个 PR</strong>—— 门槛最低、最容易被接受，而且<strong>你刚上完 A1/A2，你比大多数人更清楚该写什么</strong>。</p>
+</blockquote>
+<h2 id="31-从代码约定反推出来的三条">3.1 从代码约定反推出来的三条</h2>
+<h3 id="①-照-plugin-structure-摆文件">① 照 Plugin Structure 摆文件</h3>
+<pre><code>plugin-name/
+├── .claude-plugin/plugin.json   # 清单（name / description / version）
+├── commands/                    # 斜杠命令（.md）
+├── skills/{skill-name}/SKILL.md
+├── agents/                      # 子智能体角色定义
+├── hooks/                       # 事件驱动自动化
+├── scripts/                     # Python 辅助脚本
+├── references/                  # 按需加载的参考文档
+└── templates/                   # 脚手架模板</code></pre>
+<p><strong>摆错位置的 PR，reviewer 第一眼就会打回。</strong></p>
+<h3 id="②-守住-design-principles-里最容易违反的几条">② 守住 Design Principles 里最容易违反的几条</h3>
+<p>11 条里，<strong>提 PR 时最容易踩的是这四条</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>原则</th>
+<th>违反的样子</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>设计与实现分离</strong></td>
+<td>把 SKILL.md 也放进 <code>studio/changes/</code> —— <strong>两份，迟早不一致</strong></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td><strong>标准 Claude Code 插件规范，无私有扩展</strong></td>
+<td>自己发明一个字段、一个目录约定</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td><strong>平台中立产出</strong></td>
+<td>生成的 SKILL.md 里写死 Claude 特有的引用</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td><strong>专家存 <code>studio/agents/</code>（git 跟踪、团队共享）</strong></td>
+<td>把专家塞进插件目录 —— <strong>下次更新被覆盖</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="③-本地测通再提">③ 本地测通再提</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--plugin-dir</span> ./studio-core <span class="at">--plugin-dir</span> ./你改的插件</span></code></pre></div>
+<ul>
+<li>改 <code>SKILL.md</code> <strong>立刻生效</strong>，不用发版</li>
+<li>用 <code>/plugin:command-name</code> 测命令</li>
+<li>skill 会在<strong>描述匹配用户意图时自动触发</strong></li>
+</ul>
+<blockquote>
+<h3 id="️-别提没跑过的东西">⚠️ <strong>别提没跑过的东西。</strong></h3>
+<p>这是所有开源项目最基本的一条，也是最常被违反的一条。</p>
+</blockquote>
+<hr />
+<h1 id="四提-pr-的动作">四、提 PR 的动作</h1>
+<h2 id="41-流程">4.1 流程</h2>
+<pre><code>fork → 建分支 → 改 → 本地 --plugin-dir 测通 → commit → push → 开 PR</code></pre>
+<h2 id="42-一个好-pr-描述包含什么">4.2 一个好 PR 描述包含什么</h2>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>写什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>改了什么</strong></td>
+<td>一句话</td>
+</tr>
+<tr class="even">
+<td><strong>为什么</strong></td>
+<td>⭐ <strong>最重要的一段</strong>——你在什么真实场景下需要它</td>
+</tr>
+<tr class="odd">
+<td><strong>怎么验证的</strong></td>
+<td>你跑了什么、看到了什么</td>
+</tr>
+<tr class="even">
+<td><strong>影响面</strong></td>
+<td>动了哪些文件；会不会影响现有行为</td>
+</tr>
+</tbody>
+</table>
+<p>⭐ <strong>「为什么」那一段决定 PR 的命运。</strong></p>
+<blockquote>
+<p>「加了一个养老照护专家」—— reviewer 不知道该不该收。 「<strong>我们在做养老机构的项目，内置的 product-manager 画出来的画像里把『助餐核销』和『膳食服务』混成一件事，业务方一眼就说不对。这个专家专门挑这类错</strong>」—— <strong>一看就知道该收。</strong></p>
+</blockquote>
+<h2 id="43-提之前的三条自查">4.3 提之前的三条自查</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+<strong>本地 <code>--plugin-dir</code> 跑过了吗？</strong></li>
+<li><input type="checkbox" disabled="" />
+<strong>文件位置符合 Plugin Structure 吗？</strong></li>
+<li><input type="checkbox" disabled="" />
+<strong>有没有私有扩展 / 平台绑定？</strong>（Design Principles 第 5、6 条）</li>
+</ul>
+<hr />
+<h1 id="五实操40">五、实操（40′）</h1>
+<blockquote>
+<p><strong>今天不是模拟，是真的提。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>序</th>
+<th>做什么</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>盘素材</strong>——从第二章那张"你已经有的"表里挑一个</td>
+<td>5′</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>fork + 建分支</td>
+<td>5′</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>改 / 加文件（<strong>照 Plugin Structure 摆</strong>）</td>
+<td>10′</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>本地 <code>--plugin-dir</code> 测通</strong></td>
+<td>10′</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>写 PR 描述（<strong>"为什么"那段至少三句</strong>）+ 开 PR</td>
+<td>10′</td>
+</tr>
+</tbody>
+</table>
+<p><strong>如果时间不够 / 素材不成熟</strong>：<strong>提一个 issue 也算完成。</strong> 把你在第五课发现的一处「文档说 A、代码是 B」写清楚提上去——<strong>十分钟，而且一定被接受。</strong></p>
+<h2 id="checkout-硬指标">checkout 硬指标</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>达标</th>
+<th>警示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>真的提了</strong></td>
+<td>有 PR / issue 链接</td>
+<td>只在本地改了没提</td>
+</tr>
+<tr class="even">
+<td><strong>本地测过</strong></td>
+<td>说得出你跑了什么、看到了什么</td>
+<td>"应该没问题"</td>
+</tr>
+<tr class="odd">
+<td><strong>"为什么"写透了</strong></td>
+<td>描述里有<strong>真实场景</strong>，不只是"加了个 X"</td>
+<td>只写改了什么</td>
+</tr>
+<tr class="even">
+<td>位置对</td>
+<td>符合 Plugin Structure</td>
+<td>自创目录</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="六被拒了怎么办">六、被拒了怎么办</h1>
+<p><strong>很正常，而且大多数时候不是因为你写得差。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>常见原因</th>
+<th>怎么处理</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>范围不合</strong>（这个功能作者想放别处）</td>
+<td>问清楚该放哪，改了再提</td>
+</tr>
+<tr class="even">
+<td><strong>太特化</strong>（只对你一家有用）</td>
+<td><strong>改成可配置的，或转成文档/示例</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>没测</strong></td>
+<td>补测试证据</td>
+</tr>
+<tr class="even">
+<td><strong>没人看</strong></td>
+<td>隔一两周礼貌地 ping 一次；<strong>别连着催</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>被拒的 PR 不是白写的</strong>——它至少让你把那件事想清楚了一遍， 而且<strong>你的分支还在，下个项目接着用。</strong></p>
+</blockquote>
+<hr />
+<h1 id="七自查">七、自查</h1>
+<p><strong>1.</strong> 回贡上游对你自己有什么好处？说出至少两条。</p>
+<p><strong>2.</strong> 四档门槛里，<strong>你现在手上已经有哪一档的素材</strong>？</p>
+<p><strong>3.</strong> 这个仓的贡献规范写在哪？<strong>⚠️ 这是个陷阱题。</strong></p>
+<p><strong>4.</strong> 提 PR 前必须自查的<strong>三件事</strong>是什么？</p>
+<p><strong>5.</strong> 一个好的 PR 描述里，<strong>哪一段决定它的命运</strong>？为什么？</p>
+<p><strong>6.</strong> PR 被拒了，最常见的原因是什么？</p>
+<hr />
+<h2 id="参考答案">参考答案</h2>
+<p><strong>1.</strong>（任两条）① <strong>你的定制不再是孤儿</strong>——进了上游会跟着工具一起演进，不用每次升级自己适配； ② <strong>别人替你维护</strong>；③ <strong>你踩的坑别人不用再踩</strong>；④ <strong>一个被合并的 PR，比简历上十行"精通 XX"有说服力</strong>。</p>
+<p><strong>2.</strong> 至少两档：<strong>①</strong> 第五课发现的<strong>六处「文档说 A、代码是 B」</strong>——那是六个现成的 issue； <strong>②</strong> A1 写的那个<strong>行业专家 <code>.md</code></strong>。 ⭐ <strong>别去想"我能贡献什么"，先盘你已经有的。</strong></p>
+<p><strong>3.</strong> ⚠️ <strong>陷阱题——它没写在任何地方。</strong> <strong>该仓目前没有 <code>CONTRIBUTING.md</code>，也没有 <code>.github/</code>。</strong> 规范只能从 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 反推：<strong>照 Plugin Structure 摆文件 · 守 Design Principles · 本地测通</strong>。 <strong>而"补一份 CONTRIBUTING.md"正好是你能提的第一个 PR。</strong></p>
+<p><strong>4.</strong> ① <strong>本地 <code>--plugin-dir</code> 跑过了吗</strong>（⚠️ <strong>别提没跑过的东西</strong>） ② <strong>文件位置符合 Plugin Structure 吗</strong> ③ <strong>有没有私有扩展 / 平台绑定</strong>（Design Principles 第 5、6 条）</p>
+<p><strong>5.</strong> <strong>「为什么」那一段。</strong> 因为 reviewer 判断的不是"这段代码写得好不好"，是"<strong>这个东西该不该进这个项目</strong>"—— 而只有你说清了<strong>真实场景</strong>，他才判断得了。 「加了一个养老照护专家」他不知道该不该收； 「我们做养老项目，内置 product-manager 把『助餐核销』和『膳食服务』混成一件事，业务方一眼说不对」——<strong>一看就知道该收</strong>。</p>
+<p><strong>6.</strong> <strong>范围不合</strong>（作者想放别处）和<strong>太特化</strong>（只对你一家有用）。 都不是"写得差"。前者问清该放哪再提；后者<strong>改成可配置的，或转成文档 / 示例</strong>。 ⭐ <strong>被拒的 PR 不是白写的</strong>——你把那件事想清楚了一遍，分支还在，下个项目接着用。</p>
+<hr />
+<h2 id="你的产出去了哪里">你的产出去了哪里</h2>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>A 系列到此完成</strong></td>
+<td>四级台阶走完：用内置的 → 自定义专家 → 写自己的插件 → <strong>回贡上游</strong></td>
+</tr>
+<tr class="even">
+<td><strong>你手上应该有</strong></td>
+<td>一个 PR 或 issue 的链接</td>
+</tr>
+<tr class="odd">
+<td><strong>下一次</strong></td>
+<td>下个项目里再踩到坑，<strong>你已经知道该怎么把它变成护栏</strong></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+
+<hr />
+<h1 id="附--一页纸速查">附 · 一页纸速查</h1>
+<p><strong>为什么回贡</strong>：定制不再是孤儿 · 别人替你维护 · 别人不用再踩 · <strong>FDE 的信用</strong></p>
+<hr />
+<p><strong>四档门槛</strong>（从低到高，<strong>从第 ① 档开始</strong>）</p>
+<p>| ① 文档更正 / issue | 十分钟 · <strong>最容易被接受</strong> | | ② 一个行业专家 <code>.md</code> | 半小时 · <strong>它本来就预期按行业扩充</strong> | | ③ 映射包 / 参考数据 | 半天 | | ④ 完整插件 | 数天起 |</p>
+<p><strong>你已经有的</strong>：第五课那<strong>六处「文档说 A、代码是 B」</strong>（= 六个 issue）· A1 写的专家</p>
+<hr />
+<p><strong>⚠️ 该仓没有 <code>CONTRIBUTING.md</code>，也没有 <code>.github/</code></strong> 规范从 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 反推： ① <strong>照 Plugin Structure 摆文件</strong> ② <strong>守 Design Principles</strong>（最易踩：设计实现分离 · 无私有扩展 · 平台中立 · 专家存 <code>studio/agents/</code>）③ <strong>本地测通</strong></p>
+<blockquote>
+<p>⭐ <strong>补一份 CONTRIBUTING.md，就是你能提的第一个 PR。</strong></p>
+</blockquote>
+<hr />
+<p><strong>流程</strong>：fork → 分支 → 改 → <strong><code>claude --plugin-dir ./你改的插件</code> 测通</strong> → commit → push → PR</p>
+<p><strong>提之前三自查</strong>：跑过了吗 · 位置对吗 · 有没有私有扩展/平台绑定</p>
+<blockquote>
+<h3 id="️-别提没跑过的东西-1">⚠️ 别提没跑过的东西。</h3>
+</blockquote>
+<p><strong>PR 描述四段</strong>：改了什么 · ⭐ <strong>为什么（真实场景，决定命运）</strong> · 怎么验证的 · 影响面</p>
+<hr />
+<p><strong>被拒最常见</strong>：范围不合（问清放哪）· 太特化（改成可配置 / 转文档示例） ⭐ <strong>被拒的 PR 不是白写的</strong>——你把事想清楚了，分支还在</p>
+<blockquote>
+<h3 id="你在项目里踩过的坑提回去就成了别人的护栏-1">你在项目里踩过的坑，提回去就成了别人的护栏。</h3>
+</blockquote>
+</body>
+</html>

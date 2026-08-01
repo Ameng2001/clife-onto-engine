@@ -82,7 +82,8 @@
     <span class="pill b">8 课 · 约 21.5 小时 + 路演</span>
     <span class="pill">集训 5 天 / 压缩 3 天 / 分散 8 周</span>
     <span class="pill r">L5 是全课重心，压缩档绝不砍</span>
-    <span class="pill" style="background:#faf5ff;border-color:#ddd6fe;color:#7c3aed">+ 专题课 S1–S4 · 本体三门 + 工具链高级用法</span>
+    <span class="pill" style="background:#faf5ff;border-color:#ddd6fe;color:#7c3aed">+ 专题课 S1–S3 · 本体论 / 引擎 / 建模端</span>
+    <span class="pill" style="background:#f0fdfa;border-color:#99f6e4;color:#0d9488">+ 专题课 A1–A3 · 智能体 / 插件 / 回贡</span>
   </div>
 </header>
 
@@ -194,7 +195,7 @@
 
 </div>
 
-<h2>专题课（S1–S3 本体一条线 · S4 工具链另一条线，均可独立开设，不占八课课时）</h2>
+<h2>专题课 S1–S3（一条线，可独立开设，不占八课课时）</h2>
 <div class="grid">
 
   <div class="lec" style="border-color:#c4b5fd;background:linear-gradient(180deg,#fff 0%,#fbfaff 100%)">
@@ -233,17 +234,6 @@
     </div>
   </div>
 
-  <div class="lec" style="border-color:#c4b5fd;background:linear-gradient(180deg,#fff 0%,#fbfaff 100%)">
-    <div class="num" style="color:#ede9fe">S4</div>
-    <h3>Astra Studio 高级用法 &nbsp;<span style="font-size:12.5px;color:#7c3aed;font-weight:700">从用工具到改工具</span></h3>
-    <div class="sub">讲解 + <b>读码</b> · 180′ · <b>教材 = astra-studio-plugins 全仓</b>（另一条线：工具链本身）</div>
-    <div class="prop"><b>四级台阶</b>：用内置的 → <b>自定义专家</b>（查找顺序就是设计 · 动态发现五步 · <b>专家是复核者不是生成者</b>）→ <b>写自己的插件</b>（fund-review 的<b>红蓝对抗</b>，两个 agent <b>都没有 Write</b> · ⭐ <b>40 脚本对 2 agent 的确定性打底</b> · Traits 是观察不是配置 · 两级工作区）→ <b>回贡上游</b>。</div>
-    <div class="out">硬指标：说得出自定义专家<b>不报错却完全不起作用</b>的原因 · 解释两个 agent 为何都无 Write · <b>「能写成脚本就别交给模型」</b></div>
-    <div class="links">
-      <a class="a-deck" href="./S4_高级用法.html" style="background:#7c3aed">课件 14 屏</a>
-      <a class="a-doc" href="../课程/S4_AstraStudio高级用法.html">学员手册</a>
-    </div>
-  </div>
 
   <div class="lec" style="border-style:dashed;background:transparent;box-shadow:none">
     <h3 style="color:var(--dim2)">这三门课和第五课的关系</h3>
@@ -254,8 +244,60 @@
       <b>S3</b> <b>怎么给它编译应用</b>（我们自己的建模端 studio-ontology）→ <b>那把工具，以及它的边界</b><br>
       <b>L5</b> <b>亲手用那把工具，产出一个能在那套引擎上跑起来的插件</b><br><br>
       <b>S2 讲运行时端，S3 讲建模端，第五课把两端接起来。</b><br>
-      <b>只上一门的话，上 S1——工具会换，那套判断不会。</b><br><br>
-      <b>S4</b> 是<b>另一条线</b>：不讲本体，讲 <b>Astra Studio 这套工具本身怎么改、怎么扩、怎么回贡</b>。前置建议 L3 + L5。
+      <b>只上一门的话，上 S1——工具会换，那套判断不会。</b>
+    </div>
+  </div>
+
+</div>
+
+<h2>专题课 A1–A3 · 工具链进阶（另一条线，可独立开设，不占八课课时）</h2>
+<div class="grid">
+
+  <div class="lec" style="border-color:#5eead4;background:linear-gradient(180deg,#fff 0%,#f7fffd 100%)">
+    <div class="num" style="color:#ccfbf1">A1</div>
+    <h3>自定义智能体 &nbsp;<span style="font-size:12.5px;color:#0d9488;font-weight:700">二级台阶</span></h3>
+    <div class="sub">讲解 + <b>实操</b> · 180′ · <b>教材 = astra-studio-plugins 源码</b>（studio-core / studio-insight）</div>
+    <div class="prop"><b>查找顺序就是设计</b>（项目级 <span class="mono">studio/agents/</span> 覆盖内置，同名项目级赢）→ <b>动态发现五步</b>（扫内置时"跳过同名"就是覆盖发生的那一行）→ ⭐ <b>专家是复核者不是生成者</b>（主角色出初稿，专家挑"不正确 / 过度简化 / 遗漏"）→ 专家文件四部分解剖（<b><span class="mono">## Your Domain</span> 决定被不被选中</b>，<b>Quality Criteria 是最难写也最值钱的一段</b>）→ 什么该造什么不该造 → <b>静默失效：写错了不报错，只是不被选中</b>。</div>
+    <div class="out">硬指标：说得出同名时谁赢、在五步的哪一步发生 · 说得出专家的角色定位 · 写出一个能被选中的 <span class="mono">## Your Domain</span></div>
+    <div class="links">
+      <a class="a-deck" href="./A1_自定义智能体.html" style="background:#0d9488">课件 13 屏</a>
+      <a class="a-doc" href="../课程/A1_自定义智能体.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec" style="border-color:#5eead4;background:linear-gradient(180deg,#fff 0%,#f7fffd 100%)">
+    <div class="num" style="color:#ccfbf1">A2</div>
+    <h3>扩展插件 · 解剖一个真实垂类插件 &nbsp;<span style="font-size:12.5px;color:#0d9488;font-weight:700">三级台阶</span></h3>
+    <div class="sub">讲解 + <b>当场读码</b> · 180′ · <b>教材 = fund-review 插件</b>（54 文件的真实工程）</div>
+    <div class="prop">fund-review 是什么（四 skill 流水线；<b>它是工具链的产出物，不是工具链的一部分</b>）→ <b>红蓝对抗</b>：<span class="mono">quote-optimizer</span>（蓝·投标方）vs <span class="mono">financial-reviewer</span>（红·财评专家）→ ⭐⭐ <b>但对抗不是重点：38 个脚本 : 2 个智能体</b>——能写成确定性脚本的绝不交给模型（<b>确定 / 可测 / 便宜</b>）→ 插件骨架与 <b>Plugin Traits</b>（"Traits 是观察结果，不是配置项"）→ <b>两级工作区</b>：<span class="mono">studio/changes/</span> 只放设计、<span class="mono">{target_dir}/</span> 只放实现，<span class="mono">status.json</span> 连接 = 单一真相源。</div>
+    <div class="out">硬指标：说得出 38:2 这个比例意味着什么 · 说得出两个对抗智能体<b>都没有 Write 权限</b>及其原因 · 画得出两级工作区</div>
+    <div class="links">
+      <a class="a-deck" href="./A2_扩展插件.html" style="background:#0d9488">课件 13 屏</a>
+      <a class="a-doc" href="../课程/A2_扩展插件.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec" style="border-color:#5eead4;background:linear-gradient(180deg,#fff 0%,#f7fffd 100%)">
+    <div class="num" style="color:#ccfbf1">A3</div>
+    <h3>回贡上游 · 把踩过的坑变成护栏 &nbsp;<span style="font-size:12.5px;color:#0d9488;font-weight:700">四级台阶 · <b>当场真提</b></span></h3>
+    <div class="sub">讲解 + <b>实操（真的提一个 PR / issue）</b> · 120′</div>
+    <div class="prop">回贡对<b>你自己</b>的四条好处 → <b>四档门槛</b>与"你手上已经有的素材"（<b>第五课发现的六处「文档说 A、代码是 B」本身就是六个可提的 issue</b>）→ ⚠️ <b>诚实现状：该仓没有 CONTRIBUTING.md、没有 .github/</b>，规范只能从 CLAUDE.md / AGENTS.md 反推——<b>而补一份 CONTRIBUTING 本身就是最容易被接受的第一个 PR</b> → PR 描述四段（<b>"为什么"那段决定命运</b>）→ 提交前三条自查 → 被拒了怎么办。</div>
+    <div class="out">硬指标：<b>交出一个真实的 PR 或 issue 链接</b>（没有链接 = 没完成）· 说得出这个仓的规范写在哪（陷阱题）· PR 描述里"为什么"至少三句真实场景</div>
+    <div class="links">
+      <a class="a-deck" href="./A3_回贡上游.html" style="background:#0d9488">课件 9 屏</a>
+      <a class="a-doc" href="../课程/A3_回贡上游.html">学员手册</a>
+    </div>
+  </div>
+
+  <div class="lec" style="border-style:dashed;background:transparent;box-shadow:none">
+    <h3 style="color:var(--dim2)">A 系列和 S 系列、八课的关系</h3>
+    <div class="sub">建议排期：<b>八课全程结束之后</b>（A 系列要用到第五课的产出物）</div>
+    <div class="prop" style="font-size:13px">
+      <b>S 系列讲「本体」这条线</b>：本体是什么 → 引擎怎么造 → 建模端怎么编译，终点是 <b>L5</b>。<br>
+      <b>A 系列讲「工具链本身」这条线</b>：<b>用内置的 → 自定义专家（A1）→ 写自己的插件（A2）→ 回贡上游（A3）</b>，<b>四级台阶</b>。<br><br>
+      <b>所以 S 系列排在 L5 之前（前置），A 系列排在八课之后（进阶）。</b><br>
+      A 系列的落地物：<b>一个专家 .md</b> · <b>一张真实插件的解剖图</b> · <b>一个 PR / issue 链接</b>。<br>
+      <b>只上一门的话，上 A1——它是从"会用工具"跨到"能改工具"的那一步。</b>
     </div>
   </div>
 

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FDE 工作坊 · 专题课 A1 · 自定义智能体</title>
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/base.css">
+<link rel="stylesheet" id="theme-link" href="./assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="./assets/animations/animations.css">
+</head>
+<body data-themes="corporate-clean,minimal-white,academic-paper" data-theme-base="./assets/themes/">
+<style>
+  .slide{padding:44px 66px}
+  .mt-l{margin-top:17px}.mt-m{margin-top:11px}
+  .lede{font-size:17px;line-height:1.5}
+  .card h4,.card-accent h4,.card-outline h4{margin-bottom:5px;font-size:15px}
+  .card p,.card-accent p,.card-outline p{font-size:14px;line-height:1.52}
+  h2.title{font-size:35px;line-height:1.14}
+  .quote-big{font-family:var(--font-serif);font-size:25px;line-height:1.34;font-weight:600;color:var(--accent);max-width:30ch}
+  .huge{font-family:var(--font-serif);font-size:31px;line-height:1.24;font-weight:700;color:var(--accent)}
+  .ftag{font-size:13px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase}
+  .badcard{border-left:4px solid var(--bad)}.goodcard{border-left:4px solid var(--good)}.warncard{border-left:4px solid var(--warn)}
+  table.t{width:100%;border-collapse:collapse;font-size:14px}
+  table.t th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);
+    padding:5px 9px;border-bottom:2px solid var(--border-strong)}
+  table.t td{padding:5px 9px;border-bottom:1px solid var(--border);color:var(--text-2);vertical-align:top}
+  table.t td b{color:var(--text-1)}
+  table.t tr.hot td{background:var(--grad-soft)}
+  pre.code{font-family:ui-monospace,Menlo,monospace;font-size:12.8px;line-height:1.52;
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:11px 15px;overflow:auto;color:var(--text-1)}
+  .src{font-size:12px;color:var(--text-3);font-style:italic}
+  .stepline{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-size:14px;font-weight:700}
+  .stepline .s{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:6px 10px}
+  .stepline .a{color:var(--accent-2)}
+  .tier{border-radius:9px;padding:9px 13px;margin-bottom:6px;font-size:14.5px;border:1px solid var(--border);background:var(--surface-2);display:flex;gap:12px;align-items:baseline}
+  .tier .n{font-family:ui-monospace,monospace;font-weight:700;color:var(--accent);min-width:38px}
+  .tier.hot{background:var(--grad-soft);border-color:var(--accent)}
+  .slide.tight .card,.slide.tight .card-accent{padding-top:8px;padding-bottom:8px}
+  .slide.tight table.t td{padding-top:3.6px;padding-bottom:3.6px}
+</style>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide" data-title="封面">
+  <div class="eyebrow" data-anim="fade-down">C-Life FDE 实战工作坊 · 专题课 A1 · 180′ · 讲解 + 实操</div>
+  <h1 class="title" data-anim="fade-up">自定义智能体<br>让工具懂你这一行</h1>
+  <div class="divider-accent mb-m"></div>
+  <p class="quote-big" data-anim="fade-up">不改一行代码，<br><b>加一个 .md 文件。</b></p>
+  <div class="row mt-l" data-anim="fade-up">
+    <span class="pill pill-accent">A 系列第一门</span>
+    <span class="pill">二级台阶</span>
+    <span class="pill">⭐ 现场写一个并跑通</span>
+  </div>
+  <p class="src mt-m">一档来源：astra-studio-plugins —— create-expert/SKILL.md · studio-insight/agents/（11 内置 + 1 模板）· 各 skill 的 Expert Discovery 段 · CLAUDE.md</p>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="13"></span></div>
+  <div class="notes">
+    <p><b>【时间盒 180′】</b> 定位 + 四级台阶 15′ ｜ 查找顺序 20′ ｜ 动态发现 + 复核者 30′ ｜ <b>专家文件解剖 40′</b> ｜ 判据 + 静默失效 20′ ｜ <b>实操 45′</b> ｜ checkout 10′</p>
+    <p><b>⭐【本课在 A 系列的位置，开场说清】</b>"A 系列三门课：<b>A1 自定义专家（今天）→ A2 扩展插件 → A3 回贡上游</b>。这是<b>和 S 系列完全不同的一条线</b>——S 系列讲本体，A 系列讲<b>这套工具本身怎么被你改造。</b>"</p>
+    <p><b>【前置要确认】</b>问一句"<b>上过 L4、跑过 persona-insight 的举手</b>"。没跑过的人今天会听得很飘——<b>当场打开一个内置专家给他看，30 秒建立参照。</b></p>
+    <p><b>【本课重心是第 6–8 页】</b>专家文件怎么写。前面是铺垫，<b>后面 45′ 实操全靠这三页。</b></p>
+    <p><b>【读码准备】</b>投屏机 clone 好 astra-studio-plugins，<b>第 5、7、9 页要真的翻文件。</b></p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="A 系列与四级台阶">
+  <div class="kicker">定位 · 两条线，四级台阶</div>
+  <h2 class="title">A 系列讲的是另一条线</h2>
+  <table class="t mt-s">
+    <tr><th></th><th>S 系列（S1–S3）· 本体线</th><th>A 系列（A1–A3）· 工具链线</th></tr>
+    <tr><td><b>讲什么</b></td><td>本体是什么 → 引擎怎么造 → 建模端怎么编译应用</td><td><b>Astra Studio 这套工具本身</b>，怎么改、扩、回贡</td></tr>
+    <tr><td><b>终点</b></td><td><b>L5</b>：亲手交一个能跑的本体插件</td><td><b>一个你自己的插件 / 一个被合并的 PR</b></td></tr>
+    <tr><td><b>前置</b></td><td>无（S1 反而是 L5 的前置）</td><td><b>L3 / L4</b>（用过内置专家）+ <b>L5</b>（交过插件）</td></tr>
+    <tr><td><b>排在哪</b></td><td>主课程<b>之前</b></td><td>主课程<b>之后</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>四级台阶——你现在在哪一级：</b></p>
+  <div class="tier"><span class="n">一级</span><span><b>用内置的</b>　<span class="dim">跑 persona-insight，用它自带的产品经理、架构师……　<b>L3/L4/L5 都停在这一级</b></span></span></div>
+  <div class="tier hot"><span class="n">二级</span><span><b>自定义专家</b>　<span class="dim">不改代码，加一个 .md　<b>← 今天（A1）</b></span></span></div>
+  <div class="tier"><span class="n">三级</span><span><b>写自己的插件</b>　<span class="dim">A2</span></span></div>
+  <div class="tier"><span class="n">四级</span><span><b>回贡上游</b>　<span class="dim">A3</span></span></div>
+  <p class="huge mt-m" data-anim="fade-up">工具不改造，<br><b>你就只能做它预设的那类项目。</b></p>
+  <div class="deck-footer"><span class="ftag">定位</span><span class="slide-number" data-current="2" data-total="13"></span></div>
+  <div class="notes"><p><b>【让学员自评在第几级】</b>举手：<b>"跑过 persona-insight 的？"（一级）"翻开过 studio/agents/ 目录的？"（准二级）"写过自己插件的？"（三级）"给开源提过 PR 的？"（四级）</b>——这个自评会让他们知道今天该听什么。</p>
+  <p><b>【二级的性价比要说重】</b>"一个 .md 文件，<b>不改代码、不发版，而且跟着 git 走、全团队共享</b>。三级要写几十个脚本，二级只要半小时。<b>投入产出比差一个数量级。</b>"</p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="⭐ 查找顺序就是设计">
+  <div class="kicker">① 二级台阶 1/2 · ⭐</div>
+  <h2 class="title">查找顺序就是设计</h2>
+  <pre class="code mt-s">1. 项目级   studio/agents/{name}.md      ← 你团队的定制专家（<b>git 跟踪</b>）
+2. 内置     插件自带 agents/{name}.md    ← studio-insight 出厂的 11 个
+
+<b>同名覆盖：项目级赢。</b></pre>
+  <p class="lede mt-m" data-anim="fade-up"><b>这不是一个查找细节，是一条产品决策</b>——定制点被放在<b>用户项目的 git 仓库里</b>：</p>
+  <table class="t mt-s">
+    <tr><th>如果放在……</th><th>会怎样</th></tr>
+    <tr><td>插件目录里</td><td><b style="color:var(--bad)">下次更新插件，你的定制被覆盖掉</b></td></tr>
+    <tr><td>本地配置里</td><td><b style="color:var(--bad)">只有你有，同事没有；换台机器就没了</b></td></tr>
+    <tr class="hot"><td><b><span class="mono">studio/agents/</span>（现在的选择）</b></td><td><b>跟着项目走、跟着 git 走、全团队共享</b></td></tr>
+  </table>
+  <p class="huge mt-m" data-anim="fade-up">你的专家跟着项目走。<br><b>换台机器 clone 下来，它就在。</b></p>
+  <div class="deck-footer"><span class="ftag">① 1/2 · ⭐</span><span class="slide-number" data-current="3" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐【这一页要讲透"为什么"，不要只讲"是什么"】</b>中间那张表是关键——<b>把三种可能的位置摆出来，学员才明白现在这个位置是选出来的，不是随便定的。</b></p>
+  <p><b>【git 跟踪这一点在团队里很值钱】</b>"你写的专家会随代码评审、随分支合并、随新人 clone 一起走。<b>它不是一个人的技巧，是团队资产。</b>"</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="三种改法与出厂件">
+  <div class="kicker">① 二级台阶 2/2</div>
+  <h2 class="title">三种改法，都不碰插件源码</h2>
+  <div class="grid g3 mt-s" data-anim="stagger-list">
+    <div class="card card-accent"><h4>① 加一个新专家</h4><p>行业里有个角色内置没有 → <b>写一个新 .md</b></p></div>
+    <div class="card card-accent"><h4>⭐ ② 覆盖一个内置的</h4><p>内置的产品经理说的话<b>不像你们公司</b> → <b>同名写一份</b>，换成你们的术语与流程<br><b>最容易被忽略的一种</b></p></div>
+    <div class="card card-accent"><h4>③ 从模板起手</h4><p>抄 <span class="mono">_domain-expert-template.md</span> 改</p></div>
+  </div>
+  <p class="quote-big mt-m" data-anim="fade-up">内置那个是通用的，<br><b>你们的是对的。</b></p>
+  <table class="t mt-m">
+    <tr><th>出厂带了什么</th><th></th></tr>
+    <tr><td><b>通用 6 个</b></td><td>产品经理 · 架构师 · UX 研究 · 数据分析 · 合规官 · 运营经理</td></tr>
+    <tr class="hot"><td><b>健康域 4 个</b></td><td>儿童营养 · 儿童运动 · 老年营养 · 老年康复运动</td></tr>
+    <tr><td><b>美护域 1 个</b></td><td>女性护肤</td></tr>
+    <tr><td>模板 1 个</td><td><span class="mono">_domain-expert-template.md</span></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up">⭐ <b>注意出厂件里有"儿童营养""老年康复运动"这种细分角色</b>——<br>
+  <b>这说明它本来就预期你按行业往里加。你的行业专家没在里面，不是遗漏，是等你写。</b></p>
+  <div class="deck-footer"><span class="ftag">① 2/2</span><span class="slide-number" data-current="4" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐【第 ② 种要专门停一下】</b>"很多人以为只能加新的。<b>其实你可以同名覆盖内置的 product-manager。</b>你们公司的评审口径、术语、流程——<b>写一份同名的盖掉它。</b>"</p>
+  <p><b>【健康域那 4 个是个信号，别当装饰讲】</b>"一个通用工具链，出厂却带了儿童营养和老年康复运动专家——<b>这是在告诉你：这里就是给行业留的口子。</b>"</p>
+  <p><b>【创建命令】</b><span class="mono">/studio-core:create-expert</span>——但也完全可以直接抄模板改，<b>它本质就是个 .md。</b></p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="动态专家发现五步">
+  <div class="kicker">② 它怎么被用上 1/2 · 可翻码核对</div>
+  <h2 class="title">动态专家发现：五步</h2>
+  <p class="lede mt-s" data-anim="fade-up"><span class="mono">studio-insight</span> 的 <b>6 个 skill 全部使用动态专家发现</b>。以 <span class="mono">persona-insight</span> 为例，<b>每次运行</b>都做这五步：</p>
+  <table class="t mt-s">
+    <tr><th style="width:5%">#</th><th>做什么</th></tr>
+    <tr><td>1</td><td><b>主角色必载</b>——<span class="mono">product-manager.md</span>（由它主导画像产出）</td></tr>
+    <tr><td>2</td><td><b>扫项目级</b>——<span class="mono">Glob studio/agents/*.md</span>，团队自定义的全部载入</td></tr>
+    <tr class="hot"><td>3</td><td><b>扫内置</b>——<b>跳过已从项目级载入的同名</b>　<b style="color:var(--accent)">← 覆盖就发生在这一步</b></td></tr>
+    <tr class="hot"><td>4</td><td><b>按相关性选 1–3 个</b>——拿专家的 <span class="mono">## Your Domain</span> 段与本次主题比对</td></tr>
+    <tr><td>5</td><td><b>跳过模板</b>——<span class="mono">_domain-expert-template.md</span> 只用于造专家，不参与咨询</td></tr>
+  </table>
+  <div class="grid g2 mt-m" data-anim="stagger-list">
+    <div class="card card-accent"><h4>第 3 步：覆盖的实现位置</h4><p><b>不是配置里写"覆盖"，是扫描时跳过同名。</b><br>——一条规则，不需要额外机制</p></div>
+    <div class="card warncard"><h4>第 4 步：只选 1–3 个</h4><p>⚠️ <b>专家造多了会互相稀释</b>，不是越多越好</p></div>
+  </div>
+  <div class="deck-footer"><span class="ftag">② 1/2</span><span class="slide-number" data-current="5" data-total="13"></span></div>
+  <div class="notes"><p><b>【读码：打开 studio-insight/skills/persona-insight/SKILL.md 的 Expert Discovery 段】</b>五步原文就在那儿，<b>翻给他们看比讲有说服力得多。</b></p>
+  <p><b>【第 4 步先埋着】</b>"注意第 4 步靠的是 <span class="mono">## Your Domain</span> 这一段——<b>第 9 页会讲，写砸了会怎样。</b>"</p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="⭐⭐ 复核者不是生成者">
+  <div class="kicker">② 它怎么被用上 2/2 · ⭐⭐ 本课枢纽</div>
+  <h2 class="title">专家是复核者，不是生成者</h2>
+  <div class="stepline mt-s" data-anim="fade-up">
+    <span class="s">主角色<br><span style="font-weight:400;font-size:12px">product-manager</span></span><span class="a">→</span>
+    <span class="s"><b>产出初稿</b></span><span class="a">→</span>
+    <span class="s" style="background:var(--grad-soft);border-color:var(--accent)"><b>Expert Review</b><br><span style="font-weight:400;font-size:12px">专家逐个复核纠错</span></span><span class="a">→</span>
+    <span class="s">定稿</span>
+  </div>
+  <div class="card card-accent mt-m"><h4>给每个专家的指令（原文）</h4>
+    <p>"从你的领域专长审这份画像。标出<b>不正确、过度简化、遗漏</b>的地方；<br>
+    注意我们漏掉的领域痛点、影响这个画像的现实约束、以及<b>从业者实际会用的术语</b>。"</p></div>
+  <p class="huge mt-m" data-anim="fade-up">一个专家的价值，<br>在于它能<b>挑出你没想到的错</b>，<br>而不是替你写。</p>
+  <table class="t mt-m">
+    <tr><th>写错的方向</th><th>写对的方向</th></tr>
+    <tr><td>写它<b>懂什么</b>——把一堆领域知识倒进去</td><td>写它<b>会挑什么错</b>——列出这一行的典型误判</td></tr>
+    <tr><td>结果：一份读起来很专业、<b>但挑不出错</b>的简介</td><td>结果：<b>它能指着你的画像说"这条不对，因为……"</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">② 2/2 · ⭐⭐</span><span class="slide-number" data-current="6" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐⭐【这一页是全课的枢纽，后面三页全从这里推出来】</b>如果学员只记住一句，是这句：<b>"专家的价值在于挑出你没想到的错，而不是替你写。"</b></p>
+  <p><b>【为什么这条这么重要】</b>"因为它<b>直接决定你打开那个 .md 之后写什么</b>。把它当'知识库'写，你会倒一堆行业介绍进去；<b>把它当'审稿人'写，你会去想这一行的人最容易在哪里判断错。</b>后者才有用。"</p>
+  <p><b>【现场可以问一句】</b>"你们行业里，一个外行最容易在哪一点上想当然？"——<b>那个答案，就是专家该挑的第一个错。</b></p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="专家文件解剖">
+  <div class="kicker">③ 怎么写 1/3 · ⭐ 本课重心</div>
+  <h2 class="title">一个专家文件的四个部分</h2>
+  <pre class="code mt-s">---
+name: 'xxx-expert'                     ← ① 标识（<b>同名即覆盖内置</b>）
+description: "……当需要审查 X 时调用"    ← ② 一句话：这是谁、什么时候叫它
+---
+
+# Role: {角色名}
+
+<b>## Your Domain</b>                         ← ③ <b>⭐ 决定它会不会被选中</b>
+{这个领域是什么、覆盖哪些场景}
+
+## Your Perspective
+{你从什么角度看问题}
+
+<b>## What You Contribute</b>                 ← ④ 它到底能贡献什么（<b>三块</b>）
+### Domain Knowledge
+### Real-world Constraints
+### Quality Criteria
+
+## How You Behave in Brainstorming</pre>
+  <p class="lede mt-m" data-anim="fade-up"><b>③ 决定"会不会被用上"，④ 决定"用上了有没有用"。</b><br>
+  <b>两段都写砸，你会得到一个从不出现、出现了也只会附和的专家。</b></p>
+  <div class="deck-footer"><span class="ftag">③ 1/3 · ⭐</span><span class="slide-number" data-current="7" data-total="13"></span></div>
+  <div class="notes"><p><b>【读码：把 _domain-expert-template.md 投出来对照】</b>结构一模一样，<b>学员看到"原来就这么点东西"，心理门槛立刻降下来。</b></p>
+  <p><b>【强调"就是个 .md"】</b>"没有注册表、没有配置项、没有编译步骤。<b>写一个 markdown 文件丢进 studio/agents/，下次跑就生效。</b>"</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide tight" data-title="⭐ Quality Criteria 最见功力">
+  <div class="kicker">③ 怎么写 2/3 · ⭐⭐ 三块里第三块最见功力</div>
+  <h2 class="title">What You Contribute 的三块</h2>
+  <table class="t mt-s">
+    <tr><th style="width:26%">块</th><th>要回答什么</th></tr>
+    <tr><td><b>① Domain Knowledge</b><br><span class="dim">领域里有什么</span></td><td>关键概念、实体、关系　·　⭐ <b>从业者实际用的术语（避开只有外行才用的黑话）</b>　·　常见工作流与变体</td></tr>
+    <tr><td><b>② Real-world Constraints</b><br><span class="dim">现实里卡在哪</span></td><td>适用哪些法规标准　·　<b>通用方案会漏掉哪些边界情况</b>　·　<b>现有工具在哪里失败，因为它们不理解领域细微差别</b></td></tr>
+    <tr class="hot"><td><b>⭐ ③ Quality Criteria</b><br><span class="dim">什么叫"对"</span></td><td><b>"正确"在这个领域意味着什么？哪些错误是危险的，哪些只是难看？</b>　·　哪些数据源权威、哪些不可靠　·　<b>哪些决策必须人判断</b></td></tr>
+  </table>
+  <p class="quote-big mt-m" data-anim="fade-up">前两块回答"这一行是什么样"，<br><b>第三块回答"怎么算错、错得多严重"。</b></p>
+  <p class="huge mt-m" data-anim="fade-up">写不出第三块，<br>你写的不是专家，<b>是行业简介。</b></p>
+  <div class="deck-footer"><span class="ftag">③ 2/3 · ⭐⭐</span><span class="slide-number" data-current="8" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐⭐【第三块是本课最该带走的写作方法】</b>它直接对应第 6 页的"复核者"——<b>一个审稿人需要的不是知识，是判错的标准。</b></p>
+  <p><b>【"哪些错危险、哪些只是难看"这句要单独讲】</b>"这是专业性最集中的一句。<b>外行提意见分不出轻重，内行一眼知道哪条会出事、哪条只是不好看。</b>你的专家要能做这个分级。"</p>
+  <p><b>【参照：打开 compliance-officer.md】</b>注意它<b>通篇都是问句</b>——Risk Assessment 那块："最坏情况是什么？<b>自动化在哪里制造了问责真空？哪些决策必须有人监督？</b>"<b>因为它的工作是审，不是答。</b></p>
+  <p><b>【① 那条"从业者实际用的术语"也别漏】</b>画像里出现行业里没人这么说的词，<b>专家应该能挑出来。</b></p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="⚠️ 静默失效">
+  <div class="kicker">③ 怎么写 3/3 · ⚠️ 最常见的失效</div>
+  <h2 class="title">`## Your Domain` 写砸了会怎样</h2>
+  <table class="t mt-s">
+    <tr><th style="width:44%">写法</th><th>结果</th></tr>
+    <tr><td>"本领域相关知识"</td><td><b style="color:var(--bad)">❌ 永远匹配不上，专家从不被载入</b></td></tr>
+    <tr class="hot"><td>"养老机构照护服务：日常照护、膳食、康复训练、风险预警、家属沟通、民政监管对接"</td><td><b style="color:var(--good)">✅ 主题一沾边就会被选中</b></td></tr>
+  </table>
+  <p class="lede mt-m" data-anim="fade-up"><b>写得具体到"从业者会搜的词"，而不是"部门介绍里的话"。</b></p>
+  <div class="card badcard mt-m"><h4>⚠️ 而且它失效得悄无声息</h4>
+    <p>会报错吗？<b>不会。</b>　会警告吗？<b>不会。</b><br>
+    你会看到什么？——<b>一切正常的输出</b>，只是那个专家<b>从来没被载入过</b>。<br>
+    <b>你以为专家在起作用，其实它一次都没跑。</b></p></div>
+  <div class="card card-accent mt-m"><h4>怎么自查（两步）</h4>
+    <p>① 跑一次 <span class="mono">persona-insight</span>，看 <b>Expert Discovery 阶段报出了哪些专家</b>——<b>没有你的 → 回去把 `## Your Domain` 写具体</b><br>
+    ② 有你的但没挑出什么 → <b>回去补 Quality Criteria</b></p></div>
+  <div class="deck-footer"><span class="ftag">③ 3/3 · ⚠️</span><span class="slide-number" data-current="9" data-total="13"></span></div>
+  <div class="notes"><p><b>⭐【接 S2】</b>"这和 S2 讲的<b>『记忆塞满不报错，只是慢慢变笨』</b>是同一类故障：<b>静默失效。</b>这类故障最贵——<b>因为你不会去查一个看起来正常的东西。</b>"</p>
+  <p><b>【那两步自查是实操 checkout 的依据，务必讲清】</b>学员一会儿写完就要用这两步验。</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide tight" data-title="该造 / 不该造">
+  <div class="kicker">④ 判据</div>
+  <h2 class="title">什么时候值得造一个专家</h2>
+  <div class="grid g2 mt-s" data-anim="stagger-list">
+    <div class="card goodcard"><h4>✅ 该造</h4><p>
+      · 这个行业有<b>只有从业者才知道的坑</b>，通用角色挑不出来<br>
+      · 有<b>成文的标准 / 规程 / 禁忌</b>可以写进它的判断<br>
+      · 同一类错<b>在多个项目里反复出现</b><br>
+      · 内置角色的<b>术语和你们不一样</b> → <b>同名覆盖，别新建</b></p></div>
+    <div class="card badcard"><h4>❌ 不该造</h4><p>
+      · 只是想让输出"更专业一点"——<b>那是提示词问题，不是专家问题</b><br>
+      · 一次性项目，下次用不到<br>
+      · <b>你自己也说不清它该挑什么错</b>——说不清就写不出 Quality Criteria<br>
+      · 已有专家改两句就够用 → <b>覆盖</b></p></div>
+  </div>
+  <div class="card warncard mt-m"><h4>⚠️ 别给每个角色都造一个</h4>
+    <p>第 4 步<b>只选 1–3 个</b>——<b>造多了互相稀释</b>，你精心写的那个可能反而挤不进去。</p></div>
+  <p class="quote-big mt-m" data-anim="fade-up">说不清它该挑什么错，<br><b>就先别造。</b></p>
+  <div class="deck-footer"><span class="ftag">④ 判据</span><span class="slide-number" data-current="10" data-total="13"></span></div>
+  <div class="notes"><p><b>【右栏比左栏重要】</b>学员听完前面容易上头，回去给每个角色造一个。<b>提前压住。</b></p>
+  <p><b>【"说不清就先别造"是一条很好的自检】</b>"如果你写 Quality Criteria 时卡住了——<b>那不是文笔问题，是你对这个角色的理解还不够。先去问一个真的从业者。</b>"</p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="实操 45′">
+  <div class="kicker">⑤ 实操 · 45′ · <b>本课落点</b></div>
+  <h2 class="title">现场写一个，并跑通</h2>
+  <table class="t mt-s">
+    <tr><th style="width:5%">序</th><th style="width:42%">做什么</th><th style="width:10%">时长</th><th>产出</th></tr>
+    <tr><td>1</td><td>选角色：<b>你们行业里，通用专家挑不出错的那个</b></td><td>5′</td><td>一句话说清它是谁</td></tr>
+    <tr><td>2</td><td>跑 <span class="mono">/studio-core:create-expert</span>，或直接抄模板</td><td>5′</td><td><span class="mono">studio/agents/xxx-expert.md</span> 骨架</td></tr>
+    <tr><td>3</td><td><b>写 <span class="mono">## Your Domain</span></b>——具体到从业者会搜的词</td><td>10′</td><td>能被匹配上的一段</td></tr>
+    <tr class="hot"><td>4</td><td>⭐ <b>写 Quality Criteria</b>——这一行<b>哪些错危险、哪些只是难看</b></td><td>15′</td><td><b>至少 5 条</b></td></tr>
+    <tr><td>5</td><td><b>跑一次</b> <span class="mono">persona-insight</span>，确认被载入并挑出了东西</td><td>10′</td><td>一份被专家复核过的画像</td></tr>
+  </table>
+  <table class="t mt-m">
+    <tr><th>checkout 维度</th><th>达标</th><th>警示</th></tr>
+    <tr><td><b>被载入</b></td><td>Expert Discovery <b>报出了你的专家</b></td><td>没报出来 → <span class="mono">## Your Domain</span> 太含糊</td></tr>
+    <tr><td><b>挑得出错</b></td><td>至少指出<b>一条通用角色没提的</b></td><td>只会附和 → <b>Quality Criteria 没写</b></td></tr>
+    <tr><td>术语</td><td>写的是<b>从业者实际用的词</b></td><td>用了行业外的黑话</td></tr>
+    <tr><td>定位</td><td>通篇在<b>问和审</b></td><td>写成了一份<b>行业简介</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">⑤ 实操</span><span class="slide-number" data-current="11" data-total="13"></span></div>
+  <div class="notes"><p><b>【第 4 步给 15′，是全场最长的一格，别压缩】</b>它是本课的落点。<b>巡场时专问一句："这条错，严重到什么程度？会出事还是只是不好看？"</b>——问不出分级的，Quality Criteria 就没写到位。</p>
+  <p><b>【第 5 步一定要真跑】</b>不跑就不知道有没有被载入。<b>这是把"静默失效"变成"当场可见"的唯一办法。</b></p>
+  <p><b>【巡场三个抓手】</b>①<span class="mono">## Your Domain</span> 还写着"相关知识"的 ②Quality Criteria 全是"要准确、要专业"这种空话的 ③把专家写成第一人称介绍自己多厉害的。</p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="收口">
+  <div class="kicker">收口 1/2</div>
+  <h2 class="title">今天这一级，走完了</h2>
+  <table class="t mt-s">
+    <tr><th style="width:26%">你学到的</th><th>一句话</th></tr>
+    <tr><td><b>放哪</b></td><td><span class="mono">studio/agents/</span>，git 跟踪，<b>同名覆盖内置</b>——跟着项目走，不是跟着人走</td></tr>
+    <tr><td><b>怎么被找到</b></td><td>动态发现五步；<b>覆盖发生在第 3 步，选择靠第 4 步的 <span class="mono">## Your Domain</span></b></td></tr>
+    <tr class="hot"><td><b>⭐ 它是什么角色</b></td><td><b>复核者，不是生成者</b>——写它"会挑什么错"，不是写它"懂什么"</td></tr>
+    <tr class="hot"><td><b>⭐ 怎么写才有用</b></td><td><b>Quality Criteria：哪些错危险、哪些只是难看</b>——写不出这块就是行业简介</td></tr>
+    <tr><td><b>怎么算失败</b></td><td><b>静默失效</b>：不报错、不警告，它只是从来没被载入过</td></tr>
+  </table>
+  <p class="huge mt-l" data-anim="fade-up">一个专家的价值，<br>在于它能<b>挑出你没想到的错</b>。</p>
+  <p class="lede mt-m" data-anim="fade-up"><b>下一步</b>：<b>A2 · 扩展插件</b>——今天写的是<b>规划期专家</b>；A2 会看到 fund-review 的两个<b>运行时专家</b>怎么红蓝对抗，
+  以及一个真实插件里<b>脚本和 agent 该怎么分工</b>。</p>
+  <div class="deck-footer"><span class="ftag">收口 1/2</span><span class="slide-number" data-current="12" data-total="13"></span></div>
+  <div class="notes"><p><b>【回到第 2 页的台阶图】</b>"二级走完了。<b>你现在手上有一个能被自动发现、能挑出错的专家——而且它在 git 里，全组都能用。</b>"</p>
+  <p><b>【接 A2 要给个钩子】</b>"今天写的专家是<b>规划期</b>用的（做画像、做域图时被叫）。A2 会看到另一种——<b>运行时专家</b>，跟着插件跑在真实业务里，而且是<b>两个对着干的</b>。"</p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-title="自查">
+  <div class="kicker">收口 2/2 · 自查</div>
+  <h2 class="title">六问</h2>
+  <table class="t mt-s">
+    <tr><th style="width:4%">#</th><th style="width:48%">问题</th><th>警示（答成这样就是没听懂）</th></tr>
+    <tr><td>1</td><td>专家放哪？冲突时谁赢？<b>为什么不放插件目录里</b>？</td><td>答"放插件目录"——<b>没想到会被更新覆盖</b></td></tr>
+    <tr><td>2</td><td>动态发现五步里，<b>覆盖发生在哪一步</b>？</td><td>以为是配置里写"覆盖"</td></tr>
+    <tr><td>3</td><td>专家是<b>生成者还是复核者</b>？这决定你写它时该写什么？</td><td>把专家写成"它懂什么"</td></tr>
+    <tr><td>4</td><td>哪一段决定它<b>会不会被选中</b>？写砸了会怎样？</td><td>想不到<span class="mono">## Your Domain</span>；<b>更想不到"静默失效"</b></td></tr>
+    <tr><td>5</td><td>Contribute 三块里<b>哪块最见功力</b>？为什么？</td><td>答"都重要"</td></tr>
+    <tr><td>6</td><td>什么情况下该<b>覆盖内置</b>而不是新建？</td><td>只会新建，<b>没想过覆盖</b></td></tr>
+  </table>
+  <p class="quote-big mt-l" data-anim="fade-up">工具不改造，<br><b>你就只能做它预设的那类项目。</b></p>
+  <p class="lede mt-m" data-anim="fade-up"><b>现场答第 3、5 题</b>（考的是写专家的心智模型，最容易听成"知道了"其实没懂）；其余对手册。<br>
+  <b>回去第一件事</b>：把今天写的专家<b>带回真实项目，重跑一次 L4 的画像，看它挑出了什么。</b></p>
+  <div class="deck-footer"><span class="ftag">自查 · 接 A2</span><span class="slide-number" data-current="13" data-total="13"></span></div>
+  <div class="notes"><p><b>【第 3、5 题现场答，各 2′】</b>这两题考的是<b>写专家时的心智模型</b>——听懂和会写之间的差距全在这里。</p>
+  <p><b>【右列是"警示"不是"错误答案"】</b>都是<b>听起来对但没抓住要害</b>的答法。</p>
+  <p><b>【收口】</b>"这门课不产交付物，产的是<b>一个能替你挑错的同事</b>——而且它写在 git 里，不会离职。"</p></div>
+</section>
+
+</div>
+<script src="./assets/runtime.js"></script>
+</body>
+</html>
