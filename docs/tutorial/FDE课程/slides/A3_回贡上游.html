@@ -50,12 +50,14 @@
   <div class="row mt-l" data-anim="fade-up">
     <span class="pill pill-accent">A 系列第三门 · 四级台阶</span>
     <span class="pill">⭐ 今天不是模拟，是真的提</span>
+    <span class="pill" style="border-color:var(--warn);color:var(--warn)">⚠️ 提到<b>内部 fork</b>，讲师统一转提上游</span>
   </div>
   <p class="src mt-m">一档来源：astra-studio-plugins 的 CLAUDE.md / AGENTS.md / README.md。⚠️ <b>该仓目前没有 CONTRIBUTING.md，规范系反推——这本身就是可提的第一个 PR</b></p>
-  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="9"></span></div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="10"></span></div>
   <div class="notes">
     <p><b>【时间盒 120′】</b> 为什么回贡 10′ ｜ 四档门槛 + 盘素材 20′ ｜ <b>⚠️ 没有 CONTRIBUTING 与三条反推规范 25′</b> ｜ PR 怎么写 15′ ｜ <b>实操 40′</b> ｜ 被拒了怎么办 + 收口 10′</p>
     <p><b>⭐【开场就把目标钉死】</b>"今天<b>不是讲怎么提 PR，是当场提一个</b>。最后 40 分钟你们要交出一个链接——PR 或 issue 都算。"</p>
+    <p><b>⚠️【开场就要交代两段式，别等到第 6 页】</b>"<b>你们的 PR 提到内部 fork，不直接提到公开上游。</b>我课后复核、脱敏检查、统一转提。<b>转提时会写明原作者，上游合并的链接回传给你们。</b>"<b>把内部 fork 地址写在白板上。</b></p>
     <p><b>【降低门槛是本课的头号任务】</b>大多数人卡在"我有什么资格提"。<b>第 3 页那张"你已经有的素材"表就是拆这个心理门槛的——他们手上早就有六个现成的 issue。</b></p>
     <p><b>【前置】</b>建议上过 A1（写过专家）+ A2（知道插件结构）。<b>没上过也能提第 ① 档（文档更正）。</b></p>
   </div>
@@ -76,7 +78,7 @@
     <tr><td><b>④ FDE 的信用</b></td><td>一个<b>被合并的 PR</b>，比简历上写十行"精通 XX"有说服力</td></tr>
   </table>
   <p class="huge mt-l" data-anim="fade-up">你在项目里踩过的坑，<br><b>提回去就成了别人的护栏。</b></p>
-  <div class="deck-footer"><span class="ftag">① 为什么</span><span class="slide-number" data-current="2" data-total="9"></span></div>
+  <div class="deck-footer"><span class="ftag">① 为什么</span><span class="slide-number" data-current="2" data-total="10"></span></div>
   <div class="notes"><p><b>【第 ① 条最实际，先说它】</b>"你在 A1 写的那个专家，如果只留在自己项目里——<b>工具下次大改，它可能就跑不起来了，而且没人告诉你。</b>进了上游，作者重构时会顺手带上它。"</p>
   <p><b>【第 ④ 条对年轻工程师有吸引力，但别讲成鸡汤】</b>就一句带过。</p></div>
 </section>
@@ -101,7 +103,7 @@
     <tr><td>第五课产出的本体插件</td><td>④</td></tr>
   </table>
   <p class="huge mt-m" data-anim="fade-up">从第 ① 档开始。<br><b>提 PR 不一定要提一整个插件。</b></p>
-  <div class="deck-footer"><span class="ftag">② 门槛 · ⭐</span><span class="slide-number" data-current="3" data-total="9"></span></div>
+  <div class="deck-footer"><span class="ftag">② 门槛 · ⭐</span><span class="slide-number" data-current="3" data-total="10"></span></div>
   <div class="notes"><p><b>⭐【这一页是全课最重要的一页——它拆的是心理门槛】</b>"大多数人不提 PR 不是因为不会，是因为觉得<b>『我这点东西不配』</b>。<b>下面这张表告诉他们：你手上早就有六个现成的 issue。</b>"</p>
   <p><b>【现场动作】</b>让学员当场翻第五课的手册，<b>找出那六处落差里最有把握的一条</b>——那就是他一会儿要提的东西。</p></div>
 </section>
@@ -121,7 +123,7 @@
     <div class="card"><h4>③ 本地测通再提</h4><p><span class="mono">claude --plugin-dir ./你改的插件</span><br><b>改 SKILL.md 立刻生效</b></p></div>
   </div>
   <p class="huge mt-m" data-anim="fade-up">别提没跑过的东西。</p>
-  <div class="deck-footer"><span class="ftag">③ 规范 · ⚠️</span><span class="slide-number" data-current="4" data-total="9"></span></div>
+  <div class="deck-footer"><span class="ftag">③ 规范 · ⚠️</span><span class="slide-number" data-current="4" data-total="10"></span></div>
   <div class="notes"><p><b>⭐【坦率讲这个现状，别遮掩】</b>"我查过了：<b>没有 CONTRIBUTING.md、没有 .github/。</b>所以我下面讲的规范是<b>反推的，不是官方明文</b>。"</p>
   <p><b>【然后立刻把它转成机会】</b>"<b>这不是缺点，是一个机会。</b>补一份 CONTRIBUTING，是最容易被接受的第一个 PR——<b>而且你们刚上完 A1/A2，比大多数人更清楚该写什么。</b>"</p>
   <p><b>【最后那句要说重】</b>"<b>别提没跑过的东西。</b>这是所有开源项目最基本的一条，也是最常被违反的一条。"</p></div>
@@ -145,9 +147,36 @@
     <div class="card card-accent"><h4>☐ 有没有私有扩展</h4><p>或平台绑定（第 5、6 条）</p></div>
   </div>
   <p class="quote-big mt-m" data-anim="fade-up">这三条过不了，<br><b>写得再好也会被打回。</b></p>
-  <div class="deck-footer"><span class="ftag">③ 四条原则</span><span class="slide-number" data-current="5" data-total="9"></span></div>
+  <div class="deck-footer"><span class="ftag">③ 四条原则</span><span class="slide-number" data-current="5" data-total="10"></span></div>
   <div class="notes"><p><b>【第 7 条和 A1 直接连着】</b>"A1 讲过：<b>专家放 studio/agents/，不是插件目录。</b>这在提 PR 时同样成立——<b>你要贡献一个专家，是贡献到 studio-insight 的 agents/ 作为新的出厂件，而不是让用户放插件里。</b>"</p>
   <p><b>【三条自查让他们抄下来】</b>一会儿实操第 5 步要用。</p></div>
+</section>
+
+<!-- 5b -->
+<section class="slide" data-title="⚠️ 两段式：提到内部 fork">
+  <div class="kicker">④ 提到哪里 · ⚠️ 本课的规矩</div>
+  <h2 class="title">你的 PR 提到内部 fork，<br>不直接提到公开上游</h2>
+  <pre class="code mt-s">第一段（你做，课上）
+  内部 fork → 建分支 → 改 → 本地 --plugin-dir 测通 → commit → push
+  → 向【内部 fork 的 main】开 PR          ← 你的交付到此为止
+
+第二段（讲师做，课后）
+  复核 + 脱敏检查 → 从内部 fork 向【公开上游】统一转提
+  → 上游 PR 链接回传给你</pre>
+  <table class="t mt-m">
+    <tr><th style="width:30%">为什么加这一段</th><th></th></tr>
+    <tr class="hot"><td><b>① 脱敏不可逆</b></td><td>上游是<b>公开仓库</b>。客户名、商务数字一旦推上去，<b>删掉了也还在 git 历史和各种镜像里</b></td></tr>
+    <tr><td><b>② 第一个 PR 不该用来试错</b></td><td>内部 fork 里可以随便改、随便重开，<b>练手成本降到零</b></td></tr>
+    <tr><td><b>③ 讲师能合并同类项</b></td><td>六个人可能提了同一处文档错，<b>一起转提比六个重复 PR 对上游更友好</b></td></tr>
+  </table>
+  <div class="card card-accent mt-m"><h4>⚠️ 这不是"你的 PR 不算数"</h4>
+    <p>转提时会在上游 PR 描述里<b>写明原作者</b>——<br><b>上游合并后的链接会回传给你，那才是你要收进简历的那个链接。</b></p></div>
+  <div class="deck-footer"><span class="ftag">④ 两段式 · ⚠️</span><span class="slide-number" data-current="6" data-total="10"></span></div>
+  <div class="notes">
+    <p><b>⚠️【这一页要讲得斩钉截铁，别留商量余地】</b>"<b>不要自己 fork 到个人账号再直提上游。</b>内部 fork 的地址在白板上。"</p>
+    <p><b>【第 ① 条是唯一不可商量的理由，其他两条是附赠】</b>"上游是<b>公开仓库</b>。你把客户名推上去，<b>后面删掉也没用——git 历史、各种镜像、搜索引擎快照，都还在。</b>"</p>
+    <p><b>⭐【立刻堵住"那我这算什么"的情绪】</b>把最后那张卡念完："<b>转提时写明原作者，上游合并的链接回传给你。</b>"——<b>不说这句，会有人觉得自己的活被截胡了。</b></p>
+  </div>
 </section>
 
 <!-- 6 -->
@@ -155,9 +184,9 @@
   <div class="kicker">④ PR 怎么写 · ⭐ 「为什么」决定命运</div>
   <h2 class="title">一个好的 PR 描述</h2>
   <div class="stepline mt-s" data-anim="fade-up">
-    <span class="s">fork</span><span class="a">→</span><span class="s">建分支</span><span class="a">→</span><span class="s">改</span><span class="a">→</span>
+    <span class="s" style="background:var(--grad-soft);border-color:var(--accent)"><b>内部 fork</b></span><span class="a">→</span><span class="s">建分支</span><span class="a">→</span><span class="s">改</span><span class="a">→</span>
     <span class="s" style="background:var(--grad-soft);border-color:var(--accent)"><b>本地测通</b></span><span class="a">→</span>
-    <span class="s">commit / push</span><span class="a">→</span><span class="s">开 PR</span>
+    <span class="s">commit / push</span><span class="a">→</span><span class="s">向<b>内部 fork</b> 开 PR</span>
   </div>
   <table class="t mt-m">
     <tr><th style="width:20%">段</th><th>写什么</th></tr>
@@ -171,7 +200,7 @@
     <div class="card goodcard"><h4>✅ 一看就知道该收</h4><p>"<b>我们在做养老机构的项目，内置的 product-manager 画出来的画像里把『助餐核销』和『膳食服务』混成一件事，业务方一眼就说不对。这个专家专门挑这类错。</b>"</p></div>
   </div>
   <p class="huge mt-m" data-anim="fade-up">reviewer 判断的不是<br>"代码写得好不好"，<br><b>是"该不该进这个项目"。</b></p>
-  <div class="deck-footer"><span class="ftag">④ PR · ⭐</span><span class="slide-number" data-current="6" data-total="9"></span></div>
+  <div class="deck-footer"><span class="ftag">④ PR · ⭐</span><span class="slide-number" data-current="7" data-total="10"></span></div>
   <div class="notes"><p><b>⭐【两张对比卡是本页的全部】</b>念一遍左边，再念一遍右边，<b>让学员自己感受差别。</b></p>
   <p><b>【为什么"为什么"最重要】</b>"因为 reviewer 手上没有你的项目背景。<b>他判断不了『这个专家好不好』，但他判断得了『有人在真实项目里被这个问题卡住了』。</b>"</p>
   <p><b>【实操时巡场就查这一段】</b>"为什么"写得少于三句的，<b>当场让他重写。</b></p></div>
@@ -184,20 +213,21 @@
   <table class="t mt-s">
     <tr><th style="width:5%">序</th><th style="width:52%">做什么</th><th>时长</th></tr>
     <tr><td>1</td><td><b>盘素材</b>——从第 3 页那张"你已经有的"表里挑一个</td><td>5′</td></tr>
-    <tr><td>2</td><td>fork + 建分支</td><td>5′</td></tr>
+    <tr><td>2</td><td><b>克隆内部 fork</b>（不是个人 fork）+ 建分支</td><td>5′</td></tr>
     <tr><td>3</td><td>改 / 加文件（<b>照 Plugin Structure 摆</b>）</td><td>10′</td></tr>
     <tr class="hot"><td>4</td><td><b>本地 <span class="mono">--plugin-dir</span> 测通</b></td><td>10′</td></tr>
-    <tr class="hot"><td>5</td><td>写 PR 描述（<b>"为什么"那段至少三句</b>）+ 开 PR</td><td>10′</td></tr>
+    <tr class="hot"><td>5</td><td>写 PR 描述（<b>"为什么"那段至少三句</b>）+ <b>向内部 fork 开 PR</b></td><td>10′</td></tr>
   </table>
   <div class="card card-accent mt-m"><h4>时间不够 / 素材不成熟？<b>提一个 issue 也算完成。</b></h4>
     <p>把你在第五课发现的<b>一处「文档说 A、代码是 B」</b>写清楚提上去——<br><b>十分钟，而且一定被接受。</b></p></div>
   <table class="t mt-m">
     <tr><th>checkout 维度</th><th>达标</th><th>警示</th></tr>
-    <tr><td><b>真的提了</b></td><td>有 <b>PR / issue 链接</b></td><td>只在本地改了没提</td></tr>
+    <tr><td><b>真的提了</b></td><td>有<b>内部 fork 上的 PR / issue 链接</b></td><td>只在本地改了没提；或<b>直接提到了公开上游</b></td></tr>
     <tr><td><b>本地测过</b></td><td>说得出<b>你跑了什么、看到了什么</b></td><td>"应该没问题"</td></tr>
     <tr><td><b>"为什么"写透了</b></td><td>描述里有<b>真实场景</b></td><td>只写改了什么</td></tr>
+    <tr class="hot"><td><b>脱敏过了</b></td><td><b>没有客户名、没有商务数字</b></td><td>把项目原文粘进 PR 描述</td></tr>
   </table>
-  <div class="deck-footer"><span class="ftag">⑤ 实操</span><span class="slide-number" data-current="7" data-total="9"></span></div>
+  <div class="deck-footer"><span class="ftag">⑤ 实操</span><span class="slide-number" data-current="8" data-total="10"></span></div>
   <div class="notes"><p><b>⭐【降级方案要提前说，别等有人卡住】</b>"如果你的素材不成熟——<b>提一个 issue 也算完成。</b>第五课那六处落差，随便挑一处，十分钟写清楚。"</p>
   <p><b>【巡场三个抓手】</b>①<b>还在纠结"我这个配不配"的</b>——直接让他提 issue ②<b>"为什么"只写了一句的</b>——当场重写 ③<b>没跑就想提的</b>——按住，先跑。</p>
   <p><b>【收尾时收链接】</b>让每个人念一下自己的 PR / issue 链接。<b>这是本课唯一的硬产出。</b></p></div>
@@ -219,7 +249,7 @@
   <div class="card card-accent mt-m"><h4>A 系列到这里走完了</h4>
     <p><b>用内置的 → 自定义专家（A1）→ 写自己的插件（A2）→ 回贡上游（A3）</b><br>
     你手上应该有：<b>一个专家 .md</b> · <b>一张真实插件的解剖图</b> · <b>一个 PR 或 issue 的链接</b></p></div>
-  <div class="deck-footer"><span class="ftag">⑥ 被拒</span><span class="slide-number" data-current="8" data-total="9"></span></div>
+  <div class="deck-footer"><span class="ftag">⑥ 被拒</span><span class="slide-number" data-current="9" data-total="10"></span></div>
   <div class="notes"><p><b>【这一页是给心理预期的，别跳】</b>"第一个 PR 被拒是常态。<b>重要的是你知道被拒的原因通常不是『你写得差』。</b>"</p>
   <p><b>【"太特化"那条最常见，展开一句】</b>"你的东西只对你一家有用——<b>那就把可变的部分抽成配置，或者干脆转成一个示例文档。作者往往乐意收示例。</b>"</p></div>
 </section>
@@ -239,8 +269,8 @@
   </table>
   <p class="quote-big mt-l" data-anim="fade-up">你在项目里踩过的坑，<br><b>提回去就成了别人的护栏。</b></p>
   <p class="lede mt-m" data-anim="fade-up"><b>现场答第 3 题</b>（陷阱题，答对的人才真听进去了）。<br>
-  <b>本课唯一硬产出</b>：一个 PR 或 issue 的链接。<b>没有链接 = 没完成。</b></p>
-  <div class="deck-footer"><span class="ftag">自查 · A 系列完</span><span class="slide-number" data-current="9" data-total="9"></span></div>
+  <b>本课唯一硬产出</b>：<b>内部 fork 上</b>的一个 PR 或 issue 链接。<b>没有链接 = 没完成。</b></p>
+  <div class="deck-footer"><span class="ftag">自查 · A 系列完</span><span class="slide-number" data-current="10" data-total="10"></span></div>
   <div class="notes"><p><b>【第 3 题现场答】</b>"这个仓的贡献规范写在哪？"——<b>答"没有，得从 CLAUDE.md 反推"的人才是真听进去了。</b>顺带再提醒一次：<b>补一份 CONTRIBUTING 就是最容易被接受的 PR。</b></p>
   <p><b>【收尾收链接】</b>没有链接的，<b>当场给五分钟提一个 issue。</b>本课的价值全在"真的提了"这一下。</p>
   <p><b>【A 系列收口】</b>"三门课下来，你从<b>只会用这套工具</b>，变成了<b>能改它、能扩它、能往回推它</b>。<b>这是 FDE 和『会用工具的人』之间的又一条分界线。</b>"</p></div>

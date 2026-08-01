@@ -843,7 +843,7 @@ S4 本体建模+设闸 → L5</code></pre>
 <tr class="even">
 <td><strong>A3</strong></td>
 <td><code>slides/A3_回贡上游.html</code></td>
-<td><strong>9</strong></td>
+<td><strong>10</strong></td>
 <td><code>课程/A3_回贡上游.md</code></td>
 </tr>
 </tbody>
@@ -1023,7 +1023,7 @@ L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插�
 <td><strong>产出</strong></td>
 <td>一个能被选中的专家 <code>.md</code></td>
 <td>一张真实插件的解剖图</td>
-<td><strong>一个 PR / issue 链接</strong>（没有链接 = 没完成）</td>
+<td><strong>一个内部 fork 上的 PR / issue 链接</strong>（没有链接 = 没完成）</td>
 </tr>
 <tr class="even">
 <td><strong>台阶</strong></td>
@@ -1035,7 +1035,7 @@ L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插�
 <td><strong>课件 / 手册</strong></td>
 <td><code>slides/A1_自定义智能体.html</code> 13 屏<br><code>课程/A1_自定义智能体.md</code></td>
 <td><code>slides/A2_扩展插件.html</code> 13 屏<br><code>课程/A2_扩展插件.md</code></td>
-<td><code>slides/A3_回贡上游.html</code> 9 屏<br><code>课程/A3_回贡上游.md</code></td>
+<td><code>slides/A3_回贡上游.html</code> 10 屏<br><code>课程/A3_回贡上游.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -1078,7 +1078,7 @@ L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插�
 <h3 id="各课骨架-1">各课骨架</h3>
 <p><strong>A1 · 自定义智能体（13 屏）</strong> ① 查找顺序就是设计（项目级 <code>studio/agents/</code> 覆盖内置，<strong>同名项目级赢</strong>）→ ② 动态发现五步（<strong>扫内置时"跳过同名"就是覆盖发生的那一行</strong>；按 <code>## Your Domain</code> 选 1–3 个）→ ③ ⭐ <strong>专家是复核者不是生成者</strong>（主角色出初稿，专家挑"不正确 / 过度简化 / 遗漏"）→ ④ 专家文件四部分解剖（<strong><code>## Your Domain</code> 决定被不被选中</strong>；<strong>Quality Criteria 最难写也最值钱</strong>：哪些错危险、哪些只是难看）→ ⑤ 什么该造什么不该造（出厂 11 个专家 + 1 模板）→ ⑥ <strong>静默失效：写错了不报错，只是不被选中</strong></p>
 <p><strong>A2 · 扩展插件（13 屏）</strong> ① fund-review 是什么（四 skill 流水线；<strong>它是工具链的产出物，不是工具链的一部分</strong>）→ ② 红蓝对抗：<code>quote-optimizer</code>（蓝·投标方）vs <code>financial-reviewer</code>（红·财评专家）→ ③ ⭐⭐ <strong>但对抗不是重点</strong>：<strong>38 个脚本 : 2 个智能体</strong>（12 个 <code>scan_*.py</code>）——能写成确定性脚本的绝不交给模型（<strong>确定 / 可测 / 便宜</strong>）→ ④ 插件骨架 + <strong>Plugin Traits</strong>（"Traits 是观察结果，不是配置项"）→ ⑤ <strong>两级工作区</strong>：<code>studio/changes/</code> 只放设计、<code>{target_dir}/</code> 只放实现，<code>status.json</code> 连接 = <strong>B-5 单一真相源</strong></p>
-<p><strong>A3 · 回贡上游（9 屏）</strong> ① 回贡对<strong>你自己</strong>的四条好处 → ② <strong>四档门槛</strong>与"你手上已经有的素材"（<strong>第五课那六处落差本身就是六个可提的 issue</strong>）→ ③ ⚠️ <strong>没有 CONTRIBUTING.md</strong>，规范从 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 反推——<strong>而补一份 CONTRIBUTING 本身就是最容易被接受的第一个 PR</strong> → ④ PR 描述四段（<strong>"为什么"那段决定命运</strong>）+ 提交前三条自查 → ⑤ 实操 40′ <strong>真提</strong> → ⑥ 被拒了怎么办</p>
+<p><strong>A3 · 回贡上游（10 屏）</strong> ① 回贡对<strong>你自己</strong>的四条好处 → ② <strong>四档门槛</strong>与"你手上已经有的素材"（<strong>第五课那六处落差本身就是六个可提的 issue</strong>）→ ③ ⚠️ <strong>没有 CONTRIBUTING.md</strong>，规范从 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 反推——<strong>而补一份 CONTRIBUTING 本身就是最容易被接受的第一个 PR</strong> → ④ ⚠️ <strong>两段式：学员提到内部 fork，讲师课后统一转提公开上游</strong> + PR 描述四段（<strong>"为什么"那段决定命运</strong>）+ 提交前三条自查 → ⑤ 实操 40′ <strong>真提</strong> → ⑥ 被拒了怎么办</p>
 <h3 id="️-口径纪律a-系列专有">⚠️ 口径纪律（A 系列专有）</h3>
 <p><strong>A1 / A2 —— 只讲仓库里真有的东西</strong></p>
 <blockquote>
@@ -1086,7 +1086,7 @@ L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插�
 </blockquote>
 <p><strong>A3 —— 不许把反推的规范说成官方规范</strong></p>
 <blockquote>
-<p>该仓<strong>没有 <code>CONTRIBUTING.md</code>、没有 <code>.github/</code></strong>。 讲的时候说「<strong>我从 <code>CLAUDE.md</code> 反推出来的</strong>」，<strong>不要说「项目规定」</strong>。 <strong>这又是一次 L1 三档来源纪律的元示范</strong>——和 S3 的「Ontology Studio」是同一类事。 A3 的实操是<strong>真的向公开仓库提 PR / issue</strong>，提交内容按脱敏口径走：<strong>不带客户名、不带商务数字。</strong></p>
+<p>该仓<strong>没有 <code>CONTRIBUTING.md</code>、没有 <code>.github/</code></strong>。 讲的时候说「<strong>我从 <code>CLAUDE.md</code> 反推出来的</strong>」，<strong>不要说「项目规定」</strong>。 <strong>这又是一次 L1 三档来源纪律的元示范</strong>——和 S3 的「Ontology Studio」是同一类事。 ⚠️ <strong>A3 的实操走两段式</strong>：<strong>学员提到内部 fork</strong>（讲师开课前建好、地址写进 T-1 天通知）， <strong>讲师课后复核 + 脱敏检查，再从内部 fork 向公开上游统一转提，上游链接回传给学员</strong>。 <strong>不要让学员自己 fork 到个人账号直提上游</strong>——上游是公开仓库，<strong>脱敏不可逆</strong>。 脱敏是两道关：<strong>学员自己先过一遍，讲师转提前再查一次</strong>（不带客户名、不带商务数字）。 ⚠️ <strong>转提时必须在上游 PR 描述里写明原作者</strong>，否则学员会觉得自己的活被截胡了。</p>
 </blockquote>
 </body>
 </html>

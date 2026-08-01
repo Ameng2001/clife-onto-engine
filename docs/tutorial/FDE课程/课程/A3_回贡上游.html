@@ -217,7 +217,7 @@
 </header>
 <h1 id="专题课-a3--回贡上游把你踩过的坑变成别人的护栏">专题课 A3 · 回贡上游：把你踩过的坑变成别人的护栏</h1>
 <blockquote>
-<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 120 分钟 · 讲解 + <strong>实操（真的提一个 PR）</strong> 配套课件：<code>slides/A3_回贡上游.html</code>（讲师投屏）</p>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 120 分钟 · 讲解 + <strong>实操（真的提一个 PR）</strong> ⚠️ <strong>本课的 PR 提到【内部 fork】，由讲师复核后统一转提公开上游</strong>——见第四章 4.1 配套课件：<code>slides/A3_回贡上游.html</code>（讲师投屏）</p>
 <p><strong>教材来源（一档）</strong>：<code>astra-studio-plugins</code> 的 <code>CLAUDE.md</code> / <code>AGENTS.md</code> / <code>README.md</code>。 ⚠️ <strong>本课有一个诚实前提</strong>：<strong>该仓目前没有 <code>CONTRIBUTING.md</code>，也没有 <code>.github/</code></strong>。 下面的规范是<strong>从代码约定反推的</strong>，不是官方明文——<strong>而这本身就是你能提的第一个 PR。</strong></p>
 </blockquote>
 <hr />
@@ -258,7 +258,7 @@
 <li><input type="checkbox" disabled="" />
 说出提 PR 前<strong>必须自查的三件事</strong></li>
 <li><input type="checkbox" disabled="" />
-⭐ <strong>现场提出一个 PR</strong>（或至少一个 issue）</li>
+⭐ <strong>现场向内部 fork 提出一个 PR</strong>（或至少一个 issue）</li>
 </ul>
 <hr />
 <h1 id="一为什么要回贡">一、为什么要回贡</h1>
@@ -424,9 +424,46 @@
 </blockquote>
 <hr />
 <h1 id="四提-pr-的动作">四、提 PR 的动作</h1>
-<h2 id="41-流程">4.1 流程</h2>
-<pre><code>fork → 建分支 → 改 → 本地 --plugin-dir 测通 → commit → push → 开 PR</code></pre>
-<h2 id="42-一个好-pr-描述包含什么">4.2 一个好 PR 描述包含什么</h2>
+<h2 id="41-️-本课走两段式你提到内部-fork讲师统一转提上游">4.1 ⚠️ 本课走两段式：你提到内部 fork，讲师统一转提上游</h2>
+<p><strong>你今天不直接向公开上游仓提 PR。</strong></p>
+<pre><code>第一段（你做，课上）
+  内部 fork → 建分支 → 改 → 本地 --plugin-dir 测通 → commit → push
+  → 向【内部 fork 的 main】开 PR          ← 你的交付到此为止
+
+第二段（讲师做，课后）
+  复核 + 脱敏检查 → 从内部 fork 向【公开上游】统一转提
+  → 上游 PR 链接回传给你</code></pre>
+<blockquote>
+<p><strong>内部 fork 的地址由讲师在开课前给出</strong>（T-1 天通知里）。<strong>不要自己 fork 到个人账号再直提上游。</strong></p>
+</blockquote>
+<p><strong>为什么加这一段：</strong></p>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>① 脱敏是不可逆的</strong></td>
+<td>上游是<strong>公开仓库</strong>。客户名、商务数字一旦推上去，<strong>删掉了也还在 git 历史和各种镜像里</strong>。多一道人工复核，成本很低</td>
+</tr>
+<tr class="even">
+<td><strong>② 你的第一个 PR 不该用来试错</strong></td>
+<td>内部 fork 里可以随便改、随便重开。<strong>练手的成本降到零</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>③ 讲师能合并同类项</strong></td>
+<td>六个人可能提了同一处文档错。<strong>一起转提比六个重复 PR 好看得多</strong>，对上游也更友好</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>这不是"你的 PR 不算数"。</strong> 转提时讲师会在上游 PR 描述里写明原作者， <strong>上游合并后的链接会回传给你——那才是你要收进简历的那个链接。</strong></p>
+</blockquote>
+<h2 id="42-流程细节">4.2 流程细节</h2>
+<pre><code>fork（用内部 fork，不是个人 fork）
+  → 建分支
+  → 改
+  → 本地 --plugin-dir 测通      ← 这一步不能省，讲师转提时不会替你测
+  → commit → push
+  → 向内部 fork 的 main 开 PR</code></pre>
+<h2 id="43-一个好-pr-描述包含什么">4.3 一个好 PR 描述包含什么</h2>
 <table>
 <thead>
 <tr class="header">
@@ -457,7 +494,7 @@
 <blockquote>
 <p>「加了一个养老照护专家」—— reviewer 不知道该不该收。 「<strong>我们在做养老机构的项目，内置的 product-manager 画出来的画像里把『助餐核销』和『膳食服务』混成一件事，业务方一眼就说不对。这个专家专门挑这类错</strong>」—— <strong>一看就知道该收。</strong></p>
 </blockquote>
-<h2 id="43-提之前的三条自查">4.3 提之前的三条自查</h2>
+<h2 id="44-提之前的三条自查">4.4 提之前的三条自查</h2>
 <ul class="task-list">
 <li><input type="checkbox" disabled="" />
 <strong>本地 <code>--plugin-dir</code> 跑过了吗？</strong></li>
@@ -487,7 +524,7 @@
 </tr>
 <tr class="even">
 <td>2</td>
-<td>fork + 建分支</td>
+<td><strong>克隆内部 fork</strong>（不是个人 fork）+ 建分支</td>
 <td>5′</td>
 </tr>
 <tr class="odd">
@@ -502,12 +539,15 @@
 </tr>
 <tr class="odd">
 <td>5</td>
-<td>写 PR 描述（<strong>"为什么"那段至少三句</strong>）+ 开 PR</td>
+<td>写 PR 描述（<strong>"为什么"那段至少三句</strong>）+ <strong>向内部 fork 的 main 开 PR</strong></td>
 <td>10′</td>
 </tr>
 </tbody>
 </table>
-<p><strong>如果时间不够 / 素材不成熟</strong>：<strong>提一个 issue 也算完成。</strong> 把你在第五课发现的一处「文档说 A、代码是 B」写清楚提上去——<strong>十分钟，而且一定被接受。</strong></p>
+<p><strong>如果时间不够 / 素材不成熟</strong>：<strong>在内部 fork 提一个 issue 也算完成。</strong> 把你在第五课发现的一处「文档说 A、代码是 B」写清楚提上去——<strong>十分钟，而且一定被接受。</strong></p>
+<blockquote>
+<p>⚠️ <strong>提交前自己先过一遍脱敏</strong>：<strong>不带客户名、不带商务数字。</strong> 讲师转提时会再查一次，但<strong>第一道关是你</strong>——上游是公开仓库，推上去就删不干净了。</p>
+</blockquote>
 <h2 id="checkout-硬指标">checkout 硬指标</h2>
 <table>
 <thead>
@@ -520,8 +560,8 @@
 <tbody>
 <tr class="odd">
 <td><strong>真的提了</strong></td>
-<td>有 PR / issue 链接</td>
-<td>只在本地改了没提</td>
+<td><strong>有内部 fork 上的 PR / issue 链接</strong></td>
+<td>只在本地改了没提；或<strong>直接提到了公开上游</strong></td>
 </tr>
 <tr class="even">
 <td><strong>本地测过</strong></td>
@@ -537,6 +577,11 @@
 <td>位置对</td>
 <td>符合 Plugin Structure</td>
 <td>自创目录</td>
+</tr>
+<tr class="odd">
+<td><strong>脱敏过了</strong></td>
+<td><strong>没有客户名、没有商务数字</strong></td>
+<td><strong>把项目原文粘进 PR 描述</strong></td>
 </tr>
 </tbody>
 </table>
@@ -580,6 +625,7 @@
 <p><strong>4.</strong> 提 PR 前必须自查的<strong>三件事</strong>是什么？</p>
 <p><strong>5.</strong> 一个好的 PR 描述里，<strong>哪一段决定它的命运</strong>？为什么？</p>
 <p><strong>6.</strong> PR 被拒了，最常见的原因是什么？</p>
+<p><strong>7.</strong> 本课的 PR <strong>提到哪里</strong>？为什么不直接提到公开上游？</p>
 <hr />
 <h2 id="参考答案">参考答案</h2>
 <p><strong>1.</strong>（任两条）① <strong>你的定制不再是孤儿</strong>——进了上游会跟着工具一起演进，不用每次升级自己适配； ② <strong>别人替你维护</strong>；③ <strong>你踩的坑别人不用再踩</strong>；④ <strong>一个被合并的 PR，比简历上十行"精通 XX"有说服力</strong>。</p>
@@ -588,6 +634,7 @@
 <p><strong>4.</strong> ① <strong>本地 <code>--plugin-dir</code> 跑过了吗</strong>（⚠️ <strong>别提没跑过的东西</strong>） ② <strong>文件位置符合 Plugin Structure 吗</strong> ③ <strong>有没有私有扩展 / 平台绑定</strong>（Design Principles 第 5、6 条）</p>
 <p><strong>5.</strong> <strong>「为什么」那一段。</strong> 因为 reviewer 判断的不是"这段代码写得好不好"，是"<strong>这个东西该不该进这个项目</strong>"—— 而只有你说清了<strong>真实场景</strong>，他才判断得了。 「加了一个养老照护专家」他不知道该不该收； 「我们做养老项目，内置 product-manager 把『助餐核销』和『膳食服务』混成一件事，业务方一眼说不对」——<strong>一看就知道该收</strong>。</p>
 <p><strong>6.</strong> <strong>范围不合</strong>（作者想放别处）和<strong>太特化</strong>（只对你一家有用）。 都不是"写得差"。前者问清该放哪再提；后者<strong>改成可配置的，或转成文档 / 示例</strong>。 ⭐ <strong>被拒的 PR 不是白写的</strong>——你把那件事想清楚了一遍，分支还在，下个项目接着用。</p>
+<p><strong>7.</strong> 提到<strong>内部 fork</strong>，讲师复核后统一转提公开上游。 三条理由：① <strong>脱敏不可逆</strong>——上游是公开仓，客户名 / 商务数字推上去，删了也还在 git 历史里； ② <strong>第一个 PR 不该用来试错</strong>——内部 fork 里可以随便重开； ③ <strong>讲师能合并同类项</strong>——六个人可能提了同一处文档错。 ⚠️ <strong>这不是"你的 PR 不算数"</strong>：转提时会写明原作者，<strong>上游合并后的链接回传给你</strong>。</p>
 <hr />
 <h2 id="你的产出去了哪里">你的产出去了哪里</h2>
 <table>
@@ -598,7 +645,7 @@
 </tr>
 <tr class="even">
 <td><strong>你手上应该有</strong></td>
-<td>一个 PR 或 issue 的链接</td>
+<td><strong>一个内部 fork 上的 PR 或 issue 链接</strong>；讲师转提上游后，<strong>上游链接会回传给你</strong></td>
 </tr>
 <tr class="odd">
 <td><strong>下一次</strong></td>
@@ -621,7 +668,10 @@
 <p>⭐ <strong>补一份 CONTRIBUTING.md，就是你能提的第一个 PR。</strong></p>
 </blockquote>
 <hr />
-<p><strong>流程</strong>：fork → 分支 → 改 → <strong><code>claude --plugin-dir ./你改的插件</code> 测通</strong> → commit → push → PR</p>
+<p><strong>流程（两段式）</strong> <strong>你做</strong>：<strong>内部 fork</strong> → 分支 → 改 → <strong><code>claude --plugin-dir ./你改的插件</code> 测通</strong> → commit → push → <strong>向内部 fork 开 PR</strong> <strong>讲师做</strong>：复核 + <strong>脱敏检查</strong> → 统一转提公开上游 → <strong>上游链接回传给你</strong></p>
+<blockquote>
+<p>⚠️ <strong>不要自己 fork 到个人账号直提上游</strong>——上游是公开仓，脱敏不可逆。</p>
+</blockquote>
 <p><strong>提之前三自查</strong>：跑过了吗 · 位置对吗 · 有没有私有扩展/平台绑定</p>
 <blockquote>
 <h3 id="️-别提没跑过的东西-1">⚠️ 别提没跑过的东西。</h3>
