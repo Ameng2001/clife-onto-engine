@@ -1,0 +1,76 @@
+name: publish-tutorial
+
+# 把 docs/tutorial/FDE课程 发布到 Ameng2001/fde-workshop（GitHub Pages 站点）。
+# 本仓库是教材的唯一真相源；fde-workshop 是只读的发布副本，每次同步整体覆盖。
+#
+# 需要一个仓库 secret：FDE_WORKSHOP_TOKEN
+#   —— 一个对 Ameng2001/fde-workshop 有 Contents: write 权限的 PAT
+#   （Fine-grained token 选该仓库 + Repository permissions → Contents: Read and write）
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/tutorial/**'
+      - '.github/workflows/publish-tutorial.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: publish-tutorial
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出教材源
+        uses: actions/checkout@v4
+
+      - name: 检出发布仓库
+        uses: actions/checkout@v4
+        with:
+          repository: Ameng2001/fde-workshop
+          token: ${{ secrets.FDE_WORKSHOP_TOKEN }}
+          path: .publish
+
+      - name: 同步内容（整体覆盖，保留站点专属文件）
+        run: |
+          set -euo pipefail
+          SRC="docs/tutorial/FDE课程"
+          DST=".publish"
+
+          # 站点专属、不来自上游的文件：同步时保留
+          #   index.html  站点首页（落地页，上游没有）
+          #   README.md   发布仓库说明
+          #   .nojekyll   否则 Jekyll 会忽略 _legacy/ 等下划线开头的目录
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='index.html' \
+            --exclude='README.md' \
+            --exclude='.nojekyll' \
+            "$SRC"/ "$DST"/
+
+          # .nojekyll 兜底：万一发布仓库里被删了，补回来
+          touch "$DST/.nojekyll"
+
+          find "$DST" -name '.DS_Store' -delete || true
+
+      - name: 提交并推送
+        working-directory: .publish
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "教材无变化，跳过。"
+            exit 0
+          fi
+          git commit -m "sync: 来自 clife-onto-engine@${GITHUB_SHA::7}
+
+上游提交：${{ github.event.head_commit.message }}
+
+由 .github/workflows/publish-tutorial.yml 自动同步。
+请勿直接在本仓库提交——下次同步会被覆盖。"
+          git push
+          echo "已发布 → https://ameng2001.github.io/fde-workshop/"
