@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>专题课 A2 · 扩展插件：拆透 fund-review，学会写自己的</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">专题课 A2 · 扩展插件：拆透 fund-review，学会写自己的</h1>
+</header>
+<h1 id="专题课-a2--扩展插件拆透-fund-review学会写自己的">专题课 A2 · 扩展插件：拆透 fund-review，学会写自己的</h1>
+<blockquote>
+<p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 180 分钟 · 讲解 + <strong>当场读码</strong> 配套课件：<code>slides/A2_扩展插件.html</code>（讲师投屏）</p>
+<p><strong>教材来源（一档）</strong>：<code>astra-studio-plugins/fund-review</code> 全仓 <strong>54 个文件</strong> + <code>CLAUDE.md</code> / <code>AGENTS.md</code>。 <strong>本课所有数字都数过</strong>：38 个脚本（其中 <strong>12 个 <code>scan_*.py</code></strong>）· 4 个 skill · 2 个 agent · 4 个命令 · 5 个 reference。 <strong>可以当场 <code>ls</code> 核对。</strong></p>
+</blockquote>
+<hr />
+<h2 id="本课在-a-系列的位置">本课在 A 系列的位置</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th>台阶</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A1</strong></td>
+<td>自定义智能体——让工具懂你这一行</td>
+<td>二级</td>
+</tr>
+<tr class="even">
+<td><strong>A2</strong>（本课）</td>
+<td><strong>扩展插件</strong>——拆透 fund-review，学会写自己的</td>
+<td><strong>三级</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>A3</strong></td>
+<td>回贡上游——把你的东西提回去</td>
+<td>四级</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A1 你写了一个 <code>.md</code>。今天要看的是：一个真实插件的 54 个文件是怎么组织的。</strong></p>
+<p><strong>读完这一课，你应该能做到</strong>：</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+说出 fund-review 的<strong>身份</strong>——它和 <code>studio-*</code> 插件的两点区别</li>
+<li><input type="checkbox" disabled="" />
+解释<strong>红蓝对抗</strong>的设计，以及<strong>两个 agent 为什么都没有 Write 权限</strong></li>
+<li><input type="checkbox" disabled="" />
+⭐ 说出 <strong>38 个脚本对 2 个 agent</strong> 这个比例意味着什么</li>
+<li><input type="checkbox" disabled="" />
+说出 <strong>Plugin Traits</strong> 是什么，以及"观察不是配置"是什么意思</li>
+<li><input type="checkbox" disabled="" />
+说出<strong>设计文档与 SKILL.md 为什么要物理分在两处</strong></li>
+<li><input type="checkbox" disabled="" />
+说得出<strong>从零起一个插件的路径</strong>，以及本地怎么调</li>
+</ul>
+<hr />
+<h1 id="一fund-review-是什么">一、fund-review 是什么</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>干什么</strong></td>
+<td>政府 IT 采购的<strong>报价优化 + 财评预审</strong>——按地方预算标准出优化建议、重写报价表、产带引用的评分报告</td>
+</tr>
+<tr class="even">
+<td><strong>规模</strong></td>
+<td><strong>54 个文件</strong>：<strong>38 个脚本</strong>（其中 <strong>12 个 <code>scan_*.py</code></strong>）· 4 个 skill · <strong>2 个 agent</strong> · 4 个命令 · 5 个 reference</td>
+</tr>
+<tr class="odd">
+<td><strong>身份</strong></td>
+<td>⭐ <strong>不是 studio 工具链的一部分，是工具链产出的领域插件</strong>——只是搭同一个 marketplace 发布</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11--vertical-plugin这个身份">1.1 ⭐ "Vertical Plugin"这个身份</h2>
+<p><code>CLAUDE.md</code> 专门有一节说这件事，两点区别：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>fund-review</th>
+<th>所有 <code>studio-*</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>运行时工作区</strong></td>
+<td><code>stateful</code>，会话落在用户项目的 <code>.fund-review/{session-id}/</code>——<strong>不在 <code>studio/</code> 下</strong></td>
+<td>用 <code>studio/</code></td>
+</tr>
+<tr class="even">
+<td><strong>外部依赖</strong></td>
+<td>需要 <code>openpyxl</code> / <code>python-docx</code></td>
+<td><strong>一个都不需要第三方包</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>它的设计文档不在这个仓</strong>，在单独的 <code>fund-review-plugins</code> 仓的 <code>studio/changes/fund-review/</code>—— <strong>这正是"设计与实现分离"的实例</strong>（第四章）。</p>
+<blockquote>
+<p><strong>它证明的不是"这个插件多厉害"，是"这套工具链能造出这种量级的东西"。</strong></p>
+<p>⭐ <strong>你第五课产出的本体插件、以后要做的行业插件——都是这个身份。</strong> <strong>fund-review 就是你们的未来样本。</strong></p>
+</blockquote>
+<h2 id="12-四个-skill-是一条流水线">1.2 四个 skill 是一条流水线</h2>
+<table>
+<thead>
+<tr class="header">
+<th>skill</th>
+<th>干什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>init-session</code></td>
+<td>初始化会话工作区，解析输入</td>
+</tr>
+<tr class="even">
+<td><code>quote-optimize</code></td>
+<td>对着预算标准 + 全局定价指引，<strong>出优化建议</strong></td>
+</tr>
+<tr class="odd">
+<td><code>quote-review</code></td>
+<td>对着标准<strong>打分，产带引用的评审报告</strong></td>
+</tr>
+<tr class="even">
+<td><code>quote-rewrite</code></td>
+<td><strong>按已批准的方案</strong>改写原始报价表</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <strong>注意 <code>quote-rewrite</code> 的措辞：「按已批准的方案」。</strong> <strong>改表这一步在人批准之后，不在 agent 手里</strong>——这是第二章那条设计的伏笔。</p>
+<hr />
+<h1 id="二-红蓝对抗">二、⭐ 红蓝对抗</h1>
+<h2 id="21-两个-agent站在对立面">2.1 两个 agent，站在对立面</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>蓝方 <code>quote-optimizer</code></strong></th>
+<th><strong>红方 <code>financial-reviewer</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>人设</td>
+<td>"资深售前方案架构师，深谙政府 IT 采购报价"</td>
+<td>"政府财评专家"</td>
+</tr>
+<tr class="even">
+<td>立场</td>
+<td><strong>站投标方</strong>，想让报价过审</td>
+<td><strong>站评审方</strong>，逐条质询</td>
+</tr>
+<tr class="odd">
+<td>输入</td>
+<td>扫描器发现 + 全局定价指引 + 标准条款索引</td>
+<td>每一条 <code>warn</code> / <code>fail</code> 的行数据</td>
+</tr>
+<tr class="even">
+<td>干什么</td>
+<td><strong>筛选、排序、解释</strong>——为什么这条该改，引哪一条标准</td>
+<td><strong>挑战每一条</strong>，要求页码引用</td>
+</tr>
+<tr class="odd">
+<td>原话</td>
+<td>「同时说 <strong>投标商务</strong> 和 <strong>财评专家</strong> 两种语言」</td>
+<td>「<strong>绝不批准一个你无法在标准公式里追溯出来的数字</strong>」</td>
+</tr>
+</tbody>
+</table>
+<h2 id="22--最见功力的一处两个-agent-都没有-write">2.2 ⭐⭐ 最见功力的一处：两个 agent 都没有 Write</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">allowed-tools</span><span class="kw">:</span><span class="at"> Read, Bash, Glob</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scope</span><span class="kw">:</span><span class="at"> runtime</span></span></code></pre></div>
+<p><strong>两份 agent 定义的 frontmatter 一模一样——都没有 Write。</strong></p>
+<p><strong>它们只能查证与质询，不能改报价表。</strong> 真正改表的是 <code>quote-rewrite</code> 里的确定性脚本，<strong>改什么由人批准的方案决定</strong>。</p>
+<blockquote>
+<h3 id="评审方要是能改报价它就不是评审方了"><strong>评审方要是能改报价，它就不是评审方了。</strong></h3>
+</blockquote>
+<p>这是**「权限即职责」**的又一次出现：</p>
+<table>
+<thead>
+<tr class="header">
+<th>课</th>
+<th>例子</th>
+<th>同一条判断</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>第五课</strong></td>
+<td><code>ontology-validate</code> <strong>没有 Write</strong></td>
+<td>校验器<strong>物理上不可能</strong>替你抹平不合格的地方</td>
+</tr>
+<tr class="even">
+<td><strong>本课</strong></td>
+<td>两个红蓝 agent <strong>都没有 Write</strong></td>
+<td>评审与优化<strong>只能提意见，不能自己动手</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>好的角色设计不是靠嘱咐"你别乱改"，是让它想改也改不了。</strong></p>
+</blockquote>
+<h2 id="23-什么时候值得设红蓝">2.3 什么时候值得设红蓝</h2>
+<blockquote>
+<p><strong>当一件事有明确的对立立场，而且两边都有专业性的时候。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>✅ 适合</th>
+<th>❌ 不适合</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>报价 vs 财评 · 开发 vs 安全 · 业务 vs 合规</td>
+<td>只有一个正确答案的任务</td>
+</tr>
+<tr class="even">
+<td>两边都需要专业判断，而且<strong>盲区互补</strong></td>
+<td>只是想"多一个人看看"——<strong>那用一个复核专家就够（A1）</strong></td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <strong>别滥用</strong>——<strong>对抗的成本是双倍的推理</strong>。</p>
+<hr />
+<h1 id="三-但红蓝对抗不是这个插件的重点">三、⭐⭐ 但红蓝对抗<strong>不是</strong>这个插件的重点</h1>
+<h2 id="31-数一下构成">3.1 数一下构成</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>脚本</strong></td>
+<td><strong>38 个</strong>（其中 <strong>12 个 <code>scan_*.py</code></strong> 扫描器）</td>
+</tr>
+<tr class="even">
+<td>skill</td>
+<td>4 个</td>
+</tr>
+<tr class="odd">
+<td><strong>agent</strong></td>
+<td><strong>2 个</strong></td>
+</tr>
+</tbody>
+</table>
+<pre><code>12 个确定性扫描器 → findings.json → agent 筛选·排序·解释 → 人批准方案 → 确定性脚本改表
+    scan_*.py</code></pre>
+<blockquote>
+<h3 id="能确定性算的全写成了脚本agent-只处理需要判断的那一段"><strong>能确定性算的，全写成了脚本；agent 只处理"需要判断"的那一段。</strong></h3>
+</blockquote>
+<h2 id="32-12-个扫描器都在扫什么">3.2 12 个扫描器都在扫什么</h2>
+<table>
+<thead>
+<tr class="header">
+<th>扫描器</th>
+<th>扫什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>scan_subject</code></td>
+<td>科目对齐</td>
+</tr>
+<tr class="even">
+<td><code>scan_semantic</code></td>
+<td>平台 vs 大模型的<strong>语义重叠</strong></td>
+</tr>
+<tr class="odd">
+<td><code>scan_redundancy</code></td>
+<td><strong>跨工作簿 / sheet 的重复内容</strong></td>
+</tr>
+<tr class="even">
+<td><code>scan_labor</code></td>
+<td>人工定价</td>
+</tr>
+<tr class="odd">
+<td><code>scan_workdays</code></td>
+<td><strong>人天极值</strong></td>
+</tr>
+<tr class="even">
+<td><code>scan_caps</code></td>
+<td><strong>比例守恒</strong>（标准里的硬上限）</td>
+</tr>
+<tr class="odd">
+<td><code>scan_completeness</code></td>
+<td>9 大费用科目<strong>缺失情况</strong></td>
+</tr>
+<tr class="even">
+<td><code>scan_summary_sheets</code></td>
+<td>汇总 sheet 缺失</td>
+</tr>
+<tr class="odd">
+<td><code>scan_brand_models</code></td>
+<td><strong>设备品牌型号 ≥3</strong>（标准表 7 注 3 的硬要求）</td>
+</tr>
+<tr class="even">
+<td><code>scan_commercial</code></td>
+<td>商业组件识别（填补"软件产品购置费 = ¥0"缺口）</td>
+</tr>
+<tr class="odd">
+<td><code>scan_evidence</code></td>
+<td><strong>取值依据</strong></td>
+</tr>
+<tr class="even">
+<td><code>scan_ops</code></td>
+<td>大模型运维 / 运营行合规</td>
+</tr>
+</tbody>
+</table>
+<p>⭐ <strong>每一条都是"照规则一查就知道"的事</strong>—— <strong>品牌型号够不够 3 个、比例有没有超上限、9 大科目缺了哪个、有没有跨表重复。</strong></p>
+<p><strong>这些交给脚本，因为它们不需要判断。</strong></p>
+<h2 id="33-那-agent-干什么">3.3 那 agent 干什么</h2>
+<table>
+<thead>
+<tr class="header">
+<th>交给确定性脚本</th>
+<th>才交给 agent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>上面 12 类扫描</td>
+<td>从一堆发现里<strong>挑出真正值得提的</strong></td>
+</tr>
+<tr class="even">
+<td>解析报价表 · 解析标准 · 公式引擎</td>
+<td><strong>排优先级</strong></td>
+</tr>
+<tr class="odd">
+<td>重写表格 · 生成报告与交付件</td>
+<td><strong>用标准条款解释为什么</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>逐条质询、要求引用页码</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="这就是-s2s3-讲的确定性优先在插件层的活体"><strong>这就是 S2/S3 讲的「确定性优先」，在插件层的活体。</strong></h3>
+<p>S3 讲 Deterministic Agent Runtime 时说： <strong>交易、库存、调度交确定性逻辑，只有意图识别和异常研判调大模型。</strong> <strong>fund-review 就是这条原则在一个真实插件里的样子——扫描是确定的，判断才是模型的。</strong></p>
+</blockquote>
+<h2 id="34--给你的可迁移判据">3.4 ⭐ 给你的可迁移判据</h2>
+<blockquote>
+<h3 id="这一步能不能写成脚本能就别交给模型"><strong>这一步能不能写成脚本？能，就别交给模型。</strong></h3>
+<p>模型是用来处理"<strong>规则说不清但人能判断</strong>"那一段的， <strong>不是用来做你懒得写的计算。</strong></p>
+</blockquote>
+<p><strong>三个理由</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>确定性</strong>——脚本每次结果一样，模型不保证</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>可测</strong>——脚本能写单测，提示词不能</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>成本</strong>——<strong>确定性脚本跑一万次成本不变，agent 跑一万次要付一万次的钱</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这一条不依赖 Astra Studio。做任何 AI 应用都成立。</strong></p>
+</blockquote>
+<hr />
+<h1 id="四插件的骨架">四、插件的骨架</h1>
+<h2 id="41-plugin-structure一个插件长什么样">4.1 Plugin Structure：一个插件长什么样</h2>
+<pre><code>plugin-name/
+├── .claude-plugin/plugin.json   # 清单（name / description / version）
+├── commands/                    # 斜杠命令（.md）
+├── skills/{skill-name}/SKILL.md # 具体任务
+├── agents/                      # 子智能体角色定义（.md）
+├── hooks/                       # 事件驱动自动化（hooks.json）
+├── scripts/                     # Python 辅助脚本
+├── references/                  # 按需加载的参考文档
+└── templates/                   # 脚手架模板</code></pre>
+<p>⭐ <strong>注意 <code>references/</code>——"按需加载"</strong>。 这就是第三课讲的<strong>渐进式披露</strong>：<code>SKILL.md</code> 是入口，长东西放 <code>references/</code>，<strong>用到才读</strong>。</p>
+<h2 id="42-plugin-traits观察不是配置">4.2 Plugin Traits：观察，不是配置</h2>
+<p><code>skill-design</code> 阶段会从<strong>规划产物</strong>里"看出"插件的横切特征，这些特征驱动 <code>spec-generate</code> 生成不同的脚手架：</p>
+<table>
+<thead>
+<tr class="header">
+<th>Trait</th>
+<th>意思</th>
+<th>会自动生成什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>stateful</code></td>
+<td>跨会话管理项目数据</td>
+<td><strong><code>init-workspace</code> skill + 运行时配置/状态模板</strong></td>
+</tr>
+<tr class="even">
+<td><code>hil-gated</code></td>
+<td>流程里有人工审批关口</td>
+<td>相关 SKILL.md 里的 <code>## Approval Gate</code> 段</td>
+</tr>
+<tr class="odd">
+<td><code>kb-dependent</code></td>
+<td>需要 LLM 之外的领域知识</td>
+<td>KB 集成说明；可能配一个知识库插件</td>
+</tr>
+<tr class="even">
+<td><code>multi-pipeline</code></td>
+<td>2 个以上独立业务流</td>
+<td>按管线分别生成编排命令</td>
+</tr>
+<tr class="odd">
+<td><code>expert-scoped</code></td>
+<td><strong>运行时需要与规划期不同的专家</strong></td>
+<td><strong><code>agents/</code> 里的运行时 agent 定义</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="traits-are-observations-not-configuration"><strong>Traits are observations, not configuration.</strong></h3>
+<p><strong>你不"配置" trait，是工具从你已经写下的东西里推断出来的。</strong> 没检测到 trait 的插件，走标准生成路径，<strong>不多不少</strong>。</p>
+</blockquote>
+<p><strong>这背后是一个设计立场</strong>：不给你一堆开关让你勾，而是从产物里推断—— <strong>少一层配置，就少一层"配错了但没人发现"。</strong></p>
+<p>⭐ <strong>fund-review 同时命中两个</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>Trait</th>
+<th>在 fund-review 里的样子</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>stateful</code></td>
+<td><code>.fund-review/{session-id}/</code>（第一章那个运行时工作区）</td>
+</tr>
+<tr class="even">
+<td><code>expert-scoped</code></td>
+<td><strong>那两个红蓝 agent</strong>（第二章）——<strong>它们是运行时专家，不是规划期专家</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>A1 你写的是规划期专家</strong>（做画像、域图时被叫）； <strong>这两个是运行时专家</strong>（跟着插件跑在真实业务里）。 <strong><code>expert-scoped</code> 这个 trait，就是这两者的分界。</strong></p>
+</blockquote>
+<h2 id="43-两级工作区--设计与实现分离">4.3 两级工作区 + 设计与实现分离</h2>
+<pre><code>studio/changes/{plugin}/   ← 只放设计文档：brief.md · skill-map.md · status.json · plugin.json.draft
+{target_dir}/              ← 只放实现：SKILL.md · commands/ · scripts/ · agents/
+
+status.json 里的 target_dir 字段，是这两边唯一的连线。</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>域工作区</strong> <code>type: "domain"</code></th>
+<th><strong>插件工作区</strong> <code>type: "plugin"</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>装什么</td>
+<td>event-storm.md · domain-map.md · personas/ journeys/ processes/</td>
+<td><strong>只有设计文档</strong></td>
+</tr>
+<tr class="even">
+<td>特点</td>
+<td>⭐ <strong>可被多个插件共享</strong></td>
+<td><strong>不含 SKILL.md 与 commands</strong>——那些在 <code>target_dir</code>；靠 <code>domain</code> 字段指回父域</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么要这样切——单一真相源，不重复。</strong></p>
+<blockquote>
+<p>如果设计目录里也放一份 SKILL.md，<strong>它和实现里那份迟早不一致</strong>，而且你不知道该信哪份。</p>
+<h3 id="同一件东西只存在于一个地方"><strong>同一件东西只存在于一个地方</strong>——</h3>
+<p><strong>这是这门课程反复讲的 B-5，在工具设计上的同一条判断。</strong></p>
+</blockquote>
+<p>⭐ <strong>好的工具会替你守住纪律，而不是靠你自觉。</strong></p>
+<p>⭐ <strong>域工作区可共享</strong>有实际价值：一次事件风暴产出的域图和画像可以喂给多个插件， <strong>别每个插件重做一次业务分析。</strong></p>
+<hr />
+<h1 id="五从零起一个插件">五、从零起一个插件</h1>
+<h2 id="51-路径">5.1 路径</h2>
+<pre><code>plan → build-skills（产可跑的初稿）→ skill-creator 反复打磨（拿真实输入测）→ validate → promote（v0.1 → v0.2）</code></pre>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>「Initial fill, not final build」</strong></td>
+<td><code>build-skills</code> 产的是<strong>能跑的初稿</strong>，不是成品。<strong>指望它一次生成对，是用错了工具。</strong></td>
+</tr>
+<tr class="even">
+<td><strong>外循环 / 内循环分工</strong></td>
+<td>Astra Studio 管<strong>外循环</strong>（业务分析、领域建模、校验、发布）；单个 skill 的编写打磨交给官方 <code>skill-creator</code></td>
+</tr>
+<tr class="odd">
+<td><strong>版本化 promote</strong></td>
+<td>v0.1 → v0.2，<strong>设计文档快照进归档但仍保持活跃</strong>——下一轮迭代接着用，<strong>不是归档就冻结</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这和第五课那 121 处 <code>NotImplementedError</code> 是同一个态度：机器立结构，人填判断。</strong></p>
+</blockquote>
+<h2 id="52-本地开发改完立刻生效">5.2 本地开发：改完立刻生效</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--plugin-dir</span> ./studio-core <span class="at">--plugin-dir</span> ./你的插件</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th>步骤</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>直接改 <code>SKILL.md</code></strong>——通过 <code>--plugin-dir</code> 加载时<strong>立刻生效</strong>，不用发版、不用装</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>用 <code>/plugin:command-name</code> 测命令（如 <code>/studio-core:init</code>）</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>skill 会在<strong>描述匹配用户意图时自动触发</strong></td>
+</tr>
+</tbody>
+</table>
+<p>⭐ <strong>这是三级台阶的入门动作。</strong> 你不需要先想清楚整个插件—— <strong>先跑起来一个能改的东西，比先设计完美强。</strong></p>
+<hr />
+<h1 id="六自查">六、自查</h1>
+<p><strong>1.</strong> fund-review 和 <code>studio-*</code> 插件有哪<strong>两点</strong>区别？它的身份是什么？</p>
+<p><strong>2.</strong> 两个红蓝 agent 都<strong>没有 Write 权限</strong>，为什么？这和第五课哪个设计是同一条判断？</p>
+<p><strong>3.</strong> <strong>38 个脚本对 2 个 agent</strong>，这个比例说明什么？</p>
+<p><strong>4.</strong> 12 个扫描器扫的都是什么性质的事？为什么它们该是脚本而不是 agent？</p>
+<p><strong>5.</strong> <code>Traits are observations, not configuration</code> 是什么意思？fund-review 命中了哪两个？</p>
+<p><strong>6.</strong> 为什么设计文档和 <code>SKILL.md</code> <strong>要物理分在两处</strong>？</p>
+<p><strong>7.</strong> A1 写的专家和 fund-review 那两个 agent，<strong>差别在哪</strong>？哪个 trait 标识了这个差别？</p>
+<hr />
+<h2 id="参考答案">参考答案</h2>
+<p><strong>1.</strong> ① <strong>运行时工作区</strong>：它是 <code>stateful</code>，会话落在用户项目的 <code>.fund-review/{session-id}/</code>，<strong>不在 <code>studio/</code> 下</strong>； ② <strong>外部依赖</strong>：需要 <code>openpyxl</code> / <code>python-docx</code>，<strong>而所有 <code>studio-*</code> 都不需要第三方包</strong>。 身份是 ⭐ <strong>vertical plugin——不是工具链的一部分，是工具链产出的领域插件</strong>，只是搭同一个 marketplace 发布。</p>
+<p><strong>2.</strong> 因为<strong>评审方要是能改报价，它就不是评审方了</strong>。 两个 agent 只能<strong>查证与质询</strong>（<code>Read, Bash, Glob</code>），改表交给 <code>quote-rewrite</code> 的确定性脚本，<strong>改什么由人批准的方案决定</strong>。 和第五课 <strong><code>ontology-validate</code> 没有 Write</strong> 是同一条：<strong>「权限即职责」——好的角色设计不是靠嘱咐"你别乱改"，是让它想改也改不了。</strong></p>
+<p><strong>3.</strong> 说明<strong>能确定性算的都写成了脚本，agent 只处理需要判断的那一段</strong>。 12 个扫描器先出 <code>findings.json</code>，agent 才做<strong>筛选、排序、解释</strong>。 <strong>这就是 S2/S3 讲的"确定性优先"在插件层的活体。</strong></p>
+<p><strong>4.</strong> 都是**"照规则一查就知道"**的事——品牌型号够不够 3 个、比例有没有超上限、9 大科目缺了哪个、有没有跨表重复。 <strong>它们不需要判断</strong>，所以该是脚本。三个理由：<strong>确定性</strong>（每次结果一样）、<strong>可测</strong>（能写单测）、<strong>成本</strong>（跑一万次成本不变，agent 跑一万次要付一万次钱）。</p>
+<p><strong>5.</strong> 意思是<strong>你不配置 trait，是工具从你已经写下的规划产物里推断出来的</strong>—— <strong>不给你一堆开关让你勾，少一层配置就少一层"配错了但没人发现"。</strong> fund-review 命中 <strong><code>stateful</code></strong>（<code>.fund-review/{session-id}/</code>）和 <strong><code>expert-scoped</code></strong>（那两个运行时 agent）。</p>
+<p><strong>6.</strong> <strong>单一真相源。</strong> 如果设计目录里也放一份 SKILL.md，<strong>它和实现里那份迟早不一致，而且你不知道该信哪份</strong>。 <code>studio/changes/</code> 只放设计，实现全在 <code>target_dir/</code>，靠 <code>status.json</code> 的 <code>target_dir</code> 字段连接。 <strong>这是课程反复讲的 B-5，在工具设计上的同一条判断——好的工具会替你守住纪律，而不是靠你自觉。</strong></p>
+<p><strong>7.</strong> A1 写的是<strong>规划期专家</strong>（做画像、域图时被叫，放 <code>studio/agents/</code>）； fund-review 那两个是<strong>运行时专家</strong>（跟着插件跑在真实业务里，放插件自己的 <code>agents/</code>）。 标识这个差别的 trait 是 <strong><code>expert-scoped</code></strong>——"运行时需要与规划期不同的专家"。</p>
+<hr />
+<h2 id="你的产出去了哪里">你的产出去了哪里</h2>
+<table>
+<thead>
+<tr class="header">
+<th>后续</th>
+<th>本课给你的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A3 · 回贡上游</strong></td>
+<td>你现在知道一个合格插件长什么样了——<strong>A3 讲怎么把它提回去</strong></td>
+</tr>
+<tr class="even">
+<td><strong>做自己的插件时</strong></td>
+<td>确定性打底 · Plugin Structure · Traits · 两级工作区 · 本地 <code>--plugin-dir</code> 调试</td>
+</tr>
+<tr class="odd">
+<td><strong>任何 AI 应用</strong></td>
+<td>⭐ <strong>「能写成脚本就别交给模型」——这一条不依赖 Astra Studio</strong></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+
+<hr />
+<h1 id="附--一页纸速查">附 · 一页纸速查</h1>
+<p><strong>fund-review = 54 文件</strong>：<strong>38 脚本（含 12 个 <code>scan_*.py</code>）· 4 skill · 2 agent · 4 命令 · 5 reference</strong> <strong>身份</strong>：vertical plugin —— <strong>工具链产出的领域插件</strong>，不是工具链的一部分 <strong>两点区别</strong>：<code>stateful</code> → <code>.fund-review/{session-id}/</code> ｜ 唯一需要第三方包（openpyxl / python-docx）</p>
+<hr />
+<p><strong>红蓝对抗</strong> | 蓝 <code>quote-optimizer</code> | 红 <code>financial-reviewer</code> | |---|---| | 投标方，让报价过审 | 财评专家，逐条质询 | | 筛选·排序·解释 | 要求页码引用 |</p>
+<p>⭐ <strong>两边都是 <code>Read, Bash, Glob</code> —— 都没有 Write</strong></p>
+<blockquote>
+<p>评审方要是能改报价，它就不是评审方了。 （同第五课 <code>ontology-validate</code> 无 Write ——「<strong>权限即职责</strong>」）</p>
+</blockquote>
+<hr />
+<p><strong>⭐⭐ 但重点是这个</strong></p>
+<pre><code>12 个 scan_*.py → findings.json → agent 只做筛选·排序·解释 → 人批准 → 脚本改表</code></pre>
+<p><strong>38 脚本 : 2 agent</strong></p>
+<blockquote>
+<h3 id="这一步能不能写成脚本能就别交给模型-1">这一步能不能写成脚本？能，就别交给模型。</h3>
+<p>三个理由：<strong>确定性</strong> · <strong>可测</strong> · <strong>成本</strong>（脚本跑一万次成本不变）</p>
+</blockquote>
+<hr />
+<p><strong>Plugin Structure</strong>：<code>.claude-plugin/plugin.json</code> · <code>commands/</code> · <code>skills/{name}/SKILL.md</code> · <code>agents/</code> · <code>hooks/</code> · <code>scripts/</code> · <strong><code>references/</code>（按需加载 = 渐进式披露）</strong> · <code>templates/</code></p>
+<p><strong>Traits（观察，不是配置）</strong>：<code>stateful</code> · <code>hil-gated</code> · <code>kb-dependent</code> · <code>multi-pipeline</code> · <strong><code>expert-scoped</code>（← 规划期专家 vs 运行时专家的分界）</strong></p>
+<p><strong>两级工作区</strong>：<code>studio/changes/</code> 只放设计 ｜ <code>{target_dir}/</code> 只放实现 ｜ 靠 <code>status.json</code> 的 <code>target_dir</code> 连接 → <strong>单一真相源，就是 B-5</strong></p>
+<hr />
+<p><strong>从零起一个插件</strong>：<code>plan</code> → <code>build-skills</code>（<strong>可跑的初稿，不是成品</strong>）→ <code>skill-creator</code> 打磨 → <code>validate</code> → <code>promote</code> v0.1→v0.2</p>
+<p><strong>本地开发</strong>：<code>claude --plugin-dir ./你的插件</code> —— <strong>改 SKILL.md 立刻生效，不用发版</strong></p>
+</body>
+</html>

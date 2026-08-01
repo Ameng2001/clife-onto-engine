@@ -829,10 +829,22 @@ S4 本体建模+设闸 → L5</code></pre>
 <td><code>课程/S3_建模端如何支撑引擎.md</code></td>
 </tr>
 <tr class="even">
-<td><strong>S4</strong></td>
-<td><code>slides/S4_高级用法.html</code></td>
-<td><strong>14</strong></td>
-<td><code>课程/S4_AstraStudio高级用法.md</code></td>
+<td><strong>A1</strong></td>
+<td><code>slides/A1_自定义智能体.html</code></td>
+<td><strong>13</strong></td>
+<td><code>课程/A1_自定义智能体.md</code></td>
+</tr>
+<tr class="odd">
+<td><strong>A2</strong></td>
+<td><code>slides/A2_扩展插件.html</code></td>
+<td><strong>13</strong></td>
+<td><code>课程/A2_扩展插件.md</code></td>
+</tr>
+<tr class="even">
+<td><strong>A3</strong></td>
+<td><code>slides/A3_回贡上游.html</code></td>
+<td><strong>9</strong></td>
+<td><code>课程/A3_回贡上游.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -841,13 +853,11 @@ S4 本体建模+设闸 → L5</code></pre>
 <p>⚠️ <strong>改内容时两边都要改。</strong> 只改手册不改课件，讲师投屏的内容就与学员手上的对不上—— <strong>这正是本课程自己教的 B-5（单一真相源）。</strong></p>
 </blockquote>
 <hr />
-<h2 id="八专题课-s1s42026-07-31-新增s4-为工具链线2026-08-01-增设">八、专题课 S1–S4（2026-07-31 新增；S4 为工具链线，2026-08-01 增设）</h2>
-<p><strong>专题课有两条线</strong>：</p>
-<ul>
-<li><strong>S1–S3 · 本体线</strong>（一条线，三门课回答三个连续的问题，<strong>终点是第五课</strong>）</li>
-<li><strong>S4 · 工具链线</strong>（独立一门，讲 Astra Studio 这套工具本身怎么改、扩、回贡）</li>
-</ul>
-<h3 id="s1s3--本体线">S1–S3 · 本体线</h3>
+<h2 id="八专题课-s1s3--本体线2026-07-31-新增s2s3-同日扩充">八、专题课 S1–S3 · <strong>本体线</strong>（2026-07-31 新增，S2/S3 同日扩充）</h2>
+<blockquote>
+<p><strong>编号纪律</strong>：专题课有两条线，<strong>不要混编号</strong>。 <strong>S1–S3 = 本体线</strong>（讲"本体"这件事，终点是 L5，<strong>排在 L5 之前</strong>）； <strong>A1–A3 = 工具链线</strong>（讲"astra-studio 这套工具本身"，<strong>排在八课之后</strong>，见第九节）。 另注意 SOP 七阶段也叫 S1–S7，那是<strong>另一套编号</strong>，不要与专题课混。</p>
+</blockquote>
+<p><strong>专题课是一条线，三门课回答三个连续的问题，终点是第五课。</strong></p>
 <table>
 <thead>
 <tr class="header">
@@ -910,40 +920,7 @@ S3  平台与交付 + 建模端 studio-ontology → 商业全貌 + 你要用的�
 ──────────────────────────────────────────────────────────────
 L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插件</code></pre>
 <p><strong>S3 的最后一章（第十一章）就是交棒章</strong>——它讲 <code>studio-ontology</code> 的两端分工、四命令与强制停点、 IR 七段 → SPI 七槽位的编译去向，然后把学员直接送进第五课。</p>
-<h3 id="s4--工具链线独立不属于本体线">S4 · 工具链线（独立，不属于本体线）</h3>
-<table>
-<tbody>
-<tr class="odd">
-<td><strong>讲什么</strong></td>
-<td><strong>从"用工具"到"改工具"的四级台阶</strong>：用内置的 → 自定义专家 → 写自己的插件 → 回贡上游</td>
-</tr>
-<tr class="even">
-<td><strong>教材</strong></td>
-<td><strong>一档</strong>：<code>astra-studio-plugins</code> 全仓（CLAUDE.md / AGENTS.md · create-expert · 11 个内置专家与动态发现 · fund-review 54 文件）</td>
-</tr>
-<tr class="odd">
-<td><strong>形式</strong></td>
-<td>讲解 + 当场读码 180′</td>
-</tr>
-<tr class="even">
-<td><strong>前置</strong></td>
-<td>建议 <strong>L3</strong>（用过 insight 内置专家）+ <strong>L5</strong>（用过 studio-ontology）。<strong>没上过也能听，但会少很多"原来如此"</strong></td>
-</tr>
-<tr class="odd">
-<td><strong>两个重心</strong></td>
-<td>① <strong>自定义专家</strong>（人人用得上，一个 .md 文件的事）② <strong>fund-review 的确定性打底</strong>（40 脚本 vs 2 agent，最能迁移的架构判断）</td>
-</tr>
-<tr class="even">
-<td><strong>课件 / 手册</strong></td>
-<td><code>slides/S4_高级用法.html</code> 14 屏 · <code>课程/S4_AstraStudio高级用法.md</code></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>S4 和本体线没有先后依赖</strong>，可以单独开，也可以放在八课之后当"进阶班"。 <strong>它唯一的强前置是 L3/L4——学员得先用过内置专家，才知道自定义专家在解决什么问题。</strong></p>
-</blockquote>
-<p>⚠️ <strong>S4 的口径纪律</strong>：全课一档来源，<strong>每条结论都要能翻到仓库里的文件</strong>。 特别是第六章「回贡上游」——<strong>必须说明该仓目前没有 <code>CONTRIBUTING.md</code> 与 <code>.github/</code></strong>， 那几条规范是<strong>从 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 反推的</strong>，不是官方明文。 <strong>（顺带：这也正是学员能提的第一个 PR。）</strong></p>
-<h3 id="️-排期本体线三门-540塞不进-5-天集训档">⚠️ 排期：本体线三门 540′，塞不进 5 天集训档</h3>
+<h3 id="️-排期三门课-540塞不进-5-天集训档">⚠️ 排期：三门课 540′，塞不进 5 天集训档</h3>
 <p><strong>这是必须先说清楚的约束</strong>：8 课已占满 5 天，专题课再加 540′（9 小时）<strong>放不下</strong>。 不要试图压缩八课去腾位置——<strong>这三门是选修，八课是主干。</strong></p>
 <table>
 <thead>
@@ -955,7 +932,7 @@ L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插�
 <tbody>
 <tr class="odd">
 <td><strong>集训档（5 天）</strong></td>
-<td><strong>只插 S1</strong>；<strong>S4 不进集训档</strong>（它是进阶内容，不影响八课完整性）<br>（⭐ D3 上午，L5 之前；L4 下半场前移到 D2——见第五节变体排期）。<br><strong>S2 / S3 不进 5 天</strong>。想上就在集训<strong>之前</strong>加 D0 / D-1。</td>
+<td><strong>只插 S1</strong>（⭐ D3 上午，L5 之前；L4 下半场前移到 D2——见第五节变体排期）。<br><strong>S2 / S3 不进 5 天</strong>。想上就在集训<strong>之前</strong>加 D0 / D-1。</td>
 </tr>
 <tr class="even">
 <td><strong>⭐ 本体专题日（推荐，独立 1.5 天）</strong></td>
@@ -1004,6 +981,112 @@ L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插�
 <p>收入、薪酬、周期全部说明来源与地域（美国市场）。 <strong>不得拿去对标国内薪资，不得在客户面前用它论证我们的报价。</strong></p>
 <p>⚠️ <strong>产品名核实提示</strong>：「<strong>Ontology Studio</strong>」这个名称出自<strong>信通院那篇分析</strong>， <strong>我们没有核对过 Palantir 官方文档</strong>。Foundry 里长期为人所知的建模应用叫 <strong>Ontology Manager</strong>。 讲的时候说「<strong>据信通院的公开分析</strong>」，<strong>不要说「Palantir 官方称」</strong>。 <strong>这正是 L1 三档来源纪律用在我们自己教材上的一次元示范。</strong></p>
 <p>另有两条容易讲错的： · <strong>别说"我们没有 Studio"</strong> —— <code>studio-ontology</code> 就是我们的建模端。 准确说法是<strong>两端都有，建模端的自动化覆盖度还差一截（七槽位覆盖五格）</strong>。 · <strong>设计上的克制 ≠ 能力上的边界</strong> —— "核心语义决策留给人签字"是主动选择（值得讲）； "function 规则体现在生成不了"是能力边界（别包装成克制）。<strong>在客户面前要分开讲。</strong></p>
+</blockquote>
+<hr />
+<h2 id="九专题课-a1a3--工具链线2026-08-01-新增">九、专题课 A1–A3 · <strong>工具链线</strong>（2026-08-01 新增）</h2>
+<p><strong>A 系列不讲本体，讲的是"astra-studio 这套工具本身怎么改、怎么扩、怎么往回推"。</strong> S 系列的落点是 L5（做出一个本体插件）；<strong>A 系列的落点是"你从工具的使用者变成工具的贡献者"。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>A1 · 自定义智能体</strong></th>
+<th><strong>A2 · 扩展插件</strong></th>
+<th><strong>A3 · 回贡上游</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>回答</strong></td>
+<td>怎么让工具<strong>懂我的行业</strong></td>
+<td>一个真实的垂类插件<strong>长什么样</strong></td>
+<td>怎么把我的东西<strong>提回去</strong></td>
+</tr>
+<tr class="even">
+<td><strong>教材来源</strong></td>
+<td><strong>一档</strong>：<code>astra-studio-plugins</code> 源码（<code>studio-core</code> / <code>studio-insight</code> 的 agents 与专家发现逻辑）</td>
+<td><strong>一档</strong>：<code>astra-studio-plugins/fund-review</code>（54 文件的真实工程）</td>
+<td><strong>一档</strong>：该仓的 <code>CLAUDE.md</code> / <code>AGENTS.md</code> / <code>README.md</code><br>⚠️ <strong>该仓没有 <code>CONTRIBUTING.md</code>，也没有 <code>.github/</code>——规范是反推的，不是官方明文</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>视角</strong></td>
+<td>工具的<strong>配置者</strong></td>
+<td>工具的<strong>读者</strong></td>
+<td>工具的<strong>贡献者</strong></td>
+</tr>
+<tr class="even">
+<td><strong>形式</strong></td>
+<td>讲解 + <strong>实操</strong> 180′</td>
+<td>讲解 + <strong>当场读码</strong> 180′</td>
+<td>讲解 + <strong>实操（真的提一个）</strong> 120′</td>
+</tr>
+<tr class="odd">
+<td><strong>产出</strong></td>
+<td>一个能被选中的专家 <code>.md</code></td>
+<td>一张真实插件的解剖图</td>
+<td><strong>一个 PR / issue 链接</strong>（没有链接 = 没完成）</td>
+</tr>
+<tr class="even">
+<td><strong>台阶</strong></td>
+<td>二级</td>
+<td>三级</td>
+<td>四级</td>
+</tr>
+<tr class="odd">
+<td><strong>课件 / 手册</strong></td>
+<td><code>slides/A1_自定义智能体.html</code> 13 屏<br><code>课程/A1_自定义智能体.md</code></td>
+<td><code>slides/A2_扩展插件.html</code> 13 屏<br><code>课程/A2_扩展插件.md</code></td>
+<td><code>slides/A3_回贡上游.html</code> 9 屏<br><code>课程/A3_回贡上游.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="-四级台阶a-系列的主梁">⭐ 四级台阶（A 系列的主梁）</h3>
+<pre><code>零级   用内置的                    ← 八课全程停在这一级
+二级   自定义专家（A1）            ← 让工具懂你的行业
+三级   写自己的插件（A2）          ← 把工具变成你的工具
+四级   回贡上游（A3）              ← 让别人也用上你的东西</code></pre>
+<blockquote>
+<p><strong>一句话串起来</strong>：<strong>A1 教你改它，A2 教你扩它，A3 教你把它推回去。</strong></p>
+</blockquote>
+<h3 id="️-排期a-系列排在八课之后不是之前">⚠️ 排期：A 系列排在八课<strong>之后</strong>，不是之前</h3>
+<table>
+<thead>
+<tr class="header">
+<th>档</th>
+<th>怎么排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>集训档（5 天）</strong></td>
+<td><strong>A 系列不进 5 天</strong>。集训结束后另择 1.5 天：<strong>Day A</strong> A1 上午 + A2 下午 · <strong>Day B 上午</strong> A3。</td>
+</tr>
+<tr class="even">
+<td><strong>分散档（8 周）</strong></td>
+<td>第 9–10 周。<strong>A2 要读 fund-review 源码，学员需要有过一次完整交付的手感。</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>只上一门</strong></td>
+<td><strong>上 A1</strong> —— 它是从"会用工具"跨到"能改工具"的那一步，成本最低、收益最直接。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="顺序上不能破的两条">顺序上不能破的两条</h3>
+<ol type="1">
+<li><strong>A 系列必须在 L5 之后</strong> —— A3 的实操素材直接来自<strong>第五课发现的那六处「文档说 A、代码是 B」</strong>， 没上过 L5 的学员到了 A3 会答不出"我手上有什么可提的"。</li>
+<li><strong>A1 必须在 A2 之前</strong> —— A2 讲 <code>expert-scoped</code> trait（规划期专家 vs 运行时专家的分界）， 这条要回扣 A1 的专家发现五步。不上 A1 直接上 A2，学员会把"专家"和"智能体"混成一个词。</li>
+</ol>
+<h3 id="各课骨架-1">各课骨架</h3>
+<p><strong>A1 · 自定义智能体（13 屏）</strong> ① 查找顺序就是设计（项目级 <code>studio/agents/</code> 覆盖内置，<strong>同名项目级赢</strong>）→ ② 动态发现五步（<strong>扫内置时"跳过同名"就是覆盖发生的那一行</strong>；按 <code>## Your Domain</code> 选 1–3 个）→ ③ ⭐ <strong>专家是复核者不是生成者</strong>（主角色出初稿，专家挑"不正确 / 过度简化 / 遗漏"）→ ④ 专家文件四部分解剖（<strong><code>## Your Domain</code> 决定被不被选中</strong>；<strong>Quality Criteria 最难写也最值钱</strong>：哪些错危险、哪些只是难看）→ ⑤ 什么该造什么不该造（出厂 11 个专家 + 1 模板）→ ⑥ <strong>静默失效：写错了不报错，只是不被选中</strong></p>
+<p><strong>A2 · 扩展插件（13 屏）</strong> ① fund-review 是什么（四 skill 流水线；<strong>它是工具链的产出物，不是工具链的一部分</strong>）→ ② 红蓝对抗：<code>quote-optimizer</code>（蓝·投标方）vs <code>financial-reviewer</code>（红·财评专家）→ ③ ⭐⭐ <strong>但对抗不是重点</strong>：<strong>38 个脚本 : 2 个智能体</strong>（12 个 <code>scan_*.py</code>）——能写成确定性脚本的绝不交给模型（<strong>确定 / 可测 / 便宜</strong>）→ ④ 插件骨架 + <strong>Plugin Traits</strong>（"Traits 是观察结果，不是配置项"）→ ⑤ <strong>两级工作区</strong>：<code>studio/changes/</code> 只放设计、<code>{target_dir}/</code> 只放实现，<code>status.json</code> 连接 = <strong>B-5 单一真相源</strong></p>
+<p><strong>A3 · 回贡上游（9 屏）</strong> ① 回贡对<strong>你自己</strong>的四条好处 → ② <strong>四档门槛</strong>与"你手上已经有的素材"（<strong>第五课那六处落差本身就是六个可提的 issue</strong>）→ ③ ⚠️ <strong>没有 CONTRIBUTING.md</strong>，规范从 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 反推——<strong>而补一份 CONTRIBUTING 本身就是最容易被接受的第一个 PR</strong> → ④ PR 描述四段（<strong>"为什么"那段决定命运</strong>）+ 提交前三条自查 → ⑤ 实操 40′ <strong>真提</strong> → ⑥ 被拒了怎么办</p>
+<h3 id="️-口径纪律a-系列专有">⚠️ 口径纪律（A 系列专有）</h3>
+<p><strong>A1 / A2 —— 只讲仓库里真有的东西</strong></p>
+<blockquote>
+<p>数字必须与源码对得上：<strong>11 个专家 + 1 模板</strong>、<strong>fund-review 54 文件 = 38 脚本（含 12 个 <code>scan_*.py</code>）+ 4 skill + 2 agent + 4 命令 + 5 reference</strong>。 ⚠️ 曾经写错过 "14 个扫描器 / 40 个脚本"，<strong>引用前先 <code>ls</code> 一遍</strong>。 讲红蓝对抗时必须补一句：<strong>两个智能体都是 <code>allowed-tools: Read, Bash, Glob</code>——都没有 Write。</strong></p>
+</blockquote>
+<p><strong>A3 —— 不许把反推的规范说成官方规范</strong></p>
+<blockquote>
+<p>该仓<strong>没有 <code>CONTRIBUTING.md</code>、没有 <code>.github/</code></strong>。 讲的时候说「<strong>我从 <code>CLAUDE.md</code> 反推出来的</strong>」，<strong>不要说「项目规定」</strong>。 <strong>这又是一次 L1 三档来源纪律的元示范</strong>——和 S3 的「Ontology Studio」是同一类事。 A3 的实操是<strong>真的向公开仓库提 PR / issue</strong>，提交内容按脱敏口径走：<strong>不带客户名、不带商务数字。</strong></p>
 </blockquote>
 </body>
 </html>
