@@ -63,7 +63,7 @@
     <span class="pill">⭐ 题眼：确定性边界置于模型之外</span>
   </div>
   <p class="src mt-m">一档来源：clife-onto-engine 源码 · docs/assets/architecture-overview.svg · docs/01-metamodel-and-plugin-spi.md（内核"宪法"）</p>
-  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="19"></span></div>
   <div class="notes">
     <p><b>【时间盒 180′】</b> 开场 + 全图 25′ ｜ 底座（五要素 / GraphStore）25′ ｜ <b>治理写 + 两处断裂 45′</b> ｜ 两条读路径 20′ ｜ 信任基础设施 20′ ｜ 展示 + 交互层 15′ ｜ 生态与建模端 10′ ｜ <b>CI 防腐 12′</b> ｜ 收口 + 自查 10′</p>
     <p><b>⭐【本课的讲法，开场就交代】</b>"今天这门课只有<b>一张图</b>。<b>第三页我会把它投出来，然后我们从最底下一层往上爬，每一屏认领图上一个块。</b>讲完，这张图你应该能自己默出来。"</p>
@@ -92,7 +92,7 @@
     <span class="s"><b>L5：你亲手编译一个</b></span>
   </div>
   <p class="quote-big mt-l" data-anim="fade-up">只上 S1 不上 S2：<br><b>你说得出方案好不好，说不出好在哪一行。</b></p>
-  <div class="deck-footer"><span class="ftag">定位</span><span class="slide-number" data-current="2" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">定位</span><span class="slide-number" data-current="2" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【那条链是三门专题课的主梁，指着念一遍】</b>"S1 第六章讲 Karpathy 的 Software 3.0 时说过<b>『本体是 LLM OS 的文件系统』</b>——那门课把它当比喻用完就过了。<b>今天这门课把它当图纸用。S3 讲怎么给这个 OS 编译应用，第五课让你亲手编译一个。</b>"</p>
   <p><b>【最后那句要说出口】</b>"只上 S1 不上 S2，你说得出方案好不好，说不出好在哪一行。<b>而客户的技术负责人，只关心哪一行。</b>"</p></div>
 </section>
@@ -101,7 +101,7 @@
 <section class="slide" data-title="⭐⭐ 全图">
   <div class="kicker">⭐⭐ 本课地图 · 接下来每一屏认领这上面一个块</div>
   <img class="fig" src="../figures/fig-S2-引擎全景.svg" alt="clife-onto-engine 自有本体语义 OS 架构全景">
-  <div class="deck-footer"><span class="ftag">全图 · ⭐⭐</span><span class="slide-number" data-current="3" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">全图 · ⭐⭐</span><span class="slide-number" data-current="3" data-total="19"></span></div>
   <div class="notes">
     <p><b>⭐⭐【这一页是全课骨架。投出来，先别讲，让他们看 30 秒。】</b></p>
     <p><b>【然后按这个顺序指一遍，每块 15 秒，不展开】</b><br>
@@ -115,8 +115,8 @@
     <p><b>⭐【三个必须当场点出来的细节】</b><br>
     ① <b>标题</b>：「<b>自有本体语义 OS</b>」——OS 是这套系统<b>给自己的定位</b>，不是我的比喻。<br>
     ② <b>那条红线</b>：<span class="mono">guard→回滚→审计</span>，<b>从 Action 引擎穿下去直插存储</b>。<b>全图只有这一条红线——写路径只有一条，而且它必须穿过闸门。</b><br>
-    ③ <b>最底下那句话</b>：「<b>确定性边界置于模型之外：合法但违规的动作在写后规则校验阶段被确定性回滚并留审计。</b>」<b>这是全图的题眼，也是这门课的题眼。今天最后一页会回到它。</b></p>
-    <p><b>【告诉他们讲法】</b>"接下来我们<b>从最底下往上爬</b>。为什么不从上往下？<b>因为上面那些面能做什么，全部由最底下那五个要素决定。</b>"</p>
+    ③ <b>最底下那句话</b>：「<b>确定性边界置于模型之外：合法但违规的动作在写后规则校验阶段被确定性回滚并留审计。</b>」<b>这是全图的题眼，也是这门课的题眼。今天最后一页会回到它。</b><br>④ <b>右下角还有第二句红字</b>：「<b>检索的结果绝不驱动写入。</b>」<b>它和题眼是同一件事的两面</b>——题眼说"违规的写会被回滚"，这句说"<b>根本不该走到写这一步的东西，连门都进不来</b>"。<b>它指着最底下挂载层里那条红框（第 7 页）。</b></p>
+    <p><b>【告诉他们讲法】</b>"接下来我们<b>从最底下往上爬</b>。为什么不从上往下？<b>因为上面那些面能做什么，全部由最底下那五个要素决定。</b>"<b>爬到五要素之后先往下探一层</b>——第 7 页的挂载层，回答"<b>这些数据和知识到底挂在哪</b>"，<b>然后再往上。</b></p>
   </div>
 </section>
 
@@ -137,7 +137,7 @@
     <tr><td><b>checkpatch / sparse</b>：内核纯度检查</td><td><b>两个 CI 门禁脚本</b>（第 14 页）</td></tr>
   </table>
   <p class="huge mt-m" data-anim="fade-up">这套东西和操作系统<br>只在<b>两个地方</b>不一样——<br>而那两处，正好是它的全部本质。</p>
-  <div class="deck-footer"><span class="ftag">主梁</span><span class="slide-number" data-current="4" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">主梁</span><span class="slide-number" data-current="4" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【这一页的作用是给学员一副眼镜，戴上再看图】</b>"你们对操作系统是有直觉的。<b>这门课的全部策略就是：拿你已经懂的，去够你不懂的。</b>"</p>
   <p><b>【强调这不是修辞】</b>"我不是在打比方说'有点像'。<b>Plugin SPI 就是 ABI，GraphStore SPI 就是 VFS，Capability 就是文件描述符——每一条都能落到具体设计上。</b>"</p>
   <p><b>⚠️【一条使用纪律，必须说】</b>"<b>类比是脚手架，不是证明。</b>客户面前可以用它建立直觉，<b>但不能用它替代论证</b>——客户问'你们凭什么保证规则一定被执行'，答案是<b>那六步和 CI 门禁</b>，不是'因为我们像操作系统'。<b>类比赢不了技术负责人，行号才行。</b>"</p>
@@ -160,7 +160,7 @@
   <div class="card card-accent mt-m"><h4>⭐ 判缝准则：一句话决定代码放哪层</h4>
     <p><b>「换成医疗大模型，这段逻辑还成立吗？」</b>　成立 → <b>内核</b>　·　不成立 → <b>插件</b>　·　具体数字（阈值 135）→ <b>租户</b><br>
     <span class="dim">「多条规则违反收集全部」= 内核　·　「收缩压 &gt; 140 算异常」= 插件　·　「这家机构阈值 135」= 租户</span></p></div>
-  <div class="deck-footer"><span class="ftag">底座 1/2</span><span class="slide-number" data-current="5" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">底座 1/2</span><span class="slide-number" data-current="5" data-total="19"></span></div>
   <div class="notes"><p><b>【现场动作：判缝准则要让学员用一次】</b>报三个例子让他们喊内核/插件/租户。<b>这是本章唯一互动，别跳过——判缝准则只有自己用过一次才记得住。</b></p>
   <p><b>【第三档是陷阱，一定要点破】</b>"阈值 135 <b>连插件都不是，是租户数据</b>。<b>把阈值写死进插件，一样是越界，只是没那么显眼。</b>插件写的是这条规则的<b>存在与形态</b>，租户配的是<b>这家客户的数字</b>。"</p>
   <p><b>⭐【"换行业零改内核"这句是图上原话，也是最值钱的一句】</b>"grass 是草业、chili 是辣椒，<b>两个完全不同的行业，跑在同一个内核上，内核一行没改。</b>这句话敢说，是因为<b>它可以被机器验证</b>——第 14 页会给你们看那两个脚本。"</p>
@@ -184,7 +184,7 @@
     <tr><td>7</td><td><b>CQ 验收集</b></td><td>能力问题</td><td><b>领域专家主导</b></td><td><b style="color:var(--warn)">⚠️ 格式不匹配</b></td></tr>
   </table>
   <p class="huge mt-m" data-anim="fade-up">七槽位是<b>验收清单</b>，<br>不是<b>自动化承诺</b>。</p>
-  <div class="deck-footer"><span class="ftag">底座 · SPI</span><span class="slide-number" data-current="6" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">底座 · SPI</span><span class="slide-number" data-current="6" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【这张表的真正用法：报价和排期】</b>"被问'接一个新行业要多久'，<b>不要拍脑袋说三个月。按这七格逐个估——哪几格客户能自己出人，哪几格必须我们上。</b>这就是你的 WBS。"</p>
   <p><b>⚠️【最后一列是第五课实测出来的，和文档不一致，必须讲】</b>"宪法文档说编译产物<b>『正好填满 SPI 七槽位』——实测不是。</b>今天这门课的口径，<b>以跑出来的为准，不以文档为准。</b>"</p>
   <p><b>【⑤⑥ 那两个 ❌ 先埋着】</b>"为什么这两格完全不生成？<b>S3 会给出结构性原因——简短说：IR 里压根没有这两段。</b>怎么亲手填掉，<b>第五课带你做。</b>"</p>
@@ -192,6 +192,33 @@
 </section>
 
 <!-- 7 -->
+<section class="slide tight" data-title="⭐ 挂载层 · 本体认领下层">
+  <div class="kicker">③·补 图最底下那两条带子 · <b>学员一定会问的那个问题</b></div>
+  <h2 class="title">这些数据、这些知识，<b>到底挂在哪里？</b></h2>
+  <table class="t" style="margin-top:6px" data-anim="stagger-list">
+    <tr><th style="width:22%"></th><th style="width:39%">① 数据集</th><th>② 知识库</th></tr>
+    <tr><td>形态</td><td>结构化，<b>必有主键</b></td><td>非结构化全文，<b>必带出处</b></td></tr>
+    <tr class="hot"><td>进不进图</td><td><b>进</b></td><td><b>不进</b></td></tr>
+    <tr class="hot"><td>能不能驱动写入</td><td><b>能</b>——被 Rule 校验、被 Action 写</td><td><b>绝不能</b></td></tr>
+    <tr><td>挂在哪</td><td>Object / Link 上（<b>映射，槽位 2</b>）：物理落点 · 多源拼合 · ⭐ <b>物化 / 混合 / 虚拟</b></td><td>见下面<b>四条通道</b></td></tr>
+  </table>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:6%">#</th><th style="width:24%">四条知识通道</th><th style="width:18%">挂在哪</th><th>强度</th></tr>
+    <tr class="hot"><td><b>①</b></td><td><b>规则的 source / citations</b></td><td><b>Rule 上</b></td><td><b>最强</b>：进写路径，<b>违反即回滚</b></td></tr>
+    <tr><td><b>②</b></td><td><b>对象附着知识</b>（template / diagnostic / playbook / reference）</td><td><b>Object 类型上</b></td><td>中：<b>只读</b>，和对象<b>一次取到</b></td></tr>
+    <tr><td><b>③</b></td><td><b>动作的证据血统</b></td><td><b>Action 上</b></td><td>中：<b>留痕</b>（第 11 页）</td></tr>
+    <tr><td><b>④</b></td><td><b>全文检索语料</b></td><td><b>不挂</b>——在本体外面</td><td>最弱：<b>只进 advise</b>　⚠️ <b>误当①用 = 拿检索结果驱动写入</b></td></tr>
+  </table>
+  <p class="quote-big mt-s" data-anim="fade-up">是<b>本体在点名要数据</b>，不是数据在申请上位。</p>
+  <div class="deck-footer"><span class="ftag">挂载层</span><span class="slide-number" data-current="7" data-total="19"></span></div>
+  <div class="notes"><p><b>⭐【先指图，再讲表】</b>"回到第 3 页那张图，<b>看最底下那两条带子</b>——绿色的挂载层、灰色的数据源层。<b>上面爬了半天的东西，落点全在这里。</b>"</p>
+  <p><b>⭐【为什么必须拆成两条线】</b>"很多人把它画成三层：数据 → 本体 → 智能体。<b>这么画会在建模时挂错位置。</b>数据集<b>有主键、进图、能驱动写入</b>；知识库<b>只有出处、不进图、绝不驱动写入</b>——<b>两件完全不同的东西。</b>"</p>
+  <p><b>⚠️【第④条那格必须念出来，它是图右下角那句红字】</b>"<b>检索的结果绝不驱动写入。</b>它和左下角的题眼是同一件事的两面——<b>题眼说'违规的写会被回滚'，这句说'根本不该走到写这一步的东西，连门都进不来'。</b><b>把④当①用，就是拿检索到的一段话去触发一个业务动作。</b>"</p>
+  <p><b>【② 是最被忽略、也最好用的一条】</b>"多数团队只知道 ① 和 ④。<b>② 是把'老师傅的经验'落地的那条通道</b>——挂在<b>对象</b>上不是挂在'本体'上，<b>查那个对象时一次取到它和它的知识</b>。这条讲透，客户立刻会想到自己手里那堆处置手册。"</p>
+  <p><b>⭐【现场用法：盘家底的真指标】</b>客户说"我们数据很丰富"时问回去："<b>这 200 张表里有多少能给出主键？这 5000 份文档里有多少每段带得出出处？</b>"——<b>挂不上去的等于零。</b>手册 补.4 有整张表。</p>
+  <p><b>【分工声明】</b>"<b>完整版在 S1 第九章</b>（每层指标的推导、四条通道的取舍）。<b>本课只讲图上画了什么、对应哪个文件。</b>"　时间盒 <b>15′</b>。</p></div>
+</section>
+
 <section class="slide" data-title="底座 · GraphStore SPI">
   <div class="kicker">图 · 最底层 2/2 · GraphStore SPI</div>
   <h2 class="title">存储是可换的后端（= VFS）</h2>
@@ -204,7 +231,7 @@
   <p class="lede mt-l" data-anim="fade-up"><b>为什么要有 SPI 这一层</b>：因为存储是<b>会换的</b>。客户已经有图库、或者根本不给你上图库——<br>
   <b>把存储做成可换后端，本体层才不会被某一个数据库绑死。</b>（这也是 S3 会讲的「不迁客户数据」在存储侧的对应。）</p>
   <p class="quote-big mt-m" data-anim="fade-up">语义层不该绑死在<br>某一个存储实现上。</p>
-  <div class="deck-footer"><span class="ftag">底座 2/2</span><span class="slide-number" data-current="7" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">底座 2/2</span><span class="slide-number" data-current="8" data-total="19"></span></div>
   <div class="notes"><p><b>【"多租户硬隔离"是客户现场的一个高频问题，值得多说十秒】</b>"客户的安全负责人一定会问'不同客户的数据怎么隔离'。<b>答案不是'我们查询里带了租户 ID'——那是软的。是『一个 ontology 一个 space』，物理分开。</b>"</p>
   <p><b>⭐【overlay 写即可见，先埋后用】</b>这四个字现在只需要记住，<b>第 9 页会兑现：正因为写完立刻可见，规则才能在写之后判断"变更后的世界还合不合法"。</b></p>
   <p><b>【InMemory 那格有实战价值】</b>"你在客户现场，对方不给你装 Nebula，<b>你照样能把本体跑起来给他看。</b>这不是玩具模式，<b>38 个冒烟脚本全靠它。</b>"</p></div>
@@ -229,7 +256,7 @@
     <tr><td><b>留痕</b></td><td>看实现</td><td><b>强制审计快照（成功和被拒都有）</b></td></tr>
   </table>
   <p class="src mt-s">execute():67 · validate():168 · _eval_rules():209 · _atomic_flush():222 · _compensate():239 · _audit():255</p>
-  <div class="deck-footer"><span class="ftag">语义面 1/4 · ⭐⭐</span><span class="slide-number" data-current="8" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">语义面 1/4 · ⭐⭐</span><span class="slide-number" data-current="9" data-total="19"></span></div>
   <div class="notes"><p><b>【读码：现在打开 kernel/action_engine.py】</b>对着行号走一遍，指出六个方法的位置即可。<b>学员看到"图上说的和代码里真的对得上"，这门课的可信度就立住了。</b></p>
   <p><b>【指着全图那条红线说】</b>"回到第 3 页那张图——<b>全图只有一条红线，就是这条。写路径只有一条，而且它必须穿过闸门。</b>"</p>
   <p><b>【validate 预演别忘了提一句】</b><span class="mono">validate()</span> 跑全套但<b>永不落库</b>，三个消费者：<b>前端</b>（点提交前就看到会被拒）·<b>Agent</b>（先试一次，避免拿真实拒绝当学习信号）·<b>FDE</b>（调规则不用反复清数据）。</p>
@@ -257,7 +284,7 @@
       <b>我们的调用者是 LLM 和人。</b>短路会让他们<b>逐条撞墙</b>；对 Agent 尤其致命——<b>每轮只学到一个约束，会在规则空间里做代价高昂的随机游走。</b></p></div>
   </div>
   <p class="huge mt-m" data-anim="fade-up">syscall 校验的是<b>调用</b>，<br>本体引擎校验的是<b>世界</b>。</p>
-  <div class="deck-footer"><span class="ftag">⭐⭐ 断裂</span><span class="slide-number" data-current="9" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">⭐⭐ 断裂</span><span class="slide-number" data-current="10" data-total="19"></span></div>
   <div class="notes"><p><b>⭐⭐【全课最重要的一页。讲慢，讲透。】</b>这一页给学员一个<b>记忆钩子</b>：整套系统和 OS 只有两处不同，而那两处就是最反直觉的两条设计。<b>比让他们背"三条铁律"牢得多。</b></p>
   <p><b>【左格接 S1】</b>这是"<b>物理引擎 vs 字典</b>"在代码层面的落点。规则描述的是<b>世界的稳态条件</b>，不是某个操作的参数约束。<b>学员在 S1 记住了那个比喻，今天第一次看到它在代码里的样子。</b></p>
   <p><b>【右格的"因为调用者不同"是关键五个字】</b>它把一条看起来像 UX 优化的设计，<b>还原成了一条架构必然。</b></p>
@@ -281,7 +308,7 @@
   <p class="lede mt-m" data-anim="fade-up"><b>「只产计划不当 TSDB」这七个字是一条战略边界</b>：<br>
   客户已经有 Prometheus、有 ES、有他们的时序库——<b>我们不去替换它，我们生成它听得懂的查询。</b></p>
   <p class="quote-big mt-m" data-anim="fade-up">读侧两条路，写侧也两条路——<br><b>高吞吐的那条都不走闸门。</b><br><span style="font-size:17px;color:var(--text-2);font-weight:400">= OS 的 DMA / mmap：内核有意让出一条快路</span></p>
-  <div class="deck-footer"><span class="ftag">语义面 2/4</span><span class="slide-number" data-current="10" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">语义面 2/4</span><span class="slide-number" data-current="11" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【这一页最容易讲丢的是那个对称，一定要点出来】</b>"读是两条路，<b>写也是两条路</b>：治理写走 Action 闸门，<b>高吞吐的数据摄取不走</b>。判据是——<b>这是『观测』还是『决定』？</b>"</p>
   <p><b>【顺手做个判断题，30 秒】</b>手环上报心率 = 摄取 ｜ 医生改护理等级 = 治理 ｜ <b>系统按规则自动生成一条预警 = 治理</b>（最容易错）｜ Agent 执行"换护理员" = 治理。<b>判据不是"谁触发的"，是"这是不是一个决定"——Agent 自动做的决定恰恰最需要审计。</b></p>
   <p><b>【为什么遥测不能过闸，三个理由任意一个都够】</b>① 性能：每条读数跑规则+落快照，成本是业务写入的百倍 ② 语义：读数是"观测"不是"决定"，<b>审计的对象是决定</b> ③ 可用性：拦住传感器数据，<b>你丢的是事实——而事实不该被规则否决</b>。</p>
@@ -309,7 +336,7 @@
   </table>
   <p class="lede mt-m" data-anim="fade-up">"模型很确定，但被拦了"——<b>这是唯一能自动发现"规则写错了"的信号。</b>
   没有它，你只能等客户投诉「系统老是拦我」，<b>而那时已经晚了。</b></p>
-  <div class="deck-footer"><span class="ftag">语义面 3/4 · ⭐</span><span class="slide-number" data-current="11" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">语义面 3/4 · ⭐</span><span class="slide-number" data-current="12" data-total="19"></span></div>
   <div class="notes"><p><b>【"拒绝也落审计"最反直觉，展开讲】</b>"合规审计最常问的不是'你们为什么做了这件事'，而是<b>'当时为什么没做'</b>。"举例：出了事故，监管问"系统当时有没有预警"——<b>只有拒绝也留痕，你才答得出来。</b></p>
   <p><b>⭐【右格是整张图上唯一"我们比 OS 多"的地方，要讲出分量】</b>"前面十页我们一直拿 OS 当尺子量自己。<b>这一格反过来：这是操作系统里根本没有的东西，因为它的调用者不需要。</b>"</p>
   <p><b>【回扣 S1】</b>S1 说"<b>误拦截比漏拦截更危险</b>"，但没给检测手段。<b>这一页给了：右上角那一格。</b></p>
@@ -335,7 +362,7 @@
     <div class="card card-accent"><h4>⭐ 又一次闭环</h4><p><span class="mono">classify.py</span> 决定一条信息进哪层——<b>这是行业相关的</b>，所以它归插件层，<b>所以它出现在七槽位的第 5 格</b>（记忆词典 + 提示词骨架）。</p></div>
   </div>
   <p class="quote-big mt-m" data-anim="fade-up">图画的是运行时端的骨架，<br><b>不是代码的全集。</b></p>
-  <div class="deck-footer"><span class="ftag">⑧·补 · 记忆</span><span class="slide-number" data-current="12" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">⑧·补 · 记忆</span><span class="slide-number" data-current="13" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【为什么要专门说"图上没有这一块"】</b>"前面十一屏我一直在指着图讲。<b>到这里得诚实一句：图画的是运行时端的骨架，不是代码的全集。</b>遇到『图上没有但代码里有』的东西，<b>说清楚它为什么没上图，比假装图是完备的要专业。</b>"</p>
   <p><b>⚠️【"它不报错，只是慢慢变笨"是本屏的钉子】</b>这是这类系统最阴的一种故障。<b>客户三周后说"最近感觉它不如刚上线的时候聪明"——查日志一切正常。那就是记忆塞满了。</b></p>
   <p><b>【右下那格是三层切分的又一次兑现】</b>classify 行业相关 → 归插件层 → 落在七槽位第 5 格。<b>三层切分不是抽象原则，它决定了每一个模块的物理位置。</b></p>
@@ -358,7 +385,7 @@
     <p>把一个 Agent 接进来，<b>它默认只能读</b>。要让它能写，<b>得有人显式打开。</b><br>
     <b>这是"最小权限"在产品默认值上的落地</b>——不是文档里写一句"请谨慎授权"，<b>是默认就不给。</b></p></div>
   <p class="quote-big mt-m" data-anim="fade-up">安全的默认值，<br><b>比安全的文档有用一百倍。</b></p>
-  <div class="deck-footer"><span class="ftag">展示 + 交互层</span><span class="slide-number" data-current="13" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">展示 + 交互层</span><span class="slide-number" data-current="14" data-total="19"></span></div>
   <div class="notes"><p><b>【Explorer 那句"语义读与遥测读在 UI 合体"要点一下】</b>第 10 页讲了读侧两条路——<b>它们在 Explorer 里重新汇合：点一个对象，既看到它的结构关系，也看到它的遥测序列，还能就地取查询计划。</b></p>
   <p><b>⭐【"离线单文件"是 FDE 的现场武器】</b>"客户不给你连网、不给你装东西——<b>你甩一个 HTML 给他，他双击就能看。</b>这一条在真实交付里比任何架构优雅都管用。"</p>
   <p><b>⭐【"读默认开 / 写 opt-in"值得停一下】</b>"这七个字是一条<b>完整的治理策略</b>。很多团队的做法是在文档里写'请谨慎授权'——<b>那是愿望。这个是默认值，是工程。</b>"</p>
@@ -390,7 +417,7 @@
   <p class="lede mt-m" data-anim="fade-up"><b>这句话是一个战略主张，不是一个功能列表</b>：<br>
   语义核心<b>不外包</b>——外部生态可以接，但<b>接不接都能跑</b>。<b>能关掉的东西，才是真的可选。</b></p>
   <p class="lede mt-m" data-anim="fade-up">→ 右下那个橙色框，<b>就是 S3 一整门课的内容</b>：我们自己的建模端，怎么给这个 OS 编译应用。</p>
-  <div class="deck-footer"><span class="ftag">侧边两块 · 接 S3</span><span class="slide-number" data-current="14" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">侧边两块 · 接 S3</span><span class="slide-number" data-current="15" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【"可关"这两个字是本页的教学点】</b>"很多平台把生态集成画在架构图正中间，显得很热闹。<b>这张图把它放在侧边，标上'可关'、'非脊椎'。</b>意思是——<b>它是加分项，不是依赖项。</b>"</p>
   <p><b>【为什么这很重要】</b>"客户问'如果 OKF 那套标准变了/黄了，你们怎么办'——<b>答案是『我们关掉它照样跑，读写展示都是自有的』。这个答案值钱。</b>"</p>
   <p><b>【交棒 S3，说清楚】</b>"右下角那个框今天<b>只报个到</b>。<b>S3 整门课讲它：我们自己的建模端 studio-ontology，怎么把业务分析编译成能在这个引擎上跑的插件。然后第五课，你们亲手编译一个。</b>"</p>
@@ -413,7 +440,7 @@
   <div class="card mt-s"><h4>⭐ 可以脱离本体引擎复用的一条方法论</h4>
     <p>任何你认为"<b>重要但会被慢慢磨掉</b>"的架构边界，问一句：<b>它能被一个脚本检查吗？</b><br>
     不能 → 想办法让它能。　想不出办法 → <b>那它大概率守不住，别把方案建在它上面。</b></p></div>
-  <div class="deck-footer"><span class="ftag">⭐ CI 防腐</span><span class="slide-number" data-current="15" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">⭐ CI 防腐</span><span class="slide-number" data-current="16" data-total="19"></span></div>
   <div class="notes"><p><b>【读码：把两个脚本都打开】</b>它们很短，<b>可以真的从头翻到尾</b>。学员看到"守住产品命脉的东西居然这么简单"，冲击力很强。</p>
   <p><b>【别嫌它简陋】</b>"<b>一个二十行的脚本，守住了整个产品的可复用性。</b>复杂的架构守则如果不能被机器检查，<b>它就不是守则，是愿望。</b>"</p>
   <p><b>⚠️【一处要诚实承认：OS 比我们强】</b>"脚本注释自己写着：<b>『Capability 在运行时收窄了能力面，但纯进程内无法物理阻止 import socket』</b>。<b>OS 有 MMU 和 ring 级别，硬件替它执法；我们没有硬件，只能靠静态检查。承认这一点，比假装我们的沙箱和它一样硬要专业得多。</b>"</p>
@@ -436,7 +463,7 @@
   </table>
   <p class="lede mt-m" data-anim="fade-up">查询 2 · 提交 1 · <b>治理拒绝 2</b> · 澄清 1 · <b>错误 0</b> · <b>审计留痕 3 条</b>（committed×1, rejected×2）</p>
   <p class="huge mt-m" data-anim="fade-up">LLM 可被诱导，<br><b>本体不会。</b></p>
-  <div class="deck-footer"><span class="ftag">实证 · ⭐</span><span class="slide-number" data-current="16" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">实证 · ⭐</span><span class="slide-number" data-current="17" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【这一页是全课的 money shot，前面讲的所有机制在这里变成可看的事实】</b>"前面三个小时我一直在讲机制。<b>这一页是真的拿 qwen3.5-plus 跑出来的。</b>"</p>
   <p><b>【第 4、5 条是重点，尤其第 5 条】</b>"第 4 条是<b>用错了草种</b>——这个还比较容易想到。<b>第 5 条是同一个草种、换了个盟市就不合规了</b>——碱茅在巴彦淖尔是乡土，在锡林郭勒不是。<b>这种错，人都不一定记得住，LLM 更不可能凭常识判断出来。它被兜住了。</b>"</p>
   <p><b>【接题眼】</b>"注意第 4、5 条的参数<b>全都合法</b>——草种是真草种、地块是真地块、预算是正数。<b>guard 拦不住它。拦住它的是写后规则。</b>这就是下一页那句『<b>合法但违规</b>』。"</p>
@@ -456,7 +483,7 @@
   </div>
   <p class="lede mt-l" data-anim="fade-up"><b>这一句话，把今天讲的全部串起来了</b>：<br>
   Action 引擎那条红线（第 8 页）· 先写后判（第 9 页）· 审计快照（第 11 页）· CI 守住的三层切分（第 14 页）。</p>
-  <div class="deck-footer"><span class="ftag">题眼 · ⭐</span><span class="slide-number" data-current="17" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">题眼 · ⭐</span><span class="slide-number" data-current="18" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【这一页要慢，要有停顿。它是全课的收束。】</b>投出来先念一遍，<b>然后一个词一个词拆。</b></p>
   <p><b>【为什么这句话比"我们有规则引擎"有力一百倍】</b>"'我们有规则引擎'——谁都这么说。<br><b>'确定性边界置于模型之外'——这句话回答了客户真正担心的问题：AI 会不会绕过你们的规则。答案是：它绕不过，因为边界不在它里面。</b>"</p>
   <p><b>【"合法但违规"这四个字最值钱】</b>"这是本体引擎和普通参数校验的分界线。<b>普通校验能拦住"参数不对"；只有写后规则能拦住"每一项都对，但合起来这个世界不成立"。</b>"</p>
@@ -479,7 +506,7 @@
     <p>① <b>只能说仓库里真有的东西</b>——"计划支持"和"已经支持"之间隔着一次信任崩塌。不确定就说"我回去核实"。<b>（L1 三条一票警示之一）</b><br>
     ② <b>别用 OS 类比替代论证</b>——它是让对方建立直觉的脚手架；<b>被追问时要拿得出那条红线、那两个脚本、那些行号。</b></p></div>
   <p class="quote-big mt-m" data-anim="fade-up">下一课：<b>怎么给这个 OS 编译应用。</b></p>
-  <div class="deck-footer"><span class="ftag">收口 · 接 S3</span><span class="slide-number" data-current="18" data-total="18"></span></div>
+  <div class="deck-footer"><span class="ftag">收口 · 接 S3</span><span class="slide-number" data-current="19" data-total="19"></span></div>
   <div class="notes"><p><b>【回到第 3 页那张图】</b>"我们从一张图出发，走了三个小时。<b>现在把它再投一次——你应该能指着它，把每一块讲给客户听。</b>"（可以真的翻回第 3 页停十秒。）</p>
   <p><b>【这张答问表就是学员的现场底稿】</b>让他们拍照。<b>第六课写技术方案时会再用一次。</b></p>
   <p><b>【留 5 分钟做自查】</b>手册的自查题，现场做两道：<b>①"先写后判"举一个写前校验写不出来的规则　②"高置信 + 被拒"意味着什么、该去查什么。</b>这两道最能暴露有没有真听懂。</p>

@@ -1,14 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 880" font-family="PingFang SC, Hiragino Sans GB, Hiragino Kaku Gothic ProN, Microsoft YaHei, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1070" font-family="PingFang SC, Hiragino Sans GB, Hiragino Kaku Gothic ProN, Microsoft YaHei, sans-serif">
 <defs>
 <marker id="ab" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#2563eb"/></marker>
 <marker id="ar" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#dc2626"/></marker>
 <marker id="ag" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#94a3b8"/></marker>
 <marker id="am" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#d97706"/></marker>
+<marker id="agn" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="#059669"/></marker>
 <filter id="sh" x="-4%" y="-4%" width="108%" height="112%"><feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.08"/></filter>
 </defs>
-<rect width="1240" height="880" fill="#ffffff"/>
+<rect width="1240" height="1070" fill="#ffffff"/>
 <text x="40" y="46" font-size="24" font-weight="700" fill="#0f172a">clife-onto-engine · 自有本体语义 OS（运行时端）</text>
-<text x="40" y="70" font-size="13" fill="#64748b">读 · 写 · 展示 · Agent 面 全在引擎内自有；上游建模端编译插件，侧边生态互操作（均可关/另仓）</text>
+<text x="40" y="70" font-size="13" fill="#64748b">读 · 写 · 展示 · Agent 面 全在引擎内自有；上游建模端编译插件，侧边生态互操作（均可关/另仓）；下接挂载层：数据集 ‖ 知识库两条线</text>
 <rect x="40" y="90" width="860" height="86" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
 <text x="56" y="112" font-size="14" font-weight="700" fill="#1e3a8a" text-anchor="start">交互层 · Agent 面</text>
 <text x="884" y="112" font-size="12" font-weight="600" fill="#3b82f6" text-anchor="end">agent 可达</text>
@@ -101,14 +102,48 @@
 <line x1="920" y1="320" x2="900" y2="320" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
 <text x="898" y="281" font-size="10" font-weight="600" fill="#64748b" text-anchor="end">导出 ▸</text>
 <text x="898" y="333" font-size="10" font-weight="600" fill="#64748b" text-anchor="end">◂ 反映</text>
-<rect x="40" y="690" width="860" height="42" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.2"/>
-<line x1="56" y1="711" x2="92" y2="711" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
-<text x="100" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">调用 / 读</text>
-<line x1="200" y1="711" x2="236" y2="711" stroke="#dc2626" stroke-width="2" marker-end="url(#ar)"/>
-<text x="244" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">治理写（本体兜底）</text>
-<line x1="400" y1="711" x2="436" y2="711" stroke="#d97706" stroke-width="1.7" stroke-dasharray="6,4" marker-end="url(#am)"/>
-<text x="444" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">建模端编译插件（上游）</text>
-<line x1="640" y1="711" x2="676" y2="711" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
-<text x="684" y="715" font-size="11" font-weight="400" fill="#475569" text-anchor="start">互操作 / 支撑（可关）</text>
-<text x="40" y="752" font-size="12" font-weight="600" fill="#0f172a" text-anchor="start">确定性边界置于模型之外：合法但违规的动作在写后规则校验阶段被确定性回滚并留审计。</text>
+<line x1="300" y1="696" x2="300" y2="664" stroke="#059669" stroke-width="2" marker-end="url(#agn)"/>
+<text x="310" y="686" font-size="10" font-weight="600" fill="#047857" text-anchor="start">物化 / 认领</text>
+<line x1="760" y1="696" x2="760" y2="664" stroke="#059669" stroke-width="2" marker-end="url(#agn)"/>
+<text x="770" y="686" font-size="10" font-weight="600" fill="#047857" text-anchor="start">①②③ 挂进本体（④ 不挂）</text>
+<rect x="40" y="698" width="1160" height="196" rx="12" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<text x="56" y="722" font-size="15" font-weight="700" fill="#065f46" text-anchor="start">挂载层 · 本体认领下层</text>
+<text x="1184" y="722" font-size="11" font-weight="600" fill="#059669" text-anchor="end">⚠️ 是本体在点名要数据，不是数据在申请上位（先建模、再看数据）</text>
+<rect x="56" y="734" width="548" height="148" rx="10" fill="#ffffff" stroke="#86efac" stroke-width="1.2" filter="url(#sh)"/>
+<text x="70" y="758" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">① 数据集 · 结构化</text>
+<text x="590" y="758" font-size="10.5" font-weight="700" fill="#059669" text-anchor="end">能驱动写入</text>
+<text x="70" y="782" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">必有主键 · 进图 · 被 Rule 校验 · 被 Action 写</text>
+<text x="70" y="800" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">挂载方式：mappings（Plugin SPI 槽位 2）</text>
+<text x="70" y="816" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">物理落点 · 多源拼合(MDO) · ★ 物化策略：物化 / 混合 / 虚拟</text>
+<text x="70" y="832" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">遥测绑定 → 只产查询计划，不执行</text>
+<text x="70" y="858" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">plugins/{id}/mappings/objects.yaml · tenants/{tenant}/data</text>
+<rect x="636" y="734" width="548" height="148" rx="10" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2" filter="url(#sh)"/>
+<text x="650" y="758" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">② 知识库 · 非结构化</text>
+<text x="1170" y="758" font-size="10.5" font-weight="700" fill="#b45309" text-anchor="end">只读 · 不进图 · 必带出处</text>
+<text x="650" y="780" font-size="10.6" font-weight="600" fill="#334155" text-anchor="start">四条知识通道（强度 ①→④ 递减）</text>
+<text x="650" y="798" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">① 规则 source / citations → 挂 Rule：进写路径，违反即回滚</text>
+<text x="650" y="814" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">② 对象附着知识 → 挂 Object：只读，和对象一次取到</text>
+<text x="650" y="830" font-size="10.6" font-weight="400" fill="#475569" text-anchor="start">③ 动作证据血统 → 挂 Action：留痕</text>
+<rect x="646" y="838" width="528" height="20" rx="5" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+<text x="652" y="852" font-size="10.4" font-weight="600" fill="#b91c1c" text-anchor="start">④ 全文检索语料 → 不挂，只进 advise：绕过 Action 引擎，绝不驱动写入</text>
+<text x="650" y="874" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="start">retrieval.py（KnowledgeRetriever 协议）· plugins/{id}/corpus.py</text>
+<line x1="300" y1="908" x2="300" y2="896" stroke="#059669" stroke-width="2" marker-end="url(#agn)"/>
+<line x1="760" y1="908" x2="760" y2="896" stroke="#059669" stroke-width="2" marker-end="url(#agn)"/>
+<rect x="40" y="910" width="1160" height="54" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="56" y="936" font-size="13.5" font-weight="700" fill="#0f172a" text-anchor="start">数据源层</text>
+<text x="150" y="936" font-size="11" font-weight="400" fill="#475569" text-anchor="start">关系库 · 列存 · 时序 · 全文检索 · 对象存储 · 文件导出　—　异构接入，难点在种类不在条数</text>
+<text x="1184" y="936" font-size="11" font-weight="600" fill="#64748b" text-anchor="end">看种类，不看条数</text>
+<rect x="40" y="984" width="1160" height="42" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.2"/>
+<line x1="56" y1="1005" x2="92" y2="1005" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+<text x="100" y="1009" font-size="11" font-weight="400" fill="#475569" text-anchor="start">调用 / 读</text>
+<line x1="200" y1="1005" x2="236" y2="1005" stroke="#dc2626" stroke-width="2" marker-end="url(#ar)"/>
+<text x="244" y="1009" font-size="11" font-weight="400" fill="#475569" text-anchor="start">治理写（本体兜底）</text>
+<line x1="400" y1="1005" x2="436" y2="1005" stroke="#d97706" stroke-width="1.7" stroke-dasharray="6,4" marker-end="url(#am)"/>
+<text x="444" y="1009" font-size="11" font-weight="400" fill="#475569" text-anchor="start">建模端编译插件（上游）</text>
+<line x1="640" y1="1005" x2="676" y2="1005" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#ag)"/>
+<text x="684" y="1009" font-size="11" font-weight="400" fill="#475569" text-anchor="start">互操作 / 支撑（可关）</text>
+<line x1="880" y1="1005" x2="916" y2="1005" stroke="#059669" stroke-width="2" marker-end="url(#agn)"/>
+<text x="924" y="1009" font-size="11" font-weight="400" fill="#475569" text-anchor="start">认领 / 物化（本体点名要数据）</text>
+<text x="40" y="1046" font-size="12" font-weight="600" fill="#0f172a" text-anchor="start">确定性边界置于模型之外：合法但违规的动作在写后规则校验阶段被确定性回滚并留审计。</text>
+<text x="1200" y="1046" font-size="12" font-weight="600" fill="#b91c1c" text-anchor="end">检索的结果绝不驱动写入。</text>
 </svg>

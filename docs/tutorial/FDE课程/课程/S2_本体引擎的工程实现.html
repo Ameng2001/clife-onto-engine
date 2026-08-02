@@ -281,7 +281,7 @@ L5  你亲手编译一个</code></pre>
 <p><strong>图在这里</strong>：<code>figures/fig-S2-引擎全景.svg</code>（原件 <code>clife-onto-engine/docs/assets/architecture-overview.svg</code>）</p>
 <p>课件第 3 页会把它投出来。<strong>本课接下来每一章，认领图上一个块。</strong></p>
 <h2 id="12-图上有什么导览先不展开">1.2 图上有什么（导览，先不展开）</h2>
-<p><strong>从下往上</strong>——因为<strong>上面那些面能做什么，全部由最底下那五个要素决定</strong>：</p>
+<p><strong>从下往上</strong>——因为<strong>上面那些面能做什么，全部由最底下那五个要素决定</strong>。 <strong>爬到五要素之后先往下探一层</strong>（挂载层），再往上：</p>
 <table>
 <thead>
 <tr class="header">
@@ -326,9 +326,19 @@ L5  你亲手编译一个</code></pre>
 <td>studio-ontology，<strong>上游 · 另仓</strong></td>
 <td>十（<strong>S3 整门课讲它</strong>）</td>
 </tr>
+<tr class="even">
+<td><strong>⭐ 挂载层 · 本体认领下层</strong>（新）</td>
+<td><strong>① 数据集</strong>（结构化 · 必有主键 · 进图 · <strong>能驱动写入</strong>）‖ <strong>② 知识库</strong>（非结构化 · 必带出处 · <strong>只读不进图</strong> · <strong>四条知识通道</strong>）</td>
+<td><strong>三·补</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>数据源层</strong>（新）</td>
+<td>关系库 · 列存 · 时序 · 全文检索 · 对象存储 · 文件导出</td>
+<td>三·补</td>
+</tr>
 </tbody>
 </table>
-<h2 id="13--图上三个必须当场看出来的细节">1.3 ⭐ 图上三个必须当场看出来的细节</h2>
+<h2 id="13--图上四个必须当场看出来的细节">1.3 ⭐ 图上四个必须当场看出来的细节</h2>
 <p><strong>① 标题就是主梁</strong></p>
 <blockquote>
 <p><strong>「clife-onto-engine · 自有本体语义 OS（运行时端）」</strong></p>
@@ -344,6 +354,11 @@ L5  你亲手编译一个</code></pre>
 <p><strong>确定性边界置于模型之外：合法但违规的动作在写后规则校验阶段被确定性回滚并留审计。</strong></p>
 </blockquote>
 <p><strong>这是全图的题眼，也是这门课的题眼。第十二章会回到它。</strong></p>
+<p><strong>④ ⚠️ 图右下角还有第二句红字</strong></p>
+<blockquote>
+<p><strong>检索的结果绝不驱动写入。</strong></p>
+</blockquote>
+<p>它和左下角那句题眼是<strong>同一件事的两面</strong>： <strong>题眼说"违规的写会被回滚"，这句说"根本不该走到写这一步的东西，连门都进不来"。</strong> <strong>它指着挂载层里那条红框——第④条知识通道（第三·补章）。</strong></p>
 <hr />
 <h1 id="二为什么它叫-os">二、为什么它叫 OS</h1>
 <h2 id="21-映射表">2.1 映射表</h2>
@@ -621,6 +636,156 @@ L5  你亲手编译一个</code></pre>
 <p><strong>七槽位的正确用法</strong>：它是<strong>验收清单</strong>（插件齐不齐，照这七格点），<strong>不是自动化承诺</strong>。</p>
 </blockquote>
 <p><strong>⑤⑥ 那两个 ❌ 的结构性原因，S3 第十章会讲</strong>（简短说：<strong>IR 里压根没有这两段</strong>）； <strong>怎么亲手填掉，第五课会带你做。</strong></p>
+<hr />
+<h1 id="三补-挂载层本体怎么认领下层">三·补、⭐ 挂载层：本体怎么认领下层</h1>
+<p><strong>图最底下那两条带子</strong>——挂载层与数据源层，<strong>回答一个学员一定会问的问题</strong>： <strong>"这些数据、这些知识，到底挂在哪里？"</strong></p>
+<h2 id="补1-中间那层是两条并行的线不是一层">补.1 中间那层是<strong>两条并行的线</strong>，不是一层</h2>
+<p>很多人把这套东西画成三层：数据 → 本体 → 智能体。<strong>这么画会在建模时挂错位置。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>① 数据集</th>
+<th>② 知识库</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>形态</td>
+<td>结构化，<strong>必有主键</strong></td>
+<td>非结构化全文，<strong>必带出处</strong></td>
+</tr>
+<tr class="even">
+<td>进不进图</td>
+<td><strong>进</strong></td>
+<td><strong>不进</strong></td>
+</tr>
+<tr class="odd">
+<td>能不能驱动写入</td>
+<td><strong>能</strong>——被 Rule 校验、被 Action 写</td>
+<td><strong>绝不能</strong></td>
+</tr>
+<tr class="even">
+<td>挂在哪</td>
+<td>Object / Link 上（<strong>映射，槽位 2</strong>）</td>
+<td>见 补.2 的四条通道</td>
+</tr>
+<tr class="odd">
+<td>图上位置</td>
+<td>挂载层左框</td>
+<td>挂载层右框</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="-检索的结果绝不驱动写入图右下角那句红字">⭐ <strong>检索的结果绝不驱动写入。</strong>（图右下角那句红字）</h3>
+<p>写入只经 Action 引擎；<strong>防幻觉在执行层，检索只做取证补充。</strong> 把这两条线混成一层的直接后果：<strong>有人会拿检索到的一段话去触发一个业务动作。</strong></p>
+</blockquote>
+<p><strong>① 数据集这一侧走的是槽位 2（映射注册表）</strong>，图上写了三样：</p>
+<ul>
+<li><strong>物理落点</strong>：这个对象的数据在哪张表、哪几列</li>
+<li><strong>多源拼合（MDO）</strong>：同一个对象的属性来自多个库（主干一张表 + 遥感 + 物联网列向拼合）</li>
+<li>⭐ <strong>物化策略：物化 / 混合 / 虚拟</strong>——<strong>这是数据源到本体最关键的那个旋钮</strong></li>
+<li>外加<strong>遥测绑定</strong>：对象 → 可观测后端，引擎<strong>只产查询计划，不执行</strong>（回扣第七章）</li>
+</ul>
+<h2 id="补2--知识挂载有四条通道强度完全不同">补.2 ⭐⭐ 知识挂载有<strong>四条通道</strong>，强度完全不同</h2>
+<p><strong>"把知识挂进本体"不是一个动作，是四个。</strong> 图上右框那四行就是它们：</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>通道</th>
+<th>挂在哪</th>
+<th>强度</th>
+<th>挂错的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>①</strong></td>
+<td><strong>规则的 source / citations</strong></td>
+<td><strong>挂 Rule 上</strong></td>
+<td><strong>最强</strong>：进写路径，<strong>违反即回滚</strong></td>
+<td>拦错东西，<strong>业务会绕过本体</strong></td>
+</tr>
+<tr class="even">
+<td><strong>②</strong></td>
+<td><strong>对象附着知识</strong></td>
+<td><strong>挂 Object 类型上</strong></td>
+<td>中：<strong>只读</strong>，和对象<strong>一次取到</strong></td>
+<td>推理时给错参考</td>
+</tr>
+<tr class="odd">
+<td><strong>③</strong></td>
+<td><strong>动作的证据血统</strong></td>
+<td><strong>挂 Action 上</strong></td>
+<td>中：<strong>留痕</strong>，供追溯（回扣第八章）</td>
+<td>三个月后说不清为什么这么判</td>
+</tr>
+<tr class="even">
+<td><strong>④</strong></td>
+<td><strong>全文检索语料</strong></td>
+<td><strong>不挂</strong>——在本体外面</td>
+<td>最弱：<strong>只进 advise</strong></td>
+<td>⚠️ <strong>误当①用 = 拿检索结果驱动写入</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>②「对象附着知识」四种 kind</strong>：<code>template</code> 分析模板 · <code>diagnostic</code> 诊断经验 · <code>playbook</code> 处置手册 · <code>reference</code> 领域参考 / 名录。<strong>每条都带出处。</strong></p>
+<blockquote>
+<p>⭐ <strong>挂在"对象"上，不是挂在"本体"上。</strong> 这个区别很实： <strong>查那个对象时，能一次取到它和它的知识</strong>，而不是去一个大知识库里再搜一遍。 而且它能被喂进<strong>记忆四层的 BACKGROUND 层</strong>（第八·补章）按需换入。</p>
+</blockquote>
+<p><strong>图上标了这两条通道各自的落点文件</strong>： <code>plugins/{id}/mappings/objects.yaml</code>（数据 + ②）· <code>retrieval.py</code> / <code>plugins/{id}/corpus.py</code>（④）。 <strong>看不懂就打开代码——这是本课的一贯打法。</strong></p>
+<h2 id="补3-️-方向是本体在点名要数据">补.3 ⚠️ 方向：是本体在点名要数据</h2>
+<p>图上那两支绿箭头<strong>是朝上的</strong>，标着「<strong>物化 / 认领</strong>」和「<strong>①②③ 挂进本体（④ 不挂）</strong>」。</p>
+<blockquote>
+<p><strong>是本体在点名要数据，不是数据在申请上位。</strong></p>
+</blockquote>
+<p>这就是建模 SOP 那条「<strong>先建模、再看数据</strong>」在架构图上的样子—— <strong>反过来做，你建出的是"系统长什么样"，不是"业务是什么样"。</strong></p>
+<h2 id="补4-现场用法一张盘家底的真指标表">补.4 现场用法：一张盘家底的真指标表</h2>
+<p>客户说"我们数据很丰富"时，<strong>这张表就是你的问诊单</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>❌ 常见的错指标</th>
+<th>⭐ 真指标</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>数据源</td>
+<td>—</td>
+<td><strong>种类</strong>（难点在异构，不在条数）</td>
+</tr>
+<tr class="even">
+<td>数据集</td>
+<td>"我们有 200 张表"</td>
+<td><strong>有没有主键 · 过不过质量门</strong></td>
+</tr>
+<tr class="odd">
+<td>知识库</td>
+<td>"我们有 5000 份文档"</td>
+<td><strong>每段有没有出处</strong></td>
+</tr>
+<tr class="even">
+<td>本体</td>
+<td>"我们建了 80 个对象"</td>
+<td>⭐ <strong>Link 数，不是 Object 数</strong></td>
+</tr>
+<tr class="odd">
+<td>智能体</td>
+<td>"我们做了 10 个智能体"</td>
+<td><strong>能力清单里几个 Action，其中几个设了闸</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>"我们有 200 张表、5000 份文档"在本体项目里信息量接近零。</strong> 该问回去的是：<strong>有多少能给出主键？有多少每段带得出出处？</strong>——<strong>挂不上去的，等于零。</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>这一节的完整版在 S1 第九章</strong>（含每层指标的推导与四条通道的取舍）。 <strong>本课只讲图上画了什么、对应哪个文件。</strong></p>
+</blockquote>
 <hr />
 <h1 id="四graphstore-spi--vfs">四、GraphStore SPI = VFS</h1>
 <pre><code>GraphStore SPI   NebulaGraph（一 ontology 一 space · 多租户硬隔离）
@@ -1362,7 +1527,7 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 </ol>
 <hr />
 <h1 id="十四自查">十四、自查</h1>
-<p><strong>1.</strong> 指着架构图，说出<strong>从下往上</strong>五层分别是什么。</p>
+<p><strong>1.</strong> 指着架构图，说出<strong>从下往上</strong>七层分别是什么（含最底下那两条带子）。</p>
 <p><strong>2.</strong> 图上<strong>只有一条红线</strong>，它是什么？为什么全图只有一条？</p>
 <p><strong>3.</strong> 这套系统和操作系统<strong>只有两处不一样</strong>，是哪两处？</p>
 <p><strong>4.</strong> 为什么规则不能在写入之前执行？举一个<strong>写前校验写不出来</strong>的规则。</p>
@@ -1371,9 +1536,10 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <p><strong>7.</strong> 生态互操作那一块为什么被标成「可关」「非脊椎」？这对客户答问有什么用？</p>
 <p><strong>8.</strong> 接一个新行业要交哪七样？其中哪两样<strong>编译完全不生成</strong>？</p>
 <p><strong>9.</strong> 用你自己的话解释「<strong>确定性边界置于模型之外</strong>」。</p>
+<p><strong>10.</strong> 图右下角那句「<strong>检索的结果绝不驱动写入</strong>」，指的是<strong>四条知识通道里的哪一条</strong>？把它当成第①条用，会发生什么？</p>
 <hr />
 <h2 id="参考答案">参考答案</h2>
-<p><strong>1.</strong> 从下往上：<strong>元模型五要素（+ Plugin SPI + Tenant）→ GraphStore SPI → 自有展示 Explorer → 自有语义面（语义读 / 遥测读 / 治理写 / 信任基础设施）→ 交互层 Agent 面</strong>。 右侧还有两块：<strong>生态互操作（可关）<strong>和</strong>建模端 astra-studio（上游、另仓）</strong>。</p>
+<p><strong>1.</strong> 从下往上：<strong>数据源层 → 挂载层（① 数据集 ‖ ② 知识库）→ 元模型五要素（+ Plugin SPI + Tenant）→ GraphStore SPI → 自有展示 Explorer → 自有语义面（语义读 / 遥测读 / 治理写 / 信任基础设施）→ 交互层 Agent 面</strong>。 右侧还有两块：<strong>生态互操作（可关）<strong>和</strong>建模端 astra-studio（上游、另仓）</strong>。</p>
 <p><strong>2.</strong> 是 <strong>治理写 · Action 引擎</strong>那条，标着 <code>guard→回滚→审计</code>，从语义面穿下去直插存储。 <strong>全图只有一条，因为写路径只有一条，而且它必须穿过闸门。</strong> （例外是数据摄取旁路，但那条路不改治理数据。）</p>
 <p><strong>3.</strong> <strong>① 先写后判</strong>（OS 先校验参数再执行，我们先写进 overlay 再判断世界还合不合法）； <strong>② 收集全部违反</strong>（OS 返回一个 errno，我们不短路）。 外加一处<strong>我们比 OS 多的</strong>：<strong>置信度总线</strong>。</p>
 <p><strong>4.</strong> 因为很多规则要判断的是<strong>变更之后世界是否仍然合法</strong>。 例：「一个护理员同时负责不超过 8 位老人」——必须先算上这一次分配才能判断。 写前校验只能写成 <code>当前数量 + 1 &gt; 8</code>，<strong>这是把变更语义硬编码进了规则</strong>；换成"批量转移 5 人"就得重写。 <strong>syscall 校验的是调用，本体引擎校验的是世界。</strong></p>
@@ -1382,6 +1548,10 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <p><strong>7.</strong> 因为<strong>读、写、展示、Agent 面全部是引擎内自有的</strong>，生态互操作是<strong>加分项不是依赖项</strong>。 对客户答问的用处：被问「如果 OKF 那套标准变了或黄了怎么办」—— <strong>「我们关掉它照样跑。」能关掉的东西，才是真的可选。</strong></p>
 <p><strong>8.</strong> ① Schema 包 ② 映射注册表 ③ Function/Rule 实现 ④ Action handlers ⑤ 记忆词典 + 提示词骨架 ⑥ Agent 角色定义 ⑦ CQ 验收集。 <strong>⑤ 记忆词典和 ⑥ Agent 角色编译完全不生成</strong>（③④ 只出骨架，⑦ 格式不匹配，只有 ①② 全自动）。 <strong>七槽位是验收清单，不是自动化承诺。</strong></p>
 <p><strong>9.</strong> 参考表述：<strong>约束不在模型里，在模型外面。</strong> 模型（或人）可以发起一个<strong>参数全对、权限也够</strong>的动作，guard 拦不住它； 但它违反了<strong>世界的稳态条件</strong>，所以在<strong>写后规则校验</strong>阶段被<strong>必然回滚</strong>， <strong>而且被拦这件事本身也留了审计。</strong> → 所以"AI 会不会绕过你们的规则"这个问题的答案是：<strong>它绕不过，因为边界不在它里面。</strong></p>
+<p><strong>10.</strong> 指的是<strong>第④条：全文检索语料</strong>——它<strong>不挂进本体</strong>，只进 advise（开放问答）。 把它当第①条用，就是<strong>拿检索到的一段话去驱动一次写操作</strong>： <strong>绕开了 Action 引擎的 guard / 写后规则 / 回滚 / 审计，等于把整套治理架空。</strong></p>
+<blockquote>
+<p>正确的做法：<strong>要拦住动作的知识走 ①（规则 source，进写路径）</strong>； 检索只做<strong>取证补充</strong>——<strong>写入只经 Action 引擎，防幻觉在执行层。</strong></p>
+</blockquote>
 <hr />
 <h2 id="你的产出去了哪里">你的产出去了哪里</h2>
 <table>
@@ -1415,11 +1585,22 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <hr />
 <h1 id="附--一页纸速查">附 · 一页纸速查</h1>
 <p><strong>图 = 全课</strong>：<code>figures/fig-S2-引擎全景.svg</code>　标题就是主梁：<strong>「自有本体语义 OS」</strong></p>
-<p><strong>从下往上五层</strong>：元模型五要素（+Plugin SPI+Tenant）→ GraphStore SPI → Explorer → 自有语义面（语义读 / 遥测读 / <strong>治理写</strong> / 信任）→ 交互层 Agent 面 <strong>右侧两块</strong>：生态互操作（<strong>可关·非脊椎</strong>）· 建模端 astra-studio（<strong>上游·另仓 → S3</strong>）</p>
+<p><strong>从下往上七层</strong>：数据源层 → <strong>挂载层（① 数据集 ‖ ② 知识库）</strong> → 元模型五要素（+Plugin SPI+Tenant）→ GraphStore SPI → Explorer → 自有语义面（语义读 / 遥测读 / <strong>治理写</strong> / 信任）→ 交互层 Agent 面 <strong>右侧两块</strong>：生态互操作（<strong>可关·非脊椎</strong>）· 建模端 astra-studio（<strong>上游·另仓 → S3</strong>）</p>
 <hr />
 <p><strong>OS 映射</strong>：内核/应用/用户 = Kernel/Plugin/Tenant ｜ syscall = <strong>Action 引擎（全图唯一红线）</strong> ｜ ABI = Plugin SPI ｜ VFS = GraphStore SPI ｜ 沙箱 = Capability ｜ journaling = 审计快照 ｜ DMA 旁路 = 遥测读 / 数据摄取 ｜ checkpatch = 两个 CI 门禁</p>
 <p><strong>只有两处不一样</strong>：❌ <strong>先写后判</strong>（syscall 校验调用，我们校验世界）· ❌ <strong>收集全部违反</strong>（因为调用者是 LLM 不是程序） <strong>多一处</strong>：➕ <strong>置信度总线</strong>（OS 的调用者不会"不确定"）</p>
 <p>⚠️ <strong>类比是脚手架，不是证明。</strong></p>
+<hr />
+<p><strong>⭐ 挂载层</strong>：<strong>① 数据集</strong>（必有主键 · 进图 · <strong>能驱动写入</strong>；挂 Object/Link，走槽位 2 的<strong>物化 / 混合 / 虚拟</strong>）‖ <strong>② 知识库</strong>（必带出处 · <strong>不进图</strong> · <strong>只读</strong>）</p>
+<p><strong>四条知识通道</strong>（强度递减）：<strong>① 规则 source→挂 Rule，进写路径违反即回滚</strong> → ② 对象附着知识→挂 Object，只读一次取到 → ③ 动作证据血统→挂 Action，留痕 → <strong>④ 全文检索→不挂，只进 advise</strong></p>
+<blockquote>
+<p>⚠️ <strong>把④当①用 = 拿检索到的一段话驱动一次写操作。</strong>　⭐ <strong>检索的结果绝不驱动写入。</strong>（图右下角红字）</p>
+</blockquote>
+<p><strong>盘家底真指标</strong>：数据源数<strong>种类</strong> · 数据集数<strong>有主键的</strong> · 知识库数<strong>带出处的</strong> · 本体数 <strong>Link</strong> · 智能体数<strong>设了闸的 Action</strong></p>
+<blockquote>
+<p><strong>"我们有 200 张表、5000 份文档"信息量接近零——挂不上去的等于零。</strong></p>
+</blockquote>
+<p><strong>方向</strong>：<strong>是本体在点名要数据，不是数据在申请上位。</strong></p>
 <hr />
 <p><strong>判缝准则</strong>：「换成医疗大模型还成立吗？」成立→<strong>内核</strong>；不成立→<strong>插件</strong>；具体数字→<strong>租户</strong></p>
 <p><strong>Plugin SPI 七槽位</strong>（= 新行业 WBS · <strong>验收清单，不是自动化承诺</strong>） ① Schema ② 映射 ③ Function/Rule ④ Action handlers ⑤ 记忆词典 ⑥ Agent 角色 ⑦ CQ ⚠️ <strong>实测</strong>：①② ✅全自动 ｜ ③④ ⚠️只出骨架 ｜ <strong>⑤⑥ ❌完全不生成</strong> ｜ ⑦ ⚠️格式不匹配</p>
