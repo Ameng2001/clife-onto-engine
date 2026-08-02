@@ -239,14 +239,18 @@
 <td>OAG ≠ RAG、三层架构、五条设计红线 → <strong>S1 / S2</strong></td>
 </tr>
 <tr class="odd">
+<td>⭐ <strong>填 IR 就是在「认领」</strong>（第三章 ④）</td>
+<td><strong>知识挂载的四条通道</strong>、每层的真指标 → <strong>S1 第九章</strong></td>
+</tr>
+<tr class="even">
 <td>declarative vs function 怎么判</td>
 <td>SOP 其余五阶段的 checklist → <strong>L1 / L4 / L6</strong></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>两道闸、HIL 四判据怎么用</td>
 <td>锚定口径与并行写作 → <strong>L6</strong></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>第十章：一步一条命令的完整走查</strong></td>
 <td>交付模式对照 → <strong>L8 / 案例矩阵</strong></td>
 </tr>
@@ -480,6 +484,50 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 <blockquote>
 <p><strong>规则在写入之后执行</strong>——这条今天先记住怎么用，<strong>为什么这么设计在 S2 讲透</strong>。 它直接决定一件事：<strong>你在 §5 填的 <code>writes</code> 写错了，第 3 步会把整笔操作回滚，不会留半截数据。</strong></p>
 </blockquote>
+<h3 id="④--填-ir-就是在认领认领表">④ ⭐ 填 IR 就是在「认领」——认领表</h3>
+<p><strong>这是理解 IR 最省力的一个角度</strong>：你不是在写文档，<strong>是在替本体点名要东西</strong>。</p>
+<table>
+<thead>
+<tr class="header">
+<th>你填哪一段</th>
+<th>就是在认领什么</th>
+<th>填错的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>§1 Objects</strong> 的 <code>source</code> · <strong>§6 Mapping Hints</strong></td>
+<td><strong>认领数据</strong>：哪张表、哪几列、什么物化策略</td>
+<td>认领了没主键的表 → <strong>落不了地</strong></td>
+</tr>
+<tr class="even">
+<td><strong>§2 Links</strong> 的 <code>from</code> / <code>to</code></td>
+<td><strong>认领关系</strong>：哪两个端点的主键</td>
+<td>一条不认领 → <strong><code>links</code> 为 0，本体退化成数据字典</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>§4 Rules</strong> 的 <code>source</code> / <code>citations</code></td>
+<td>⭐ <strong>认领知识（强度最高的那条通道）</strong>：哪个标准号、哪条规程</td>
+<td>编一个像国标的号 → <strong>一票警示（B-6 / B-10）</strong></td>
+</tr>
+<tr class="even">
+<td><strong>§5 Actions</strong> 的 <code>writes</code></td>
+<td><strong>认领写入范围</strong>：这个动作会动哪些对象</td>
+<td>多认领一个 → 写后规则把整笔回滚</td>
+</tr>
+<tr class="odd">
+<td><strong>§5 Actions</strong> 的 <code>hil</code></td>
+<td><strong>认领责任人</strong>：谁复核</td>
+<td>只写角色不写条件 → <strong>等于没设闸</strong>（下半场讲）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>方向别搞反：是本体在点名要数据，不是数据在申请上位。</strong> 这就是建模 SOP 那条「<strong>先建模、再看数据</strong>」在 IR 上的具体样子—— <strong>你先把 §1–§5 写出来，再回头去 §6 / §9 认领它们要的数据。</strong> <strong>倒过来做，你建出的是「系统长什么样」，不是「业务是什么样」。</strong></p>
+</blockquote>
+<blockquote>
+<p>⭐ <strong>知识挂进本体有四条通道，强度不同，S1 第九章讲全了。</strong> <strong>今天你只经手其中一条半</strong>：<code>§4 Rules</code> 的 <code>source</code> 是<strong>最强的第①条</strong>（进写路径、违反即回滚）； <code>§9 数据来源</code> 里那些参考名录算半条。 <strong>另外两条半（对象附着知识 / 动作证据血统 / 全文检索）不在今天的 IR 里，别硬塞。</strong></p>
+</blockquote>
 <h2 id="四输入12-段契约">四、输入：12 段契约</h2>
 <table>
 <thead>
@@ -626,6 +674,9 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⭐ <strong>对着第三章 ④ 的「认领表」读这张表</strong>：§1 / §6 认领数据 · §2 认领关系 · <strong>§4 的 <code>source</code> 认领知识</strong> · §5 的 <code>writes</code> 认领写入范围 · §5 的 <code>hil</code> 认领责任人。</p>
+</blockquote>
 <h3 id="三组关键取值域">三组关键取值域</h3>
 <p><strong><code>edge_semantics</code> 三值</strong>（决定多跳推理停在哪，IR 里最难的一处判断）：</p>
 <table>
@@ -1023,7 +1074,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 </tr>
 <tr class="odd">
 <td><strong>规则的 severity · backing · source</strong></td>
-<td>规则三问（第四章）三项齐不齐</td>
+<td>规则三问（第四章）三项齐不齐；⭐ <strong><code>source</code> 是你认领知识的地方</strong></td>
 <td>要查名录 / 阈值的改成 <code>function</code></td>
 </tr>
 <tr class="even">
@@ -1831,6 +1882,10 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <hr />
 <p><strong>这不是编译器</strong>：机器立结构，人填判断。<strong>121 处 NotImplementedError 是界线，不是没做完。</strong></p>
 <p><strong>规则三问</strong>：① 拦不拦（severity）② 只看入参吗（backing）③ 依据是谁（source）</p>
+<p><strong>⭐ 填 IR = 认领</strong>：§1/§6 认领<strong>数据</strong> · §2 认领<strong>关系</strong> · <strong>§4 的 <code>source</code> 认领知识（最强通道）</strong> · §5 的 <code>writes</code> 认领<strong>写入范围</strong> · §5 的 <code>hil</code> 认领<strong>责任人</strong></p>
+<blockquote>
+<p><strong>是本体在点名要数据，不是数据在申请上位。</strong></p>
+</blockquote>
 <p><strong>declarative 判据</strong>：判定信息全在 <code>ctx.params + ctx.actor</code> 里吗？<strong>偷偷要查名录的，是 function。</strong></p>
 <p><strong>check 写"什么情况合法"，不是"什么情况拦截"。</strong></p>
 <p><strong>source 三态</strong>：标准号 ✅ / <code>通用</code> ✅ / <code>TODO(FDE)</code> ⚠️被拦</p>
