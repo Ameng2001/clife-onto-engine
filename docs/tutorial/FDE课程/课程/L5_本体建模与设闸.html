@@ -220,6 +220,42 @@
 <p><strong>学员手册</strong> · C-Life FDE 实战工作坊 · 180 分钟（上半场 90′ + 下半场 90′） 配套课件：<code>slides/L5_本体与设闸.html</code>（讲师投屏） <strong>全课重心。压缩档砍课时，这一课绝不砍。</strong></p>
 </blockquote>
 <hr />
+<h2 id="-这一课的立场你是来动手建模的不是来听引擎原理的">⭐ 这一课的立场：你是来动手建模的，不是来听引擎原理的</h2>
+<p><strong>本课只教一件事：用 <code>studio-ontology</code> 把你手上的业务，做成一个能在引擎上跑起来的插件。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>本课讲</th>
+<th>本课<strong>不讲</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>四个命令怎么用、停点审什么</td>
+<td>引擎为什么"先写后判" → <strong>S2</strong></td>
+</tr>
+<tr class="even">
+<td>12 段契约怎么填、七段 IR 怎么审</td>
+<td>OAG ≠ RAG、三层架构、五条设计红线 → <strong>S1 / S2</strong></td>
+</tr>
+<tr class="odd">
+<td>declarative vs function 怎么判</td>
+<td>SOP 其余五阶段的 checklist → <strong>L1 / L4 / L6</strong></td>
+</tr>
+<tr class="even">
+<td>两道闸、HIL 四判据怎么用</td>
+<td>锚定口径与并行写作 → <strong>L6</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>第十章：一步一条命令的完整走查</strong></td>
+<td>交付模式对照 → <strong>L8 / 案例矩阵</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>没上过 S1 / S2 不影响你今天动手。</strong> 手册里凡是要用到的判据都就地给了； 想知道"为什么是这样"，右列那几门课在等你。</p>
+</blockquote>
+<hr />
 <h2 id="为什么这一课是重心">为什么这一课是重心</h2>
 <ol type="1">
 <li><strong>这是唯一一步产出"机器会强制执行的东西"的课。</strong> 前面几课产的是文档，<strong>文档会被忽略；规则不会。</strong></li>
@@ -293,6 +329,9 @@
 </table>
 <p><strong>一句话</strong>：<strong>S2 讲运行时端，S3 讲建模端，本课把两端接起来。</strong></p>
 <blockquote>
+<p>⚠️ <strong>本课刻意不复述 S1 / S2 的原理。</strong> 上一版手册把 OAG ≠ RAG、三层架构、五条设计红线 整章搬了进来——<strong>那让第三章变成全书最长的一章，学员还没碰到工具就先下了车。</strong> 现在第三章只留<strong>填 IR 时真的要用的三样判据</strong>，其余全部指回专题课。</p>
+</blockquote>
+<blockquote>
 <p><strong>没上过专题课也能上这一课</strong>——需要的前置都在本手册里重述了。 但如果你上过，<strong>请带着 S2 的「SPI 七槽位」和 S3 的「IR 七段 → 槽位的编译去向，只覆盖五格」来听第七章</strong>， 那两张表合起来，正好解释你今天会看到的每一个 <code>NotImplementedError</code>。</p>
 </blockquote>
 <h2 id="你今天到底交什么">你今天到底交什么</h2>
@@ -302,7 +341,7 @@ ontology-map.md（七段 IR）    →   建模仓 studio/changes/{id}/       →
 编译产物 4 个文件              →   运行时仓 plugins/{ontology_id}/   →   能 import
 + 收尾 6 项（人填）            →   同上                              →   smoke_cq 绿
 HIL 设点表 · 取证清单          →   随交付文档                        →   闸能被自动验证</code></pre>
-<p>⚠️ <strong>课内到哪一步、课后到哪一步，第二十七章讲清楚了</strong>—— <strong>别以为编译完就等于跑起来了</strong>，那正是本课要打掉的第一个错觉（见第一章）。</p>
+<p>⚠️ <strong>课内到哪一步、课后到哪一步，第二十六章讲清楚了</strong>—— <strong>别以为编译完就等于跑起来了</strong>，那正是本课要打掉的第一个错觉（见第一章）。</p>
 <hr />
 <h1 id="上半场--本体建模">上半场 · 本体建模</h1>
 <h2 id="一开场第一句这不是编译器">一、开场第一句：这不是编译器</h2>
@@ -383,141 +422,17 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 <p><strong>校验器无权改代码</strong>——这是"纪律靠机制不靠自觉"最干净的一个例子。 <strong>它只能告诉你哪里不合格，不能替你把不合格的地方抹平。</strong></p>
 </blockquote>
 <hr />
-<h2 id="三方法论本体建模这一栈oag">三、方法论：本体建模这一栈（OAG）</h2>
+<h2 id="三建模时真正要用的三样东西">三、建模时真正要用的三样东西</h2>
 <blockquote>
-<p><strong>这一栈是全课程的技术分水岭，也是 C-Life 真正的护城河。</strong> 别的方法论我们借业界经典，<strong>本体这一栈我们有自己成体系的方法论</strong>——对标 Palantir 本体语义 OS。</p>
+<p><strong>本章只留填 IR 时会用到的判据。</strong> 引擎为什么这么设计（OAG ≠ RAG、三层架构、五条设计红线、 内核↔︎插件契约）<strong>全部在专题课 S1 / S2</strong>——那些是判断力，不是今天的操作步骤。 <strong>没上过专题课不影响你今天动手</strong>，下面三样够用。</p>
 </blockquote>
-<blockquote>
-<p><strong>这个角色原本是谁</strong>：<strong>知识工程师 / 本体工程师</strong>——负责把领域知识落成<strong>机器可推理、可执行、可追溯</strong>的本体，<strong>而不是给人看的 ER 图</strong>。</p>
-<p>七个知识栈里，DDD 和本体 OAG 合起来才是"建模"。<strong>建模只是七分之二</strong>——免得你以为会建模就等于会做 FDE。</p>
-</blockquote>
-<h3 id="核心命题只记这一句">核心命题（只记这一句）</h3>
-<blockquote>
-<p><strong>大模型负责理解，本体负责确立边界与错误拦截。</strong></p>
-</blockquote>
-<p>LLM 是概率机器，给不了确定性。当你让 Agent 不只"回答问题"而是<strong>执行操作</strong>（出方案、评级、签发凭证、派工单）时，<strong>必须有一层确定性边界在模型之外把关</strong>。</p>
-<p>引擎就是这层边界的工程实现——一个坐在<strong>写路径</strong>上、对每次业务动作做 <code>前置校验 → 内存变更 → 全局规则校验 → 提交或确定性回滚 → 决策血统</code> 的运行时内核。</p>
-<h3 id="内核一oag行动增强-rag检索增强">内核一：OAG（行动增强）≠ RAG（检索增强）</h3>
-<table>
-<thead>
-<tr class="header">
-<th>维度</th>
-<th>RAG</th>
-<th><strong>OAG</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>增强的对象</td>
-<td>生成内容的<strong>依据</strong></td>
-<td><strong>行动的能力与边界</strong></td>
-</tr>
-<tr class="even">
-<td>LLM 输出</td>
-<td>自然语言答案</td>
-<td><strong>结构化操作调用</strong></td>
-</tr>
-<tr class="odd">
-<td>对世界的影响</td>
-<td>只读</td>
-<td><strong>写操作（受规则约束）</strong></td>
-</tr>
-<tr class="even">
-<td>出错后果</td>
-<td>答案不准</td>
-<td><strong>状态被错误改变</strong></td>
-</tr>
-<tr class="odd">
-<td>追溯性</td>
-<td>难还原依据</td>
-<td><strong>完整决策血统</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>最容易搞混的一点</strong>：GraphRAG / 知识图谱增强检索<strong>仍属"读"</strong>——帮模型理解关系，但<strong>不提供受治理的写回路径，挡不住"写错"</strong>。</p>
-<blockquote>
-<p><strong>防幻觉发生在执行层（LLM 提议、引擎回滚），不在检索层。</strong> <strong>概率推理在"选择层"，确定性约束在"执行层"。</strong></p>
-</blockquote>
-<blockquote>
-<p>⚠️ <strong>诚实标注</strong>：给客户讲草业项目时我们曾用"Graph-RAG 约束求解防幻觉"的话术贴近客户认知， 但那<strong>把 OAG 的功劳记到了 RAG 头上</strong>——<strong>对外可以将就，对内必须讲准。</strong></p>
-</blockquote>
-<h3 id="内核二oag-三件套缺一不可">内核二：OAG 三件套（缺一不可）</h3>
-<table>
-<thead>
-<tr class="header">
-<th>件</th>
-<th>是什么</th>
-<th>落点</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>操作发现</strong></td>
-<td>能力清单：Schema → 可用 Action + 参数</td>
-<td>编译产物的 ONTOLOGY 常量与 Action 注册</td>
-</tr>
-<tr class="even">
-<td><strong>执行约束</strong></td>
-<td>Action 引擎 <code>guard → 写后规则 → 确定性回滚</code></td>
-<td>四命令 + 下半场的写入闸</td>
-</tr>
-<tr class="odd">
-<td><strong>决策追溯</strong></td>
-<td>审计<strong>快照</strong>，不是日志</td>
-<td><code>set_confidence</code> / <code>add_evidence</code> / HIL 留痕</td>
-</tr>
-</tbody>
-</table>
-<h3 id="内核三五条设计红线">内核三：五条设计红线</h3>
-<ol type="1">
-<li><strong>行业概念不进内核</strong>——内核源码禁止出现任何行业词（草 / 碳汇 / 辣椒 / 康养…），CI 强制。 <strong>判缝准则</strong>：<strong>"换成医疗大模型这段还成立吗？"</strong> 成立 → 内核，不成立 → 插件。</li>
-<li><strong>本体是 enforced kernel，不是 advisory schema</strong>——Rule 是"违反就拦截 + 回滚"，<strong>不是"希望遵守"</strong>。</li>
-<li><strong>受治理的写</strong>——所有业务动作经 Action 引擎，<strong>无旁路</strong>。</li>
-<li><strong>开源优先、薄适配</strong>——自研只做"接缝"。</li>
-<li><strong>多租户硬隔离</strong>——一个 <code>ontology_id</code> ↔︎ 一个图库 space + 租户作用域。</li>
-</ol>
-<h3 id="内核四三层架构">内核四：三层架构</h3>
-<table>
-<thead>
-<tr class="header">
-<th>层</th>
-<th>归属</th>
-<th>含行业词</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Kernel 内核（机制）</strong></td>
-<td>一次投入跨行业复用</td>
-<td><strong>否（CI 强制）</strong></td>
-<td>元模型、Action 内核、规则引擎、回滚、审计、置信度</td>
-</tr>
-<tr class="even">
-<td><strong>Plugin 行业插件（策略）</strong></td>
-<td>每行业一份</td>
-<td>是（隔离在插件内）</td>
-<td>五要素 Schema、映射、规则函数、Action handler、Agent、CQ</td>
-</tr>
-<tr class="odd">
-<td><strong>Tenant 租户配置（实例）</strong></td>
-<td>每客户一份</td>
-<td>是（实例数据）</td>
-<td>私有物理映射、实例数据接入、密级与授权</td>
-</tr>
-</tbody>
-</table>
-<p>内核与插件<strong>只通过 SDK 通信</strong>——<strong>目录边界即红线</strong>。</p>
-<blockquote>
-<p><strong>"本体即基础设施"</strong>：内核只懂本体怎么运转、<strong>不懂任何行业</strong>。</p>
-</blockquote>
-<h3 id="内核五五要素--内核插件的唯一契约">内核五：五要素 = 内核↔︎插件的唯一契约</h3>
+<h3 id="①-五要素判据表拿不准时逐条问自己">① 五要素判据表（拿不准时逐条问自己）</h3>
 <table>
 <thead>
 <tr class="header">
 <th>要素</th>
 <th>定义</th>
-<th>判据（问你自己）</th>
+<th>判据</th>
 </tr>
 </thead>
 <tbody>
@@ -548,74 +463,23 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 </tr>
 </tbody>
 </table>
-<p><strong>Action 的写路径是这一栈的灵魂</strong>：</p>
+<blockquote>
+<p>⚠️ <strong><code>links</code> 为 0 是本课的一票警示</strong>——只建对象不建关系，本体就退化成一张数据字典 （第十一章 <code>chili</code> 就是这个反面）。</p>
+</blockquote>
+<h3 id="②-️-rule--前置条件填-4-时最容易写错的一处">② ⚠️ Rule ≠ 前置条件（填 §4 时最容易写错的一处）</h3>
+<p><strong>前置条件只判本次调用；Rule 是全局不变式，在所有入口、且在操作之后都要成立，违反就回滚。</strong></p>
+<blockquote>
+<p><strong>你写规则段时最常见的错，就是把前置条件当规则写上去。</strong> 判据一句话：<strong>"别的入口绕过来，这条还该成立吗？"</strong> 该 → Rule；不该 → guard。</p>
+</blockquote>
+<h3 id="③-action-的写路径五步决定你怎么填-5-的-writes-与-hil">③ Action 的写路径五步（决定你怎么填 §5 的 <code>writes</code> 与 <code>hil</code>）</h3>
 <pre><code>guard（前置 declarative）
   → stage_write（内存变更）
-  → post_rules（写后强制，违反即回滚）
-  → 提交 / 确定性回滚
-  → 审计快照 + set_confidence 置信度 + add_evidence 证据</code></pre>
+  → post_rules（写后强制，违反即确定性回滚）
+  → 提交 / 回滚
+  → 审计快照 + 置信度 + 证据</code></pre>
 <blockquote>
-<p>⚠️ <strong>最容易讲漏的一条</strong>：<strong>Rule 与"前置条件"不是一回事。</strong> 前置条件只判本次调用；<strong>Rule 是全局不变式，在所有入口、操作之后都要成立，违反就回滚。</strong> <strong>你写规则段时最容易把前置条件当规则写上去。</strong></p>
+<p><strong>规则在写入之后执行</strong>——这条今天先记住怎么用，<strong>为什么这么设计在 S2 讲透</strong>。 它直接决定一件事：<strong>你在 §5 填的 <code>writes</code> 写错了，第 3 步会把整笔操作回滚，不会留半截数据。</strong></p>
 </blockquote>
-<h3 id="内核六建模-sop可照做">内核六：建模 SOP（可照做）</h3>
-<p><strong>① 起点不是"有哪些数据"，是"现在的做法在哪出了问题"。</strong></p>
-<p>三类反复出现的症状：</p>
-<table>
-<thead>
-<tr class="header">
-<th>症状</th>
-<th>表现</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>信息没法汇聚</strong></td>
-<td>散在多系统，Agent 拿到不同时间点的拼凑结果</td>
-</tr>
-<tr class="even">
-<td><strong>规则无法被执行</strong></td>
-<td>Agent 走后端接口绕过了前端校验——<strong>规则没失效，只是从没在这条路径上被执行过</strong></td>
-</tr>
-<tr class="odd">
-<td><strong>决策无法还原</strong></td>
-<td>日志记的是接口调用，看不出"为什么代采购经理下了这笔 28 万的单"</td>
-</tr>
-</tbody>
-</table>
-<p><strong>② 基于业务语义（不是系统字段）推五要素。</strong></p>
-<p><strong>③ 先建模、再看数据——顺序不能反。</strong> 先看数据会被现有系统结构带偏，建出"<strong>系统长什么样</strong>"而非"<strong>业务是什么样</strong>"。</p>
-<p><strong>④ 四阶段有先后、不并行</strong>：</p>
-<table>
-<thead>
-<tr class="header">
-<th>阶段</th>
-<th>要点</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>① 调研与建模</td>
-<td><strong>业务专家必须在场，工程师单独做必跑偏</strong>；产出<strong>文档 / 原型不是代码</strong></td>
-</tr>
-<tr class="even">
-<td>② 数据盘点与治理</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>③ 引擎搭建与数据接入</td>
-<td><strong>这一阶段才开始写代码</strong></td>
-</tr>
-<tr class="even">
-<td>④ 场景验证与调优</td>
-<td><strong>Demo 的价值在暴露边界，不是证明对</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>⑤ 怎么判断建对了——三问</strong>： ① 信息汇聚实现没有？ ② 规则真在执行没有？——<strong>警惕误拦截 &gt; 漏拦截</strong>：持续误拦截会逼业务绕过本体，<strong>整套约束就失效</strong>。 ③ 决策能不能当天说清楚？</p>
-<blockquote>
-<p><strong>金句</strong>： <strong>"本体建模是把业务知识变成可执行定义的过程，而不是软件开发本身。最难的环节不是选技术栈，而是和业务人员一起把'大家都知道但没有人写下来'的规则，变成能被系统执行的精确描述。"</strong></p>
-</blockquote>
-<hr />
 <h2 id="四输入12-段契约">四、输入：12 段契约</h2>
 <table>
 <thead>
@@ -1078,7 +942,137 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <p><strong>这正是 B-8 的物理对应</strong>：你在凌晨三点想抄近路直接摸内核私有方法，<strong>CI 会挂给你看</strong>。 <strong>结构纪律靠校验器，不靠自觉。</strong></p>
 </blockquote>
 <hr />
-<h2 id="十沉浸完整插件-vs-最小插件">十、沉浸：完整插件 vs 最小插件</h2>
+<h2 id="十-照着做一次完整建模走查">十、⭐ 照着做：一次完整建模走查</h2>
+<blockquote>
+<p><strong>这一章不听讲，实操时摊开照着做。</strong> 从空白到一个能 import 的插件骨架，一步一条命令。 卡住先看本章的「卡在这里怎么办」，再问讲师。</p>
+</blockquote>
+<h3 id="步骤">步骤</h3>
+<table>
+<thead>
+<tr class="header">
+<th>步</th>
+<th>你敲什么 / 填什么</th>
+<th>做完长什么样</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>0</strong></td>
+<td>确认 <code>ontology_id</code>（小写下划线，如 <code>elder_care</code>）——<strong>它同时是插件目录名</strong></td>
+<td>后面每条命令都带这个 id</td>
+</tr>
+<tr class="even">
+<td><strong>1</strong></td>
+<td>补完 12 段契约的 <strong>§3–§9</strong>（第三课已填约 60%）</td>
+<td>intake 完整，<strong>§7 至少 5 条规则</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td><code>/studio-ontology:model {id}</code></td>
+<td>跑到 <strong>⏸ 停点</strong>停住，屏幕上是七段 IR</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td><strong>⭐ 在停点审 IR 四项</strong>（下表），<strong>可以直接改 md 再继续</strong></td>
+<td>IR 你签过字</td>
+</tr>
+<tr class="odd">
+<td><strong>4</strong></td>
+<td>继续执行 → compile</td>
+<td><code>plugins/{id}/</code> 出现，4 个文件</td>
+</tr>
+<tr class="even">
+<td><strong>5</strong></td>
+<td><code>grep -c NotImplementedError plugins/{id}/*.py</code></td>
+<td>数出来的就是<strong>你要接手的活</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>6</strong></td>
+<td>对照第九章<strong>收尾 6 项</strong>，逐项标"谁来填、什么时候填"</td>
+<td>一张收尾清单</td>
+</tr>
+<tr class="even">
+<td><strong>7</strong></td>
+<td><code>/studio-ontology:validate {id}</code> → 看 A / B 段</td>
+<td>校验报告（B 段治理项下半场再补）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>课内到第 7 步为止。</strong> 从这里到 <code>smoke_cq</code> 绿还有几步，<strong>第二十六章</strong>讲。</p>
+</blockquote>
+<h3 id="-第-3-步停点审-ir-的四项本课最重要的-20-分钟">⭐ 第 3 步：停点审 IR 的四项（本课最重要的 20 分钟）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>审什么</th>
+<th>具体看</th>
+<th>不对就当场改</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>对象边界</strong></td>
+<td>有没有把"派生量"当成了 Object</td>
+<td>算出来的挪进 §3 Functions</td>
+</tr>
+<tr class="even">
+<td><strong>edge_semantics</strong></td>
+<td>每条 Link 的方向和语义写了没</td>
+<td><strong><code>links</code> 为 0 直接打回重来</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>规则的 severity · backing · source</strong></td>
+<td>规则三问（第四章）三项齐不齐</td>
+<td>要查名录 / 阈值的改成 <code>function</code></td>
+</tr>
+<tr class="even">
+<td><strong>Action 的 writes · hil</strong></td>
+<td><code>writes</code> 是不是真的会写这些；<code>hil</code> 先留位</td>
+<td><code>hil</code> 下半场填，<strong>这里只留位</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>课堂用 <code>model</code>，不要 <code>map</code> / <code>compile</code> 分开跑</strong>——那个停点是本课唯一的强制人审点， <strong>分开跑就把这堂课最值钱的教学时刻跳过去了。</strong></p>
+</blockquote>
+<h3 id="卡在这里怎么办">卡在这里怎么办</h3>
+<table>
+<thead>
+<tr class="header">
+<th>症状</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>停点前就报错 / IR 段缺失</strong></td>
+<td>回去看 12 段契约哪一段是空的——<strong>§3–§9 缺一段，对应 IR 段就出不来</strong></td>
+</tr>
+<tr class="even">
+<td><strong>IR 里 <code>links</code> 是 0</strong></td>
+<td><strong>不是工具的问题</strong>，是你 §5 只写了实体没写关系。回填再跑</td>
+</tr>
+<tr class="odd">
+<td><strong>compile 说"已存在不覆盖"</strong></td>
+<td>它不覆盖只告警。<strong>先删掉旧目录或换 id</strong>，别在半旧半新的目录上继续</td>
+</tr>
+<tr class="even">
+<td><strong>NotImplementedError 数量吓人</strong></td>
+<td><strong>正常。</strong> 那是界线不是缺陷（第一章）。<strong>一堂课不该也不可能填完</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>validate 一堆红</strong></td>
+<td>先看 A 段（结构）；<strong>B 段治理项是下半场的活</strong>，这会儿红是对的</td>
+</tr>
+<tr class="even">
+<td><strong>完全不知道该长什么样</strong></td>
+<td><strong>打开 <code>plugins/grass/</code> 对照</strong>（第十一章）。<strong>卡住别猜，对照 grass</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="十一沉浸完整插件-vs-最小插件">十一、沉浸：完整插件 vs 最小插件</h2>
 <h3 id="完整长什么样--pluginsgrass">完整长什么样 → <code>plugins/grass/</code></h3>
 <p>四件齐全，且已按闭环拆文件： <code>__init__.py</code>（schema + guard + 主 Action + seed）· <code>forage.py</code>（快检评级）· <code>carbon.py</code>（碳汇核算）· <code>breeding.py</code>（杂交推荐）· <code>machinery.py</code>（作业参数）· <strong><code>cq.py</code>（25 条 CQ_SUITE）</strong> · <strong><code>plugin.yaml</code>（glossary + agents）</strong> · <code>mappings/objects.yaml</code></p>
 <h3 id="反面--pluginschili">反面 → <code>plugins/chili/</code></h3>
@@ -1124,7 +1118,10 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <p><strong>成熟度分层不是谦虚，是不把"有个 pilot 本体"说成"编译交付"。</strong></p>
 </blockquote>
 <hr />
-<h2 id="十一上半场实操45">十一、上半场实操（45′）</h2>
+<h2 id="十二上半场实操60">十二、上半场实操（60′）</h2>
+<blockquote>
+<p><strong>摊开第十章照着做。</strong> 讲师巡场，不再讲。</p>
+</blockquote>
 <table>
 <thead>
 <tr class="header">
@@ -1137,30 +1134,39 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>补完 12 段契约的 §3–§9（第三课已填 60%）</td>
-<td>20′</td>
+<td>补完 12 段契约的 §3–§9（<strong>第三课的补作业，别在这儿磨</strong>）</td>
+<td>10′</td>
 <td>完整 intake，<strong>§7 至少 5 条规则</strong></td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td><code>/studio-ontology:model {id}</code>，<strong>在停点认真审 IR</strong></td>
-<td>20′</td>
-<td><code>ontology-map.md</code> 七段</td>
+<td><code>/studio-ontology:model {id}</code> → <strong>⭐ 在停点按四项认真审 IR</strong></td>
+<td><strong>35′</strong></td>
+<td><code>ontology-map.md</code> 七段，<strong>你签过字的</strong></td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>编译 + 数 NotImplementedError + 对照收尾 6 项</td>
-<td>5′</td>
+<td>compile + 数 NotImplementedError + 对照收尾 6 项</td>
+<td>10′</td>
 <td>骨架 + 收尾清单</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>/studio-ontology:validate</code> 看 A 段</td>
+<td>5′</td>
+<td>结构校验报告</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p><strong>45 分钟填不完 121 处 NotImplementedError，也不该填。</strong> 上半场要你带走的是<strong>结构判断力</strong>：什么是对象、什么是派生量、什么规则只看入参。</p>
+<p>⭐ <strong>第 2 步给了 35 分钟，是刻意的。</strong> 那个停点是本课唯一的强制人审点——<strong>审 IR 才是建模，跑命令不是。</strong> <strong>上半场要你带走的是结构判断力</strong>：什么是对象、什么是派生量、什么规则只看入参。</p>
+</blockquote>
+<blockquote>
+<p><strong>45 分钟填不完 121 处 <code>NotImplementedError</code>，也不该填。</strong></p>
 </blockquote>
 <p><strong>HIL 设点表与取证清单是下半场的产出</strong>，本半场只需在 IR 的 <code>hil</code> 列<strong>先留位</strong>。</p>
 <hr />
-<h2 id="十二上半场-checkout">十二、上半场 checkout</h2>
+<h2 id="十三上半场-checkout">十三、上半场 checkout</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1206,14 +1212,14 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <div style="page-break-after: always;"></div>
 
 <h1 id="下半场--设闸与治理">下半场 · 设闸与治理</h1>
-<h2 id="十三你要交出什么">十三、你要交出什么</h2>
+<h2 id="十四你要交出什么">十四、你要交出什么</h2>
 <p><strong>HIL 设点表</strong> + <strong>citations 取证清单</strong> + validate 的 A/B 段通过。</p>
 <blockquote>
 <p>上半场教"结构怎么立"，下半场教"<strong>哪里必须停下来叫人</strong>"。</p>
 <p><strong>一句话命题</strong>： <strong>FDE 交付不是"手艺好"，是"有 SOP + 会设闸"——SOP 保证你能重复，HIL 保证你不出事。</strong></p>
 </blockquote>
 <hr />
-<h2 id="十四-两道闸本课最容易混也最值钱的一节">十四、★★ 两道闸：本课最容易混、也最值钱的一节</h2>
+<h2 id="十五-两道闸本课最容易混也最值钱的一节">十五、★★ 两道闸：本课最容易混、也最值钱的一节</h2>
 <p>你默认以为"HIL = 拦住不让写"。<strong>错的。</strong> 这两道闸完全不同：</p>
 <table>
 <thead>
@@ -1304,7 +1310,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <p>它只在"违反的是 soft 规则、但你想以此要求人审"这种场景下才有意义。 <strong>需要组合条件（如"低置信或碰了硬规则"）得手写 lambda——引擎允许，IR 语法没定义。这是表达力上限，也是逃生舱。</strong></p>
 </blockquote>
 <hr />
-<h2 id="十五-hil-设点四判据--一条置信度兜底闸">十五、⭐ HIL 设点四判据 + 一条置信度兜底闸</h2>
+<h2 id="十六-hil-设点四判据--一条置信度兜底闸">十六、⭐ HIL 设点四判据 + 一条置信度兜底闸</h2>
 <blockquote>
 <p><strong>口径纪律</strong>：是 <strong>"四条硬判据 + 一条置信度兜底闸"</strong>，<strong>不是"五条硬判据"</strong>。 <strong>四判据看动作性质，兜底闸看模型把握。两者不是同一类东西。</strong></p>
 </blockquote>
@@ -1359,7 +1365,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <p>⚠️ <strong>但"任一即插人"必须先过下面的第一道筛</strong>：这个动作<strong>能不能固化成硬规则</strong>？ <strong>先问"能不能自动"，再问"该不该插人"——顺序反了就会闸设满。</strong></p>
 </blockquote>
 <hr />
-<h2 id="十六闸为什么必须分两层">十六、闸为什么必须分两层</h2>
+<h2 id="十七闸为什么必须分两层">十七、闸为什么必须分两层</h2>
 <blockquote>
 <p>否则你会把 HIL 当成唯一的闸，<strong>闸设满、人变橡皮图章</strong>。</p>
 </blockquote>
@@ -1425,7 +1431,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 </blockquote>
 <p>自动闸 + HIL，就是"被它自己拦下"； 两样都没设，就是等着"<strong>被现实拦下</strong>"——<strong>那时赔的是钱、是合规、是客户关系。</strong></p>
 <hr />
-<h2 id="十七validate-四段校验">十七、validate 四段校验</h2>
+<h2 id="十八validate-四段校验">十八、validate 四段校验</h2>
 <pre><code>/studio-ontology:validate {id}</code></pre>
 <table>
 <thead>
@@ -1468,11 +1474,11 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <p>B 段的定位很关键：它等价于运行时的"无引用规则审计"，<strong>但在交付前就拦</strong>。 这就是康养项目"<strong>18 处挂已核验国标、11 处坚决保留占位</strong>"能守住的机制原因—— <strong>不是靠自觉，是有个东西在交付前拦你。</strong></p>
 </blockquote>
 <hr />
-<h2 id="十八sops4--s5-两阶段">十八、SOP：S4 / S5 两阶段</h2>
+<h2 id="十九sop-的-s4--s5你今天做的是这两阶段">十九、SOP 的 S4 / S5：你今天做的是这两阶段</h2>
 <blockquote>
-<p>七阶段总览第一课讲过。这里只深入 S4 / S5。 <strong>本课坐标</strong>：上半场 → <strong>S4 建结构</strong>；下半场 → <strong>S4 设闸 + S5 治理</strong>；<strong>S7 横切，从本课起贯穿。</strong></p>
+<p><strong>七阶段总览在第一课讲过，其余五阶段的 checklist 在各自主场课</strong>——这里只给今天要收口的两张单子。 <strong>本课坐标</strong>：上半场 → <strong>S4 建结构</strong>；下半场 → <strong>S4 设闸 + S5 治理</strong>；<strong>S7 横切，从本课起贯穿。</strong></p>
 </blockquote>
-<p><strong>S4 本体建模 + 设闸</strong>（对应康养项目五要素 76/75/38/47/54 + HIL 26）</p>
+<p><strong>S4 本体建模 + 设闸</strong></p>
 <ul class="task-list">
 <li><input type="checkbox" disabled="" />
 五要素是否齐全？</li>
@@ -1486,7 +1492,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <ul>
 <li>⚠️ <strong>收口标准：HIL 设点表成型，每个闸有判据依据 + 责任人</strong></li>
 </ul>
-<p><strong>S5 合规治理</strong>（对应康养项目 18 处挂国标 / 11 处保留占位）</p>
+<p><strong>S5 合规治理</strong></p>
 <ul class="task-list">
 <li><input type="checkbox" disabled="" />
 每条硬规则是否挂了 source / citations？</li>
@@ -1501,156 +1507,8 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <blockquote>
 <p><strong>SOP 的价值不在"告诉你做什么"，在"告诉你什么时候还没做完"。</strong> <strong>每张单子最后那行加粗的收口标准才是灵魂。</strong></p>
 </blockquote>
-<h3 id="其余五阶段的-checklist回去照填">其余五阶段的 checklist（回去照填）</h3>
-<details><summary>S1 / S2 / S3 / S6 / S7 展开</summary>
-
-<p><strong>S1 认知萃取</strong></p>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" />
-至少 3 个角色视角并行做过事件风暴？（康养项目是 6 角色）</li>
-<li><input type="checkbox" disabled="" />
-事件经过"合并去重 → 对照增补"两轮以上？（康养项目 58→39→64→102）</li>
-<li><input type="checkbox" disabled="" />
-画像有<strong>一手数据校准</strong>？（康养项目 368 份问卷）</li>
-<li><input type="checkbox" disabled="" />
-已识别出"营收 / 价值命门事件"？</li>
-</ul>
-<ul>
-<li>⚠️ 收口：<strong>事件集可归域</strong></li>
-</ul>
-<p><strong>S2 结构收敛</strong></p>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" />
-旅程服务于业务优先级，而非求全？（<strong>B-7</strong>）</li>
-<li><input type="checkbox" disabled="" />
-每个决策点已标记为"未来 skill 边界"？</li>
-<li><input type="checkbox" disabled="" />
-热点按 <strong>business value</strong> 分层，而非按实现难度？</li>
-</ul>
-<ul>
-<li>⚠️ 收口：<strong>有一份 P1–P5 优先级表，且客户认可这个次序</strong></li>
-</ul>
-<p><strong>S3 域切分</strong></p>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" />
-每个域的职责能否用 1–2 句说清？<strong>说不清就是切错了</strong></li>
-<li><input type="checkbox" disabled="" />
-共享根实体是否<strong>指定唯一 canonical 域</strong>？</li>
-<li><input type="checkbox" disabled="" />
-有"记账 / 结算真相源"这类单点权威域？</li>
-<li><input type="checkbox" disabled="" />
-跨域关系只有 ref / 发布，<strong>没有越域直写</strong>？（<strong>B-8</strong>）</li>
-</ul>
-<ul>
-<li>⚠️ 收口：<strong>承重关系图零悬空引用</strong></li>
-</ul>
-<p><strong>S6 交付物工程</strong></p>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" />
-有单一锚定口径文件？术语 / 数据 / 口径单点定义？</li>
-<li><input type="checkbox" disabled="" />
-并行写作<strong>只引用不重算</strong>关键数字？（<strong>B-5</strong>）</li>
-<li><input type="checkbox" disabled="" />
-编号权归装配阶段？（<strong>B-2</strong>）</li>
-<li><input type="checkbox" disabled="" />
-图目 / 摘要有"收口回改"动作？（<strong>B-1</strong>）</li>
-</ul>
-<ul>
-<li>⚠️ 收口：<strong>装配后质检零口径冲突、零断链、零计数漂移</strong></li>
-</ul>
-<p><strong>S7 HIL 运行与留痕（横切）</strong></p>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" />
-每个闸"<strong>AI 研判 + 人拍板 + 写后留痕</strong>"三段齐全？</li>
-<li><input type="checkbox" disabled="" />
-置信度闸阈值明确（哪怕是占位，如 <strong>0.75</strong>）？</li>
-<li><input type="checkbox" disabled="" />
-责任落到具体岗位（站长 / 民政经办），<strong>不是"系统"</strong>？</li>
-</ul>
-<ul>
-<li>⚠️ 收口：<strong>任何一次自动决策都能追溯到"谁在什么置信度下拍的板"</strong></li>
-</ul>
-</details>
-
 <hr />
-<h2 id="十九锚定口径机制也是这门课的元证据">十九、锚定口径机制（也是这门课的元证据）</h2>
-<p>康养项目可研 11 章、约 11 万字、<strong>35 个分节拆给多个子智能体并行写</strong>。 并行写作最大的风险是<strong>口径漂移</strong>——张三写的老龄化率用 60+ 口径、李四用 65+ 口径，<strong>装配起来数字打架</strong>（这就是 <strong>B-5</strong>）。</p>
-<p>康养项目怎么防的？一份 BRIEF，做三件事：</p>
-<table>
-<thead>
-<tr class="header">
-<th>#</th>
-<th>做什么</th>
-<th>具体</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><strong>术语统一表</strong></td>
-<td>"数智本体"不许写成"知识本体"，锁死写法</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><strong>核心数据表（唯一真相源）</strong></td>
-<td>76/75/38/47/54、1.36 亿、IRR 15.2%，<strong>所有分节一律引用不重算</strong></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><strong>锚定事实 + 协作纪律</strong></td>
-<td><strong>任何口径要调整，只改这一处、全篇自动跟</strong></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>口径不靠 35 个作者自觉对齐，靠一份单点文件强制对齐。</strong></p>
-<p>⭐ <strong>最元的一句话</strong>：<strong>你现在读的这门课，就是这么造的。</strong> 这套手册拆给多个写作子智能体并行写，共用一份 <code>_WRITING_BRIEF.md</code>，结构和康养项目那份一模一样。 <strong>这门课本身就是一次 FDE 交付，用的就是本节教你的 SOP。教材的生产方式，就是教材的内容。</strong></p>
-</blockquote>
-<p><strong>记住这句</strong>：<strong>多智能体一致性靠锚定口径，不靠自觉。</strong></p>
-<hr />
-<h2 id="二十这套-sop-跨交付模式通用">二十、这套 SOP 跨交付模式通用</h2>
-<h3 id="①-sop-可以在任意阶段停">① SOP 可以在任意阶段停</h3>
-<p><strong>辣椒大模型</strong>现在到 <strong>S3–S4</strong>：出了建设方案、画了三层本体设计，已有 pilot 本体，<strong>但未做全域编译落地、无 demo</strong>。</p>
-<blockquote>
-<p>交付物就是这份方案——<strong>这不是没做完，是这个阶段就该交这个。</strong> <strong>SOP 的价值就是：你随时知道自己在第几阶段、手里该拿出什么。</strong></p>
-</blockquote>
-<h3 id="②-同一套管线跨模式跨行业不变">② 同一套管线跨模式、跨行业不变</h3>
-<p><strong>教育督导项目</strong>是模式一的 Token-SaaS，用的是<strong>和康养项目一字不改的建模管线</strong>：33 事件 → 三层画像 → 2 插件 13 skill → 47 页 demo（数据真）。</p>
-<blockquote>
-<p><strong>模式变了、行业变了，方法没变</strong>，变的只是领域知识。</p>
-</blockquote>
-<h3 id="③-hil-命门随交付模式迁移但四条判据不变">③ HIL 命门随交付模式迁移，但四条判据不变</h3>
-<table>
-<thead>
-<tr class="header">
-<th>项目</th>
-<th>模式</th>
-<th>HIL 命门在哪</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>康养项目</td>
-<td>模式二</td>
-<td><strong>站长增收闸</strong>（涉钱）+ <strong>民政 DP-H 发布闸</strong>（涉合规 + 不可逆）</td>
-</tr>
-<tr class="even">
-<td>教育督导项目</td>
-<td>模式一</td>
-<td><strong>三处应用内裁定闸</strong>：区局 OKR 审核、园长材料复核、警告下强制提交——<strong>一个增收闸都没有</strong></td>
-</tr>
-<tr class="odd">
-<td>草业项目 / 辣椒</td>
-<td>农业口</td>
-<td><strong>碳汇 / 溯源凭证发布闸</strong></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>闸门位置从"增收"挪到"应用内质检"再挪到"凭证发布"，但判据永远是那四条。</strong></p>
-</blockquote>
-<hr />
-<h2 id="二十一反例主场b-1--b-2--b-5--b-10">二十一、反例主场：B-1 / B-2 / B-5 / B-10</h2>
+<h2 id="二十反例主场b-1--b-2--b-5--b-10">二十、反例主场：B-1 / B-2 / B-5 / B-10</h2>
 <blockquote>
 <p>别的环节一步一个反例，本节<strong>一次给四个</strong>——因为<strong>交付物工程和合规治理是出错高发区</strong>，这四个坑我们全踩过。</p>
 </blockquote>
@@ -1682,7 +1540,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <p><strong>留占位 + 锚上位国标 + 转取证清单</strong>——这套动作就是把"我不知道"变成"<strong>专业的不知道</strong>"。</p>
 </blockquote>
 <hr />
-<h2 id="二十二沉浸康养项目-26-个-hil-点">二十二、沉浸：康养项目 26 个 HIL 点</h2>
+<h2 id="二十一沉浸康养项目-26-个-hil-点">二十一、沉浸：康养项目 26 个 HIL 点</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1761,7 +1619,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <p><strong>两句话记住</strong>： <strong>站长闸防的是"钱按错"</strong>——闸门在但退化成橡皮图章，等于没有。 <strong>民政闸防的是"合规越界"</strong>——跨组织发布是法律义务，谁签字谁背书。</p>
 </blockquote>
 <hr />
-<h2 id="二十三-现场演示让设闸变成看得见的东西">二十三、⭐ 现场演示：让"设闸"变成看得见的东西</h2>
+<h2 id="二十二-现场演示让设闸变成看得见的东西">二十二、⭐ 现场演示：让"设闸"变成看得见的东西</h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/smoke_cq.py</span></code></pre></div>
 <p><strong>它做了什么</strong>：造一个<strong>删掉「乡土合规」post_rule</strong> 的版本，然后拿同一套 CQ 去跑—— 「非乡土草种应被拦」这条 CQ <strong>立刻从 pass 变 fail</strong>。</p>
 <blockquote>
@@ -1778,7 +1636,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/check_plugin_capabilities.py  <span class="co"># 红线门禁 2</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/export_okf.py                 <span class="co"># 治理导出</span></span></code></pre></div>
 <hr />
-<h2 id="二十四判断训练实操前分组讨论">二十四、判断训练（实操前分组讨论）</h2>
+<h2 id="二十三判断训练实操前分组讨论">二十三、判断训练（实操前分组讨论）</h2>
 <p><strong>题 1 · 设闸判断</strong> 在你的 HIL 设点表里，有没有一个决策点是"<strong>四判据都不太命中，但你还是设了闸</strong>"的？为什么？ <strong>如果一个都没有，是不是你把置信度兜底闸忘了？</strong></p>
 <blockquote>
 <p><strong>参考</strong>：好的 FDE 会为"<strong>高频低置信</strong>"动作设兜底闸，这是四判据之外最容易漏的一类。</p>
@@ -1792,7 +1650,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <p><strong>参考</strong>：<strong>能对客户坦然说"这处我留了占位、给你一份取件清单"的 FDE，比交一份"看起来完整"的假件的 FDE 专业得多。</strong></p>
 </blockquote>
 <hr />
-<h2 id="二十五下半场实操30">二十五、下半场实操（30′）</h2>
+<h2 id="二十四下半场实操30">二十四、下半场实操（30′）</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1829,7 +1687,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <li><strong>查不到的文号一律留占位</strong>，转成向客户逐项取件的清单——<strong>这是路演一票警示的直接来源</strong></li>
 </ul>
 <hr />
-<h2 id="二十六下半场-checkout">二十六、下半场 checkout</h2>
+<h2 id="二十五下半场-checkout">二十五、下半场 checkout</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1882,7 +1740,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 </tbody>
 </table>
 <hr />
-<h2 id="二十七把产出物拉通到平台跑起来">二十七、把产出物拉通到平台跑起来</h2>
+<h2 id="二十六把产出物拉通到平台跑起来">二十六、把产出物拉通到平台跑起来</h2>
 <p><strong>这一节回答"然后呢"。</strong> 前面二十六节做出来的东西，怎么变成一个<strong>在引擎上真的能跑的插件</strong>。</p>
 <h3 id="三步">三步</h3>
 <pre><code>① 落位   把编译产物拷进运行时仓  clife-onto-engine/plugins/{ontology_id}/
@@ -1956,6 +1814,18 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <div style="page-break-after: always;"></div>
 
 <h2 id="附--一页纸速查">附 · 一页纸速查</h2>
+<p><strong>⭐ 上半场七步走查</strong>（详见第十章）</p>
+<pre><code>0 定 ontology_id（= 插件目录名）
+1 补完 12 段契约 §3–§9              ← 第三课的补作业
+2 /studio-ontology:model {id}       ← 别 map/compile 分开跑
+3 ⏸ 停点审 IR 四项 ★★ 本课最重要的 35′
+     对象边界 · edge_semantics · 规则三问 · Action 的 writes/hil（先留位）
+4 继续 → compile → plugins/{id}/ 4 个文件
+5 grep -c NotImplementedError       ← 数出来的就是你要接手的活
+6 对照收尾 6 项，标&quot;谁填、何时填&quot;
+7 /studio-ontology:validate → 看 A 段（B 段治理项下半场补）</code></pre>
+<p><strong>卡住四条</strong>：IR 段缺 → 回查契约哪段空 ｜ <code>links</code>=0 → 你只写了实体没写关系 ｜ compile 说已存在 → 先删旧目录别叠加 ｜ <strong>完全没头绪 → 打开 <code>plugins/grass/</code> 对照</strong></p>
+<hr />
 <p><strong>这不是编译器</strong>：机器立结构，人填判断。<strong>121 处 NotImplementedError 是界线，不是没做完。</strong></p>
 <p><strong>规则三问</strong>：① 拦不拦（severity）② 只看入参吗（backing）③ 依据是谁（source）</p>
 <p><strong>declarative 判据</strong>：判定信息全在 <code>ctx.params + ctx.actor</code> 里吗？<strong>偷偷要查名录的，是 function。</strong></p>

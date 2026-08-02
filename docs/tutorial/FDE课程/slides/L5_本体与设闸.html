@@ -51,7 +51,7 @@
     <span class="pill">上：五要素 + 收尾 6 项</span>
     <span class="pill">下：HIL 设点表 + 取证清单</span>
   </div>
-  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">C-Life · FDE 内训</span><span class="slide-number" data-current="1" data-total="25"></span></div>
   <div class="notes">
     <p><b>【时间盒 · 上半场 90′】</b> 知识注入 25′ ｜ <b>实操 45′</b> ｜ checkout 20′（讲解与实操穿插）</p>
     <p><b>【时间盒 · 下半场 90′】</b> 知识注入 40′ ｜ <b>现场演示 15′</b> ｜ <b>实操 30′</b> ｜ checkout 20′（穿插）</p>
@@ -79,7 +79,7 @@ ontology-map.md（七段 IR）  →  建模仓 studio/changes/{id}/     →  <b>
 编译产物 4 个文件            →  运行时仓 plugins/{ontology_id}/ →  能 import
 + 收尾 6 项（人填）          →  同上                            →  <b>smoke_cq 绿</b>
 HIL 设点表 · 取证清单        →  随交付文档                      →  闸能被自动验证</pre>
-  <div class="deck-footer"><span class="ftag">定位</span><span class="slide-number" data-current="2" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">定位</span><span class="slide-number" data-current="2" data-total="25"></span></div>
   <div class="notes"><p><b>【没上过专题课的人也要能跟上】</b>需要的前置本课都会重述。<b>但上过 S2/S3 的人，请带着「SPI 七槽位」和「IR 七段→槽位的编译去向」来听第七章</b>——那两张表合起来正好解释今天每一个 NotImplementedError。</p>
   <p><b>【这一页要立住"今天不是学工具用法"】</b>"这门课不是教你跑四个命令。<b>是把三门专题课的东西，落成一个能跑的插件。</b>"</p>
   <p><b>⚠️【但别让他们以为课内能跑通】</b>下面第一页马上要打掉"这是编译器"的错觉。<b>课内到哪一步、课后到哪一步，倒数第二页会说清。别在这里承诺。</b></p></div>
@@ -96,7 +96,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <b>这不是没做完，是明确划出"机器到此为止、人从这里接手"的界线。</b></p>
   </div>
   <p class="lede mt-m" data-anim="fade-up"><b>一个不敢留 NotImplementedError 的 FDE，会让模型把它猜的业务规则写成看起来能跑的代码——那才是灾难。</b></p>
-  <div class="deck-footer"><span class="ftag">不是编译器</span><span class="slide-number" data-current="3" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">不是编译器</span><span class="slide-number" data-current="3" data-total="25"></span></div>
   <div class="notes"><p><b>【为什么开场就说这句】</b>学员看到 "compile" 会以为有个确定性编译器。<b>本课的全部价值都建立在"没有"这个认知上。</b></p>
   <p>"你们会看到编译产出一堆 <span class="mono">raise NotImplementedError</span>。第一反应是'这东西没做完'。<b>不是</b>——那 121 处是<b>界线</b>，是有人认真地说'这里机器不该猜，等人来填'。<b>反过来想：如果一个工具把所有地方都填满了，那意味着它在猜你的业务规则，而且猜得看起来很像真的。那才可怕。</b>"</p></div>
 </section>
@@ -120,29 +120,29 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <tr><td><span class="mono">ontology-validate</span></td><td>Read, Glob, Grep, <b>Bash</b></td><td><b>无 Write</b> → <b>物理上不可能改你的插件</b></td></tr>
   </table>
   <p class="quote-big mt-m" data-anim="fade-up">校验器无权改代码。</p>
-  <div class="deck-footer"><span class="ftag">四命令</span><span class="slide-number" data-current="4" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">四命令</span><span class="slide-number" data-current="4" data-total="25"></span></div>
   <div class="notes"><p><b>【课堂用 model，不要分开跑】</b>那个停点是本课最重要的教学时刻。<b>审 IR 时审四项</b>：对象边界 / edge_semantics / 规则的 severity·backing·出处 / Action 的 writes·HIL。<b>可以直接改 md 文件再继续。</b></p>
   <p><b>【权限那张表要讲透】</b>"校验器<b>无权改代码</b>——这是'纪律靠机制不靠自觉'最干净的一个例子。<b>它只能告诉你哪里不合格，不能替你把不合格的地方抹平。</b> 想想看，如果校验器有 Write 权限会怎样？它会'顺手帮你修一下'，然后你永远不知道自己错在哪。"</p></div>
 </section>
 
-<!-- 4 OAG ≠ RAG -->
-<section class="slide" data-title="OAG ≠ RAG">
-  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈③ 本体 OAG 1/4 · <b>技术分水岭</b></div>
-  <h2 class="title">大模型负责理解，<b>本体负责确立边界</b></h2>
+<!-- 4 本课讲什么·不讲什么 -->
+<section class="slide" data-title="本课讲什么 · 不讲什么">
+  <div class="kicker"><span class="half">上半场</span> ② 启发 · <b>先划边界</b></div>
+  <h2 class="title">这一课只教一件事：<br><b>把你的业务做成一个能跑的插件</b></h2>
   <table class="t mt-s" data-anim="stagger-list">
-    <tr><th style="width:22%">维度</th><th style="width:32%">RAG</th><th><b>OAG</b></th></tr>
-    <tr><td>增强的对象</td><td>生成内容的<b>依据</b></td><td><b>行动的能力与边界</b></td></tr>
-    <tr><td>LLM 输出</td><td>自然语言答案</td><td><b>结构化操作调用</b></td></tr>
-    <tr><td>对世界的影响</td><td>只读</td><td><b>写操作（受规则约束）</b></td></tr>
-    <tr><td>出错后果</td><td>答案不准</td><td><b>状态被错误改变</b></td></tr>
-    <tr><td>追溯性</td><td>难还原依据</td><td><b>完整决策血统</b></td></tr>
+    <tr><th style="width:48%">本课讲（今天要动手用）</th><th>本课<b>不讲</b>（想知道"为什么"去这里）</th></tr>
+    <tr><td>四个命令怎么用、<b>停点审什么</b></td><td>引擎为什么"先写后判" → <b>S2</b></td></tr>
+    <tr><td>12 段契约怎么填、七段 IR 怎么审</td><td>OAG ≠ RAG、三层架构、五条设计红线 → <b>S1 / S2</b></td></tr>
+    <tr><td>declarative vs function 怎么判</td><td>SOP 其余五阶段的 checklist → <b>L1 / L4 / L6</b></td></tr>
+    <tr><td>两道闸、HIL 四判据怎么用</td><td>锚定口径与并行写作 → <b>L6</b></td></tr>
+    <tr class="hot"><td><b>第十章：一步一条命令的完整走查</b></td><td>交付模式对照 → <b>L8 / 案例矩阵</b></td></tr>
   </table>
-  <p class="lede mt-m" data-anim="fade-up"><b>最容易搞混的一点</b>：GraphRAG / 知识图谱增强检索<b>仍属"读"</b>——帮模型理解关系，但<b>不提供受治理的写回路径，挡不住"写错"</b>。</p>
-  <p class="quote-big mt-m" data-anim="fade-up">概率推理在"选择层"，<br><b>确定性约束在"执行层"。</b></p>
-  <div class="deck-footer"><span class="ftag">OAG</span><span class="slide-number" data-current="5" data-total="26"></span></div>
-  <div class="notes"><p><b>【这一栈是 C-Life 真正的护城河】</b>"别的方法论我们借业界经典，<b>本体这一栈我们有自己成体系的方法论</b>——对标 Palantir 本体语义 OS。<b>下面讲的不是教科书概念，是我们自己一行行写出来、CI 强制、跨行业复用的东西。</b>"</p>
-  <p><b>⚠️【诚实标注，课上必须说】</b>"给客户讲草业项目时我们曾用'Graph-RAG 约束求解防幻觉'的话术贴近客户认知，<b>但那把 OAG 的功劳记到了 RAG 头上</b>。<b>对外可以将就，对内必须讲准。</b>"——<b>这一段本身就是诚实边界的示范。</b></p>
-  <p><b>【这个角色原本是谁】</b>知识工程师 / 本体工程师——把领域知识落成<b>机器可推理、可执行、可追溯</b>的本体，<b>而不是给人看的 ER 图</b>。</p></div>
+  <p class="quote-big mt-m" data-anim="fade-up">今天你是来<b>动手建模</b>的，<br>不是来听<b>引擎原理</b>的。</p>
+  <p class="lede mt-s" data-anim="fade-up"><b>没上过 S1 / S2 不影响你今天动手</b>——凡是要用到的判据，手册里都就地给了。</p>
+  <div class="deck-footer"><span class="ftag">先划边界</span><span class="slide-number" data-current="5" data-total="25"></span></div>
+  <div class="notes"><p><b>⭐【这一屏是本次改版的题眼，别跳】</b>"上一版这里是三屏原理——OAG≠RAG、五条红线三层架构、建模 SOP 四阶段。<b>结果学员还没碰到工具就先下了车。</b>现在压成这一屏：<b>右列那些不是不重要，是不属于今天。</b>"</p>
+  <p><b>【对上过专题课的人】</b>"上过 S1/S2 的，今天会觉得前面很快——<b>那是因为原理你已经有了，今天补的是手感。</b>"</p>
+  <p><b>【对没上过的人】</b>"没上过也完全跟得上。<b>凡是填 IR 时要用的判据，第三章就地给了三样：五要素判据表、Rule≠前置条件、Action 写路径五步。</b>"</p></div>
 </section>
 
 <!-- 5 五要素 + 写路径 -->
@@ -167,55 +167,9 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     前置条件只判本次调用；<b>Rule 是全局不变式，在所有入口、操作之后都要成立，违反就回滚。</b><br>
     <b>学员写规则段时经常把前置条件当规则写上去。</b></p>
   </div>
-  <div class="deck-footer"><span class="ftag">五要素</span><span class="slide-number" data-current="6" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">五要素</span><span class="slide-number" data-current="6" data-total="25"></span></div>
   <div class="notes"><p><b>【写路径是这一栈的灵魂】</b>指着那段代码逐行念。特别是 <span class="mono">post_rules</span> 那一行——<b>"写后强制"是本课最反直觉的设计</b>：先写进内存，再校验，违反就整个回滚。学员会问"为什么不先校验"？答案：<b>有些规则只有在写完之后才能判</b>（比如"该老人的总服务时长不得超过额度"——你得先把这次的加进去才知道超没超）。</p>
   <p><b>【Rule vs 前置条件，实操时要抓】</b>这是 §7 写规则段最高频的错。巡场时逐条问："这条规则，<b>在别的入口进来也要成立吗</b>？只在这一个动作前判的，那是 guard，不是 Rule。"</p></div>
-</section>
-
-<!-- 6 五条红线 + 三层 -->
-<section class="slide" data-title="五条红线与三层架构">
-  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈③ 3/4</div>
-  <h2 class="title" style="font-size:36px">五条设计红线，与三层架构</h2>
-  <div class="grid g2 mt-s" data-anim="stagger-list">
-    <div class="card" style="font-size:14px"><h4>五条红线</h4><p class="dim">① <b>行业概念不进内核</b>——CI 强制。判缝准则：<b>"换成医疗大模型这段还成立吗？"</b><br>
-    ② <b>本体是 enforced kernel，不是 advisory schema</b>——违反就拦截 + 回滚，不是"希望遵守"<br>
-    ③ <b>受治理的写</b>——所有业务动作经 Action 引擎，<b>无旁路</b><br>
-    ④ 开源优先、薄适配——自研只做"接缝"<br>
-    ⑤ <b>多租户硬隔离</b></p></div>
-    <div class="card card-accent" style="font-size:14px"><h4>三层架构</h4><p class="dim">
-    <b>Kernel 内核（机制）</b>　含行业词：<b>否（CI 强制）</b><br>
-    <span style="padding-left:1em">元模型 / Action 内核 / 规则引擎 / 回滚 / 审计 / 置信度</span><br><br>
-    <b>Plugin 行业插件（策略）</b>　每行业一份<br>
-    <span style="padding-left:1em">五要素 Schema / 映射 / 规则函数 / handler / Agent / CQ</span><br><br>
-    <b>Tenant 租户配置（实例）</b>　每客户一份<br>
-    <span style="padding-left:1em">私有物理映射 / 实例数据 / 密级与授权</span></p></div>
-  </div>
-  <p class="lede mt-s" data-anim="fade-up"><b>内核只懂本体怎么运转，不懂任何行业。</b><br><b>两仓分工</b>：<span class="mono">plugins/{ontology_id}/</span>（<b>不是 {tenant}</b>）放本体定义；<span class="mono">tenants/{tenant}/</span> 放实例与名录数据。<b>把名录数据写进 plugins/，违反的不是习惯，是红线。</b></p>
-  <div class="deck-footer"><span class="ftag">红线 · 三层</span><span class="slide-number" data-current="7" data-total="26"></span></div>
-  <div class="notes"><p><b>【判缝准则最好用】</b>"<b>换成医疗大模型这段还成立吗？</b>成立 → 内核，不成立 → 插件。这一句话能解决 90% 的'这段代码该放哪'的争论。"</p>
-  <p><b>【两仓分工必须讲，否则学员会把数据写进插件】</b>grass 与 chili 在<b>同一进程同一 registry 里按 namespace 共存</b>——所以目录是按 ontology_id 分的，不是按租户分的。</p></div>
-</section>
-
-<!-- 7 建模 SOP -->
-<section class="slide" data-title="建模 SOP">
-  <div class="kicker"><span class="half">上半场</span> ② 启发 · 栈③ 4/4</div>
-  <h2 class="title">建模 SOP：可照做的四阶段</h2>
-  <div class="grid g3 mt-s" data-anim="stagger-list">
-    <div class="card"><h4>① 起点不是"有哪些数据"</h4><p class="dim">是<b>"现在的做法在哪出了问题"</b>。三类症状：<br><b>信息没法汇聚</b> / <b>规则无法被执行</b>（Agent 走后端接口绕过前端校验——规则没失效，<b>只是从没在这条路径上被执行过</b>）/ <b>决策无法还原</b></p></div>
-    <div class="card"><h4>③ 先建模、再看数据</h4><p class="dim"><b>顺序不能反。</b><br>先看数据会被现有系统结构带偏，建出"<b>系统长什么样</b>"而非"<b>业务是什么样</b>"</p></div>
-    <div class="card"><h4>⑤ 怎么判断建对了</h4><p class="dim">① 信息汇聚实现没有？<br>② 规则真在执行没有？——<b>警惕误拦截 &gt; 漏拦截</b>：持续误拦截会逼业务绕过本体，<b>整套约束就失效</b><br>③ 决策能不能当天说清楚？</p></div>
-  </div>
-  <table class="t mt-m" data-anim="stagger-list">
-    <tr><th style="width:26%">④ 四阶段有先后、不并行</th><th>要点</th></tr>
-    <tr><td>① 调研与建模</td><td><b>业务专家必须在场，工程师单独做必跑偏</b>；产出<b>文档 / 原型不是代码</b>，业务逐条确认</td></tr>
-    <tr><td>② 数据盘点与治理</td><td>—</td></tr>
-    <tr><td>③ 引擎搭建与数据接入</td><td><b>这一阶段才开始写代码</b></td></tr>
-    <tr><td>④ 场景验证与调优</td><td><b>Demo 的价值在暴露边界，不是证明对</b></td></tr>
-  </table>
-  <div class="deck-footer"><span class="ftag">建模 SOP</span><span class="slide-number" data-current="8" data-total="26"></span></div>
-  <div class="notes"><p><b>【金句，可直接板书】</b>"<b>本体建模是把业务知识变成可执行定义的过程，而不是软件开发本身。最难的环节不是选技术栈，而是和业务人员一起把'大家都知道但没有人写下来'的规则，变成能被系统执行的精确描述。</b>"</p>
-  <p><b>【"规则无法被执行"这条症状要展开】</b>"注意措辞——<b>规则没失效，只是从没在这条路径上被执行过</b>。前端有校验，Agent 走后端接口就绕过去了。<b>这就是为什么约束必须下沉到写路径上，而不是留在界面层。</b>"</p>
-  <p><b>【难听话】</b>"建模只是七分之二（栈②DDD + 栈③OAG）。<b>别以为会建模就等于会做 FDE。</b>"</p></div>
 </section>
 
 <!-- 8 规则三问 -->
@@ -231,7 +185,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
   <p class="lede mt-s" data-anim="fade-up">判定所需的全部信息，是不是都在 <span class="mono">ctx.params + ctx.actor</span> 里？<br>
   <b>是</b> → <span class="mono">declarative</span>（可从 check <b>全自动生成代码</b>）　<b>否</b> → <span class="mono">function</span>（<b>只能生成骨架，你来填</b>）</p>
   <p class="quote-big mt-s" data-anim="fade-up">偷偷需要查名录 / 阈值 / 库存的，<b>不是 declarative。</b></p>
-  <div class="deck-footer"><span class="ftag">规则三问</span><span class="slide-number" data-current="9" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">规则三问</span><span class="slide-number" data-current="7" data-total="25"></span></div>
   <div class="notes"><p><b>【这三问要学员背下来】</b>让他们当场对着自己 intake 的 §7 逐条问一遍。<b>没答全三问的规则，就是没写完。</b></p>
   <p><b>【规则工程师 agent 的原话可以直接念】</b>"never mark a rule declarative if it secretly needs to look up a registry/threshold/inventory — that's function." <b>"secretly"这个词用得好</b>——学员标 declarative 时往往没意识到自己脑子里已经默认"去查一下名录"。</p>
   <p><b>【偏好倾向】</b>合规、安全、方法学类的规则，默认往 <b>hard + post_write + function</b> 三档靠。<b>因为那才是回滚机制的用武之地。</b></p></div>
@@ -259,7 +213,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
   <pre class="code mt-s" data-anim="fade-up">IR:    check = budget is None or budget &gt;= 0        <b># 写"什么情况下是对的"</b>
 生成:  if not (budget is None or budget &gt;= 0):     <b># 生成时取反</b>
            return RuleResult.fail(...)</pre>
-  <div class="deck-footer"><span class="ftag">取值域</span><span class="slide-number" data-current="10" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">取值域</span><span class="slide-number" data-current="8" data-total="25"></span></div>
   <div class="notes"><p><b>【取反逻辑必须现场演示一遍】</b>写在白板上：先写 check，再写生成的代码。<b>学员写 check 时最容易写反</b>——记住口诀：<b>写"什么情况下是对的"，不是"什么情况下要拦"。</b></p>
   <p><b>【source 三态是下半场治理审计的伏笔】</b>现在讲清楚，下半场讲 validate B 段时学员就懂为什么"通用"能放行、<span class="mono">TODO(FDE)</span> 会被拦。</p></div>
 </section>
@@ -285,13 +239,40 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     ⑥ 固定 import 头部 → <b>漏了 Evaluation</b></p></div>
   </div>
   <p class="quote-big mt-m" data-anim="fade-up">这六条不是吐槽工具，<b>是教学法。</b><br>唯一可靠的动作是<b>去读代码、去跑一遍。</b></p>
-  <div class="deck-footer"><span class="ftag">收尾 · 落差</span><span class="slide-number" data-current="11" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">收尾 · 落差</span><span class="slide-number" data-current="9" data-total="25"></span></div>
   <div class="notes"><p><b>【第 4、5 两项是硬落差，必须说清】</b>"不做，<b>编译产物根本跑不起来</b>。<b>这不是学员做错了，是工具链的已知缺口。</b>"——不说这句，学员会以为是自己的问题，然后花半小时 debug。</p>
   <p><b>⭐【顺便回收 B-9】</b>"康养项目当初对 <span class="mono">Evaluation</span> 是否导出存疑，<b>统一留 docstring 挂账没敢往前推</b>——<b>今天证明那个判断是对的</b>。第六项就是它。<b>不确定就挂账，别赌。</b>"</p>
   <p><b>【六处落差是本课最贵的资产】</b>"FDE 每天面对的就是这种'<b>文档说 A、代码是 B</b>'。你们将来接手任何一个第三方组件，都会撞上这个。<b>唯一可靠的动作是去读代码、去跑一遍。</b>"</p></div>
 </section>
 
 <!-- 11 沉浸 grass vs chili -->
+<section class="slide tight" data-title="⭐ 照着做 · 七步走查">
+  <div class="kicker"><span class="half">上半场</span> ④ 实操前 · <b>手册第十章，摊开照着做</b></div>
+  <h2 class="title">从空白到一个能 import 的插件：<b>七步</b></h2>
+  <pre class="code" style="margin-top:6px">0 定 <b>ontology_id</b>（小写下划线，如 elder_care）　　← 它同时是插件目录名
+1 补完 12 段契约 §3–§9　　　　　　　　　　　　　← 第三课的补作业，别在这儿磨
+2 <b>/studio-ontology:model {id}</b>　　　　　　　　　　← 别 map / compile 分开跑
+3 <b>⏸ 停点审 IR 四项　★★ 本课最重要的 35 分钟</b>
+     对象边界 · edge_semantics · 规则三问 · Action 的 writes / hil（先留位）
+4 继续 → compile → <b>plugins/{ontology_id}/</b> 4 个文件　<b>⚠️ 是 id 不是 tenant</b>
+5 grep -c NotImplementedError　　　　　　　　　← 数出来的就是你要接手的活
+6 对照<b>收尾 6 项</b>，逐项标"谁填、何时填"
+7 /studio-ontology:validate → 看 <b>A 段</b>（B 段治理项下半场补）</pre>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:34%">卡在这里</th><th>怎么办</th></tr>
+    <tr><td>IR 段缺失 / 停点前报错</td><td>回去看 12 段契约哪一段是空的——<b>缺一段，对应 IR 段就出不来</b></td></tr>
+    <tr class="hot"><td><span class="mono">links</span> 是 0</td><td><b>不是工具的问题</b>，是你只写了实体没写关系。回填再跑</td></tr>
+    <tr><td>compile 说"已存在不覆盖"</td><td>它只告警。<b>先删旧目录或换 id</b>，别在半旧半新的目录上继续</td></tr>
+    <tr><td>NotImplementedError 数量吓人</td><td><b>正常。</b>那是界线不是缺陷。<b>一堂课不该也不可能填完</b></td></tr>
+    <tr><td>完全不知道该长什么样</td><td><b>打开 <span class="mono">plugins/grass/</span> 对照。卡住别猜，对照 grass</b></td></tr>
+  </table>
+  <div class="deck-footer"><span class="ftag">七步走查</span><span class="slide-number" data-current="10" data-total="25"></span></div>
+  <div class="notes"><p><b>⭐【这一屏是本次改版新增的，也是最该留的一屏】</b>"上一版整份手册里<b>没有一处从头到尾把命令串起来</b>——学员知道每个概念，就是不知道第一步敲什么。这七步就是补这个。"</p>
+  <p><b>【念完就发下去，别讲解】</b>这一屏不是用来讲的，是<b>实操时摊在桌上照着做</b>的。念一遍标题和第 3 步，剩下让他们边做边看。</p>
+  <p><b>【第 4 步那个 ⚠️ 要点出来】</b>"目录是 <span class="mono">plugins/{ontology_id}/</span>，<b>不是 {tenant}</b>。名录 / 实例数据走 <span class="mono">tenants/</span>——<b>把名录数据写进 plugins/，违反的不是习惯，是红线</b>（手册第八章）。"</p>
+  <p><b>【"卡在这里"表是给巡场用的】</b>五条里前四条你都不用动手，让他们自己查。<b>只有第五条"完全没头绪"需要你走过去，把 grass 打开摆在他屏幕旁边。</b></p></div>
+</section>
+
 <section class="slide" data-title="沉浸 · grass vs chili">
   <div class="kicker"><span class="half">上半场</span> ③ 沉浸</div>
   <h2 class="title">完整插件 vs 最小插件，并排看</h2>
@@ -311,23 +292,23 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <b>只建对象不建关系，本体就退化成一张数据字典</b>——Link 缺位，Function 无处派生、Rule 无处横切</p></div>
   </div>
   <p class="quote-big mt-m" data-anim="fade-up">把 3 条 Link 和 0 条并排看，<br><b>一眼就明白五要素为什么缺一不可。</b></p>
-  <div class="deck-footer"><span class="ftag">grass / chili</span><span class="slide-number" data-current="12" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">grass / chili</span><span class="slide-number" data-current="11" data-total="25"></span></div>
   <div class="notes"><p><b>【当场打开两个目录并排】</b>这是本课上半场唯一的沉浸环节，<b>必须真打开看</b>。ls 一下两个目录，差别一目了然。</p>
   <p><b>【案例成熟度必须报口径，这是全课唯一口径源】</b>康养项目 🟢 唯一全域编译交付（7 域 / 3835 行 / 121 处挂账）；草业项目 🟡 方案 + <b>11 页 Mock demo（AI 是关键词路由，不是真模型）</b> + pilot 本体；辣椒 🟡 方案 + pilot 本体、<b>无 demo</b>；教育督导项目 🟢 建模 + 47 页 demo（<b>数据真</b>）。<br><b>成熟度分层不是谦虚，是不把"有个 pilot 本体"说成"编译交付"。</b></p></div>
 </section>
 
 <!-- 12 上半场实操 + checkout -->
-<section class="slide" data-title="上半场实操与 checkout">
-  <div class="kicker"><span class="half">上半场</span> ④ 实操 45′ + checkout 20′</div>
+<section class="slide tight" data-title="上半场实操与 checkout">
+  <div class="kicker"><span class="half">上半场</span> ④ <b>实操 60′</b> + checkout 20′ · <b>摊开走查照着做</b></div>
   <h2 class="title">上半场要你带走的是<b>结构判断力</b></h2>
   <table class="t mt-s" data-anim="stagger-list">
     <tr><th style="width:8%">序</th><th style="width:44%">做什么</th><th style="width:12%">时长</th><th>产出</th></tr>
-    <tr><td>1</td><td>补完 12 段契约的 §3–§9（第三课已填 60%）</td><td>20′</td><td>完整 intake，<b>§7 至少 5 条规则</b></td></tr>
-    <tr><td>2</td><td><span class="mono">/studio-ontology:model</span>，<b>在停点认真审 IR</b></td><td>20′</td><td><span class="mono">ontology-map.md</span> 七段</td></tr>
-    <tr><td>3</td><td>编译 + 数 NotImplementedError + 对照收尾 6 项</td><td>5′</td><td>骨架 + 收尾清单</td></tr>
+    <tr><td>1</td><td>补完 12 段契约的 §3–§9（<b>第三课的补作业，别在这儿磨</b>）</td><td>10′</td><td>完整 intake，<b>§7 至少 5 条规则</b></td></tr>
+    <tr class="hot"><td>2</td><td><span class="mono">/studio-ontology:model</span> → <b>⭐ 在停点按四项认真审 IR</b></td><td><b>35′</b></td><td><span class="mono">ontology-map.md</span> 七段，<b>你签过字的</b></td></tr>
+    <tr><td>3</td><td>compile + 数 NotImplementedError + 对照收尾 6 项</td><td>10′</td><td>骨架 + 收尾清单</td></tr>
+    <tr><td>4</td><td><span class="mono">/studio-ontology:validate</span> 看 A 段</td><td>5′</td><td>结构校验报告</td></tr>
   </table>
-  <p class="lede mt-m" data-anim="fade-up"><b>45 分钟填不完 121 处 NotImplementedError，也不该填。</b><br>
-  要带走的是：<b>什么是对象、什么是派生量、什么规则只看入参。</b></p>
+  <p class="lede mt-s" data-anim="fade-up">⭐ <b>第 2 步给 35 分钟是刻意的</b>——<b>审 IR 才是建模，跑命令不是。</b></p>
   <table class="t mt-m" data-anim="stagger-list">
     <tr><th style="width:20%">checkout</th><th style="width:38%">达标</th><th>警示</th></tr>
     <tr><td>规则三问</td><td>每条 Rule 都答了 severity / backing / source</td><td>有规则没标 backing</td></tr>
@@ -337,8 +318,8 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <tr><td>Link</td><td>有关系、edge_semantics 判过</td><td><b>links 为 0</b>（本体退化成数据字典）</td></tr>
     <tr><td>收尾诚实</td><td>知道哪 6 项要人做</td><td>以为 compile 完就结束了</td></tr>
   </table>
-  <div class="deck-footer"><span class="ftag">上半场实操</span><span class="slide-number" data-current="13" data-total="26"></span></div>
-  <div class="notes"><p><b>【实操第 2 步是关键】</b>停点出现时<b>逐组过去看</b>，别让他们直接回车放过。<b>那个停点是本课最贵的 20 分钟。</b></p>
+  <div class="deck-footer"><span class="ftag">上半场实操</span><span class="slide-number" data-current="12" data-total="25"></span></div>
+  <div class="notes"><p><b>⭐【实操第 2 步是关键，本次改版把它从 20′ 提到 35′】</b>停点出现时<b>逐组过去看</b>，别让他们直接回车放过。<b>那是本课最贵的 35 分钟——审 IR 才是建模。</b>第 1 步是第三课的补作业，<b>压到 10 分钟，谁没填完让他课后补，别占实操时间。</b></p>
   <p><b>【HIL 列先留位】</b>提醒："<span class="mono">hil</span> 列<b>先留位</b>，下半场才填。现在填了也是瞎填——四判据还没讲。"</p></div>
 </section>
 
@@ -356,7 +337,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <tr><td>谁来兜底</td><td>引擎（确定性，<b>无人参与</b>）</td><td>人（<span class="mono">reviewer_role</span>）</td></tr>
   </table>
   <p class="quote-big mt-l" data-anim="fade-up">写入闸拦的是"<b>写错了</b>"，<br>HIL 拦的是"<b>这事该不该真的发出去</b>"。</p>
-  <div class="deck-footer"><span class="ftag">两道闸</span><span class="slide-number" data-current="14" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">两道闸</span><span class="slide-number" data-current="13" data-total="25"></span></div>
   <div class="notes"><p><b>⚠️【全课最容易混的一节，慢讲，讲两遍】</b>第一遍讲机制表，第二遍用康养项目民政闸举例。</p>
   <p>"康养项目的民政 DP-H 闸就是典型的<b>副作用闸</b>——<b>数据可以先算出来，但'对外发布'这个动作必须人点头</b>。注意：数据是<b>写进去了</b>的，只是通知、凭证、公告这些<b>对外的副作用被冻结了</b>。"</p>
   <p><b>【预期提问】</b>"那 HIL 的时候数据已经写了，人不同意怎么办？"——答：<b>数据在库里是 pending 状态，人不同意就走撤销动作（那也是一个 Action，同样受治理）。关键是"对外发出去的东西"从来没发出去过。</b></p></div>
@@ -382,7 +363,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <h4>3. <span class="mono">severity_touched==hard</span> 这个 predicate 基本不会触发</h4>
     <p class="dim">因为 <span class="mono">touched_hard=True</span> 时引擎<b>先回滚 + 拒绝就返回了</b>，走不到 HIL 判定那一行。需要组合条件（"低置信<b>或</b>碰了硬规则"）得<b>手写 lambda——引擎允许，IR 语法没定义</b>。<b>这是表达力上限，也是逃生舱。</b></p>
   </div>
-  <div class="deck-footer"><span class="ftag">HIL 陷阱</span><span class="slide-number" data-current="15" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">HIL 陷阱</span><span class="slide-number" data-current="14" data-total="25"></span></div>
   <div class="notes"><p><b>【第 1 条是 checkout 的必查项】</b>"只写角色不写条件——<b>这是最常见的假设闸</b>。学员会觉得'我写了 reviewer_role 就是设了闸'。<b>没有。predicate 默认恒 False，那个闸永远不会触发。</b>"</p>
   <p><b>【第 2 条文档没写，这是我们实测出来的】</b>强调这一点：<b>插件文档完全没写这一句</b>。不补这一步，学员做出来的置信度闸是个摆设。<b>这又是一处"文档说 A、代码是 B"。</b></p></div>
 </section>
@@ -405,7 +386,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     康养项目固化为 D1 的置信度闸：<span class="mono">hard · function · pre</span>，<b>阈值占位 0.75</b>，<b>刻意设成 pre——在动作发生前拦，不是发生后补</b>。</p>
   </div>
   <p class="quote-big mt-m" data-anim="fade-up">宁可多设几道闸拖慢一点，<br><b>不可漏一道闸出一次事。</b></p>
-  <div class="deck-footer"><span class="ftag">四判据</span><span class="slide-number" data-current="16" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">四判据</span><span class="slide-number" data-current="15" data-total="25"></span></div>
   <div class="notes"><p><b>⚠️【口径纪律，咬死】</b>是 <b>"四条硬判据 + 一条置信度兜底闸"</b>，<b>不是"五条硬判据"</b>。旧讲义里有写成五条的，<b>见到当场改口</b>。四判据看动作性质，兜底闸看模型把握——<b>两者不是同一类东西，混讲学员就学不会判断</b>。</p>
   <p><b>【为什么是"任一"不是"多数"】</b>"因为这四条<b>每一条单独成立就够伤</b>。<b>涉钱一条就够了</b>——一笔错误增收决策，客户的钱亏了，<b>赖不到模型头上，赖到你头上</b>。所以是<b>或</b>，不是<b>与</b>。"</p>
   <p><b>⚠️【但顺序不能反】</b>"'任一即插人'必须先过一道筛：<b>这个动作能不能固化成硬规则？</b> <b>先问"能不能自动"，再问"该不该插人"——顺序反了就会闸设满。</b>"</p>
@@ -427,7 +408,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <div class="card goodcard" style="font-size:14px"><h4>第一层 · 自动闸</h4><p class="dim">引擎确定性回滚，机器把关。<br>被拒的 Agent 收到<b>结构化拒绝三件套</b>：<span class="mono">triggered_rule</span>（为什么不行）+ <span class="mono">current_state</span>（当时的世界快照）+ <span class="mono">suggestion</span>（可以怎么调整）<br>→ <b>OAG 闭环：发现→调用→被拒→调整→重试</b>，全程在约束内<br><br><b>能固化成硬规则的，就交给自动闸，别浪费人力。</b></p></div>
     <div class="card card-accent" style="font-size:14px"><h4>第二层 · 人工闸（HIL）</h4><p class="dim">两种情况才上：<br>① <b>机器判不了的价值判断</b>——涉钱/涉合规/跨组织的拍板<br>② <b>机器"没把握"</b>——每个断言都是概率的（<span class="mono">balance_sufficient = (False, confidence=0.78)</span>），<b>置信度太低时基于它的决策不该是最终结论</b><br><br>这就是 <b>0.75 阈值的方法论根据</b>：不是拍脑袋，<b>是"低置信必须转人"的工程共识</b></p></div>
   </div>
-  <div class="deck-footer"><span class="ftag">两层</span><span class="slide-number" data-current="17" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">两层</span><span class="slide-number" data-current="16" data-total="25"></span></div>
   <div class="notes"><p><b>【不讲这一节，学员会把 HIL 当成唯一的闸，闸设满、人变橡皮图章】</b></p>
   <p><b>【软约束三个结构性缺陷，逐条念】</b>会被<b>遗忘</b>（多轮对话后早期指令权重下降）、会被<b>稀释</b>（上下文塞满后约束被挤出）、会被<b>绕过</b>（提示词注入让模型"忘记"约束）。</p>
   <p><b>【HIL 留痕 = 审计快照，不是日志】</b>"留的不是操作日志，是<b>决策快照</b>——记录上下文，而不只是记录结果。康养项目强制留 signer_id / reviewed_at / decision / edits_before_after，就是为了回答那个问题：<b>'三个月后，合规团队问 AI 当时凭什么觉得能下单，你能不能当天答上来。'</b>"</p>
@@ -447,7 +428,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
   </table>
   <p class="lede mt-s" data-anim="fade-up"><b>交付判据：A、B 必须全过才可交付；D 在填完后全绿才算闭环。</b></p>
   <p class="quote-big mt-s" data-anim="fade-up">康养项目能守住"18 处挂国标、11 处留占位"，<br><b>不是靠自觉，是有个东西在交付前拦你。</b></p>
-  <div class="deck-footer"><span class="ftag">validate</span><span class="slide-number" data-current="18" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">validate</span><span class="slide-number" data-current="17" data-total="25"></span></div>
   <div class="notes"><p><b>【B 段的定位是关键】</b>"它等价于运行时的'无引用规则审计'，<b>但在交付前就拦</b>。这就是为什么康养项目能守住那 18 处和 11 处——<b>有个东西在交付前拦你</b>。"</p></div>
 </section>
 
@@ -463,10 +444,10 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <tr><td><b>B-10</b><br>11 处文号<br><span class="dim">全课程价值观支点</span></td><td><b>7 处本地文号 + 4 处企业 SOP 编号</b>，公开渠道查不到。<br><b>诱惑</b>：编一个"看起来对"的，<b>合规件就完整了，交付显得漂亮</b></td><td><b>11 处坚决留占位不编造</b>，每处锚定上位国标，转成<b>逐项取件清单</b>。<b>判定为非 BLOCKER，不阻断交付</b></td></tr>
   </table>
   <p class="quote-big mt-m" data-anim="fade-up">"错文号比空缺更有害。"</p>
-  <div class="deck-footer"><span class="ftag">反例四连</span><span class="slide-number" data-current="19" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">反例四连</span><span class="slide-number" data-current="18" data-total="25"></span></div>
   <div class="notes"><p><b>【为什么这里一次给四个】</b>"别的环节一步一个反例，本节是反例主场——因为<b>交付物工程和合规治理是出错高发区</b>，这四个坑我们全踩过。"</p>
   <p><b>【B-10 展开讲，它是价值观支点】</b>"<b>空缺是诚实的，能被后续补上；错误的文号是有毒的</b>——它会以'看起来完整'的样子骗过审核，<b>在迎检时爆炸</b>。<b>留占位 + 锚上位国标 + 转取证清单</b>——这套动作就是把'我不知道'变成'<b>专业的不知道</b>'。"</p>
-  <p><b>【锚定口径机制顺带讲，它是这门课的元证据】</b>"康养项目靠一份 BRIEF 防口径漂移：术语统一表 + 核心数据表（唯一真相源）+ 协作纪律。<b>口径不靠 35 个作者自觉对齐，靠一份单点文件强制对齐。</b><br>⭐ <b>最元的一句</b>：<b>你们现在读的这门课，就是这么造的。</b> 这套手册拆给多个写作子智能体并行写，共用一份 WRITING_BRIEF，结构和康养项目那份一模一样。<b>教材的生产方式，就是教材的内容。</b>"</p></div>
+  <p><b>【B-5 只点到为止，不要展开】</b>"关键数字锚在单点文件里，分节作者一律<b>引用不重算</b>。"——<b>怎么做到、为什么有效，是 L6 的整整一节，今天不讲。</b>（上一版这里有一整章锚定口径，已移回 L6。）</p></div>
 </section>
 
 <!-- 19 26个HIL + D2星号 -->
@@ -488,7 +469,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <p class="dim">因为 FDE 做了个更高级的判断：<b>把合规拦截前置到规则层，比事后拉个人来点确认更可靠。</b><br>
     <b>人工闸是最后手段，不是唯一手段。</b>能用确定性规则挡住的，就别靠人肉点确认——<b>人肉点确认点多了，就变成橡皮图章。</b></p>
   </div>
-  <div class="deck-footer"><span class="ftag">26 个 HIL</span><span class="slide-number" data-current="20" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">26 个 HIL</span><span class="slide-number" data-current="19" data-total="25"></span></div>
   <div class="notes"><p><b>【D2 是本表的教学点，别只念数字】</b>新手看到会觉得矛盾——涉钱怎么不设闸？<b>让他们先困惑 10 秒再揭晓</b>。这个反直觉的例子，比讲十遍"闸不是越多越好"有效。</p>
   <p><b>【D6 为什么 8 个】</b>"不是因为它复杂，<b>是因为它每个动作都涉合规涉钱跨组织</b>。"</p></div>
 </section>
@@ -508,7 +489,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
     <b>⚠️ 按错的代价</b>：AI 把未经核验的数据、或一笔补贴资格认定直接对外发布——<b>违反数据授权最小必要（个保法）、可能错发/漏发补贴（涉公帑）、政府信用受损</b>。而且<b>不可逆</b>：数据发出去收不回来；<b>补贴发错了，追缴是政治事件</b></p>
   </div>
   <p class="quote-big mt-m" data-anim="fade-up">站长闸防的是"<b>钱按错</b>"，<br>民政闸防的是"<b>合规越界</b>"。</p>
-  <div class="deck-footer"><span class="ftag">两大闸门</span><span class="slide-number" data-current="21" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">两大闸门</span><span class="slide-number" data-current="20" data-total="25"></span></div>
   <div class="notes"><p><b>【本课高潮，讲情绪，别只讲机制】</b>"卖错一单，毁的是整个片区的信任飞轮"——这句话要说得重。<b>微康养是熟人生意，这不是抽象风险。</b></p>
   <p><b>【两句话收口，让他们记住】</b><b>闸门的价值不在"有没有"，在"会不会真拦"。</b>置信度闸就是防止 HIL 退化成盖章仪式的技术保险。<b>阈值是活的，谁调阈值谁负责。</b><br><b>跨组织 + 涉合规的动作，人工闸是法律义务不是可选项。谁发布谁签字，签字的人为这条数据的真实性背书。</b></p></div>
 </section>
@@ -528,7 +509,7 @@ HIL 设点表 · 取证清单        →  随交付文档                      �
 python -m pytest tests/test_cq.py -q         <b># CQ 回归</b>
 python scripts/check_kernel_purity.py        <b># 红线门禁 1（反向执法：行业词不进内核）</b>
 python scripts/check_plugin_capabilities.py  <b># 红线门禁 2（正向执法：拦内核私有直达）</b></pre>
-  <div class="deck-footer"><span class="ftag">现场演示</span><span class="slide-number" data-current="22" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">现场演示</span><span class="slide-number" data-current="21" data-total="25"></span></div>
   <div class="notes"><p><b>⚠️【必须真跑，不许口头描述】</b>这 15 分钟是全课最有说服力的一段。<b>提前在 <span class="mono">~/Codes/onto-fundary-plugins/</span> 下确认能跑通</b>，别在课上第一次执行（这本身就是第二课教的"上客户现场前先跑冒烟测试"）。</p>
   <p><b>【跑之前先问，跑之后再答】</b>先问："你们怎么证明一个闸<b>没有失效</b>？"让他们想 30 秒。然后跑给他们看。<b>那个 pass 变 fail 的瞬间，比讲半小时理论有用。</b></p>
   <p><b>【那个提问是本课留给学员的钉子】</b>"你们命题里那些'我们会严格审核'的承诺，<b>有哪一条能像这样被自动验证</b>？<b>验证不了的，就还只是愿望。</b>"——这一问直接连到 checkout 的最后一项。</p>
@@ -553,7 +534,7 @@ python scripts/check_plugin_capabilities.py  <b># 红线门禁 2（正向执法�
     <p class="dim">你的项目里有没有"查不到、核不实"的文号 / 数据 / 标准？<br>
     你打算<b>编一个让交付显得完整</b>，还是<b>留占位转取证清单</b>？<b>说出你会怎么跟客户解释这个空缺。</b></p>
   </div>
-  <div class="deck-footer"><span class="ftag">判断训练</span><span class="slide-number" data-current="23" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">判断训练</span><span class="slide-number" data-current="22" data-total="25"></span></div>
   <div class="notes"><p><b>【题 1 收口】</b>好的 FDE 会为"<b>高频低置信</b>"动作设兜底闸，这是四判据之外<b>最容易漏的一类</b>——康养项目的 0.75 置信闸就是干这个的。</p>
   <p><b>【题 2 收口】</b>闸门的价值不在"有没有"，在"<b>会不会真拦</b>"。答案指向<b>置信度闸 / 抽检 / 留痕追责</b>——康养项目站长闸设 <span class="mono">hard · pre</span> + 0.75 阈值就是防退化的技术保险。</p>
   <p><b>【题 3 收口，回收 B-10】</b>"<b>能对客户坦然说'这处我留了占位、给你一份取件清单'的 FDE，比交一份'看起来完整'的假件的 FDE 专业得多。</b>"<br><b>题 3 要让每组都说一遍"我会怎么跟客户解释"</b>——这是 C7 在本课唯一能练的地方。</p></div>
@@ -573,7 +554,7 @@ python scripts/check_plugin_capabilities.py  <b># 红线门禁 2（正向执法�
     <div class="card badcard"><h4>难点 ①</h4><p class="dim">填 <span class="mono">hil</span> 列要写成<b>"角色 / 条件"两段</b>。<br><b>只写角色等于没设闸</b>（predicate 默认恒 False）</p></div>
     <div class="card badcard"><h4>难点 ②</h4><p class="dim"><b>查不到的文号一律留占位</b>，转成向客户逐项取件的清单——<br><b>这是路演一票警示的直接来源</b></p></div>
   </div>
-  <div class="deck-footer"><span class="ftag">实操</span><span class="slide-number" data-current="24" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">实操</span><span class="slide-number" data-current="23" data-total="25"></span></div>
   <div class="notes"><p><b>【巡场就抓两件事】</b>①<span class="mono">hil</span> 列只写了角色没写条件的组；②source 里出现"看起来像国标"但学员说不出出处的号——<b>那就是 B-6/B-10 在现场发生</b>。</p>
   <p><b>【"按错代价"这一列不许空】</b>写不出代价，说明这个闸是拍脑袋设的。<b>逼他们写出具体后果：谁的钱、谁的责任、能不能撤回。</b></p></div>
 </section>
@@ -595,7 +576,7 @@ python scripts/check_plugin_capabilities.py  <b># 红线门禁 2（正向执法�
     <tr><td><b>课后 / 路演前</b></td><td><b>补齐 6 项 → smoke_cq 绿</b></td><td>这是手艺活，要的是时间不是课时</td></tr>
   </table>
   <p class="quote-big mt-m" data-anim="fade-up">"编译通过"和"跑起来"之间那段距离，<br><b>就是 FDE 的工作。</b></p>
-  <div class="deck-footer"><span class="ftag">拉通 · ⭐</span><span class="slide-number" data-current="25" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">拉通 · ⭐</span><span class="slide-number" data-current="24" data-total="25"></span></div>
   <div class="notes"><p><b>【这一页是全课价值观的落点，别当成"课后作业说明"讲】</b>课上教你认清那段距离有多长、由哪 6 项组成；<b>走完它是学员自己的事。</b></p>
   <p><b>【路演答问三种分量，念出来】</b>"编译通过了" ❌ 约等于没说 ｜ "还差 function 规则体和 Action 回写，<b>smoke_cq 现在 3/5</b>" ✅ <b>专业——你知道差在哪、差多少</b> ｜ "smoke_cq 全绿，可以现场跑" ✅✅</p>
   <p><b>⚠️【绝不能说的一种】</b>"跑起来了"但其实只编译过——<b>这就是「把 Mock 说成已实现」，三条一票警示之一。路演现场一句追问就崩，崩的不是这个项目，是你之后所有话的可信度。</b></p></div>
@@ -615,7 +596,7 @@ python scripts/check_plugin_capabilities.py  <b># 红线门禁 2（正向执法�
     <tr><td><b>可验证性</b></td><td>说得出本组哪条闸能像 <span class="mono">smoke_cq.py</span> 那样被自动验证</td><td>承诺"我们会严格审核"但<b>验证不了</b></td></tr>
   </table>
   <p class="quote-big mt-m" data-anim="fade-up">FDE 交付不是"手艺好"，<br>是"<b>有 SOP + 会设闸</b>"——<br>SOP 保证你能重复，<b>HIL 保证你不出事</b>。</p>
-  <div class="deck-footer"><span class="ftag">checkout</span><span class="slide-number" data-current="26" data-total="26"></span></div>
+  <div class="deck-footer"><span class="ftag">checkout</span><span class="slide-number" data-current="25" data-total="25"></span></div>
   <div class="notes"><p><b>【互评只看两项】</b><b>HIL 有效性</b>（写没写 predicate）和<b>取证清单</b>（有没有编号）。这两项是路演一票警示的直接来源。</p>
   <p><b>【收口，接第六课】</b>"今天你们做出了这门课里<b>唯一一件机器会强制执行的东西</b>。明天开始做的是文档——文档不会执法，但它<b>会被评审、会进合同、会被审计</b>。<b>今天守住的纪律，明天要靠另一套机制守。</b>"</p></div>
 </section>
