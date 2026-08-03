@@ -239,8 +239,8 @@
 <td>OAG ≠ RAG、三层架构、五条设计红线 → <strong>S1 / S2</strong></td>
 </tr>
 <tr class="odd">
-<td>⭐ <strong>填 IR 就是在「认领」</strong>（第三章 ④）</td>
-<td><strong>知识挂载的四条通道</strong>、每层的真指标 → <strong>S1 第九章</strong></td>
+<td>⭐ <strong>填 IR 就是在「认领」</strong>（第三章 ④，<strong>右列对齐数据四问 / 知识五问</strong>）</td>
+<td><strong>数据四问 / 知识五问的完整版</strong>、四条通道、每层真指标 → <strong>S1 第九章 9.3 / 9.4</strong></td>
 </tr>
 <tr class="even">
 <td>declarative vs function 怎么判</td>
@@ -486,47 +486,166 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 </blockquote>
 <h3 id="④--填-ir-就是在认领认领表">④ ⭐ 填 IR 就是在「认领」——认领表</h3>
 <p><strong>这是理解 IR 最省力的一个角度</strong>：你不是在写文档，<strong>是在替本体点名要东西</strong>。</p>
+<p>右边一列<strong>对齐 S1 第九章的「数据侧四问 / 知识侧五问」</strong>—— <strong>同一件事，S1 讲全貌，你今天在 IR 上一格一格做。</strong></p>
 <table>
 <thead>
 <tr class="header">
 <th>你填哪一段</th>
 <th>就是在认领什么</th>
-<th>填错的后果</th>
+<th>对应 S1 第九章哪一问</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>§1 Objects</strong> 的 <code>source</code> · <strong>§6 Mapping Hints</strong></td>
-<td><strong>认领数据</strong>：哪张表、哪几列、什么物化策略</td>
-<td>认领了没主键的表 → <strong>落不了地</strong></td>
+<td><strong>§1 Objects</strong> · <strong>§2 Links</strong> · <strong>§3 Functions</strong></td>
+<td><strong>认领"有哪些"</strong>：哪些是实体、哪些是关系、<strong>哪些是算出来的</strong></td>
+<td><strong>数据 ①有哪些</strong></td>
 </tr>
 <tr class="even">
-<td><strong>§2 Links</strong> 的 <code>from</code> / <code>to</code></td>
-<td><strong>认领关系</strong>：哪两个端点的主键</td>
-<td>一条不认领 → <strong><code>links</code> 为 0，本体退化成数据字典</strong></td>
+<td><strong>§6 Mapping Hints</strong> 的 <code>store / table / key / columns</code></td>
+<td><strong>认领数据落点</strong>：哪张表、哪几列</td>
+<td><strong>数据 ②怎么存</strong></td>
 </tr>
 <tr class="odd">
-<td><strong>§4 Rules</strong> 的 <code>source</code> / <code>citations</code></td>
-<td>⭐ <strong>认领知识（强度最高的那条通道）</strong>：哪个标准号、哪条规程</td>
-<td>编一个像国标的号 → <strong>一票警示（B-6 / B-10）</strong></td>
+<td>⭐ <strong>§6 的 <code>materialization</code></strong></td>
+<td><strong>认领物化策略</strong>：物化 / 混合 / 虚拟</td>
+<td><strong>数据 ②怎么存</strong>（那个旋钮）</td>
 </tr>
 <tr class="even">
 <td><strong>§5 Actions</strong> 的 <code>writes</code></td>
 <td><strong>认领写入范围</strong>：这个动作会动哪些对象</td>
-<td>多认领一个 → 写后规则把整笔回滚</td>
+<td><strong>数据 ③怎么访问</strong>（写侧）</td>
+</tr>
+<tr class="odd">
+<td>⭐ <strong>§4 Rules</strong> 的 <code>source</code> / <code>citations</code></td>
+<td>⭐ <strong>认领知识</strong>：哪个标准号、哪条规程</td>
+<td><strong>知识 ①有哪些 + ③怎么存</strong>（<strong>第①条通道</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>§4</strong> 的 <code>source</code> 三态 + <strong><code>validate</code> B 段</strong></td>
+<td><strong>认领治理责任</strong>：有出处 / 是常识 / 待补</td>
+<td><strong>知识 ⑤怎么治理</strong></td>
 </tr>
 <tr class="odd">
 <td><strong>§5 Actions</strong> 的 <code>hil</code></td>
-<td><strong>认领责任人</strong>：谁复核</td>
-<td>只写角色不写条件 → <strong>等于没设闸</strong>（下半场讲）</td>
+<td><strong>认领责任人</strong>：谁复核、什么条件下复核</td>
+<td><strong>数据 ④怎么治理</strong>（人工闸那一半）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>填错的后果</strong>（同一张表，换个看法）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>填错哪</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>§1 认领了没主键的表</td>
+<td><strong>落不了地</strong></td>
+</tr>
+<tr class="even">
+<td>§2 一条关系都不认领</td>
+<td><strong><code>links</code> 为 0，本体退化成数据字典</strong>（第十一章 <code>chili</code>）</td>
+</tr>
+<tr class="odd">
+<td>§6 全部写成"物化"</td>
+<td>明细 / 时序也进图 → <strong>图库被撑爆，多跳推理反而变慢</strong></td>
+</tr>
+<tr class="even">
+<td>§4 编一个像国标的号</td>
+<td><strong>一票警示（B-6 / B-10）</strong></td>
+</tr>
+<tr class="odd">
+<td>§5 <code>writes</code> 多认领一个</td>
+<td>写后规则把<strong>整笔回滚</strong></td>
+</tr>
+<tr class="even">
+<td>§5 只写 <code>hil</code> 角色不写条件</td>
+<td><strong>等于没设闸</strong>（下半场讲）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="️-ir-覆盖不到的那几问别硬塞也别假装它覆盖了">⚠️ IR 覆盖不到的那几问——<strong>别硬塞，也别假装它覆盖了</strong></h3>
+<p><strong>七段 IR 不是万能表。</strong> 对着 S1 那两组问题点一遍，<strong>你今天能填的只有下面打 ✅ 的</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>问</th>
+<th>IR 覆盖</th>
+<th>不覆盖的部分在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>数据</td>
+<td>① 有哪些</td>
+<td>✅ §1 / §2 / §3</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>数据</td>
+<td>② 怎么存</td>
+<td>✅ §6（含 <code>materialization</code>）</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>数据</td>
+<td>③ 怎么访问</td>
+<td>⚠️ <strong>只覆盖写侧</strong>（§5 <code>writes</code>）</td>
+<td><strong>读路径（OQL / 遥测）由引擎给，不用你填</strong></td>
+</tr>
+<tr class="even">
+<td>数据</td>
+<td>④ 怎么治理</td>
+<td>⚠️ <strong>只覆盖 HIL</strong>（§5 <code>hil</code>）</td>
+<td><strong>质检阈值 / 授权策略 / 租户隔离在租户配置和引擎侧</strong></td>
+</tr>
+<tr class="odd">
+<td>知识</td>
+<td>① 有哪些</td>
+<td>⚠️ <strong>只覆盖第①条通道</strong>（§4 <code>source</code>）</td>
+<td><strong>②③④ 三条通道 IR 里没有段</strong></td>
+</tr>
+<tr class="even">
+<td>知识</td>
+<td>② 怎么分类</td>
+<td>❌ <strong>完全没有</strong></td>
+<td>对象附着知识的四种 kind，<strong>IR 里压根没有这一段</strong></td>
+</tr>
+<tr class="odd">
+<td>知识</td>
+<td>③ 怎么存</td>
+<td>⚠️ 只有 §4 的 <code>source</code> 字段</td>
+<td>同上</td>
+</tr>
+<tr class="even">
+<td>知识</td>
+<td>④ 怎么访问</td>
+<td>—</td>
+<td><strong>不适用</strong>：第①条通道在写路径上自动执行，不用"取"</td>
+</tr>
+<tr class="odd">
+<td>知识</td>
+<td>⑤ 怎么治理</td>
+<td>✅ §4 三态 + <code>validate</code> B 段</td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
+<h3 id="-这张表和你上半场看到的另一个缺口是同一件事">⭐ 这张表和你上半场看到的另一个缺口，<strong>是同一件事</strong></h3>
+<p><strong>知识 ② 那个 ❌，和 SPI 七槽位里 ⑤⑥ 那两个 ❌，是同一个结构性原因</strong>： <strong>IR 里压根没有对应的段。</strong>（第七章讲过槽位，S3 第十章讲结构性原因。）</p>
+<p><strong>所以正确的说法是</strong>："<strong>建模端把结构立起来了，知识的另外三条通道要人手工补。</strong>" <strong>不是</strong>"我们的工具支持全部知识挂载"。<strong>在客户面前这句话要说准。</strong></p>
+</blockquote>
+<blockquote>
 <p>⚠️ <strong>方向别搞反：是本体在点名要数据，不是数据在申请上位。</strong> 这就是建模 SOP 那条「<strong>先建模、再看数据</strong>」在 IR 上的具体样子—— <strong>你先把 §1–§5 写出来，再回头去 §6 / §9 认领它们要的数据。</strong> <strong>倒过来做，你建出的是「系统长什么样」，不是「业务是什么样」。</strong></p>
 </blockquote>
 <blockquote>
-<p>⭐ <strong>知识挂进本体有四条通道，强度不同，S1 第九章讲全了。</strong> <strong>今天你只经手其中一条半</strong>：<code>§4 Rules</code> 的 <code>source</code> 是<strong>最强的第①条</strong>（进写路径、违反即回滚）； <code>§9 数据来源</code> 里那些参考名录算半条。 <strong>另外两条半（对象附着知识 / 动作证据血统 / 全文检索）不在今天的 IR 里，别硬塞。</strong></p>
+<p>⭐ <strong>完整的「数据四问 / 知识五问」在 S1 第九章 9.3 / 9.4。</strong> <strong>今天你只在 IR 上做其中打 ✅ 的那几格</strong>——<strong>其余的别硬塞进 IR。</strong></p>
 </blockquote>
 <h2 id="四输入12-段契约">四、输入：12 段契约</h2>
 <table>
@@ -1882,7 +2001,12 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <hr />
 <p><strong>这不是编译器</strong>：机器立结构，人填判断。<strong>121 处 NotImplementedError 是界线，不是没做完。</strong></p>
 <p><strong>规则三问</strong>：① 拦不拦（severity）② 只看入参吗（backing）③ 依据是谁（source）</p>
-<p><strong>⭐ 填 IR = 认领</strong>：§1/§6 认领<strong>数据</strong> · §2 认领<strong>关系</strong> · <strong>§4 的 <code>source</code> 认领知识（最强通道）</strong> · §5 的 <code>writes</code> 认领<strong>写入范围</strong> · §5 的 <code>hil</code> 认领<strong>责任人</strong></p>
+<p><strong>⭐ 填 IR = 认领</strong>（右列对齐 S1 第九章「数据四问 / 知识五问」）</p>
+<p>| §1 / §2 / §3 | 认领<strong>有哪些</strong> | 数据① | | §6 <code>store/table/key/columns</code> | 认领<strong>数据落点</strong> | 数据② | | ⭐ §6 <code>materialization</code> | 认领<strong>物化 / 混合 / 虚拟</strong> | 数据② | | §5 <code>writes</code> | 认领<strong>写入范围</strong> | 数据③（写侧） | | ⭐ §4 <code>source</code>/<code>citations</code> | ⭐ 认领<strong>知识</strong>（第①条通道） | 知识①③ | | §4 三态 + <code>validate</code> B 段 | 认领<strong>治理责任</strong> | 知识⑤ | | §5 <code>hil</code> | 认领<strong>责任人</strong> | 数据④（人工闸） |</p>
+<p>⚠️ <strong>IR 覆盖不到的</strong>：数据③读侧（引擎给）· 数据④质检/授权/隔离（租户与引擎侧）· <strong>知识②③ 的另外三条通道（IR 里没有段）</strong></p>
+<blockquote>
+<p>⭐ <strong>知识② 那个 ❌ 和 SPI 七槽位 ⑤⑥ 的 ❌ 是同一个结构性原因。</strong> 客户面前说：<strong>"结构立起来了，知识的另外三条通道要人手工补。"</strong> 别说"支持全部知识挂载"。</p>
+</blockquote>
 <blockquote>
 <p><strong>是本体在点名要数据，不是数据在申请上位。</strong></p>
 </blockquote>
