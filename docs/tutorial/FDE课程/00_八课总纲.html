@@ -819,7 +819,7 @@ S4 本体建模+设闸 → L5</code></pre>
 <tr class="even">
 <td><strong>S2</strong></td>
 <td><code>slides/S2_本体引擎.html</code></td>
-<td><strong>18</strong></td>
+<td><strong>19</strong></td>
 <td><code>课程/S2_本体引擎的工程实现.md</code></td>
 </tr>
 <tr class="odd">
@@ -901,7 +901,7 @@ S4 本体建模+设闸 → L5</code></pre>
 <tr class="even">
 <td><strong>课件 / 手册</strong></td>
 <td><code>slides/S1_本体论.html</code> 32 屏<br><code>课程/S1_本体论.md</code></td>
-<td><code>slides/S2_本体引擎.html</code> 18 屏<br><code>课程/S2_本体引擎的工程实现.md</code></td>
+<td><code>slides/S2_本体引擎.html</code> 19 屏<br><code>课程/S2_本体引擎的工程实现.md</code></td>
 <td><code>slides/S3_建模端与引擎.html</code> 15 屏<br><code>课程/S3_建模端如何支撑引擎.md</code></td>
 </tr>
 </tbody>
@@ -963,7 +963,7 @@ L5  亲手用 studio-ontology 产出一个能在那套引擎上跑起来的插�
 </blockquote>
 <h3 id="各课骨架">各课骨架</h3>
 <p><strong>S1 · 本体论（十一章）</strong> ① 我们缺少的不是数据，而是本体（露华浓 · <strong>字典 vs 物理引擎</strong>） ② 本体在架构里的位置（幻觉的真正成因 · 七维对照 · <strong>四层架构</strong>） ③ 五要素：世界的结构与动力（<strong>本体不是知识库，是 inode 和 link</strong>） ④ <strong>OAG ≠ RAG 的分界</strong>（六维对照 · <strong>GraphRAG 仍属"读"</strong>） ⑤ <strong>三层能力逐层拆</strong>（操作发现 / 执行约束 / 决策追溯）← <strong>重心之一</strong> ⑥ Software 3.0：本体是 LLM OS 的文件系统（<strong>LLM 是协处理器，不是 CPU</strong>） ⑦ <strong>Harness 管循环，本体管世界</strong> ⑧ <strong>建模 SOP</strong>（四阶段有先后不并行）← <strong>重心之二</strong> ⑨ 进阶：动态 Schema · 双本体联邦　⑩ 收口：AI FDE 为什么能 work ⭐ <strong>新增第九章「挂载链」</strong>：四层（中间那层是<strong>数据集 ‖ 知识库两条并行线</strong>）· 每层的<strong>真指标</strong>（本体数 <strong>Link</strong> 不数 Object）· ⭐⭐ <strong>知识挂载四条通道</strong>（规则出处最强、进写路径 → 对象附着知识只读 → 动作证据血统 → 全文检索只进"建议"）· <strong>方向：是本体在点名要数据</strong>。</p>
-<p><strong>S2 · 本体引擎的工程实现（一张图讲完，十四章 / 16 屏）</strong> <strong>全课主梁 = 架构图 <code>docs/assets/architecture-overview.svg</code></strong>，标题自称「<strong>自有本体语义 OS</strong>」。 从下往上：① 元模型五要素 + <strong>判缝准则</strong> → ② GraphStore SPI（<strong>一 ontology 一 space 硬隔离</strong>） → ③ <strong>治理写 Action 引擎</strong>（全图唯一那条红线）→ ④ <strong>⭐ 与 OS 只有两处不一样：先写后判 · 收集全部违反</strong> → ⑤ 两条读路径（<strong>遥测读只产计划不当 TSDB</strong>）→ ⑥ 信任基础设施（<strong>⭐ 置信度总线：OS 没有的一层</strong>） → ⑦ 展示与交互层（<strong>读默认开 / 写 opt-in</strong> · <strong>现场演示 <code>/viz/grass</code> vs <code>/viz/chili</code></strong>） → ⑧ 侧边两块（生态<strong>可关</strong>·非脊椎 / 建模端上游）→ ⑨ <strong>⭐ 两个 CI 门禁</strong> → ⑩ <strong>⭐ 真 Qwen 实证</strong>（<code>docs/05</code>，六步：合规提交 1 / 治理拒绝 2 / 错误 0） → ⑪ <strong>⭐ 题眼：确定性边界置于模型之外</strong></p>
+<p><strong>S2 · 本体引擎的工程实现（一张图讲完，十四章 / 19 屏）</strong> <strong>全课主梁 = 架构图 <code>docs/assets/architecture-overview.svg</code></strong>，标题自称「<strong>自有本体语义 OS</strong>」。 从下往上：① 元模型五要素 + <strong>判缝准则</strong> → ②·补 <strong>⭐ 挂载层：① 数据集 ‖ ② 知识库两条线 + 四条知识通道</strong>（图最底下那两条带子，2026-08-02 新增）→ ③ GraphStore SPI（<strong>一 ontology 一 space 硬隔离</strong>） → ③ <strong>治理写 Action 引擎</strong>（全图唯一那条红线）→ ④ <strong>⭐ 与 OS 只有两处不一样：先写后判 · 收集全部违反</strong> → ⑤ 两条读路径（<strong>遥测读只产计划不当 TSDB</strong>）→ ⑥ 信任基础设施（<strong>⭐ 置信度总线：OS 没有的一层</strong>） → ⑦ 展示与交互层（<strong>读默认开 / 写 opt-in</strong> · <strong>现场演示 <code>/viz/grass</code> vs <code>/viz/chili</code></strong>） → ⑧ 侧边两块（生态<strong>可关</strong>·非脊椎 / 建模端上游）→ ⑨ <strong>⭐ 两个 CI 门禁</strong> → ⑩ <strong>⭐ 真 Qwen 实证</strong>（<code>docs/05</code>，六步：合规提交 1 / 治理拒绝 2 / 错误 0） → ⑪ <strong>⭐ 题眼：确定性边界置于模型之外</strong></p>
 <p><strong>S3 · 建模端如何支撑引擎（十五章 / 15 屏）</strong> <strong>全课 = 架构图右下角那个橙色框。</strong> ① 两仓一条流水线　② <strong>为什么不直接手写插件</strong>（业务专家看不懂 Python → IR 存在的理由） ③ 业务分析两个入口（<strong>Intake 12 段是责任分配表</strong>）　④ <strong>⭐ DDD ↔︎ 五要素翻译表</strong>（不发明新语言） ⑤ <strong>IR 七段</strong>（§4 Rules ★FDE 核心 · <strong>declarative 全自动</strong>）　⑥ 编译产物与四类 <code>NotImplementedError</code> ⑦ <strong>⭐ 四命令，唯一那个强制停点 ⏸</strong>（+ 校验器无 Write 权限） ⑧ <strong>⭐ 诚实边界：设计上的克制 ≠ 能力上的边界</strong> ⑨ <strong>⭐ IR 七段只覆盖 SPI 五格</strong>——⑤⑥ 是<strong>结构性缺口</strong>不是待补功能 ⑩ <strong>⭐ 验收标准：产物与手写 <code>plugins/grass</code> 五要素同构</strong>　⑪ <strong>⚠️ 两仓红线</strong>（plugins vs tenants） ⑫ 行业参照（<strong>二档来源，一节带过</strong>；五阶段交付 / FDE 飞轮等完整材料<strong>移入手册附录，不上课</strong>） ⑬ <strong>交棒第五课</strong></p>
 <h3 id="️-口径纪律三门课各不相同不要互相套用">⚠️ 口径纪律（三门课各不相同，不要互相套用）</h3>
 <p><strong>S1 —— 外部方法论，不掺自家数字</strong></p>
