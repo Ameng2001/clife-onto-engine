@@ -1084,6 +1084,9 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⭐ <strong>现场要逐条对客户的读需求时，翻 7.5 那张附表</strong>（读能力体检表，25 行，含 5 条明确不做的）。</p>
+</blockquote>
 <h2 id="71-️-遥测不只是时序库它有两个-profile">7.1 ⚠️ "遥测"不只是时序库——它有两个 Profile</h2>
 <p><strong>"遥测（telemetry）"这个词容易让人以为只对时序库。</strong> 引擎里它是两个 Profile：</p>
 <table>
@@ -1248,6 +1251,211 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 </tbody>
 </table>
 <p>第 3 条最容易错。<strong>判据不是"谁触发的"，是"这是不是一个决定"。</strong> <strong>Agent 自动做的决定，恰恰是最需要审计的那一类。</strong></p>
+<hr />
+<h2 id="75-附表--读能力体检表现场查用不必课上讲">7.5 附表 · 读能力体检表（现场查用，不必课上讲）</h2>
+<blockquote>
+<p><strong>正文只讲三条路 + 一条通道。这张附表是给你上客户现场用的。</strong> 客户报出他要查什么，<strong>你逐行对</strong>——<strong>当场答得出走哪条，或者答"这条我们不做"。</strong> <strong>两种回答都专业，含糊过去不专业。</strong></p>
+</blockquote>
+<p><strong>图例</strong>：✅ 完整覆盖　⚠️ 部分覆盖 / 有条件　❌ 明确不做</p>
+<h3 id="①-结构型读问世界里有什么">① 结构型读（问"世界里有什么"）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>点查（按主键取一个）</td>
+<td>语义读 OQL</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>条件过滤（找出满足条件的一批）</td>
+<td>OQL filter</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>关系遍历 / 多跳</strong></td>
+<td>OQL <strong>Search Around</strong>（<code>edge_semantics</code> 决定何时停）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>投影 / 排序 / 分页</td>
+<td>OQL <code>select</code> / <code>order_by</code></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>派生量</strong>（算出来的）</td>
+<td><strong>Function</strong></td>
+<td>⚠️ <strong>没有独立读出口</strong>，只能被 Action / Rule 内部调</td>
+</tr>
+</tbody>
+</table>
+<h3 id="②-分析型读问多少趋势分布">② 分析型读（问"多少、趋势、分布"）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>简单聚合（count / sum / avg / min / max）</td>
+<td>OQL <code>aggregate</code></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>⭐ <strong>分组聚合（group by 维度）</strong></td>
+<td><strong>必须走 Profile B</strong></td>
+<td>⚠️ <strong>OQL 的聚合只有"函数 + 字段"，没有维度</strong></td>
+</tr>
+<tr class="odd">
+<td>时序 / 趋势 / 同环比</td>
+<td>Profile A（观测）· Profile B（数仓，带时间粒度）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>明细下钻 / 大宽表扫描</td>
+<td>语义读 + <strong><code>virtual</code> 物化</strong></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>多源拼合</td>
+<td>映射的多源<strong>列向</strong>拼合</td>
+<td>⚠️ 对象级列向，<strong>不是任意 join</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>"分组聚合"这一行最容易踩</strong>：很多人以为 OQL 能 group by。<strong>不能。</strong> "按盟市分组统计地块数"<strong>必须落到 <code>analytics</code> 段的 Profile B</strong>。</p>
+</blockquote>
+<h3 id="③-非结构化读">③ 非结构化读</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>日志检索</td>
+<td>Profile A（<code>kind: log</code> → ES DSL）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>语义 / 向量相似</td>
+<td><strong>第④条知识通道</strong></td>
+<td>✅ 但<strong>只进 advise，绝不驱动写入</strong></td>
+</tr>
+<tr class="odd">
+<td>全文 / 关键词精确检索</td>
+<td>同上（走检索通道）</td>
+<td>⚠️ <strong>OQL 里没有全文谓词</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="④-时间与治理型读这一组是长板客户面前要主动讲">④ 时间与治理型读——<strong>这一组是长板，客户面前要主动讲</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>血统追溯</strong>（为什么这么判）</td>
+<td>审计快照 + 证据</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>时点回溯（那天是什么状态）</td>
+<td>版本快照 + <strong>决策重放</strong></td>
+<td>⚠️ 是<strong>决策重放</strong>，不是通用 as-of 数据查询</td>
+</tr>
+<tr class="odd">
+<td>⭐⭐ <strong>变更影响</strong>（改这条规则会翻掉哪些历史决策）</td>
+<td><code>change_impact.py</code></td>
+<td>✅ <strong>业界少见，是差异化点</strong></td>
+</tr>
+<tr class="even">
+<td>元数据 / 能力目录</td>
+<td>能力清单 · Explorer</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>缺口审计（哪还没填完）</td>
+<td>静态缺口审计（blocking / warning 两级）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>验收读（CQ 跑一遍）</td>
+<td>CQ 套件</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="⑤-受限读">⑤ 受限读</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>权限 / 脱敏</td>
+<td>授权门（<strong>动作级</strong>）+ 字段密级 + Function 的最小权限读集</td>
+<td>⚠️ <strong>没有行级安全（RLS）</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="⑥-️-明确不做的五种说不做比含糊更专业">⑥ ⚠️ 明确不做的五种——<strong>说"不做"比含糊更专业</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>现状</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>订阅 / 流 / 变更通知</strong>（CDC、推送）</td>
+<td>❌ 引擎不提供</td>
+</tr>
+<tr class="even">
+<td><strong>空间查询</strong>（范围、距离、拓扑）</td>
+<td>❌ 落点可以是空间库，<strong>但 OQL 的比较算子里没有空间谓词，下推不了</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>图算法</strong>（社区发现、中心度、最短路）</td>
+<td>❌ 图库本身有，<strong>引擎不暴露</strong>——要用<strong>直接打图库</strong></td>
+</tr>
+<tr class="even">
+<td><strong>实体消解 / 模糊匹配</strong></td>
+<td>❌ （<code>identity.py</code> 是<strong>身份认证</strong>，不是实体消解，<strong>别混</strong>）</td>
+</tr>
+<tr class="odd">
+<td><strong>跨源任意 join / 联邦查询</strong></td>
+<td>⚠️ 只有对象级列向拼合</td>
+</tr>
+</tbody>
+</table>
+<h3 id="一句话收口">一句话收口</h3>
+<p><strong>三条读路径 + 一条检索通道，覆盖的是四类问题：结构（OQL）· 分析（Profile B）· 观测（Profile A）· 语料（④ 通道）。</strong></p>
+<blockquote>
+<p><strong>第 ⑥ 组那五种不是"漏了"，是边界。</strong> 尤其<strong>空间</strong>和<strong>图算法</strong>——<strong>要说"直接打图库 / 空间库，本体不代劳"</strong>，别含糊。 <strong>客户听得出"我们不做"和"我不知道"的区别。</strong></p>
+</blockquote>
 <hr />
 <h1 id="八信任基础设施">八、信任基础设施</h1>
 <pre><code>信任基础设施          trust/
@@ -1794,7 +2002,7 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <hr />
 <p><strong>⭐ 读路径</strong>：<strong>语义读 OQL</strong>（对象 / 关系 / 派生量 → nGQL）｜ <strong>遥测读 query-plan</strong>：<strong>Profile A</strong> 观测（→ PromQL / ES DSL）· <strong>Profile B 语义指标</strong>（→ <strong>数仓 SQL</strong>：ClickHouse / StarRocks / Hive / DuckDB）</p>
 <blockquote>
-<p><strong>按问题的形状分，不按库的品牌分</strong>：明细走 OQL（虚拟物化）· 聚合走 Profile B · 时序/日志走 Profile A ⚠️ <strong>向量库不是读路径</strong>，是第④条知识通道，只进 advise</p>
+<p><strong>按问题的形状分，不按库的品牌分</strong>：明细走 OQL（虚拟物化）· 聚合走 Profile B · 时序/日志走 Profile A ⭐ <strong>现场逐条对读需求 → 手册 7.5「读能力体检表」</strong>（25 行，含 5 条明确不做的：订阅流 / 空间查询 / 图算法 / 实体消解 / 联邦 join） ⚠️ <strong>向量库不是读路径</strong>，是第④条知识通道，只进 advise</p>
 </blockquote>
 <p><strong>⭐ Action vs Function</strong>：本质不是读写，是<strong>要不要被治理</strong>。Action 进能力清单 / 有 guards·post_rules·writes·hil / 每次留审计；Function <strong>不进清单</strong>、无治理字段、调用期读取收窄到 <code>reads</code>。</p>
 <blockquote>
