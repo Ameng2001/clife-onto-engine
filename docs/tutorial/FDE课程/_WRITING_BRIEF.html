@@ -344,6 +344,11 @@
 <td>—</td>
 </tr>
 <tr class="odd">
+<td>遥测读</td>
+<td><strong>遥测读 · query-plan</strong>（telemetry，含 <strong>Profile A 观测</strong> / <strong>Profile B 语义指标→数仓 SQL</strong>）<br>⚠️ <strong>对客宜说"引擎侧的深读 / 计划式读"</strong>——只说"遥测"客户会以为只接监控系统</td>
+<td>只说"时序读"（漏了 Profile B）</td>
+</tr>
+<tr class="even">
 <td>建模管线</td>
 <td>studio-planner（事件风暴）→ domain-model（限界上下文）→ clife-onto-engine（本体）→ citations 治理 → 可研报告生成</td>
 <td>—</td>
@@ -811,6 +816,12 @@ N+2、讲师包 · 口播稿  讲师原话级；含 1 句难听话 + 1 个反例
 <td>S3 产品声明把"克制"和"做不到"写成一句话</td>
 <td><strong>设计上的克制 ≠ 能力上的边界</strong>，客户面前要分开讲</td>
 <td>S3 §11.5</td>
+</tr>
+<tr class="even">
+<td><strong>⑤</strong></td>
+<td><strong>IR §2 Links 有 <code>properties</code> 列</strong>（边属性），编译规范的例子里也写了 <code>applicability</code></td>
+<td>⚠️ <strong>内核 <code>LinkType</code> 根本没有 properties 字段</strong>——编译时那一列<strong>被静默丢弃</strong>。<br>边属性只能在<strong>入库时</strong>（租户清单 links 段"其余列→边属性"）或 <strong>handler 里 <code>stage_link(**props)</code></strong> 补</td>
+<td>S2 §3.1 · L5 §5 · S3 §10</td>
 </tr>
 </tbody>
 </table>

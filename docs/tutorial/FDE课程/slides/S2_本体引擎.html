@@ -294,25 +294,34 @@
 </section>
 
 <!-- 9 -->
-<section class="slide" data-title="两条读路径">
-  <div class="kicker">图 · 自有语义面 2/3 · 读侧也是两条路</div>
-  <h2 class="title">语义读 · 遥测读</h2>
-  <div class="blk read"><span class="t">语义读 · OQL　<span class="mono" style="font-weight:400;font-size:13px">query/oql.py</span></span><span class="p">JSON-AST 查对象图　·　关系 / 派生量　·　<b>防注入 · 编译 nGQL</b></span></div>
-  <div class="blk tele"><span class="t">遥测读 · query-plan　<span class="mono" style="font-weight:400;font-size:13px">query/telemetry.py</span></span><span class="p">对象绑定可观测后端　·　生成 PromQL / ES DSL　·　id 代入 · 防注入 · 多方言　·　<b>只产计划，不当 TSDB</b></span></div>
-  <table class="t mt-m">
-    <tr><th></th><th>语义读 OQL</th><th>遥测读 query-plan</th></tr>
-    <tr><td><b>查什么</b></td><td>对象、关系、派生量——<b>世界的结构</b></td><td>时序、指标——<b>世界的读数</b></td></tr>
-    <tr><td><b>怎么落地</b></td><td>编译成 <b>nGQL</b> 打到图库</td><td><b>生成 PromQL / ES DSL 交给别人执行</b></td></tr>
-    <tr><td><b>自己存数据吗</b></td><td>是（图库）</td><td><b>否——只产计划，不当 TSDB</b></td></tr>
+<section class="slide tight" data-title="读路径 · 两条，其中一条两个 Profile">
+  <div class="kicker">图 · 自有语义面 2/3 · <b>⚠️ "遥测"不只是时序库</b></div>
+  <h2 class="title">语义读 · 遥测读<span style="font-size:20px;color:var(--text-2)">（A 观测 / B 数仓分析）</span></h2>
+  <div class="blk read" style="margin-top:6px"><span class="t">语义读 · OQL　<span class="mono" style="font-weight:400;font-size:13px">query/oql.py</span></span><span class="p">JSON-AST 查对象图　·　关系 / 派生量　·　<b>防注入 · 编译 nGQL</b></span></div>
+  <div class="blk tele"><span class="t">遥测读 · query-plan　<span class="mono" style="font-weight:400;font-size:13px">query/telemetry.py</span></span><span class="p"><b>Profile A</b> 观测遥测 → PromQL / ES DSL　·　<b>Profile B 语义指标 → 编译数仓 SQL</b>　·　<b>两个都只产计划，不执行</b></span></div>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:16%"></th><th style="width:30%"><b>Profile A</b> 观测遥测</th><th><b>Profile B</b> 语义指标</th></tr>
+    <tr><td>形状</td><td><b>单对象 + 一条序列</b>（这块地的墒情）</td><td><b>度量 + 维度 + 过滤</b>（某盟市地块计数、逐年趋势）</td></tr>
+    <tr><td>声明在</td><td>映射的 <span class="mono">telemetry</span> 段</td><td>映射的 <span class="mono">analytics</span> 段</td></tr>
+    <tr class="hot"><td>后端</td><td>Prometheus / Elasticsearch</td><td>⭐ <b>数仓</b>：ClickHouse / StarRocks / Hive / DuckDB …</td></tr>
+    <tr><td>产什么</td><td>PromQL / ES DSL</td><td>⭐ <b>数仓 SQL</b></td></tr>
   </table>
-  <p class="lede mt-m" data-anim="fade-up"><b>「只产计划不当 TSDB」这七个字是一条战略边界</b>：<br>
-  客户已经有 Prometheus、有 ES、有他们的时序库——<b>我们不去替换它，我们生成它听得懂的查询。</b></p>
-  <p class="quote-big mt-m" data-anim="fade-up">读侧两条路，写侧也两条路——<br><b>高吞吐的那条都不走闸门。</b><br><span style="font-size:17px;color:var(--text-2);font-weight:400">= OS 的 DMA / mmap：内核有意让出一条快路</span></p>
+  <table class="t mt-s" data-anim="stagger-list">
+    <tr><th style="width:34%">你要读的东西</th><th style="width:26%">走哪条</th><th>怎么配</th></tr>
+    <tr><td><b>某个对象 / 关系 / 明细行</b></td><td><b>语义读 OQL</b></td><td>把该对象物化策略设成 <b><span class="mono">virtual</span></b>——实时翻译成 SQL 打过去，<b>数据不进图</b></td></tr>
+    <tr><td><b>聚合 / 趋势 / 分组统计</b></td><td><b>遥测读 Profile B</b></td><td><span class="mono">analytics</span> 段声明 度量 + 维度 + 过滤</td></tr>
+    <tr><td><b>时序读数 / 日志</b></td><td><b>遥测读 Profile A</b></td><td><span class="mono">telemetry</span> 段绑定 Prometheus / ES</td></tr>
+    <tr class="hot"><td><b>向量库</b></td><td><b style="color:var(--bad)">都不是——它不是读路径</b></td><td>走<b>第④条知识通道</b>（第 7 页），只进 advise，<b>绝不驱动写入</b></td></tr>
+  </table>
+  <p class="quote-big mt-s" data-anim="fade-up">按<b>问题的形状</b>分，不按<b>库的品牌</b>分。</p>
   <div class="deck-footer"><span class="ftag">语义面 2/4</span><span class="slide-number" data-current="11" data-total="19"></span></div>
-  <div class="notes"><p><b>⭐【这一页最容易讲丢的是那个对称，一定要点出来】</b>"读是两条路，<b>写也是两条路</b>：治理写走 Action 闸门，<b>高吞吐的数据摄取不走</b>。判据是——<b>这是『观测』还是『决定』？</b>"</p>
-  <p><b>【顺手做个判断题，30 秒】</b>手环上报心率 = 摄取 ｜ 医生改护理等级 = 治理 ｜ <b>系统按规则自动生成一条预警 = 治理</b>（最容易错）｜ Agent 执行"换护理员" = 治理。<b>判据不是"谁触发的"，是"这是不是一个决定"——Agent 自动做的决定恰恰最需要审计。</b></p>
-  <p><b>【为什么遥测不能过闸，三个理由任意一个都够】</b>① 性能：每条读数跑规则+落快照，成本是业务写入的百倍 ② 语义：读数是"观测"不是"决定"，<b>审计的对象是决定</b> ③ 可用性：拦住传感器数据，<b>你丢的是事实——而事实不该被规则否决</b>。</p>
-  <p><b>【"只产计划不当 TSDB"在客户现场很好用】</b>"我们不动您的监控体系，<b>我们生成您的 Prometheus 听得懂的查询。</b>"——把"要不要换系统"的对话变成"要不要加一层"。</p></div>
+  <div class="notes"><p><b>⚠️⭐【这一页最容易被问倒的地方，就是"遥测"这个词】</b>"客户的数据团队一听'遥测'，会以为这套东西只接监控系统、跟他们的 Hive / StarRocks 没关系。<b>要立刻补上 Profile B</b>——<b>语义指标编译的是数仓 SQL。</b>"</p>
+  <p><b>⭐【判据要说透：按问题形状分，不按库的品牌分】</b>"<b>同一个 ClickHouse</b>，查一行明细走<b>语义读</b>（虚拟物化），查一个同比走 <b>Profile B</b>。不是『ClickHouse 归遥测、MySQL 归 OQL』那种分法。"</p>
+  <p><b>⚠️【向量库那一行必须点出来，它不在这张表的逻辑里】</b>"向量库<b>根本不是读路径</b>——它是第④条知识通道，只服务 advise。<b>一旦把它讲成第三条读路径，学员就会以为检索结果和 OQL 结果是同一类东西</b>，而那正是『拿检索到的一段话去触发一次写操作』的认知起点。"</p>
+  <p><b>【命名的来历，被问到再说】</b>telemetry = 远 + 测量，源自航天与工业控制。<b>这一层设计参照过监控领域的本体实践，所以留了"遥测"这个名字</b>，但 Profile B 已经把它扩到数仓分析读。<b>对客讲"引擎侧的深读"或"计划式读"更准。</b></p>
+  <p><b>⭐【那个对称别讲丢】</b>"读是两条路，<b>写也是两条路</b>：治理写走 Action 闸门，<b>高吞吐的数据摄取不走</b>。判据是——<b>这是『观测』还是『决定』？</b>"</p>
+  <p><b>【顺手做个判断题，30 秒】</b>手环上报心率 = 摄取 ｜ 医生改护理等级 = 治理 ｜ <b>系统按规则自动生成一条预警 = 治理</b>（最容易错）｜ Agent 执行"换护理员" = 治理。<b>判据不是"谁触发的"，是"这是不是一个决定"。</b></p>
+  <p><b>【话术，数仓那半句别漏】</b>"我们不动您的监控体系、<b>也不动您的数仓</b>，我们生成它们听得懂的查询。"</p></div>
 </section>
 
 <!-- 10 -->
@@ -499,7 +508,7 @@
     <tr><td>「你们和我们现有的校验有什么区别」</td><td><b>写后判 + 收集全部违反</b>——它和操作系统只有这两处不一样（第 9 页）</td></tr>
     <tr><td>「接我们这个行业要多久 / 要改你们内核吗」</td><td><b>Plugin SPI，换行业零改内核</b>；而且这句话<b>有两个 CI 脚本在验</b>（第 5、13 页）</td></tr>
     <tr><td>「不同客户的数据怎么隔离」</td><td><b>一 ontology 一 space，多租户硬隔离</b>——物理分开，不是查询里带租户 ID（第 7 页）</td></tr>
-    <tr><td>「你们要替换我们的监控 / 数仓吗」</td><td><b>不要。遥测读只产计划不当 TSDB</b>，生成您的 PromQL / ES DSL（第 10 页）</td></tr>
+    <tr><td>「你们要替换我们的监控 / 数仓吗」</td><td><b>不要。只产计划，不当 TSDB、也不当数仓</b>——生成您的 PromQL / ES DSL <b>与数仓 SQL</b>（第 11 页）</td></tr>
     <tr><td>「你们的 AI 会不会乱改数据」</td><td>Agent 只能<b>申请</b>；<b>MCP 读默认开、写 opt-in</b>；且成败都有审计快照（第 7、10、11 页）</td></tr>
   </table>
   <div class="card badcard mt-m"><h4>⚠️ 两条纪律</h4>

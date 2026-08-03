@@ -764,7 +764,7 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 <tr class="odd">
 <td>2</td>
 <td><strong>Links</strong></td>
-<td><code>name / from / to / cardinality / edge_semantics / properties</code></td>
+<td><code>name / from / to / cardinality / edge_semantics / properties</code>　⚠️ <strong>最后一列见下</strong></td>
 </tr>
 <tr class="even">
 <td>3</td>
@@ -793,6 +793,9 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⚠️ <strong>§2 的 <code>properties</code> 列（边属性）编译时会被丢掉。</strong> 内核的 <code>LinkType</code> <strong>没有属性 schema</strong>——它只认 <code>from / to / cardinality / edge_semantics</code>。 <strong>边属性要在数据接入层补</strong>（租户清单 links 段"其余列 → 边属性"），或在 Action handler 里 <code>stage_link(..., **props)</code> 写进去。 <strong>你可以照填那一列当设计记录，但别指望编译产物里有它</strong>——<strong>这是第 ⑤ 处「文档 vs 代码」落差。</strong></p>
+</blockquote>
 <blockquote>
 <p>⭐ <strong>对着第三章 ④ 的「认领表」读这张表</strong>：§1 / §6 认领数据 · §2 认领关系 · <strong>§4 的 <code>source</code> 认领知识</strong> · §5 的 <code>writes</code> 认领写入范围 · §5 的 <code>hil</code> 认领责任人。</p>
 </blockquote>
