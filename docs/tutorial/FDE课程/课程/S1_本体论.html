@@ -485,17 +485,89 @@
 <p><strong>如果 AI 能直接写入系统，而系统没有业务规则层来约束它，出问题只是时间问题。</strong></p>
 </blockquote>
 <h2 id="24-四层架构本体在哪一层">2.4 四层架构：本体在哪一层</h2>
-<pre><code>L4 业务消费层     AI Agent · 业务应用 · 决策看板
-                        ↑ 只通过本体接口交互，不直接访问底层数据库
-L3 业务本体平台   Object（对象）· Link（关系）· Action（操作）
-                  ★ 数据层和应用层之间的语义枢纽
-                        ↑ 向下拉取 L2 的清洗数据
-L2 数据仓库/数据湖  ODS → DWD → DWS，结构化事实数据，但没有业务语义
-                        ↑
-L1 源系统          ERP · CRM · 生产控制 · IoT —— 割裂的、异构的</code></pre>
-<p><strong>L3 不重新存储数据</strong>，它在数据之上建立语义模型，向下拉取 L2 的清洗数据，向上为 L4 提供<strong>受约束的操作接口</strong>。</p>
 <blockquote>
-<p><strong>这个架构有一个重要的意义</strong>： <strong>AI 看到的世界，是被本体层"翻译"过的世界。</strong> 它看到的不是原始表，而是<strong>有名字、有关系、有规则的业务对象</strong>。</p>
+<p>⚠️ <strong>本节用 ①②③④ 标层，不用 L1–L4</strong>——<code>L1–L8</code> 在本课程里是<strong>课次</strong>编号（第一课…第八课）。 <strong>架构层与课次是两套东西，混用会读错。</strong></p>
+</blockquote>
+<pre><code>④ 业务消费层    AI Agent · 业务应用 · 决策看板
+      ↑ 只通过本体接口交互                    ↖ ④号知识通道：检索直供
+      │ 不直接访问底层数据库                   │ 只进 advise（开放问答）
+      │                                       │ 只读 · 每段带出处 · 绝不驱动写入
+③ 业务本体平台   Object · Link · Function · Rule · Action    │
+      ★ 数据层和应用层之间的语义枢纽                          │
+      ↑ 认领结构化数据          ↑ 知识通道 ①②③              │
+      │                        │ （挂 Rule / Object / Action）│
+②a 数据集层                 ②b 知识库层 ─────────────────────┘
+   数据仓库 / 数据湖            标准 · 规程 · 案例 · 手册（全文语料）
+   ODS → DWD → DWS             非结构化，必带出处
+   结构化事实，无业务语义        只读 · 不进图 · 不能驱动写入
+      ↑                             ↑
+① 源系统   ERP · CRM · 生产控制 · IoT  ｜  文档库 · 知识管理系统 · 制度汇编
+           —— 割裂的、异构的</code></pre>
+<p><strong>③ 不重新存储数据</strong>，它在数据之上建立语义模型，向下认领 ②a / ②b，向上为 ④ 提供<strong>受约束的操作接口</strong>。</p>
+<h3 id="️-中间那层是两条并行线不是一层">⚠️ 中间那层是<strong>两条并行线</strong>，不是一层</h3>
+<p><strong>这是这张图最容易画错的地方</strong>。很多人把它画成「源系统 → 数仓 → 本体 → 应用」四条单线， <strong>于是知识库无处安放</strong>，最后要么被塞进数仓、要么被画成本体之上的"RAG 增强"——<strong>两种画法都会误导建模。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>②a 数据集层</strong></th>
+<th><strong>②b 知识库层</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>形态</td>
+<td>结构化，<strong>必有主键</strong></td>
+<td>非结构化全文，<strong>必带出处</strong></td>
+</tr>
+<tr class="even">
+<td>进不进本体的图</td>
+<td><strong>进</strong></td>
+<td><strong>不进</strong></td>
+</tr>
+<tr class="odd">
+<td>能不能驱动写入</td>
+<td><strong>能</strong>——被 Rule 校验、被 Action 写</td>
+<td><strong>绝不能</strong></td>
+</tr>
+<tr class="even">
+<td>典型来源</td>
+<td>ERP / CRM / IoT / 生产控制</td>
+<td>国标 · 行业规程 · 案例库 · 处置手册 · 制度汇编</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-②b-有两条出路这是全图最关键的一处分叉">⭐ ②b 有<strong>两条出路</strong>，这是全图最关键的一处分叉</h3>
+<table>
+<thead>
+<tr class="header">
+<th>出路</th>
+<th>走哪</th>
+<th>受不受治理</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>知识通道 ①②③</strong></td>
+<td><strong>挂进 ③ 本体</strong>：规则的出处挂 Rule · 附着知识挂 Object · 证据血统挂 Action</td>
+<td><strong>受</strong>——尤其 ① 进写路径，<strong>违反即回滚</strong></td>
+</tr>
+<tr class="even">
+<td><strong>知识通道 ④</strong></td>
+<td><strong>绕过 ③，直供 ④ 的开放问答（advise）</strong></td>
+<td><strong>不受</strong>——所以<strong>绝不驱动写入</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="-检索的结果绝不驱动写入">⭐ <strong>检索的结果绝不驱动写入。</strong></h3>
+<p>那条旁路之所以允许存在，<strong>正是因为它出不了 Action 引擎那道门</strong>。 <strong>把④当①用</strong>——拿检索到的一段话去触发一次业务动作——<strong>就是把整套治理架空。</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>这个架构有一个重要的意义</strong>： <strong>AI 看到的世界，是被本体层"翻译"过的世界。</strong> 它看到的不是原始表、也不是一堆检索片段，而是<strong>有名字、有关系、有规则的业务对象</strong>。</p>
+</blockquote>
+<blockquote>
+<p><strong>本节只回答"本体在哪一层"。</strong> <strong>怎么挂、挂在哪个具体位置、四条通道各自的强度、每层该数什么——第九章讲全。</strong></p>
 </blockquote>
 <h2 id="25-本体为什么能解决幻觉">2.5 本体为什么能解决"幻觉"</h2>
 <p><strong>本质原因</strong>：</p>
@@ -1715,6 +1787,9 @@ L1 源系统          ERP · CRM · 生产控制 · IoT —— 割裂的、异�
 <h1 id="九-挂载链本体怎么认领下层怎么支撑上层">九、⭐ 挂载链：本体怎么认领下层、怎么支撑上层</h1>
 <p><strong>前八章讲的是"本体是什么"。这一章讲"它和上下层怎么接"</strong>—— 也就是你真正动手时会遇到的那个问题：<strong>这些数据、这些知识，到底挂在哪里？</strong></p>
 <h2 id="91-四层但第二层是两条并行的线">9.1 四层，但第二层是<strong>两条并行的线</strong></h2>
+<blockquote>
+<p><strong>第 2.4 节已经给过这张四层图的轮廓</strong>（含 ②b 的两条出路）。 <strong>本章把中间那层拆开讲透</strong>：怎么挂、挂在哪、四条通道各自的强度、每层该数什么。</p>
+</blockquote>
 <p>很多人把这套东西画成三层：数据 → 本体 → 智能体。<strong>这么画会在建模时挂错位置。</strong> 正确的形状是四层，而<strong>中间那层是两条线，不是一层里的两种东西</strong>：</p>
 <pre><code>智能体层      能力清单（Schema 派生）· 分层记忆 · 写路径必过 Action 引擎
    ↑ 派生                                        ↓ 认领
@@ -1757,7 +1832,7 @@ L1 源系统          ERP · CRM · 生产控制 · IoT —— 割裂的、异�
 </tbody>
 </table>
 <blockquote>
-<h3 id="-检索的结果绝不驱动写入">⭐ <strong>检索的结果绝不驱动写入。</strong></h3>
+<h3 id="-检索的结果绝不驱动写入-1">⭐ <strong>检索的结果绝不驱动写入。</strong></h3>
 <p>写入只经 Action 引擎；<strong>防幻觉在执行层，检索只做取证补充。</strong> 把这两条线混成一层的直接后果是：<strong>有人会拿 RAG 检索到的一段话去触发一个业务动作。</strong></p>
 </blockquote>
 <h2 id="92-每一层的真实计量单位不是你以为的那个">9.2 每一层的真实计量单位（不是你以为的那个）</h2>
@@ -1807,7 +1882,373 @@ L1 源系统          ERP · CRM · 生产控制 · IoT —— 割裂的、异�
 <blockquote>
 <p><strong>"我们有 200 张表、5000 份文档"</strong> 这句话在本体项目里<strong>信息量接近零</strong>。 真正该问的是：<strong>这 200 张表里，有多少能给出主键？这 5000 份文档里，有多少每段带得出出处？</strong> <strong>数量多但挂不上去的，等于零。</strong></p>
 </blockquote>
-<h2 id="93--知识挂载有四条通道强度完全不同">9.3 ⭐⭐ 知识挂载有<strong>四条通道</strong>，强度完全不同</h2>
+<h2 id="93-数据侧有哪些--怎么存--怎么访问--怎么治理">9.3 数据侧：有哪些 · 怎么存 · 怎么访问 · 怎么治理</h2>
+<h3 id="①-有哪些数据按访问形态分不按业务分">① 有哪些数据——<strong>按访问形态分，不按业务分</strong></h3>
+<p>业务分类（人力 / 财务 / 生产）在建模时没用。<strong>有用的分类是"它怎么被存、怎么被读"</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>类</th>
+<th>例子</th>
+<th>在本体里的落点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>主数据 / 实体</strong></td>
+<td>地块、草种、会员、设备</td>
+<td><strong>Object</strong> + <code>primary_key</code></td>
+</tr>
+<tr class="even">
+<td><strong>关系</strong></td>
+<td>草种 ↔︎ 立地适配、退化 → 修复方法</td>
+<td><strong>Link</strong> + <code>edge_semantics</code></td>
+</tr>
+<tr class="odd">
+<td><strong>事实 / 明细</strong></td>
+<td>快检批次、交易流水</td>
+<td>Object（<strong>多用虚拟或混合</strong>，不全物化）</td>
+</tr>
+<tr class="even">
+<td><strong>时序 / 指标</strong></td>
+<td>墒情、长势 NDVI</td>
+<td><strong>遥测绑定</strong>（<code>kind: metric</code>）</td>
+</tr>
+<tr class="odd">
+<td><strong>日志 / 事件</strong></td>
+<td>设备告警、操作记录</td>
+<td><strong>遥测绑定</strong>（<code>kind: log</code>）</td>
+</tr>
+<tr class="even">
+<td><strong>空间</strong></td>
+<td>地块边界 geom</td>
+<td>物理落点指向空间库</td>
+</tr>
+<tr class="odd">
+<td><strong>⚠️ 派生量</strong></td>
+<td>RFV 评级、达标率</td>
+<td><strong>不是数据，是 Function</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>最常见的一个错</strong>：<strong>把算出来的东西当数据存进去。</strong> 判据只有一句：<strong>是"算"出来的，还是"记"下来的？</strong> 算出来的进 Function，<strong>别进 Object 的属性</strong>。 存进去的那一刻它就有了两个真相源——<strong>原始数据变了，它不会跟着变。</strong></p>
+</blockquote>
+<h3 id="②-怎么存物化策略是最关键的那个旋钮">② 怎么存——<strong>物化策略是最关键的那个旋钮</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>取值</th>
+<th>含义</th>
+<th>用在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>materialized</code> <strong>物化</strong></td>
+<td><strong>实例化进图库</strong></td>
+<td>高频多跳推理的主干子图</td>
+</tr>
+<tr class="even">
+<td><code>virtual</code> <strong>虚拟</strong></td>
+<td><strong>实时翻译成 SQL / 图查询，不进图</strong></td>
+<td>明细 · 时序 · 交易（量大、少推理）</td>
+</tr>
+<tr class="odd">
+<td><strong><code>hybrid</code> 混合</strong></td>
+<td><strong>主干物化 + 明细虚拟兜底</strong></td>
+<td>⭐ <strong>推荐默认</strong></td>
+</tr>
+</tbody>
+</table>
+<p>配套还有两样：</p>
+<ul>
+<li><strong>多源列向拼合</strong>：同一个对象的属性来自多个库（主干一张表 + 遥感 + 物联网），<strong>在映射里声明，不在应用里 join</strong></li>
+<li><strong>一 ontology 一 space</strong>：多租户<strong>物理隔离</strong>，<strong>不是靠查询里加 <code>where tenant_id=</code></strong></li>
+</ul>
+<blockquote>
+<p><strong>"存哪些、存到哪、存不存"这三个问题，答案全在映射注册表（Plugin SPI 槽位 2）里，不在应用代码里。</strong></p>
+</blockquote>
+<h3 id="③-怎么被访问读有两条路写只有一条">③ 怎么被访问——<strong>读有两条路，写只有一条</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>路</th>
+<th>走什么</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>语义读</strong></td>
+<td><strong>OQL</strong>（JSON-AST 查对象图 / 关系 / 派生量）→ 编译成图查询</td>
+<td><strong>防注入</strong>：不是拼字符串</td>
+</tr>
+<tr class="even">
+<td><strong>遥测读</strong></td>
+<td><strong>query-plan</strong>：对象 → 可观测后端，生成查询语句</td>
+<td>⭐ <strong>只产计划，不执行</strong>——<strong>引擎不当 TSDB</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>写</strong></td>
+<td>⭐ <strong>只有 Action 引擎这一条，无旁路</strong></td>
+<td><code>guard → 写入 → 写后规则 → 提交 / 回滚 → 审计</code><br><strong>overlay 写即可见</strong>：变更先进暂存，后面的规则立刻读得到</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="-应用层不直接访问底层数据库">⭐ <strong>应用层不直接访问底层数据库。</strong></h3>
+<p>这不是"建议大家都走本体"，是<strong>架构上的强制</strong>——上层拿到的是 <strong>Capability，不是数据库连接</strong>。</p>
+</blockquote>
+<h3 id="④-怎么治理">④ 怎么治理</h3>
+<table>
+<thead>
+<tr class="header">
+<th>手段</th>
+<th>管什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>质检阈值</strong></td>
+<td>六维质检（如<strong>完整度 ≥ 0.95</strong>）——<strong>不达标的数据不该进本体</strong></td>
+</tr>
+<tr class="even">
+<td><strong>多租户硬隔离</strong></td>
+<td>一 ontology 一 space，<strong>物理分开</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>声明式授权门</strong></td>
+<td><strong>在 guard 之前</strong>判"谁能做什么"；无权则<strong>在任何暂存之前</strong>结构化拒绝并审计。<br>⭐ <strong>插件声明"这动作需要什么"，租户配置"谁被授权"</strong>——两件事分开</td>
+</tr>
+<tr class="even">
+<td><strong>Capability</strong></td>
+<td>上层拿到的不是裸句柄</td>
+</tr>
+<tr class="odd">
+<td><strong>审计快照 + 版本化</strong></td>
+<td>把某时刻的定义<strong>冻结成不可变版本</strong>，支持<strong>决策重放</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="94-知识侧有哪些--怎么分类--怎么存--怎么访问--怎么治理">9.4 知识侧：有哪些 · 怎么分类 · 怎么存 · 怎么访问 · 怎么治理</h2>
+<p><strong>这一节是很多团队真正缺的一块。</strong>"知识"在多数项目里等于"往向量库里灌文档"—— <strong>那只是四条通道里最弱的一条。</strong></p>
+<h3 id="①-有哪些知识按能不能拦住动作分不按学科分">① 有哪些知识——<strong>按"能不能拦住动作"分，不按学科分</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>类</th>
+<th>例子</th>
+<th>落点</th>
+<th>通道</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>规则型</strong></td>
+<td>国标 / 规程里的硬性条款（"混播比例合计应为 100%"）</td>
+<td><strong>Rule</strong> + <code>source</code> / <code>citations</code></td>
+<td><strong>①</strong></td>
+</tr>
+<tr class="even">
+<td><strong>经验型</strong></td>
+<td>诊断经验、处置手册（"重度盐碱先改良再植被恢复"）</td>
+<td><strong>附着知识</strong>挂 Object</td>
+<td>②</td>
+</tr>
+<tr class="odd">
+<td><strong>参考型</strong></td>
+<td>名录、评估模板、方法适用性</td>
+<td>同上（<code>reference</code> / <code>template</code>）</td>
+<td>②</td>
+</tr>
+<tr class="even">
+<td><strong>证据型</strong></td>
+<td>本次决策引用了哪几条依据</td>
+<td><strong>Action 的证据血统</strong></td>
+<td>③</td>
+</tr>
+<tr class="odd">
+<td><strong>语料型</strong></td>
+<td>标准 / 案例 / 手册<strong>全文</strong></td>
+<td><strong>检索语料</strong>（<strong>在本体外面</strong>）</td>
+<td>④</td>
+</tr>
+<tr class="even">
+<td><strong>术语型</strong></td>
+<td>规范用词 + 别名</td>
+<td><strong>术语表</strong>（槽位 5）</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><strong>角色型</strong></td>
+<td>谁复核哪个动作</td>
+<td><strong>复核角色</strong>（槽位 6）</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="-分类判据只有一句话">⭐ <strong>分类判据只有一句话：</strong></h3>
+<p><strong>这条知识，是要「拦住动作」的、给「推理当参考」的、「留痕」的，还是只用来「答问」的？</strong></p>
+<p>答"拦住动作" → <strong>走①，写成 Rule</strong>；答"参考" → <strong>走②，挂到对象上</strong>； 答"留痕" → <strong>走③</strong>；答"答问" → <strong>走④，别挂进本体</strong>。 <strong>问错这一句，后面全错。</strong></p>
+</blockquote>
+<h3 id="②-怎么分类②号通道的四种-kind">② 怎么分类——②号通道的四种 kind</h3>
+<table>
+<thead>
+<tr class="header">
+<th>kind</th>
+<th>装什么</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>template</strong></td>
+<td>分析模板</td>
+<td>「地块修复评估模板：评估维度 = 土壤盐分 / 墒情 / 坡度 / 水源」</td>
+</tr>
+<tr class="even">
+<td><strong>diagnostic</strong></td>
+<td>诊断经验</td>
+<td>「盐碱化多因灌溉排水不畅致盐分表聚；重度需先改良再植被恢复」</td>
+</tr>
+<tr class="odd">
+<td><strong>playbook</strong></td>
+<td>处置手册 / runbook</td>
+<td>「轻度补播即可；中重度先工程改良、再喷播乡土草种、后期封育」</td>
+</tr>
+<tr class="even">
+<td><strong>reference</strong></td>
+<td>领域参考 / 名录</td>
+<td>「喷播适坡面大面积；补播适轻度退化」</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>这四种是标准化的，不是随便起的</strong>——<strong>分类固定，内容才能被机器一致地取用。</strong></p>
+</blockquote>
+<h3 id="③-怎么存">③ 怎么存</h3>
+<table>
+<thead>
+<tr class="header">
+<th>通道</th>
+<th>存在哪</th>
+<th>形态</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>①</strong></td>
+<td><strong>Rule 的 <code>source</code> / <code>citations</code> 字段</strong></td>
+<td>结构化字段（标准号 / 方法学编号）</td>
+</tr>
+<tr class="even">
+<td><strong>②</strong></td>
+<td><strong>映射里的知识段</strong>，键是 <strong>(本体, 对象类型)</strong></td>
+<td>结构化条目：<code>name / kind / content / refs</code></td>
+</tr>
+<tr class="odd">
+<td><strong>③</strong></td>
+<td><strong>审计快照里的证据</strong></td>
+<td>随决策一起存</td>
+</tr>
+<tr class="even">
+<td><strong>④</strong></td>
+<td><strong>检索语料块</strong>：<code>doc_id / text / source / refs</code></td>
+<td>全文分块（<strong>在本体外面</strong>）</td>
+</tr>
+<tr class="odd">
+<td>术语</td>
+<td><strong>插件清单的术语表</strong></td>
+<td>声明式 YAML</td>
+</tr>
+<tr class="even">
+<td>角色</td>
+<td><strong>插件清单的复核角色</strong></td>
+<td>声明式 YAML</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>注意 ② 的键是「(本体, 对象类型)」</strong>——<strong>知识的落点是某个对象类型，不是"本体"这个笼统的东西。</strong> 这个设计直接决定了下面第 ④ 问的答案。</p>
+</blockquote>
+<h3 id="④-怎么被访问四条通道各有各的取法">④ 怎么被访问——<strong>四条通道各有各的取法</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>通道</th>
+<th>怎么被取到</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>①</strong></td>
+<td><strong>不用"取"</strong>——它在<strong>写路径上自动执行</strong>，违反即回滚。<strong>唯一一条"知识主动作用于系统"的通道</strong></td>
+</tr>
+<tr class="even">
+<td><strong>②</strong></td>
+<td>⭐ <strong>随对象一次取到</strong>（查那个对象，它的知识跟着回来）；<br>也可<strong>灌进记忆的背景层</strong>，装配上下文时<strong>按相关性注入</strong>（<strong>不是全量塞</strong>）</td>
+</tr>
+<tr class="odd">
+<td><strong>③</strong></td>
+<td><strong>审计回放时取</strong>——回答"三个月前为什么这么判"</td>
+</tr>
+<tr class="even">
+<td><strong>④</strong></td>
+<td><strong>按查询检索</strong>：给一句话，返回相关文档块，<strong>每段带出处</strong></td>
+</tr>
+<tr class="odd">
+<td>术语</td>
+<td><strong>喂给意图编译器</strong>——让大模型<strong>用规范键</strong>，从源头减少键名漂移</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>①②③ 是"知识来找你"，④ 是"你去找知识"。</strong> 这是它们最本质的差别。</p>
+</blockquote>
+<h3 id="⑤-怎么治理知识侧最容易被跳过的一问">⑤ 怎么治理——<strong>知识侧最容易被跳过的一问</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>手段</th>
+<th>管什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>⭐ <strong>出处必填</strong></td>
+<td>检索语料块的<strong>出处是必填字段</strong>；附着知识带 <code>refs</code>；Rule 带 <code>source</code>。<br><strong>没出处的知识 = 专家的口头禅</strong></td>
+</tr>
+<tr class="even">
+<td>⭐ <strong>出处三态</strong></td>
+<td>具体标准号 ✅ · <code>通用</code>（自明常识）✅ · <code>TODO(FDE)</code> ⚠️ <strong>被拦并计入治理缺口</strong><br><strong>"通用"这个值很重要</strong>：它让"我知道这是常识、不是我忘了查"<strong>能被表达出来</strong></td>
+</tr>
+<tr class="odd">
+<td>⭐ <strong>静态缺口审计</strong></td>
+<td>上线前静态扫：<strong>哪条规则没出处 · 哪个动作没实现 · 哪条关系端点悬空</strong>。<br>分 <strong>blocking</strong>（必须修）/ <strong>warning</strong> 两级——<strong>把"跑到才炸"提前到"静态可查"</strong></td>
+</tr>
+<tr class="even">
+<td><strong>版本与重放</strong></td>
+<td>定义冻结成不可变版本 → 规则改了之后<strong>仍能回答"6 月 5 日那天是什么状态"</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>对外沉淀</strong></td>
+<td>知识包导出：承载<strong>规则的出处与版本</strong>，<strong>可 git diff、可审计</strong>。<br>⚠️ <strong>但它不运行规则</strong>——强制仍在引擎，它是<strong>读侧文档</strong>，不是执行层</td>
+</tr>
+<tr class="even">
+<td>⚠️ <strong>④ 基本不受治理</strong></td>
+<td>检索只保证"每段带出处"，<strong>保证不了"这段话适用于本次决策"</strong>——<strong>所以它绝不驱动写入。</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="-一句话收口">⭐ 一句话收口</h3>
+<p><strong>能拦住动作的知识必须走 ①，且必须有出处；</strong> <strong>拦不住动作的知识可以走 ②③④，但一条都不许伪装成 ①。</strong></p>
+</blockquote>
+<hr />
+<h2 id="95--四条知识通道汇总一张表带走">9.5 ⭐⭐ 四条知识通道汇总（一张表带走）</h2>
 <p>这是全章最该记住的一张表。<strong>"把知识挂进本体"不是一个动作，是四个</strong>：</p>
 <table>
 <thead>
@@ -1915,7 +2356,7 @@ L1 源系统          ERP · CRM · 生产控制 · IoT —— 割裂的、异�
 <li>⭐ <strong>物化策略</strong>：<strong>物化（进图）/ 混合（主干进图 + 明细虚拟兜底）/ 虚拟（只读时拼）</strong>——<strong>这是数据源到本体最关键的那个旋钮</strong></li>
 <li><strong>遥测绑定</strong>：对象 → 可观测后端，引擎<strong>只产查询计划，不执行</strong></li>
 </ul>
-<h2 id="94-上层智能体基于本体具体是哪三件事">9.4 上层：智能体"基于本体"具体是哪三件事</h2>
+<h2 id="96-上层智能体基于本体具体是哪三件事">9.6 上层：智能体"基于本体"具体是哪三件事</h2>
 <p>"基于本体网络的智能体"这句话太笼统。拆开是可指认的三条：</p>
 <table>
 <thead>
@@ -1946,7 +2387,7 @@ L1 源系统          ERP · CRM · 生产控制 · IoT —— 割裂的、异�
 <blockquote>
 <p>⭐ <strong>回复类型本身就在表达这个设计</strong>：一次提问的回复分成 <strong>查询 / 遥测 / 已提交 / 待人工 / 被拒 / 请澄清 / 建议 / 出错</strong> 等几类—— <strong>"建议"是第④条知识通道的出口，它和"已提交"是分开的两种回复。</strong> <strong>换句话说：检索答的话，从类型上就不可能变成一次写操作。</strong></p>
 </blockquote>
-<h2 id="95-️-方向问题挂载不是自下而上">9.5 ⚠️ 方向问题：挂载不是自下而上</h2>
+<h2 id="97-️-方向问题挂载不是自下而上">9.7 ⚠️ 方向问题：挂载不是自下而上</h2>
 <p>上面那张图容易让人误读成"数据往上堆"。<strong>方向是反的</strong>，这正是第八章 8.4 那条：</p>
 <blockquote>
 <p><strong>先建模、再看数据——顺序不能反。</strong></p>
@@ -2238,6 +2679,24 @@ Memory Pipeline    管下轮怎么读</code></pre>
 <td>数据源数<strong>种类</strong> · 数据集数<strong>有主键的</strong> · 知识库数<strong>带出处的</strong> · 本体数 <strong>Link 不是 Object</strong> · 智能体数<strong>设了闸的 Action</strong></td>
 <td>答"我们有 200 张表、5000 份文档"</td>
 </tr>
+<tr class="even">
+<td><strong>10</strong></td>
+<td><strong>一条业务数据，怎么决定它进不进图？</strong></td>
+<td>说得出<strong>物化 / 混合 / 虚拟</strong>三态与各自适用场景；<strong>并说得出派生量不是数据、是 Function</strong></td>
+<td>全部物化进图；或把算出来的当属性存</td>
+</tr>
+<tr class="odd">
+<td><strong>11</strong></td>
+<td><strong>拿到一条知识，第一句该问自己什么？</strong></td>
+<td>⭐ <strong>"它是要拦住动作的、给推理当参考的、留痕的，还是只用来答问的？"</strong>——据此选通道</td>
+<td>直接问"用哪个向量库"</td>
+</tr>
+<tr class="even">
+<td><strong>12</strong></td>
+<td><strong>知识侧怎么治理？</strong></td>
+<td><strong>出处必填 · 出处三态（标准号 / 通用 / TODO 被拦）· 静态缺口审计（blocking/warning）· 版本与重放</strong></td>
+<td>答"我们会人工审核"</td>
+</tr>
 </tbody>
 </table>
 <h2 id="参考答案要点">参考答案要点</h2>
@@ -2280,6 +2739,45 @@ Memory Pipeline    管下轮怎么读</code></pre>
 </table>
 <blockquote>
 <p>⭐ <strong>把④当①用的后果</strong>：<strong>拿检索到的一段话去驱动一次写操作。</strong> 检索结果<strong>绝不驱动写入</strong>——写入只经 Action 引擎，<strong>防幻觉在执行层，检索只做取证补充。</strong></p>
+</blockquote>
+<p><strong>10. 进不进图</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>取值</th>
+<th>含义</th>
+<th>用在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>materialized</code></td>
+<td>实例化进图库</td>
+<td>高频多跳推理主干</td>
+</tr>
+<tr class="even">
+<td><code>virtual</code></td>
+<td>实时翻译成查询，<strong>不进图</strong></td>
+<td>明细 · 时序 · 交易</td>
+</tr>
+<tr class="odd">
+<td><strong><code>hybrid</code></strong></td>
+<td><strong>主干物化 + 明细虚拟</strong></td>
+<td>⭐ <strong>推荐默认</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>派生量不是数据，是 Function。</strong> 判据：<strong>是"算"出来的，还是"记"下来的？</strong> <strong>存进去的那一刻，它就有了两个真相源。</strong></p>
+</blockquote>
+<p><strong>11. 拿到一条知识，第一句问什么</strong></p>
+<blockquote>
+<p>⭐ <strong>"它是要「拦住动作」的、给「推理当参考」的、「留痕」的，还是只用来「答问」的？"</strong> 拦动作 → <strong>①（Rule + 出处，进写路径）</strong>；参考 → <strong>②（挂对象）</strong>；留痕 → <strong>③</strong>；答问 → <strong>④（别挂进本体）</strong>。 <strong>问错这一句，后面全错</strong>——最典型的错就是<strong>上来先问"用哪个向量库"</strong>。</p>
+</blockquote>
+<p><strong>12. 知识侧治理</strong></p>
+<blockquote>
+<p><strong>出处必填</strong>（语料块的出处是必填字段）· <strong>出处三态</strong>（标准号 ✅ / <code>通用</code> ✅ / <code>TODO(FDE)</code> ⚠️ 被拦并计入缺口）· <strong>静态缺口审计</strong>（上线前扫：哪条规则没出处 / 哪个动作没实现 / 哪条关系端点悬空，分 blocking / warning）· <strong>版本与重放</strong>（规则改了仍能回答"6 月 5 日那天是什么状态"）。</p>
+<p>⚠️ <strong>"我们会人工审核"不是治理，是承诺。</strong> 治理是<strong>机制</strong>：<strong>TODO 会被自动拦下并计入治理缺口。</strong></p>
 </blockquote>
 <p><strong>9. 每层的真指标</strong></p>
 <blockquote>
@@ -2351,6 +2849,11 @@ Memory Pipeline    管下轮怎么读</code></pre>
 ② 知识库  非结构化 · 必带出处 · 只读 · 只进&quot;建议&quot;
 ① 数据集  结构化 · 必有主键 · 过质量门 · 能驱动写入
 数据源   关系库 / 列存 / 时序 / 全文 / 文件</code></pre>
+<p><strong>数据侧四问</strong>：① 有哪些（<strong>按访问形态分</strong>：主数据/关系/明细/时序/日志/空间；⚠️ <strong>派生量是 Function 不是数据</strong>）② 怎么存（<strong>物化 / 混合 / 虚拟</strong>，混合是默认）③ 怎么访问（<strong>读两条：OQL + query-plan；写只有 Action 引擎一条</strong>）④ 怎么治理（质检阈值 · 物理隔离 · <strong>授权门在 guard 之前</strong> · Capability · 版本重放）</p>
+<p><strong>知识侧五问</strong>：① 有哪些（<strong>按能不能拦住动作分</strong>）② 怎么分类（template/diagnostic/playbook/reference）③ 怎么存（Rule 的 source ｜ 映射知识段 ｜ 审计证据 ｜ 语料块）④ 怎么访问（<strong>①②③ 知识来找你，④ 你去找知识</strong>）⑤ 怎么治理（<strong>出处必填 · 三态 · 静态缺口审计 · 版本重放</strong>）</p>
+<blockquote>
+<p>⭐ <strong>拿到一条知识先问</strong>：它是要<strong>拦住动作</strong>的、给<strong>推理当参考</strong>的、<strong>留痕</strong>的，还是只用来<strong>答问</strong>的？</p>
+</blockquote>
 <p><strong>四条知识通道</strong>（强度从高到低）：<strong>规则出处</strong>（进写路径，违反即回滚）→ <strong>对象附着知识</strong>（只读，一次取到）→ <strong>动作证据血统</strong>（留痕）→ <strong>全文检索</strong>（只进"建议"）</p>
 <blockquote>
 <p>⚠️ <strong>把第④条当第①条用 = 拿检索到的一段话驱动一次写操作。</strong></p>
