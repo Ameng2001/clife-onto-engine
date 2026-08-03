@@ -501,6 +501,49 @@ L5  你亲手编译一个</code></pre>
 <blockquote>
 <p>换成我们的语境：<strong>"血压超过 140 算异常"是插件的知识，内核不认识也不需要认识。</strong></p>
 </blockquote>
+<h3 id="️-五要素里只有-object-有声明式属性-schema">⚠️ 五要素里只有 Object 有声明式属性 schema</h3>
+<p><strong>这个常被想当然，值得当场核一遍：</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>要素</th>
+<th>有没有属性</th>
+<th>内核里实际是什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Object</strong></td>
+<td>✅</td>
+<td><code>properties</code>，每条带 <code>type / unit / required / classification</code>（<strong>字段密级</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>Link</strong></td>
+<td>⚠️ <strong>内核里没有</strong></td>
+<td>只有 <code>from / to / cardinality / edge_semantics</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Function</strong></td>
+<td>❌</td>
+<td>有的是 <code>reads</code>（读集）</td>
+</tr>
+<tr class="even">
+<td><strong>Rule</strong></td>
+<td>❌</td>
+<td>有的是 <code>severity / backing / evaluation / source / citations</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Action</strong></td>
+<td>❌</td>
+<td>有的是 <code>params</code>——<strong>参数不是属性</strong>，是外部传进来的，不是实体自带的</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Link 这一格是一处真落差</strong>：<strong>边能带属性，但那是实例级的</strong>—— 入库时"其余列 → 边属性"，或 handler 里 <code>stage_link(..., **props)</code>。 <strong>内核不声明边属性的 schema，所以边属性不受 <code>required</code> / 密级 这些约束。</strong></p>
+<p><strong>而建模端的 IR §2 有一个 <code>properties</code> 列。</strong> 编译规范自己的例子写的是 <code>| treated_by | ... | derivation | applicability |</code>， 生成的却是 <code>add_link(LinkType(name, ns, from, to, cardinality=..., edge_semantics=...))</code> —— <strong><code>applicability</code> 那一列，编译时被静默丢掉了。</strong></p>
+<p><strong>交付时要说准</strong>：<strong>"边属性要在数据接入层补，不在本体定义里。"</strong></p>
+</blockquote>
 <h2 id="32--判缝准则">3.2 ⭐ 判缝准则</h2>
 <blockquote>
 <h3 id="换成医疗大模型这段逻辑还成立吗">「换成医疗大模型，这段逻辑还成立吗？」</h3>
@@ -638,7 +681,7 @@ L5  你亲手编译一个</code></pre>
 <p><strong>⑤⑥ 那两个 ❌ 的结构性原因，S3 第十章会讲</strong>（简短说：<strong>IR 里压根没有这两段</strong>）； <strong>怎么亲手填掉，第五课会带你做。</strong></p>
 <hr />
 <h1 id="三补-挂载层本体怎么认领下层">三·补、⭐ 挂载层：本体怎么认领下层</h1>
-<p><strong>图最底下那两条带子</strong>——挂载层与数据源层，<strong>回答一个学员一定会问的问题</strong>： <strong>"这些数据、这些知识，到底挂在哪里？"</strong></p>
+<p><strong>图最底下那两条带子</strong>——挂载层与数据源层，回答的是这样一个问题： <strong>"这些数据、这些知识，到底挂在哪里？"</strong></p>
 <h2 id="补1-中间那层是两条并行的线不是一层">补.1 中间那层是<strong>两条并行的线</strong>，不是一层</h2>
 <p>很多人把这套东西画成三层：数据 → 本体 → 智能体。<strong>这么画会在建模时挂错位置。</strong></p>
 <table>
@@ -785,6 +828,63 @@ L5  你亲手编译一个</code></pre>
 </blockquote>
 <blockquote>
 <p><strong>这一节的完整版在 S1 第九章</strong>（含每层指标的推导与四条通道的取舍）。 <strong>本课只讲图上画了什么、对应哪个文件。</strong></p>
+</blockquote>
+<hr />
+<h2 id="35--action-和-function-的本质区别不是读写是要不要被治理">3.5 ⭐ Action 和 Function 的本质区别：<strong>不是读写，是要不要被治理</strong></h2>
+<p><strong>这是全课最常被问、也最容易答浅的一个问题。</strong> 答"一个能写一个只读"只答了表面。</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Action</strong></th>
+<th><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>谁能调</td>
+<td>⭐ <strong>LLM 从能力清单里选</strong></td>
+<td>⭐ <strong>只有 Action handler 和 Rule 实现内部调</strong></td>
+</tr>
+<tr class="even">
+<td>入参</td>
+<td><code>params</code>（外部传进来的）</td>
+<td><strong>没有参数</strong>，只有 <code>reads</code>（声明它读什么）</td>
+</tr>
+<tr class="odd">
+<td>治理字段</td>
+<td><code>guards</code> / <code>post_rules</code> / <code>writes</code> / <code>hil</code></td>
+<td><strong>一个都没有</strong></td>
+</tr>
+<tr class="even">
+<td>每次调用</td>
+<td>guard → 写后规则 → 回滚 → <strong>审计快照</strong></td>
+<td><strong>无审计</strong></td>
+</tr>
+<tr class="odd">
+<td>权限</td>
+<td>Capability</td>
+<td>⭐ <strong>调用期间读取被收窄到它声明的 <code>reads</code></strong>（最小权限）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="为什么必须拆成两个要素">为什么必须拆成两个要素</h3>
+<p><strong>因为治理是有成本的。</strong> Action 那一整套（前置校验、写后规则、确定性回滚、审计快照、HIL 判定） 是为<strong>会改变世界的操作</strong>准备的。<strong>把只读派生量也做成 Action，会付两次代价</strong>：</p>
+<ol type="1">
+<li><strong>审计日志被读操作淹没</strong>——三个月后你想查"那笔 28 万为什么下单"，得从几万条"算了一次评级"里捞</li>
+<li>⭐ <strong>设闸时分不清哪些该插人</strong>——你会对着一堆"计算 RFV 分级"去判"要不要人复核"</li>
+</ol>
+<blockquote>
+<h3 id="-一句话只有会改变世界的东西才需要被治理">⭐ 一句话：<strong>只有会改变世界的东西才需要被治理。</strong></h3>
+<p><strong>Function 是世界的形容词，Action 是世界的动词。</strong> 把形容词也拿去过闸，闸就失去意义了。</p>
+</blockquote>
+<h3 id="为什么能力清单只出-action不出-function">为什么能力清单只出 Action，不出 Function</h3>
+<p><strong>OAG 的 A 是 Action（行动）</strong>。能力清单回答的是「<strong>你能做什么</strong>」，<strong>LLM 要的是动词清单</strong>。 <strong>Function 不是一个用户能提的请求，它是零件</strong>——是 Action handler 和 Rule 用来算东西的。</p>
+<p><strong>实证</strong>：全仓 <code>call_function</code> 只出现在插件的 handler 里 （<code>plugins/grass/forage.py</code>、<code>carbon.py</code>、<code>breeding.py</code>、<code>plugins/chili/grading.py</code>）， <strong>没有任何对外入口调它</strong>；MCP 桥只暴露 <code>query</code> / <code>plan</code> / <code>act</code> 三个面。</p>
+<h3 id="️-一个要知道的后果function-没有独立的读出口">⚠️ 一个要知道的后果：Function 没有独立的读出口</h3>
+<p><strong>OQL 里没有 function，MCP 也不暴露它。</strong> 所以<strong>派生量只能通过某个 Action 或 Rule 间接体现</strong>。</p>
+<blockquote>
+<p><strong>交付时会遇到</strong>：业务方说"我就想直接查一下这个地块的碳汇核算值"—— 你要么<strong>为它包一个 Action</strong>，要么<strong>把它算进对象属性</strong>（但那就违反了"算出来的不进属性"）。 <strong>这是设计取舍，不是缺陷</strong>，但你得说得出来，而不是当场愣住。</p>
 </blockquote>
 <hr />
 <h1 id="四graphstore-spi--vfs">四、GraphStore SPI = VFS</h1>
@@ -950,13 +1050,14 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 </blockquote>
 <p>⚠️ 顺带注意：<strong>如果拒绝是抛异常，这条根本没法实现</strong>——第一条就把栈炸了。 <strong>所以「拒绝是数据」不是风格选择，是断裂二的前提。</strong></p>
 <hr />
-<h1 id="七两条读路径">七、两条读路径</h1>
+<h1 id="七读路径两条其中一条有两个-profile">七、读路径：两条，其中一条有两个 Profile</h1>
 <pre><code>语义读 · OQL          query/oql.py
   JSON-AST 查对象图 · 关系 / 派生量 · 防注入 · 编译 nGQL
 
 遥测读 · query-plan   query/telemetry.py
-  对象绑定可观测后端 · 生成 PromQL / ES DSL · id 代入 · 防注入 · 多方言
-  只产计划，不当 TSDB</code></pre>
+  Profile A 观测遥测：对象绑定可观测后端 → PromQL / ES DSL
+  Profile B 语义指标：声明式 度量+维度+过滤 → 编译数仓 SQL
+  两个 Profile 都只产计划，不执行</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -969,26 +1070,105 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 <tr class="odd">
 <td>查什么</td>
 <td>对象、关系、派生量——<strong>世界的结构</strong></td>
-<td>时序、指标——<strong>世界的读数</strong></td>
+<td>读数、趋势、聚合——<strong>世界的表现</strong></td>
 </tr>
 <tr class="even">
 <td>怎么落地</td>
 <td>编译成 <strong>nGQL</strong> 打到图库</td>
-<td><strong>生成 PromQL / ES DSL 交给别人执行</strong></td>
+<td><strong>生成查询语句交给别人执行</strong></td>
 </tr>
 <tr class="odd">
 <td>自己存数据吗</td>
 <td>是（图库）</td>
-<td><strong>否——只产计划，不当 TSDB</strong></td>
+<td><strong>否——只产计划，不当 TSDB / 不当数仓</strong></td>
 </tr>
 </tbody>
 </table>
-<h2 id="71-只产计划不当-tsdb是一条战略边界">7.1 「只产计划不当 TSDB」是一条战略边界</h2>
+<h2 id="71-️-遥测不只是时序库它有两个-profile">7.1 ⚠️ "遥测"不只是时序库——它有两个 Profile</h2>
+<p><strong>"遥测（telemetry）"这个词容易让人以为只对时序库。</strong> 引擎里它是两个 Profile：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Profile A · 观测遥测</strong></th>
+<th><strong>Profile B · 语义指标</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>形状</td>
+<td><strong>单对象 + 一条序列</strong>（这个地块的墒情）</td>
+<td><strong>度量 + 维度 + 过滤</strong>（某盟市地块计数、逐年碳汇量）</td>
+</tr>
+<tr class="even">
+<td>声明在哪</td>
+<td>映射的 <code>telemetry</code> 段</td>
+<td>映射的 <code>analytics</code> 段</td>
+</tr>
+<tr class="odd">
+<td>后端</td>
+<td><strong>Prometheus / Elasticsearch</strong>（<code>kind: metric | log</code>）</td>
+<td>⭐ <strong>数仓</strong>：ClickHouse / StarRocks / Hive / DuckDB …</td>
+</tr>
+<tr class="even">
+<td>产什么</td>
+<td>PromQL / ES DSL</td>
+<td>⭐ <strong>数仓 SQL</strong></td>
+</tr>
+<tr class="odd">
+<td>典型问题</td>
+<td>"这块地现在墒情多少"</td>
+<td>"这个盟市今年一共多少地块 / 逐年趋势"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>所以 MySQL / Hive / StarRocks 这些库不是"没归处"，是按问题形状分到了三个地方：</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>你要读的东西</th>
+<th>走哪条</th>
+<th>怎么配</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>某个对象、某条关系、某个明细行</strong></td>
+<td><strong>语义读 OQL</strong></td>
+<td>映射里把该对象的物化策略设成 <strong><code>virtual</code></strong>——引擎实时翻译成 SQL 打过去，<strong>数据不进图</strong></td>
+</tr>
+<tr class="even">
+<td><strong>聚合 / 趋势 / 分组统计</strong></td>
+<td><strong>遥测读 Profile B</strong></td>
+<td>映射的 <code>analytics</code> 段声明 度量 + 维度 + 过滤 → 编译数仓 SQL</td>
+</tr>
+<tr class="odd">
+<td><strong>时序读数 / 日志</strong></td>
+<td><strong>遥测读 Profile A</strong></td>
+<td>映射的 <code>telemetry</code> 段绑定 Prometheus / ES</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>判据一句话：按「问题的形状」分，不按「库的品牌」分。</strong> 同一个 ClickHouse，<strong>查一行明细</strong>走语义读（虚拟物化），<strong>查一个同比</strong>走 Profile B。 <strong>不是"ClickHouse 归遥测、MySQL 归 OQL"这种分法。</strong></p>
+</blockquote>
+<h3 id="️-向量库不在这张表里它根本不是读路径">⚠️ 向量库不在这张表里——它根本不是"读路径"</h3>
+<p><strong>向量库（Milvus / pgvector 等）走的是第④条知识通道</strong>（第三·补章）， <strong>只服务 advise 开放问答，结果绝不驱动写入</strong>。它不产查询计划、不进对象图、不受治理。</p>
+<blockquote>
+<p><strong>别把它塞进"读路径"来讲</strong>——一塞进来，学员就会以为检索结果和 OQL 结果是同一类东西， <strong>而那正是"拿检索到的一段话去触发一次写操作"的认知起点。</strong></p>
+</blockquote>
+<h3 id="这个命名从哪来的">这个命名从哪来的</h3>
+<p><strong>telemetry</strong> = <em>tele-</em>（远）+ <em>metron</em>（测量），源自航天与工业控制：<strong>远端设备把测量值回传给中心</strong>。 在软件里它就是<strong>可观测性（observability）的数据面</strong>：metrics / logs / traces。</p>
+<blockquote>
+<p><strong>叫"遥测读"是历史落点</strong>（这一层的设计参照过监控领域的本体实践）， <strong>但 Profile B 已经把它扩到了数仓分析读</strong>。 ⚠️ <strong>对客讲的时候，说"引擎侧的深读"或"计划式读"更准</strong>—— 只说"遥测"，客户会以为你们只接监控系统。</p>
+</blockquote>
+<h2 id="72-只产计划不当-tsdb--不当数仓是一条战略边界">7.2 「只产计划，不当 TSDB / 不当数仓」是一条战略边界</h2>
 <p>客户已经有 Prometheus、有 ES、有他们的时序库—— <strong>我们不去替换它，我们生成它听得懂的查询。</strong></p>
 <blockquote>
-<p><strong>话术</strong>：「我们不动您的监控体系，<strong>我们生成您的 Prometheus 听得懂的查询</strong>。」 这句话能把「要不要换系统」的对话，变成「要不要加一层」的对话。</p>
+<p><strong>话术</strong>：「我们不动您的监控体系、也不动您的数仓，<strong>我们生成它们听得懂的查询</strong>。」 这句话能把「要不要换系统」的对话，变成「要不要加一层」的对话。</p>
+<p>⚠️ <strong>数仓那半句要补上</strong>——只说 Prometheus，客户的数据团队会以为这套东西跟他们没关系。</p>
 </blockquote>
-<h2 id="72--读是两条路写也是两条路">7.2 ⭐ 读是两条路，写也是两条路</h2>
+<h2 id="73--读是两条路写也是两条路">7.3 ⭐ 读是两条路，写也是两条路</h2>
 <p><strong>高吞吐的那条都不走闸门</strong>——= OS 的 DMA / mmap / io_uring，<strong>内核有意让出一条快路</strong>。</p>
 <table>
 <thead>
@@ -1030,7 +1210,7 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 <blockquote>
 <p><strong>规则约束的是「人和 Agent 做了什么」，不是「世界发生了什么」。</strong></p>
 </blockquote>
-<h2 id="73-判断题">7.3 判断题</h2>
+<h2 id="74-判断题">7.4 判断题</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1251,7 +1431,7 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong>这个区分学员最容易混</strong>：一个看"世界里现在有哪些东西"，一个看"这个世界是怎么定义的"。</p>
+<p><strong>这两个最容易混</strong>：一个看"世界里现在有哪些东西"，一个看"这个世界是怎么定义的"。</p>
 <h3 id="-现场演示并排开两个-viz">⭐ 现场演示：并排开两个 viz</h3>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/export_okf.py      <span class="co"># 先生成，否则端点不上架</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/serve.py</span></code></pre></div>
@@ -1512,7 +1692,7 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 </tr>
 <tr class="even">
 <td>「你们要替换我们的监控 / 数仓吗」</td>
-<td><strong>不要。遥测读只产计划不当 TSDB</strong>，生成您的 PromQL / ES DSL（七）</td>
+<td><strong>不要。只产计划，不当 TSDB、也不当数仓</strong>——生成您的 PromQL / ES DSL <strong>与数仓 SQL</strong>（七）</td>
 </tr>
 <tr class="odd">
 <td>「你们的 AI 会不会乱改数据」</td>
@@ -1537,6 +1717,8 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <p><strong>8.</strong> 接一个新行业要交哪七样？其中哪两样<strong>编译完全不生成</strong>？</p>
 <p><strong>9.</strong> 用你自己的话解释「<strong>确定性边界置于模型之外</strong>」。</p>
 <p><strong>10.</strong> 图右下角那句「<strong>检索的结果绝不驱动写入</strong>」，指的是<strong>四条知识通道里的哪一条</strong>？把它当成第①条用，会发生什么？</p>
+<p><strong>11.</strong> Action 和 Function 的<strong>本质区别</strong>是什么？（答"一个能写一个只读"不算过）</p>
+<p><strong>12.</strong> 客户的数据在 Hive 和 StarRocks 里，<strong>这些读归哪条路</strong>？向量库呢？</p>
 <hr />
 <h2 id="参考答案">参考答案</h2>
 <p><strong>1.</strong> 从下往上：<strong>数据源层 → 挂载层（① 数据集 ‖ ② 知识库）→ 元模型五要素（+ Plugin SPI + Tenant）→ GraphStore SPI → 自有展示 Explorer → 自有语义面（语义读 / 遥测读 / 治理写 / 信任基础设施）→ 交互层 Agent 面</strong>。 右侧还有两块：<strong>生态互操作（可关）<strong>和</strong>建模端 astra-studio（上游、另仓）</strong>。</p>
@@ -1551,6 +1733,14 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <p><strong>10.</strong> 指的是<strong>第④条：全文检索语料</strong>——它<strong>不挂进本体</strong>，只进 advise（开放问答）。 把它当第①条用，就是<strong>拿检索到的一段话去驱动一次写操作</strong>： <strong>绕开了 Action 引擎的 guard / 写后规则 / 回滚 / 审计，等于把整套治理架空。</strong></p>
 <blockquote>
 <p>正确的做法：<strong>要拦住动作的知识走 ①（规则 source，进写路径）</strong>； 检索只做<strong>取证补充</strong>——<strong>写入只经 Action 引擎，防幻觉在执行层。</strong></p>
+</blockquote>
+<p><strong>11.</strong> <strong>本质是"要不要被治理"，不是"读还是写"。</strong> Action <strong>进能力清单</strong>（LLM 能选）· 有 <code>guards / post_rules / writes / hil</code> · <strong>每次调用留审计快照</strong>； Function <strong>不进清单</strong>（只有 handler 和 Rule 内部调）· <strong>一个治理字段都没有</strong> · 调用期间<strong>读取收窄到声明的 <code>reads</code></strong>。</p>
+<blockquote>
+<p>⭐ <strong>只有会改变世界的东西才需要被治理。</strong> 把只读派生量也做成 Action， <strong>① 审计日志会被读操作淹没 ② 设闸时分不清哪些该插人。</strong> ⚠️ 后果：<strong>Function 没有独立读出口</strong>——想让业务方直接查一个派生量，得为它包一个 Action。</p>
+</blockquote>
+<p><strong>12.</strong> <strong>按问题的形状分，不按库的品牌分</strong>： <strong>查明细 / 单个对象</strong> → <strong>语义读 OQL</strong>（把该对象物化策略设成 <code>virtual</code>，实时翻译成 SQL，数据不进图）； <strong>查聚合 / 趋势</strong> → <strong>遥测读 Profile B</strong>（<code>analytics</code> 段 → 编译数仓 SQL）； <strong>查时序 / 日志</strong> → <strong>遥测读 Profile A</strong>（<code>telemetry</code> 段 → PromQL / ES DSL）。</p>
+<blockquote>
+<p><strong>同一个 ClickHouse，明细走 OQL、同比走 Profile B。</strong> ⚠️ <strong>向量库不在这三条里</strong>——它<strong>不是读路径</strong>，是<strong>第④条知识通道</strong>，只进 advise，<strong>绝不驱动写入</strong>。</p>
 </blockquote>
 <hr />
 <h2 id="你的产出去了哪里">你的产出去了哪里</h2>
@@ -1602,6 +1792,15 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 </blockquote>
 <p><strong>方向</strong>：<strong>是本体在点名要数据，不是数据在申请上位。</strong></p>
 <hr />
+<p><strong>⭐ 读路径</strong>：<strong>语义读 OQL</strong>（对象 / 关系 / 派生量 → nGQL）｜ <strong>遥测读 query-plan</strong>：<strong>Profile A</strong> 观测（→ PromQL / ES DSL）· <strong>Profile B 语义指标</strong>（→ <strong>数仓 SQL</strong>：ClickHouse / StarRocks / Hive / DuckDB）</p>
+<blockquote>
+<p><strong>按问题的形状分，不按库的品牌分</strong>：明细走 OQL（虚拟物化）· 聚合走 Profile B · 时序/日志走 Profile A ⚠️ <strong>向量库不是读路径</strong>，是第④条知识通道，只进 advise</p>
+</blockquote>
+<p><strong>⭐ Action vs Function</strong>：本质不是读写，是<strong>要不要被治理</strong>。Action 进能力清单 / 有 guards·post_rules·writes·hil / 每次留审计；Function <strong>不进清单</strong>、无治理字段、调用期读取收窄到 <code>reads</code>。</p>
+<blockquote>
+<p><strong>只有会改变世界的东西才需要被治理。</strong> ⚠️ Function <strong>没有独立读出口</strong>（OQL 与 MCP 都不暴露）</p>
+</blockquote>
+<p><strong>⚠️ 五要素里只有 Object 有属性 schema</strong>；<strong>Link 的边属性是实例级的</strong>（入库时补 / <code>stage_link(**props)</code>），<strong>IR §2 的 <code>properties</code> 列编译时被丢弃</strong></p>
 <p><strong>判缝准则</strong>：「换成医疗大模型还成立吗？」成立→<strong>内核</strong>；不成立→<strong>插件</strong>；具体数字→<strong>租户</strong></p>
 <p><strong>Plugin SPI 七槽位</strong>（= 新行业 WBS · <strong>验收清单，不是自动化承诺</strong>） ① Schema ② 映射 ③ Function/Rule ④ Action handlers ⑤ 记忆词典 ⑥ Agent 角色 ⑦ CQ ⚠️ <strong>实测</strong>：①② ✅全自动 ｜ ③④ ⚠️只出骨架 ｜ <strong>⑤⑥ ❌完全不生成</strong> ｜ ⑦ ⚠️格式不匹配</p>
 <p><strong>Action 六步</strong>：guard → validate（可选，不落库）→ 写 overlay（<strong>写即可见</strong>）→ 写后规则（<strong>收集全部</strong>）→ 5a flush+同事务审计 / 5b <strong>确定性回滚 + 结构化拒绝</strong></p>
@@ -1615,6 +1814,6 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 </blockquote>
 <p><strong>「合法但违规」= 参数全对权限也够，guard 拦不住，但世界不成立。</strong> <strong>客户问"AI 会不会绕过你们的规则"——它绕不过，因为边界不在它里面。</strong></p>
 <hr />
-<p><strong>客户五问速查</strong>：区别？→ 写后判+判全部 ｜ 多久 / 改内核吗？→ SPI 零改内核，CI 在验 ｜ 怎么隔离？→ 一 ontology 一 space <strong>硬隔离</strong> ｜ 要换我们数仓吗？→ <strong>只产计划不当 TSDB</strong> ｜ AI 会乱改吗？→ 只能申请 + <strong>读默认开写 opt-in</strong> + 成败都留痕</p>
+<p><strong>客户五问速查</strong>：区别？→ 写后判+判全部 ｜ 多久 / 改内核吗？→ SPI 零改内核，CI 在验 ｜ 怎么隔离？→ 一 ontology 一 space <strong>硬隔离</strong> ｜ 要换我们数仓吗？→ <strong>只产计划，不当 TSDB 也不当数仓</strong> ｜ AI 会乱改吗？→ 只能申请 + <strong>读默认开写 opt-in</strong> + 成败都留痕</p>
 </body>
 </html>

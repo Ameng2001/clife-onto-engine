@@ -142,6 +142,69 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!--[if lt IE 9]>
@@ -172,7 +235,53 @@
 <li>面向内部专业人员，要有观点、敢说难听话。不吹 AI 万能，如实写智能体做不好、必须人接管处。</li>
 </ul>
 <blockquote>
-<p><strong>编号纪律</strong>：<strong>L1–L8 = 课次</strong>。能力定级一律写 <strong>Lv.1 见习 / Lv.2 胜任 / Lv.3 主理</strong>，<strong>不写 L1/L2/L3</strong>——旧讲义与旧课件里的"L1 见习"讲师要当场改口。</p>
+<p><strong>编号纪律</strong>：<strong>L1–L8 = 课次</strong>。能力定级一律写 <strong>Lv.1 见习 / Lv.2 胜任 / Lv.3 主理</strong>，<strong>不写 L1/L2/L3</strong>——旧讲义与旧课件里的"L1 见习"讲师要当场改口。 专题课两条线：<strong>S1–S3 本体线</strong> / <strong>A1–A3 工具链线</strong>。SOP 七阶段也叫 S1–S7，是<strong>另一套</strong>。 <strong>画架构分层时一律用 ①②③④ 或直接写层名</strong>，<strong>不要用 L1–L4</strong>——会和课次撞号。</p>
+</blockquote>
+<h2 id="〇补️-学员手册的写作视角规范2026-08-02-立">〇·补、⚠️ 学员手册的写作视角规范（2026-08-02 立）</h2>
+<p><strong><code>课程/*.md</code> 是印刷品，读者是坐在教室里的学员，不是备课的人。</strong> 下面四类内容<strong>不许出现在学员手册里</strong>——它们各有自己的家。</p>
+<table>
+<thead>
+<tr class="header">
+<th>不许出现</th>
+<th>长什么样（真实例子）</th>
+<th>搬到哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 元编辑 / 改版说明</strong></td>
+<td>"上一版手册把 X 整章搬了进来，那让第三章变成全书最长的一章"</td>
+<td><strong><code>00_授课流程手册.md</code></strong> 的改版纪律</td>
+</tr>
+<tr class="even">
+<td><strong>② 编号纪律 / 口径维护规则</strong></td>
+<td>"本节用 ①②③④ 标层，不用 L1–L4——L1–L8 在本课程里是课次编号"</td>
+<td><strong>本文件</strong>（BRIEF）+ 课件 <code>.notes</code></td>
+</tr>
+<tr class="odd">
+<td><strong>③ 第三人称称呼「学员」</strong></td>
+<td>"这是<strong>学员</strong>第一反应最常提的方案" · "这个区分<strong>学员</strong>最容易混"</td>
+<td><strong>改写成第二人称</strong>："这大概是<strong>你</strong>第一反应会想到的"</td>
+</tr>
+<tr class="even">
+<td><strong>④ 讲台动作 / 时间调度理由</strong></td>
+<td>"这一屏是本次改版的题眼，别跳" · "时间盒给 10′" · "巡场三个抓手"</td>
+<td><strong>课件 <code>.notes</code> 演讲者备注</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="四条可以留的别矫枉过正">四条可以留的（别矫枉过正）</h3>
+<ol type="1">
+<li><strong>"配套课件：<code>slides/xxx.html</code>（讲师投屏）"</strong> —— 学员需要知道屏上那份东西叫什么、在哪</li>
+<li><strong>学员自己的时间盒</strong> —— "实操 45′，第 2 步给 35′" 是<strong>学员要执行的</strong>，不是讲台调度</li>
+<li><strong>讲师会做什么的交代</strong> —— 如 A3「你提到内部 fork，<strong>讲师课后统一转提</strong>」，<strong>学员必须知道</strong>才不会自己直提上游</li>
+<li>⭐ <strong>元示范段落</strong> —— 如 L3「这套手册自己就是多智能体并行写出来的，输入只有四样」。 <strong>它是教具，不是开发说明</strong>：学员正在学提示词工程，这段是给他们看的活样本。<strong>判据：它在教一件事，还是在交代一件事。</strong></li>
+</ol>
+<h3 id="自查改完学员手册grep-这几个词">自查：改完学员手册，grep 这几个词</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-nE</span> <span class="st">&quot;上一版|本次改版|新增第.章|整章搬|学员(最|第一|一定|应该|会问)|巡场|投屏侧|压缩优先级|这一屏|别跳过这|时间盒给&quot;</span> 课程/<span class="pp">*</span>.md</span></code></pre></div>
+<blockquote>
+<p><strong>判据一句话</strong>：<strong>这句话是说给「坐在教室里的人」听的，还是说给「做这门课的人」听的？</strong> 后者一律搬走。<strong>手册里每一句都应该能直接念给学员听而不别扭。</strong></p>
+<p><strong>命中不等于要改</strong>——上面那条 grep 会误伤「元示范」和「学员自己的时间盒」。<strong>逐条看，别批量替换。</strong></p>
 </blockquote>
 <h2 id="一术语统一表首现附英文全课程锁定写法">一、术语统一表（首现附英文，全课程锁定写法）</h2>
 <table>
@@ -235,6 +344,11 @@
 <td>—</td>
 </tr>
 <tr class="odd">
+<td>遥测读</td>
+<td><strong>遥测读 · query-plan</strong>（telemetry，含 <strong>Profile A 观测</strong> / <strong>Profile B 语义指标→数仓 SQL</strong>）<br>⚠️ <strong>对客宜说"引擎侧的深读 / 计划式读"</strong>——只说"遥测"客户会以为只接监控系统</td>
+<td>只说"时序读"（漏了 Profile B）</td>
+</tr>
+<tr class="even">
 <td>建模管线</td>
 <td>studio-planner（事件风暴）→ domain-model（限界上下文）→ clife-onto-engine（本体）→ citations 治理 → 可研报告生成</td>
 <td>—</td>
@@ -702,6 +816,12 @@ N+2、讲师包 · 口播稿  讲师原话级；含 1 句难听话 + 1 个反例
 <td>S3 产品声明把"克制"和"做不到"写成一句话</td>
 <td><strong>设计上的克制 ≠ 能力上的边界</strong>，客户面前要分开讲</td>
 <td>S3 §11.5</td>
+</tr>
+<tr class="even">
+<td><strong>⑤</strong></td>
+<td><strong>IR §2 Links 有 <code>properties</code> 列</strong>（边属性），编译规范的例子里也写了 <code>applicability</code></td>
+<td>⚠️ <strong>内核 <code>LinkType</code> 根本没有 properties 字段</strong>——编译时那一列<strong>被静默丢弃</strong>。<br>边属性只能在<strong>入库时</strong>（租户清单 links 段"其余列→边属性"）或 <strong>handler 里 <code>stage_link(**props)</code></strong> 补</td>
+<td>S2 §3.1 · L5 §5 · S3 §10</td>
 </tr>
 </tbody>
 </table>

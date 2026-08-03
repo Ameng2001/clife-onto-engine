@@ -333,7 +333,7 @@
 </table>
 <p><strong>一句话</strong>：<strong>S2 讲运行时端，S3 讲建模端，本课把两端接起来。</strong></p>
 <blockquote>
-<p>⚠️ <strong>本课刻意不复述 S1 / S2 的原理。</strong> 上一版手册把 OAG ≠ RAG、三层架构、五条设计红线 整章搬了进来——<strong>那让第三章变成全书最长的一章，学员还没碰到工具就先下了车。</strong> 现在第三章只留<strong>填 IR 时真的要用的三样判据</strong>，其余全部指回专题课。</p>
+<p><strong>本课不复述 S1 / S2 的原理。</strong> 第三章只给<strong>填 IR 时真的要用的三样判据</strong>， 其余（OAG ≠ RAG、三层架构、五条设计红线）<strong>指回专题课</strong>—— <strong>今天先把手感做出来，"为什么是这样"那些课在等你。</strong></p>
 </blockquote>
 <blockquote>
 <p><strong>没上过专题课也能上这一课</strong>——需要的前置都在本手册里重述了。 但如果你上过，<strong>请带着 S2 的「SPI 七槽位」和 S3 的「IR 七段 → 槽位的编译去向，只覆盖五格」来听第七章</strong>， 那两张表合起来，正好解释你今天会看到的每一个 <code>NotImplementedError</code>。</p>
@@ -764,7 +764,7 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 <tr class="odd">
 <td>2</td>
 <td><strong>Links</strong></td>
-<td><code>name / from / to / cardinality / edge_semantics / properties</code></td>
+<td><code>name / from / to / cardinality / edge_semantics / properties</code>　⚠️ <strong>最后一列见下</strong></td>
 </tr>
 <tr class="even">
 <td>3</td>
@@ -793,6 +793,9 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⚠️ <strong>§2 的 <code>properties</code> 列（边属性）编译时会被丢掉。</strong> 内核的 <code>LinkType</code> <strong>没有属性 schema</strong>——它只认 <code>from / to / cardinality / edge_semantics</code>。 <strong>边属性要在数据接入层补</strong>（租户清单 links 段"其余列 → 边属性"），或在 Action handler 里 <code>stage_link(..., **props)</code> 写进去。 <strong>你可以照填那一列当设计记录，但别指望编译产物里有它</strong>——<strong>这是第 ⑤ 处「文档 vs 代码」落差。</strong></p>
+</blockquote>
 <blockquote>
 <p>⭐ <strong>对着第三章 ④ 的「认领表」读这张表</strong>：§1 / §6 认领数据 · §2 认领关系 · <strong>§4 的 <code>source</code> 认领知识</strong> · §5 的 <code>writes</code> 认领写入范围 · §5 的 <code>hil</code> 认领责任人。</p>
 </blockquote>
@@ -1290,7 +1293,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 <hr />
 <h2 id="十二上半场实操60">十二、上半场实操（60′）</h2>
 <blockquote>
-<p><strong>摊开第十章照着做。</strong> 讲师巡场，不再讲。</p>
+<p><strong>摊开第十章照着做。</strong> 这一段没有讲解——<strong>你自己跑，卡住了举手。</strong></p>
 </blockquote>
 <table>
 <thead>

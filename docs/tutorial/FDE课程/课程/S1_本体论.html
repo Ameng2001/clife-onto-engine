@@ -486,26 +486,14 @@
 </blockquote>
 <h2 id="24-四层架构本体在哪一层">2.4 四层架构：本体在哪一层</h2>
 <blockquote>
-<p>⚠️ <strong>本节用 ①②③④ 标层，不用 L1–L4</strong>——<code>L1–L8</code> 在本课程里是<strong>课次</strong>编号（第一课…第八课）。 <strong>架构层与课次是两套东西，混用会读错。</strong></p>
+<p><strong>下面的 ①②③④ 是架构层的序号</strong>（自下而上），与课次编号无关。</p>
 </blockquote>
-<pre><code>④ 业务消费层    AI Agent · 业务应用 · 决策看板
-      ↑ 只通过本体接口交互                    ↖ ④号知识通道：检索直供
-      │ 不直接访问底层数据库                   │ 只进 advise（开放问答）
-      │                                       │ 只读 · 每段带出处 · 绝不驱动写入
-③ 业务本体平台   Object · Link · Function · Rule · Action    │
-      ★ 数据层和应用层之间的语义枢纽                          │
-      ↑ 认领结构化数据          ↑ 知识通道 ①②③              │
-      │                        │ （挂 Rule / Object / Action）│
-②a 数据集层                 ②b 知识库层 ─────────────────────┘
-   数据仓库 / 数据湖            标准 · 规程 · 案例 · 手册（全文语料）
-   ODS → DWD → DWS             非结构化，必带出处
-   结构化事实，无业务语义        只读 · 不进图 · 不能驱动写入
-      ↑                             ↑
-① 源系统   ERP · CRM · 生产控制 · IoT  ｜  文档库 · 知识管理系统 · 制度汇编
-           —— 割裂的、异构的</code></pre>
+<p><img src="../figures/fig-S1-四层挂载链.svg" alt="四层架构：本体在哪一层" /></p>
+<p><strong>自下而上四层</strong>：① 源系统 → <strong>②a 数据集层 ‖ ②b 知识库层（两条并行线）</strong> → ③ 业务本体平台 → ④ 业务消费层。</p>
 <p><strong>③ 不重新存储数据</strong>，它在数据之上建立语义模型，向下认领 ②a / ②b，向上为 ④ 提供<strong>受约束的操作接口</strong>。</p>
 <h3 id="️-中间那层是两条并行线不是一层">⚠️ 中间那层是<strong>两条并行线</strong>，不是一层</h3>
-<p><strong>这是这张图最容易画错的地方</strong>。很多人把它画成「源系统 → 数仓 → 本体 → 应用」四条单线， <strong>于是知识库无处安放</strong>，最后要么被塞进数仓、要么被画成本体之上的"RAG 增强"——<strong>两种画法都会误导建模。</strong></p>
+<p><strong>这一层如果只画成一条线，你的知识库就无处安放。</strong></p>
+<p>你会在很多方案里看到「源系统 → 数仓 → 本体 → 应用」这样的四条单线。 按那张图去建模，知识最后只有两个去处：<strong>要么被塞进数仓</strong>，<strong>要么被当成本体之上的"RAG 增强"</strong>。 <strong>两个去处都是错的</strong>——前者让非结构化的东西挤进结构化的位置，后者让检索结果站到了本体的上游。</p>
 <table>
 <thead>
 <tr class="header">
@@ -1118,17 +1106,17 @@
 <h3 id="-结构化拒绝三件套">⭐ 结构化拒绝三件套</h3>
 <p><strong>第 1 轮</strong>：Agent 选择向 Beta 采购 8 万元。 引擎内部：前置条件通过 → 内存中创建订单 → 全局规则命中（<strong>剩余 13 天 &lt; 30 天</strong>）→ <strong>回滚，文件从未被写。</strong></p>
 <p><strong>Agent 收到的不是 <code>500 Internal Server Error</code>，而是结构化拒绝</strong>：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;rejected&quot;</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;action_id&quot;</span><span class="fu">:</span> <span class="st">&quot;create_purchase_order&quot;</span><span class="fu">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;triggered_rule&quot;</span><span class="fu">:</span> <span class="st">&quot;certification_validity&quot;</span><span class="fu">,</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;供应商认证有效期不足 30 天，订单已阻断&quot;</span><span class="fu">,</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;current_state&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Supplier/S-BETA-002&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;active&quot;</span><span class="fu">,</span> <span class="dt">&quot;outstanding_amount&quot;</span><span class="fu">:</span> <span class="dv">120000</span> <span class="fu">},</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Certification/CERT-002&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;days_remaining&quot;</span><span class="fu">:</span> <span class="dv">13</span> <span class="fu">}</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;suggestion&quot;</span><span class="fu">:</span> <span class="st">&quot;建议选择认证有效的备选供应商 S-ACME-001（ACME）&quot;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;rejected&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;action_id&quot;</span><span class="fu">:</span> <span class="st">&quot;create_purchase_order&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;triggered_rule&quot;</span><span class="fu">:</span> <span class="st">&quot;certification_validity&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;供应商认证有效期不足 30 天，订单已阻断&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;current_state&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Supplier/S-BETA-002&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;active&quot;</span><span class="fu">,</span> <span class="dt">&quot;outstanding_amount&quot;</span><span class="fu">:</span> <span class="dv">120000</span> <span class="fu">},</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Certification/CERT-002&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;days_remaining&quot;</span><span class="fu">:</span> <span class="dv">13</span> <span class="fu">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;suggestion&quot;</span><span class="fu">:</span> <span class="st">&quot;建议选择认证有效的备选供应商 S-ACME-001（ACME）&quot;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1160,7 +1148,7 @@
 <p><strong>这就是 OAG 闭环：发现 → 调用 → 被拒 → 调整 → 重试成功。</strong> <strong>全程在本体层约束内完成，没有绕过。</strong></p>
 </blockquote>
 <p><strong>对比一下很多系统的拒绝长什么样</strong>：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;error&quot;</span><span class="fu">:</span> <span class="st">&quot;操作失败&quot;</span> <span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;error&quot;</span><span class="fu">:</span> <span class="st">&quot;操作失败&quot;</span> <span class="fu">}</span></span></code></pre></div>
 <blockquote>
 <p><strong>Agent 收到这个，只能盲试。</strong></p>
 <p>好的拒绝响应和"日志存快照"是同一哲学：<strong>记录上下文，而不只是记录结果。</strong> 区别是：<strong>日志给审计人员看，拒绝响应给 Agent 看</strong>——受众不同，但都需要完整的决策上下文。</p>
@@ -1790,15 +1778,8 @@
 <blockquote>
 <p><strong>第 2.4 节已经给过这张四层图的轮廓</strong>（含 ②b 的两条出路）。 <strong>本章把中间那层拆开讲透</strong>：怎么挂、挂在哪、四条通道各自的强度、每层该数什么。</p>
 </blockquote>
-<p>很多人把这套东西画成三层：数据 → 本体 → 智能体。<strong>这么画会在建模时挂错位置。</strong> 正确的形状是四层，而<strong>中间那层是两条线，不是一层里的两种东西</strong>：</p>
-<pre><code>智能体层      能力清单（Schema 派生）· 分层记忆 · 写路径必过 Action 引擎
-   ↑ 派生                                        ↓ 认领
-本体层        五要素网络 + 四条知识通道 + 术语表 + 复核角色
-   ↑ 认领                                        ↓ 认领
-② 知识库      非结构化全文 · 必带出处 · 只读 · 只进 advise 通道
-① 数据集      结构化 · 必有主键 · 过质量门 · 能驱动写入
-   ↑ 物化策略（物化 / 混合 / 虚拟）
-数据源层      关系库 · 列存 · 时序 · 全文检索 · 文件导出</code></pre>
+<p>很多人把这套东西画成三层：数据 → 本体 → 智能体。<strong>这么画会在建模时挂错位置。</strong> 正确的形状是四层，而<strong>中间那层是两条线，不是一层里的两种东西</strong>——就是第 2.4 节那张图：</p>
+<p><img src="../figures/fig-S1-四层挂载链.svg" alt="四层架构：本体在哪一层" /></p>
 <p><strong>为什么数据集和知识库必须分开</strong>：</p>
 <table>
 <thead>
