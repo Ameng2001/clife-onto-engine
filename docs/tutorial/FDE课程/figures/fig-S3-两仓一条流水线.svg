@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 664" width="1240" height="664">
+<style>
+text{font-family:'Helvetica Neue',Helvetica,Arial,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+</style>
+<defs>
+<marker id="am" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto"><polygon points="0 0, 11 4, 0 8" fill="#d97706"/></marker>
+<marker id="ag" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/></marker>
+<filter id="sh" x="-3%" y="-6%" width="106%" height="116%"><feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.07"/></filter>
+</defs>
+<rect width="1240" height="664" fill="#ffffff"/>
+<text x="40" y="42" font-size="21" font-weight="700" fill="#111827">两仓一条流水线</text>
+<text x="40" y="66" font-size="13" fill="#6b7280">建模端把业务分析<tspan font-weight="700" fill="#111827">编译</tspan>成五要素插件，运行时端把插件<tspan font-weight="700" fill="#111827">跑起来并强制执行</tspan>它</text>
+<rect x="40" y="92" width="470" height="420" rx="12" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.6"/>
+<text x="62" y="124" font-size="16" font-weight="700" fill="#78350f">astra-studio　建模工作室</text>
+<text x="488" y="124" font-size="11.5" font-weight="700" fill="#b45309" text-anchor="end">上游 · 另仓</text>
+<rect x="62" y="142" width="426" height="54" rx="8" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2" filter="url(#sh)"/>
+<text x="80" y="166" font-size="13.5" font-weight="700" fill="#0f172a" class="mono">studio-planner</text>
+<text x="80" y="185" font-size="11" fill="#6b7280">事件风暴 · 限界上下文 · 行为矩阵</text>
+<rect x="62" y="206" width="426" height="54" rx="8" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2" filter="url(#sh)"/>
+<text x="80" y="230" font-size="13.5" font-weight="700" fill="#0f172a" class="mono">domain-intake</text>
+<text x="80" y="249" font-size="11" fill="#6b7280">12 段契约（业务方 / 数据方 / 合规 分段填）</text>
+<line x1="275" y1="262" x2="275" y2="282" stroke="#d97706" stroke-width="2" marker-end="url(#am)"/>
+<rect x="62" y="284" width="426" height="152" rx="10" fill="#ffffff" stroke="#f59e0b" stroke-width="2" filter="url(#sh)"/>
+<text x="80" y="310" font-size="15" font-weight="700" fill="#78350f" class="mono">studio-ontology</text>
+<text x="470" y="310" font-size="10.5" font-weight="700" fill="#b45309" text-anchor="end">夹在中间的 FDE 工作台</text>
+<text x="80" y="332" font-size="11.5" fill="#475569">七段 IR　→　插件骨架　→　校验报告</text>
+<rect x="80" y="342" width="94" height="32" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="127" y="363" font-size="12.5" font-weight="600" fill="#475569" text-anchor="middle" class="mono">map</text>
+<rect x="184" y="342" width="94" height="32" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="231" y="363" font-size="12.5" font-weight="600" fill="#475569" text-anchor="middle" class="mono">compile</text>
+<rect x="288" y="342" width="94" height="32" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="335" y="363" font-size="12.5" font-weight="600" fill="#475569" text-anchor="middle" class="mono">validate</text>
+<rect x="392" y="342" width="94" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.6"/>
+<text x="439" y="363" font-size="12.5" font-weight="700" fill="#78350f" text-anchor="middle" class="mono">model</text>
+<rect x="80" y="386" width="390" height="36" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1.2"/>
+<text x="92" y="409" font-size="11.5" font-weight="700" fill="#b91c1c">⏸ 四命令里只有 model 有强制停点：你审过 IR 才继续</text>
+<text x="62" y="464" font-size="11.5" fill="#78350f"><tspan font-weight="700">谁用</tspan>　FDE ＋ 领域专家（业务专家看不懂 Python，所以要有 IR）</text>
+<text x="62" y="488" font-size="11.5" fill="#78350f"><tspan font-weight="700">产物</tspan>　IR ＋ 插件骨架 ＋ 校验报告</text>
+<rect x="730" y="92" width="470" height="420" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.6"/>
+<text x="752" y="124" font-size="16" font-weight="700" fill="#1e3a8a">clife-onto-engine　OAG 运行时内核</text>
+<text x="1178" y="124" font-size="11.5" font-weight="700" fill="#2563eb" text-anchor="end">下游 · S2 讲它</text>
+<rect x="752" y="142" width="426" height="92" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2" filter="url(#sh)"/>
+<text x="770" y="166" font-size="13.5" font-weight="700" fill="#0f172a" class="mono">plugins/{ontology_id}/</text>
+<text x="1160" y="166" font-size="10.5" font-weight="700" fill="#2563eb" text-anchor="end">← 编译产物落点</text>
+<rect x="770" y="180" width="76" height="30" rx="6" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="808" y="200" font-size="11.5" font-weight="600" fill="#1e3a8a" text-anchor="middle">Object</text>
+<rect x="850" y="180" width="76" height="30" rx="6" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="888" y="200" font-size="11.5" font-weight="600" fill="#1e3a8a" text-anchor="middle">Link</text>
+<rect x="930" y="180" width="76" height="30" rx="6" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="968" y="200" font-size="11.5" font-weight="600" fill="#1e3a8a" text-anchor="middle">Function</text>
+<rect x="1010" y="180" width="76" height="30" rx="6" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="1048" y="200" font-size="11.5" font-weight="600" fill="#1e3a8a" text-anchor="middle">Rule</text>
+<rect x="1090" y="180" width="76" height="30" rx="6" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1.2"/>
+<text x="1128" y="200" font-size="11.5" font-weight="600" fill="#1e3a8a" text-anchor="middle">Action</text>
+<text x="770" y="226" font-size="10.5" fill="#94a3b8">五要素 —— 内核与插件之间唯一的契约</text>
+<rect x="752" y="254" width="426" height="88" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2" filter="url(#sh)"/>
+<text x="770" y="278" font-size="13.5" font-weight="700" fill="#0f172a">引擎强制执行</text>
+<text x="770" y="300" font-size="11.5" fill="#475569">guard → 写入 overlay → 写后规则 → 提交 / <tspan font-weight="700" fill="#b91c1c">确定性回滚</tspan></text>
+<text x="770" y="322" font-size="11.5" fill="#475569">→ 审计快照 · 置信度 · HIL</text>
+<rect x="752" y="362" width="426" height="74" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.2" filter="url(#sh)"/>
+<text x="770" y="386" font-size="13.5" font-weight="700" fill="#0f172a">对外的面</text>
+<text x="770" y="410" font-size="11.5" fill="#475569" class="mono">Session.ask　｜　HTTP API　｜　MCP 桥　｜　Docker</text>
+<text x="752" y="464" font-size="11.5" fill="#1e3a8a"><tspan font-weight="700">谁用</tspan>　Agent / 业务系统 / 客户</text>
+<text x="752" y="488" font-size="11.5" fill="#1e3a8a"><tspan font-weight="700">产物</tspan>　受治理的读写 ＋ 审计 ＋ 回滚</text>
+<path d="M512,360 L610,360 L610,188 L744,188" fill="none" stroke="#d97706" stroke-width="3" marker-end="url(#am)"/>
+<rect x="622" y="250" width="102" height="32" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.4"/>
+<text x="673" y="272" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">编 译</text>
+<text x="673" y="302" font-size="10" fill="#a16207" text-anchor="middle" class="mono">:model</text>
+<rect x="40" y="534" width="1160" height="86" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+<text x="62" y="562" font-size="14" font-weight="700" fill="#b91c1c">⚠️ 诚实边界：编译保证什么、不保证什么</text>
+<text x="62" y="588" font-size="12" fill="#7f1d1d"><tspan font-weight="700">保证</tspan>　结构对　·　五要素齐　·　可 import　·　与手写 plugins/grass 五要素同构</text>
+<text x="62" y="610" font-size="12" fill="#7f1d1d"><tspan font-weight="700">不保证</tspan>　function 规则体与 Action 回写 —— 编译只留 <tspan font-weight="700" class="mono">TODO(FDE)</tspan>，<tspan font-weight="700">那是人的活（第五课带你填）</tspan></text>
+<text x="1178" y="562" font-size="11.5" font-weight="700" fill="#dc2626" text-anchor="end">"这不是编译器"</text>
+<text x="40" y="648" font-size="12" font-weight="600" fill="#0f172a">建模端解决的不是"写得快"，是<tspan fill="#b45309">「业务专家能参与」</tspan>和<tspan fill="#b45309">「结构不漂」</tspan>。</text>
+</svg>
