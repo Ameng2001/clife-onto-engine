@@ -688,7 +688,7 @@ studio-ontology（FDE 建模上游）
 <tr class="odd">
 <td>§7 CQ</td>
 <td><strong>⑦ CQ 验收集</strong></td>
-<td>⚠️ 格式与引擎不匹配</td>
+<td>⚠️ <strong>产物类型不同</strong>：产 YAML，引擎消费 Python 对象</td>
 </tr>
 <tr class="even">
 <td><strong>—— 没有对应的 IR 段 ——</strong></td>
@@ -904,7 +904,7 @@ L5  你亲手编译一个，让它在那个 OS 上真的跑起来</code></pre>
 <p><strong>DDD ↔︎ 五要素</strong>：聚合→Object ｜ 上下文集成→Link（<strong>边语义</strong>）｜ 命令/事件→Action（<strong>HIL</strong>）｜ 读模型/KPI→Function ｜ 不变式/策略→Rule（<strong>source/citations</strong>）｜ 限界上下文→namespace</p>
 <p><strong>IR 七段</strong>：§0 Header ｜ §1 Objects ｜ §2 Links ｜ §3 Functions ｜ <strong>§4 Rules ★FDE核心</strong> ｜ §5 Actions ｜ §6 Mapping ｜ §7 CQ</p>
 <hr />
-<p><strong>IR 七段 → SPI 七槽位：覆盖五格</strong> ①② ✅ 全自动 ｜ ③④ ⚠️ 只出骨架（<strong>declarative 除外，全自动</strong>）｜ ⑦ ⚠️ 格式不匹配 <strong>⑤ 记忆词典 / ⑥ Agent 角色 ❌ —— IR 里没有对应段</strong></p>
+<p><strong>IR 七段 → SPI 七槽位：覆盖五格</strong> ①② ✅ 全自动 ｜ ③④ ⚠️ 只出骨架（<strong>declarative 除外，全自动</strong>）｜ ⑦ ⚠️ <strong>产物类型不同</strong>（YAML vs Python 对象） <strong>⑤ 记忆词典 / ⑥ Agent 角色 ❌ —— IR 里没有对应段</strong></p>
 <blockquote>
 <p><strong>不是编译器没实现，是 IR 里压根没有这两段。</strong> 答客户："<strong>这两块不在自动化管线里</strong>"（设计边界）≠ "待补的功能"（欠债）</p>
 </blockquote>

@@ -673,12 +673,12 @@ L5  你亲手编译一个</code></pre>
 </tr>
 <tr class="even">
 <td>⑦ CQ 验收集</td>
-<td>⚠️ 产 YAML，<strong>格式与引擎不匹配</strong></td>
+<td>⚠️ <strong>产物类型不同</strong>：编译出 <code>cq/golden.yaml</code>（YAML），引擎的 <code>run_cq_suite</code> 消费 <strong>Python 的 <code>ActionCQ</code>/<code>QueryCQ</code></strong></td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p><strong>文档说编译产物"正好填满 SPI 七槽位"。实测不是。</strong>（第五课实测，<strong>口径以实测为准</strong>。）</p>
+<p><strong>建模端文档曾说编译产物"正好填满 SPI 七槽位"——实测不是。</strong> ⭐ <strong>2026-08-04 上游已按实测改成一张覆盖表</strong>（<code>studio-ontology/references/compile-rules.md</code>），现在文档与代码一致。 <strong>这条落差是第五课实测发现、然后被提回上游改掉的</strong>——<strong>发现问题只是第一步，提回去才算完。</strong></p>
 <p><strong>七槽位的正确用法</strong>：它是<strong>验收清单</strong>（插件齐不齐，照这七格点），<strong>不是自动化承诺</strong>。</p>
 </blockquote>
 <p><strong>⑤⑥ 那两个 ❌ 的结构性原因，S3 第十章会讲</strong>（简短说：<strong>IR 里压根没有这两段</strong>）； <strong>怎么亲手填掉，第五课会带你做。</strong></p>
@@ -2374,7 +2374,7 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <p><strong>5.</strong> <strong>因为调用者不同。</strong> syscall 的调用者是程序，按固定逻辑重试，一次一个 errno 无所谓。 我们的调用者是 <strong>LLM 和人</strong>：短路让他们<strong>逐条撞墙</strong>；对 Agent 尤其致命—— <strong>每轮只学到一个约束，会在规则空间里做代价高昂的随机游走。</strong></p>
 <p><strong>6.</strong> 因为 <strong>OS 的调用者是程序，程序不会"有点不确定"</strong>；我们的调用者是 LLM，它会。 "高置信 + 被拒" = <strong>要么规则写错了，要么记忆里有误导信息</strong>—— <strong>这是唯一能自动发现误拦截的信号</strong>（S1：误拦截比漏拦截更危险）。上线首月每周看一次。</p>
 <p><strong>7.</strong> 因为<strong>读、写、展示、Agent 面全部是引擎内自有的</strong>，生态互操作是<strong>加分项不是依赖项</strong>。 对客户答问的用处：被问「如果 OKF 那套标准变了或黄了怎么办」—— <strong>「我们关掉它照样跑。」能关掉的东西，才是真的可选。</strong></p>
-<p><strong>8.</strong> ① Schema 包 ② 映射注册表 ③ Function/Rule 实现 ④ Action handlers ⑤ 记忆词典 + 提示词骨架 ⑥ Agent 角色定义 ⑦ CQ 验收集。 <strong>⑤ 记忆词典和 ⑥ Agent 角色编译完全不生成</strong>（③④ 只出骨架，⑦ 格式不匹配，只有 ①② 全自动）。 <strong>七槽位是验收清单，不是自动化承诺。</strong></p>
+<p><strong>8.</strong> ① Schema 包 ② 映射注册表 ③ Function/Rule 实现 ④ Action handlers ⑤ 记忆词典 + 提示词骨架 ⑥ Agent 角色定义 ⑦ CQ 验收集。 <strong>⑤ 记忆词典和 ⑥ Agent 角色编译完全不生成</strong>（③④ 只出骨架，⑦ <strong>产物类型不同</strong>——编译出 YAML、引擎消费 Python 对象，只有 ①② 全自动）。 <strong>七槽位是验收清单，不是自动化承诺。</strong></p>
 <p><strong>9.</strong> 参考表述：<strong>约束不在模型里，在模型外面。</strong> 模型（或人）可以发起一个<strong>参数全对、权限也够</strong>的动作，guard 拦不住它； 但它违反了<strong>世界的稳态条件</strong>，所以在<strong>写后规则校验</strong>阶段被<strong>必然回滚</strong>， <strong>而且被拦这件事本身也留了审计。</strong> → 所以"AI 会不会绕过你们的规则"这个问题的答案是：<strong>它绕不过，因为边界不在它里面。</strong></p>
 <p><strong>10.</strong> 指的是<strong>第④条：全文检索语料</strong>——它<strong>不挂进本体</strong>，只进 advise（开放问答）。 把它当第①条用，就是<strong>拿检索到的一段话去驱动一次写操作</strong>： <strong>绕开了 Action 引擎的 guard / 写后规则 / 回滚 / 审计，等于把整套治理架空。</strong></p>
 <blockquote>
@@ -2448,7 +2448,10 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 </blockquote>
 <p><strong>⚠️ 五要素里只有 Object 有属性 schema</strong>；<strong>Link 的边属性是实例级的</strong>（入库时补 / <code>stage_link(**props)</code>），<strong>IR §2 的 <code>properties</code> 列编译时被丢弃</strong></p>
 <p><strong>判缝准则</strong>：「换成医疗大模型还成立吗？」成立→<strong>内核</strong>；不成立→<strong>插件</strong>；具体数字→<strong>租户</strong></p>
-<p><strong>Plugin SPI 七槽位</strong>（= 新行业 WBS · <strong>验收清单，不是自动化承诺</strong>） ① Schema ② 映射 ③ Function/Rule ④ Action handlers ⑤ 记忆词典 ⑥ Agent 角色 ⑦ CQ ⚠️ <strong>实测</strong>：①② ✅全自动 ｜ ③④ ⚠️只出骨架 ｜ <strong>⑤⑥ ❌完全不生成</strong> ｜ ⑦ ⚠️格式不匹配</p>
+<p><strong>Plugin SPI 七槽位</strong>（= 新行业 WBS · <strong>验收清单，不是自动化承诺</strong>） ① Schema ② 映射 ③ Function/Rule ④ Action handlers ⑤ 记忆词典 ⑥ Agent 角色 ⑦ CQ ⚠️ <strong>实测</strong>：①② ✅全自动 ｜ ③④ ⚠️只出骨架（<strong>declarative 除外，全自动</strong>）｜ <strong>⑤⑥ ❌完全不生成</strong> ｜ ⑦ ⚠️<strong>产物类型不同</strong>（YAML vs Python 对象）</p>
+<blockquote>
+<p>⭐ <strong>上游文档已于 2026-08-04 按此改正</strong>——这条落差已收口。</p>
+</blockquote>
 <p><strong>Action 六步</strong>：guard → validate（可选，不落库）→ 写 overlay（<strong>写即可见</strong>）→ 写后规则（<strong>收集全部</strong>）→ 5a flush+同事务审计 / 5b <strong>确定性回滚 + 结构化拒绝</strong></p>
 <p><strong>双路径判据</strong>：<strong>这是「观测」还是「决定」？</strong>（Agent 自动做的决定也是决定）</p>
 <p><strong>置信度诊断</strong>：高置信 + 被拒 = ⚠️ <strong>查规则 / 查记忆</strong>（金矿）</p>
