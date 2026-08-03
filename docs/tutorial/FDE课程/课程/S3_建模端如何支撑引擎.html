@@ -428,6 +428,41 @@ studio-ontology（FDE 建模上游）
 <p>① <strong>违反了要不要拦住并回滚？</strong> → <code>severity: hard / soft</code> ② <strong>只看入参能判，还是要去查别的数据？</strong> → <code>backing: declarative / function</code> ③ <strong>依据是哪条标准 / 方法学 / 谁的经验？</strong> → <code>source</code>；<strong>没依据就写"待补依据"，不许猜</strong></p>
 </blockquote>
 <p>⭐ <strong>注意 §4 那行的「declarative 全自动」</strong>： <strong>declarative 规则是唯一被全自动写完函数体的。</strong> 所以规则三问的第二问<strong>答对了，机器就能替你写完</strong>—— <strong>这是整条管线上自动化程度最高的一格。</strong></p>
+<p><strong>什么叫 declarative</strong>：<strong>判定要用的东西，全在 <code>ctx.params</code> + <code>ctx.actor</code> 里，不用去查任何别的数据。</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>declarative</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>判定依据</td>
+<td><strong>只看入参 + 调用者</strong></td>
+<td><strong>要去查图谱 / 跨对象</strong></td>
+</tr>
+<tr class="even">
+<td>内核注释原文</td>
+<td>「只看参数 / 用户上下文（轻、快）」</td>
+<td>「读图谱 / 跨对象（重、准）」</td>
+</tr>
+<tr class="odd">
+<td>编译产物</td>
+<td>✅ <strong>函数体全自动写完</strong></td>
+<td>⚠️ 骨架 + <code>TODO(FDE)</code></td>
+</tr>
+<tr class="even">
+<td>典型</td>
+<td>预算非负 · 角色权限 · 参数格式 · 区间</td>
+<td>乡土合规（查名录）· 立地适配（走边）· 方法学年限（查表）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>一句话判据</strong>：<strong>只要偷偷去查一次名录 / 阈值 / 别的对象，它就是 function。</strong></p>
+</blockquote>
 <p>⚠️ <strong>又一处文档落差</strong>：规范标题写的是「<strong>五段式</strong>中间表示」， <strong>正文实际是 0 号 Header + 七段。按七段。</strong></p>
 <hr />
 <h1 id="七管线-③--编译产物机器给你到哪一步">七、管线 ③ · 编译产物：机器给你到哪一步</h1>
@@ -493,7 +528,12 @@ studio-ontology（FDE 建模上游）
 <blockquote>
 <h3 id="一个不敢留-notimplementederror-的-fde会让模型把它猜的业务规则写成看起来能跑的代码那才是灾难"><strong>一个不敢留 <code>NotImplementedError</code> 的 FDE，会让模型把它猜的业务规则写成看起来能跑的代码——那才是灾难。</strong></h3>
 </blockquote>
-<p>⭐ <strong>别只讲坏消息</strong>：declarative 规则是唯一被全自动写完函数体的—— <strong>真实项目里 declarative 规则往往占一半以上，这一半是白捡的。</strong></p>
+<blockquote>
+<h3 id="-这里有个真正的好消息别只记住坏消息">⭐ 这里有个真正的好消息——别只记住坏消息</h3>
+<p><strong>declarative 规则是唯一被全自动写完函数体的</strong>，而它在真实项目里<strong>占三到四成</strong>： <strong>康养项目 18/47 = 38%</strong>　·　<code>plugins/grass</code> <strong>7/17 = 41%</strong>。 <strong>这三四成是白捡的：编译完就能跑，一行不用你写。</strong></p>
+<p><strong>而且白捡的恰好是最枯燥的那类</strong>——角色权限、预算非负、参数格式、区间校验。 <strong>最不值得人写的部分，正好是机器写得最好的部分。</strong></p>
+<p>⚠️ <strong>但别把这个比例吹高</strong>：<strong>规则越业务、越核心，越是 function-backed</strong>—— 因为真正的业务不变式要看<strong>写入之后的新状态</strong>，那必须去查世界。 <strong>所以"剩下六成要你填"不是工具不行，是那六成本来就是 FDE 的活。</strong></p>
+</blockquote>
 <hr />
 <h1 id="八-四个命令一个强制停点">八、⭐ 四个命令，一个强制停点</h1>
 <pre><code>业务分析 → ontology-map（IR 七段）→ ⏸ 你审 IR → ontology-compile（插件骨架）
@@ -814,7 +854,7 @@ L5  你亲手编译一个，让它在那个 OS 上真的跑起来</code></pre>
 <p><strong>3.</strong> 因为 <code>studio-ontology</code> <strong>不发明新建模语言，它做 DDD → 五要素的翻译</strong>： 聚合→Object、上下文集成→Link、命令/领域事件→Action、读模型/KPI→Function、不变式/策略→Rule、限界上下文→namespace。 <strong>所以你在现场做的事件风暴是编译器的输入，你的每一小时都落到了产物上。</strong></p>
 <p><strong>4.</strong> <strong>§4 Rules</strong>。 因为<strong>对象和关系业务方大多说得清，规则说不清</strong>—— <strong>「大家都知道但没人写下来」的东西全在这一段。</strong> （第五课的「规则三问」就是为它准备的。）</p>
 <p><strong>5.</strong> <strong><code>/studio-ontology:model</code></strong>。 那个 ⏸ 必须存在，因为<strong>本体是治理的锚点——一个没有人签字的治理基准，不是治理基准</strong>。 而且它<strong>被做成了工程约束，不是文档里一句"建议人工复核"</strong>—— <strong>安全的默认值比安全的文档有用一百倍。</strong> 停下来审四项：对象边界 / edge_semantics / 规则的 severity·backing·出处 / Action 的 writes·HIL。</p>
-<p><strong>6.</strong> 分两句答： ① <strong>declarative 规则能全自动生成函数体</strong>——只看入参就能判的，机器写完（真实项目里往往占一半以上）。 ② <strong>function-backed 规则、Action 回写只出骨架 + <code>TODO(FDE)</code></strong>——<strong>这是能力边界，目前生成不了。</strong> ⚠️ <strong>不要把 ② 说成"我们刻意留给人"。</strong> "核心语义决策留给人签字"是<strong>设计上的克制</strong>（真的，值得讲）； "function 体生成不了"是<strong>能力上的边界</strong>（也真的，别包装）。 <strong>把做不到包装成克制，是这一行最伤信任的错。</strong></p>
+<p><strong>6.</strong> 分两句答： ① <strong>declarative 规则能全自动生成函数体</strong>——只看入参就能判的，机器写完，<strong>真实项目里占三到四成</strong>（康养 38% · grass 41%）。 ② <strong>function-backed 规则、Action 回写只出骨架 + <code>TODO(FDE)</code></strong>——<strong>这是能力边界，目前生成不了。</strong> ⚠️ <strong>不要把 ② 说成"我们刻意留给人"。</strong> "核心语义决策留给人签字"是<strong>设计上的克制</strong>（真的，值得讲）； "function 体生成不了"是<strong>能力上的边界</strong>（也真的，别包装）。 <strong>把做不到包装成克制，是这一行最伤信任的错。</strong></p>
 <p><strong>7.</strong> 因为 <strong>IR 里压根没有"记忆词典"和"Agent 角色"这两段</strong>—— 不是编译器读了却没生成，<strong>是输入契约里就没有这两项</strong>。 影响：如果是编译器没实现，该说"这是个待补的功能"——<strong>那是欠债</strong>，客户会记在风险清单上； 如果是 IR 里没有，该说"<strong>这两块目前是人工产出的，不在自动化管线里</strong>"——<strong>那是设计边界，是坦荡</strong>。</p>
 <p><strong>8.</strong> <strong>产物与手写 <code>plugins/grass</code> 五要素同构。</strong> 立得住是因为 <strong><code>grass</code> 是手写的、跑通的、被真 Qwen 打过的</strong>—— <strong>拿一个已经被证明能跑的东西当靶子，比任何"生成质量评分"都硬。</strong> 它验的不是"代码写得好不好"，是<strong>结构齐不齐、契约对不对</strong>（五要素都在吗？注册方式一致吗？能 import 吗？）—— <strong>因为内核靠 SPI 契约吃饭。</strong></p>
 <hr />

@@ -936,6 +936,12 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 <blockquote>
 <p><strong>declarative 规则是唯一被"全自动生成函数体"的</strong>—— 这就是为什么规则三问的第二问要问"只看入参能不能判"：<strong>答对了，机器就能替你写完。</strong></p>
 </blockquote>
+<blockquote>
+<h3 id="-这里有个真正的好消息别只记住坏消息">⭐ 这里有个真正的好消息——别只记住坏消息</h3>
+<p><strong>declarative 规则是唯一被全自动写完函数体的</strong>，而它在真实项目里<strong>占三到四成</strong>： <strong>康养项目 18/47 = 38%</strong>　·　<code>plugins/grass</code> <strong>7/17 = 41%</strong>。 <strong>这三四成是白捡的：编译完就能跑，一行不用你写。</strong></p>
+<p><strong>而且白捡的恰好是最枯燥的那类</strong>——角色权限、预算非负、参数格式、区间校验。 <strong>最不值得人写的部分，正好是机器写得最好的部分。</strong></p>
+<p>⚠️ <strong>但别把这个比例吹高</strong>：<strong>规则越业务、越核心，越是 function-backed</strong>—— 因为真正的业务不变式要看<strong>写入之后的新状态</strong>，那必须去查世界。 <strong>所以"剩下六成要你填"不是工具不行，是那六成本来就是 FDE 的活。</strong></p>
+</blockquote>
 <h3 id="️-spi-七槽位的真相文档不准">⚠️ SPI 七槽位的真相（文档不准）</h3>
 <p>文档说编译产物"正好填满 SPI 的 7 个槽位"。<strong>实测不是。</strong></p>
 <table>
