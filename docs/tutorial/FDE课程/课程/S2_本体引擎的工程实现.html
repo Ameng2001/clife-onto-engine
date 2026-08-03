@@ -278,8 +278,11 @@ L5  你亲手编译一个</code></pre>
 <hr />
 <h1 id="一这门课只有一张图">一、这门课只有一张图</h1>
 <h2 id="11-先看图">1.1 先看图</h2>
-<p><strong>图在这里</strong>：<code>figures/fig-S2-引擎全景.svg</code>（原件 <code>clife-onto-engine/docs/assets/architecture-overview.svg</code>）</p>
-<p>课件第 3 页会把它投出来。<strong>本课接下来每一章，认领图上一个块。</strong></p>
+<p><img src="../figures/fig-S2-引擎全景.svg" alt="clife-onto-engine · 自有本体语义 OS（运行时端）" /></p>
+<p><strong>本课接下来每一章，认领图上一个块。</strong></p>
+<blockquote>
+<p>图文件：<code>figures/fig-S2-引擎全景.svg</code>（原件 <code>clife-onto-engine/docs/assets/architecture-overview.svg</code>）。 <strong>打印这份手册时它会一起印出来</strong>；想看大图，用浏览器单独打开那个 svg，可以无限放大。</p>
+</blockquote>
 <h2 id="12-图上有什么导览先不展开">1.2 图上有什么（导览，先不展开）</h2>
 <p><strong>从下往上</strong>——因为<strong>上面那些面能做什么，全部由最底下那五个要素决定</strong>。 <strong>爬到五要素之后先往下探一层</strong>（挂载层），再往上：</p>
 <table>
@@ -1084,6 +1087,9 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⭐ <strong>现场要逐条对客户的需求时，翻本章三张附表</strong>—— <strong>7.5 读能力体检表</strong>（25 行，5 条不做）· <strong>7.6 写能力体检表</strong>（6 条不做）· <strong>7.7 七类操作</strong>（读写只是其中两类）。 <strong>被问"你们这套到底能干什么"时，从 7.7 那张开始答。</strong></p>
+</blockquote>
 <h2 id="71-️-遥测不只是时序库它有两个-profile">7.1 ⚠️ "遥测"不只是时序库——它有两个 Profile</h2>
 <p><strong>"遥测（telemetry）"这个词容易让人以为只对时序库。</strong> 引擎里它是两个 Profile：</p>
 <table>
@@ -1248,6 +1254,646 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 </tbody>
 </table>
 <p>第 3 条最容易错。<strong>判据不是"谁触发的"，是"这是不是一个决定"。</strong> <strong>Agent 自动做的决定，恰恰是最需要审计的那一类。</strong></p>
+<hr />
+<h2 id="75-附表--读能力体检表现场查用不必课上讲">7.5 附表 · 读能力体检表（现场查用，不必课上讲）</h2>
+<blockquote>
+<p><strong>正文只讲三条路 + 一条通道。这张附表是给你上客户现场用的。</strong> 客户报出他要查什么，<strong>你逐行对</strong>——<strong>当场答得出走哪条，或者答"这条我们不做"。</strong> <strong>两种回答都专业，含糊过去不专业。</strong></p>
+</blockquote>
+<p><strong>图例</strong>：✅ 完整覆盖　⚠️ 部分覆盖 / 有条件　❌ 明确不做</p>
+<h3 id="①-结构型读问世界里有什么">① 结构型读（问"世界里有什么"）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>点查（按主键取一个）</td>
+<td>语义读 OQL</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>条件过滤（找出满足条件的一批）</td>
+<td>OQL filter</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>关系遍历 / 多跳</strong></td>
+<td>OQL <strong>Search Around</strong>（<code>edge_semantics</code> 决定何时停）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>投影 / 排序 / 分页</td>
+<td>OQL <code>select</code> / <code>order_by</code></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>派生量</strong>（算出来的）</td>
+<td><strong>Function</strong></td>
+<td>⚠️ <strong>没有独立读出口</strong>，只能被 Action / Rule 内部调</td>
+</tr>
+</tbody>
+</table>
+<h3 id="②-分析型读问多少趋势分布">② 分析型读（问"多少、趋势、分布"）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>简单聚合（count / sum / avg / min / max）</td>
+<td>OQL <code>aggregate</code></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>⭐ <strong>分组聚合（group by 维度）</strong></td>
+<td><strong>必须走 Profile B</strong></td>
+<td>⚠️ <strong>OQL 的聚合只有"函数 + 字段"，没有维度</strong></td>
+</tr>
+<tr class="odd">
+<td>时序 / 趋势 / 同环比</td>
+<td>Profile A（观测）· Profile B（数仓，带时间粒度）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>明细下钻 / 大宽表扫描</td>
+<td>语义读 + <strong><code>virtual</code> 物化</strong></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>多源拼合</td>
+<td>映射的多源<strong>列向</strong>拼合</td>
+<td>⚠️ 对象级列向，<strong>不是任意 join</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>"分组聚合"这一行最容易踩</strong>：很多人以为 OQL 能 group by。<strong>不能。</strong> "按盟市分组统计地块数"<strong>必须落到 <code>analytics</code> 段的 Profile B</strong>。</p>
+</blockquote>
+<h3 id="③-非结构化读">③ 非结构化读</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>日志检索</td>
+<td>Profile A（<code>kind: log</code> → ES DSL）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>语义 / 向量相似</td>
+<td><strong>第④条知识通道</strong></td>
+<td>✅ 但<strong>只进 advise，绝不驱动写入</strong></td>
+</tr>
+<tr class="odd">
+<td>全文 / 关键词精确检索</td>
+<td>同上（走检索通道）</td>
+<td>⚠️ <strong>OQL 里没有全文谓词</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="④-时间与治理型读这一组是长板客户面前要主动讲">④ 时间与治理型读——<strong>这一组是长板，客户面前要主动讲</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>血统追溯</strong>（为什么这么判）</td>
+<td>审计快照 + 证据</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>时点回溯（那天是什么状态）</td>
+<td>版本快照 + <strong>决策重放</strong></td>
+<td>⚠️ 是<strong>决策重放</strong>，不是通用 as-of 数据查询</td>
+</tr>
+<tr class="odd">
+<td>⭐⭐ <strong>变更影响</strong>（改这条规则会翻掉哪些历史决策）</td>
+<td><code>change_impact.py</code></td>
+<td>✅ <strong>业界少见，是差异化点</strong></td>
+</tr>
+<tr class="even">
+<td>元数据 / 能力目录</td>
+<td>能力清单 · Explorer</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>缺口审计（哪还没填完）</td>
+<td>静态缺口审计（blocking / warning 两级）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>验收读（CQ 跑一遍）</td>
+<td>CQ 套件</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="⑤-受限读">⑤ 受限读</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>走哪</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>权限 / 脱敏</td>
+<td>授权门（<strong>动作级</strong>）+ 字段密级 + Function 的最小权限读集</td>
+<td>⚠️ <strong>没有行级安全（RLS）</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="⑥-️-明确不做的五种说不做比含糊更专业">⑥ ⚠️ 明确不做的五种——<strong>说"不做"比含糊更专业</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>现状</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>订阅 / 流 / 变更通知</strong>（CDC、推送）</td>
+<td>❌ 引擎不提供</td>
+</tr>
+<tr class="even">
+<td><strong>空间查询</strong>（范围、距离、拓扑）</td>
+<td>❌ 落点可以是空间库，<strong>但 OQL 的比较算子里没有空间谓词，下推不了</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>图算法</strong>（社区发现、中心度、最短路）</td>
+<td>❌ 图库本身有，<strong>引擎不暴露</strong>——要用<strong>直接打图库</strong></td>
+</tr>
+<tr class="even">
+<td><strong>实体消解 / 模糊匹配</strong></td>
+<td>❌ （<code>identity.py</code> 是<strong>身份认证</strong>，不是实体消解，<strong>别混</strong>）</td>
+</tr>
+<tr class="odd">
+<td><strong>跨源任意 join / 联邦查询</strong></td>
+<td>⚠️ 只有对象级列向拼合</td>
+</tr>
+</tbody>
+</table>
+<h3 id="一句话收口">一句话收口</h3>
+<p><strong>三条读路径 + 一条检索通道，覆盖的是四类问题：结构（OQL）· 分析（Profile B）· 观测（Profile A）· 语料（④ 通道）。</strong></p>
+<blockquote>
+<p><strong>第 ⑥ 组那五种不是"漏了"，是边界。</strong> 尤其<strong>空间</strong>和<strong>图算法</strong>——<strong>要说"直接打图库 / 空间库，本体不代劳"</strong>，别含糊。 <strong>客户听得出"我们不做"和"我不知道"的区别。</strong></p>
+</blockquote>
+<hr />
+<h2 id="76-附表--写能力体检表现场查用不必课上讲">7.6 附表 · 写能力体检表（现场查用，不必课上讲）</h2>
+<blockquote>
+<p><strong>和 7.5 同样用法</strong>：客户报出他要写什么，<strong>你逐行对</strong>。 <strong>写侧的表比读侧短得多——这不是没做完，是设计意图。</strong> 见本节最后一句。</p>
+</blockquote>
+<h3 id="-先记住一件事插件能调的写口只有四个">⭐ 先记住一件事：插件能调的写口<strong>只有四个</strong></h3>
+<pre><code>stage_write(object_type, key, data)      写对象（新增与更新同一个口，按 key 覆盖）
+stage_link(link_type, ..., **props)      写关系
+set_confidence(value)                    写置信度
+add_evidence(**kv)                       写证据</code></pre>
+<blockquote>
+<h3 id="️-没有-delete没有-unlink">⚠️ <strong>没有 delete，没有 unlink。</strong></h3>
+<p><code>delete_object</code> / <code>delete_link</code> 只存在于两个地方：<strong>存储 SPI 的后端接口</strong>，和<strong>补偿回滚</strong>。 <strong>也就是说——删除在这套设计里不是一种业务写，只是回滚的手段。</strong></p>
+<p><strong>客户要"删除"功能怎么办</strong>：<strong>建一个 Action</strong>（比如「作废凭证」）， 于是它<strong>也过闸、也留痕</strong>。<strong>而不是给插件一个 <code>delete()</code>。</strong></p>
+</blockquote>
+<p><strong>图例</strong>：✅ 完整覆盖　⚠️ 部分覆盖 / 有条件　❌ 明确不做</p>
+<h3 id="①-基本写形状">① 基本写形状</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>引擎里</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>新增 / 更新</strong></td>
+<td><code>stage_write</code>——<strong>同一个口，按 key 覆盖式写</strong></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td><strong>建立关系</strong></td>
+<td><code>stage_link</code>（边属性随 <code>**props</code>）</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>删除对象 / 解除关系</strong></td>
+<td><strong>插件调不到</strong>——只作为<strong>回滚补偿</strong>存在</td>
+<td>❌</td>
+</tr>
+<tr class="even">
+<td><strong>软删除 / 作废</strong></td>
+<td>只能自己建状态字段模拟</td>
+<td>⚠️ <strong>引擎不提供这个语义</strong></td>
+</tr>
+<tr class="odd">
+<td>⚠️ <strong>状态流转</strong></td>
+<td><code>ObjectType</code> 有 <code>states</code> / <code>initial_state</code>，<strong>但内核从不校验迁移合法性</strong></td>
+<td>⚠️ <strong>声明式元数据，运行时不强制</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>状态机那条最容易想当然</strong>：字段声明了、导出时也带出去了， <strong>但没有任何代码校验"从 A 能不能到 B"。想强制，得自己写成 Rule。</strong></p>
+</blockquote>
+<h3 id="②-事务与一致性">② 事务与一致性</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>引擎里</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>一笔操作动多个对象</td>
+<td>overlay 暂存 → 一起 flush</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>原子提交</td>
+<td>原子 flush</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>确定性回滚</strong></td>
+<td>补偿（<strong>delete 幂等——写没写成都安全</strong>）</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td><strong>写即可见</strong>（后续规则立刻读得到）</td>
+<td>overlay</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>幂等 / upsert</td>
+<td>按 key 覆盖 = <strong>天然幂等</strong></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td><strong>并发写冲突</strong>（乐观锁 / 版本号）</td>
+<td><strong>没有</strong></td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<h3 id="③-治理写的六步唯一受治理的那条路">③ 治理写的六步——<strong>唯一受治理的那条路</strong></h3>
+<pre><code>授权门 → guard(前置) → stage_write(overlay) → 写后规则(收集全部违反)
+      → 提交 / 确定性回滚 → 审计快照 + 置信度 + 证据</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>授权拒绝（<strong>在任何暂存之前</strong>）</td>
+<td>声明式授权门</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>前置校验拒绝</td>
+<td>guard</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>⭐ <strong>写后规则回滚</strong></td>
+<td>全套的核心</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td><strong>结构化拒绝</strong>（拒绝是数据，不是异常）</td>
+<td></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>HIL 冻结</strong>（写了，但副作用不发）</td>
+<td><strong>两道闸的第二道</strong></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td><strong>审计留痕</strong>（成败都留）</td>
+<td>审计快照</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="④-旁路写不走闸门是故意的">④ 旁路写——<strong>不走闸门，是故意的</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>引擎里</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>高吞吐遥测 / 日志 / 埋点</td>
+<td><strong>数据摄取旁路</strong></td>
+<td>✅ <strong>故意不过闸</strong></td>
+</tr>
+<tr class="even">
+<td>批量导入 / 夜间跑批</td>
+<td>租户清单 ingest（<strong>按 schema 校验落库</strong>）</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>参考数据 / 名录 seed</td>
+<td>同上</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>判据一句话</strong>：<strong>这是"观测"还是"决定"？</strong> 观测走旁路，决定走闸门。 三个理由任意一个都够：<strong>性能</strong>（每条读数跑规则+落快照，成本是业务写入的百倍）· <strong>语义</strong>（读数是观测不是决定，<strong>审计的对象是决定</strong>）· <strong>可用性</strong>（拦住传感器数据，<strong>你丢的是事实——而事实不该被规则否决</strong>）。</p>
+</blockquote>
+<h3 id="⑤-元数据写">⑤ 元数据写</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>改本体定义（加对象 / 改规则）</td>
+<td>插件代码 + <strong>版本快照冻结</strong></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>版本化 / 可重放</td>
+<td></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>⭐⭐ <strong>变更影响分析</strong>（改规则会翻掉哪些历史决策）</td>
+<td></td>
+<td>✅ <strong>长板</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="⑥-️-明确没有的写">⑥ ⚠️ 明确没有的写</h3>
+<table>
+<thead>
+<tr class="header">
+<th>形状</th>
+<th>现状</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>删除 / 解除关系</strong></td>
+<td>❌ 插件层不提供——<strong>建成 Action</strong></td>
+</tr>
+<tr class="even">
+<td><strong>并发控制</strong>（乐观锁、版本冲突检测）</td>
+<td>❌</td>
+</tr>
+<tr class="odd">
+<td><strong>异步 / 延迟写、写队列</strong></td>
+<td>❌ 引擎内同步完成</td>
+</tr>
+<tr class="even">
+<td><strong>外部系统回写</strong>（写回 ERP / CRM）</td>
+<td>❌ 引擎不做——<strong>在 handler 里自己调</strong>，且<strong>那次外部调用不在回滚范围内</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>冲正 / 更正</strong>（红字凭证那种）</td>
+<td>❌ 没有语义——<strong>建模成一个新 Action</strong></td>
+</tr>
+<tr class="even">
+<td><strong>定时触发写</strong></td>
+<td>❌ <strong>引擎不含调度器</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>"外部系统回写"那一行要特别小心</strong>：handler 里调了外部 API， <strong>写后规则若判违反、本体这边会回滚，但你已经发出去的那个外部调用回不来。</strong> <strong>凡是有外部副作用的，都该设 HIL（副作用闸）——这正是下半场两道闸要讲的事。</strong></p>
+</blockquote>
+<h3 id="一句话收口读侧宽写侧窄是同一个设计意图的两面">一句话收口：<strong>读侧宽、写侧窄，是同一个设计意图的两面</strong></h3>
+<p><strong>读有 25 种形状、四条路；写只有四个口、一条受治理的路。</strong></p>
+<blockquote>
+<p><strong>这不是没做完，是「受治理的写，无旁路」这条红线的直接后果。</strong> <strong>写口每多一个，就多一条绕过闸门的可能。</strong> 所以引擎宁可让你<strong>为"删除"专门建一个 Action</strong>（于是它也过闸、也留痕）， <strong>也不给你一个 <code>delete()</code>。</strong></p>
+<h3 id="读的丰富度决定这套东西好不好用写的克制度决定它值不值得信"><strong>读的丰富度决定这套东西好不好用，写的克制度决定它值不值得信。</strong></h3>
+</blockquote>
+<hr />
+<h2 id="77-附表--七类操作读和写不是全部">7.7 附表 · 七类操作：<strong>读和写不是全部</strong></h2>
+<blockquote>
+<p><strong>"读 / 写"这个二分不完整。</strong> 引擎里至少还有五类操作<strong>既不是读也不是写</strong>—— <strong>而其中两类，正是这套东西区别于普通数据平台的地方。</strong> <strong>7.5 / 7.6 只覆盖了前两类</strong>；这张表是它们的上位框架。</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>类别</th>
+<th>一句话</th>
+<th>引擎里</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>① 读</strong></td>
+<td>拿到世界现在是什么样</td>
+<td>语义读 OQL · 遥测读 A/B · 检索通道</td>
+<td><strong>7.5</strong></td>
+</tr>
+<tr class="even">
+<td><strong>② 写</strong></td>
+<td>改变世界</td>
+<td>四个写口 + 一条受治理的路</td>
+<td><strong>7.6</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>③ 判定</strong></td>
+<td><strong>不读不写，只回答"能不能"</strong></td>
+<td>授权门 · 身份解析</td>
+<td>下</td>
+</tr>
+<tr class="even">
+<td><strong>④ 预演</strong></td>
+<td>⭐ <strong>跑完整条流水线，但不落库</strong></td>
+<td><code>validate</code></td>
+<td>下</td>
+</tr>
+<tr class="odd">
+<td><strong>⑤ 编译 / 生成</strong></td>
+<td>产出物不是数据，是<strong>另一段可执行的东西</strong></td>
+<td>意图编译 · 查询计划 · 能力清单</td>
+<td>下</td>
+</tr>
+<tr class="even">
+<td><strong>⑥ 追溯 / 反事实</strong></td>
+<td>⭐⭐ <strong>拿历史问新问题</strong></td>
+<td>决策重放 · 变更影响 · CQ · 缺口审计</td>
+<td>下</td>
+</tr>
+<tr class="odd">
+<td><strong>⑦ 导出 / 沉淀</strong></td>
+<td>把本体变成别的东西</td>
+<td>知识包 · <strong>训练集</strong> · UModel</td>
+<td>下</td>
+</tr>
+</tbody>
+</table>
+<h3 id="③-判定不读不写只回答能不能">③ 判定——不读不写，只回答"能不能"</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>干什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>授权门</strong></td>
+<td>判 <code>(本体, 动作, 角色)</code>——<strong>在任何暂存之前</strong>，无权即结构化拒绝并审计</td>
+</tr>
+<tr class="even">
+<td><strong>身份解析</strong></td>
+<td>凭据 → Principal，<strong>把身份从"客户端声明"换成"认证"</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="④--预演有写的全部计算没有写的任何后果">④ ⭐ 预演——<strong>有写的全部计算，没有写的任何后果</strong></h3>
+<blockquote>
+<p>引擎里那行注释写得很干脆：<strong>"跑 guard + handler 暂存 + 写后校验，但永不落库。"</strong> ⚠️ 而且<strong>授权门在预演里也生效</strong>——预演不是"绕过治理试一下"。</p>
+</blockquote>
+<p><strong>为什么这一类值得单独拎出来</strong>：</p>
+<ul>
+<li><strong>HIL 复核的人看到的就是它的输出</strong>——"这一笔如果批了，会违反哪三条"</li>
+<li>它让"<strong>先看看会怎样</strong>"变成一个<strong>一等公民操作</strong>，而不是靠人肉推演</li>
+<li>⚠️ <strong>前提</strong>：Action 得声明 <code>validate_supported</code>，<strong>不是所有动作都能预演</strong></li>
+</ul>
+<h3 id="⑤-编译--生成产出的不是数据">⑤ 编译 / 生成——产出的不是数据</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>输入 → 输出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>意图编译</strong></td>
+<td>自然语言 → <strong>受能力清单约束的结构化意图</strong>（只能在清单内选）</td>
+</tr>
+<tr class="even">
+<td><strong>查询计划生成</strong></td>
+<td>对象 + 绑定 → PromQL / ES DSL / 数仓 SQL　<strong>只产不执行</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>能力清单派生</strong></td>
+<td>registry → <strong>给 LLM 看的动词清单</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="⑥--追溯--反事实拷问我们对世界的定义">⑥ ⭐⭐ 追溯 / 反事实——<strong>拷问"我们对世界的定义"</strong></h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>干什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>决策重放</strong></td>
+<td>用审计快照存的<strong>输入</strong>，对指定版本<strong>只读重跑裁决</strong></td>
+</tr>
+<tr class="even">
+<td>⭐⭐ <strong>变更影响分析</strong></td>
+<td>建在重放之上——<strong>"这次改规则，会翻掉哪些历史决策"</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>CQ 验收</strong></td>
+<td>对某个版本跑一套能力问题，<strong>pass/fail 回喂建模端</strong></td>
+</tr>
+<tr class="even">
+<td><strong>缺口审计</strong></td>
+<td>静态扫：哪条规则没出处 · 哪个动作没实现 · 哪条关系端点悬空</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h3 id="-这一类既不改变世界也不只是查询世界">⭐ <strong>这一类既不改变世界，也不只是查询世界。</strong></h3>
+<p><strong>它在拷问"我们对世界的定义对不对"。</strong> <strong>普通数据平台没有这一类</strong>——因为它们的"定义"散在代码里，没法被当成对象来问。</p>
+</blockquote>
+<h3 id="⑦-导出--沉淀把本体变成别的东西">⑦ 导出 / 沉淀——把本体变成别的东西</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>知识包导出</strong></td>
+<td>可 git diff、可审计的文档（<strong>承载规则出处与版本</strong>；⚠️ <strong>但它不运行规则</strong>）</td>
+</tr>
+<tr class="even">
+<td>⭐ <strong>训练集导出</strong></td>
+<td><strong>三范式</strong>：静态结构层（Schema）· 路径模板层（多跳推理路径）· <strong>现象级实例层——从审计快照派生的真实裁决轨迹</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>UModel 互操作</strong></td>
+<td>对外的另一种表达</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⭐ <strong>训练集导出这条最容易被忽略，但它的含义很重</strong>： <strong>审计快照不只是给人看的合规凭证，它是训练本体大模型的第三层语料。</strong> <strong>也就是说——系统跑得越久，它自己产出的训练数据越多。</strong> <strong>这是"读/写"框架里完全装不下的一类。</strong></p>
+</blockquote>
+<h3 id="另外两个面不是操作但是同级的东西">另外两个"面"：不是操作，但是同级的东西</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>记忆管理</strong></td>
+<td>四层装配 · 按预算注入 · ⭐ <strong>规则变更级联淘汰</strong>（与新规则矛盾的旧记忆<strong>立即作废</strong>）</td>
+</tr>
+<tr class="even">
+<td><strong>编排</strong></td>
+<td>多智能体<strong>不传消息，读写分层记忆</strong>（<strong>共享记忆即 IPC</strong>）· Router 最小权限 · DAG 拓扑执行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="一句话收口-1">一句话收口</h3>
+<p><strong>七类操作：读 · 写 · 判定 · 预演 · 编译 · 追溯 · 导出。</strong></p>
+<blockquote>
+<p><strong>普通数据平台只有前两类。</strong> <strong>④ 预演</strong>和<strong>⑥ 追溯</strong>才是这套东西真正的分水岭—— <strong>一个让你在做之前看见后果，一个让你在做之后还能回去问为什么。</strong></p>
+</blockquote>
 <hr />
 <h1 id="八信任基础设施">八、信任基础设施</h1>
 <pre><code>信任基础设施          trust/
@@ -1433,8 +2079,8 @@ guard → 写后规则 → 确定性回滚 → 审计快照 · HIL</code></pre>
 </table>
 <p><strong>这两个最容易混</strong>：一个看"世界里现在有哪些东西"，一个看"这个世界是怎么定义的"。</p>
 <h3 id="-现场演示并排开两个-viz">⭐ 现场演示：并排开两个 viz</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/export_okf.py      <span class="co"># 先生成，否则端点不上架</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/serve.py</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/export_okf.py      <span class="co"># 先生成，否则端点不上架</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/serve.py</span></code></pre></div>
 <p>然后开两个窗口：</p>
 <pre><code>http://127.0.0.1:8000/viz/grass     ← 草业
 http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
@@ -1626,10 +2272,10 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <p><strong>这一条本身就是 L1 讲的"可信度从哪来"</strong>： 报喜也报边界，比只报喜可信一百倍。 <strong>而且客户的技术负责人一定会问"你们测了多少样本"——你先说，比被问出来强。</strong></p>
 </blockquote>
 <p><strong>复跑命令</strong>（客户现场可以当场跑）：</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/e2e_harness.py                 <span class="co"># 整栈回路（加 --stub 走离线桩）</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/e2e_harness.py <span class="at">--explorer</span>      <span class="co"># 额外导出对象图 build/explorer/e2e.html</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/e2e_corpus.py                  <span class="co"># 读/写全面覆盖 14 场景</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/e2e_robustness.py              <span class="co"># 脏输入 / 对抗 12 场景</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/e2e_harness.py                 <span class="co"># 整栈回路（加 --stub 走离线桩）</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/e2e_harness.py <span class="at">--explorer</span>      <span class="co"># 额外导出对象图 build/explorer/e2e.html</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/e2e_corpus.py                  <span class="co"># 读/写全面覆盖 14 场景</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/e2e_robustness.py              <span class="co"># 脏输入 / 对抗 12 场景</span></span></code></pre></div>
 <hr />
 <h1 id="十二-题眼回到图最底下那句话">十二、⭐ 题眼：回到图最底下那句话</h1>
 <blockquote>
@@ -1794,7 +2440,7 @@ http://127.0.0.1:8000/viz/chili     ← 辣椒</code></pre>
 <hr />
 <p><strong>⭐ 读路径</strong>：<strong>语义读 OQL</strong>（对象 / 关系 / 派生量 → nGQL）｜ <strong>遥测读 query-plan</strong>：<strong>Profile A</strong> 观测（→ PromQL / ES DSL）· <strong>Profile B 语义指标</strong>（→ <strong>数仓 SQL</strong>：ClickHouse / StarRocks / Hive / DuckDB）</p>
 <blockquote>
-<p><strong>按问题的形状分，不按库的品牌分</strong>：明细走 OQL（虚拟物化）· 聚合走 Profile B · 时序/日志走 Profile A ⚠️ <strong>向量库不是读路径</strong>，是第④条知识通道，只进 advise</p>
+<p><strong>按问题的形状分，不按库的品牌分</strong>：明细走 OQL（虚拟物化）· 聚合走 Profile B · 时序/日志走 Profile A ⭐ <strong>现场逐条对需求 → 手册 7.5「读能力体检表」</strong>（25 行，5 条不做：订阅流 / 空间查询 / 图算法 / 实体消解 / 联邦 join） ⭐ <strong>写侧 → 手册 7.6「写能力体检表」</strong>。⚠️ <strong>插件写口只有四个</strong>：<code>stage_write</code> / <code>stage_link</code> / <code>set_confidence</code> / <code>add_evidence</code>——<strong>没有 delete</strong>。 6 条不做：删除 / 并发控制 / 异步写 / 外部回写 / 冲正 / 定时触发。<strong>要"删除"就建一个 Action，让它也过闸也留痕。</strong> ⚠️ <strong>状态机 <code>states</code> 声明了但内核不强制</strong>；⚠️ <strong>handler 里的外部调用不在回滚范围内 → 必须设 HIL</strong> ⭐ <strong>七类操作 → 手册 7.7</strong>：读 · 写 · <strong>判定</strong> · <strong>预演（有写的全部计算、没有写的任何后果）</strong> · 编译 · <strong>追溯（拿历史问新问题）</strong> · <strong>导出（审计快照是训练语料第三层）</strong>。 <strong>普通数据平台只有前两类。预演与追溯是分水岭。</strong> ⚠️ <strong>向量库不是读路径</strong>，是第④条知识通道，只进 advise</p>
 </blockquote>
 <p><strong>⭐ Action vs Function</strong>：本质不是读写，是<strong>要不要被治理</strong>。Action 进能力清单 / 有 guards·post_rules·writes·hil / 每次留审计；Function <strong>不进清单</strong>、无治理字段、调用期读取收窄到 <code>reads</code>。</p>
 <blockquote>

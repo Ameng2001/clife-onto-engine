@@ -216,7 +216,9 @@ L5  你亲手编译一个</code></pre>
 </ul>
 <hr />
 <h1 id="一今天讲图上哪一块">一、今天讲图上哪一块</h1>
-<p>打开 S2 那张架构图（<code>figures/fig-S2-引擎全景.svg</code>），<strong>看右下角那个橙色框</strong>：</p>
+<p>下面是 S2 那张架构图。<strong>今天全课只讲右下角那个橙色框。</strong></p>
+<p><img src="../figures/fig-S2-引擎全景.svg" alt="clife-onto-engine 架构全景 —— 今天讲右下角那个橙色框" /></p>
+<p><strong>把它单独拎出来看</strong>：</p>
 <pre><code>建模端 · astra-studio                          上游 · 另仓
 studio-ontology（FDE 建模上游）
 
@@ -229,10 +231,7 @@ studio-ontology（FDE 建模上游）
 <p>⭐ 注意图上那条<strong>橙色虚线箭头</strong>：它从建模端指向<strong>最底下的「元模型五要素」</strong>，标着**「编译插件」**。 <strong>建模端的产物，落点就是运行时端的插件层。</strong></p>
 <hr />
 <h1 id="二两仓一条流水线">二、两仓一条流水线</h1>
-<pre><code>astra-studio（建模工作室）                      clife-onto-engine（OAG 运行时内核）
-  studio-planner ──┐                              ┌── plugins/&lt;ontology_id&gt;/  ← 编译产物落点
-  domain-intake  ──┤→ studio-ontology ─编译─▶────┤   五要素 Object/Link/Function/Rule/Action
-                   │  （IR → 插件 → 校验）           └── Session.ask / HTTP API / Docker</code></pre>
+<p><img src="../figures/fig-S3-两仓一条流水线.svg" alt="两仓一条流水线：建模端编译，运行时端强制执行" /></p>
 <p>它自己在 README 里把定位写得很清楚：</p>
 <blockquote>
 <p><strong>astra-studio 是建模工作室，clife-onto-engine 是运行时内核， <code>studio-ontology</code> 是夹在中间、把 DDD 模型编译成五要素本体的 FDE 工作台。</strong></p>
@@ -855,6 +854,9 @@ L5  你亲手编译一个，让它在那个 OS 上真的跑起来</code></pre>
   studio-planner ──┐                            ┌── plugins/{ontology_id}/ ← 编译产物落点
   domain-intake  ──┤→ studio-ontology ─编译─▶──┤   五要素
                    │  （IR → 插件 → 校验）        └── Session.ask / HTTP / Docker</code></pre>
+<blockquote>
+<p>完整版见第二章那张图（<code>figures/fig-S3-两仓一条流水线.svg</code>），含<strong>诚实边界</strong>那一栏。</p>
+</blockquote>
 <p><strong>建模端解决的不是"写得快"，是「业务专家能参与」和「结构不漂」。</strong></p>
 <hr />
 <p><strong>管线</strong>：业务分析 → <code>map</code>（IR 七段）→ <strong>⏸ 你审 IR</strong> → <code>compile</code> → FDE 收尾 → <code>validate</code> <strong>四命令只有 <code>/studio-ontology:model</code> 有强制停点</strong> ｜ 审四项：对象边界 / edge_semantics / 规则 severity·backing·出处 / Action writes·HIL <strong>校验器无 Write 权限</strong>——物理上不可能改你的插件</p>
