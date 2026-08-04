@@ -181,12 +181,14 @@
     <tr><td>4</td><td><b>Action handlers</b></td><td>每个 Action 的变更逻辑</td><td>FDE</td><td><b style="color:var(--warn)">⚠️ 只出骨架</b></td></tr>
     <tr><td>5</td><td><b>记忆词典 + 提示词骨架</b></td><td>行业术语、Agent 语言底子</td><td>FDE + 专家</td><td><b style="color:var(--bad)">❌ 完全不生成</b></td></tr>
     <tr><td>6</td><td><b>Agent 角色定义</b></td><td>有哪些角色、能调什么</td><td>FDE + 业务方</td><td><b style="color:var(--bad)">❌ 完全不生成</b></td></tr>
-    <tr><td>7</td><td><b>CQ 验收集</b></td><td>能力问题</td><td><b>领域专家主导</b></td><td><b style="color:var(--warn)">⚠️ 格式不匹配</b></td></tr>
+    <tr><td>7</td><td><b>CQ 验收集</b></td><td>能力问题</td><td><b>领域专家主导</b></td><td><b style="color:var(--warn)">⚠️ 产物类型不同</b></td></tr>
   </table>
   <p class="huge mt-m" data-anim="fade-up">七槽位是<b>验收清单</b>，<br>不是<b>自动化承诺</b>。</p>
   <div class="deck-footer"><span class="ftag">底座 · SPI</span><span class="slide-number" data-current="6" data-total="19"></span></div>
   <div class="notes"><p><b>⭐【这张表的真正用法：报价和排期】</b>"被问'接一个新行业要多久'，<b>不要拍脑袋说三个月。按这七格逐个估——哪几格客户能自己出人，哪几格必须我们上。</b>这就是你的 WBS。"</p>
-  <p><b>⚠️【最后一列是第五课实测出来的，和文档不一致，必须讲】</b>"宪法文档说编译产物<b>『正好填满 SPI 七槽位』——实测不是。</b>今天这门课的口径，<b>以跑出来的为准，不以文档为准。</b>"</p>
+  <p><b>⚠️【最后一列是第五课实测出来的，必须讲】</b>"建模端文档<b>曾经</b>说编译产物<b>『正好填满 SPI 七槽位』——实测不是。</b>口径<b>以跑出来的为准。</b>"</p>
+  <p><b>⭐【但故事没停在这儿，这半句一定要讲】</b>"<b>2026-08-04 我们把上游文档改对了</b>（<span class="mono">studio-ontology/references/compile-rules.md</span> 现在是一张覆盖表）。<b>发现问题只是第一步，提回去才算完</b>——<b>这就是 A3「回贡上游」那一课的活例。</b>"</p>
+  <p><b>【⑦ 那格的准确说法】</b>不是"格式不匹配"，是<b>产物类型不同</b>：编译出 <span class="mono">cq/golden.yaml</span>（YAML），而引擎的 <span class="mono">run_cq_suite</span> 消费 <b>Python 的 ActionCQ / QueryCQ</b>（见 <span class="mono">plugins/grass/cq.py</span>）。<b>YAML 要人转写成 cq.py。</b></p>
   <p><b>【⑤⑥ 那两个 ❌ 先埋着】</b>"为什么这两格完全不生成？<b>S3 会给出结构性原因——简短说：IR 里压根没有这两段。</b>怎么亲手填掉，<b>第五课带你做。</b>"</p>
   <p><b>【接上一页】</b>上一页说"换行业零改内核"，<b>这一页就是那句承诺的接口清单</b>：内核不用改，是因为<b>新行业要交的东西全在这七格里，一格都不在内核。</b></p></div>
 </section>

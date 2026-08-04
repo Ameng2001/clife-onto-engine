@@ -942,8 +942,8 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 <p><strong>而且白捡的恰好是最枯燥的那类</strong>——角色权限、预算非负、参数格式、区间校验。 <strong>最不值得人写的部分，正好是机器写得最好的部分。</strong></p>
 <p>⚠️ <strong>但别把这个比例吹高</strong>：<strong>规则越业务、越核心，越是 function-backed</strong>—— 因为真正的业务不变式要看<strong>写入之后的新状态</strong>，那必须去查世界。 <strong>所以"剩下六成要你填"不是工具不行，是那六成本来就是 FDE 的活。</strong></p>
 </blockquote>
-<h3 id="️-spi-七槽位的真相文档不准">⚠️ SPI 七槽位的真相（文档不准）</h3>
-<p>文档说编译产物"正好填满 SPI 的 7 个槽位"。<strong>实测不是。</strong></p>
+<h3 id="spi-七槽位的覆盖度-这条落差已经被我们回改掉了">SPI 七槽位的覆盖度（⭐ 这条落差已经被我们回改掉了）</h3>
+<p>建模端的 <code>compile-rules.md</code> <strong>曾经</strong>写着编译产物"正好填满 SPI 的 7 个槽位"——<strong>实测不是</strong>。 <strong>2026-08-04 上游已按实测改成一张覆盖表</strong>，现在文档与代码一致。下面是准确口径：</p>
 <table>
 <thead>
 <tr class="header">
@@ -978,12 +978,14 @@ HIL 设点表 · 取证清单          →   随交付文档                    
 </tr>
 <tr class="odd">
 <td>7 CQ 验收集</td>
-<td>⚠️ 产 YAML，但<strong>格式与引擎不匹配</strong></td>
+<td>⚠️ <strong>产物类型不同</strong>：编译出 <code>cq/golden.yaml</code>（YAML），引擎的 <code>run_cq_suite</code> 消费 <strong>Python 的 <code>ActionCQ</code>/<code>QueryCQ</code></strong>——<strong>YAML 要人转写成 <code>cq.py</code></strong></td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p><strong>教学价值</strong>：这张表本身就是"<strong>别信文档，去看代码</strong>"的活教材。</p>
+<h3 id="-教学价值升级了从别信文档变成发现落差--回改上游">⭐ 教学价值升级了：从"别信文档"变成"<strong>发现落差 → 回改上游</strong>"</h3>
+<p>这张表原来的用法是「<strong>别信文档，去看代码</strong>」。<strong>现在它多了一层</strong>： <strong>落差是学员实测发现的，然后我们把上游文档改对了</strong>（<code>studio-ontology/references/compile-rules.md</code>）。</p>
+<p><strong>发现问题只是第一步，把它提回去才算完</strong> —— <strong>这正是 A3「回贡上游」那一课的活例。</strong></p>
 </blockquote>
 <hr />
 <h2 id="八两仓分工不讲清楚你会把数据写进插件">八、两仓分工（不讲清楚你会把数据写进插件）</h2>
@@ -1068,8 +1070,8 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 </tr>
 <tr class="odd">
 <td>③</td>
-<td>说编译产物"<strong>正好填满 SPI 7 槽位</strong>"</td>
-<td><strong>槽位 5、6 完全不生成，3、4 只出骨架，7 格式不匹配</strong></td>
+<td><del>说编译产物"正好填满 SPI 7 槽位"</del>　✅ <strong>已回改</strong></td>
+<td><strong>槽位 5、6 完全不生成，3、4 只出骨架，7 产物类型不同</strong><br>⭐ <strong>上游文档 2026-08-04 已按实测改成覆盖表</strong></td>
 </tr>
 <tr class="even">
 <td>④</td>
@@ -1090,6 +1092,7 @@ studio/changes/{id}/ontology-map.md  →  plugins/{ontology_id}/  ← 本体定�
 </table>
 <blockquote>
 <p><strong>这六条不是吐槽工具，是教学法。</strong> FDE 每天面对的就是这种"<strong>文档说 A、代码是 B</strong>"。 <strong>唯一可靠的动作是去读代码、去跑一遍。</strong></p>
+<p>⭐ <strong>第 ③ 条已经走完了完整一轮</strong>：<strong>实测发现 → 提回上游 → 文档改对</strong>。 <strong>剩下五条还躺在这里——那是留给你的。</strong>（怎么提，A3 那一课讲）</p>
 </blockquote>
 <h3 id="红线是两层">红线是两层</h3>
 <table>
