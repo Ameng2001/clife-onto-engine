@@ -10,6 +10,7 @@
 """
 from __future__ import annotations
 
+import unicodedata
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -81,6 +82,15 @@ class CompiledIntent:
         return self.kind == "telemetry"
 
 
+def normalize_name(name: str) -> str:
+    """动作名归一化键：NFKC（全角 → 半角，如 "ＳＫＵ"→"SKU"）+ 去掉一切空白（含全角空格 U+3000）。
+
+    LLM 常把 "上架产品SKU" 写成 "上架产品 SKU" / "上架产品ＳＫＵ"；注册名是精确键，这里只在**查找**时宽松，
+    返回给调用方的仍是注册表里的规范名。只做字形与空白归一，不做同义词/模糊匹配——那是清单外。
+    """
+    return "".join(unicodedata.normalize("NFKC", str(name or "")).split())
+
+
 def _parse_node(n: dict):
     """解析一个过滤节点：{or:[...]} / {and:[...]} / {field,op,value}（可递归）。"""
     if "or" in n:
@@ -116,6 +126,16 @@ class IntentCompiler:
         self.client = client
         self.registry = registry
         self.min_confidence = min_confidence
+
+    def _resolve_action_name(self, ontology_id: str, name: str) -> Optional[str]:
+        """返回注册表里的规范动作名；精确命中直接返回，否则归一化后在本体内找唯一匹配，找不到或歧义返回 None。"""
+        if (ontology_id, name) in self.registry.actions:
+            return name
+        key = normalize_name(name)
+        if not key:
+            return None
+        hits = [n for (ns, n) in self.registry.actions if ns == ontology_id and normalize_name(n) == key]
+        return hits[0] if len(hits) == 1 else None
 
     def compile(self, ontology_id: str, utterance: str, *,
                 memory_text: str = "", actor_role: Optional[str] = None) -> CompiledIntent:
@@ -164,12 +184,13 @@ class IntentCompiler:
 
         action = raw.get("action") or ""
         params = dict(raw.get("params") or {})
-        # 确定性校验 —— 动作存在
-        try:
-            adef = self.registry.get_action(ontology_id, action)
-        except ResolutionError:
+        # 确定性校验 —— 动作存在（精确名优先；否则按归一化键在本体内唯一匹配，返回规范名）
+        canonical = self._resolve_action_name(ontology_id, action)
+        if canonical is None:
             return CompiledIntent("reject", confidence=conf, action=action,
                                   error=f"清单外动作: {action}", raw=raw)
+        action = canonical
+        adef = self.registry.get_action(ontology_id, action)
         # 参数校验 —— 名⊆声明（防注入）、必填齐全
         declared = {p.name for p in adef.params}
         required = {p.name for p in adef.params if p.required}
